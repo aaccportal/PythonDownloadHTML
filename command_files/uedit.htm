@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux edit command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/edit.gif" width="300" height="300" alt="edit command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>edit</b> command is a <a href="/jargon/e/editor.htm">text editor</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>edit</b> is a variant of the text editor <a href="/unix/uex.htm">ex</a>. It's recommended for new or casual users who want to use a command-oriented editor. It operates precisely as <b>ex</b> with the following options automatically set:</p>
+<ul>
+<li>novice <b>ON</b></li>
+<li>report <b>ON</b></li>
+<li>showmode <b>ON</b></li>
+<li>magic <b>OFF</b></li>
+</ul>
+<p class="tab">The following brief introduction should help you get started with <b>edit</b>. If you are using a <a href="/jargon/c/crt.htm">CRT</a> <a href="/jargon/t/terminal.htm">terminal</a>, you might want to learn about the display editor <a href="/unix/uvi.htm">vi</a>. To edit the contents of an existing file you begin with the command:</p>
+<p class="tab tcy">edit <i>FILENAME</i></p>
+<p class="tab"><b>edit</b> makes a copy of the file <i>FILENAME</i> which you can then edit. It first tells you how many lines and <a href="/jargon/c/charact.htm">characters</a> are in the file. If the file does not exist, <b>edit</b> tells you it is a [New File].</p>
+<p class="tab">The <b>edit</b> command prompt is a colon (<b>:</b>), which is shown after starting the editor. If you are editing an existing file, then you have some lines in edit's <a href="/jargon/b/buffer.htm">buffer</a> (its name for the copy of the file you are editing). When you start editing, edit makes the last line of the file the current line. Most commands to edit use the current line if you do not tell them which line to use. Thus if you say <b>print</b> (which can be abbreviated <b>p</b>) and enter a <a href="/jargon/c/cr.htm">carriage return</a> (as you should after all <b>edit</b> commands), the current line is printed. If you <b>delete</b> (<b>d</b>) the current line, <b>edit</b> prints the new current line, which is usually the next line in the file. If you <b>delete</b> the last line, then the new last line becomes the current one.</p>
+<p class="tab">If you start with an empty file or want to add some new lines, then the <b>append</b> (<b>a</b>) command can be used. After you execute this command (typing a carriage return after the word <b>append</b>), <b>edit</b> reads lines from your terminal until you type a line consisting of a dot (<b>.</b>); it places these lines after the current line. The last line you type then becomes the current line. The insert (<b>i</b>) command is like <b>append</b>, but places the lines you type before, rather than after, the current line.</p>
+<p class="tab">The <b>edit</b> utility numbers the lines in the buffer, with the first line having number <b>1</b>. If you execute the command <b>1</b>, then <b>edit</b> types the first line of the buffer. If you then execute the command <b>d</b>, edit deletes the first line, line <b>2</b> becomes line <b>1</b>, and <b>edit</b> prints the current line (the new line <b>1</b>) so you can see where you are. In general, the current line is always the last line affected by a command.</p>
+<p class="tab">You can make a change to some text in the current line using the <b>substitute</b> (<b>s</b>) command:</p>
+<pre class="tab tcy">s/old/new/</pre>
+<p class="tab">where <b>old</b> is the <a href="/jargon/s/string.htm">string</a> of characters you want to replace and new is the string of characters you want to replace <b>old</b> with.</p>
+<p class="tab">The file name (<b>f</b>) command tells you how many lines there are in the buffer you are editing and says [Modified] if you have changed the buffer. After modifying a file, you can save the contents of the file by executing a <b>write</b> (<b>w</b>) command. You can leave the editor by issuing a <b>quit</b> (<b>q</b>) command. If you run <b>edit</b> on a file, but do not change it, it is not necessary (but does no harm) to write the file back. If you try to <b>quit</b> from <b>edit</b> after modifying the buffer without writing it out, you receive the message &quot;<b>No write since last change (:quit! overrides)</b>&quot;, and <b>edit</b> waits for another command. If you do not want to write the buffer out, issue the <b>quit</b> command followed by an exclamation point (<b>q!</b>). The buffer is then irretrievably discarded and you return to the shell.</p>
+<p class="tab">Using the <b>d</b> and a commands and giving line numbers to see lines in the file, you can make any changes you want. Learn at least a few more things, however, if you use edit more than a few times.</p>
+<p class="tab">The change (<b>c</b>) command changes the current line to a sequence of lines you supply (as in <b>append</b>, you type lines up to a line consisting of only a dot (<b>.</b>). You can tell change to change more than one line by giving the line numbers of the lines you want to change, that is, <b>3,5c</b>. You can <b>print</b> lines this way too: <b>1,23p</b> prints the first 23 lines of the file.</p>
+<p class="tab">The <b>undo</b> (<b>u</b>) command reverses the effect of the last command you executed that changed the buffer. So if you execute a substitute command that does not do what you want, type <b>u</b> and the old contents of the line are restored. You can also undo an <b>undo</b> command. <b>edit</b> gives you a warning message when a command affects more than one line of the buffer. Note that commands such as <b>write</b> and <b>quit</b> cannot be undone.</p>
+<p class="tab">To look at the next line in the buffer, type a carriage return. To look at several lines, type <b>^D</b> (while holding down <a href="/jargon/c/ctrl.htm"><kbd>Ctrl</kbd></a>, press <kbd>D</kbd>) rather than carriage return. This shows you a half-screen of lines on a CRT or 12 lines on a hardcopy terminal. You can look at nearby text by executing the <b>z</b> command. The current line appears in the middle of the text displayed, and the last line displayed becomes the current line; you can get back to the line where you were before you executed the <b>z</b> command by typing <b>''</b>. The <b>z</b> command has other options: <b>z-</b> prints a screen of text (or 24 lines) ending where you are; <b>z+</b> prints the next screenful. If you want less than a screenful of lines, type <b>z.11</b> to display five lines before and five lines after the current line. (Typing <b>z.</b><i>n</i>, when <i>n</i> is an odd number, displays a total of <i>n</i> lines, centered about the current line; when <i>n</i> is an even number, it displays <i>n</i>-1 lines, so that the lines displayed are centered around the current line.) You can give counts after other commands; for example, you can delete 5 lines starting with the current line with the command <b>d5</b>.</p>
+<p class="tab">To find things in the file, you can use line numbers if you happen to know them; since the line numbers change when you insert and delete lines this is somewhat unreliable. You can search backwards and forwards in the file for strings by giving commands of the form <b>/</b><i>text</i><b>/</b> to search forward for <i>text</i> or <b>?</b><i>text</i><b>?</b> to search backward for <i>text</i>. If a search reaches the end of the file without finding text, it wraps around and continues to search back to the line where you are. A useful feature here is a search of the form <b>/^</b><i>text</i><b>/</b> which searches for <i>text</i> at the beginning of a line. Similarly <b>/</b><i>text</i><b>$/</b> searches for <i>text</i> at the end of a line. You can leave off the trailing <b>/</b> or <b>?</b> in these commands.</p>
+<p class="tab">The current line has the symbolic name dot (<b>.</b>); this is most useful in a range of lines as in <b>.,$p</b> which prints the current line plus the rest of the lines in the file. To move to the last line in the file, you can refer to it by its symbolic name <b>$</b>. Thus the command <b>$d</b> deletes the last line in the file, no matter what the current line is. Arithmetic with line references is also possible: the line <b>$-5</b> is the fifth before the last and <b>.+20</b> is <b>20</b> lines after the current line.</p>
+<p class="tab">You can find out the current line by typing '<b>.=</b>'. This is useful if you want to move or copy a section of text within a file or between files. Find the first and last line numbers you want to copy or move. To move lines 10 through 20, type <b>10,20d a</b> to delete these lines from the file and place them in a buffer named <b>a</b>. <b>edit</b> has 26 such buffers named <b>a</b> through <b>z</b>. To put the contents of buffer <b>a</b> after the current line, type <b>put a</b>. If you want to move or copy these lines to another file, execute an <b>edit</b> (<b>e</b>) command after copying the lines; following the <b>e</b> command with the name of the other file you want to edit, that is, <b>edit chapter2</b>. To copy lines without deleting them, use <b>yank</b> (<b>y</b>) in place of <b>d</b>. If the text you want to move or copy is all within one file, it is not necessary to use named buffers. For example, to move lines 10 through 20 to the end of the file, type <b>10,20m $</b>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">edit [ -| -s ] [ -l ] [ -L ] [ -R ] [ -r [ <i>filename</i> ] ] [ -t <i>tag</i> ] [ -v ] 
+     [ -V ] [ -x ] [ -w<i>n</i> ] [ -C ] [+<i>command</i> | -c <i>command</i> ] <i>filename</i></pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>-</b>, <b>-s</b></td>
+<td>Suppress all interactive user feedback. This is useful when processing editor <a href="/jargon/s/script.htm">scripts</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>Set up for editing <a href="/jargon/l/lisp.htm">LISP</a> programs.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b></td>
+<td>List the name of all files saved as the result of an editor or system crash.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b></td>
+<td><a href="/jargon/r/readonly.htm">Read only</a> mode; the read-only flag is set, preventing accidental <a href="/jargon/o/overwrit.htm">overwriting</a> of the file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b> <i>filename</i></td>
+<td>Edit file name after an editor or system <a href="/jargon/c/crash.htm">crash</a>. (Recovers the version of file name that was in the buffer when the crash occurred.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>tag</i></td>
+<td>Edit the file containing the tag <i>tag</i> and position the editor at its definition.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Start up in display editing state using <b>vi</b>. You can achieve the same effect by typing the <b>vi</b> command itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b></td>
+<td><a href="/jargon/v/verbose.htm">Verbose</a> mode. When <b>ex</b> commands are read using <a href="/jargon/s/stdin.htm">standard input</a>, the input will be <a href="/jargon/e/echo.htm">echoed</a> to standard error. This may be useful when processing <b>ex</b> commands within shell scripts.</td>
+</tr>
+<tr class="tcw">
+<td>-x</td>
+<td><a href="/jargon/e/encrypt.htm">Encryption</a> option; when used, <b>edit</b> simulates the <b>X</b> command of <b>ex</b> and prompts the user for a key. This key is used to encrypt and decrypt text using the <a href="/jargon/a/algorith.htm">algorithm</a> of the crypt command. The <b>X</b> command makes an educated guess to determine whether text read in is encrypted or not. The temporary buffer file is encrypted also, using a transformed version of the key typed in for the <b>-x</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-wn</b></td>
+<td>Set the default window size to <b>n</b>. This is useful when using the editor over a slow speed line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>Encryption option; same as the <b>-x</b> option, except that <a href="/unix/uvi.htm">vi</a> simulates the <b>C</b> command of <b>ex</b>. The <b>C</b> command is like the <b>X</b> command of <b>ex</b>, except that all text read in is assumed to have been encrypted.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b><i>command</i>,<br> <b>-</b><i>command</i></td>
+<td>Begin editing by executing the specified editor command (usually a search or positioning command).</td>
+</tr>
+<tr class="tcw">
+<td><i>filename</i></td>
+<td>The name of the file that you want to edit.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">edit myfile.txt</pre>
+<p class="tab">Loads <b>myfile.txt</b> for editing, and places the user at the editing command prompt.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ued.htm"><b>ed</b></a> &mdash; A simple text editor.<br><a href="/unix/uex.htm"><b>ex</b></a> &mdash; Line-editor mode of the <b>vi</b> text editor.<br><a href="/unix/uvi.htm"><b>vi</b></a> &mdash; Text editor based on the visual mode of <b>ex</b>.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82dacfa584b0',m:'dkqOTfrTNVXipZ1Gi1ZjP7AL5DshZ.FHPkm5DHZcq8U-1661495346-0-Ac6Uy/Zm7cdvgqjWoqM4R3zqMEH4rC8ZM2zs1X7dPJvzqmPCPLfhX38kEJQH8T2HLs4tBnhNBiQKeIB/2m0Hlb68PXCUSpGZjJte+CscH8E/QQigH9PeohjJTn0uuIFA/w==',s:[0x1b8cb3503e,0xb9f6823cd8],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

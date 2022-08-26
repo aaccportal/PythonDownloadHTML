@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux rm command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2020-11-30">11/30/2020</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/rm.gif" width="300" height="300" alt="rm command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>rm</b> command removes (<a href="/jargon/d/delete.htm">deletes</a>) files.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>rm</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a>
+<ul>
+<li><a href="#options">Options</a></li>
+</ul>
+</li>
+<li><a href="#usage-notes">Usage notes</a>
+<ul>
+<li><a href="#removing-directories">Removing directories</a></li>
+<li><a href="#dash">File names starting with a dash</a></li>
+<li><a href="#rm-vs-unlink">How is "rm" different than "unlink"?</a></li>
+</ul>
+</li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>rm</b> removes each file specified on the command line. By default, it does not remove directories.</p>
+<p class="tab">When <b>rm</b> is executed with the <b>-r</b> or <b>-R</b> options, it recursively deletes any matching <a href="/jargon/d/director.htm">directories</a>, their subdirectories, and all files they contain. See <a href="#removing-directories">removing directories</a> below for details.</p>
+<p class="tab">The removal process <a href="/unix/unlink.htm">unlinks</a> a file name in a <a href="/jargon/f/filename.htm">filesystem</a> from its associated <a href="/jargon/d/data.htm">data</a>, and marks that space on the storage device as usable by future <a href="/jargon/w/write.htm">writes</a>. In other words, when you remove a file, the data in the file isn't changed, but it's no longer associated with a file name.</p>
+<p class="tab">The data itself is not destroyed, but after being unlinked with <b>rm</b>, it becomes inaccessible. Remove your files wisely! It's not like putting something in the Windows Recycle Bin; once you <b>rm</b> a file or directory, there is no way to undo it.</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>If you want is to completely wipe the data on the disk, use the <a href="/unix/shred.htm"><b>shred</b></a> command instead. <b>shred</b> will overwrite the file's contents so that they cannot be reconstructed later.</p>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab"><b>rm</b> [<b>-f</b> | <b>--force</b>] {[<b>-i</b> | <b>--interactive</b>[<b>=always</b>]] | [<b>-I</b> | <b>--interactive=once</b>] |
+   [<b>--interactive=never</b>]} [<b>--one-file-system</b>] [<b>--no-preserve-root</b> |
+   <b>--preserve-root</b>] [<b>-r</b> | <b>-R</b> | <b>--recursive</b>] [<b>-d</b> | <b>--dir</b>] [<b>-v</b> | <b>--verbose</b>] 
+   <i>FILE</i>...</pre>
+<pre class="tcy tab"><b>rm --help</b></pre>
+<pre class="tcy tab"><b>rm --version</b></pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:220px"><b>-f</b>, <b>--force</b></td>
+<td>Ignore nonexistant files, and never <a href="/jargon/p/prompt.htm">prompt</a> before removing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td>Prompt before every removal.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b></td>
+<td>Prompt once before removing more than three files, or when removing recursively. This option is less intrusive than <b>-i</b>, but still gives protection against most mistakes.</td>
+</tr>
+<tr class="tcw">
+<td><b>--interactive</b>[<b>=</b><i>WHEN</i>]</td>
+<td>Prompt according to <i>WHEN</i>: <b>never</b>, <b>once</b> (<b>-I</b>), or <b>always</b> (<b>-i</b>). If <i>WHEN</i> is not specified, then prompt always.</td>
+</tr>
+<tr class="tcw">
+<td><b>--one-file-system</b></td>
+<td>When removing a <a href="/jargon/h/hierfile.htm">hierarchy</a> recursively, skip any directory that is on a file system different from that of the corresponding command line argument</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-preserve-root</b></td>
+<td>Do not treat "<b>/</b>" (the <a href="/jargon/r/root.htm">root</a> directory) in any special way.</td>
+</tr>
+<tr class="tcw">
+<td><b>--preserve-root</b></td>
+<td>Do not remove "<b>/</b>" (the root directory), which is the default behavior.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>-R</b>, <b>--recursive</b></td>
+<td>Remove directories and their contents <a href="/jargon/r/recursive.htm">recursively</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--dir</b></td>
+<td>Remove empty directories. This option permits you to remove a directory without specifying <b>-r</b>/<b>-R</b>/<b>--recursive</b>, provided that the directory is empty. In other words, <b>rm -d</b> is equivalent to using <a href="/unix/urmdir.htm"><b>rmdir</b></a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td><a href="/jargon/v/verbose.htm">Verbose</a> mode; explain at all times what is being done.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+</table>
+<h3 class="tab" id="usage-notes">Usage notes</h3>
+<p class="tab">If the <b>-I</b>/<b>--interactive=once</b> option is given, and there are more than three files or the <b>-r</b>/<b>-R</b>/<b>--recursive</b> options are specified, <b>rm</b> prompts before deleting anything. If the user does not respond <b>yes</b>/<b>y</b>/<b>Y</b> to the prompt, the entire command is aborted.</p>
+<p class="tab">If a file is unwritable, <a href="/jargon/s/stdin.htm">stdin</a> is a <a href="/jargon/t/terminal.htm">terminal</a>, and the <b>-f</b>/<b>--force</b> option is not given, or the <b>-i</b> or <b>--interactive=always</b> option is given, <b>rm</b> prompts the user for whether to remove the file. If the response is not <b>yes</b>/<b>y</b>/<b>Y</b>, the file is skipped.</p>
+<h2 id="removing-directories">Removing directories</h2>
+<p class="tab">By default, <b>rm</b> does not remove directories. If the <b>-r</b>/<b>-R</b>/<b>--recursive</b> option is specified, however, <b>rm</b> removes any matching directories and their contents.</p>
+<p class="tab">If the specified directory is empty, it may be removed with the <b>-d</b>/<b>--dir</b> option, instead.</p>
+<h2 id="dash">File names starting with a dash</h2>
+<p class="tab">To remove a file whose name begins with a <a href="/jargon/h/hyphen.htm">dash</a> ("<b>-</b>"), you can specify a double dash ("<b>--</b>") separately before the file name. This extra dash is necessary so that <b>rm</b> does not misinterpret the file name as an option.</p>
+<p class="tab">For instance, if there is a file in your current directory named "<b>-file.txt</b>", you can delete it with the command</p>
+<pre class="tab tcy">rm -- -file.txt</pre>
+<p class="tab">Or, you can delete it by referring to it with a <a href="/jargon/p/path.htm">pathname</a>. For instance, if the file "<b>-file.txt</b>" was located in the directory "<b>/home/hope</b>", you could delete it using:</p>
+<pre class="tab tcy">rm /home/hope/-file.txt</pre>
+<p class="tab">...or, if <b>/home/hope</b> is currently your <a href="/jargon/c/currentd.htm">working directory</a>,</p>
+<pre class="tab tcy">rm ./-file.txt</pre>
+<p class="tab">...will work as well.</p>
+<h2 id="rm-vs-unlink">How is "rm" different than "unlink"?</h2>
+<p class="tab">The <a href="/unix/unlink.htm"><b>unlink</b></a> command essentially does the same thing as <b>rm</b>, but it is defined very strictly by the <a href="/jargon/p/posix.htm">POSIX</a> standard. It operates on only one file at a time; it does not operate on directories; its behavior is not modified by any command line options. It does one thing and one thing only: calls the <b>unlink()</b> <a href="/jargon/s/system-call.htm">system call</a> on a single file.</p>
+<p class="tab">The version of <b>rm</b> used by most versions of Linux (<a href="/jargon/g/gnu.htm">GNU</a> <b>rm</b>) has all the options and niceties listed above: safety checks, interactive prompting, conditional deletion, recursive operation. It is similar to <b>unlink</b> in that it makes the <b>unlink()</b> system call, but it may also call <b>unlinkat()</b> if a specified pathname is relative rather than absolute.</p>
+<p class="tab">In other words, <b>rm</b> is a much friendlier way to use <b>unlink</b>.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">rm myfile.txt</pre>
+<p class="tab">Remove the file <b>myfile.txt</b>. If the file is write-protected, you are prompted to confirm you want it deleted.</p>
+<pre class="tcy tab">rm -f myfile.txt</pre>
+<p class="tab">Remove the file <b>myfile.txt</b>. You will <i>not</i> be prompted, even if the file is write-protected; if <b>rm</b> can delete the file, it will.</p>
+<pre class="tcy tab">rm *</pre>
+<p class="tab">Remove all files in the working directory. If it is write-protected, you will be prompted before <b>rm</b> removes it.</p>
+<pre class="tcy tab">rm -f *</pre>
+<p class="tab">Remove all files in the working directory. <b>rm</b> will not prompt you for any reason before deleting them.</p>
+<p class="tcy tab">rm -i *</p>
+<p class="tab">Attempt to remove every file in the working directory, but prompt before each file to confirm.</p>
+<pre class="tcy tab">rm -I *</pre>
+<p class="tab">Remove every file in the working directory; prompt for confirmation if more than three files are being deleted.</p>
+<pre class="tcy tab">rm -r mydirectory</pre>
+<p class="tab">Remove the directory <b>mydirectory</b>, and any files and directories it contains. If a file or directory that <b>rm</b> tries to delete is write-protected, you are prompted to make sure you want it deleted.</p>
+<pre class="tcy tab">rm -rf mydirectory</pre>
+<p class="tab">Same as the above command, but you are never prompted; if <b>rm</b> can delete the files, it will.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/urmdir.htm"><b>rmdir</b></a> &mdash; Remove a directory.<br><a href="/unix/shred.htm"><b>shred</b></a> &mdash; Overwrite a file's contents, irrevocably destroying them.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8340a9b984d4',m:'mGxmVHUo2YZrRRNVSYdXq.AsuP1LV4VK_aoHfP.oQfY-1661495362-0-ARNxvba25rmw37Fs0HnCad1S/7cl0sAUp+0+etudu7UASNL2nI/aUqaR6UduZ2ckv0mKHK6jhSol0ZIL9KO4xN1KURNc3qbuW3frZlWiR8zrYaPPrwOjJ5s/nwXvclRDmg==',s:[0xf8db6bcac9,0xf89354af69],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

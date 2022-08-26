@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux ftp command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-08-16">08/16/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/ftp.gif" width="300" height="300" alt="ftp command" class="floatRight"><p class="intro">The <b>ftp</b> command runs the classical <a href="/jargon/c/commandi.htm">command-line</a> file transfer client, FTP. It's an interactive text <a href="/jargon/u/ui.htm">user interface</a> for using the <a href="/jargon/a/arpanet.htm">ARPANET</a> standard <a href="/jargon/f/ftp.htm">File Transfer Protocol</a>. It can transfer files to and from a remote network.</p>
+<p>This page describes the version of <b>ftp</b> provided by package management on the majority of <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> operating systems.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#abort">Aborting a file transfer</a></li>
+<li><a href="#naming">File naming conventions</a></li>
+<li><a href="#parameters">File transfer parameters</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">ftp [-46pinegvd] [<i>host</i> [<i>port</i>]]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>-4</b></td>
+<td>Use only <a href="/jargon/i/ipv4.htm">IPv4</a> to contact any <a href="/jargon/h/hostcomp.htm">host</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-6</b></td>
+<td>Use <a href="/jargon/i/ipv6.htm">IPv6</a> only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Use passive mode for data transfers. Allows use of <b>ftp</b> in environments where a <a href="/jargon/f/firewall.htm">firewall</a> prevents connections from the outside world back to the <a href="/jargon/c/client.htm">client</a> machine. Requires that the <b>ftp</b> <a href="/jargon/s/server.htm">server</a> support the <b>PASV</b> command. This is the default if invoked as <b>pftp</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td>Turns off <a href="/jargon/i/interact.htm">interactive</a> prompting during multiple file transfers.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Restrains <b>ftp</b> from attempting &quot;auto-<a href="/jargon/l/login.htm">login</a>&quot; upon initial connection. If auto-login is enabled, <b>ftp</b> checks the <b>.netrc</b> (see <b>netrc</b>) file in the user's <a href="/jargon/h/homedir.htm">home directory</a> for an entry describing an account on the remote machine. If no entry exists, <b>ftp</b> prompts for the remote machine login name (default is the user identity on the local machine), and, if necessary, prompt for a <a href="/jargon/p/password.htm">password</a> and an account with which to log in.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>Disables command editing and history support, if it was <a href="/jargon/c/compile.htm">compiled</a> into the <b>ftp</b> <a href="/jargon/e/execfile.htm">executable</a>. Otherwise, does nothing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b></td>
+<td>Disables file name <a href="/jargon/g/glob.htm">globbing</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Verbose option forces <b>ftp</b> to show all responses from the remote server, and report on <a href="/jargon/d/data.htm">data</a> transfer statistics.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Enables <a href="/jargon/d/debug.htm">debugging</a>.</td>
+</tr>
+</table>
+<p class="tab">The client host and an optional <a href="/jargon/p/port.htm">port</a> number with which <b>ftp</b> is to communicate may be specified on the command line. If this is done, <b>ftp</b> immediately attempts to establish a connection to an FTP server on that host; otherwise, <b>ftp</b> enters its command interpreter and await instructions from the user. When <b>ftp</b> is awaiting commands from the user, the <a href="/jargon/p/prompt.htm">prompt</a> &lsquo;<b>ftp&gt;</b>&rsquo; is provided to the user. The following commands are recognized by <b>ftp</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:320px"><b>!</b> [<i>command</i> [<i>args</i>]]</td>
+<td>Invoke an interactive <a href="/jargon/s/shell.htm">shell</a> on the local machine. If there are <a href="/jargon/a/argument.htm">arguments</a>, the first is taken to be a command to execute directly, with the rest of the arguments as its arguments.</td>
+</tr>
+<tr class="tcw">
+<td><b>$</b> <i>macro-name</i> [<i>args</i>]</td>
+<td>Execute the <a href="/jargon/m/macro.htm">macro</a> <i>macro-name</i> that was defined with the <b>macdef</b> command. Arguments are passed to the macro unglobbed.</td>
+</tr>
+<tr class="tcw">
+<td><b>account</b> [<i>passwd</i>]</td>
+<td>Supply a supplemental password required by a remote system for access to resources once a login is completed. If no argument is included, the user is prompted for an account password in a non-<a href="/jargon/e/echo.htm">echoing</a> input mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>append</b> <i>local-file</i> [<i>remote-file</i>]</td>
+<td>Append a local file to a file on the remote machine. If remote-file is left unspecified, the local file name is used in naming the remote file after being altered by any <b>ntrans</b> or <b>nmap</b> setting. File transfer uses the current settings for type, format, mode, and structure.</td>
+</tr>
+<tr class="tcw">
+<td><b>ascii</b></td>
+<td>Set the file transfer type to network <a href="/jargon/a/ascii.htm">ASCII</a>. This is the default type.</td>
+</tr>
+<tr class="tcw">
+<td><b>bell</b></td>
+<td>Arrange that a bell be sounded after each file transfer command is completed.</td>
+</tr>
+<tr class="tcw">
+<td><b>binary</b></td>
+<td>Set the file transfer type to support <a href="/jargon/b/binary.htm">binary</a> image transfer.</td>
+</tr>
+<tr class="tcw">
+<td><b>bye</b></td>
+<td><a href="/jargon/t/terminat.htm">Terminate</a> the FTP <a href="/jargon/s/session.htm">session</a> with the remote server and exit <b>ftp</b>. An end of file also terminates the session and exits.</td>
+</tr>
+<tr class="tcw">
+<td><b>case</b></td>
+<td>Toggle remote computer file name case mapping during <b>mget</b> commands. When case is on (default is <b>off</b>), remote computer file names with all letters in <a href="/jargon/u/uppercase.htm">uppercase</a> are written in the local <a href="/jargon/d/director.htm">directory</a> with the letters mapped to <a href="/jargon/l/lowercas.htm">lowercase</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>cd</b> <i>remote-directory</i></td>
+<td>Change the working directory on the remote machine to remote-directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>cdup</b></td>
+<td>Change the remote machine working directory to the <a href="/jargon/p/parechil.htm">parent</a> of the current remote machine working directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>chmod</b> <i>mode file-name</i></td>
+<td>Change the <a href="/jargon/p/permissi.htm">permission</a> modes of the file file-name on the remote system to mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>close</b></td>
+<td>Terminate the FTP session with the remote server, and return to the command interpreter. Any defined macros are erased.</td>
+</tr>
+<tr class="tcw">
+<td><b>cr</b></td>
+<td><a href="/jargon/t/toggle.htm">Toggle</a> <a href="/jargon/c/cr.htm">carriage return</a> <a href="/jargon/s/strip.htm">stripping</a> during ascii type file retrieval. Records are denoted by a carriage return/<a href="/jargon/l/lf.htm">linefeed</a> sequence during ascii type file transfer. When cr is <b>on</b> (the default), carriage returns are stripped from this sequence to conform with the <a href="/jargon/u/unix.htm">UNIX</a> single linefeed record <a href="/jargon/d/delimite.htm">delimiter</a>. Records on non-UNIX remote systems may contain single linefeeds; when an ascii type transfer is made, these linefeeds may be distinguished from a record delimiter only when cr is <b>off</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>qc</b></td>
+<td>Toggle the printing of control characters in the output of ASCII type commands. When this is turned on, control characters are replaced with a question mark if the output file is the standard output. This is the default when the standard output is a <a href="/jargon/t/tty.htm">tty</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>delete</b> <i>remote-file</i></td>
+<td><a href="/jargon/d/delete.htm">Delete</a> the file remote-file on the remote machine.</td>
+</tr>
+<tr class="tcw">
+<td><b>debug</b> [<i>debug-value</i>]</td>
+<td>Toggle debugging mode. If an optional debug-value is specified, it is used to set the debugging level. When debugging is on, <b>ftp</b> prints each command sent to the remote machine, preceded by the string &lsquo;<b>--&gt;</b>&rsquo;.</td>
+</tr>
+<tr class="tcw">
+<td><b>dir</b> [<i>remote-directory</i>] [<i>local-file</i>]</td>
+<td>Print a listing of the directory contents in the directory, remote-directory, and, optionally, placing the output in local-file. If interactive prompting is on, <b>ftp</b> prompts the user to verify that the last argument is indeed the target local file for receiving dir output. If no directory is specified, the current working directory on the remote machine is used. If no local file is specified, or local-file is <b>-</b>, output comes to the <a href="/jargon/t/terminal.htm">terminal</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>disconnect</b></td>
+<td>A synonym for close.</td>
+</tr>
+<tr class="tcw">
+<td><b>form</b> <i>format</i></td>
+<td>Set the file transfer form to format. The default format is &quot;<b>file</b>&quot;.</td>
+</tr>
+<tr class="tcw">
+<td><b>get</b> <i>remote-file</i> [<i>local-file</i>]</td>
+<td>Retrieve the remote-file and store it on the local machine. If the local file name is not specified, it is given the same name it has on the remote machine, subject to alteration by the current case, <b>ntrans</b>, and <b>nmap</b> settings. The current settings for type, form, mode, and structure are used while transferring the file.</td>
+</tr>
+<tr class="tcw">
+<td><b>glob</b></td>
+<td>Toggle file name expansion for <b>mdelete</b>, <b>mget</b> and <b>mput</b>. If globbing is turned off with <b>glob</b>, the file name arguments are taken literally and not expanded. Globbing for <b>mput</b> is done as in <a href="/unix/ucsh.htm">csh</a>. For <b>mdelete</b> and <b>mget</b>, each remote file name is expanded separately on the remote machine and the lists are not merged. Expansion of a directory name is likely to be different from expansion of the name of an ordinary file: the exact result depends on the foreign <a href="/jargon/o/os.htm">operating system</a> and <b>ftp</b> server, and can be previewed by doing &lsquo;<b>mls remote-files -</b>&rsquo;.<br><br>Note: <b>mget</b> and <b>mput</b> are not meant to transfer entire directory subtrees of files. That can be done by transferring a <a href="/unix/utar.htm">tar</a> archive of the subtree (in binary mode).</td>
+</tr>
+<tr class="tcw">
+<td><b>hash</b></td>
+<td>Toggle hash-sign (&quot;<b>#</b>&quot;) printing for each data block transferred. The size of a data block is 1024 bytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>help</b> [<i>command</i>]</td>
+<td>Print an informative message about the meaning of command. If no argument is given, <b>ftp</b> prints a list of the known commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>idle</b> [<i>seconds</i>]</td>
+<td>Set the inactivity timer on the remote server to <i>seconds</i> seconds. If seconds is omitted, the current inactivity timer is printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>ipany</b></td>
+<td>Allow the <a href="/jargon/a/address.htm">address</a> resolver to return any address family.</td>
+</tr>
+<tr class="tcw">
+<td><b>ipv4</b></td>
+<td>Restrict the address resolver to look only for IPv4 addresses.</td>
+</tr>
+<tr class="tcw">
+<td><b>ipv6</b></td>
+<td>Restrict host addressing to IPv6 only.</td>
+</tr>
+<tr class="tcw">
+<td><b>lcd</b> [<i>directory</i>]</td>
+<td>Change the working directory on the local machine. If no directory is specified, the user's home directory is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>ls</b> [<i>remote-directory</i>] [<i>local-file</i>]</td>
+<td>Print a listing of the contents of a directory on the remote machine. The listing includes any system-dependent information that the server chooses to include; for example, most UNIX systems produce output from the command &lsquo;<b>ls -l</b>&rsquo;. (See also <b>nlist</b>.) If <i>remote-directory</i> is left unspecified, the current working directory is used. If interactive prompting is on, <b>ftp</b> prompts the user to verify that the last argument is indeed the target local file for receiving ls output. If no local file is specified, or if <i>local-file</i> is &lsquo;<b>-</b>&rsquo;, the output is sent to the terminal.</td>
+</tr>
+<tr class="tcw">
+<td><b>macdef</b> <i>macro-name</i></td>
+<td>Define a macro. Subsequent lines are stored as the macro macro-name; a <a href="/jargon/n/null.htm">null</a> line (consecutive newline characters in a file or carriage returns from the terminal) terminates macro input mode. There is a limit of 16 macros and 4096 total characters in all defined macros. Macros remain defined until a close command is executed. The macro processor <a href="/jargon/i/interpre.htm">interprets</a> '<b>$</b>' and '<b>\</b>' as special <a href="/jargon/c/charact.htm">characters</a>. A '<b>$</b>' followed by a number (or numbers) is replaced by the corresponding argument on the macro invocation command line. A '<b>$</b>' followed by an '<b>i</b>' signals that macro processor that the executing macro is to be looped. On the first pass '<b>$i</b>' is replaced by the first argument on the macro invocation command line, on the second pass it's replaced by the second argument, etc. A '<b>\</b>' followed by any character is replaced by that character. Use the '<b>\</b>' to prevent special treatment of the '<b>$</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>mdelete</b> [<i>remote-files</i>]</td>
+<td>Delete the <i>remote-files</i> on the remote machine.</td>
+</tr>
+<tr class="tcw">
+<td><b>mdir</b> <i>remote-files local-file</i></td>
+<td>Like <b>dir</b>, except multiple remote files may be specified. If interactive prompting is on, <b>ftp</b> prompts the user to verify that the last argument is indeed the target local file for receiving <b>mdir</b> output.</td>
+</tr>
+<tr class="tcw">
+<td><b>mget</b> <i>remote-files</i></td>
+<td>Expand the <i>remote-files</i> on the remote machine and do a <b>get</b> for each file name thus produced. See <b>glob</b> for details on the file name expansion. Resulting file names are processed according to case, <b>ntrans</b>, and <b>nmap</b> settings. Files are transferred into the local working directory, which can be changed with &lsquo;<b>lcd directory</b>&rsquo;; new local directories can be created with &lsquo;<b>! mkdir directory</b>&rsquo;.</td>
+</tr>
+<tr class="tcw">
+<td><b>mkdir</b> <i>directory-name</i></td>
+<td>Make a directory on the remote machine.</td>
+</tr>
+<tr class="tcw">
+<td><b>mls</b> <i>remote-files local-file</i></td>
+<td>Like <b>nlist</b>, except multiple remote files may be specified, and the <i>local-file</i> must be specified. If interactive prompting is on, <b>ftp</b> prompts the user to verify that the last argument is indeed the target local file for receiving <b>mls</b> output.</td>
+</tr>
+<tr class="tcw">
+<td><b>mode</b> [<i>mode-name</i>]</td>
+<td>Set the file transfer mode to <i>mode-name</i>. The default mode is "<b>stream</b>" mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>modtime</b> <i>file-name</i></td>
+<td>Show the last modification time of the file on the remote machine.</td>
+</tr>
+<tr class="tcw">
+<td><b>mput</b> <i>local-files</i></td>
+<td>Expand wildcards in the list of local files given as arguments and do a put for each file in the resulting list. See <b>glob</b> for details of file name expansion. Resulting file names are processed according to <b>ntrans</b> and <b>nmap</b> settings.</td>
+</tr>
+<tr class="tcw">
+<td><b>newer</b> <i>file-name</i> [<i>local-file</i>]</td>
+<td>Get the file only if the modification time of the remote file is more recent that the file on the current system. If the file does not exist on the current system, the remote file is considered newer. Otherwise, this command is identical to <b>get</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>nlist</b> [<i>remote-directory</i>] [<i>local-file</i>]</td>
+<td>Print a list of the files in a directory on the remote machine. If <i>remote-directory</i> is left unspecified, the current working directory is used. If interactive prompting is on, <b>ftp</b> prompts the user to verify that the last argument is indeed the target local file for receiving <b>nlist</b> output. If no local file is specified, or if <i>local-file</i> is <b>-</b>, the output is sent to the terminal.</td>
+</tr>
+<tr class="tcw">
+<td><b>nmap</b> [<i>inpattern outpattern</i>]</td>
+<td>Set or unset the file name mapping mechanism. If no arguments are specified, the file name mapping mechanism is unset. If arguments are specified, remote file names are mapped during <b>mput</b> commands and <b>put</b> commands issued without a specified remote target file name. If arguments are specified, local file names are mapped during <b>mget</b> commands and <b>get</b> commands issued without a specified local target file name. This command is useful when connecting to a non-UNIX remote computer with different file naming conventions or practices. The mapping follows the pattern set by <i>inpattern</i> and <i>outpattern</i>. [<i>Inpattern</i>] is a template for incoming file names (which may have already been processed according to the <b>ntrans</b> and <b>case</b> settings). Variable templating is accomplished by including the sequences '<b>$1</b>', '<b>$2</b>', ..., '<b>$9</b>' in <i>inpattern</i>. Use '<b>\</b>' to prevent this special treatment of the '<b>$</b>' character. All other characters are treated literally, and determine the <b>nmap</b> [<i>inpattern</i>] variable values. For example, given <i>inpattern</i> <b>$1.$2</b> and the remote file name &quot;<b>mydata.data</b>&quot;, <b>$1</b> would have the value &quot;<b>mydata</b>&quot;, and <b>$2</b> would have the value &quot;<b>data</b>&quot;. The outpattern determines the resulting mapped file name. The sequences '<b>$1</b>', '<b>$2</b>', ...., '<b>$9</b>' are replaced by any value resulting from the <i>inpattern</i> template. The sequence '<b>$0</b>' is replace by the original file name. Additionally, the sequence &lsquo;<b>[seq1, seq2]</b>&rsquo; is replaced by <b>[seq1]</b> if <b>seq1</b> is not a null <a href="/jargon/s/string.htm">string</a>; otherwise it is replaced by <b>seq2</b>. For example, the command<br><br><b>nmap $1.$2.$3 [$1,$2].[$2,file]</b><br><br> would yield the output file name &quot;<b>myfile.data</b>&quot; for input file names &quot;<b>myfile.data</b>&quot; and &quot;<b>myfile.data.old</b>&quot;, &quot;<b>myfile.file</b>&quot; for the input file name &quot;<b>myfile</b>&quot;, and &quot;<b>myfile.myfile</b>&quot; for the input file name &quot;<b>.myfile</b>&quot;. Spaces may be included in <i>outpattern</i>, as in the example: '<b>nmap $1 sed &quot;s/ *$//&quot; &gt; $1</b>'. Use the '<b>\</b>' character to prevent special treatment of the '<b>$</b>','<b>[</b>','<b>[</b>', and ',' characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>ntrans</b> [<i>inchars</i> [<i>outchars</i>]]</td>
+<td>Set or unset the file name character translation mechanism. If no arguments are specified, the file name character translation mechanism is unset. If arguments are specified, characters in remote file names are translated during <b>mput</b> commands and <b>put</b> commands issued without a specified remote target file name. If arguments are specified, characters in local file names are translated during mget commands and get commands issued without a specified local target file name. This command is useful when connecting to a non-UNIX remote computer with different file naming conventions or practices. Characters in a file name matching a character in <i>inchars</i> are replaced with the corresponding character in <i>outchars</i>. If the character's position in <i>inchars</i> is longer than the length of <i>outchars</i>, the character is deleted from the file name.</td>
+</tr>
+<tr class="tcw">
+<td><b>open</b> <i>host</i> [<i>port</i>]</td>
+<td>Establish a connection to the specified host FTP server. An optional port number may be supplied, in which case, <b>ftp</b> attempts to contact an FTP server at that port. If the auto-login option is on (default), <b>ftp</b> attempts to automatically log the user into the FTP server (see below).</td>
+</tr>
+<tr class="tcw">
+<td><b>prompt</b></td>
+<td>Toggle interactive prompting. Interactive prompting occurs during multiple file transfers to allow the user to selectively retrieve or store files. If prompting is turned off (default is on), any <b>mget</b> or <b>mput</b> transfers all files, and any <b>mdelete</b> deletes all files.</td>
+</tr>
+<tr class="tcw">
+<td><b>proxy</b> <i>ftp-command</i></td>
+<td>Execute an <b>ftp</b> command on a secondary control connection. This command allows simultaneous connection to two remote <b>ftp</b> servers for transferring files between the two servers. The first proxy command should be an open, to establish the secondary control connection. Enter the command &quot;proxy ?&quot; to see other <b>ftp</b> commands executable on the secondary connection. The following commands behave differently when prefaced by proxy: open does not define new macros during the auto-login process, close does not erase existing macro definitions, get and mget transfer files from the host on the primary control connection to the host on the secondary control connection, and put, mput, and append transfer files from the host on the secondary control connection to the host on the primary control connection. Third party file transfers depend upon support of the <b>ftp</b> protocol PASV command by the server on the secondary control connection.</td>
+</tr>
+<tr class="tcw">
+<td><b>put</b> <i>local-file</i> [<i>remote-file</i>]</td>
+<td>Store a local file on the remote machine. If remote-file is left unspecified, the local file name is used after processing according to any ntrans or nmap settings in naming the remote file. File transfer uses the current settings for type, format, mode, and structure.</td>
+</tr>
+<tr class="tcw">
+<td><b>pwd</b></td>
+<td>Print the name of the current working directory on the remote machine.</td>
+</tr>
+<tr class="tcw">
+<td><b>quit</b></td>
+<td>A synonym for <b>bye</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>quote</b> <i>arg1 arg2 ...</i></td>
+<td>The arguments specified are sent, verbatim, to the remote FTP server.</td>
+</tr>
+<tr class="tcw">
+<td><b>recv</b> <i>remote-file</i> [<i>local-file</i>]</td>
+<td>A synonym for <b>get</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>reget</b> <i>remote-file</i> [<i>local-file</i>]</td>
+<td><b>reget</b> acts like <b>get</b>, except that if <i>local-file</i> exists and is smaller than <i>remote-file</i>, <i>local-file</i> is presumed to be a partially transferred copy of remote-file and the transfer is continued from the apparent point of failure. If <i>local-file</i> does not exist <b>ftp</b> won't fetch the file. This command is useful when transferring very large files over networks that are prone to dropping connections.</td>
+</tr>
+<tr class="tcw">
+<td><b>remotehelp</b> [<i>command-name</i>]</td>
+<td>Request help from the remote FTP server. If a <i>command-name</i> is specified, it is supplied to the server as well.</td>
+</tr>
+<tr class="tcw">
+<td><b>remotestatus</b> [<i>file-name</i>]</td>
+<td>With no arguments, show status of remote machine. If <i>file-name</i> is specified, show status of file-name on remote machine.</td>
+</tr>
+<tr class="tcw">
+<td><b>rename</b> [<i>from</i>] [<i>to</i>]</td>
+<td>Rename the file <i>from</i> on the remote machine, to <i>to</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>reset</b></td>
+<td>Clear reply queue. This command re-synchronizes command/reply sequencing with the remote <b>ftp</b> server. Resynchronization may be necessary following a violation of the <b>ftp</b> protocol by the remote server.</td>
+</tr>
+<tr class="tcw">
+<td><b>restart</b> <i>marker</i></td>
+<td>Restart the immediately following <b>get</b> or <b>put</b> at the indicated marker. On UNIX systems, marker is usually a byte offset into the file.</td>
+</tr>
+<tr class="tcw">
+<td><b>rmdir</b> <i>directory-name</i></td>
+<td>Delete a directory on the remote machine.</td>
+</tr>
+<tr class="tcw">
+<td><b>runique</b></td>
+<td>Toggle storing of files on the local system with unique file names. If a file already exists with a name equal to the target local file name for a <b>get</b> or <b>mget</b> command, a &quot;<b>.1</b>&quot; is appended to the name. If the resulting name matches another existing file, a &quot;<b>.2</b>&quot; is appended to the original name. If this process continues up to &quot;<b>.99</b>&quot;, an error message is printed, and the transfer does not take place. The generated unique file name is reported. Note that <b>runique</b> does not affect local files generated from a shell command (see below). The default value is off.</td>
+</tr>
+<tr class="tcw">
+<td><b>send</b> <i>local-file</i> [<i>remote-file</i>]</td>
+<td>A synonym for <b>put</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>sendport</b></td>
+<td>Toggle the use of PORT commands. By default, <b>ftp</b> attempts to use a PORT command when establishing a connection for each data transfer. The use of PORT commands can prevent delays when performing multiple file transfers. If the PORT command fails, <b>ftp</b> uses the default data port. When the use of PORT commands is disabled, no attempt is made to use PORT commands for each data transfer. This is useful for certain FTP implementations which do ignore PORT commands but, incorrectly, indicate they've been accepted.</td>
+</tr>
+<tr class="tcw">
+<td><b>site</b> <i>arg1 arg2 ...</i></td>
+<td>The arguments specified are sent, verbatim, to the remote FTP server as a SITE command.</td>
+</tr>
+<tr class="tcw">
+<td><b>size</b> <i>file-name</i></td>
+<td>Return size of <i>file-name</i> on remote machine.</td>
+</tr>
+<tr class="tcw">
+<td><b>status</b></td>
+<td>Show the current status of <b>ftp</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>struct</b> [<i>struct-name</i>]</td>
+<td>Set the file transfer structure to <i>struct-name</i>. By default, &quot;stream&quot; structure is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>sunique</b></td>
+<td>Toggle storing of files on remote machine under unique file names. The remote <b>ftp</b> server must support the <b>ftp</b> protocol <i>STOU</i> command for successful completion. The remote server reports unique name. Default value is <b>off</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>system</b></td>
+<td>Show the type of operating system running on the remote machine.</td>
+</tr>
+<tr class="tcw">
+<td><b>tenex</b></td>
+<td>Set the file transfer type to that needed to talk to TENEX machines.</td>
+</tr>
+<tr class="tcw">
+<td><b>trace</b></td>
+<td>Toggle packet tracing.</td>
+</tr>
+<tr class="tcw">
+<td><b>type</b> [<i>type-name</i>]</td>
+<td>Set the file transfer type to <i>type-name</i>. If no type is specified, the current type is printed. The default type is network ASCII.</td>
+</tr>
+<tr class="tcw">
+<td><b>umask</b> [<i>newmask</i>]</td>
+<td>Set the default <a href="/unix/uumask.htm">umask</a> on the remote server to <i>newmask</i>. If <i>newmask</i> is omitted, the current <b>umask</b> is printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>user</b> <i>user-name</i> [<i>password</i>] [<i>account</i>]</td>
+<td>Identify yourself to the remote FTP server. If the password is not specified and the server requires it, <b>ftp</b> prompts the user for it (after disabling local echo). If an account field is not specified, and the FTP server requires it, the user is prompted for it. If an account field is specified, an <b>account</b> command is relayed to the remote server after the login sequence is completed if the remote server did not require it for logging in. Unless <b>ftp</b> is invoked with &quot;<b>auto-login</b>&quot; disabled, this process is done automatically on initial connection to the FTP server.</td>
+</tr>
+<tr class="tcw">
+<td><b>verbose</b></td>
+<td>Toggle verbose mode. In verbose mode, all responses from the FTP server are displayed to the user. Also, if verbose is <b>on</b>, when a file transfer completes, statistics regarding the efficiency of the transfer are reported. By default, verbose is <b>on</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b> [<i>command</i>]</td>
+<td>A synonym for <b>help</b>.</td>
+</tr>
+</table>
+<p class="tab">Command arguments which have embedded spaces may be quoted with quote (<b>&quot;</b>) marks.</p>
+<h2 id="abort">Aborting a file transfer</h2>
+<p class="tab">To abort a file transfer, use the terminal interrupt key (usually <b>Ctrl-C</b>). Sending transfers are immediately halted. Receiving transfers are halted by sending a <b>ftp</b> protocol <i>ABOR</i> command to the remote server, and discarding any further data received. The speed at which this is accomplished depends upon the remote server's support for <i>ABOR</i> processing. If the remote server does not support the <i>ABOR</i> command, an &lsquo;<b>ftp&gt;</b>&rsquo; prompt does not appear until the remote server has completed sending the requested file.</p>
+<p class="tab">The terminal interrupt key sequence is ignored when <b>ftp</b> has completed any local processing and is awaiting a reply from the remote server. A long delay in this mode may result from the <i>ABOR</i> processing described above, or from unexpected behavior by the remote server, including violations of the <b>ftp</b> protocol. If the delay results from unexpected remote server behavior, the local <b>ftp</b> program must be killed manually.</p>
+<h2 id="naming">File naming conventions</h2>
+<p class="tab">Files specified as arguments to <b>ftp</b> commands are processed according to the following rules:</p>
+<p class="tab">1. If the file name &lsquo;<b>-</b>&rsquo; is specified, the <a href="/jargon/s/stdin.htm">stdin</a> (for reading) or <b>stdout</b> (for writing) is used.</p>
+<p class="tab">2. If the first character of the file name is &lsquo;<b>|</b>&rsquo;, the remainder of the argument is interpreted as a shell command. <b>ftp</b> then forks a shell, using <b>popen</b> with the argument supplied, and reads (writes) from the <b>stdout</b> (<b>stdin</b>). If the shell command includes spaces, the argument must be quoted; (e.g., "<b>" ls -lt"</b>"). A particularly useful example of this mechanism is &quot;<b>dir more</b>&quot;.</p>
+<p class="tab">3. Failing the above checks, if &quot;<b>globbing</b>&quot; is enabled, local file names are expanded according to the rules used in the <a href="/unix/ucsh.htm">csh</a>; c.f. the <b>glob</b> command. If the <b>ftp</b> command expects a single local file (e.g., <b>put</b>), only the first file name generated by the &quot;<b>globbing</b>&quot; operation is used.</p>
+<p class="tab">4. For <b>mget</b> commands and <b>get</b> commands with unspecified local file names, the local file name is the remote file name, which may be altered by a <b>case</b>, <b>ntrans</b>, or <b>nmap</b> setting. The resulting file name may then be altered if <b>runique</b> is on.</p>
+<p class="tab">5. For <b>mput</b> commands and <b>put</b> commands with unspecified remote file names, the remote file name is the local file name, which may be altered by a <b>ntrans</b> or <b>nmap</b> setting. The resulting file name may then be altered by the remote server if <b>sunique</b> is on.</p>
+<h2 id="parameters">File transfer parameters</h2>
+<p class="tab">The FTP specification specifies many parameters which may affect a file transfer. The type may be one of &quot;<b>ascii</b>&quot;, &quot;<b>image</b>&quot; (binary), &quot;<a href="/jargon/e/ebcdic.htm">ebcdic</a>&quot;, and &quot;local byte size&quot; (for <a href="/jargon/p/pdp.htm">PDP</a>-10's and PDP-20's mostly). <b>ftp</b> supports the <b>ascii</b> and <b>image</b> types of file transfer, plus local byte size 8 for <b>tenex</b> mode transfers.</p>
+<p class="tab"><b>ftp</b> supports only the default values for the remaining file transfer parameters: <b>mode</b>, <b>form</b>, and <b>struct</b>.</p>
+<h2 id="environment">Environment</h2>
+<p class="tab">The <b>ftp</b> command makes use of the following <a href="/jargon/e/envivari.htm">environment variables</a>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>HOME</b></td>
+<td>The default location of a <b>.netrc</b> file, if one exists.</td>
+</tr>
+<tr class="tcw">
+<td><b>SHELL</b></td>
+<td>The default <a href="/jargon/s/shell.htm">shell</a>.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">ftp exampleftp.computerhope.com</pre>
+<p class="tab">The command above instructs <b>ftp</b> to attempt a connection to <b>exampleftp.computerhope.com</b>. Below is an example of what would be seen:</p>
+<pre class="tab">Connecting to exampleftp.computerhope.com...
+exampleftp.computerhope.com FTP server ready.
+Name: <b>yourusername</b>
+Password:</pre>
+<p class="tab">If your username and password are valid and entered correctly, you are successfully logged in:</p>
+<pre class="tab">Remote system type is UNIX.
+Using ASCII mode to transfer files.
+<b>ftp&gt;</b>
+</pre>
+<p class="tab">Once at the <b>ftp&gt;</b> <a href="/jargon/p/prompt.htm">prompt</a>, you are placed in the default directory for the user you used to log in. The first thing you'd probably want to do is see what directory that is. To see the present working directory, use the <b>pwd</b> command like in Linux:</p>
+<pre class="tab tcy"><b>ftp&gt;</b> pwd</pre>
+<pre class="tab">257 &quot;/ftpdefaultdir&quot; is current directory.</pre>
+<p class="tab">The number <b>257</b> is a numerical code. All FTP messages have a code number associated with them, and for technical reasons they are included with the messages from the server. The server lets you know you're in the <b>/ftpdefaultdir</b> directory. Let's see what files are in there, using the <b>ls</b> command:</p>
+<pre class="tab tcy"><b>ftp&gt;</b> ls</pre>
+<p class="tab">This produces a file listing, like in Linux. You can change remote directories with <b>cd</b>. If you want to change what directory you're using on your local computer, you can use <b>lcd</b> for &quot;local change directory.&quot; Let's say you want to get a file from the server named <b>awesome.jpg</b>, and download it to your local directory <b>/home/myuser/images</b>:</p>
+<pre class="tab tcy"><b>ftp&gt;</b> lcd /home/myuser/images</pre>
+<pre class="tab">Local directory now /home/myuser/images</pre>
+<pre class="tab tcy"><b>ftp&gt;</b> get awesome.jpg</pre>
+<pre class="tab">local: awesome.jpg remote: awesome.jpg
+200 PORT command successful.
+150 Opening ASCII mode data connection for awesome.jpg (352271 bytes).</pre>
+<p class="tab">Oops! That's not quite right. <a href="/jargon/j/jpeg.htm">JPEG</a> images are <a href="/jargon/b/binary.htm">binary</a> files, not <a href="/jargon/a/ascii.htm">ASCII</a> (text) files.</p>
+<p class="tab">FTP supports two different types of file transfers, <b>ASCII</b> and <b>binary</b>. At login, the server told us it was currently in ASCII mode. Let's change that to <b>binary</b>:</p>
+<pre class="tab tcy"><b>ftp&gt;</b> bin</pre>
+<pre class="tab">Using binary mode to transfer files.</pre>
+<p class="tab"><b>bin</b> is short for <b>binary</b>, and either command switches to binary mode. We can now do the same file transfer and the file comes through correctly.</p>
+<p class="tab">Let's switch to the remote directory <b>all-images</b>.</p>
+<pre class="tab tcy"><b>ftp&gt;</b> cd all-images</pre>
+<pre class="tab">250-README for all-images
+250-
+250-This folder contains all the JPEG images for our project.
+250-
+250 CWD command successful.
+</pre>
+<p class="tab">This directory had a &quot;README&quot; message that is displayed by the FTP server every time you change it to your current directory. The server then lets you know the <b>cd</b> command was successful. Now let's download every JPEG file using a <a href="/jargon/w/wildcard.htm">wildcard</a>. We can use the <b>mget</b> command, which allows us to <b>get</b> multiple files with one command:</p>
+<pre class="tab tcy"><b>ftp&gt;</b> mget *.jpg *.jpeg *.JPG *.JPEG</pre>
+<p class="tab">We now get all the jpeg files with the extensions <b>JPG</b>, <b>JPEG</b>, <b>jpg</b>, or <b>jpeg</b>.</p>
+<p class="tab">If we have any files to upload to the server, we can use the commands <b>put</b> or <b>mput</b> to upload them. When we're done, we can logout using the <b>exit</b> command.</p>
+<ul class="arrow noprint">
+<li><a href="/issues/ch001246.htm">How to use FTP from a command line.</a></li>
+</ul>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/scp.htm"><b>scp</b></a> &mdash; Copy files securely over a network connection.<br><a href="/unix/sftp.htm"><b>sftp</b></a> &mdash; Conduct an interactive FTP session over a secure network connection.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82ea8d80c415',m:'9M50j9Ixc_8m1ZaBmAywpyRletVf.fy_rc1CrkXz8SQ-1661495348-0-AcmTXlq0YnumyeM1Qc36vMcFERf/VWCoRuPYXJh9+4ZsVu4oCkx+fhte3/MqAcErizhKiLMlz/5P6if0dNlGsEvtmFkilXyDZvam0klOBDVRSwdf7IdnUJ2l9o8igV/+Og==',s:[0x1f5d21bc9c,0xac2a135695],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

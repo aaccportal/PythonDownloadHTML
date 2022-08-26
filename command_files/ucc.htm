@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux cc command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/cc.gif" width="300" height="300" alt="cc command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>cc</b> command runs the system's <a href="/jargon/c/c.htm">C</a> <a href="/jargon/c/compile.htm">compiler</a>.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>cc</b>, which is a <a href="/jargon/s/symblink.htm">symbolic link</a> to <b>gcc</b>, the GNU compiler collection.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#env-variables">Environment variables</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The compiler's essential duty is to translate a computer program from one language to another, and it usually does this more than once in the a single compilation.</p>
+<p class="tab">When compiling a program written in C, the compiler goes through several steps to translate it into machine code that can be executed on your target <a href="/jargon/a/architec.htm">architecture</a> or <a href="/jargon/p/platform.htm">platform</a>.</p>
+<p class="tab">In general, the compiler performs the following functions on your code:</p>
+<ol>
+<li><b>Pre-processing.</b> The C preprocessor ("cpp") prepares your code to be sent to the actual compiler by removing <a href="/jargon/c/comment.htm">comments</a>, expanding <a href="/jargon/m/macro.htm">macros</a>, and performing a few other important steps.</li>
+<li><b>Syntax checking.</b> Does your program contain any syntactical errors? If so, the compiler lets you know, and you need to fix them before you proceed. If it suspects some parts of your program are not correct, but it's not sure that they are actually errors, it may issue warnings, but still compiles the program.</li>
+<li><b>Conversion to assembly language.</b> This is an intermediary step where your code is translated into the language of your target system's assembly language. This is pretty much the last step where your code is still readable by a human.</li>
+<li><b>Assembly.</b> Your program is assembled into the <a href="/jargon/b/bit.htm">bits</a> and <a href="/jargon/b/byte.htm">bytes</a> of object code suitable for your target platform.</li>
+<li><b>Linking.</b> The object code is <a href="/jargon/l/linker.htm">linked</a> together with the object code of any library functions specified by your program and command line options, and an <a href="/jargon/e/execfile.htm">executable file</a> is created.</li>
+</ol>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">cc [ <i>options</i> ]</pre>
+<h2 id="options">Options</h2>
+<p class="tab">There are literally hundreds of options you can pass to the compiler to fine-tune how your program executes. Here we have selected some of the most useful and commonly-used options which you may need to create an executable file.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>-c</b></td>
+<td>Compile the code; do not attempt to link <a href="/jargon/s/source.htm">source files</a>. Object files are created, which can optionally be linked later in a separate step to create an executable file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b>[<i>level</i>]</td>
+<td>Create an optimized executable. The compiler analyzes your code, and if it knows any clever tricks to speed up performance, it implements them in the byte code. The <i>level</i> is an optional number, letter, or word which can specify how much optimization should be done. For instance, the GNU compiler collection allows for the options <b>-O0</b> to specify minimum optimization (the default), <b>-O1</b> and <b>-O2</b> for intermediate levels of optimization, and <b>-O3</b> for maximum optimization. <b>-Ofast</b> can be used as an alias for <b>-O3</b>, and <b>-Og</b> performs optimizations that are compatible with later analysis by a <a href="/jargon/d/debugger.htm">debugger</a>. Optimization requires more computation and memory, and takes longer to complete. Common optimization tricks for <a href="/jargon/x/x86.htm">x86</a> systems include reducing <a href="/jargon/c/compinst.htm">instruction</a> size to make execution less computationally expensive, implementing a dedicated <a href="/jargon/r/register.htm">register</a> for the value zero (because zero is used so commonly in most programs), and optimizing certain multiplication and <a href="/jargon/a/array.htm">array</a> index-scaling operations by taking advantage of the <b>LEA</b> ("load effective address") instruction.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Wall</b></td>
+<td>Enable "all" (all but the most esoteric) warnings when compiling. This is a good option to use regularly, as it can cue you in to any conditions which may not be errors, but which you may nonetheless want to resolve before compiling.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ansi</b></td>
+<td>Disable most (but not all) of the non-ANSI C compliant features provided by <b>cc</b>. To adhere to strict <a href="/jargon/a/ansi.htm">ANSI</a> standards, enable this option. Doing so ensures that the code is fully portable to be compiled on any other system.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b></td>
+<td>Create a debugging version of the compiled executable file. The compiler includes information in the compiled executable about what line of the source file corresponds to what function call. A debugger can later use this information to show the source code as you step through the program. Note that this creates a much larger executable file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b> <i>name</i>[<b>=</b><i>value</i>]</td>
+<td>Defines a macro at compile time by assigning the specified <i>value</i> to the symbol <i>name</i>. When the C preprocessor is run, it expands any instances of <i>name</i> to the text of <i>value</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b><i>dir</i></td>
+<td>Search <i>dir</i> for included files whose names do not begin with a slash (<b>/</b>) before searching the usual <a href="/jargon/d/director.htm">directories</a>. The directories for multiple <b>-I</b> options are searched in the order specified. The preprocessor first searches for <b>#include</b> files in the directory containing sourcefile, and then in directories named with <b>-I</b> options (if any), then <b>/usr/ucbinclude</b>, and finally, in <b>/usr/include</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b><i>dir</i></td>
+<td>Add <i>dir</i> to the list of directories where the compiler looks for linked libraries. This option is passed to <a href="/unix/uld.htm"><b>ld</b></a> and <b>/usr/lib</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b><i>library</i></td>
+<td>If linking, this options adds the indicated <a href="/jargon/l/library.htm">library</a> to the list of libraries to be linked. For instance, if you are using functions from the C math library (<b>libm</b>), you would link it at compile time using the option <b>-lm</b>.<br><br> Be aware of your libraries' inter-dependencies and make sure to link them in the correct order on the command line; specify first any libraries which other libraries will depend on. For instance, "<b>-lGL -lGLU</b>" searches <b>libGL</b> first and then <b>libGLU</b>. <b>libGLU</b> depends on <b>libGL</b>, so if you reversed the order of these <b>-l</b> options, the program would not compile.</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b></td>
+<td>If linking, creates a map file with the same base name as the output executable, but with the suffix <b>.map</b>. This map file contains a list of symbols with their addresses.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b><i>model</i></td>
+<td>Specifies the memory model that the compiler and linker use. Values of <i>model</i> include <b>s</b> for "small" memory model, <b>m</b> for "medium", <b>l</b> for "large", and <b>f</b> for "flat" (<a href="/jargon/num/32bit.htm">32-bit</a>), <b>c</b> for "compact", or <b>h</b> for "huge". Unless you're sure you require this option, you may omit it.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b> <i>file name</i></td>
+<td>The output name of the compiled executable file. If <i>file name</i> is not specified, the compiled executable will be named <b>a.out</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b></td>
+<td>Produces <a href="/jargon/a/assemble.htm">assembler</a> source code, but stops before actually assembling.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b><i>name</i></td>
+<td>"Undefine" any previously-defined macro named <i>name</i>, either in the source code or specified on the command line with <b>-D</b>.</td>
+</tr>
+</table>
+<h2 id="env-variables">Environment variables</h2>
+<p class="tab">The following <a href="/jargon/e/envivari.htm">environment variables</a> affect the compilation process:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px"><b>LANG</b><br><b>LC_CTYPE</b><br><b>LC_MESSAGES</b><br><b>LC_ALL</b></td>
+<td>These environment variables control the way the compiler uses localization information to work with different national conventions. A common value is "<b>en_GB.UTF-8</b>" for English language <a href="/jargon/c/charcode.htm">encoded</a> in <a href="/jargon/u/utf.htm">UTF-8</a>. If set, the <b>LC_ALL</b> variable overrides all other locale settings. To view your current locale settings, use the <b>locale</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>TMPDIR</b></td>
+<td>If <b>TMPDIR</b> is set, it specifies the directory to use for <a href="/jargon/t/tempfile.htm">temporary files</a>. The compiler uses temp files to hold the output of one stage of compilation that is to be used as input to the next stage. For example, the output of the preprocessor, which is the input to the actual compiler, is stored in a temporary file during the compilation process.</td>
+</tr>
+<tr class="tcw">
+<td><b>COMPILER_PATH</b></td>
+<td>A colon-separated list of directories, much like the <b>PATH</b> variable. The compiler searches this list of directories for subprograms if it can't find them using the value of <b>GCC_EXEC_PREFIX</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>LIBRARY_PATH</b></td>
+<td>A colon-separated list of directories, much like <b>PATH</b>. When linking, the compiler searches this list of directories for linked libraries, and for special linker files it can't find using the value of <b>GCC_EXEC_PREFIX</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>CPATH</b><br><b>C_INCLUDE_PATH</b><br><b>CPLUS_INCLUDE_PATH</b><br><b>OBJC_INCLUDE_PATH</b></td>
+<td>Each of these variables may hold a list of directories separated by a special character, much like <b>PATH</b>, which the compiler looks for header files. The special character, <b>PATH_SEPARATOR</b>, is target-dependent and determined at build time. For most Linux targets, <b>PATH_SEPARATOR</b> is a colon. <b>CPATH</b> specifies a list of directories to be searched as if specified with the <b>-I</b> option, but after any paths given with the <b>-I</b> option. <b>C_INCLUDE_PATH</b>, <b>CPLUS_INCLUDE_PATH</b>, and <b>OBJC_INCLUDE_PATH</b> apply only when preprocessing the particular language indicated. Each specifies a list of directories to be searched as if specified with <b>-isystem</b>, but after any paths given with <b>-isystem</b> options on the command line. In all these variables, an empty element instructs the compiler to search its current working directory. Empty elements can appear at the beginning or end of a path. For instance, if the value of <b>CPATH</b> is <b>:/special/include</b>, has the same effect as "<b>-I. -I/special/include</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>DEPENDENCIES_OUTPUT</b></td>
+<td>If this variable is set, its value specifies how to output dependencies for <a href="/unix/umake.htm"><b>make</b></a> based on the non-system header files processed by the compiler. System header files are ignored in the dependency output. The value of <b>DEPENDENCIES_OUTPUT</b> can be only a file name, where <i>Make</i> rules are written to that file, guessing the target name from the source file name. Or the value can have the form "<i>file target</i>", where rules are written to file <i>file</i> using <i>target</i> as the target name.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">cc myfile.c</pre>
+<p class="tab">Compile the file <b>myfile.c</b>. Output will be written to the executable file <b>a.out</b>.</p>
+<pre class="tcy tab">cc myfile.c -o myexe</pre>
+<p class="tab">Compile the file <b>myfile.c</b> and name the compiled executable output file <b>myexe</b>.</p>
+<pre class="tcy tab">cc myfile.c -Wall -o myexe</pre>
+<p class="tab">Compile the file <b>myfile.c</b> and output the compiled executable as <b>myexe</b>, displaying warnings during compilation if they occur.</p>
+<pre class="tcy tab">cc myfile.c -Wall -lX11 -o myexe</pre>
+<p class="tab">Compile <b>myfile.c</b> to the executable <b>myexe</b>, linking the <b>libX11</b> library and issuing any applicable warnings during compilation.</p>
+<pre class="tcy tab">cc myfile.c -Wall -ansi -lX11 -o myexe</pre>
+<p class="tab">Compile <b>myfile.c</b> to the executable <b>myexe</b>, linking the <b>libX11</b> library, adhering strictly to ANSI C standards, and issuing warnings if applicable.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uld.htm"><b>ld</b></a> &mdash; Link editor for object files.<br><a href="/unix/uctags.htm"><b>ctags</b></a> &mdash; Create tag files for source code.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82be4ca5c3f2',m:'mOsbFRW0JNgz_iyNgpcebJtoDs7daNLJEOBgyQ_Yxes-1661495341-0-AfSspV2jb4feRauTGdb7RgV/DLU+dw907BixFWobZ7iVqPST+hkZqNpH+JZ7lPV+yFcXwuZhVgMGuvoOm9Zqb1AJIcXC4t5TDV6HV0ylFNtBRXNGbu1PjOamo0YOJh0cDw==',s:[0x70aa4cec0e,0x25d88f0217],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

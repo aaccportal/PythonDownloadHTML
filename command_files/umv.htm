@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux mv command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/mv.gif" width="300" height="300" alt="mv command" class="floatRight"><p class="intro">On Linux operating systems, the <b>mv</b> command moves and <a href="/jargon/r/rename.htm">renames</a> files and directories.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a>
+<ul>
+<li><a href="#options">Options</a></li>
+</ul>
+</li>
+<li><a href="#backup-files">Backing up files</a>
+<ul>
+<li><a href="#version-control-methods">Version control methods</a></li>
+</ul>
+</li>
+<li><a href="#examples">Examples</a>
+<ul>
+<li><a href="#making-backups">Making backups</a></li>
+<li><a href="#rename-using-regex">Renaming using regular expressions</a></li>
+</ul>
+</li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<p class="tab">Rename a file named <i>source</i> to <i>destination</i>:</p>
+<pre class="tcy tab"><b>mv</b> [<i>options</i>] [<b>-T</b>] <i>source</i> <i>destination</i></pre>
+<p class="tab">Move <i>source</i> file(s) to a directory named <i>destination</i>:</p>
+<pre class="tcy tab"><b>mv</b> [<i>options</i>] <i>source</i> [<i>source2</i> ...] <i>destination</i></pre>
+<p class="tab">Same as the previous syntax, but specifying the directory first, and the source file(s) last:</p>
+<pre class="tcy tab"><b>mv</b> [<i>options</i>] <b>-t</b> <i>destination</i> <i>source</i> [<i>source2</i> ...]</pre>
+<h3 class="tab" id="options">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>--backup</b>[<b>=</b><i>vcm</i>]</td>
+<td>Make a backup of each existing destination file, using the version control method <i>vcm</i>. If <i>vcm</i> is omitted, <b>--backup</b> behaves the same as <b>-b</b> (backups are created, using the default version control method). See <a href="#backup-files">backing up files</a> for details.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>Like <b>--backup</b>, but does not accept a backup method. Instead, the method specified by the <b>VERSION_CONTROL</b> environment variable is used. Simple backups are created if the variable is not set. See <a href="#version-control-methods">version control methods</a> for details.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--force</b></td>
+<td>Always <a href="/jargon/o/overwrit.htm">overwrite</a> existing files without <a href="/jargon/p/prompt.htm">prompting</a>. This can be useful if you need to overwrite multiple files whose <a href="/jargon/p/permissi.htm">permissions</a> are <a href="/jargon/r/readonly.htm">read-only</a>; if you don't specify <b>-f</b>, you are prompted for every file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--interactive</b></td>
+<td>Prompt before overwriting an existing file, regardless of the file's permissions.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--no-clobber</b></td>
+<td>Never overwrite any existing file.</td>
+</tr>
+</table>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>If you specify more than one of the options above, only the final option you specify takes effect.</p>
+</div>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:300px"><b>--strip-trailing-slashes</b></td>
+<td>Remove any trailing slashes from each <i>source</i> argument.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b>, <b>--suffix=</b><i>suffix</i></td>
+<td>Specify the <a href="/jargon/s/suffix.htm">file name suffix</a> to be used for all backup files. The default is &quot;<b>~</b>&quot;.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>,<br><b>--target-directory=</b><i>destination</i></td>
+<td>Move all <i>sources</i> into the directory <i>destination</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>, <b>--no-target-directory</b></td>
+<td>Treat <i>destination</i> as a normal file, not as a directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--update</b></td>
+<td>Don't overwrite files if they're newer. A move only happens if the destination file is older than the source file, or the destination file does not already exist.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Provide <a href="/jargon/v/verbose.htm">verbose</a> output. Print the name of every file moved.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+</table>
+<h2 id="backup-files">Backing up files</h2>
+<p class="tab">If you use the <b>-b</b> or <b>--backup</b> options, <b>mv</b> renames the destination file if it exists, appending a suffix to its file name. This saves a copy of the original file instead of overwriting it.</p>
+<p class="tab">There are two types of backups: <b>simple</b> and <b>numbered</b>.</p>
+<ul>
+<li><b>Simple backups</b> delete an existing backup file if it already exists. Only one backup file is kept. The default suffix for &quot;simple&quot; backups is a <a href="/jargon/t/tilde.htm">tilde</a> (&quot;<b>~</b>&quot;). You can change this suffix with the <b>--suffix</b> option, or by setting the <b>SIMPLE_BACKUP_SUFFIX</b> <a href="/jargon/e/envivari.htm">environment variable</a>. For example, <b>file.txt</b> would be backed up as <b>file.txt~</b>.</li>
+<li><b>Numbered backups</b> keep existing backup files, creating additional backups with an incrementing number in the file name. No backup files are deleted. The suffix for numbered backups is &quot;<b>.~</b><i>n</i><b>~</b>&quot;, where <i>n</i> is an <a href="/jargon/i/integer.htm">integer</a>. For example, <b>file.txt</b> would be backed up as <b>file.txt.~1~</b>, then <b>file.txt.~2~</b>, etc.</li>
+</ul>
+<h3 class="tab" id="version-control-methods">Version control methods</h3>
+<p class="tab">Additional rules for creating backup files are available, called <b>version control methods.</b> The version control method may be specified with the <b>--backup</b> option, or by setting the environment variable, <b>VERSION_CONTROL</b>. The methods are:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<th>Method name</th>
+<th>Description</th>
+</tr>
+<tr class="tcw">
+<td style="width:180px"><b>none</b>, <b>off</b></td>
+<td>Never make backups, even if the <b>--backup</b> option is given.</td>
+</tr>
+<tr class="tcw">
+<td><b>numbered</b>, <b>t</b></td>
+<td>Make numbered backups.</td>
+</tr>
+<tr class="tcw">
+<td><b>existing</b>, <b>nil</b></td>
+<td><b>numbered</b> if numbered backups already exist, <b>simple</b> otherwise.</td>
+</tr>
+<tr class="tcw">
+<td><b>simple</b>, <b>never</b></td>
+<td>Always make simple backups.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">mv myfile.txt myfiles</pre>
+<p class="tab">Move the file <b>myfile.txt</b> into the directory <b>myfiles</b>. If <b>myfiles</b> is a file, it is overwritten. If the file is marked as read-only, but you own the file, you are prompted before overwriting it.</p>
+<pre class="tcy tab">mv myfiles myfiles2</pre>
+<p class="tab">If <b>myfiles</b> is a file or directory, and <b>myfiles2</b> is a directory, move myfiles into myfiles2. If <b>myfiles2</b> does not exist, the file or directory <b>myfiles</b> is renamed <b>myfiles2</b>.</p>
+<pre class="tcy tab">mv myfile.txt ../</pre>
+<p class="tab">Move the file <b>myfile.txt</b> to the <a href="/jargon/p/parechil.htm">parent</a> directory of the <a href="/jargon/t/tilde.htm">current directory</a>.</p>
+<pre class="tcy tab">mv -t myfiles myfile1 myfile2</pre>
+<p class="tab">Move the files <b>myfile1</b> and <b>myfile2</b> to the directory <b>myfiles</b>.</p>
+<pre class="tcy tab">mv myfile1 myfile2 myfiles</pre>
+<p class="tab">Same as the previous command.</p>
+<pre class="tcy tab">mv -n file file2</pre>
+<p class="tab">If <b>file2</b> exists and is a directory, <b>file</b> is moved into it. If <b>file2</b> does not exist, <b>file</b> is renamed <b>file2</b>. If <b>file2</b> exists and is a file, nothing happens.</p>
+<pre class="tab tcy">mv -f file file2</pre>
+<p class="tab">If <b>file2</b> exists and is a file, it is overwritten.</p>
+<pre class="tab tcy">mv -i file file2</pre>
+<p class="tab">If <b>file2</b> exists and is a file, a prompt is given:</p>
+<pre class="tab">mv: overwrite 'file2'?</pre>
+<p class="tab">Entering &quot;y&quot;, &quot;yes&quot;, &quot;Yes&quot;, or &quot;Y&quot; results in the file being overwritten. Any other input skips the file.</p>
+<pre class="tab tcy">mv -fi file file2</pre>
+<p class="tab">Same as <b>mv -i</b>. Prompt before overwriting. The <b>f</b> option is ignored.</p>
+<pre class="tab tcy">mv -if file file2</pre>
+<p class="tab">Same as <b>mv -f</b>. Overwrite with no prompt. The <b>i</b> option is ignored.</p>
+<pre class="tcy tab">mv My\ file.txt My\ file\ 2.txt</pre>
+<p class="tab">Rename the file &quot;<b>My file.txt</b>&quot; to &quot;<b>My file 2.txt</b>&quot;. Here, the spaces in the file name are <a href="/jargon/e/esc.htm">escaped</a>, protecting them from being interpreted as part of the command.</p>
+<pre class="tcy tab">mv &quot;My file.txt&quot; &quot;My file 2.txt&quot;</pre>
+<p class="tab">Same as the previous command.</p>
+<pre class="tab tcy">mv &quot;My file.txt&quot; myfiles</pre>
+<p class="tab">The result of this command:</p>
+<ul>
+<li>If <b>myfiles</b> a directory, <b>My file.txt</b> is moved into <b>myfiles</b>.</li>
+<li>If <b>myfiles</b> a file, <b>My file.txt</b> is renamed <b>myfiles</b>, and the original <b>myfiles</b> is overwritten.</li>
+<li>If <b>myfiles</b> does not exist, <b>My file.txt</b> is renamed <b>myfiles</b>.</li>
+</ul>
+<pre class="tab tcy">mv My*.txt myfiles</pre>
+<p class="tab">Here, <b>*</b> is a <a href="/jargon/w/wildcard.htm">wildcard</a> meaning &quot;any number, including zero, of any <a href="/jargon/c/charact.htm">character</a>.&quot;</p>
+<ul>
+<li>If <b>myfiles</b> is a directory: all files with the extension <b>.txt</b>, whose name begins with <b>My</b>, are moved to <b>myfiles</b>.</li>
+<li>If <b>myfiles</b> does not exist or is not a directory, <b>mv</b> reports an error and does nothing.</li>
+</ul>
+<pre class="tab tcy">my My\ file??.txt myfiles</pre>
+<p class="tab">Here, <b>?</b> is a wildcard meaning &quot;zero or one of any character.&quot; It's used twice, so it can match a maximum of two characters.</p>
+<ul>
+<li>If <b>myfiles</b> is a directory: any file with zero, one, or two characters between <b>My file</b> and <b>.txt</b> in their name is moved into <b>myfiles</b>.</li>
+<li>If <b>myfiles</b> doesn't exist, or is not a directory, <b>mv</b> reports an error and does nothing.</li>
+</ul>
+<div class="tip tab" role="note">
+<span class="title">Tip</span>
+<p>For more information about how wildcards are used in commands, see <a href="/unix/ubash.htm#pathname-expansion">pathname expansion in bash</a>.</p>
+</div>
+<h3 class="tab" id="making-backups">Making backups</h3>
+<pre class="tab tcy">mv -b file file2</pre>
+<p class="tab">If <b>file2</b> exists, it is renamed to <b>file2~</b>.</p>
+<pre class="tab tcy">mv -b --suffix=.bak file file2</pre>
+<p class="tab">If <b>file2</b> exists, it is renamed to <b>file2.bak</b>.</p>
+<pre class="tab tcy">mv --backup=numbered; mv file file2</pre>
+<p class="tab">If <b>file2</b> exists, it is renamed <b>file2.~1~</b>. If <b>file2.~1~</b> exists, it is renamed <b>file2.~2~</b>, etc.</p>
+<pre class="tab tcy">VERSION_CONTROL=numbered mv -b file file2</pre>
+<p class="tab">Same as previous command. The environment variable is defined for this command only.</p>
+<pre class="tab tcy">export VERSION_CONTROL=numbered; mv -b file file2</pre>
+<p class="tab">By <a href="/unix/bash/export.htm">exporting</a> the <b>VERSION_CONTROL</b> environment variable, all <b>mv -b</b> commands for the current session use numbered backups.</p>
+<pre class="tab tcy">export VERSION_CONTROL=numbered; mv file file2</pre>
+<p class="tab">Even though the VERSION_CONTROL variable is set, no backups are created because <b>-b</b> (or <b>--backup</b>) was not specified. If <b>file2</b> exists, it is overwritten.</p>
+<h3 class="tab" id="rename-using-regex">Renaming using regular expressions</h3>
+<p class="tab"><b>mv</b> does not interpret <a href="/jargon/r/regex.htm">regular expressions</a> (regex).</p>
+<p class="tab">If you need to rename many files using a complex or nuanced mapping from old to new file names, you use the <a href="/unix/rename.htm"><b>rename</b></a> command instead.</p>
+<p class="tab"><b>rename</b> accepts <a href="/unix/uperl.htm">perl</a> regular expressions. For example:</p>
+<pre class="tab tcy">rename 's/My\ file(..)/document$1/' My*</pre>
+<p class="tab">This command renames files <b>My file.txt</b> and <b>My file 2.txt</b> to <b>document.txt</b> and <b>document 2.txt</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucp.htm"><b>cp</b></a> &mdash; Copy files and directories.<br><a href="/unix/uln.htm"><b>ln</b></a> &mdash; Create a link, or a symbolic link, to a file or directory.<br><a href="/unix/rename.htm"><b>rename</b></a> &mdash; Renames multiple files using a regular expression.<br><a href="/unix/urm.htm"><b>rm</b></a> &mdash; Remove a directory.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a831b391cc41a',m:'ZTePKagECDNUrd4Wkdp6BqSDDWvOmTgmwiK.7YFGUOc-1661495356-0-AcbsxTuvF1XLiZ0zauaOBPTRLqD9q30dLzgrAOboc7BaNFJNdWssVOIf+Q40lDjfnlFvVjbsKnbZz7bBOZO0hpKJsGcGRlqeH9F9MGwZ3uyoOx8tH4SP9rvw3P3E8BFBMA==',s:[0xe91ede3870,0x96510eba9c],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

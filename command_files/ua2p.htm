@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux a2p command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/a2p.gif" width="300" height="300" alt="a2p command in Linux." class="floatRight"><p class="intro">The <b>a2p</b> utility takes an <b><a href="/unix/uawk.htm">awk</a></b> <a href="/jargon/s/script.htm">script</a> specified on the <a href="/jargon/c/commandi.htm">command line</a> and produces a comparable <b><a href="/jargon/p/perl.htm">perl</a></b> script on standard output.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#considerations">Considerations</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">a2p [<i>options</i>] [<i>filename</i>]</pre>
+<h3 class="tab" id="options">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>-D</b><i>&lt;number&gt;</i></td>
+<td>Sets <a href="/jargon/d/debug.htm">debugging</a> flags.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b><i>&lt;character&gt;</i></td>
+<td>Tells <b>a2p</b> that this <b>awk</b> script is always invoked with this <b>-F</b> switch.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b><i>&lt;fieldlist&gt;</i></td>
+<td>Specifies the names of the input fields if input does not have to be split into an <a href="/jargon/a/array.htm">array</a>. If you were translating an <b>awk</b> script that processes the <a href="/jargon/p/password.htm">password</a> file, you might say:<pre class="tcy">a2p -7 -nlogin.password.uid.gid.gcos.shell.home</pre> Any <a href="/jargon/d/delimite.htm">delimiter</a> can be used to separate the field names. </td>
+</tr>
+<tr class="tcw">
+<td><b>-</b><i>&lt;number&gt;</i></td>
+<td>Causes <b>a2p</b> to assume that input always have that many fields.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b></td>
+<td>Tells <b>a2p</b> to use old <b>awk</b> behavior. The differences are:<ol><li> that old <b>awk</b> always has a line loop even if there are no line actions, whereas new <b>awk</b> does not; and </li> <li>in old <b>awk</b>, sprintf is extremely greedy about its <a href="/jargon/a/argument.htm">arguments</a>.</li> </ol> For example, given the statement: <pre class="tcy">print sprintf(some_args), extra_args;</pre> old <b>awk</b> considers <b>extra_args</b> to be arguments to <b>sprintf</b>; new <b>awk</b> considers them arguments to <b>print</b>. </td>
+</tr>
+</table>
+<h2 id="considerations">Considerations</h2>
+<p class="tab"><b>a2p</b> cannot do as good a job translating as a human would, but it usually does pretty well. There are some areas where you may want to examine the <b>perl</b> script produced and tweak it some. Here are some of them, in no particular order.</p>
+<ul>
+<li>There is an <b>awk</b> idiom of putting <b>int()</b> around a <a href="/jargon/s/string.htm">string</a> <a href="/jargon/e/expressi.htm">expression</a> to force numeric interpretation, even though the argument is always an <a href="/jargon/i/integer.htm">integer</a>. This is generally unneeded in <b>perl</b>, but <b>a2p</b> can't tell if the argument is always going to be integer, so it leaves it in. You may want to remove it.</li>
+<li><b>Perl</b> differentiates numeric comparison from <a href="/jargon/s/string.htm">string</a> comparison. <b>Awk</b> has one operator for both that decides at run time which comparison to do. <b>A2p</b> does not try to do a complete job of <b>awk</b> emulation at this point. Instead it guesses which one you want. It's often right, but it can be spoofed. All such guesses are marked with the comment <b>""#???""</b>. You should go through and check them. You might want to run at least once with the <b>-w</b> switch to <b>perl</b>, which will warn you if you use <b>==</b> where you should have used <b>eq</b>.</li>
+<li><b>Perl</b> does not attempt to emulate the behavior of <b>awk</b> where nonexistent <a href="/jargon/a/array.htm">array</a> elements spring into existence by being referenced. If somehow you are relying on this mechanism to create null entries for a subsequent <b>for...in</b>, they won't be there in <b>perl</b>.</li>
+<li>If <b>a2p</b> makes a split line that assigns to a list of <a href="/jargon/v/variable.htm">variables</a> that looks like (<b>Fld1</b>, <b>Fld2</b>, <b>Fld3...</b>) you may want to rerun <b>a2p</b> using the <b>-n</b> option mentioned above. This lets you name the fields throughout the script. If it splits to an array instead, the script is probably referring to the number of fields somewhere.</li>
+<li>The <b>exit</b> statement in <b>awk</b> doesn't necessarily exit; it goes to the END block if there is one. <b>Awk</b> scripts that do contortions in the END block to bypass the block under such circumstances can be simplified by removing the conditional in the END block and exiting directly from the <b>perl</b> script.</li>
+<li><b>Perl</b> has two kinds of array, numerically-indexed and associative. <b>Perl</b> associative arrays are called "hashes". <b>Awk</b> arrays are usually translated to hashes, but if you happen to know that the index is always going to be numeric you could change the {<b>...</b>} to [<b>...</b>]. Iteration over a hash is done using the keys() function, but iteration over an array is NOT. You might need to modify any loop that iterates over such an array.</li>
+<li><b>Awk</b> starts by assuming OFMT has the value <b>%.6g</b>. <b>Perl</b> starts by assuming its equivalent, <b>$#</b>, to have the value <b>%.20g</b>. You'll want to set <b>$#</b> explicitly if you use the default value of OFMT.</li>
+<li>Near the top of the line loop will be the split operation that is implicit in the <b>awk</b> script. There are times when you can move this down past some conditionals that test the entire record so that the split is not done as often.</li>
+<li>For aesthetic reasons you may want to change index variables from being 1-based (<b>awk</b> style) to 0-based (<b>Perl</b> style). Be sure to change all operations the variable is involved in to match.</li>
+<li>Immature comments such as "# perl is better than awk" are not modified, and pass through as-is.</li>
+<li><b>Awk</b> scripts are often embedded in a <a href="/jargon/s/shell.htm">shell</a> script that pipes stuff into and out of <b>awk</b>. Often, the shell script wrapper can be incorporated into the <b>perl</b> script since <b>perl</b> can start up pipes into and out of itself, and can do other things that <b>awk</b> can't do by itself.</li>
+<li>Scripts that refer to the special variables RSTART and RLENGTH can often be simplified by referring to the variables <b>$&#96;</b>, <b>$&amp;</b> and <b>$'</b>, as long as they are within the scope of the pattern match that sets them.</li>
+<li>The produced <b>perl</b> script may have subroutines defined to deal with <b>awk</b>'s semantics regarding getline and print. Since <b>a2p</b> usually picks correctness over efficiency. It is almost always possible to rewrite such code to be more efficient by discarding the semantic sugar.</li>
+<li>For efficiency, you may want to remove the keyword from any return statement that is the last statement executed in a subroutine. <b>a2p</b> catches the most common case, but doesn't analyze embedded blocks for subtler cases.</li>
+<li><b>ARGV[0]</b> translates to <b>$ARGV0</b>, but <b>ARGV[n]</b> translates to <b>$ARGV[$n-1]</b>. A loop that tries to iterate over <b>ARGV[0]</b> won't find it.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">a2p myfile.awk</pre>
+<p class="tab">This command will read the file <b>myfile.awk</b> and output the perl version of the same script to standard output. To write the output to a file, use the following command:</p>
+<pre class="tcy tab">a2p myfile.awk &gt; myfile.pl</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uawk.htm"><b>awk</b></a> &mdash; <a href="/jargon/i/interpre.htm">Interpreter</a> for the AWK text processing programming language.<br><a href="/jargon/p/perl.htm"><b>perl</b></a> &mdash; Interpreter for the Perl programming language.<br><a href="/unix/us2p.htm"><b>s2p</b></a> &mdash; Convert a <b>sed</b> script into a Perl script.<br><a href="/unix/used.htm"><b>sed</b></a> &mdash; A utility for filtering and transforming text.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82aa7d44c424',m:'AvL33OZYv8N2Y5wPy5zifAIyCPwDmQZ6y4OinG0lA4I-1661495338-0-Aa8SG1Jd0a8fdptd0tOaLGUm+wyTIcC8KAjnlMWlsGfPRUiS8OKVj72f/u+0rF/p74RpiqoGjwpL8IsB+hwfzdVz+hg3LKso40AmYTI0vlKkQD8Lj88uMqaXH5nL2zwvMw==',s:[0x54e832e724,0x9f2230a0d2],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux Xorg command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/xorg.gif" width="300" height="300" alt="xorg command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>Xorg</b> is the <a href="/jargon/e/execfile.htm">executable</a> of the <a href="/jargon/x/xwin.htm">X Window System</a> <a href="/jargon/s/server.htm">server</a>, developed by the <a href="/jargon/x/xorg-foundation.htm">X.org foundation</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>Xorg</b> is a full-featured X server that was originally designed for <a href="/jargon/u/unix.htm">Unix</a> and <a href="/jargon/u/unix-like.htm">Unix-like</a> <a href="/jargon/o/os.htm">operating systems</a>, such as <a href="/jargon/l/linux.htm">Linux</a>, running on <a href="/comp/intel.htm">Intel</a> <a href="/jargon/x/x86.htm">x86</a> <a href="/jargon/h/hardware.htm">hardware</a>. It now runs on a wider range of <a href="/jargon/p/platform.htm">platforms</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">Xorg [:<i>display</i>] [<i>option</i> ...]</pre>
+<h2>Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:260px"><b>vt</b><i>XX</i></td>
+<td><i>XX</i> specifies the Virtual Terminal device number which <b>Xorg</b> will use. Without this option, <b>Xorg</b> will pick the first available Virtual Terminal that it can locate. This option applies only to platforms that have virtual <a href="/jargon/t/terminal.htm">terminal</a> support, such as Linux, <a href="/jargon/b/bsd.htm">BSD</a>, <a href="/jargon/s/solaris.htm">OpenSolaris</a>, SVR3, and SVR4.</td>
+</tr>
+<tr class="tcw">
+<td><b>-allowMouseOpenFail</b></td>
+<td>Allow the server to start up even if the mouse device can't be opened or <a href="/jargon/i/initiali.htm">initialized</a>. This is equivalent to the <b>AllowMouseOpenFail</b> file option in the configuration file, <b>xorg.conf</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-allowNonLocalXvidtune</b></td>
+<td>Make the VidMode extension available to remote clients. This allows the xvidtune client to connect from another host. This is equivalent to the <b>AllowNonLocalXvidtune</b> file option in <b>xorg.conf</b>. By default, non-local connections are not allowed.</td>
+</tr> 
+<tr class="tcw">
+<td><b>-bgamma</b> <i>value</i></td>
+<td>Set the blue gamma correction. The <i>value</i> must be between <b>0.1</b> and <b>10</b>. The default is <b>1.0</b>. Not all <a href="/jargon/d/driver.htm">drivers</a> support this. See also the <b>-gamma</b>, <b>-rgamma</b>, and <b>-ggamma</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-bpp</b> <i>n</i></td>
+<td>No longer supported. Use <b>-depth</b> to set the color depth, and use <b>-fbbpp</b> if you really need to force a non-default framebuffer (hardware) <a href="/jargon/p/pixel.htm">pixel</a> format.</td>
+</tr>
+<tr class="tcw">
+<td><b>-config</b> <i>file</i></td>
+<td>Read the server configuration from file. This option will work for any file when the server is run as <a href="/jargon/r/root.htm">root</a> (i.e., with real-<a href="/jargon/u/username.htm">uid</a> 0), or for files relative to a directory in the config search <a href="/jargon/p/path.htm">path</a> for all other users.</td>
+</tr>
+<tr class="tcw">
+<td><b>-configdir</b> <i>directory</i></td>
+<td>Read the server configuration files from <i>directory</i>. This option will work for any directory when the server is run as root (i.e, with real-uid 0), or for directories relative to a directory in the config directory search path for all other users.</td>
+</tr>
+<tr class="tcw">
+<td><b>-configure</b></td>
+<td>When this option is specified, the <b>Xorg</b> server loads all video driver modules, probes for available hardware, and writes out an initial <b>xorg.conf</b> file based on what was detected. This option currently has some problems on some platforms, but in most cases it is a good way to bootstrap the configuration process. This option is only available when the server is run as root (i.e, with real-uid 0).</td>
+</tr>
+<tr class="tcw">
+<td><b>-depth</b> <i>n</i></td>
+<td>Sets the default color depth. Legal values are <b>1</b>, <b>4</b>, <b>8</b>, <b>15</b>, <b>16</b>, and <b>24</b>. Not all drivers support all values.</td>
+</tr>
+<tr class="tcw">
+<td><b>-disableVidMode</b></td>
+<td>Disable the parts of the VidMode extension (used by the xvidtune client) that can be used to change the video modes. This is equivalent to the <b>DisableVidModeExtension</b> file option in <b>xorg.conf</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-fbbpp</b> <i>n</i></td>
+<td>Sets the number of framebuffer bits per pixel. You should only set this if you're sure it's necessary; normally the server can deduce the correct value from <b>-depth</b>, above. Useful if you want to run a depth 24 configuration with a 24 bpp framebuffer rather than the (possibly default) 32 bpp framebuffer (or vice versa). Legal values are 1, 8, 16, 24, 32. Not all drivers support all values.</td>
+</tr>
+<tr class="tcw">
+<td><b>-flipPixels</b></td>
+<td>Swap the default values for the black and white pixels.</td>
+</tr>
+<tr class="tcw">
+<td><b>-gamma</b> <i>value</i></td>
+<td>Set the gamma correction. The <i>value</i> must be between <b>0.1</b> and <b>10</b>. The default is <b>1.0</b>. This value is applied equally to the R, G and B values. Those values can be set independently with the <b>-rgamma</b>, <b>-bgamma</b>, and <b>-ggamma</b> options. Not all drivers support this.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ggamma</b> <i>value</i></td>
+<td>Set the green gamma correction. The <i>value</i> must be between <b>0.1</b> and <b>10</b>. The default is <b>1.0</b>. Not all drivers support this. See also the <b>-gamma</b>, <b>-rgamma</b>, and <b>-bgamma</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ignoreABI</b></td>
+<td>The <b>Xorg</b> server checks the ABI revision levels of each module that it loads. It will normally refuse to load modules with ABI revisions that are newer than the server's. This is because such modules might use interfaces that the server does not have. When this option is specified, mismatches like this are downgraded from fatal errors to warnings. This option should be used with care.</td>
+</tr>
+<tr class="tcw">
+<td><b>-isolateDevice</b> <i>bus-id</i></td>
+<td>Restrict device resets to the device at <i>bus-id</i>. The <i>bus-id</i> <a href="/jargon/s/string.htm">string</a> has the form <i>bustype</i><b>:</b><i>bus</i><b>:</b><i>device</i><b>:</b><i>function</i> (e.g., "<b>PCI:1:0:0</b>"). At present, only isolation of <a href="/jargon/p/pci.htm">PCI</a> devices is supported; i.e., this option is ignored if bustype is anything other than "<b>PCI</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-keeptty</b></td>
+<td>Prevent the server from detaching its initial controlling terminal. This option is only useful when <a href="/jargon/d/debug.htm">debugging</a> the server. Not all platforms support (or can use) this option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-keyboard</b> <i>keyboard-name</i></td>
+<td>Use the <b>xorg.conf</b> file <b>InputDevice</b> section (see <a href="#xorg.conf">below</a>) called <i>keyboard-name</i> as the core keyboard. This option is ignored when the <b>Layout</b> section specifies a core keyboard. In the absence of both a <b>Layout</b> section and this option, the first relevant <b>InputDevice</b> section is used for the core keyboard.</td>
+</tr>
+<tr class="tcw">
+<td><b>-layout</b> <i>layout-name</i></td>
+<td>Use the <b>xorg.conf</b> file <b>Layout</b> section called <i>layout-name</i>. By default, the first <b>Layout</b> section is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-logfile</b> <i>filename</i></td>
+<td>Use the file called <i>filename</i> as the <b>Xorg</b> server log file. The default log file is <b>/var/log/Xorg.</b><i>n</i><b>.log</b> on most platforms, where <i>n</i> is the display number of the <b>Xorg</b> server. The default may be in a different directory on some platforms. This option is only available when the server is run as root (i.e, with real-uid 0).</td>
+</tr>
+<tr class="tcw">
+<td><b>-logverbose</b> [<i>n</i>]</td>
+<td>Sets the <a href="/jargon/v/verbose.htm">verbosity</a> level for information printed to the <b>Xorg</b> server log file. If the <i>n</i> value isn't supplied, each occurrence of this option increments the log file verbosity level. When the <i>n</i> value is supplied, the log file verbosity level is set to that value. The default log file verbosity level is <b>3</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-modulepath</b> <i>searchpath</i></td>
+<td>Set the module search path to <i>searchpath</i>. The <i>searchpath</i> is a comma separated list of directories to search for <b>Xorg</b> server modules. This option is only available when the server is run as root (i.e, with real-uid 0).</td>
+</tr>
+<tr class="tcw">
+<td><b>-nosilk</b></td>
+<td>Disable Silken Mouse (smooth mouse movement) support.</td>
+</tr>
+<tr class="tcw">
+<td><b>-novtswitch</b></td>
+<td>Disable the automatic switching on X server reset and shutdown to the VT that was active when the server started, if supported by the <a href="/os.htm">OS</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-pixmap24</b></td>
+<td>Set the internal pixmap format for depth 24 pixmaps to 24 bits per pixel. The default is usually 32 bits per pixel. There is normally little reason to use this option. Some client applications don't like this pixmap format, even though it is a perfectly legal format. This is equivalent to the Pixmap <b>xorg.conf</b> file option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-pixmap32</b></td>
+<td>Set the internal pixmap format for depth 24 pixmaps to 32 bits per pixel. This is usually the default. This is equivalent to the Pixmap <b>xorg.conf</b> file option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-pointer</b> <i>pointer-name</i></td>
+<td>Use the <b>xorg.conf</b> file <b>InputDevice</b> section called <i>pointer-name</i> as the core pointer. This option is ignored when the <b>Layout</b> section specifies a core pointer. In the absence of both a <b>Layout</b> section and this option, the first relevant <b>InputDevice</b> section is used for the core pointer.</td>
+</tr>
+<tr class="tcw">
+<td><b>-quiet</b></td>
+<td>Suppress most informational messages at startup. The verbosity level is set to zero.</td>
+</tr>
+<tr class="tcw">
+<td><b>-rgamma</b> <i>value</i></td>
+<td>Set the red gamma correction. The value must be between <b>0.1</b> and <b>10</b>. The default is <b>1.0</b>. Not all drivers support this. See also the <b>-gamma</b>, <b>-bgamma</b>, and <b>-ggamma</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-sharevts</b></td>
+<td>Share virtual terminals with another X server, if supported by the OS.</td>
+</tr>
+<tr class="tcw">
+<td><b>-screen</b> <i>screen-name</i></td>
+<td>Use the <b>xorg.conf</b> file <i>Screen</i> section called <i>screen-name</i>. By default, the screens referenced by the default <i>Layout</i> section are used, or the first <i>Screen</i> section when there are no Layout sections.</td>
+</tr>
+<tr class="tcw">
+<td><b>-showconfig</b></td>
+<td>This is the same as the <b>-version</b> option, and is included for compatibility reasons. It may be removed in a future release, so the <b>-version</b> option should be used instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>-showDefaultModulePath</b></td>
+<td>Print out the default module path the server was <a href="/jargon/c/compile.htm">compiled</a> with.</td>
+</tr>
+<tr class="tcw">
+<td><b>-showDefaultLibPath</b></td>
+<td>Print out the path libraries should be installed to.</td>
+</tr>
+<tr class="tcw">
+<td><b>-showopts</b></td>
+<td>For each driver module installed, print out the list of options and their argument types.</td>
+</tr>
+<tr class="tcw">
+<td><b>-weight</b> <i>nnn</i></td>
+<td>Set RGB weighting at 16 bpp. The default is 565. This applies only to those drivers which support 16 bpp.</td>
+</tr>
+<tr class="tcw">
+<td><b>-verbose</b> [<i>n</i>]</td>
+<td>Sets the verbosity level for information printed on stderr. If the <i>n</i> value isn't supplied, each occurrence of this option increments the verbosity level. When the <i>n</i> value is supplied, the verbosity level is set to that value. The default verbosity level is <b>0</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-version</b></td>
+<td>Print out the server version, patchlevel, release date, the operating system/platform it was built on, and whether it includes module loader support.</td>
+</tr>
+</table>
+<h2>Keyboard</h2>
+<p class="tab">The <b>Xorg</b> server is normally configured to recognize various special combinations of key presses that instruct the server to perform some action, rather than just sending the key press event to a client application. These actions depend on the XKB keymap loaded by a particular keyboard device and may or may not be available on a given configuration.</p>
+<p class="tab">The following key combinations are commonly part of the default XKEYBOARD keymap.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px"><b>Ctrl</b>+<b>Alt</b>+<b>Backspace</b></td>
+<td>Immediately kills the server, no questions asked. It can be disabled by setting the <b>DontZap</b> xorg.conf file option to a TRUE value. It should be noted that zapping is triggered by the Terminate_Server action in the keyboard map. This action is not part of the default keymaps but can be enabled with the XKB option "<b>terminate:ctrl_alt_bksp</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>Ctrl</b>+<b>Alt</b>+<b>Keypad-Plus</b></td>
+<td>Change video mode to next one specified in the configuration file. This can be disabled with the <b>DontZoom</b> xorg.conf file option.</td>
+</tr>
+<tr class="tcw">
+<td><b>Ctrl</b>+<b>Alt</b>+<b>Keypad-Minus</b></td>
+<td>Change video mode to previous one specified in the configuration file. This can be disabled with the <b>DontZoom</b> xorg.conf file option.</td>
+</tr>
+<tr class="tcw">
+<td><b>Ctrl</b>+<b>Alt</b>+<b>F1</b>...<b>F12</b></td>
+<td>For systems with virtual terminal support, these keystroke combinations are used to switch to virtual terminals 1 through 12, respectively. This can be disabled with the <b>DontVTSwitch</b> xorg.conf file option.</td>
+</tr>
+</table>
+<h2>Configuration</h2>
+<p class="tab"><b>Xorg</b> typically uses a configuration file called <b>xorg.conf</b> and configuration files with the suffix <b>.conf</b> in a directory called <b>xorg.conf.d</b> for its initial setup. Refer to the <a href="#xorg.conf">xorg.conf</a> section below for information about the format of this file.</p>
+<p class="tab"><b>Xorg</b> has a mechanism for automatically generating a built-in configuration at <a href="/jargon/r/runtime.htm">run time</a> when no <b>xorg.conf</b> file or <b>xorg.conf.d</b> files are present. The current version of this automatic configuration mechanism works in two ways.</p>
+<p class="tab">The first is via enhancements that have made many components of the <b>xorg.conf</b> file optional. This means that information that can be probed or reasonably deduced doesn't need to be specified explicitly, greatly reducing the amount of built-in configuration information that needs to be generated at run time.</p>
+<p class="tab">The second is to have "safe" fallbacks for most configuration information. This maximises the likelihood that the <b>Xorg</b> server will start up in some usable configuration even when information about the specific hardware is not available.</p>
+<p class="tab">The automatic configuration support for <b>Xorg</b> is work in progress. It is currently aimed at the most popular hardware and software platforms supported by <b>Xorg</b>. Enhancements are planned for future releases.</p>
+<h2>Files used by xorg</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:300px"><b>/etc/X11/xorg.conf</b></td>
+<td>Server configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/X11/xorg.conf-4</b></td>
+<td>Server configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/xorg.conf</b></td>
+<td>Server configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/etc/xorg.conf</b></td>
+<td>Server configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/lib/X11/xorg.conf</b></td>
+<td>Server configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/X11/xorg.conf.d</b></td>
+<td>Server configuration directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/X11/xorg.conf.d-4</b></td>
+<td>Server configuration directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/xorg.conf.d</b></td>
+<td>Server configuration directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/etc/xorg.conf.d</b></td>
+<td>Server configuration directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/lib/X11/xorg.conf.d</b></td>
+<td>Server configuration directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>/var/log/Xorg.</b><i>n</i><b>.log</b></td>
+<td>Server log file for display <i>n</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/bin/*</b></td>
+<td>Client binaries.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/include/*</b></td>
+<td>Header files.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/lib/*</b></td>
+<td>Libraries.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/share/fonts/X11/*</b></td>
+<td>Fonts.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/share/X11/XErrorDB</b></td>
+<td>Client error message database.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/lib/X11/app-defaults/*</b></td>
+<td>Client resource specifications.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/share/man/man?/*</b></td>
+<td>Manual pages.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/Xn.hosts</b></td>
+<td>Initial access control list for display <i>n</i>.</td>
+</tr>
+</table>
+<h2 id="xorg.conf">Xorg configuration</h2>
+<p class="tab"><b>Xorg</b> supports several mechanisms for supplying/obtaining configuration and run time parameters: <a href="/jargon/c/commandi.htm">command line</a> options, <a href="/jargon/e/envivari.htm">environment variables</a>, the <b>xorg.conf</b> and <b>xorg.conf.d</b> configuration files, auto-detection, and fallback defaults. When the same information is supplied in more than one way, the highest precedence mechanism is used. The list of mechanisms is ordered from highest precedence to lowest. Note that not all parameters can be supplied via all methods. Most configuration file parameters, with their defaults, are described here. <b>Xorg</b> uses a configuration file called <b>xorg.conf</b> and files ending in the suffix <b>.conf</b> from the directory <b>xorg.conf.d</b> for its initial setup. The <b>xorg.conf</b> configuration file is searched for in the following places when the server is started as a normal user:</p>
+<p class="tab"><b>/etc/X11/</b><i>&lt;cmdline&gt;</i><br><b>/usr/etc/X11/</b><i>&lt;cmdline&gt;</i><br><b>/etc/X11/$XORGCONFIG</b><br><b>/usr/etc/X11/$XORGCONFIG</b><br><b>/etc/X11/xorg.conf</b><br><b>/etc/xorg.conf</b><br><b>/usr/etc/X11/xorg.conf.</b><i>&lt;hostname&gt;</i><br><b>/usr/etc/X11/xorg.conf</b><br><b>/usr/lib/X11/xorg.conf.</b><i>&lt;hostname&gt;</i><br><b>/usr/lib/X11/xorg.conf</b></p>
+<p class="tab">where <i>&lt;cmdline&gt;</i> is a relative path (with no "<b>..</b>" components) specified with the <b>-config</b> command line option, <b>$XORGCONFIG</b> is the relative path (with no "<b>..</b>" components) specified by that environment variable, and <i>&lt;hostname&gt;</i> is the machine's <a href="/jargon/h/hostname.htm">hostname</a> as reported by gethostname.</p>
+<p class="tab">When the <b>Xorg</b> server is started by the root user, the config file search locations are as follows:</p>
+<p class="tab"><i>&lt;cmdline&gt;</i><br><b>/etc/X11/</b><i>&lt;cmdline&gt;</i><br><b>/usr/etc/X11/</b><i>&lt;cmdline&gt;</i><br><b>$XORGCONFIG</b><br><b>/etc/X11/$XORGCONFIG</b><br><b>/usr/etc/X11/$XORGCONFIG</b><br><b>/etc/X11/xorg.conf</b><br><b>/etc/xorg.conf</b><br><b>/usr/etc/X11/xorg.conf.</b><i>&lt;hostname&gt;</i><br><b>/usr/etc/X11/xorg.conf</b><br><b>/usr/lib/X11/xorg.conf.</b><i>&lt;hostname&gt;</i><br><b>/usr/lib/X11/xorg.conf</b></p>
+<p class="tab">where <i>&lt;cmdline&gt;</i> is the path specified with the <b>-config</b> command line option (which may be absolute or relative), <b>$XORGCONFIG</b> is the path specified by that environment variable (absolute or relative), <b>$HOME</b> is the path specified by that environment variable (usually the home directory), and <b>&lt;hostname&gt;</b> is the machine's hostname as reported by <b>gethostname</b>.</p>
+<p class="tab">Additional configuration files are searched for in the following directories when the server is started as a normal user:</p>
+<p class="tab"><b>/etc/X11/</b><i>&lt;cmdline&gt;</i><br><b>/etc/X11/</b><i>&lt;cmdline&gt;</i><br><b>/etc/X11/xorg.conf.d</b><br><b>/etc/X11/xorg.conf.d</b></p>
+<p class="tab">where <b>&lt;cmdline&gt;</b> is a relative path (with no "<b>..</b>" components) specified with the <b>-configdir</b> command line option.</p>
+<p class="tab">When the <b>Xorg</b> server is started by the root user, the config directory search locations are as follows:</p>
+<p class="tab"><i>&lt;cmdline&gt;</i><br><b>/etc/X11/</b><i>&lt;cmdline&gt;</i><br><b>/etc/X11/</b><i>&lt;cmdline&gt;</i><br><b>/etc/X11/xorg.conf.d</b><br><b>/etc/X11/xorg.conf.d</b></p>
+<p class="tab">where <b>&lt;cmdline&gt;</b> is the path specified with the <b>-configdir</b> command line option (which may be absolute or relative).</p>
+<p class="tab">Finally, configuration files will also be searched for in directories reserved for system use. These are to separate configuration files from the vendor or 3rd party packages from those of local administration. These files are found in the following directories:</p>
+<p class="tabb">/usr/share/X11/xorg.conf.d<br> /usr/share/X11/xorg.conf.d</p>
+<p class="tab">The <b>xorg.conf</b> and <b>xorg.conf.d</b> files are composed of many sections which may be present in any order, or omitted to use default configuration values. Each section has the form:</p>
+<pre class="tab tcy">Section  "SectionName"
+    SectionEntry
+    ...
+EndSection</pre>
+<p class="tab">The section names are:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>Files</b></td>
+<td>File path names.</td>
+</tr>
+<tr class="tcw">
+<td><b>ServerFlags</b></td>
+<td>Server flags.</td>
+</tr>
+<tr class="tcw">
+<td><b>Module</b></td>
+<td>Dynamic module loading.</td>
+</tr>
+<tr class="tcw">
+<td><b>Extensions</b></td>
+<td>Extension enabling.</td>
+</tr>
+<tr class="tcw">
+<td><b>InputDevice</b></td>
+<td>Input device description.</td>
+</tr>
+<tr class="tcw">
+<td><b>InputClass</b></td>
+<td>Input class description.</td>
+</tr>
+<tr class="tcw">
+<td><b>Device</b></td>
+<td>Graphics device description.</td>
+</tr>
+<tr class="tcw">
+<td><b>VideoAdaptor</b></td>
+<td>Xv video adaptor description.</td>
+</tr>
+<tr class="tcw">
+<td><b>Monitor</b></td>
+<td>Monitor description.</td>
+</tr>
+<tr class="tcw">
+<td><b>Modes</b></td>
+<td>Video modes descriptions.</td>
+</tr>
+<tr class="tcw">
+<td><b>Screen</b></td>
+<td>Screen configuration.</td>
+</tr>
+<tr class="tcw">
+<td><b>ServerLayout</b></td>
+<td>Overall layout.</td>
+</tr>
+<tr class="tcw">
+<td><b>DRI</b></td>
+<td>DRI-specific configuration.</td>
+</tr>
+<tr class="tcw">
+<td><b>Vendor</b></td>
+<td>Vendor-specific configuration.</td>
+</tr>
+</table>
+<p class="tab">The following obsolete section names are still recognised for compatibility purposes. In new config files, the InputDevice section should be used instead.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>Keyboard</b></td>
+<td>Keyboard configuration.</td>
+</tr>
+<tr class="tcw">
+<td><b>Pointer</b></td>
+<td>Pointer/mouse configuration.</td>
+</tr>
+</table>
+<p class="tab">(The old <b>XInput</b> section from previous versions is no longer recognized.)</p>
+<p class="tab">The <b>ServerLayout</b> sections are at the highest level. They bind together the input and output devices that will be used in a session. The input devices are described in the <b>InputDevice</b> sections. Output devices usually consist of multiple independent components (e.g., a graphics board and a monitor). These multiple components are bound together in the <b>Screen</b> sections, and it is these that are referenced by the <b>ServerLayout</b> section. Each <b>Screen</b> section binds together a graphics board and a monitor. The graphics boards are described in the <b>Device</b> sections, and the monitors are described in the <b>Monitor</b> sections.</p>
+<p class="tab">Config file keywords are case-insensitive, and "<b>_</b>" characters are ignored. Most strings (including Option names) are also case-insensitive, and insensitive to <a href="/jargon/w/whitspac.htm">white space</a> and "<b>_</b>" characters.</p>
+<p class="tab">Each config file entry usually takes up a single line in the file. They consist of a keyword, which is possibly followed by one or more arguments, with the number and types of the arguments depending on the keyword. The argument types are:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>Integer</b></td>
+<td>An <a href="/jargon/i/integer.htm">integer</a> number in <a href="/jargon/d/decimal.htm">decimal</a>, <a href="/jargon/h/hex.htm">hex</a> or <a href="/jargon/o/octal.htm">octal</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Real</b></td>
+<td>A floating point number.</td>
+</tr>
+<tr class="tcw">
+<td><b>String</b></td>
+<td>A string enclosed in double quote marks (<b>"</b>).</td>
+</tr>
+</table>
+<p class="tab">Note: hex integer values must be prefixed with "<b>0x</b>", and octal values with "<b>0</b>".</p>
+<p class="tab">A special keyword called <b>Option</b> may be used to provide free-form data to various components of the server. The <b>Option</b> keyword takes either one or two string arguments. The first is the option name, and the optional second argument is the option value. Some commonly used option value types include:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>Integer</b></td>
+<td>An integer number in decimal, hex or octal.</td>
+</tr>
+<tr class="tcw">
+<td><b>Real</b></td>
+<td>A floating point number.</td>
+</tr>
+<tr class="tcw">
+<td><b>String</b></td>
+<td>A sequence of characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>Boolean</b></td>
+<td>A <a href="/jargon/b/boolean.htm">boolean</a> value (see below).</td>
+</tr>
+<tr class="tcw">
+<td><b>Frequency</b></td>
+<td>A frequency value (see below).</td>
+</tr>
+</table>
+<p class="tab">Note that all <b>Option</b> values, not just strings, must be enclosed in quotes.</p>
+<p class="tab">Boolean options may optionally have a value specified. When no value is specified, the option's value is TRUE. The following boolean option values are recognised as TRUE:</p>
+<p class="tabb">1<br> on<br> true<br> yes</p>
+<p class="tab">and the following boolean option values are recognised as FALSE:</p>
+<p class="tabb">0<br> off<br> false<br> no</p>
+<p class="tab">If an option name is prefixed with "<b>No</b>", then the option value is negated.</p>
+<p class="tab">Example: the following option entries are equivalent:</p>
+<pre class="tab tcy">Option "Accel"   "Off"</pre>
+<pre class="tab tcy">Option "NoAccel"</pre>
+<pre class="tab tcy">Option "NoAccel" "On"</pre>
+<pre class="tab tcy">Option "Accel"   "false"</pre>
+<pre class="tab tcy">Option "Accel"   "no"</pre>
+<p class="tab">Frequency option values consist of a real number that is optionally followed by one of the following frequency units:</p>
+<p class="tabb">Hz<br> k<br> kHz<br> M<br> MHz</p>
+<p class="tab">When the unit name is omitted, the correct units will be determined from the value and the expectations of the appropriate range of the value. It is recommended that the units always be specified when using frequency option values to avoid any errors in determining the value.</p>
+<h2>The files section</h2>
+<p class="tab">The <b>Files</b> section is used to specify some path names required by the server. Some of these paths can also be set from the command line. The command line settings override the values specified in the config file. The <b>Files</b> section is optional, as are all of the entries that may appear in it.</p>
+<p class="tab">The entries that can appear in this section are:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>FontPath "</b><i>path</i><b>"</b></td>
+<td><p>Sets the search path for fonts. This path is a comma separated list of font path elements which the <b>Xorg</b> server searches for font databases. Multiple <b>FontPath</b> entries may be specified, and they will be concatenated to build up the fontpath used by the server. Font path elements can be absolute directory paths, catalogue directories or a font server identifier. The formats of the later two are explained below:</p>
+<p>Catalogue directories can be specified using the prefix catalogue: before the directory name. The directory can then be populated with symlinks pointing to the real font directories, using the following syntax in the symlink name:</p>
+<pre class="tcy">&lt;<i>identifier</i>&gt;:[<i>attribute</i>]:pri=&lt;<i>priority</i>&gt;</pre>
+<p>Where <b>&lt;identifier&gt;</b> is an alphanumeric identifier, <b>[attribute]</b> is an attribute which will be passed to the underlying FPE and <b>&lt;priority&gt;</b> is a number used to order the fontfile FPEs. Examples:</p>
+<pre class="tcy">75dpi:unscaled:pri=20 -&gt; /usr/share/X11/fonts/75dpi
+gscript:pri=60 -&gt; /usr/share/fonts/default/ghostscript
+misc:unscaled:pri=10 -&gt; /usr/share/X11/fonts/misc
+</pre>
+<p>Font server identifiers have the form:</p>
+<pre class="tcy">&lt;<i>trans</i>&gt;/&lt;<i>hostname</i>&gt;:&lt;<i>port-number</i>&gt;</pre>
+<p>Where <b>&lt;trans&gt;</b> is the transport type to use to connect to the font server (e.g., <b>unix</b> for UNIX-domain sockets or <b>tcp</b> for a TCP/IP connection), <b>&lt;hostname&gt;</b> is the hostname of the machine running the font server, and <b>&lt;port-number&gt;</b> is the port number that the font server is listening on (usually <b>7100</b>).</p>
+<p>When this entry is not specified in the config file, the server falls back to the compiled-in default font path, which contains the following font path elements (which can be set inside a catalogue directory):</p>
+<pre>/usr/share/fonts/X11/misc/
+/usr/share/fonts/X11/TTF/
+/usr/share/fonts/X11/OTF/
+/usr/share/fonts/X11/Type1/
+/usr/share/fonts/X11/100dpi/
+/usr/share/fonts/X11/75dpi/</pre>
+<p>Font path elements that are found to be invalid are removed from the font path when the server starts up.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>ModulePath "</b><i>path</i><b>"</b></td>
+<td>Sets the search path for loadable <b>Xorg</b> server modules. This path is a comma separated list of directories which the <b>Xorg</b> server searches for loadable modules loading in the order specified. Multiple <b>ModulePath</b> entries may be specified, and they will be concatenated to build the module search path used by the server. The default module path is <b>/usr/lib/xorg/modules</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>XkbDir "</b><i>path</i><b>"</b></td>
+<td>Sets the base directory for keyboard layout files. The <b>-xkbdir</b> command line option can be used to override this. The default directory is <b>/usr/share/X11/xkb</b>.</td>
+</tr>
+</table>
+<h2>The ServerFlags section</h2>
+<p class="tab">In addition to options specific to this section (described below), the <b>ServerFlags</b> section is used to specify some global <b>Xorg</b> server options. All of the entries in this section are <b>Options</b>, although for compatibility purposes some of the old style entries are still recognized. Those old style entries are not documented here, and using them is discouraged. The <b>ServerFlags</b> section is optional, as are the entries that may be specified in it.</p>
+<p class="tab">Options specified in this section (except for the "<b>DefaultServerLayout</b>" Option) may be overridden by <b>Options</b> specified in the active <b>ServerLayout</b> section. Options with command line equivalents are overridden when their command line equivalent is used. The options recognized by this section are:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:450px"><b>Option "DefaultServerLayout" "</b><i>layout-id</i><b>"</b></td>
+<td>This specifies the default <b>ServerLayout</b> section to use in the absence of the <b>-layout</b> command line option.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "NoTrapSignals" "</b><i>boolean</i><b>"</b></td>
+<td>This prevents the <b>Xorg</b> server from trapping a range of unexpected fatal signals and exiting cleanly. Instead, the <b>Xorg</b> server will die and drop core where the fault occurred. The default behaviour is for the <b>Xorg</b> server to exit cleanly, but still drop a core file. In general, you never want to use this option unless you are debugging an <b>Xorg</b> server problem and know how to deal with the consequences.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "UseSIGIO" "</b><i>boolean</i><b>"</b></td>
+<td>This controls whether the <b>Xorg</b> server requests that events from input devices be reported via a SIGIO signal handler (also known as SIGPOLL on some platforms), or only reported via the standard select loop. The default behaviour is platform specific. In general, you do not want to use this option unless you are debugging the <b>Xorg</b> server, or working around a specific bug until it is fixed, and understand the consequences.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "DontVTSwitch" "</b><i>boolean</i><b>"</b></td>
+<td>This disallows the use of the <b>Ctrl</b>+<b>Alt</b>+<b>Fn</b> sequence (where <b>Fn</b> refers to one of the numbered function keys). That sequence is normally used to switch to another "virtual terminal" on operating systems that have this feature. When this option is enabled, that key sequence has no special meaning and is passed to clients. Default: <b>off</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "DontZap" "</b><i>boolean</i><b>"</b></td>
+<td>This disallows the use of the Terminate_Server XKB action (usually on <b>Ctrl</b>+<b>Alt</b>+<b>Backspace</b>, depending on XKB options). This action is normally used to terminate the Xorg server. When this option is enabled, the action has no effect. Default: <b>off</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "DontZoom" "</b><i>boolean</i><b>"</b></td>
+<td>This disallows the use of the <b>Ctrl</b>+<b>Alt</b>+<b>Keypad</b>-<b>Plus</b> and <b>Ctrl</b>+<b>Alt</b>+<b>Keypad</b>-<b>Minus</b> sequences. These sequences allows you to switch between video modes. When this option is enabled, those key sequences have no special meaning and are passed to clients. Default: <b>off</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "DisableVidModeExtension" "</b><i>boolean</i><b>"</b></td>
+<td>This disables the parts of the <b>VidMode</b> extension used by the xvidtune client that can be used to change the video modes. Default: the VidMode extension is enabled.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "AllowNonLocalXvidtune" "</b><i>boolean</i><b>"</b></td>
+<td>This allows the xvidtune client (and other clients that use the <b>VidMode</b> extension) to connect from another host. Default: <b>off</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "AllowMouseOpenFail" "</b><i>boolean</i><b>"</b></td>
+<td>This tells the "mousedrv" and "vmmouse" drivers to not report failure if the mouse device can't be opened/initialised. It has no effect on the "evdev" or other drivers. Default: <b>false</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "BlankTime" "</b><i>time</i><b>"</b></td>
+<td>Sets the inactivity timeout for the blank phase of the <a href="/jargon/s/screen-saver.htm">screen saver</a>. The <i>time</i> is in minutes. This is equivalent to the <b>Xorg</b> server's <b>-s</b> flag, and the value can be changed at run time with <b><a href="/unix/uxset.htm">xset</a></b>. Default: 10 minutes.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "StandbyTime" "</b><i>time</i><b>"</b></td>
+<td>Sets the inactivity timeout for the standby phase of DPMS mode. The <i>time</i> is in minutes, and the value can be changed at run time with <b>xset</b>. Default: 10 minutes. This is only suitable for <a href="/jargon/v/vesa.htm">VESA</a> DPMS (<a href="/jargon/e/energyst.htm">Energy Star</a>) compatible monitors, and may not be supported by all video drivers. It is only enabled for screens that have the "DPMS" option set.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "SuspendTime" "</b><i>time</i><b>"</b></td>
+<td>Sets the inactivity timeout for the suspend phase of DPMS mode. The <i>time</i> is in minutes, and the value can be changed at run time with <b>xset</b>. Default: 10 minutes. This is only suitable for VESA DPMS compatible monitors, and may not be suauto-detectionpported by all video drivers. It is only enabled for screens that have the "DPMS" option set.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "OffTime" "</b><i>time</i><b>"</b></td>
+<td>Sets the inactivity timeout for the off phase of DPMS mode. The <i>time</i> is in minutes, and the value can be changed at run time with <b>xset</b>. Default: 10 minutes. This is only suitable for VESA DPMS compatible monitors, and may not be supported by all video drivers. It is only enabled for screens that have the "DPMS" option set.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "Pixmap" "</b><i>bpp</i><b>"</b></td>
+<td>This sets the pixmap format to use for depth 24. Allowed values for bpp are 24 and 32. Default: 32 unless driver constraints don't allow this (which is rare). Note: some clients don't behave well when this value is set to 24.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "NoPM" "</b><i>boolean</i><b>"</b></td>
+ <td>Disables something to do with power management events. Default: PM enabled on platforms that support it.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "Xinerama" "</b><i>boolean</i><b>"</b></td>
+<td>Enable or disable XINERAMA extension. Default is disabled.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "AIGLX" "</b><i>boolean</i><b>"</b></td>
+<td>Enable or disable AIGLX. AIGLX is enabled by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "DRI2" "</b><i>boolean</i><b>"</b></td>
+<td>Enable or disable DRI2. DRI2 is disabled by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "GlxVisuals" "</b><i>string</i><b>"</b></td>
+<td>This option controls how many GLX visuals the GLX modules sets up. The default value is typical, which will setup up a typical subset of the GLXFBConfigs provided by the driver as GLX visuals. Other options are minimal, which will set up the minimal set allowed by the GLX specification and all which will setup GLX visuals for all GLXFBConfigs.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "UseDefaultFontPath" "</b><i>boolean</i><b>"</b></td>
+<td>Include the default font path even if other paths are specified in xorg.conf. If enabled, other font paths are included as well. Enabled by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "IgnoreABI" "</b><i>boolean</i><b>"</b></td>
+<td>Allow modules built for a different, potentially incompatible version of the X server to load. Disabled by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "AutoAddDevices" "</b><i>boolean</i><b>"</b></td>
+<td>If this option is disabled, then no devices will be added from the HAL or udev backends. Enabled by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "AutoEnableDevices" "</b><i>boolean</i><b>"</b></td>
+<td>If this option is disabled, then the devices will be added (and the DevicePresenceNotify event sent), but not enabled, thus leaving policy up to the client. Enabled by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "Log" "</b><i>string</i><b>"</b></td>
+<td>This option controls whether the log is flushed and/or synced to disk after each message. Possible values are <b>flush</b> or <b>sync</b>. Unset by default.</td>
+</tr>
+</table>
+<h2>The Module section</h2>
+<p class="tab">The <b>Module</b> section is used to specify which <b>Xorg</b> server modules should be loaded. This section is ignored when the <b>Xorg</b> server is built in static form. The type of modules normally loaded in this section are Xorg server extension modules. Most other module types are loaded automatically when they are needed via other mechanisms. The Module section is optional, as are all of the entries that may be specified in it.</p>
+<p class="tab">Entries in this section may be in two forms. The first and most commonly used form is an entry that uses the <b>Load</b> keyword, as described here:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>Load "</b><i>modulename</i><b>"</b></td>
+<td><p>This instructs the server to load the module called <i>modulename</i>. The module name given should be the module's standard name, not the module file name. The standard name is case-sensitive, and does not include the "lib" or "cyg" prefixes, or the ".so" or ".dll" suffixes.</p>
+<p>Example: the DRI extension module can be loaded with the following entry:</p>
+<pre class="tcy">Load "dri"</pre>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>Disable "</b><i>modulename</i><b>"</b></td>
+<td>This instructs the server not to load the module called <i>modulename</i>. Some modules are loaded by default in the server, and this overrides that default. If a <b>Load</b> instruction is given for the same module, it overrides the <b>Disable</b> instruction and the module is loaded. The module name given should be the module's standard name, not the module file name. As with the <b>Load</b> instruction, the standard name is case-sensitive, and does not include the "lib" prefix, or the ".a", ".o", or ".so" suffixes.</td>
+</tr>
+</table>
+<p class="tab">The second form of entry is a <b>SubSection</b>, with the subsection name being the module name, and the contents of the SubSection being Options that are passed to the module when it is loaded.</p>
+<p class="tab">Example: the <b>extmod</b> module (which contains a miscellaneous group of server extensions) can be loaded, with the XFree86-DGA extension disabled, using the following entry:</p>
+<pre class="tab tcy">SubSection "extmod"
+   Option  "omit XFree86-DGA"
+EndSubSection</pre>
+<p class="tab">Modules are searched for in each directory specified in the <b>ModulePath</b> search path, and in the drivers, extensions, input, internal, and multimedia subdirectories of each of those directories. In addition to this, operating system specific subdirectories of all the above are searched first if they exist.</p>
+<p class="tab">To see what extension modules are available, check the extensions subdirectory under <b>/usr/lib/xorg/modules</b>.</p>
+<p class="tab">The "<b>extmod</b>", "<b>dbe</b>", "<b>dri</b>", "<b>dri2</b>", "<b>glx</b>", and "<b>record</b>" extension modules are loaded automatically, if they are present, unless disabled with "<b>Disable</b>" entries. It is recommended that at very least the "<b>extmod</b>" extension module be loaded. If it isn't, some commonly used server extensions (like the SHAPE extension) will not be available.</p>
+<h2>Extensions section</h2>
+<p class="tab">The <b>Extensions</b> section is used to specify which X11 protocol extensions should be enabled or disabled. The <b>Extensions</b> section is optional, as are all of the entries that may be specified in it.</p>
+<p class="tab">Entries in this section are listed as Option statements with the name of the extension as the first argument, and a boolean value as the second. The extension name is case-sensitive, and matches the form shown in the output of "<b>Xorg -extension ?</b>".</p>
+<p class="tab">Example: the <b>MIT-SHM</b> extension can be disabled with the following entry:</p>
+<pre class="tab tcy">Section "Extensions"
+    Option "MIT-SHM" "Disable"
+EndSection</pre>
+<h2>The InputDevice section</h2>
+<p class="tab">The config file may have multiple <b>InputDevice</b> sections. Recent X servers employ HAL or udev backends for input device enumeration and input hotplugging. It is usually not necessary to provide <b>InputDevice</b> sections in the <b>xorg.conf</b> if hotplugging is in use (i.e., <b>AutoAddDevices</b> is enabled). If hotplugging is enabled, <b>InputDevice</b> sections using the mouse, kbd and vmmouse driver will be ignored.</p>
+<p class="tab">If hotplugging is disabled, there will normally be at least two: one for the core (primary) keyboard and one for the core pointer. If either of these two is missing, a default configuration for the missing ones will be used. In the absence of an explicitly specified core input device, the first <b>InputDevice</b> marked as <b>CorePointer</b> (or <b>CoreKeyboard</b>) is used. If there is no match there, the first <b>InputDevice</b> that uses the "mouse" (or "kbd") driver is used. The final fallback is to use built-in default configurations. Currently the default configuration may not work as expected on all platforms. <b>InputDevice</b> sections have the following format:</p>
+<pre class="tab tcy">Section "InputDevice"
+     Identifier "name"
+     Driver     "inputdriver"
+     options
+     ...
+EndSection</pre>
+<p class="tab">The <b>Identifier</b> and <b>Driver</b> entries are required in all <b>InputDevice</b> sections. All other entries are optional.</p>
+<p class="tab">The <b>Identifier</b> entry specifies the unique name for this input device. The <b>Driver</b> entry specifies the name of the driver to use for this input device. When using the loadable server, the input driver module "<b>inputdriver</b>" will be loaded for each active <b>InputDevice</b> section. An <b>InputDevice</b> section is considered active if it is referenced by an active <b>ServerLayout</b> section, if it is referenced by the <b>-keyboard</b> or <b>-pointer</b> command line options, or if it is selected implicitly as the core pointer or keyboard device in the absence of such explicit references. The most commonly used input drivers are <b>evdev</b> on Linux systems, and <b>kbd</b> and <b>mousedrv</b> on other platforms.</p>
+<p class="tab"><b>InputDevice</b> sections recognise some driver-independent Options, which are described here.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:480px"><b>Option "AutoServerLayout" "</b><i>boolean</i><b>"</b></td>
+<td>Always add the device to the ServerLayout section used by this instance of the server. This affects implied layouts as well as explicit layouts specified in the configuration and/or on the command line.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "CorePointer"</b></td>
+<td>Deprecated, see <b>Floating</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "CoreKeyboard"</b></td>
+<td>Deprecated, see <b>Floating</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "AlwaysCore" "</b><i>boolean</i><b>"</b></td>
+<td>Deprecated, see <b>Floating</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "SendCoreEvents" "</b><i>boolean</i><b>"</b></td>
+<td>Deprecated, see <b>Floating</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "Floating" "</b><i>boolean</i><b>"</b></td>
+<td><p>When enabled, the input device is set up floating and does not report events through any master device or control a cursor. The device is only available to clients using the X Input Extension API. This option is disabled by default. The options <b>CorePointer</b>, <b>CoreKeyboard</b>, <b>AlwaysCore</b>, and <b>SendCoreEvents</b>, are the inverse of option <b>Floating</b> (i.e., <b>SendCoreEvents "on"</b> is equivalent to <b>Floating "off"</b>).</p>
+<p>This option controls the startup behavior only, a device may be reattached or set floating at runtime.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "TransformationMatrix" "</b><i>a b c d e f g h i</i><b>"</b></td>
+<td>Specifies the 3x3 transformation matrix for absolute input devices. The input device will be bound to the area given in the matrix. In most configurations, "<b>a</b>" and "<b>e</b>" specify the width and height of the area the device is bound to, and "<b>c</b>" and "<b>f</b>" specify the x and y offset of the area. The value range is 0 to 1, where 1 represents the width or height of all root windows together, 0.5 represents half the area, etc. The values represent a 3x3 matrix, with the first, second and third group of three values representing the first, second and third row of the matrix, respectively. The identity matrix is "<b>1 0 0 0 1 0 0 0 1</b>".</td>
+</tr>
+</table>
+<h2>Pointer acceleration options</h2>
+<p class="tab">For pointing devices, the following options control how the pointer is accelerated or decelerated with respect to physical device motion. Most of these can be adjusted at runtime with <b>xinput</b>. Only the most important acceleration options are discussed here.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:400px"><b>Option "AccelerationProfile" "</b><i>integer</i><b>"</b></td>
+<td>Select the profile. Essentially, the profile constitutes the "feeling" of the acceleration. More formally, it defines how the transfer function (actual acceleration as a function of current device velocity and acceleration controls) is constructed. This is mainly a matter of personal preference.<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:30px"><b>0</b></td>
+<td>Classic (mostly compatible).</td>
+</tr>
+<tr class="tcw">
+<td><b>-1</b></td>
+<td>None (only constant deceleration is applied).</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>Device-dependent.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>Polynomial (polynomial function)</td>
+</tr>
+<tr class="tcw">
+<td><b>3</b></td>
+<td>Smooth linear (soft knee, then linear).</td>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td>Simple (normal when slow, otherwise accelerated).</td>
+</tr>
+<tr class="tcw">
+<td><b>5</b></td>
+<td>Power (power function).</td>
+</tr>
+<tr class="tcw">
+<td><b>6</b></td>
+<td>Linear (more speed, more acceleration).</td>
+</tr>
+<tr class="tcw">
+<td><b>7</b></td>
+<td>Limited (like linear, but maxes out at threshold).</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "ConstantDeceleration" "</b><i>real</i><b>"</b></td>
+<td>Makes the pointer go deceleration times slower than normal. Most useful for high-resolution devices.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "AdaptiveDeceleration" "</b><i>real</i><b>"</b></td>
+<td>Allows to actually decelerate the pointer when going slow. At most, it will be adaptive deceleration times slower. Enables precise pointer placement without sacrificing speed.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "AccelerationScheme" "</b><i>string</i><b>"</b></td>
+<td><p>Selects the scheme, which is the underlying <a href="/jargon/a/algorith.htm">algorithm</a>.</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:140px"><b>predictable</b></td>
+<td>Default algorithm (behaving more predictable).</td>
+</tr>
+<tr class="tcw">
+<td><b>lightweight</b></td>
+<td>Old acceleration code (as specified in the X protocol spec).</td>
+</tr>
+<tr class="tcw">
+<td><b>none</b></td>
+<td>No acceleration or deceleration.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><p><b>Option "AccelerationNumerator" "</b><i>integer</i><b>"</b></p>
+<p><b>Option "AccelerationDenominator" "</b><i>integer</i><b>"</b></p>
+</td>
+<td>Set numerator and denominator of the acceleration factor. The acceleration factor is a rational which, together with threshold, can be used to tweak profiles to suit the users needs. The simple and limited profiles use it directly (i.e., they accelerate by the factor), for other profiles it should hold that a higher acceleration factor leads to a faster pointer. Typically, <b>1</b> is unaccelerated and values up to <b>5</b> are sensible.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "AccelerationThreshold" "</b><i>integer</i><b>"</b></td>
+<td>Set the threshold, which is roughly the velocity (usually device units per 10 ms) required for acceleration to become effective. The precise effect varies with the profile however.</td>
+</tr>
+</table>
+<h2>The InputClass section</h2>
+<p class="tab">The config file may have multiple <b>InputClass</b> sections. These sections are optional and are used to provide configuration for a class of input devices as they are automatically added. An input device can match more than one <b>InputClass</b> section. Each class can override settings from a previous class, so it is best to arrange the sections with the most generic matches first.</p>
+<p class="tab"><b>InputClass</b> sections have the following format:</p>
+<pre class="tab tcy">Section "InputClass"
+    Identifier  "name"
+    entries
+    ...
+    options
+    ...
+EndSection</pre>
+<p class="tab">The <b>Identifier</b> entry is required in all <b>InputClass</b> sections. All other entries are optional.</p>
+<p class="tab">The <b>Identifier</b> entry specifies the unique name for this input class. The <b>Driver</b> entry specifies the name of the driver to use for this input device. After all classes have been examined, the "<b>inputdriver</b>" module from the first <b>Driver</b> entry will be enabled when using the loadable server.</p>
+<p class="tab">When an input device is automatically added, its characteristics are checked against all <b>InputClass</b> sections. Each section can contain optional entries to narrow the match of the class. If none of the optional entries appear, the <b>InputClass</b> section is generic and will match any input device. If more than one of these entries appear, they all must match for the configuration to apply.</p>
+<p class="tab">There are two types of match entries used in <b>InputClass</b> sections. The first allows various tokens to be matched against attributes of the device. An entry can be constructed to match attributes from different devices by separating arguments with a '<b>|</b>' character. Multiple entries of the same type may be supplied to add multiple matching conditions on the same attribute. For example:</p>
+<pre class="tab tcy">Section "InputClass"
+    Identifier   "My Class"
+    # product string must contain example and
+    # either gizmo or gadget
+    MatchProduct "example"
+    MatchProduct "gizmo|gadget"
+    ...
+EndSection</pre>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:320px"><b>MatchProduct "</b><i>matchproduct</i><b>"</b></td>
+<td>This entry can be used to check if the substring "<i>matchproduct</i>" occurs in the device's product name.</td>
+</tr>
+<tr class="tcw">
+<td><b>MatchVendor "</b><i>matchvendor</i><b>"</b></td>
+<td>This entry can be used to check if the substring "<i>matchvendor</i>" occurs in the device's vendor name.</td>
+</tr>
+<tr class="tcw">
+<td><b>MatchDevicePath "</b><i>matchdevice</i><b>"</b></td>
+<td>This entry can be used to check if the device file matches the "<i>matchdevice</i>" pathname pattern.</td>
+</tr>
+<tr class="tcw">
+<td><b>MatchOS "</b><i>matchos</i><b>"</b></td>
+<td>This entry can be used to check if the operating system matches the case-insensitive "<i>matchos</i>" string. This entry is only supported on platforms providing the <a href="/unix/uuname.htm">uname</a> system call.</td>
+</tr>
+<tr class="tcw">
+<td><b>MatchPnPID "</b><i>matchpnp</i><b>"</b></td>
+<td>The device's <a href="/jargon/p/pnp.htm">PnP</a> (plug and play) ID can be checked against the "<i>matchpnp</i>" shell wildcard pattern.</td>
+</tr>
+<tr class="tcw">
+<td><b>MatchUSBID "</b><i>matchusb</i><b>"</b></td>
+<td>The device's USB ID can be checked against the "matchusb" shell wildcard pattern. The ID is constructed as lowercase hexadecimal numbers separated by a '<b>:</b>'. This is the same format as the <b>lsusb</b> program.</td>
+</tr>
+<tr class="tcw">
+<td><b>MatchDriver "</b><i>matchdriver</i><b>"</b></td>
+<td>Check the case-sensitive string "<i>matchdriver</i>" against the currently configured driver of the device. Ordering of sections using this entry is important since it will not match unless the driver has been set by the config backend or a previous <b>InputClass</b> section.</td>
+</tr>
+<tr class="tcw">
+<td><b>MatchTag "</b><i>matchtag</i><b>"</b></td>
+<td>This entry can be used to check if tags assigned by the config backend matches the "<i>matchtag</i>" pattern. A match is found if at least one of the tags given in "<i>matchtag</i>" matches at least one of the tags assigned by the backend.</td>
+</tr>
+<tr class="tcw">
+<td><b>MatchLayout "</b><i>matchlayout</i><b>"</b></td>
+<td>Check the case-sensitive string "<i>matchlayout</i>" against the currently active <b>ServerLayout</b> section. The empty string <b>""</b> matches an implicit layout which appears if no named <b>ServerLayout</b> sections have been found.</td>
+</tr>
+</table>
+<p class="tab">The second type of entry is used to match device types. These entries take a boolean argument similar to <b>Option</b> entries.</p>
+<p class="tab"><b>MatchIsKeyboard "</b><i>bool</i><b>"</b><br><b>MatchIsPointer "</b><i>bool</i><b>"</b><br><b>MatchIsJoystick "</b><i>bool</i><b>"</b><br><b>MatchIsTablet "</b><i>bool</i><b>"</b><br><b>MatchIsTouchpad "</b><i>bool</i><b>"</b><br><b>MatchIsTouchscreen "</b><i>bool</i><b>"</b></p>
+<p class="tab">When an input device has been matched to the <b>InputClass</b> section, any <b>Option</b> entries are applied to the device. One <b>InputClass</b> specific <b>Option</b> is recognized. See the <b>InputDevice</b> section above for a description of the remaining <b>Option</b> entries.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:260px"><b>Option "Ignore" "</b><i>boolean</i>"</td>
+<td>This optional entry specifies that the device should be ignored entirely, and not added to the server. This can be useful when the device is handled by another program and no X events should be generated.</td>
+</tr>
+</table>
+<h2>The Device section</h2>
+<p class="tab">The config file may have multiple <b>Device</b> sections. There must be at least one, for the video card being used.</p>
+<p class="tab"><b>Device</b> sections have the following format:</p>
+<pre class="tab tcy">Section "Device"
+    Identifier "name"
+    Driver     "driver"
+    entries
+    ...
+EndSection</pre>
+<p class="tab">The <b>Identifier</b> and <b>Driver</b> entries are required in all <b>Device</b> sections. All other entries are optional.</p>
+<p class="tab">The <b>Identifier</b> entry specifies the unique name for this graphics device. The <b>Driver</b> entry specifies the name of the driver to use for this graphics device. When using the loadable server, the driver module "<b>driver</b>" will be loaded for each active Device section. A <b>Device</b> section is considered active if it is referenced by an active <b>Screen</b> section.</p>
+<p class="tab"><b>Device</b> sections recognise some driver-independent entries and Options, which are described here. Not all drivers make use of these driver-independent entries, and many of those that do don't require them to be specified because the information is auto-detected. See the individual graphics driver manual pages for further information about this, and for a description of the device-specific options. Note that most of the Options listed here (but not the other entries) may be specified in the <b>Screen</b> section instead of here in the <b>Device</b> section.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px"><b>BusID "</b><i>bus-id</i><b>"</b></td>
+<td>This specifies the bus location of the graphics card. For PCI/<a href="/jargon/a/agp.htm">AGP</a> cards, the bus-id string has the form <b>PCI:bus:device:function</b> (e.g., "<b>PCI:1:0:0</b>" might be appropriate for an AGP card). This field is usually optional in single-head configurations when using the primary graphics card. In multi-head configurations, or when using a secondary graphics card in a single-head configuration, this entry is mandatory. Its main purpose is to make an unambiguous connection between the device section and the hardware it is representing. This information can usually be found by running the pciaccess tool <b>scanpci</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Screen</b> <i>number</i></td>
+<td>This option is mandatory for cards where a single PCI entity can drive more than one display (i.e., multiple CRTCs sharing a single graphics accelerator and video memory). One Device section is required for each head, and this parameter determines which head each of the Device sections applies to. The legal values of number range from 0 to one less than the total number of heads per entity. Most drivers require that the primary screen (<b>0</b>) be present.</td>
+</tr>
+<tr class="tcw">
+<td><b>Chipset "</b><i>chipset</i><b>"</b></td>
+<td>This usually optional entry specifies the chipset used on the graphics board. In most cases this entry is not required because the drivers will probe the hardware to determine the chipset type. Don't specify it unless the driver-specific documentation recommends that you do.</td>
+</tr>
+<tr class="tcw">
+<td><b>Ramdac "</b><i>ramdac-type</i><b>"</b></td>
+<td>This optional entry specifies the type of RAMDAC used on the graphics board. This is only used by a few of the drivers, and in most cases it is not required because the drivers will probe the hardware to determine the RAMDAC type where possible. Don't specify it unless the driver-specific documentation recommends that you do.</td>
+</tr>
+<tr class="tcw">
+<td><b>DacSpeed</b> <i>speed</i><br><br><b>DacSpeed</b> <i>speed-8 speed-16 speed-24 speed-32</i></td>
+<td>This optional entry specifies the RAMDAC speed rating (which is usually printed on the RAMDAC chip). The speed is in <a href="/jargon/m/mhz.htm">MHz</a>. When one value is given, it applies to all framebuffer pixel sizes. When multiple values are given, they apply to the framebuffer pixel sizes 8, 16, 24 and 32 respectively. This is not used by many drivers, and only needs to be specified when the speed rating of the RAMDAC is different from the defaults built in to driver, or when the driver can't auto-detect the correct defaults. Don't specify it unless the driver-specific documentation recommends that you do.</td>
+</tr>
+<tr class="tcw">
+<td><b>Clocks</b> <i>clock</i> ...</td>
+<td>Specifies the pixel that are on your <a href="/jargon/v/video-card.htm">graphics board</a>. The clocks are in MHz, and may be specified as a floating point number. The value is stored internally to the nearest kHz. The ordering of the clocks is important. It must match the order in which they are selected on the graphics board. Multiple Clocks lines may be specified, and each is concatenated to form the list. Most drivers do not use this entry, and it is only required for some older boards with non-programmable clocks. Don't specify this entry unless the driver-specific documentation explicitly recommends that you do.</td>
+</tr>
+<tr class="tcw">
+<td><b>ClockChip "</b><i>clockchip-type</i>"</td>
+<td>This optional entry is used to specify the clock chip type on graphics boards which have a programmable clock generator. Only a few <b>Xorg</b> drivers support programmable clock chips. For details, see the appropriate driver manual page.</td>
+</tr>
+<tr class="tcw">
+<td><b>VideoRam</b> <i>mem</i></td>
+<td>This optional entry specifies the amount of video ram that is installed on the graphics board. This is measured in <a href="/jargon/k/kilobyte.htm">kBytes</a>. In most cases this is not required because the <b>Xorg</b> server probes the graphics board to determine this quantity. The driver-specific documentation should indicate when it might be needed.</td>
+</tr>
+<tr class="tcw">
+<td><b>BiosBase</b> <i>baseaddress</i></td>
+<td>This optional entry specifies the base address of the video <a href="/jargon/b/bios.htm">BIOS</a> for the <a href="/jargon/v/vga.htm">VGA</a> board. This address is normally auto-detected, and should only be specified if the driver-specific documentation recommends it.</td>
+</tr>
+<tr class="tcw">
+<td><b>MemBase</b> <i>baseaddress</i></td>
+<td>This optional entry specifies the memory base address of a graphics board's linear frame buffer. This entry is not used by many drivers, and it should only be specified if the driver-specific documentation recommends it.</td>
+</tr>
+<tr class="tcw">
+<td><b>IOBase</b> <i>baseaddress</i></td>
+<td>This optional entry specifies the IO base address. This entry is not used by many drivers, and it should only be specified if the driver-specific documentation recommends it.</td>
+</tr>
+<tr class="tcw">
+<td><b>ChipID</b> <i>id</i></td>
+<td>This optional entry specifies a numerical ID representing the chip type. For PCI cards, it is usually the device ID. This can be used to override the auto-detection, but that should only be done when the driver-specific documentation recommends it.</td>
+</tr>
+<tr class="tcw">
+<td><b>ChipRev</b> <i>rev</i></td>
+<td>This optional entry specifies the chip revision number. This can be used to override the auto-detection, but that should only be done when the driver-specific documentation recommends it.</td>
+</tr>
+<tr class="tcw">
+<td><b>TextClockFreq</b> <i>freq</i></td>
+<td>This optional entry specifies the pixel clock frequency that is used for the regular text mode. The frequency is specified in MHz. This is rarely used.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "ModeDebug" "</b><i>boolean</i><b>"</b></td>
+<td>Enable printing of additional debugging information about modesetting to the server log.</td>
+</tr>
+<tr class="tcw">
+<td><b>Options</b></td>
+<td>Option flags may be specified in the <b>Device</b> sections. These include driver-specific options and driver-independent options. The former are described in the driver-specific documentation. Some of the latter are described below in the section about the <b>Screen</b> section, and they may also be included here.</td>
+</tr>
+</table>
+<h2>The VideoAdapter section</h2>
+<p class="tab">Either nobody knows how this section works, or no one will divulge the information. This section is a complete mystery to the entire world. Therefore, this section can safely be ignored.</p>
+<h2>The Monitor section</h2>
+<p class="tab">The config file may have multiple <b>Monitor</b> sections. There should normally be at least one, for the monitor being used, but a default configuration will be created when one isn't specified.</p>
+<p class="tab"><b>Monitor</b> sections have the following format:</p>
+<pre class="tab tcy">Section "Monitor"
+    Identifier "name"
+    entries
+    ...
+EndSection</pre>
+<p class="tab">The only mandatory entry in a <b>Monitor</b> section is the <b>Identifier</b> entry.</p>
+<p class="tab">The <b>Identifier</b> entry specifies the unique name for this monitor. The <b>Monitor</b> section may be used to provide information about the specifications of the monitor, monitor-specific Options, and information about the video modes to use with the monitor.</p>
+<p class="tab">With RandR 1.2-enabled drivers, monitor sections may be tied to specific outputs of the video card. Using the name of the output defined by the video driver plus the identifier of a monitor section, one associates a monitor section with an output by adding an option to the Device section in the following format:</p>
+<pre class="tab tcy">Option "Monitor-outputname" "monitorsection"</pre>
+<p class="tab">(for example, <b>Option "Monitor-VGA" "VGA monitor"</b> for a VGA output)</p>
+<p class="tab">In the absence of specific association of monitor sections to outputs, if a monitor section is present the server will associate it with an output to preserve compatibility for previous single-head configurations.</p>
+<p class="tab">Specifying video modes is optional because the server will use the DDC or other information provided by the monitor to automatically configure the list of modes available. When modes are specified explicitly in the Monitor section (with the <b>Mode</b>, <b>ModeLine</b>, or <b>UseModes</b> keywords), built-in modes with the same names are not included. Built-in modes with different names are, however, still implicitly included, when they meet the requirements of the monitor.</p>
+<p class="tab">The entries that may be used in Monitor sections are described below.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:340px"><b>VendorName "</b><i>vendor</i><b>"</b></td>
+<td>This optional entry specifies the monitor's manufacturer.</td>
+</tr>
+<tr class="tcw">
+<td><b>ModelName "</b><i>model</i><b>"</b></td>
+<td>This optional entry specifies the monitor's model.</td>
+</tr>
+<tr class="tcw">
+<td><b>HorizSync</b> <i>horizsync-range</i></td>
+<td>Gives the range(s) of horizontal sync frequencies supported by the monitor. The <i>horizsync-range</i> may be a comma separated list of either discrete values or ranges of values. A range of values is two values separated by a dash. By default, the values are in units of kHz. They may be specified in MHz or Hz if MHz or Hz is added to the end of the line. The data given here is used by the <b>Xorg</b> server to determine if video modes are in the specifications of the monitor. This information should be available in the monitor's handbook. If this entry is omitted, a default range of 28-33kHz is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>VertRefresh</b> <i>vertrefresh-range</i></td>
+<td>Gives the range(s) of vertical refresh frequencies supported by the monitor. The <i>vertrefresh-range</i> may be a comma separated list of either discrete values or ranges of values. A range of values is two values separated by a dash. By default, the values are in units of Hz. They may be specified in MHz or kHz if MHz or kHz is added to the end of the line. The data given here is used by the Xorg server to determine if video modes are in the specifications of the monitor. This information should be available in the monitor's handbook. If this entry is omitted, a default range of 43-72Hz is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>DisplaySize</b> <i>width height</i></td>
+<td>This optional entry gives the width and height, in millimetres, of the picture area of the monitor. If given this is used to calculate the horizontal and vertical pitch (DPI) of the screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>Gamma</b> <i>gamma-value</i><br><br><b>Gamma</b> <i>red-gamma green-gamma blue-gamma</i></td>
+<td>This is an optional entry that can be used to specify the gamma correction for the monitor. It may be specified as either a single value or as three separate RGB values. The values should be in the range 0.1 to 10.0, and the default is 1.0. Not all drivers are capable of using this information.</td>
+</tr>
+<tr class="tcw">
+<td><b>UseModes "</b><i>modesection-id</i><b>"</b></td>
+<td>Include the set of modes listed in the <b>Modes</b> section called <b>modesection-id</b>. This makes all of the modes defined in that section available for use by this monitor.</td>
+</tr>
+<tr class="tcw">
+<td><b>Mode "</b><i>name</i><b>"</b></td>
+<td><p>This is an optional multi-line entry that can be used to provide definitions for video modes for the monitor. In most cases this isn't necessary because the built-in set of VESA standard modes will be sufficient. The Mode keyword indicates the start of a multi-line video mode description. The mode description is terminated with the EndMode keyword. The mode description consists of the following entries:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:200px"><b>DotClock</b> <i>clock</i></td>
+<td>Is the dot (pixel) clock rate to be used for the mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>HTimings</b> <i>hdisp hsyncstart hsyncend htotal</i></td>
+<td>Specifies the horizontal timings for the mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>VTimings</b> <i>vdisp vsyncstart vsyncend vtotal</i></td>
+<td>Specifies the vertical timings for the mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>Flags "</b><i>flag</i><b>"</b> ...</td>
+<td>Specifies an optional set of mode flags that is a separate string in double quotes. <b>"Interlace"</b> indicates that the mode is interlaced. <b>"DoubleScan"</b> indicates a mode where each scanline is doubled. <b>"+HSync"</b> and <b>"-HSync"</b> can be used to select the polarity of the <b>HSync</b> signal. <b>"+VSync"</b> and <b>"-VSync"</b> can be used to select the polarity of the <b>VSync</b> signal. <b>"Composite"</b> can be used to specify composite sync on hardware where this is supported. Additionally, on some hardware, <b>"+CSync"</b> and <b>"-CSync"</b> may be used to select the composite sync polarity.</td>
+</tr>
+<tr class="tcw">
+<td><b>HSkew</b> <i>hskew</i></td>
+<td>Specifies the number of pixels (towards the right edge of the screen) by which the display enable signal is to be skewed. Not all drivers use this information. This option might become necessary to override the default value supplied by the server (if any). "<b>Roving</b>" horizontal lines indicate this value needs to be increased. If the last few pixels on a scan line appear on the left of the screen, this value should be decreased.</td>
+</tr>
+<tr class="tcw">
+<td><b>VScan</b> <i>vscan</i></td>
+<td>Specifies the number of times each scanline is painted on the screen. Not all drivers use this information. Values less than 1 are treated as 1, which is the default. Generally, the <b>"DoubleScan"</b> Flag mentioned above doubles this value.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>ModeLine "</b><i>name</i><b>"</b> <i>mode-description</i></td>
+<td>This entry is a more compact version of the <b>Mode</b> entry, and it also can be used to specify video modes for the monitor. This is a single line format for specifying video modes. In most cases this isn't necessary because the built-in set of VESA standard modes will be sufficient.<br><br> The <i>mode-description</i> is in four sections, the first three of that are mandatory. The first is the dot (pixel) clock. This is a single number specifying the pixel clock rate for the mode in MHz. The second section is a list of four numbers specifying the horizontal timings. These numbers are the <b>hdisp</b>, <b>hsyncstart</b>, <b>hsyncend</b>, and <b>htotal</b> values. The third section is a list of four numbers specifying the vertical timings. These numbers are the <b>vdisp</b>, <b>vsyncstart</b>, <b>vsyncend</b>, and <b>vtotal</b> values. The final section is a list of flags specifying other characteristics of the mode. <b>Interlace</b> indicates that the mode is interlaced. <b>DoubleScan</b> indicates a mode where each scanline is doubled. <b>+HSync</b> and <b>-HSync</b> can be used to select the polarity of the <b>HSync</b> signal. <b>+VSync</b> and <b>-VSync</b> can be used to select the polarity of the VSync signal. Composite can be used to specify composite sync on hardware where this is supported. Additionally, on some hardware, <b>+CSync</b> and <b>-CSync</b> may be used to select the composite sync polarity. The HSkew and VScan options mentioned above in the Mode entry description can also be used here.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "DPMS" "</b><i>bool</i><b>"</b></td>
+<td>This option controls whether the server should enable the DPMS extension for power management for this screen. The default is to enable the extension.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "SyncOnGreen" "</b><i>bool</i><b>"</b></td>
+<td>This option controls whether the video card should drive the sync signal on the green color pin. Not all cards support this option, and most monitors do not require it. The default is <b>off</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "Primary" "</b><i>bool</i><b>"</b></td>
+<td>This optional entry specifies that the monitor should be treated as the primary monitor. (RandR 1.2-supporting drivers only).</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "PreferredMode" "</b><i>name</i><b>"</b></td>
+<td>This optional entry specifies a mode to be marked as the preferred initial mode of the monitor. (RandR 1.2-supporting drivers only).</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "Position" "</b><i>x y</i><b>"</b></td>
+<td>This optional entry specifies the position of the monitor in the X screen. (RandR 1.2-supporting drivers only).</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "LeftOf" "</b><i>output</i><b>"</b></td>
+<td>This optional entry specifies that the monitor should be positioned to the left of the output (not monitor) of the given name. (RandR 1.2-supporting drivers only).</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "RightOf" "</b><i>output</i><b>"</b></td>
+<td>This optional entry specifies that the monitor should be positioned to the right of the output (not monitor) of the given name. (RandR 1.2-supporting drivers only).</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "Above" "</b><i>output</i><b>"</b></td>
+<td>This optional entry specifies that the monitor should be positioned above the output (not monitor) of the given name. (RandR 1.2-supporting drivers only).</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "Below" "</b><i>output</i><b>"</b></td>
+<td>This optional entry specifies that the monitor should be positioned below the output (not monitor) of the given name. (RandR 1.2-supporting drivers only).</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "Enable" "</b><i>bool</i><b>"</b></td>
+<td>This optional entry specifies whether the monitor should be turned on at startup. By default, the server will attempt to enable all connected monitors. (RandR 1.2-supporting drivers only).</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "DefaultModes" "</b><i>bool</i><b>"</b></td>
+<td>This optional entry specifies whether the server should add supported default modes to the list of modes offered on this monitor. By default, the server will add default modes; you should only disable this if you can guarantee that EDID will be available at all times, or if you have added custom modelines which the server can use. (RandR 1.2-supporting drivers only).</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "MinClock" "</b><i>frequency</i><b>"</b></td>
+<td>This optional entry specifies the minimum dot clock, in kHz, that is supported by the monitor.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "MaxClock" "</b><i>frequency</i><b>"</b></td>
+<td>This optional entry specifies the maximum dot clock, in kHz, that is supported by the monitor.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "Ignore" "</b><i>bool</i><b>"</b></td>
+<td>This optional entry specifies that the monitor should be ignored entirely, and not reported through RandR. This is useful if the hardware reports the presence of outputs that don't exist. (RandR 1.2-supporting drivers only).</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "Rotate" "</b><i>rotation</i><b>"</b></td>
+<td>This optional entry specifies the initial rotation of the given monitor. Valid values for rotation are "<b>normal</b>", "<b>left</b>", "<b>right</b>", and "<b>inverted</b>". (RandR 1.2-supporting drivers only).</td>
+</tr>
+</table>
+<h2>The Modes section</h2>
+<p class="tab">The config file may have multiple <b>Modes</b> sections, or none. These sections provide a way of defining sets of video modes independently of the Monitor sections. Monitor sections may include the definitions provided in these sections using the UseModes keyword. In most cases, the <b>Modes</b> sections are not necessary because the built-in set of VESA standard modes are sufficient.</p>
+<p class="tab">Modes sections have the following format:</p>
+<pre class="tab tcy">Section "Modes"
+    Identifier "name"
+    entries
+    ...
+EndSection</pre>
+<p class="tab">The <b>Identifier</b> entry specifies the unique name for this set of mode descriptions. The other entries permitted in <b>Modes</b> sections are the <b>Mode</b> and <b>ModeLine</b> entries that are described above in the <b>Monitor</b> section.</p>
+<h2>The Screen section</h2>
+<p class="tab">The config file may have multiple <b>Screen</b> sections. There must be at least one, for the "screen" being used. A "screen" represents the binding of a graphics device (<b>Device</b> section) and a monitor (<b>Monitor</b> section). A <b>Screen</b> section is considered "active" if it is referenced by an active ServerLayout section or by the <b>-screen</b> command line option. If neither of those is present, the first <b>Screen</b> section found in the config file is considered the active one.</p>
+<p class="tab"><b>Screen</b> sections have the following format:</p>
+<pre class="tab tcy">Section "Screen"
+    Identifier "name"
+    Device     "devid"
+    Monitor    "monid"
+    entries
+    ...
+    SubSection "Display"
+       entries
+       ...
+    EndSubSection
+    ...
+EndSection</pre>
+<p class="tab">The <b>Identifier</b> entry is mandatory. All others are optional.</p>
+<p class="tab">The <b>Identifier</b> entry specifies the unique name for this screen. The Screen section provides information specific to the whole screen, including screen-specific Options. In multi-head configurations, there will be multiple active <b>Screen</b> sections, one for each head. The entries available for this section are:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:310px"><b>Device "</b><i>device-id</i><b>"</b></td>
+<td>This entry specifies the Device section to be used for this screen. When multiple graphics cards are present, this is what ties a specific card to a screen. The <i>device-id</i> must match the <b>Identifier</b> of a <b>Device</b> section in the config file.</td>
+</tr>
+<tr class="tcw">
+<td><b>Monitor "</b><i>monitor-id</i><b>"</b></td>
+<td>Specifies which monitor description is to be used for this screen. If a <b>Monitor</b> name is not specified, a default configuration is used. Currently the default configuration may not function as expected on all platforms.</td>
+</tr>
+<tr class="tcw">
+<td><b>VideoAdaptor "</b><i>xv-id</i><b>"</b></td>
+<td>Specifies an optional Xv video adaptor description to be used with this screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>DefaultDepth</b> <i>depth</i></td>
+<td>Specifies which color depth the server should use by default. The <b>-depth</b> command line option can be used to override this. If neither is specified, the default depth is driver-specific, but in most cases is <b>8</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>DefaultFbBpp</b> <i>bpp</i></td>
+<td>Specifies which framebuffer layout to use by default. The <b>-fbbpp</b> command line option can be used to override this. In most cases the driver will chose the best default value for this. The only case where there is even a choice in this value is for depth 24, where some hardware supports both a packed 24 bit framebuffer layout and a sparse 32 bit framebuffer layout.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "Accel"</b></td>
+<td>Enables 2D hardware acceleration. This option is on by default, but it may be necessary to turn it off if there are bugs in the driver. There are many options to disable specific accelerated operations, listed below. Note that disabling an operation will have no effect if the operation is not accelerated (whether due to lack of support in the hardware or in the driver).</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "InitPrimary" "</b><i>boolean</i><b>"</b></td>
+<td>Use the Int10 module to initialize the primary graphics card. Normally, only secondary cards are soft-booted using the Int10 module, as the primary card has already been initialized by the BIOS at boot time. Default: <b>false</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "NoInt10" "</b><i>boolean</i><b>"</b></td>
+<td>Disables the Int10 module, a module that uses the int10 call to the BIOS of the graphics card to initialize it. Default: <b>false</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "</b><i>NoMTRR</i><b>"</b></td>
+<td>Disables MTRR (Memory Type Range Register) support, a feature of modern processors which can improve video performance by a factor of up to 2.5. Some hardware has buggy MTRR support, and some video drivers have been known to exhibit problems when MTRR's are used.</td>
+</tr>
+</table>
+<p class="tab">Each <b>Screen</b> section may optionally contain one or more <b>Display</b> subsections. Those subsections provide depth/fbbpp specific configuration information, and the one chosen depends on the depth and/or fbbpp that is being used for the screen. The <b>Display</b> subsection format is described in the section below.</p>
+<h2>The Display subsection</h2>
+<p class="tab">Each <b>Screen</b> section may have multiple <b>Display</b> subsections. The "active" <b>Display</b> subsection is the first that matches the depth and/or fbbpp values being used, or failing that, the first that has neither a <b>depth</b> or <b>fbbpp</b> value specified. The <b>Display</b> subsections are optional. When there isn't one that matches the <b>depth</b> and/or <b>fbbpp</b> values being used, all the parameters that can be specified here fall back to their defaults.</p>
+<p class="tab"><b>Display</b> subsections have the following format:</p>
+<pre class="tab tcy">SubSection "Display"
+    Depth  depth
+    entries
+    ...
+EndSubSection</pre>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px"><b>Depth</b> <i>depth</i></td>
+<td>This entry specifies what colour depth the <b>Display</b> subsection is to be used for. This entry is usually specified, but it may be omitted to create a match-all <b>Display</b> subsection or when wishing to match only against the <b>FbBpp</b> parameter. The range of depth values that are allowed depends on the driver. Most drivers support 8, 15, 16 and 24. Some also support 1 and/or 4, and some may support other values (like 30). Note: <b>depth</b> means the number of bits in a pixel that are actually used to determine the pixel colour. 32 is not a valid depth value. Most hardware that uses 32 bits per pixel only uses 24 of them to hold the colour information, which means that the colour depth is 24, not 32.</td>
+</tr>
+<tr class="tcw">
+<td><b>FbBpp</b> <i>bpp</i></td>
+<td>This entry specifies the framebuffer format this <b>Display</b> subsection is to be used for. This entry is only needed when providing depth 24 configurations that allow a choice between a 24 bpp packed framebuffer format and a 32bpp sparse framebuffer format. In most cases this entry should not be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>Weight</b> <i>red-weight green-weight blue-weight</i></td>
+<td>This optional entry specifies the relative RGB weighting to be used for a screen is being used at depth 16 for drivers that allow multiple formats. This may also be specified from the command line with the <b>-weight</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>Virtual</b> <i>xdim ydim</i></td>
+<td>This optional entry specifies the virtual screen resolution to be used. The xdim must be a multiple of either 8 or 16 for most drivers, and a multiple of 32 when running in monochrome mode. The given value will be rounded down if this is not the case. Video modes that are too large for the specified virtual size will be rejected. If this entry is not present, the virtual screen resolution will be set to accommodate all the valid video modes given in the Modes entry. Some drivers/hardware combinations do not support virtual screens. Refer to the appropriate driver-specific documentation for details.</td>
+</tr>
+<tr class="tcw">
+<td><b>ViewPort</b> <i>x0 y0</i></td>
+<td>This optional entry sets the upper left corner of the initial display. This is only relevant when the virtual screen resolution is different from the resolution of the initial video mode. If this entry is not given, then the initial display will be centered in the virtual display area.</td>
+</tr>
+<tr class="tcw">
+<td><b>Modes "</b><i>mode-name</i><b>"</b> ...</td>
+<td>This optional entry specifies the list of video modes to use. Each <i>mode-name</i> specified must be in double quotes. They must correspond to those specified or referenced in the appropriate Monitor section (including implicitly referenced built-in VESA standard modes). The server will delete modes from this list which don't satisfy various requirements. The first valid mode in this list will be the default display mode for startup. The list of valid modes is converted internally into a circular list. It is possible to switch to the next mode with <b>Ctrl</b>+<b>Alt</b>+<b>Keypad</b>-<b>Plus</b> and to the previous mode with <b>Ctrl</b>+<b>Alt</b>+<b>Keypad</b>-<b>Minus</b>. When this entry is omitted, the valid modes referenced by the appropriate Monitor section will be used. If the Monitor section contains no modes, then the selection will be taken from the built-in VESA standard modes.</td>
+</tr>
+<tr class="tcw">
+<td><b>Visual "</b><i>visual-name</i><b>"</b></td>
+<td><p>This optional entry sets the default root visual type. This may also be specified from the command line. The visual types available for depth 8 are (default is <b>PseudoColor</b>):</p>
+<p><b>StaticGray</b><br><b>GrayScale</b><br><b>StaticColor</b><br><b>PseudoColor</b><br><b>TrueColor</b><br><b>DirectColor</b></p>
+<p>The visual type available for the depths 15, 16 and 24 are (default is <b>TrueColor</b>):</p>
+<p><b>TrueColor</b><br><b>DirectColor</b></p>
+<p>Not all drivers support DirectColor at these depths.</p>
+<p>The visual types available for the depth 4 are (default is <b>StaticColor</b>):</p>
+<p><b>StaticGray</b><br><b>GrayScale</b><br><b>StaticColor</b><br><b>PseudoColor</b></p>
+<p>The visual type available for the depth 1 (monochrome) is <b>StaticGray</b>.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>Black</b> <i>red green blue</i></td>
+<td>This optional entry allows the "black" colour to be specified. This is only supported at depth 1. The default is black.</td>
+</tr>
+<tr class="tcw">
+<td><b>White</b> <i>red green blue</i></td>
+<td>This optional entry allows the "white" colour to be specified. This is only supported at depth 1. The default is white.</td>
+</tr>
+<tr class="tcw">
+<td><b>Options</b></td>
+<td>Option flags may be specified in the <b>Display</b> subsections. These may include driver-specific options and driver-independent options. The former are described in the driver-specific documentation. Some of the latter are described above in the section about the <b>Screen</b> section, and they may also be included here.</td>
+</tr>
+</table>
+<h2>The ServerLayout section</h2>
+<p class="tab">The config file may have multiple <b>ServerLayout</b> sections. A "server layout" represents the binding of one or more screens (<b>Screen</b> sections) and one or more input devices (<b>InputDevice</b> sections) to form a complete configuration. In multi-head configurations, it also specifies the relative layout of the heads. A <b>ServerLayout</b> section is considered "active" if it is referenced by the <b>-layout</b> command line option or by an Option "<b>DefaultServerLayout</b>" entry in the <b>ServerFlags</b> section (the former takes precedence over the latter). If those options are not used, the first <b>ServerLayout</b> section found in the config file is considered the active one. If no <b>ServerLayout</b> sections are present, the single active screen and two active (core) input devices are selected as described in the relevant sections above.</p>
+<p class="tab"><b>ServerLayout</b> sections have the following format:</p>
+<pre class="tab tcy">Section "ServerLayout"
+    Identifier   "name"
+    Screen       "screen-id"
+    ...
+    InputDevice  "idev-id"
+    ...
+    options
+    ...
+EndSection</pre>
+<p class="tab">Each <b>ServerLayout</b> section must have an <b>Identifier</b> entry and at least one <b>Screen</b> entry.</p>
+<p class="tab">The <b>Identifier</b> entry specifies the unique name for this server layout. The <b>ServerLayout</b> section provides information specific to the whole session, including session-specific Options. The <b>ServerFlags</b> options (described above) may be specified here, and ones given here override those given in the <b>ServerFlags</b> section.</p>
+<p class="tab">The entries that may be used in this section are described here.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px"><b>Screen</b> <i>screen-num</i> <b>"</b><i>screen-id</i><b>"</b> <i>position-information</i></td>
+<td><p>One of these entries must be given for each screen being used in a session. The <i>screen-id</i> field is mandatory, and specifies the <b>Screen</b> section being referenced. The <i>screen-num</i> field is optional, and may be used to specify the screen number in multi-head configurations. When this field is omitted, the screens will be numbered in the order that they are listed in. The numbering starts from 0, and must be consecutive. The position-information field describes the way multiple screens are positioned. There are many different ways that this information can be provided:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:220px"><p><i>x y</i></p>
+<p><b>Absolute</b> <i>x y</i></p>
+</td>
+<td>These both specify that the upper left corner's coordinates are (x,y). The Absolute keyword is optional. Some older versions of XFree86 (4.2 and earlier) don't recognise the Absolute keyword, so it's safest to just specify the coordinates without it.</td>
+</tr>
+<tr class="tcw">
+<td><p><b>RightOf "</b><i>screen-id</i><b>"</b></p>
+<p><b>LeftOf "</b><i>screen-id</i><b>"</b></p>
+<p><b>Above "</b><i>screen-id</i><b>"</b></p>
+<p><b>Below "</b><i>screen-id</i><b>"</b></p>
+<p><b>Relative "</b><i>screen-id</i><b>"</b> <i>x y</i></p>
+</td>
+<td>These give the screen's location relative to another screen. The first four position the screen immediately to the right, left, above or below the other screen. When positioning to the right or left, the top edges are aligned. When positioning above or below, the left edges are aligned. The Relative form specifies the offset of the screen's origin (upper left corner) relative to the origin of another screen.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>InputDevice "</b><i>idev-id</i><b>" "</b><i>option</i><b>"</b> ...</td>
+<td><p>One of these entries should be given for each input device being used in a session. Normally at least two are required, one each for the core pointer and keyboard devices. If either of those is missing, suitable <b>InputDevice</b> entries are searched for using the method described above in the <b>InputDevice</b> section. The <b>idev-id</b> field is mandatory, and specifies the name of the <b>InputDevice</b> section being referenced. Multiple option fields may be specified, each in double quotes. The options permitted here are any that may also be given in the <b>InputDevice</b> sections. Normally only session-specific input device options would be used here. The most commonly used options are:</p>
+<p><b>"CorePointer"</b></p>
+<p><b>"CoreKeyboard"</b></p>
+<p><b>"SendCoreEvents"</b></p>
+<p>and the first two should normally be used to indicate the core pointer and core keyboard devices respectively.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "IsolateDevice" "</b><i>bus-id</i><b>"</b></td>
+<td>Restrict device resets to the specified <i>bus-id</i>. See the <b>BusID</b> option (described in Device section, above) for the format of the <i>bus-id</i> parameter. This option overrides <b>SingleCard</b>, if specified. At present, only PCI devices can be isolated in this manner.</td>
+</tr>
+<tr class="tcw">
+<td><b>Option "SingleCard" "</b><i>boolean</i><b>"</b></td>
+<td>As <b>IsolateDevice</b>, except that the bus ID of the first device in the layout is used.</td>
+</tr>
+</table>
+<p class="tab">Here is an example of a <b>ServerLayout</b> section for a dual headed configuration with two mice:</p>
+<pre class="tab tcy">Section "ServerLayout"
+    Identifier  "Layout 1"
+    Screen      "MGA 1"
+    Screen      "MGA 2" RightOf "MGA 1"
+    InputDevice "Keyboard 1" "CoreKeyboard"
+    InputDevice "Mouse 1"    "CorePointer"
+    InputDevice "Mouse 2"    "SendCoreEvents"
+    Option      "BlankTime"  "5"
+EndSection</pre>
+<h2>Sample xorg.conf file</h2>
+<p class="tab">The following is an example <b>xorg.conf</b> file, standard for many Linux systems:</p>
+<pre class="tab"># /etc/X11/xorg.conf (xorg X Window System server configuration file)
+#
+# Super hand tuned Xorg file by DMc
+#
+# Currently runs triple display on two dual head nvidia cards
+#
+# Copyright 2008 McPond Software  
+#
+#   This file is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This file is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+# 1.0 Start from base file, rip out wacom tablet stuff, I dont have one
+#     Reorder sections, add dual head setup
+#     &gt;&gt;&gt; Gives 
+#                Fatal server error:
+#                Requested Entity already in use!
+# 1.1 Reading further... TwinView mode on nv open source driver
+# 1.2 After Feisty upgrade will not start on nVidia, change back to nv
+#            until can get it running, then recheck with tools
+#            and of course nv doesnt support Twinview?
+# 1.3 Add more button support for Razor Copperhead
+# 1.4 Envy for Fiesty with help from nvidia-xconfig
+# 1.5 Enable dual head again
+# 1.6 Change to 20" Viewsonic
+# 1.7 Kernel update to 2.6.20 breaks nvidia again. 
+#     Change to nv to get started
+#     Run envy, then change back to unaltered xorg file
+# 1.8 New nVidia 8600GT graphics card with dual DVI output
+#     Required latest nVidia drivers 100.41.100
+# 1.9 New Samsung SyncMaster 226BW 22" wide screen LCD
+# 2.0 Hardy Heron 8.04 major upgrade. New envyng 1.1.1
+#     New nvidia installer 173 version
+# 2.1 Kernel update 2.6.24-18  Wont start after
+#     Disabled two empty font paths, disabled type1 as it wasnt loading
+#     Ran envy but boot crashes with Fatal server error Caught signal 4 
+#     server aborting libGLcore.so.1
+#     Envy only reporting installer v169. It wont do 173 as thats beta
+#     Yes, installed 173 manually. Seems 169 does not work on this system
+#     Run NVIDIA(blah).run to setup
+# 2.2 Add Asus Geforce 7200GS card in second PCI-E 16x slot
+#     Needed help from nvidia-xconfig to get both to run
+#     The screen IDs are not accumulative, that means, for each physical 
+#     card, the screen ID starts with 0 again.
+#     It treats the 7200 as 'primary' probably because it has a lower bus number
+#         meaning you have to login to that screen.  Tool panel can be moved to any screen.
+# 2.3 Attempting to get Compiz to run
+#         Composite extension not found
+#         You must use XOrg &gt;= 6.8 for translucency and shadows to work
+#
+# Index:
+#  ServerLayout
+#  Vendor
+#  InputDevice - Keyboard
+#  InputDevice - Mouse
+#  Device - Left
+#  Device - Right
+#  Monitor - Left
+#  Monitor - Right
+#  Screen - Left
+#  Screen - Right
+#  Files
+#  Module
+#  Extensions
+#
+#
+# Notes:
+#  Server Flags must go before Server Layout
+# Server layout ties it all together
+Section "ServerLayout"
+    Identifier     "TripleHeadLayout"
+    Screen      0  "CentreScreen" 0 0
+    # was rightof, now changed to leftof
+    Screen      1  "RightScreen" RightOf  "CentreScreen"
+    # Dont use LeftOf Same twice, you get two screens doing the same thing.
+    Screen      2  "LeftScreen"  LeftOf   "CentreScreen"
+    # Changed this from 0 to 2
+    Option          "Xinerama" "On"
+    InputDevice    "Ergonomic4000"
+    InputDevice    "Razer Copperhead"
+EndSection
+# Microsoft Ergonomic 4000 Keyboard
+Section "InputDevice"
+    Identifier     "Ergonomic4000"
+    Driver         "kbd"
+    Option         "CoreKeyboard"
+    Option         "XkbRules" "xorg"
+    Option         "XkbModel" "pc105"
+    Option         "XkbLayout" "us"
+    Option         "XkbOptions" "lv3:ralt_switch"
+    # Would be nice if the top ribbon web buttons worked
+    # and the Zoom slider in the centre
+    # and back/forward buttons
+EndSection
+# Razer Copperhead and KVM based PS2
+Section "InputDevice"
+    Identifier     "Razer Copperhead"
+    Driver         "mouse"
+    Option         "CorePointer"
+    Option         "Device" "/dev/input/mice"
+    Option         "Protocol" "ExplorerPS/2"
+    Option         "ZAxisMapping" "4 5"
+        # ZAxis mapping is the scrolling. Exclude from list below
+    Option         "Emulate3Buttons" "true"
+    Option         "Buttons" "9"
+    Option         "ButtonMapping" "1 2 3 6 7 8 9"
+        # 3 is the wheel click
+        # 6 &amp; 7 and 8 &amp; 9 are on the sides of the mouse - and hard to press
+EndSection
+# Graphics device description
+# nVidia GeForce 8600GT    
+# Device section is for the video card
+# One section per head
+Section "Device"
+    Identifier     "Left nVidia 8600GT"
+    Driver         "nvidia"
+# For use after kernel upgrades kills nVidia proprietory
+# Also turn off RightScreen
+#    Driver         "nv"
+    VendorName      "NVIDIA Corporation"
+    BoardName       "GeForce 8600 GT"
+#   PCI-Express 16x bus
+    BusID	   "PCI:7:0:0"
+# Appears as PCI:4 on other machines
+#     BusID		"PCI:1:0:0"  this is AGP
+    Screen          0
+        # Options...
+EndSection
+Section "Device"
+    Identifier     "Right nVidia 8600GT"
+    Driver         "nvidia"
+    VendorName      "NVIDIA Corporation"
+    BoardName       "GeForce 8600 GT"
+    BusID	   "PCI:7:0:0"
+    Screen          1
+#        # Options...
+EndSection
+Section "Device"
+    Identifier     "Left nVidia 7200"
+    Driver         "nvidia"
+    VendorName      "NVIDIA Corporation"
+    BoardName       "GeForce 7200 GS"
+    # Outer PCI-Express 16x Bus
+    BusID	   "PCI:2:0:0"
+    Screen          0
+#        # Options...
+EndSection
+# Samsung SyncMaster 226BW - Right
+Section "Monitor"
+    Identifier     "SyncMaster-226BW"
+    VendorName     "Samsung"
+    HorizSync       30.0 - 81.0
+    VertRefresh     56.0 - 75.0
+    Option         "DPMS"
+# More Options...
+EndSection
+# Sony SDM-HS95P - Moved to another machine
+#Section "Monitor"
+#    Identifier     "SDM-HS95P"
+#    VendorName     "Sony"
+#    HorizSync       28.0 - 65.0
+#    VertRefresh     57.0 - 63.0
+#    Option         "DPMS"
+# More Options...
+#EndSection
+Section "Monitor"
+	Identifier	"VG2021m"
+	Option		"DPMS"
+	HorizSync	28-65
+	VertRefresh	57-63
+        VendorName      "Viewsonic"
+# More Options...
+EndSection
+Section "Monitor"
+	Identifier	"SyncMaster-245B"
+	Option		"DPMS"
+        HorizSync	30-81
+	VertRefresh	56-75
+        VendorName      "Samsung"
+# More Options...
+EndSection
+Section "Screen"
+	Identifier     "CentreScreen"
+	Device         "Left nVidia 8600GT"
+	Monitor        "VG2021m"
+	# Compositing manager
+	Option         "RenderAccel" "true"
+	Option         "TripleBuffer" "true"
+# Not needed on modern X servers	Option         "AllowGLXWithComposite"
+	Option         "DPMS" "true"
+	DefaultDepth    24
+	SubSection     "Display"
+		Depth       24
+		Modes      "1400x1050"
+	EndSubSection
+EndSection
+Section "Screen"
+	Identifier	"RightScreen"
+	Device		"Right nVidia 8600GT"
+	Monitor         "SyncMaster-226BW"
+	# Compositing manager
+	Option         "RenderAccel" "true"
+	Option         "TripleBuffer" "true"
+	Option         "AllowGLXWithComposite"
+	Option         "DPMS" "true"
+	DefaultDepth	24
+	SubSection "Display"
+		Depth		24
+		Modes		"1680x1050"
+	EndSubSection
+        # Even though the SyncMaster and the Viewsonic are 1050, the 
+        # Viewsonic is 10mm taller. Syncmaster has a finer dot pitch, 
+        # but less physical real estate
+EndSection
+Section "Screen"
+	Identifier	"LeftScreen"
+	Device		"Left nVidia 7200"
+	Monitor         "SyncMaster-245B"
+	# Compositing manager
+	Option         "RenderAccel" "true"
+	Option         "TripleBuffer" "true"
+	Option         "AllowGLXWithComposite"
+	Option         "DPMS" "true"
+	DefaultDepth	24
+	SubSection "Display"
+		Depth		24
+		Modes		"1920x1200"
+	EndSubSection
+EndSection
+# File path names
+Section "Files"
+# These folders do not exist
+    FontPath        "/usr/share/fonts/X11/misc"
+    FontPath        "/usr/share/fonts/X11/100dpi"
+# No files in here    FontPath        "/usr/share/X11/fonts/75dpi"
+# removed this tail   /:unscaled"
+# No files here either    FontPath        "/usr/share/X11/fonts/Type1"
+# path to defoma fonts
+    FontPath        "/var/lib/defoma/x-ttcidfont-conf.d/dirs/TrueType"
+    RgbPath         "/usr/X11R6/lib/X11/rgb"
+EndSection
+# Dynamic module loading
+Section "Module"
+    Load           "bitmap"
+    Load           "dbe"
+    Load           "ddc"
+    Load           "extmod"
+    Load           "freetype"
+    Load           "glx"
+    Load           "int10"
+# Module does not exist on disk  Load           "type1"
+    Load           "vbe"
+EndSection
+Section "ServerFlags"
+    Option         "Xinerama" "1"
+EndSection
+Section "Extensions"
+# Compositing manager for xcompmgr
+    Option         "Composite" "Enable"
+EndSection</pre>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">Xorg -configure</pre>
+<p class="tab">This command will instruct <b>Xorg</b> to probe all current devices and write an <b>xorg.conf</b> configuration file appropriate for the system.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/startx.htm"><b>startx</b></a> &mdash; Start an X Window System session.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8384dcd6c424',m:'0HVGuWA8dUEFSLTGpSaiTx5lM9_LlDpwBcRIuog02O4-1661495373-0-AeNaVVbTR2DM+6/cF70tq9lhC/VwY0fKFKB3ZK4cPa1KqFSqXmQCZikXH8an8p9diXKa45cW9ILeCMAva6eym31DjmP4wnPnHKywTJJurDp0JBayU3n1A/wUx2BwxnE9FA==',s:[0xdf4ccaab27,0xbaabc5dc21],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

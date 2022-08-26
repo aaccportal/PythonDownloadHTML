@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux dc command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/dc.gif" width="300" height="300" alt="dc command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>dc</b> command is an arbitrary-precision arithmetic calculator.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#print-commands">Printing commands</a></li>
+<li><a href="#arithmetic">Arithmetic</a></li>
+<li><a href="#stack-control">Stack control</a></li>
+<li><a href="#registers">Registers</a></li>
+<li><a href="#parameters">Parameters</a></li>
+<li><a href="#strings">Strings</a></li>
+<li><a href="#status-inquiry">Status inquiry</a></li>
+<li><a href="#misc">Miscellaneous</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>dc</b> is a desk calculator which supports arbitrary, unlimited-precision arithmetic and reverse-polish (postfix) notation. It also lets you define and call <a href="/jargon/m/macro.htm">macros</a>. Normally <b>dc</b> reads from the <a href="/jargon/s/stdin.htm">standard input</a>; if any command <a href="/jargon/a/argument.htm">arguments</a> are given to it, they are <a href="/jargon/f/filename.htm">file names</a>, and <b>dc</b> reads and executes the contents of the files before reading from standard input. All normal output is to standard output; all error output is to standard error.</p>
+<p class="tab">A reverse-polish calculator stores numbers on a <a href="/jargon/s/stack.htm">stack</a>. Entering a number pushes it on the stack. Arithmetic operations pop arguments off the stack and push the results.</p>
+<p class="tab">To enter a number in <b>dc</b>, type the digits (using uppercase letters <b>A</b> through <b>F</b> as "digits" when working with input <a href="/jargon/b/base.htm">bases</a> greater than ten), with an optional <a href="/jargon/d/decimal.htm">decimal</a> point. <a href="/jargon/e/exponent.htm">Exponential</a> notation is not supported. To enter a negative number, begin the number with "<b>_</b>" (an underscore). "<b>-</b>" (dash or hyphen) cannot be used for this, as it is a <a href="/jargon/b/binary.htm">binary</a> operator for subtraction instead. To enter two numbers in succession, separate them with spaces or newlines. These have no meaning as commands.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">dc [-V] [--version] [-h] [--help] [-e <i>scriptexpression</i>] 
+   [--expression=<i>scriptexpression</i>] [-f <i>scriptfile</i>] [--file=<i>scriptfile</i>] 
+   [<i>file</i> ...]</pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-V</b>, <b>--version</b></td>
+<td>Print out the version information of <b>dc</b> and a Copyright notice, then exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Print a usage message briefly summarizing these command-line options and the bug-reporting address, then exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b> <i>script</i>,<br> <b>--expression</b>=<i>script</i></td>
+<td>Add the commands in <i>script</i> to the set of commands to run while processing the input.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>script-file</i>,<br> <b>--file</b>=<i>script-file</i></td>
+<td>Add the commands contained in the file <i>script-file</i> to the set of commands to run while processing the input.</td>
+</tr>
+</table>
+<p class="tab">If any <a href="/jargon/c/commandi.htm">command-line</a> <a href="/jargon/p/paramete.htm">parameters</a> remain after processing the above, these parameters are interpreted as the names of input files to be processed. A file name of "<b>-</b>" (dash or hyphen) refers to the standard input stream. The standard input process if no script files or expressions are specified.</p>
+<h2 id="print-commands">Printing commands</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>p</b></td>
+<td>Prints the value on the top of the stack, without altering the stack. A newline is printed after the value.</td>
+</tr>
+<tr class="tcw">
+<td><b>n</b></td>
+<td>Prints the value on the top of the stack, popping it off, and does not print a newline after.</td>
+</tr>
+<tr class="tcw">
+<td><b>P</b></td>
+<td>Pops off the value on top of the stack. If it's a <a href="/jargon/s/string.htm">string</a>, it is printed without a trailing newline. Otherwise, it is a number, and the <a href="/jargon/i/integer.htm">integer</a> portion of its absolute value is printed out as a "<b>base (UCHAR_MAX+1)</b>" <a href="/jargon/b/byte.htm">byte</a> stream. Assuming that <b>(UCHAR_MAX+1)</b> is <b>256</b> (as it is on most machines with <a href="/jargon/num/8bit.htm">8-bit</a> bytes), the sequence <b>KSK0k1/_1Ss [ls*]Sxd0&gt;x [256~Ssd0&lt;x]dsxxsx[q]Sq[Lsd0&gt;qaPlxx] dsxxsx0sqLqsxLxLK+k</b> could also accomplish this function. (Much of the complexity of the above native-<b>dc</b> code is due to the <b>~</b> computing the <a href="/jargon/c/charact.htm">characters</a> backwards, and the desire to ensure that all <a href="/jargon/r/register.htm">registers</a> wind up back in their original states.)</td>
+</tr>
+<tr class="tcw">
+<td><b>f</b></td>
+<td>Prints the entire contents of the stack without altering anything. This is a good command to use if you are lost or want to figure out the effect of a command.</td>
+</tr>
+</table>
+<h2 id="arithmetic">Arithmetic</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>+</b></td>
+<td>Pops two values off the stack, adds them, and pushes the result. The precision of the result is determined only by the values of the arguments, and is enough to be exact.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>Pops two values, subtracts the first one popped from the second one popped, and pushes the result.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b></td>
+<td>Pops two values, multiplies them, and pushes the result. The number of fraction digits in the result depends on the current precision value and the number of fraction digits in the two arguments.</td>
+</tr>
+<tr class="tcw">
+<td><b>/</b></td>
+<td>Pops two values, divides the second one popped from the first one popped, and pushes the result. The number of fraction digits is specified by the precision value.</td>
+</tr>
+<tr class="tcw">
+<td><b>%</b></td>
+<td>Pops two values, computes the remainder of the division that the <b>/</b> command would do, and pushes that. The value computed is the same as that computed by the sequence <b>Sd dld/ Ld*-</b> .</td>
+</tr>
+<tr class="tcw">
+<td><b>~</b></td>
+<td>Pops two values, divides the second one popped by the first one popped. The resulting quotient is pushed first, and the remainder is pushed next. The number of fraction digits used in the division is specified by the precision value. (The sequence <b>SdSn lnld/ LnLd%</b> could also accomplish this function, with slightly different error checking.)</td>
+</tr>
+<tr class="tcw">
+<td><b>^</b></td>
+<td>Pops two values and exponentiates, using the first value popped as the exponent and the second popped as the base. The fraction part of the exponent is ignored. The precision value specifies the number of fraction digits in the result.</td>
+</tr>
+<tr class="tcw">
+<td><b>|</b></td>
+<td>Pops three values and computes a modular exponentiation. The first value popped is used as the reduction modulus; this value must be a non-zero number, and should be an integer. The second popped is used as the exponent; this value must be a non-negative number, and any fractional part of this exponent is ignored. The third value popped is the base which gets exponentiated, which should be an integer. For small integers this is like the sequence <b>Sm^Lm%</b>, but, unlike <b>^</b>, this command works with arbitrarily large exponents.</td>
+</tr>
+<tr class="tcw">
+<td><b>v</b></td>
+<td>Pops one value, computes its square root, and pushes that. The precision value specifies the number of fraction digits in the result.</td>
+</tr>
+</table>
+<p class="tab">Most arithmetic operations are affected by the "precision value", which you can set with the <b>k</b> command. The default precision value is zero, which means that all arithmetic except for addition and subtraction produces integer results.</p>
+<h2 id="stack-control">Stack control</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>c</b></td>
+<td>Clears the stack, emptying it.</td>
+</tr>
+<tr class="tcw">
+<td><b>d</b></td>
+<td>Duplicates the value on the top of the stack, pushing another copy of it. Thus, "<b>4d*p</b>" computes 4 squared and prints it.</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b></td>
+<td>Reverses the order of (swaps) the top two values on the stack. (This can also be accomplished with the sequence <b>SaSbLaLb</b>.)</td>
+</tr>
+</table>
+<h2 id="registers">Registers</h2>
+<p class="tab">dc provides at least 256 memory registers, each named by a single character. You can store a number or a string in a register and retrieve it later.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>s</b><i>r</i></td>
+<td>Pop the value off the top of the stack and store it into register <i>r</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>l</b><i>r</i></td>
+<td>Copy the value in register <i>r</i> and push it onto the stack. This does not alter the contents of <i>r</i>.</td>
+</tr>
+</table>
+<p class="tab">Each register also contains its own stack. The current register value is the top of the register's stack.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>S</b><i>r</i></td>
+<td>Pop the value off the top of the (main) stack and push it onto the stack of register <i>r</i>. The previous value of the register becomes inaccessible.</td>
+</tr>
+<tr class="tcw">
+<td><b>L</b><i>r</i></td>
+<td>Pop the value off the top of register <i>r</i>'s stack and push it onto the main stack. The previous value in register <i>r</i>'s stack, if any, is now accessible via the <b>l</b><i>r</i> command.</td>
+</tr>
+</table>
+<h2 id="parameters">Parameters</h2>
+<p class="tab"><b>dc</b> has three parameters that control its operation: the precision, the input <a href="/jargon/r/radix.htm">radix</a>, and the output radix. The precision specifies the number of fraction digits to keep in the result of most arithmetic operations. The input radix controls the interpretation of numbers typed in; all numbers typed in use this radix. The output radix is used for printing numbers.</p>
+<p class="tab">The input and output radices are separate parameters; you can make them unequal, which can be useful or confusing. The input radix must be between 2 and 16 inclusive. The output radix must be at least 2. The precision must be zero or greater. The precision is always measured in decimal digits, regardless of the current input or output radix.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>i</b></td>
+<td>Pops the value off the top of the stack and uses it to set the input radix.</td>
+</tr>
+<tr class="tcw">
+<td><b>o</b></td>
+<td>Pops the value off the top of the stack and uses it to set the output radix.</td>
+</tr>
+<tr class="tcw">
+<td><b>k</b></td>
+<td>Pops the value off the top of the stack and uses it to set the precision.</td>
+</tr>
+<tr class="tcw">
+<td><b>I</b></td>
+<td>Pushes the current input radix on the stack.</td>
+</tr>
+<tr class="tcw">
+<td><b>O</b></td>
+<td>Pushes the current output radix on the stack.</td>
+</tr>
+<tr class="tcw">
+<td><b>K</b></td>
+<td>Pushes the current precision on the stack.</td>
+</tr>
+</table>
+<h2 id="strings">Strings</h2>
+<p class="tab"><b>dc</b> has a limited ability to operate on strings and on numbers; the only things you can do with strings are print them and execute them as macros (which indicates the contents of the string are processed as <b>dc</b> commands). All registers and the stack can hold strings, and <b>dc</b> always knows whether any given object is a string or a number. Some commands such as arithmetic operations demand numbers as arguments and print errors if given strings. Other commands can accept either a number or a string; for example, the <b>p</b> command can accept either and prints the object according to its type.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><b>[</b><i>characters</i><b>]</b></td>
+<td>Makes a string containing <i>characters</i> (contained between balanced <b>[</b> and <b>]</b> characters), and pushes it on the stack. For example, <b>[foo]P</b> prints the characters <b>foo</b> with no newline.</td>
+</tr>
+<tr class="tcw">
+<td><b>a</b></td>
+<td>The top-of-stack is popped. If it was a number, then the low-order byte of this number is converted into a string and pushed onto the stack. Otherwise, the top-of-stack was a string, and the first character of that string is pushed back.</td>
+</tr>
+<tr class="tcw">
+<td><b>x</b></td>
+<td>Pops a value off the stack and executes it as a macro. Normally it should be a string; if it's a number, it is pushed back onto the stack. For example, <b>[1p]x</b> executes the macro <b>1p</b> which pushes <b>1</b> on the stack and prints <b>1</b> on a separate line.</td>
+</tr>
+</table>
+<p class="tab">Macros are most often stored in registers; <b>[1p]sa</b> stores a macro to print <b>1</b> into register <i>a</i>, and <b>lax</b> invokes this macro.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:50px"><b>&gt;</b><i>r</i></td>
+<td>Pops two values off the stack and compares them assuming they are numbers, executing the contents of register <i>r</i> as a macro if the original top-of-stack is greater. Thus, <b>1 2&gt;a</b> invokes register <i>a</i>'s contents and <b>2 1&gt;a</b> does not.</td>
+</tr>
+<tr class="tcw">
+<td><b>!&gt;</b><i>r</i></td>
+<td>Similar but invokes the macro if the original top-of-stack is not greater than (less than or equal to) what was the second-to-top.</td>
+</tr>
+<tr class="tcw">
+<td><b>&lt;</b><i>r</i></td>
+<td>Similar but invokes the macro if the original top-of-stack is less.</td>
+</tr>
+<tr class="tcw">
+<td><b>!&lt;</b><i>r</i></td>
+<td>Similar but invokes the macro if the original top-of-stack is not less than (greater than or equal to) what was the second-to-top.</td>
+</tr>
+<tr class="tcw">
+<td><b>=</b><i>r</i></td>
+<td>Similar but invokes the macro if the two numbers popped are equal.</td>
+</tr>
+<tr class="tcw">
+<td><b>!=</b><i>r</i></td>
+<td>Similar but invokes the macro if the two numbers popped are not equal.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>Reads a line from the <a href="/jargon/t/terminal.htm">terminal</a> and executes it. This command allows a macro to request input from the user.</td>
+</tr>
+<tr class="tcw">
+<td><b>q</b></td>
+<td>exits from a macro, and also from the macro which invoked it. If called from the top level, or from a macro which was called directly from the top level, the <b>q</b> command causes <b>dc</b> to exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>Q</b></td>
+<td>Pops a value off the stack and uses it as a count of levels of macro execution to be exited. Thus, <b>3Q</b> exits three levels. The <b>Q</b> command never causes <b>dc</b> to exit completely, however.</td>
+</tr>
+</table>
+<h2 id="status-inquiry">Status inquiry</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>Z</b></td>
+<td>Pops a value off the stack, calculates the number of digits it has (or number of characters, if it's a string) and pushes that number. The digit count for a number does not include any leading zeros, even if those appear to the right of the radix point.</td>
+</tr>
+<tr class="tcw">
+<td><b>X</b></td>
+<td>Pops a value off the stack, calculates the number of fraction digits it has, and pushes that number. For a string, the value pushed is <b>0</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>z</b></td>
+<td>Pushes the current stack depth: the number of objects on the stack before the execution of the <b>z</b> command.</td>
+</tr>
+</table>
+<h2 id="misc">Miscellaneous</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>!</b></td>
+<td>Runs the rest of the line as a system command. Note that parsing of the <b>!&lt;</b>, <b>!=</b>, and <b>!&gt;</b> commands take precedence, so if you want to run a command starting with <b>&lt;</b>, <b>=</b>, or <b>&gt;</b> you need to add a space after the <b>!</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>#</b></td>
+<td>Interprets the rest of the line as a comment.</td>
+</tr>
+<tr class="tcw">
+<td><b>:</b><i>r</i></td>
+<td>Pops the top two values from the stack. The old second-to-top value is stored in the array <i>r</i>, indexed by the old top-of-stack value.</td>
+</tr>
+<tr class="tcw">
+<td><b>;</b><i>r</i></td>
+<td>Pops the top-of-stack and uses it as an index into the array <i>r</i>. The selected value is then pushed onto the stack.</td>
+</tr>
+</table>
+<p class="tab">Note that each stacked instance of a register has its own array associated with it. Thus <b>1 0:a 0Sa 2 0:a La 0;ap</b> prints <b>1</b>, because the <b>2</b> was stored in an instance of <b>0:a</b> that was later popped.</p>
+<h2 id="examples">Examples</h2>
+<p class="tab">First, at the command line, let's enter the desktop calculator.</p>
+<pre class="tcy tab">dc</pre>
+<p class="tab">Nothing appears to have happened. <b>dc</b>'s prompt is a blank line, and it's ready to take our commands. First, let's push a number onto the stack. How about <b>1234</b>:</p>
+<pre class="tcy tab">1234</pre>
+<p class="tab">Again, nothing seems to have happened. Let's use <b>f</b> to look at the entire contents of the stack:</p>
+<pre class="tcy tab">f</pre>
+<p class="tab">This prints the following:</p>
+<pre class="tab">1234</pre>
+<p class="tab">So <b>1234</b> is on the stack, and ready to be operated on. Here we're going to multiply it by <b>2</b>, and print the result. <b>dc</b> uses reverse-polish (postfix) notation, which places the operands first and the operators second. The command below in English says, "Take the top item on the stack, operate on it with the number two, using the operation multiplication, and print the result." The command is:</p>
+<pre class="tcy tab">2 * p</pre>
+<p class="tab">This takes our top stack item <b>1234</b>, <b>multiplies</b> it by <b>2</b>, and prints the resulting value:</p>
+<pre class="tab">2468</pre>
+<p class="tab">Great. Now let's subtract <b>468</b> and print the result:</p>
+<pre class="tcy tab">468 - p</pre>
+<pre class="tab">2000</pre>
+<p class="tab">Keep in mind that if we weren't putting <b>p</b> at the end of the command, the same thing would be happening, but without any output. Okay, now let's <b>divide</b> ("<b>/</b>") our result 2000 by <b>2</b>, and print the result:</p>
+<pre class="tcy tab">2 / p</pre>
+<pre class="tab">1000</pre>
+<p class="tab">And now let's take the square root:</p>
+<pre class="tcy tab">v p</pre>
+<pre class="tab">31</pre>
+<p class="tab">Because the default precision is 0 (calculate zero places after the decimal point), and we haven't changed it, the result was rounded down to the nearest integer. The answer is actually closer to 31.62. To get a more precise answer, we have to tell <b>dc</b> to use greater precision. Let's tell it to calculate to ten places using the <b>k</b> command:</p>
+<pre class="tcy tab">10 k 1000 v p</pre>
+<pre class="tab">31.6227766016</pre>
+<p class="tab">Here, we combined several operations into one command. The command did the following, in the following order:</p>
+<ol>
+<li>pushed <b>10</b> onto the stack,</li>
+<li>told <b>k</b> to pop that number from the stack and set the precision to that many decimal places,</li>
+<li>pushed <b>1000</b> onto the stack,</li>
+<li>told <b>v</b> to pop <b>1000</b> off the stack, calculate the square root, and push the result onto the stack, and</li>
+<li>printed the result with <b>p</b>.</li>
+</ol>
+<p class="tab">If we wanted to, we could set the precision to something ridiculous like 100000000, but that might take hours to compute, and we have better things to do.</p>
+<p class="tab">Let's look at the stack a bit closer. Remember, the stack is like a pile of items. If you push an item onto the stack, it's on top. If you pop an item from the stack, you take the top (most recently pushed) item off the stack.</p>
+<p class="tab">First, let's clear the stack:</p>
+<pre class="tcy tab">c</pre>
+<p class="tab">To make sure it was cleared, let's print the top item on the stack with the <b>p</b> command:</p>
+<pre class="tcy tab">p</pre>
+<pre class="tab">dc: stack empty</pre>
+<p class="tab">Now, let's push two items onto the stack. Let's say <b>1</b> and <b>2</b>.</p>
+<pre class="tcy tab">1
+2</pre>
+<p class="tab">If we use the <b>p</b> command, it shows the item on top of the stack. Here, that is the most recently-pushed item, <b>2</b>:</p>
+<pre class="tcy tab">p</pre>
+<pre class="tab">2</pre>
+<p class="tab">Or, we can use the <b>f</b> command to display the entire contents of the stack. This shows the items top-to-bottom, in other words most-recently-pushed-first:</p>
+<pre class="tcy tab">f</pre>
+<pre class="tab">2
+1</pre>
+<p class="tab">Now let's operate on the stack. Let's <b>add</b> the top two items and <b>print</b> the result:</p>
+<pre class="tcy tab">+ p</pre>
+<pre class="tab">3</pre>
+<p class="tab">Now let's look at the full contents of the stack using <b>f</b>:</p>
+<pre class="tcy tab">f</pre>
+<pre class="tab">3</pre>
+<p class="tab">The numbers <b>1</b> and <b>2</b> are gone. They were both popped off the stack by the addition operation, which added them together and then pushed the result, <b>3</b>, onto the stack.</p>
+<p class="tab">When adding numbers together, as we did, the order of the operands doesn't matter (1 + 2 is the same as 2 + 1). Let's use division now, to illustrate the order where the items on the stack are used. First, let's set the precision to two decimal points:</p>
+<pre class="tcy tab">2 k</pre>
+<p class="tab">Now let's clear the stack, and then push <b>1</b> and then <b>2</b> onto the stack:</p>
+<pre class="tcy tab">c 1 2</pre>
+<p class="tab">Let's check the stack real quick:</p>
+<pre class="tcy tab">f</pre>
+<pre class="tab">2
+1</pre>
+<p class="tab">Now let's divide, and print the result:</p>
+<pre class="tcy tab">/ p</pre>
+<pre class="tab">.50</pre>
+<p class="tab">As you can see, this is the result of <b>1</b> divided by <b>2</b>, not the other way around.</p>
+<p class="tab">We're done for now, so let's quit <b>dc</b>:</p>
+<pre class="tcy tab">q</pre>
+<p class="tab">Which returns us to the <a href="/jargon/s/shell.htm">shell</a>'s command prompt.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ubc.htm"><b>bc</b></a> &mdash; A calculator.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82cfe8f8c3c5',m:'dfTeJCUy5w0PS6W1V.qE1bhontBcgFG4ZvYwgBdESdY-1661495344-0-AWiSoN+Rw1Omkw+engaI8JhuvKlFpsH8cYJLhqu4HaHnddzOSLYUQpbYz26XosSJ9hmmmPqY5pau0WfEYZEgdlnQo/6QOkZQYpyJKpiBJ2iDhIa7u5t5O4b6gCdv9JjZ2A==',s:[0xc3cdc3aa0e,0xddf5c140b4],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

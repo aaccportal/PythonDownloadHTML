@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux xz, unxz, xzcat, lzma, unlzma, lzcat command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/xz.gif" width="300" height="300" alt="xz command" class="floatRight"><p class="intro"><b>xz</b>, <b>unxz</b>, <b>xzcat</b>, <b>lzma</b>, <b>unlzma</b>, and <b>lzcat</b> <a href="/jargon/c/compress.htm">compress</a> or <a href="/jargon/e/explode.htm">decompress</a> <b>.xz</b> and <b>.lzma</b> files.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2>Description</h2>
+<p class="tab"><b>xz</b> is a general-purpose data compression tool with <a href="/jargon/c/commandi.htm">command line</a> <a href="/jargon/s/syntax.htm">syntax</a> similar to <a href="/jargon/g/gzip.htm">gzip</a> and <b>bzip2</b>. The native <a href="/jargon/f/file-format.htm">file format</a> is the <b>.xz</b> format, but the legacy <b>.lzma</b> format used by LZMA Utils and raw compressed streams with no container format headers are also supported.</p>
+<p class="tab"><b>xz</b> compresses or decompresses each file according to the selected operation mode. If no files are given or file is specified as a dash ("<b>-</b>"), <b>xz</b> reads from <a href="/jargon/s/stdin.htm">standard input</a> and writes the processed data to standard output. <b>xz</b> will refuse (display an error and skip the file) to write compressed data to standard output if it is a <a href="/jargon/t/terminal.htm">terminal</a>. Similarly, <b>xz</b> will refuse to read compressed data from standard input if it is a terminal.</p>
+<p class="tab">Unless <b>--stdout</b> is specified, files other than "<b>-</b>" are written to a new file whose name is derived from the source file name:</p>
+<ul>
+<li>When compressing, the <a href="/jargon/s/suffix.htm">suffix</a> of the target file format (<b>.xz</b> or <b>.lzma</b>) is appended to the source file name to get the target file name.</li>
+<li>When decompressing, the <b>.xz</b> or <b>.lzma</b> suffix is removed from the file name to get the target file name. <b>xz</b> also recognizes the suffixes <b>.txz</b> and <b>.tlz</b>, and replaces them with the <b>.tar</b> suffix.</li>
+</ul>
+<p class="tab">If the target file already exists, an error is displayed and the file is skipped.</p>
+<p class="tab">Unless writing to standard output, <b>xz</b> displays a warning and skip the file if any of the following applies:</p>
+<ul>
+<li><i>File</i> is not a regular file. <a href="/jargon/s/symblink.htm">Symbolic links</a> are not followed, and thus they are not considered to be regular files.</li>
+<li><i>File</i> has more than one <a href="/jargon/h/hardlink.htm">hard link</a>.</li>
+<li>File has <a href="/jargon/s/suid.htm">setuid</a>, setgid, or sticky bit set.</li>
+<li>The operation mode is set to compress and the file already has a suffix of the target file format (<b>.xz</b> or <b>.txz</b> when compressing to the <b>.xz</b> format, and <b>.lzma</b> or <b>.tlz</b> when compressing to the <b>.lzma</b> format).</li>
+<li>The operation mode is set to decompress and the file doesn't have a suffix of any of the supported file formats (<b>.xz</b>, <b>.txz</b>, <b>.lzma</b>, or <b>.tlz</b>).</li>
+</ul>
+<p class="tab">After successfully compressing or decompressing the file, <b>xz</b> copies the owner, group, permissions, access time, and modification time from the source file to the target file. If copying the group fails, the permissions are modified so that the target file doesn't become accessible to users who didn't have permission to access the source file. <b>xz</b> doesn't support copying other <a href="/jargon/m/metadata.htm">metadata</a> like access control lists or extended attributes yet.</p>
+<p class="tab">Once the target file is successfully closed, the source file is removed unless <b>--keep</b> was specified. The source file is never removed if the output is written to standard output.</p>
+<p class="tab">Sending SIGINFO or SIGUSR1 <a href="/unix/signals.htm">signals</a> to the <b>xz</b> process makes it print progress information to standard error. This has only limited use since when standard error is a terminal, using <b>--verbose</b> displays an automatically updating progress indicator.</p>
+<h2>Memory usage</h2>
+<p class="tab">The memory usage of <b>xz</b> varies from a few hundred <a href="/jargon/k/kilobyte.htm">kilobytes</a> to several <a href="/jargon/g/gigabyte.htm">gigabytes</a> depending on the compression settings. The settings used when compressing a file determine the memory requirements of the decompressor. Typically the decompressor needs 5% to 20% of the amount of memory that the compressor needed when creating the file. For example, decompressing a file created with <b>xz -9</b> currently requires 65 <a href="/jargon/m/mebibyte.htm">MiB</a> of memory. Still, it is possible to have <b>.xz</b> files that require several gigabytes of memory to decompress.</p>
+<p class="tab">Especially users of older systems may find the possibility of very large memory usage annoying. To prevent uncomfortable surprises, <b>xz</b> has a built-in memory usage limiter, which is disabled by default. While some <a href="/jargon/o/os.htm">operating systems</a> provide ways to limit the memory usage of processes, relying on it wasn't deemed to be flexible enough.</p>
+<p class="tab">The memory usage limiter can be enabled with the command line option <b>--memlimit=</b><i>limit</i>. Often it is more convenient to enable the limiter by default by setting the <a href="/jargon/e/envivari.htm">environment variable</a> XZ_DEFAULTS, e.g., <b>XZ_DEFAULTS=--memlimit=150MiB</b>. It is possible to set the limits separately for compression and decompression using <b>--memlimit-compress=</b><i>limit</i> and <b>--memlimit-decompress=</b><i>limit</i>. Using these two options outside XZ_DEFAULTS is rarely useful because a single run of <b>xz</b> cannot do both compression and decompression and <b>--memlimit=</b><i>limit</i> (or <b>-M</b> limit) is shorter to type on the command line.</p>
+<p class="tab">If the specified memory usage limit is exceeded when decompressing, <b>xz</b> displays an error and decompressing the file will fail. If the limit is exceeded when compressing, <b>xz</b> tries to scale the settings down so that the limit is no longer exceeded (except when using <b>--format=raw</b> or <b>--no-adjust</b>). This way the operation won't fail unless the limit is very small. The scaling of the settings is done in steps that don't match the compression level presets, e.g., if the limit is only slightly less than the amount required for <b>xz -9</b>, the settings will be scaled down only a little, not down to <b>xz -8</b>.</p>
+<h2>Concatenating and padding with .xz files</h2>
+<p class="tab">It is possible to <a href="/jargon/c/concaten.htm">concatenate</a> <b>.xz</b> files as is. <b>xz</b> will decompress such files as if they were a single <b>.xz</b> file.</p>
+<p class="tab">It is possible to insert padding between the concatenated parts or after the last part. The padding must consist of <a href="/jargon/n/null.htm">null</a> <a href="/jargon/b/byte.htm">bytes</a> and the size of the padding must be a multiple of four bytes. This can be useful e.g., if the <b>.xz</b> file is stored on a medium that measures file sizes in 512-byte blocks.</p>
+<p class="tab">Concatenation and padding are not allowed with <b>.lzma</b> files or raw streams.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">xz [<i>option</i>]...  [<i>file</i>]...</pre>
+<p class="tab"><b>unxz</b> is equivalent to <b>xz --decompress</b>.</p>
+<p class="tab"><b>xzcat</b> is equivalent to <b>xz --decompress --stdout</b>.</p>
+<p class="tab"><b>lzma</b> is equivalent to <b>xz --format=lzma</b>.</p>
+<p class="tab"><b>unlzma</b> is equivalent to <b>xz --format=lzma --decompress</b>.</p>
+<p class="tab"><b>lzcat</b> is equivalent to <b>xz --format=lzma --decompress --stdout</b>.</p>
+<h2>Options: operation modes</h2>
+<p class="tab">These options tell <b>xz</b> what mode to use. If more than one mode is specified, the last one takes effect.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-z</b>, <b>--compress</b></td>
+<td>Compress. This option is the default operation mode when no operation mode option is specified and no other operation mode is implied from the command name (for example, <b>unxz</b> implies <b>--decompress</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--decompress</b>,<br><b>--uncompress</b></td>
+<td>Decompress.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--test</b></td>
+<td>Test the <a href="/jargon/i/integrit.htm">integrity</a> of compressed files. This option is equivalent to <b>--decompress --stdout</b> except that the decompressed data is discarded instead of being written to standard output. No files are created or removed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--list</b></td>
+<td>Print information about compressed files. No uncompressed output is produced, and no files are created or removed. In list mode, the program cannot read the compressed data from standard input or from other unseekable sources.<br><br> The default listing shows basic information about files, one file per line. To get more detailed information, use also the <b>--verbose</b> option. For even more information, use <b>--verbose</b> twice, but note that this may be slow, because getting all the extra information requires many seeks. The width of verbose output exceeds 80 <a href="/jargon/c/charact.htm">characters</a>, so <a href="/jargon/p/pipe.htm">piping</a> the output to e.g., "<b><a href="/unix/uless.htm">less</a> -S</b>" may be convenient if the <a href="/jargon/t/terminal.htm">terminal</a> isn't wide enough.<br><br> The exact output may vary between <b>xz</b> versions and different locales. For machine-readable output, <b>--robot --list</b> should be used.</td>
+</tr>
+</table>
+<h2>Options: operation modifiers</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>-k</b>, <b>--keep</b></td>
+<td>Don't delete the input files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--force</b></td>
+<td>This option has several effects:<br><br> &bull; If the target file already exists, delete it before compressing or decompressing.<br><br> &bull; Compress or decompress even if the input is a <a href="/jargon/s/symblink.htm">symbolic link</a> to a regular file, has more than one <a href="/jargon/h/hardlink.htm">hard link</a>, or has the setuid, setgid, or sticky bit set. The setuid, setgid, and sticky bits are not copied to the target file.<br><br> &bull; When used with <b>--decompress --stdout</b> and <b>xz</b> cannot recognize the type of the source file, copy the source file as is to standard output. This allows <b>xzcat --force</b> to be used like <a href="/jargon/c/cat.htm">cat</a> for files that have not been compressed with <b>xz</b>. Note that in future, <b>xz</b> might support new compressed file formats, which may make <b>xz</b> decompress more types of files instead of copying them as is to standard output. <b>--format=format</b> can be used to restrict <b>xz</b> to decompress only a single file format.<br><br></td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--stdout</b>, <b>--to-stdout</b></td>
+<td>Write the compressed or decompressed data to standard output instead of a file. This implies <b>--keep</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--single-stream</b></td>
+<td>Decompress only the first <b>.xz</b> stream, and silently ignore possible remaining input data following the stream. Normally such trailing garbage makes <b>xz</b> display an error.<br><br><b>xz</b> never decompresses more than one stream from <b>.lzma</b> files or raw streams, but this option still makes <b>xz</b> ignore the possible trailing data after the <b>.lzma</b> file or raw stream.<br><br> This option has no effect if the operation mode is not <b>--decompress</b> or <b>--test</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-sparse</b></td>
+<td>Disable creation of sparse files. By default, if decompressing into a regular file, <b>xz</b> tries to make the file sparse if the decompressed data contains long sequences of <a href="/jargon/b/binary.htm">binary</a> zeros. It also works when writing to standard output as long as standard output is connected to a regular file and certain additional conditions are met to make it safe. Creating sparse files may save disk space and speed up the decompression by reducing the amount of <a href="/jargon/d/disk.htm">disk</a> <a href="/jargon/i/io.htm">I/O</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S .</b><i>suf</i>, <b>--suffix=.</b><i>suf</i></td>
+<td>When compressing, use <b>.</b><i>suf</i> as the suffix for the target file instead of <b>.xz</b> or <b>.lzma</b>. If not writing to standard output and the source file already has the suffix <b>.suf</b>, a warning is displayed and the file is skipped.<br><br> When decompressing, recognize files with the suffix <b>.</b><i>suf</i> in addition to files with the <b>.xz</b>, <b>.txz</b>, <b>.lzma</b>, or <b>.tlz</b> suffix. If the source file has the suffix <b>.</b><i>suf</i>, the suffix is removed to get the target file name.<br><br> When compressing or decompressing raw streams (<b>--format=raw</b>), the suffix must always be specified unless writing to standard output, because there is no default suffix for raw streams.</td>
+</tr>
+<tr class="tcw">
+<td><b>--files</b>[<b>=</b><i>file</i>]</td>
+<td>Read the file names to process from <i>file</i>; if <i>file</i> is omitted, file names are read from standard input. File names must be terminated with the <a href="/jargon/n/newline.htm">newline</a> character. A dash ("<b>-</b>") is taken as a regular file name; it doesn't mean standard input. If file names are given also as command line arguments, they are processed before the file names read from <i>file</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--files0</b>[<b>=</b><i>file</i>]</td>
+<td>This option is identical to <b>--files</b>[<b>=</b><i>file</i>] except that each file name must be terminated with the null character.</td>
+</tr>
+</table>
+<h2>Options: basic file format and compression options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:300px"><b>-F</b> <i>format</i>, <b>--format=</b><i>format</i></td>
+<td>Specify the file <i>format</i> to compress or decompress:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:60px"><b>auto</b></td>
+<td>This format is the default. When compressing, <b>auto</b> is equivalent to <b>xz</b>. When decompressing, the format of the input file is automatically detected. Note that raw streams (created with <b>--format=raw</b>) cannot be auto-detected.</td>
+</tr>
+<tr class="tcw">
+<td><b>xz</b></td>
+<td>Compress to the <b>.xz</b> file format, or accept only <b>.xz</b> files when decompressing.</td>
+</tr>
+<tr class="tcw">
+<td><b>lzma</b>, <b>alone</b></td>
+<td>Compress to the legacy <b>.lzma</b> file format, or accept only <b>.lzma</b> files when decompressing. The alternative name alone is provided for <a href="/jargon/b/backcomp.htm">backward compatibility</a> with LZMA Utils.</td>
+</tr>
+<tr class="tcw">
+<td><b>raw</b></td>
+<td>Compress or uncompress a raw stream (no headers). This format is meant for advanced users only. To decode raw streams, you need use <b>--format=raw</b> and explicitly specify the filter chain, which normally would have been stored in the container headers.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b> <i>check</i>, <b>--check=</b><i>check</i></td>
+<td><p>Specify the type of the integrity check. The check is calculated from the uncompressed data and stored in the <b>.xz</b> file. This option has an effect only when compressing into the <b>.xz</b> format; the <b>.lzma</b> format doesn't support integrity checks. The integrity check (if any) is verified when the <b>.xz</b> file is decompressed.</p>
+<p>Supported check types:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:80px"><b>none</b></td>
+<td>Don't calculate an integrity check at all. This check is usually a bad idea. This can be useful when integrity of the data is verified by other means anyway.</td>
+</tr>
+<tr class="tcw">
+<td><b>crc32</b></td>
+<td>Calculate CRC32 using the polynomial from IEEE-802.3 (Ethernet).</td>
+</tr>
+<tr class="tcw">
+<td><b>crc64</b></td>
+<td>Calculate CRC64 using the polynomial from ECMA-182. This check is the default since it's slightly better than CRC32 at detecting damaged files and the speed difference is negligible.</td>
+</tr>
+<tr class="tcw">
+<td><b>sha256</b></td>
+<td>Calculate SHA-256. This check is somewhat slower than CRC32 and CRC64.</td>
+</tr>
+</table>
+Integrity of the <b>.xz</b> headers is always verified with CRC32. It is not possible to change or disable it.</td>
+</tr>
+<tr class="tcw">
+<td><b>-0</b> ... <b>-9</b></td>
+<td><p>Select a compression preset level. The default is <b>-6</b>. If multiple preset levels are specified, the last one takes effect. If a custom filter chain was already specified, setting a compression preset level clears the custom filter chain.</p>
+<p>The differences between the presets are more significant than with <b>gzip</b> and <b>bzip2</b>. The selected compression settings determine the memory requirements of the decompressor, thus using a too high preset level might make it painful to decompress the file on an old system with little RAM. Specifically, it's not a good idea to blindly use <b>-9</b> for everything like it often is with <b>gzip</b> and <b>bzip2</b>.</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:90px"><b>-0</b> ... <b>-3</b></td>
+<td>These are somewhat fast presets. <b>-0</b> is sometimes faster than <b>gzip -9</b> while compressing much better. The higher ones often have speed comparable to <b>bzip2</b> with comparable or better compression ratio, although the results depend a lot on the type of data being compressed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-4</b> ... <b>-6</b></td>
+<td>Good to very good compression while keeping decompressor memory usage reasonable even for old systems. <b>-6</b> is the default, which is usually a good choice e.g., for distributing files that need to be decompressible even on systems with only 16 MiB RAM. (<b>-5e</b> or <b>-6e</b> may be worth considering too. See <b>--extreme</b>.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-7</b> ... <b>-9</b></td>
+<td>These are like <b>-6</b> but with higher compressor and decompressor memory requirements. These are useful only when compressing files bigger than 8 MiB, 16 MiB, and 32 MiB, respectively.</td>
+</tr>
+</table>
+<p>On the same hardware, the decompression speed is approximately a constant number of bytes of compressed data per second. In other words, the better the compression, the faster the decompression will usually be. This also means that the amount of uncompressed output produced per second can vary a lot.</p>
+<p>The following table summarises the features of the presets:</p>
+<table class="mtable3">
+<tr class="tcy">
+<th><b>Preset</b></th>
+<th><b>DictSize</b></th>
+<th><b>CompCPU</b></th>
+<th><b>CompMem</b></th>
+<th><b>DecMem</b></th>
+</tr>
+<tr class="tcw">
+<td><b>-0</b></td>
+<td>256 KiB</td>
+<td>0</td>
+<td>3 MiB</td>
+<td>1 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-1</b></td>
+<td>1 MiB</td>
+<td>1</td>
+<td>9 MiB</td>
+<td>2 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-2</b></td>
+<td>2 MiB</td>
+<td>2</td>
+<td>17 MiB</td>
+<td>3 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-3</b></td>
+<td>4 MiB</td>
+<td>3</td>
+<td>32 MiB</td>
+<td>5 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-4</b></td>
+<td>4 MiB</td>
+<td>4</td>
+<td>48 MiB</td>
+<td>5 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-5</b></td>
+<td>8 MiB</td>
+<td>5</td>
+<td>94 MiB</td>
+<td>9 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-6</b></td>
+<td>8 MiB</td>
+<td>6</td>
+<td>94 MiB</td>
+<td>9 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-7</b></td>
+<td>16 MiB</td>
+<td>6</td>
+<td>186 MiB</td>
+<td>17 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-8</b></td>
+<td>32 MiB</td>
+<td>6</td>
+<td>370 MiB</td>
+<td>33 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-9</b></td>
+<td>64 MiB</td>
+<td>6</td>
+<td>674 MiB</td>
+<td>65 MiB</td>
+</tr>
+</table>
+Column descriptions:<br>
+<br>
+&bull; <b>DictSize</b> is the LZMA2 dictionary size. It is waste of memory to use a dictionary bigger than the size of the uncompressed file. This is why it is good to avoid using the presets <b>-7</b> ... <b>-9</b> when there's no real need for them. At <b>-6</b> and lower, the amount of memory wasted is usually low enough to not matter.<br>
+<br>
+&bull; <b>CompCPU</b> is a simplified representation of the LZMA2 settings that affect compression speed. The dictionary size affects speed too, so while CompCPU is the same for levels <b>-6</b> ... <b>-9</b>, higher levels still tend to be a little slower. To get even slower and thus possibly better compression, see <b>--extreme</b>.<br>
+<br>
+&bull; <b>CompMem</b> contains the compressor memory requirements in the single-threaded mode. It may vary slightly between <b>xz</b> versions. Memory requirements of some of the future multithreaded modes may be dramatically higher than that of the single-threaded mode.<br>
+<br>
+&bull; <b>DecMem</b> contains the decompressor memory requirements. That is, the compression settings determine the memory requirements of the decompressor. The exact decompressor memory usage is slightly more than the LZMA2 dictionary size, but the values in the table have been rounded up to the next full MiB.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>, <b>--extreme</b></td>
+<td><p>Use a slower variant of the selected compression preset level (<b>-0</b> ... <b>-9</b>) to hopefully get a little bit better compression ratio, but with bad luck this can also make it worse. Decompressor memory usage is not affected, but compressor memory usage increases a little at preset levels <b>-0</b> ... <b>-3</b>.</p>
+<p>Since there are two presets with dictionary sizes 4 MiB and 8 MiB, the presets <b>-3e</b> and <b>-5e</b> use slightly faster settings (lower CompCPU) than <b>-4e</b> and <b>-6e</b>, respectively. That way no two presets are identical.</p>
+<table class="mtable3">
+<tr class="tcy">
+<th><b>Preset</b></th>
+<th><b>DictSize</b></th>
+<th><b>CompCPU</b></th>
+<th><b>CompMem</b></th>
+<th><b>DecMem</b></th>
+</tr>
+<tr class="tcw">
+<td><b>-0e</b></td>
+<td>256 KiB</td>
+<td>8</td>
+<td>4 MiB</td>
+<td>1 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-1e</b></td>
+<td>1 MiB</td>
+<td>8</td>
+<td>13 MiB</td>
+<td>2 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-2e</b></td>
+<td>2 MiB</td>
+<td>8</td>
+<td>25 MiB</td>
+<td>3 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-3e</b></td>
+<td>4 MiB</td>
+<td>7</td>
+<td>48 MiB</td>
+<td>5 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-4e</b></td>
+<td>4 MiB</td>
+<td>8</td>
+<td>48 MiB</td>
+<td>5 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-5e</b></td>
+<td>8 MiB</td>
+<td>7</td>
+<td>94 MiB</td>
+<td>9 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-6e</b></td>
+<td>8 MiB</td>
+<td>8</td>
+<td>94 MiB</td>
+<td>9 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-7e</b></td>
+<td>16 MiB</td>
+<td>8</td>
+<td>186 MiB</td>
+<td>17 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-8e</b></td>
+<td>32 MiB</td>
+<td>8</td>
+<td>370 MiB</td>
+<td>33 MiB</td>
+</tr>
+<tr class="tcw">
+<td><b>-9e</b></td>
+<td>64 MiB</td>
+<td>8</td>
+<td>674 MiB</td>
+<td>65 MiB</td>
+</tr>
+</table>
+For example, there are a total of four presets that use 8 MiB dictionary, whose order from the fastest to the slowest is <b>-5</b>, <b>-6</b>, <b>-5e</b>, and <b>-6e</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--fast</b>, <b>--best</b></td>
+<td>These are somewhat misleading aliases for <b>-0</b> and <b>-9</b>, respectively. These are provided only for backward compatibility with LZMA Utils. Avoid using these options.</td>
+</tr>
+<tr class="tcw">
+<td><b>--block-size=</b><i>size</i></td>
+<td>When compressing to the <b>.xz</b> format, split the input data into blocks of size bytes. The blocks are compressed independently from each other.</td>
+</tr>
+<tr class="tcw">
+<td><b>--memlimit-compress=</b><i>limit</i></td>
+<td>Set a memory usage limit for compression. If this option is specified multiple times, the last one takes effect.<br><br> If the compression settings exceed the limit, <b>xz</b> will adjust the settings downwards so that the limit is no longer exceeded and display a notice that automatic adjustment was done. Such adjustments are not made when compressing with <b>--format=raw</b> or if <b>--no-adjust</b> is specified. In those cases, an error is displayed and <b>xz</b> will exit with exit status <b>1</b>.<br><br> The limit can be specified in multiple ways:<br><br> &bull; The limit can be an absolute value in bytes. Using an integer suffix like MiB can be useful. Example: <b>--memlimit-compress=80MiB</b><br><br> &bull; The limit can be specified as a percentage of total physical memory (RAM). This can be useful especially when setting the XZ_DEFAULTS environment variable in a shell initialization script that is shared between different computers. That way the limit is automatically bigger on systems with more memory. Example: <b>--memlimit-compress=70%</b><br><br> &bull; The limit can be reset back to its default value by setting it to <b>0</b>, which is currently equivalent to setting the limit to <b>max</b> (no memory usage limit). Once multithreading support is implemented, there may be a difference between <b>0</b> and <b>max</b> for the multithreaded case, so it is recommended to use <b>0</b> instead of <b>max</b> until the details are decided.</td>
+</tr>
+<tr class="tcw">
+<td><b>--memlimit-decompress=</b><i>limit</i></td>
+<td>Set a memory usage limit for decompression. This also affects the <b>--list</b> mode. If the operation is not possible without exceeding the limit, <b>xz</b> displays an error and decompressing the file will fail. See <b>--memlimit-compress=</b><i>limit</i> for possible ways to specify the limit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b> <i>limit</i>, <b>--memlimit=</b><i>limit</i>,<br><b>--memory=</b><i>limit</i></td>
+<td>This option is equivalent to specifying <b>--memlimit-compress=</b><i>limit</i> <b>--memlimit-decompress=</b><i>limit</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-adjust</b></td>
+<td>Display an error and exit if the compression settings exceed the memory usage limit. The default is to adjust the settings downwards so that the memory usage limit is not exceeded. Automatic adjusting is always disabled when creating raw streams (<b>--format=raw</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b> <i>threads</i>, <b>--threads=</b><i>threads</i></td>
+<td>Specify the number of worker threads to use. The actual number of threads can be less than threads if using more threads would exceed the memory usage limit.<br><br> Multithreaded compression and decompression are not implemented yet, so this option has no effect for now.<br><br></td>
+</tr>
+</table>
+<h2>Custom compressor filter chains</h2>
+<p class="tab">A custom filter chain allows specifying the compression settings in detail instead of relying on the settings associated to the preset levels. When a custom filter chain is specified, the compression preset level options (<b>-0</b> ... <b>-9</b> and <b>--extreme</b>) are silently ignored.</p>
+<p class="tab">A filter chain is comparable to piping on the command line. When compressing, the uncompressed input goes to the first filter, whose output goes to the next filter (if any). The output of the last filter gets written to the compressed file. The maximum number of filters in the chain is four, but often a filter chain has only one or two filters.</p>
+<p class="tab">Many filters have limitations on where they can be in the filter chain: some filters can work only as the last filter in the chain, some only as a non-last filter, and some work in any position in the chain. Depending on the filter, this limitation is either inherent to the filter design or exists to prevent security issues.</p>
+<p class="tab">A custom filter chain is specified using one or more filter options in the order they are wanted in the filter chain. That is, the order of filter options is significant! When decoding raw streams (<b>--format=raw</b>), the filter chain is specified in the same order as it was specified when compressing.</p>
+<p class="tab">Filters take filter-specific options as a comma-separated list. Extra commas in options are ignored. Every option has a default value, so you need to specify only those you want to change.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>--lzma1</b>[<b>=</b><i>options</i>],<br><b>--lzma2</b>[<b>=</b><i>options</i>]</td>
+<td>Add LZMA1 or LZMA2 filter to the filter chain. These filters can be used only as the last filter in the chain.<br><br> LZMA1 is a legacy filter, which is supported almost solely due to the legacy <b>.lzma</b> file format, which supports only LZMA1. LZMA2 is an updated version of LZMA1 to fix some practical issues of LZMA1. The <b>.xz</b> format uses LZMA2 and doesn't support LZMA1 at all. Compression speed and ratios of LZMA1 and LZMA2 are practically the same.<br><br> LZMA1 and LZMA2 share the same set of options:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:150px"><b>preset=</b><i>preset</i></td>
+ <td>Reset all LZMA1 or LZMA2 options to <i>preset</i>. Preset consist of an integer, which may be followed by single-letter preset modifiers. The integer can be from <b>0</b> to <b>9</b>, matching the command line options <b>-0</b> ... <b>-9</b>. The only supported modifier is currently <b>e</b>, which matches <b>--extreme</b>. The default preset is <b>6</b>, from which the default values for the rest of the LZMA1 or LZMA2 options are taken.</td>
+</tr>
+<tr class="tcw">
+<td><b>dict=</b><i>size</i></td>
+<td>Dictionary (history buffer) size indicates how many bytes of the recently processed uncompressed data is kept in memory. The algorithm tries to find repeating byte sequences (matches) in the uncompressed data, and replace them with references to the data currently in the dictionary. The bigger the dictionary, the higher is the chance to find a match. Thus, increasing dictionary size usually improves compression ratio, but a dictionary bigger than the uncompressed file is waste of memory.<br><br> Typical dictionary size is from 64 KiB to 64 MiB. The minimum is 4 KiB. The maximum for compression is currently 1.5 GiB (1536 MiB). The decompressor already supports dictionaries up to one byte less than 4 GiB, which is the maximum for the LZMA1 and LZMA2 stream formats.<br><br> Dictionary size and match finder (mf) together determine the memory usage of the LZMA1 or LZMA2 encoder. The same (or bigger) dictionary size is required for decompressing that was used when compressing, thus the memory usage of the decoder is determined by the dictionary size used when compressing. The .xz headers store the dictionary size either as 2^n or 2^n + 2^(n-1), so these sizes are somewhat preferred for compression. Other sizes will get rounded up when stored in the .xz headers.</td>
+</tr>
+<tr class="tcw">
+<td><b>lc=</b><i>lc</i></td>
+<td>Specify the number of literal context bits. The minimum is <b>0</b> and the maximum is <b>4</b>; the default is <b>3</b>. Also, the sum of <b>lc</b> and <b>lp</b> must not exceed <b>4</b>.<br><br> All bytes that cannot be encoded as matches are encoded as literals. That is, literals are 8-bit bytes that are encoded one at a time.<br><br> The literal coding makes an assumption that the highest <b>lc</b> bits of the previous uncompressed byte correlate with the next byte. For example, in typical English text, an uppercase letter is often followed by a lowercase letter, and a lowercase letter is usually followed by another lowercase letter. In the US-ASCII character set, the highest three bits are 010 for uppercase letters and 011 for lowercase letters. When <b>lc</b> is at least 3, the literal coding can take advantage of this property in the uncompressed data.<br><br> The default value (<b>3</b>) is usually good. If you want maximum compression, test <b>lc=4</b>. Sometimes it helps a little, and sometimes it makes compression worse. If it makes it worse, test e.g., <b>lc=2</b> too.</td>
+</tr>
+<tr class="tcw">
+<td><b>lp=</b><i>lp</i></td>
+<td>Specify the number of literal position bits. The minimum is <b>0</b> and the maximum is <b>4</b>; the default is <b>0</b>.<br><br><b>Lp</b> affects what kind of alignment in the uncompressed data is assumed when encoding literals. See <b>pb</b> below for more information about alignment.</td>
+</tr>
+<tr class="tcw">
+<td><b>pb=</b><i>pb</i></td>
+<td>Specify the number of position bits. The minimum is <b>0</b> and the maximum is <b>4</b>; the default is <b>2</b>.<br><br><b>Pb</b> affects what kind of alignment in the uncompressed data is assumed in general. The default means four-byte alignment (2^pb=2^2=4), which is often a good choice when there's no better guess.<br><br> When the alignment is known, setting <b>pb</b> accordingly may reduce the file size a little. For example, with text files having one-byte alignment (US-ASCII, ISO-8859-*, UTF-8), setting <b>pb=0</b> can improve compression slightly. For UTF-16 text, <b>pb=1</b> is a good choice. If the alignment is an odd number like 3 bytes, <b>pb=0</b> might be the best choice.<br><br> Even though the assumed alignment can be adjusted with <b>pb</b> and <b>lp</b>, LZMA1 and LZMA2 still slightly favor 16-byte alignment. It might be worth taking into account when designing file formats that are likely to be often compressed with LZMA1 or LZMA2.</td>
+</tr>
+<tr class="tcw">
+<td><b>mf=</b><i>mf</i></td>
+<td><p>Match finder has a major effect on encoder speed, memory usage, and compression ratio. Usually, Hash Chain match finders are faster than Binary Tree match finders. The default depends on the preset: <b>0</b> uses <b>hc3</b>, <b>1</b>-<b>3</b> use <b>hc4</b>, and the rest use <b>bt4</b>.</p>
+<p>The following match finders are supported. The memory usage formulas below are rough approximations, which are closest to the reality when <b>dict</b> is a power of two.</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:50px"><b>hc3</b></td>
+<td>Hash Chain with 2- and 3-byte hashing<br> Minimum value for nice: 3<br> Memory usage:<br> dict * 7.5 (if dict &lt;= 16 MiB);<br> dict * 5.5 + 64 MiB (if dict &gt; 16 MiB)</td>
+</tr>
+<tr class="tcw">
+<td><b>hc4</b></td>
+<td>Hash Chain with 2-, 3-, and 4-byte hashing<br> Minimum value for nice: 4<br> Memory usage:<br> dict * 7.5 (if dict &lt;= 32 MiB);<br> dict * 6.5 (if dict &gt; 32 MiB)</td>
+</tr>
+<tr class="tcw">
+<td><b>bt2</b></td>
+<td>Binary Tree with 2-byte hashing<br> Minimum value for nice: 2<br> Memory usage: dict * 9.5</td>
+</tr>
+<tr class="tcw">
+<td><b>bt3</b></td>
+<td> Binary Tree with 2- and 3-byte hashing<br> Minimum value for nice: 3<br> Memory usage:<br> dict * 11.5 (if dict &lt;= 16 MiB);<br> dict * 9.5 + 64 MiB (if dict &gt; 16 MiB)</td>
+</tr>
+<tr class="tcw">
+<td><b>bt4</b></td>
+<td>Binary Tree with 2-, 3-, and 4-byte hashing<br> Minimum value for nice: 4<br> Memory usage:<br> dict * 11.5 (if dict &lt;= 32 MiB);<br> dict * 10.5 (if dict &gt; 32 MiB)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>mode=</b><i>mode</i></td>
+<td>Compression mode specifies the method to analyze the data produced by the match finder. Supported modes are <b>fast</b> and <b>normal</b>. The default is fast for presets <b>0</b>-<b>3</b> and normal for presets <b>4</b>-<b>9</b>.<br><br> Usually, <b>fast</b> is used with Hash Chain match finders and <b>normal</b> with Binary Tree match finders, which is also what the presets do.</td>
+</tr>
+<tr class="tcw">
+<td><b>nice=</b><i>nice</i></td>
+<td>Specify what is considered to be a nice length for a match. Once a match of at least nice bytes is found, the algorithm stops looking for possibly better matches.<br><br> Nice can be 2-273 bytes. Higher values tend to give better compression ratio at the expense of speed. The default depends on the preset.</td>
+</tr>
+<tr class="tcw">
+<td><b>depth=</b><i>depth</i></td>
+<td>Specify the maximum search depth in the match finder. The default is the special value of <b>0</b>, which makes the compressor determine a reasonable depth from <b>mf</b> and <b>nice</b>.<br><br> Reasonable depth for Hash Chains is <b>4</b>-<b>100</b> and <b>16</b>-<b>1000</b> for Binary Trees. Using very high values for depth can make the encoder extremely slow with some files. Avoid setting the depth over <b>1000</b> unless you are prepared to interrupt the compression in case it is taking far too long.</td>
+</tr>
+</table>
+When decoding raw streams (<b>--format=raw</b>), LZMA2 needs only the dictionary size. LZMA1 needs also <b>lc</b>, <b>lp</b>, and <b>pb</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--x86</b>[<b>=</b><i>options</i>]<br><br><b>--powerpc</b>[<b>=</b><i>options</i>]<br><br><b>--ia64</b>[<b>=</b><i>options</i>]<br><br><b>--arm</b>[<b>=</b><i>options</i>]<br><br><b>--armthumb</b>[<b>=</b><i>options</i>]<br><br><b>--sparc</b>[<b>=</b><i>options</i>]</td>
+<td>Add a branch/call/jump (BCJ) filter to the filter chain. These filters can be used only as a non-last filter in the filter chain.<br><br> A BCJ filter converts relative addresses in the machine code to their absolute counterparts. This doesn't change the size of the data, but it increases redundancy, which can help LZMA2 to produce 0-15 % smaller .xz file. The BCJ filters are always reversible, so using a BCJ filter for wrong type of data doesn't cause any data loss, although it may make the compression ratio slightly worse.<br><br> It is fine to apply a BCJ filter on a whole executable; there's no need to apply it only on the executable section. Applying a BCJ filter on an archive that contains both executable and non-executable files may or may not give good results, so it generally isn't good to blindly apply a BCJ filter when compressing binary packages for distribution.<br><br> These BCJ filters are very fast and use insignificant amount of memory. If a BCJ filter improves compression ratio of a file, it can improve decompression speed at the same time. This is because, on the same hardware, the decompression speed of LZMA2 is roughly a fixed number of bytes of compressed data per second.<br><br> These BCJ filters have known problems related to the compression ratio:<br><br> &bull; Some types of files containing executable code (e.g., object files, static libraries, and Linux kernel modules) have the addresses in the instructions filled with filler values. These BCJ filters will still do the address conversion, which will make the compression worse with these files.<br><br> &bull; Applying a BCJ filter on an archive containing multiple similar executables can make the compression ratio worse than not using a BCJ filter. This is because the BCJ filter doesn't detect the boundaries of the executable files, and doesn't reset the address conversion counter for each executable.<br><br> Both of the above problems will be fixed in the future in a new filter. The old BCJ filters will still be useful in embedded systems, because the decoder of the new filter will be bigger and use more memory.<br><br> Different instruction sets have different alignment:<br><br>
+<table class="mtable3">
+<tr class="tcy">
+<th><b>filter</b></th>
+<th><b>alignment</b></th>
+<th><b>notes</b></th>
+</tr>
+<tr class="tcw">
+<td><b>x86</b></td>
+<td>1</td>
+<td>32-bit or 64-bit x86</td>
+</tr>
+<tr class="tcw">
+<td><b>PowerPC</b></td>
+<td>4</td>
+<td>Big <a href="/jargon/e/endian.htm">endian</a> only</td>
+</tr>
+<tr class="tcw">
+<td><b>ARM</b></td>
+<td>4</td>
+<td>Little endian only</td>
+</tr>
+<tr class="tcw">
+<td><b>ARM-Thumb</b></td>
+<td>2</td>
+<td>Little endian only</td>
+</tr>
+<tr class="tcw">
+<td><b>IA-64</b></td>
+<td>16</td>
+<td>Big or little endian</td>
+</tr>
+<tr class="tcw">
+<td><b>SPARC</b></td>
+<td>4</td>
+<td>Big or little endian</td>
+</tr>
+</table>
+<p>Since the BCJ-filtered data is usually compressed with LZMA2, the compression ratio may be improved slightly if the LZMA2 options are set to match the alignment of the selected BCJ filter. For example, with the IA-64 filter, it's good to set pb=4 with LZMA2 (2^4=16). The x86 filter is an exception; it's usually good to stick to LZMA2's default four-byte alignment when compressing x86 executables.</p>
+<p>All BCJ filters support the same options:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>start=</b><i>offset</i></td>
+<td>Specify the start offset that is used when converting between relative and absolute addresses. The offset must be a multiple of the alignment of the filter (see the table above). The default is zero. In practice, the default is good; specifying a custom offset is almost never useful.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>--delta</b>[<b>=</b><i>options</i>]</td>
+<td>Add the Delta filter to the filter chain. The Delta filter can be only used as a non-last filter in the filter chain.<br><br>Currently only simple byte-wise delta calculation is supported. It can be useful when compressing e.g., uncompressed bitmap images or uncompressed PCM audio. However, special purpose algorithms may give significantly better results than Delta + LZMA2. This is true especially with audio, which compresses faster and better e.g., with <a href="/jargon/f/flac.htm">flac</a>. Supported options:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:140px"><b>dist=</b><i>distance</i></td>
+<td>Specify the distance of the delta calculation in bytes. The <i>distance</i> must be <b>1</b>-<b>256</b>. The default is <b>1</b>.<br><br> For example, with <b>dist=2</b> and eight-byte input <b>A1 B1 A2 B3 A3 B5 A4 B7</b>, the output will be <b>A1 B1 01 02 01 02 01 02</b>.</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<h2>Other options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>-q</b>, <b>--quiet</b></td>
+<td>Suppress warnings and notices. Specify this twice to suppress errors too. This option has no effect on the exit status. That is, even if a warning was suppressed, the exit status to indicate a warning is still used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Be <a href="/jargon/v/verbose.htm">verbose</a>. If standard error is connected to a terminal, <b>xz</b> displays a progress indicator. Specifying <b>--verbose</b> twice gives even more verbose output.<br><br> The progress indicator shows the following information:<br><br> &bull; Completion percentage is shown if the size of the input file is known. That is, the percentage cannot be shown in pipes.<br><br> &bull; Amount of compressed data produced (compressing) or consumed (decompressing).<br><br> &bull; Amount of uncompressed data consumed (compressing) or produced (decompressing).<br><br> &bull; Compression ratio, which is calculated by dividing the amount of compressed data processed so far by the amount of uncompressed data processed so far.<br><br> &bull; Compression or decompression speed. This is measured as the amount of uncompressed data consumed (compression) or produced (decompression) per second. It is shown after a few seconds have passed since xz started processing the file.<br><br> &bull; Elapsed time in the format <b>M:SS</b> or <b>H:MM:SS</b>.<br><br> &bull; Estimated remaining time is shown only when the size of the input file is known and a couple of seconds have already passed since xz started processing the file. The time is shown in a less precise format which never has any colons, e.g., 2 min 30 s.<br><br> When standard error is not a terminal, <b>--verbose</b> will make <b>xz</b> print the file name, compressed size, uncompressed size, compression ratio, and possibly also the speed and elapsed time on a single line to standard error after compressing or decompressing the file. The speed and elapsed time are included only when the operation took at least a few seconds. If the operation didn't finish, e.g., due to user interruption, also the completion percentage is printed if the size of the input file is known.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Q</b>, <b>--no-warn</b></td>
+<td>Don't set the exit status to <b>2</b> even if a condition worth a warning was detected. This option doesn't affect the verbosity level, thus both <b>--quiet</b> and <b>--no-warn</b> have to be used to not display warnings and to not alter the exit status.</td>
+</tr>
+<tr class="tcw">
+<td><b>--robot</b></td>
+<td>Print messages in a machine-parsable format. This is intended to ease writing frontends that want to use <b>xz</b> instead of liblzma, which may be the case with various scripts. The output with this option enabled is meant to be stable across <b>xz</b> releases. See the section ROBOT MODE for details.</td>
+</tr>
+<tr class="tcw">
+<td><b>--info-memory</b></td>
+<td>Display, in human-readable format, how much physical memory (RAM) <b>xz</b> thinks the system has and the memory usage limits for compression and decompression, and exit successfully.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display a help message describing the most commonly used options, and exit successfully.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b>, <b>--long-help</b></td>
+<td>Display a help message describing all features of <b>xz</b>, and exit successfully.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Display the version number of <b>xz</b> and liblzma in human readable format. To get machine-parsable output, specify <b>--robot</b> before <b>--version</b>.</td>
+</tr>
+</table>
+<h2>Robot mode</h2>
+<p class="tab">The robot mode is activated with the <b>--robot</b> option. It makes the output of <b>xz</b> easier to <a href="/jargon/p/parse.htm">parse</a> by other programs. Currently <b>--robot</b> is supported only together with <b>--version</b>, <b>--info-memory</b>, and <b>--list</b>. It will be supported for normal compression and decompression in the future.</p>
+<h2>Robot mode: version</h2>
+<p class="tab"><b>xz --robot --version</b> will print the version number of <b>xz</b> and liblzma in the following format:</p>
+<pre class="tab">XZ_VERSION=<i>XYYYZZZS</i>
+LIBLZMA_VERSION=<i>XYYYZZZS</i>
+</pre>
+<p class="tab">Here's what the version number means, part by part:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:100px"><i>X</i></td>
+<td>Major version.</td>
+</tr>
+<tr class="tcw">
+<td><i>YYY</i></td>
+<td>Minor version. Even numbers are stable. Odd numbers are alpha or beta versions.</td>
+</tr>
+<tr class="tcw">
+<td><i>ZZZ</i></td>
+<td>Patch level for stable releases or a counter for development releases.</td>
+</tr>
+<tr class="tcw">
+<td><i>S</i></td>
+<td>Stability. <b>0</b> is alpha, <b>1</b> is beta, and <b>2</b> is stable. <i>S</i> should be always <b>2</b> when <i>YYY</i> is even.</td>
+</tr>
+<tr class="tcw">
+<td><i>XYYYZZZS</i></td>
+<td>Are the same on both lines if <b>xz</b> and liblzma are from the same XZ Utils release.</td>
+</tr>
+</table>
+<p class="tab">Examples: 4.999.9beta is <b>49990091</b> and 5.0.0 is <b>50000002</b>.</p>
+<h2>Robot mode: memory limit information</h2>
+<p class="tab"><b>xz --robot --info-memory</b> prints a single line with three tab-separated columns:</p>
+<ul>
+<li>Total amount of physical memory (RAM) in bytes</li>
+<li>Memory usage limit for compression in bytes. A special value of zero indicates the default setting, which for single-threaded mode is the same as no limit.</li>
+<li>Memory usage limit for decompression in bytes. A special value of zero indicates the default setting, which for single-threaded mode is the same as no limit.</li>
+</ul>
+<p class="tab">In the future, the output of <b>xz --robot --info-memory</b> may have more columns, but never more than a single line.</p>
+<h2>Robot mode: list mode</h2>
+<p class="tab"><b>xz --robot --list</b> uses tab-separated output. The first column of every line has a string that indicates the type of the information found on that line:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:100px"><b>name</b></td>
+<td>This is always the first line when starting to list a file. The second column on the line is the file name.</td>
+</tr>
+<tr class="tcw">
+<td><b>file</b></td>
+<td>This line contains overall information about the <b>.xz</b> file. This line is always printed after the name line.</td>
+</tr>
+<tr class="tcw">
+<td><b>stream</b></td>
+<td>This line type is used only when <b>--verbose</b> was specified. There are as many stream lines as there are streams in the <b>.xz</b> file.</td>
+</tr>
+<tr class="tcw">
+<td><b>block</b></td>
+<td>This line type is used only when <b>--verbose</b> was specified. There are as many block lines as there are blocks in the <b>.xz</b> file. The block lines are shown after all the stream lines; different line types are not interleaved.</td>
+</tr>
+<tr class="tcw">
+<td><b>summary</b></td>
+<td>This line type is used only when <b>--verbose</b> was specified twice. This line is printed after all block lines. Like the file line, the summary line contains overall information about the <b>.xz</b> file.</td>
+</tr>
+<tr class="tcw">
+<td><b>totals</b></td>
+<td>This line is always the very last line of the list output. It shows the total counts and sizes.</td>
+</tr>
+</table>
+<p class="tab">The columns of the <b>file</b> lines are:</p>
+<ol start="2">
+<li>Number of streams in the file.</li>
+<li>Total number of blocks in the stream(s.</li>
+<li>Compressed size of the file.</li>
+<li>Uncompressed size of the file.</li>
+<li>Compression ratio, for example 0.123. If ratio is over 9.999, three dashes (---) are displayed instead of the ratio.</li>
+<li>Comma-separated list of integrity check names. The following strings are used for the known check types: <b>None</b>, <b>CRC32</b>, <b>CRC64</b>, and <b>SHA-256</b>. For unknown check types, <i>Unknown-N</i> is used, where N is the <i>Check ID</i> as a decimal number (one or two digits).</li>
+<li>Total size of stream padding in the file.</li>
+</ol>
+<p class="tab">The columns of the <b>stream</b> lines are:</p>
+<ol start="2">
+<li>Stream number (the first stream is 1).</li>
+<li>Number of blocks in the stream.</li>
+<li>Compressed start offset.</li>
+<li>Uncompressed start offset.</li>
+<li>Compressed size (does not include stream padding).</li>
+<li>Uncompressed size.</li>
+<li>Compression ratio.</li>
+<li>Name of the integrity check.</li>
+<li>Size of stream padding.</li>
+</ol>
+<p class="tab">The columns of the <b>block</b> lines are:</p>
+<ol start="2">
+<li>Number of the stream containing this block.</li>
+<li>Block number relative to the beginning of the stream (the first block is 1).</li>
+<li>Block number relative to the beginning of the file.</li>
+<li>Compressed start offset relative to the beginning of the file.</li>
+<li>Uncompressed start offset relative to the beginning of the file.</li>
+<li>Total compressed size of the block (includes headers).</li>
+<li>Uncompressed size.</li>
+<li>Compression ratio.</li>
+<li>Name of the integrity check.</li>
+</ol>
+<p class="tab">If <b>--verbose</b> was specified twice, additional columns are included on the <b>block</b> lines. These are not displayed with a single <b>--verbose</b>, because getting this information requires many seeks and can thus be slow:</p>
+<ol start="11">
+<li>Value of the integrity check in hexadecimal.</li>
+<li>Block header size.</li>
+<li>Block flags: c indicates that compressed size is present, and u indicates that uncompressed size is present. If the flag is not set, a dash (-) is shown instead to keep the string length fixed. New flags may be added to the end of the string in the future.</li>
+<li>Size of the actual compressed data in the block (this excludes the block header, block padding, and check fields).</li>
+<li>Amount of memory (in bytes) required to decompress this block with this xz version.</li>
+<li>Filter chain. Note that most of the options used at compression time cannot be known, because only the options that are needed for decompression are stored in the .xz headers.</li>
+</ol>
+<p class="tab">The columns of the <b>summary</b> lines are:</p>
+<ol start="2">
+<li>Amount of memory (in bytes) required to decompress this file with this xz version.</li>
+<li>yes or no indicating if all block headers have both compressed size and uncompressed size stored in them since xz 5.1.2alpha.</li>
+<li>Minimum xz version required to decompress the file.</li>
+</ol>
+<p class="tab">The columns of the <b>totals</b> line:</p>
+<ol start="2">
+<li>Number of streams.</li>
+<li>Number of blocks.</li>
+<li>Compressed size.</li>
+<li>Uncompressed size.</li>
+<li>Average compression ratio.</li>
+<li>Comma-separated list of integrity check names that were present in the files.</li>
+<li>Stream padding size.</li>
+<li>Number of files. This is here to keep the order of the earlier columns the same as on file lines.</li>
+</ol>
+<p class="tab">If <b>--verbose</b> was specified twice, additional columns are included on the totals line:</p>
+<ol start="10">
+<li>Maximum amount of memory (in bytes) required to decompress the files with this <b>xz</b> version.</li>
+<li>yes or no indicating if all block headers have both compressed size and uncompressed size stored in them.</li>
+<li>Minimum <b>xz</b> version required to decompress the file.</li>
+</ol>
+<h2>Exit status</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>0</b></td>
+<td>Everything was successful.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>An error occurred.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>Something worthy of a warning occurred, but no errors.</td>
+</tr>
+</table>
+<h2>Environment</h2>
+<p class="tab"><b>xz</b> parses space-separated lists of options from the <a href="/jargon/e/envivari.htm">environment variables</a> <b>XZ_DEFAULTS</b> and <b>XZ_OPT</b>, in this order, before parsing the options from the command line. Note that only options are parsed from the environment variables; all non-options are silently ignored.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>XZ_DEFAULTS</b></td>
+<td>User-specific or system-wide default options. Often this is set in a shell initialization script to enable <b>xz</b>'s memory usage limiter by default. Excluding shell initialization scripts and similar special cases, scripts must never <a href="/unix/uset.htm"><b>set</b> or <b>unset</b></a> <b>XZ_DEFAULTS</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>XZ_OPT</b></td>
+<td>This is for passing options to <b>xz</b> when it is not possible to set the options directly on the <b>xz</b> command line. This is the case e.g., when <b>xz</b> is run by a script or tool, e.g., GNU <a href="/unix/utar.htm">tar</a>:<br><br><pre class="tcy">XZ_OPT=-2v tar caf foo.tar.xz foo</pre> Scripts may use XZ_OPT e.g., to set script-specific default compression options. It is still recommended to allow users to override XZ_OPT if that is reasonable, e.g., in <a href="/unix/ush.htm">sh</a> scripts one may use something like this:<br><br><pre class="tcy">XZ_OPT=${XZ_OPT-"-7e"}; export XZ_OPT</pre></td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">xz foo</pre>
+<p class="tab">Compress the file <b>foo</b> into <b>foo.xz</b> using the default compression level (<b>-6</b>), and remove <b>foo</b> if compression is successful.</p>
+<pre class="tcy tab">xz -dk bar.xz</pre>
+<p class="tab">Decompress <b>bar.xz</b> into <b>bar</b> and don't remove <b>bar.xz</b> even if decompression is successful.</p>
+<pre class="tcy tab">tar cf - baz | xz -4e &gt; baz.tar.xz</pre>
+<p class="tab">Create <b>baz.tar.xz</b> with the preset <b>-4e</b> (<b>-4 --extreme</b>), which is slower than the default <b>-6</b>, but needs less memory for compression and decompression (48 MiB and 5 MiB, respectively).</p>
+<pre class="tcy tab">xz -dcf a.txt b.txt.xz c.txt d.txt.lzma &gt; abcd.txt</pre>
+<p class="tab">Decompress a mix of compressed and uncompressed files to standard output, using a single command.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/jargon/c/compress.htm"><b>compress</b></a> &mdash; Compress a file or files.<br><a href="/jargon/g/gzip.htm"><b>gzip</b></a> &mdash; Create, modify, list the contents of, and extract files from GNU zip archives.<br><a href="/jargon/z/zip.htm"><b>zip</b></a> &mdash; A compression and archiving utility.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83885dd984bc',m:'M7a9fQjWIeOBm.BUdfkuTqnEUzTYUJVAHPjIXUe_Bbw-1661495374-0-AVDDv9bi14ufdHyowTkWQxlt0a0HNNkJFmOgObfrAihozFPbC0ilu9G6a/pLxW19yc2uy8Urhza3BkC+7zWNl0KsdVj7XAsK6waKjBV9OcYNesw3v8gQsHUHnGvqDePXRQ==',s:[0x0a4169c269,0x92d449a106],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux cu command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/cu.gif" width="300" height="300" alt="cu command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>cu</b> command "calls up" (connect to) another <a href="/jargon/u/unix.htm">Unix</a> <a href="/jargon/s/system.htm">system</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#variables">Variables</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>cu</b> command is used to call up another system and act as a dial-in terminal. It can also do simple <a href="/jargon/f/filetran.htm">file transfers</a> with no error checking.</p>
+<p class="tab"><b>cu</b> takes a single <a href="/jargon/a/argument.htm">argument</a>, besides the options. If the argument is the string "dir" <b>cu</b> makes a direct connection to the <a href="/jargon/p/port.htm">port</a>. This may only be used by users with write access to the port, as it permits reprogramming the <a href="/jargon/m/modem.htm">modem</a>.</p>
+<p class="tab">Otherwise, if the argument begins with a <a href="/jargon/d/digit.htm">digit</a>, it is taken to be a phone number to call. Otherwise, it is taken to be the name of a system to call. The <b>-z</b> or <b>--system</b> option may be used to name a system beginning with a digit, and the <b>-c</b> or <b>--phone</b> option may be used to name a phone number that does not begin with a digit.</p>
+<p class="tab"><b>cu</b> locates a port to use in the UUCP (Unix-to-Unix copy) configuration files. If a simple system name is given, it selects a port appropriate for that system. The <b>-p</b>, <b>--port</b>, <b>-l</b>, <b>--line</b>, <b>-s</b> and <b>--speed</b> options may be used to control the port selection.</p>
+<p class="tab">When a connection is made to the remote system, <b>cu</b> <a href="/jargon/f/fork.htm">forks</a> into two processes. One reads from the port and writes to the terminal, while the other reads from the terminal and writes to the port.</p>
+<p class="tab"><b>cu</b> provides several commands that can be used during the conversation. The commands all begin with an <a href="/jargon/e/esc.htm">escape</a> <a href="/jargon/c/charact.htm">character</a>, initially <b>~</b> (tilde). The escape character is only recognized at the beginning of a line. To send an escape character to the remote system at the start of a line, it must be entered twice. All commands are either a single character or a word beginning with % (percent sign).</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">cu [ <i>options</i> ] [ <i>system</i> | <i>phone</i> | "<i>dir</i>"</pre>
+<h2 id="commands">Commands</h2>
+<p class="tab"><b>cu</b> recognizes the following commands:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>~.</b></td>
+<td><a href="/jargon/t/terminat.htm">Terminate</a> the conversation.</td>
+</tr>
+<tr class="tcw">
+<td><b>~!</b> <i>command</i></td>
+<td>Run <i>command</i> in a <a href="/jargon/s/shell.htm">shell</a>. If <i>command</i> is empty, starts up a shell.</td>
+</tr>
+<tr class="tcw">
+<td><b>~$</b> <i>command</i></td>
+<td>Run <i>command</i>, sending the standard output to the remote system.</td>
+</tr>
+<tr class="tcw">
+<td><b>~|</b> <i>command</i></td>
+<td>Run <i>command</i>, taking the <a href="/jargon/s/stdin.htm">standard input</a> from the remote system.</td>
+</tr>
+<tr class="tcw">
+<td><b>~+</b> <i>command</i></td>
+<td>Run <i>command</i>, taking the standard input from the remote system and sending the standard output to the remote system.</td>
+</tr>
+<tr class="tcw">
+<td><b>~#</b>, <b>~%break</b></td>
+<td>Send a <a href="/jargon/b/break.htm">break</a> signal, if possible.</td>
+</tr>
+<tr class="tcw">
+<td><b>~c</b> <i>directory</i>,<br> <b>~%cd</b> <i>directory</i></td>
+<td>Change the local <a href="/jargon/d/director.htm">directory</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>~&gt;</b> <i>file</i></td>
+<td>Send a file to the remote system. This dumps the file over the communication line. It is assumed that the remote system is expecting it.</td>
+</tr>
+<tr class="tcw">
+<td><b>~&lt;</b></td>
+<td>Receive a file from the remote system. This prompts for the local file name and for the remote command to execute to begin the file transfer. It continues accepting data until the contents of the <b>eofread</b> variable are seen.</td>
+</tr>
+<tr class="tcw">
+<td><b>~p</b> <i>from to</i>,<br> <b>~%put</b> <i>from to</i></td>
+<td>Send a file to a remote Unix system. This runs the appropriate commands on the remote system.</td>
+</tr>
+<tr class="tcw">
+<td><b>~t</b> <i>from to</i>,<br> <b>~%take</b> <i>from to</i></td>
+<td>Retrieve a file from a remote Unix system. This runs the appropriate commands on the remote system.</td>
+</tr>
+<tr class="tcw">
+<td><b>~s</b> <i>variable</i> <i>value</i></td>
+<td>Set a <b>cu</b> <i>variable</i> to the given <i>value</i>. If <i>value</i> is not given, the <i>variable</i> is set to <b>true</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>~!</b> <i>variable</i></td>
+<td>Set a <b>cu</b> <i>variable</i> to <b>false</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>~z</b></td>
+<td>Suspend the <b>cu</b> session. This is only supported on some systems. On systems for which <b>^Z</b> may be used to suspend a <a href="/jargon/j/job.htm">job</a>, <b>~^Z</b> also suspends the session.</td>
+</tr>
+<tr class="tcw">
+<td><b>~%nostop</b></td>
+<td>Turn off <a href="/jargon/x/xonxoff.htm">XON/XOFF</a> handling.</td>
+</tr>
+<tr class="tcw">
+<td><b>~%stop</b></td>
+<td>Turn on XON/XOFF handling.</td>
+</tr>
+<tr class="tcw">
+<td><b>~v</b></td>
+<td>List all the variables and their values.</td>
+</tr>
+<tr class="tcw">
+<td><b>~?</b></td>
+<td>List all commands.</td>
+</tr>
+</table>
+<h2 id="variables">Variables</h2>
+<p class="tab"><b>cu</b> also supports several <a href="/jargon/v/variable.htm">variables</a>. They may be listed with the <b>~v</b> command, and set with the <b>~s</b> or <b>~!</b> commands.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>escape</b></td>
+<td>The escape character. Initially <b>~</b> (tilde).</td>
+</tr>
+<tr class="tcw">
+<td><b>delay</b></td>
+<td>If this variable is <b>true</b>, <b>cu</b> will delay for a second after recognizing the escape character before <a href="/jargon/p/print.htm">printing</a> the name of the local system. The default is <b>true</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>eol</b></td>
+<td>The list of characters that are considered to finish a line. The escape character is only recognized after one of these is seen. The default is <b>carriage return</b> (<a href="/jargon/c/cr.htm">CR</a>), <b>^U</b>, <b>^C</b>, <b>^O</b>, <b>^D</b>, <b>^S</b>, <b>^Q</b>, <b>^R</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>binary</b></td>
+<td>Whether to transfer binary data when sending a file. If this is false, then newlines in the file are converted to carriage returns. The default is <b>false</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>binary-prefix</b></td>
+<td>A <a href="/jargon/s/string.htm">string</a> used before sending a <a href="/jargon/b/binary.htm">binary</a> character in a file transfer, if the binary variable is <b>true</b>. The default is <b>^V</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>echo-check</b></td>
+<td>Whether to check file transfers by examining what the remote system <a href="/jargon/e/echo.htm">echoes</a> back. The default is <b>false</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>echonl</b></td>
+<td>The character to look for after sending each line in a file. The default is <b>carriage return</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>timeout</b></td>
+<td>The <a href="/jargon/t/timeout.htm">timeout</a> to use, in seconds, when looking for a character, either when doing echo checking or when looking for the <b>echonl</b> character. The default is <b>30</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>kill</b></td>
+<td>The character to use to delete a line if the echo check fails. The default is <b>^U</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>resend</b></td>
+<td>The number of times to resend a line if the echo check continues to fail. The default is <b>10</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>eofwrite</b></td>
+<td>The string to write after sending a file with the <b>~&gt;</b> command. The default is <b>^D</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>eofread</b></td>
+<td>The string to look for when receiving a file with the <b>~&lt;</b> command. The default is <b>$</b>, which is intended to be a typical shell <a href="/jargon/p/prompt.htm">prompt</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>verbose</b></td>
+<td>Whether to print accumulated information during a file transfer. The default is <b>true</b>.</td>
+</tr>
+</table>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>-e</b>, <b>--parity=even</b></td>
+<td>Use even <a href="/jargon/p/parity.htm">parity</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--parity=odd</b></td>
+<td>Use odd parity.</td>
+</tr>
+<tr class="tcw">
+<td><b>--parity=none</b></td>
+<td>Use no parity. No parity is also used if both <b>-e</b> and <b>-o</b> are given.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--halfduplex</b></td>
+<td>Echo characters locally (half-<a href="/jargon/d/duplex.htm">duplex</a> mode).</td>
+</tr>
+<tr class="tcw">
+<td><b>--nostop</b></td>
+<td>Turn off XON/XOFF handling (it is on by default).</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b> <i>char</i>, <b>--escape</b> <i>char</i></td>
+<td>Set the escape character. Initially <b>~</b> (tilde). To eliminate the escape character, use <b>-E ''</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b> <i>system</i>,<br> <b>--system</b> <i>system</i></td>
+<td>The system to call.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b> <i>phone-number</i>,<br> <b>--phone</b> <i>phone-number</i></td>
+<td>The phone number to call.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>port</i>, <b>--port</b> <i>port</i></td>
+<td>Name the port to use.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b> <i>port</i></td>
+<td>Equivalent to <b>--port</b> <i>port</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b> <i>line</i>, <b>--line</b> <i>line</i></td>
+<td>Name the line to use by giving a device name. This may be used to dial out on ports that are not listed in the UUCP configuration files. Write access to the device is required.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>speed</i>, <b>--speed</b> <i>speed</i></td>
+<td>The speed (<a href="/jargon/b/baud.htm">baud</a> rate) to use.</td>
+</tr>
+<tr class="tcw">
+<td><b>-#</b></td>
+<td>Where <i>#</i> is a number, equivalent to <b>--speed</b> <i>#</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--prompt</b></td>
+<td>Prompt for the phone number to use.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Enter <a href="/jargon/d/debug.htm">debugging</a> mode. Equivalent to <b>--debug all</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b> <i>type</i>, <b>--debug</b> <i>type</i></td>
+<td>Turn on particular debugging types. The following types are recognized: <b>abnormal</b>, <b>chat</b>, <b>handshake</b>, <b>uucp-proto</b>, <b>proto</b>, <b>port</b>, <b>config</b>, <b>spooldir</b>, <b>execute</b>, <b>incoming</b>, <b>outgoing</b>. Only <b>abnormal</b>, <b>chat</b>, <b>handshake</b>, <b>port</b>, <b>config</b>, <b>incoming</b> and <b>outgoing</b> are meaningful for <b>cu</b>.<br><br> Multiple types may be given, separated by commas, and the <b>--debug</b> option may appear multiple times. A number may also be given, which turns on that many types from the foregoing list; for example, <b>--debug 2</b> is equivalent to <b>--debug</b> <b>abnormal</b>, <b>chat</b>. <b>--debug all</b> may be used to turn on all debugging options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> <i>file</i>, <b>--config</b> <i>file</i></td>
+<td>Set configuration file to use. This option may not be available and depends on how <b>cu</b> was compiled.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--version</b></td>
+<td>Report version information and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Print a help message and exit.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">cu -s 38400 9=12015551234</pre>
+<p class="tab">Dials a system at the phone number is (<b>201</b>) <b>555</b>-<b>1235</b>. This example is also using a <b>9</b> to get out of the building and a <b>1</b> to dial long distance.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucat.htm"><b>cat</b></a> &mdash; Output the contents of a file.<br><a href="/unix/uecho.htm"><b>echo</b></a> &mdash; Output text.<br><a href="/unix/ustty.htm"><b>stty</b></a> &mdash; Set options for your terminal display.<br><a href="/unix/uuname.htm"><b>uname</b></a> &mdash; Print information about the current system.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82cd7ee284c8',m:'MJh1qvUKMUoePHyCHWZ2QnXKp9y01qvfo2ARuDtEY5w-1661495344-0-AWBoO/wXU1iBzIoi0IW6g3z1WI/0woCsd6Q7HXm8Aeoxs3p9mVLpkRb7DU1QJTderrbOcHvxiK8oWFvkx8Iqt6/SwVJO6mOfj4Di0PQbXAKq9iy+tnYs1CC9n+LTNRcPqA==',s:[0x6472c3bd75,0x3623f32a12],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

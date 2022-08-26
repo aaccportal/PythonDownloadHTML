@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux sort command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/sort.gif" width="300" height="300" alt="sort command" class="floatRight"><p class="intro">The <b>sort</b> command sorts the contents of a text file, line by line.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="overview">Overview</h2>
+<p class="tab"><b>sort</b> is a simple and very useful command which will rearrange the lines in a text file so that they are sorted, numerically and alphabetically. By default, the rules for sorting are:</p>
+<ul>
+<li>Lines starting with a number will appear before lines starting with a letter.</li>
+<li>Lines starting with a letter that appears earlier in the alphabet will appear before lines starting with a letter that appears later in the alphabet.</li>
+<li>Lines starting with a lowercase letter will appear before lines starting with the same letter in uppercase.</li>
+</ul>
+<p class="tab">The rules for sorting can be changed according to the options you provide to the <b>sort</b> command; these are listed below.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">sort [<i>OPTION</i>]... [<i>FILE</i>]...</pre>
+<pre class="tcy tab">sort [<i>OPTION</i>]... --files0-from=<i>F</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>-b</b>,<br><b>--ignore-leading-blanks</b></td>
+<td>Ignore leading blanks.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--dictionary-order</b></td>
+<td>Consider only blanks and <a href="/jargon/a/alphanum.htm">alphanumeric</a> <a href="/jargon/c/charact.htm">characters</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--ignore-case</b></td>
+<td>Fold lower case to upper case characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>,<br><b>--general-numeric-sort</b></td>
+<td>Compare according to general numerical value.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--ignore-nonprinting</b></td>
+<td>Consider only printable characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b>, <b>--month-sort</b></td>
+<td>Compare (unknown) &lt; &#96;<b>JAN</b>' &lt; ... &lt; &#96;<b>DEC</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>,<br><b>--human-numeric-sort</b></td>
+<td>Compare human readable numbers (e.g., "<b>2K</b>", "<b>1G</b>").</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--numeric-sort</b></td>
+<td>Compare according to <a href="/jargon/s/string.htm">string</a> numerical value.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--random-sort</b></td>
+<td>Sort by random hash of keys.</td>
+</tr>
+<tr class="tcw">
+<td><b>--random-source=</b><i>FILE</i></td>
+<td>Get random bytes from <i>FILE</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--reverse</b></td>
+<td>Reverse the result of comparisons.</td>
+</tr>
+<tr class="tcw">
+<td><b>--sort=</b><i>WORD</i></td>
+<td>Sort according to <i>WORD</i>: general-numeric <b>-g</b>, human-numeric <b>-h</b>, month <b>-M</b>, numeric <b>-n</b>, random <b>-R</b>, version <b>-V</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version-sort</b></td>
+<td>Natural sort of (version) numbers within text.</td>
+</tr>
+</table>
+<h3 class="tab">Other options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:270px"><b>--batch-size=</b><i>NMERGE</i></td>
+<td>Merge at most <i>NMERGE</i> inputs at once; for more use temp files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--check</b>,<br><b>--check=</b><i>diagnose-first</i></td>
+<td>Check for sorted input; do not sort.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b>, <b>--check=</b><i>quiet</i>,<br><b>--check=</b><i>silent</i></td>
+<td>Like <b>-c</b>, but do not report first bad line.</td>
+</tr>
+<tr class="tcw">
+<td><b>--compress-program=</b><i>PROG</i></td>
+<td>Compress temporaries with <i>PROG</i>; decompress them with <i>PROG</i> <b>-d</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--debug</b></td>
+<td>Annotate the part of the line used to sort, and warn about questionable usage to stderr.</td>
+</tr>
+<tr class="tcw">
+<td><b>--files0-from=</b><i>F</i></td>
+<td>Read input from the files specified by <a href="/jargon/n/null.htm">NUL</a>-terminated names in file <i>F</i>; If <i>F</i> is '-' then read names from standard input.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b>, <b>--key=</b><i>POS1</i>[,<i>POS2</i>]</td>
+<td>Start a key at <i>POS1</i> (origin 1), end it at <i>POS2</i> (default end of line). See <i>POS</i> syntax below.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b>, <b>--merge</b></td>
+<td>Merge already sorted files; do not sort.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--output=</b><i>FILE</i></td>
+<td>Write result to FILE instead of standard output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--stable</b></td>
+<td>Stabilize sort by disabling last-resort comparison.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--field-separator=</b><i>SEP</i></td>
+<td>Use <i>SEP</i> instead of non-blank to blank transition.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>,<br><b>--temporary-directory=</b><i>DIR</i></td>
+<td>Use <i>DIR</i> for temporaries, not <b>$TMPDIR</b> or <b>/tmp</b>; multiple options specify multiple directories.</td>
+</tr>
+<tr class="tcw">
+<td><b>--parallel=</b><i>N</i></td>
+<td>Change the number of sorts run concurrently to <i>N</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--unique</b></td>
+<td>With <b>-c</b>, check for strict ordering; without <b>-c</b>, output only the first of an equal run.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b>, <b>--zero-terminated</b></td>
+<td>End lines with 0 byte, not newline.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+</table>
+<p class="tab"><i>POS</i> takes the form <i>F</i>[<b>.</b><i>C</i>][<i>OPTS</i>], where <i>F</i> is the field number and <i>C</i> the character position in the field; both are origin <b>1</b>. If neither <b>-t</b> nor <b>-b</b> is in effect, characters in a field are counted from the beginning of the preceding whitespace. <i>OPTS</i> is one or more single-letter ordering options, which override global ordering options for that key. If no key is given, use the entire line as the key.</p>
+<p class="tab"><i>SIZE</i> may be followed by the following multiplicative suffixes:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>%</b></td>
+<td>1% of memory</td>
+</tr>
+<tr class="tcw">
+<td><b>b</b></td>
+<td>1</td>
+</tr>
+<tr class="tcw">
+<td><b>K</b></td>
+<td>1024 (default)</td>
+</tr>
+</table>
+<p class="tab">...and so on for <b>M</b>, <b>G</b>, <b>T</b>, <b>P</b>, <b>E</b>, <b>Z</b>, <b>Y</b>.</p>
+<p class="tab">With no <i>FILE</i>, or when <i>FILE</i> is a dash ("<b>-</b>"), <b>sort</b> reads from the <a href="/jargon/s/stdin.htm">standard input</a>.</p>
+<p class="tab">Also, note that the locale specified by the <a href="/jargon/e/envivari.htm">environment</a> affects sort order; set <b>LC_ALL=C</b> to get the traditional sort order that uses native byte values.</p>
+<h2 id="examples">Examples</h2>
+<p class="tab">Let's say you have a file, <b>data.txt</b>, which contains the following <a href="/jargon/a/ascii.htm">ASCII</a> text:</p>
+<pre class="tab">apples
+oranges
+pears
+kiwis
+bananas</pre>
+<p class="tab">To sort the lines in this file alphabetically, use the following command:</p>
+<pre class="tcy tab">sort data.txt</pre>
+<p class="tab">...which will produce the following output:</p>
+<pre class="tab">apples
+bananas
+kiwis
+oranges
+pears</pre>
+<p class="tab">Note that this command does not actually change the input file, <b>data.txt</b>. If you want to write the output to a new file, <b>output.txt</b>, <a href="/jargon/r/redirect.htm">redirect</a> the output like this:</p>
+<pre class="tcy tab">sort data.txt &gt; output.txt</pre>
+<p class="tab">...which will not display any output, but will create the file <b>output.txt</b> with the same sorted data from the previous command. To check the output, use the <a href="/unix/ucat.htm"><b>cat</b></a> command:</p>
+<pre class="tcy tab">cat output.txt</pre>
+<p class="tab">...which displays the sorted data:</p>
+<pre class="tab">apples
+bananas
+kiwis
+oranges
+pears</pre>
+<p class="tab">You can also use the built-in <b>sort</b> option <b>-o</b>, which allows you to specify an output file:</p>
+<pre class="tcy tab">sort -o output.txt data.txt</pre>
+<p class="tab">Using the <b>-o</b> option is functionally the same as redirecting the output to a file; neither one has an advantage over the other.</p>
+<h3 class="tab">Sorting in reverse order</h3>
+<p class="tab">You can perform a reverse-order sort using the <b>-r</b> flag. For example, the following command:</p>
+<pre class="tcy tab">sort -r data.txt</pre>
+<p class="tab">...will produce the following output:</p>
+<pre class="tab">pears
+oranges
+kiwis
+bananas
+apples</pre>
+<h3 class="tab">Handling mixed-case data</h3>
+<p class="tab">But what about situations where you have a mixture of upper- and lower-case letters at the beginning of your lines? In cases like this, the behavior of <b>sort</b> can seem confusing, but really it just needs some more information from you to sort the data the way you want. Let's take a closer look.</p>
+<p class="tab">Let's say our input file <b>data.txt</b> contains the following data:</p>
+<pre class="tab">a
+b
+A
+B
+b
+c
+D
+d
+C</pre>
+<p class="tab"><b>sort</b>ing this data without any options, like this:</p>
+<pre class="tcy tab">sort data.txt</pre>
+<p class="tab">...will produce the following output:</p>
+<pre class="tab">a
+A
+b
+b
+B
+c
+C
+d
+D</pre>
+<p class="tab">As you can see, it's sorted alphabetically, with lowercase letters always appearing before uppercase letters. This sort is "case-insensitive", and this is the default for <a href="/jargon/g/gnu.htm">GNU</a> <b>sort</b>, which is the version of <b>sort</b> used in GNU/Linux.</p>
+<p class="tab">At this point you might be asking yourself, well, if case-insensitive sorting is the default, then what is the "<b>-f</b>/<b>--ignore-case</b>" option for? The answer has to do with localization settings and bytewise sorting.</p>
+<p class="tab">In brief, "localization" refers to what language the operating system uses, which at the most basic level defines what characters it uses. Each letter in the system is represented in a certain order. Changing the locale settings will affect what characters the operating system is using, and &mdash; most relevant to sorting &mdash; what order they are encoded in. For an example, refer to the United States English <a href="/jargon/a/ascii.htm">ASCII encoding table</a>. As you can see from the table, a capital A ("<b>A</b>") is character number 65, and lowercase a ("<b>a</b>") is character number 97. So you might expect <b>sort</b> to arrange its output so that capital letters come before lowercase letters.</p>
+<p class="tab">Defining operating system locale is a subject which goes beyond the scope of this page, but for now, it will suffice to say that to achieve bytewise sorting, we need to set the <a href="/jargon/e/envivari.htm">environment variable</a> <b>LC_ALL</b> to <b>C</b>.</p>
+<p class="tab">Under the default Linux <a href="/jargon/s/shell.htm">shell</a>, <a href="/unix/ubash.htm"><b>bash</b></a>, we can accomplish this with the following command:</p>
+<pre class="tcy tab">export LC_ALL=C</pre>
+<p class="tab">This sets the environment variable <b>LC_ALL</b> to the value <b>C</b>, which will enforce bytewise sorting. Now if we run the command:</p>
+<pre class="tcy tab">sort data.txt</pre>
+<p class="tab">...we will see the following output:</p>
+<pre class="tab" style="line-heigt:1.2">A
+B
+C
+D
+a
+b
+b
+c
+d</pre>
+<p class="tab">...and <i>now</i>, the <b>-f</b>/<b>--ignore-case</b> option has the following effect:</p>
+<pre class="tab">A
+a
+B
+b
+b
+C
+c
+D
+d</pre>
+<p class="tab">...performing a "case-insensitive bytewise" sort.</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>If you are using the <a href="/unix/ujoin.htm"><b>join</b></a> command in conjunction with <b>sort</b>, be aware that there is a known incompatibility between the two programs &mdash; unless you define the locale. If you are using <b>join</b> and <b>sort</b> to process the same input, it is highly recommended that you set <b>LC_ALL</b> to <b>C</b>, which will standardize the localization used by all programs.</p>
+</div>
+<h3 class="tab">Checking for sorted order</h3>
+<p class="tab">If you just want to check to see if your input file is already sorted, use the <b>-c</b> option:</p>
+<pre class="tcy tab">sort -c data.txt</pre>
+<p class="tab">If your data is unsorted, you will receive an informational message reporting the line number of the first unsorted data, and what the unsorted data is:</p>
+<pre class="tab">sort: data.txt:3: disorder: A
+</pre>
+<h3 class="tab">Sorting multiple files using the output of find</h3>
+<p class="tab">One useful way to sort data is to sort the input of multiple files, using the output of the <a href="/unix/ufind.htm"><b>find</b></a> command. The most reliable (and responsible) way to accomplish this is to specify that <b>find</b> produces a <a href="/jargon/n/nullchar.htm">NUL</a>-terminated file list as its output, and to <a href="/jargon/p/pipe.htm">pipe</a> that output into <b>sort</b> using the <b>--files0-from</b> option.</p>
+<p class="tab">Normally, <b>find</b> outputs one file on each line; in other words, it inserts a line break after each file name it outputs. For instance, let's say we have three files named <b>data1.txt</b>, <b>data2.txt</b>, and <b>data3.txt</b>. <b>find</b> can generate a list of these files using the following command:</p>
+<pre class="tcy tab">find -name "data?.txt"</pre>
+<p class="tab">This command uses the question mark <a href="/jargon/w/wildcard.htm">wildcard</a> to match any file that has a single character after the word "data" in its name, ending in the <a href="/jargon/e/extensio.htm">extension</a> "<b>.txt</b>". It produces the following output:</p>
+<pre class="tab">./data1.txt
+./data3.txt
+./data2.txt</pre>
+<p class="tab">It would be nice if we could use this output to tell the <b>sort</b> command, "sort the data in any files found by <b>find</b> as if they were all one big file." The problem with the standard <b>find</b> output is, even though it's easy for humans to read, it can cause problems for other programs that need to read it in. Because file names can include non-standard characters, so in some cases, this format will be read incorrectly by another program.</p>
+<p class="tab">The correct way to format <b>find</b>'s output to be used as a file list for another program is to use the <b>-print0</b> option when running <b>find</b>. This terminates each file name with the NUL character (ASCII character number zero), which is universally illegal to use in file names. This makes things easier for the program reading the file list, since it knows that any time it sees the NUL character, it can be sure it's at the end of a file name.</p>
+<p class="tab">So, if we run the previous command with the <b>-print0</b> option at the end, like this:</p>
+<pre class="tcy tab">find -name "data?.txt" -print0</pre>
+<p class="tab">...it will produce the following output:</p>
+<pre class="tab">./data1.txt./data3.txt./data2.txt
+</pre>
+<p class="tab">You can't see it, but after each file name is a NUL character. This character is non-printable, so it will not appear on your screen, but it's there, and any programs you pipe this output to (<b>sort</b>, for example) will see them.</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>Be careful how you word the <b>find</b> command. It's important to specify <b>-print0</b> last; <b>find</b> needs this to be specified after the other options.</p>
+</div>
+<p class="tab">Okay, but how do we tell <b>sort</b> to read this file list and sort the contents of all those files?</p>
+<p class="tab">One way to do it is to pipe the <b>find</b> output to <b>sort</b>, specifying the <b>--files0-from</b> option in the <b>sort</b> command, and specify the file as a dash ("<b>-</b>"), which will read from the standard input. Here's what the command will look like:</p>
+<pre class="tcy tab">find -name "data?.txt" -print0 | sort --files0-from=-</pre>
+<p class="tab">...and it will output the sorted data of any files located by <b>find</b> which matches the pattern <b>data?.txt</b>, <i>as if they were all one file</i>. This example is a very powerful function of <b>sort</b> &mdash; give it a try.</p>
+<h3 class="tab">Comparing only selected fields of data</h3>
+<p class="tab">Normally, <b>sort</b> decides how to sort lines based on the entire line: it compares every character from the first character in a line, to the last one.</p>
+<p class="tab">If, on the other hand, you want <b>sort</b> to compare a limited subset of your data, you can specify which fields to compare using the <b>-k</b> option.</p>
+<p class="tab">For instance, if you have an input file <b>data.txt</b> With the following data:</p>
+<pre class="tab">01 Joe
+02 Marie
+03 Albert
+04 Dave</pre>
+<p class="tab">...and you sort it without any options, like this:</p>
+<pre class="tcy tab">sort data.txt</pre>
+<p class="tab">...you will receive the following output:</p>
+<pre class="tab">01 Joe
+02 Marie
+03 Albert
+04 Dave</pre>
+<p class="tab">...as you can see, nothing was changed from the original data ordering, because of the numbers at the beginning of the line &mdash; which were already sorted. However, if you want to sort based on the names, you can use the following command:</p>
+<pre class="tcy tab">sort -k 2,2 data.txt</pre>
+<p class="tab">This command will sort the <i>second</i> field, and ignore the first. (The "k" in "<b>-k</b>" stands for "key" &mdash; we are defining the "sorting key" used in the comparison.)</p>
+<p class="tab">Fields are defined as anything separated by <a href="/jargon/w/whitspac.htm">whitespace</a>; in this case, an actual space character. Our command above will produce the following output:</p>
+<pre class="tab">03 Albert
+04 Dave
+01 Joe
+02 Marie</pre>
+<p class="tab">...which is sorted by the second field, listing the lines alphabetically by name, and ignoring the numbers in the sorting process.</p>
+<p class="tab">You can also specify a more complex <b>-k</b> option. The complete positional argument looks like this:</p>
+<pre class="tab"><b>-k</b> <i>POS1</i><b>,</b><i>POS2</i></pre>
+<p class="tab">...where <i>POS1</i> is the starting field position, and <i>POS2</i> is the ending field position. Each field position, in turn, is defined as:</p>
+<pre class="tab"><i>F</i><b>.</b><i>C</i></pre>
+<p class="tab">...where <i>F</i> is the field number and <i>C</i> is the character within that field to begin the sort comparison.</p>
+<p class="tab">So, let's say our input file <b>data.txt</b> contains the following data:</p>
+<pre class="tab">01 Joe Sr.Designer
+02 Marie Jr.Developer
+03 Albert Jr.Designer
+04 Dave Sr.Developer</pre>
+<p class="tab">...we can sort by seniority if we specify the third field as the sort key:</p>
+<pre class="tcy tab">sort -k 3 data.txt</pre>
+<p class="tab">...this produces the following output:</p>
+<pre class="tab">03 Albert Jr.Designer
+02 Marie Jr.Developer
+01 Joe Sr.Designer
+04 Dave Sr.Developer</pre>
+<p class="tab">Or, we can ignore the first three characters of the third field, and sort solely based on title, ignoring seniority:</p>
+<pre class="tcy tab">sort -k 3.3 data.txt</pre>
+<pre class="tab">01 Joe Sr.Designer
+03 Albert Jr.Designer
+02 Marie Jr.Developer
+04 Dave Sr.Developer</pre>
+<p class="tab">We can also specify where in the line to <i>stop</i> comparing. If we sort based on <i>only</i> the third-through-fifth characters of the third field of each line, like this:</p>
+<pre class="tcy tab">sort -k 3.3,3.5 data.txt</pre>
+<p class="tab">...<b>sort</b> will see <i>only</i> the same thing on every line: "<b>.De</b>" ... <i>and nothing else</i>. As a result, <b>sort</b> will not see any differences in the lines, and the sorted output will be the same as the original file:</p>
+<pre class="tab">01 Joe Sr.Designer
+02 Marie Jr.Developer
+03 Albert Jr.Designer
+04 Dave Sr.Developer</pre>
+<h3 class="tab">Using sort and join together</h3>
+<p class="tab"><b>sort</b> can be especially useful when used in conjunction with the <a href="/unix/ujoin.htm"><b>join</b></a> command. Normally <b>join</b> will join the lines of any two files whose first field match. Let's say you have two files, <b>file1.txt</b> and <b>file2.txt</b>. <b>file1.txt</b> contains the following text:</p>
+<pre class="tab">3       tomato
+1       onion
+4       beet
+2       pepper</pre>
+<p class="tab">...and <b>file2.txt</b> contains the following:</p>
+<pre class="tab">4       orange
+3       apple
+1       mango
+2       grapefruit</pre>
+<p class="tab">If you'd like <b>sort</b> these two files <i>and</i> <b>join</b> them, you can do so all in one command if you're using the <a href="/unix/ubash.htm"><b>bash</b></a> command shell, like this:</p>
+<pre class="tcy tab">join &lt;(sort file1.txt) &lt;(sort file2.txt)</pre>
+<p class="tab">Here, the <b>sort</b> commands in parentheses are each executed, and their output is redirected to <b>join</b>, which takes their output as standard input for its first and second arguments; it is joining the sorted contents of both files and gives results similar to the below results.</p>
+<pre class="tab">1 onion mango
+2 pepper grapefruit
+3 tomato apple
+4 beet orange</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucomm.htm"><b>comm</b></a> &mdash; Compare two sorted files line by line.<br><a href="/unix/ujoin.htm"><b>join</b></a> &mdash; Join the lines of two files which share a common field of data.<br><a href="/unix/uuniq.htm"><b>uniq</b></a> &mdash; Identify, and optionally filter out, repeated lines in a file.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8354ca06848c',m:'Qwm9ZxKLv7Y8PyIgWo6Z_t3LpkToHQ_2WyIdx9TxaXw-1661495365-0-Af0JJk040787uvrS4vzjrsEccMK92ClA13uEsNyMMGqGxxPNxd1+XMTc+n6AvS7VIu8ZbjacLrGRgY2T707xEBsyU/e5hIbg02KyX6o+/2r+MwhjF0P1nrJLujIVynfkAw==',s:[0xc981d343b1,0x0fb0f34a53],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

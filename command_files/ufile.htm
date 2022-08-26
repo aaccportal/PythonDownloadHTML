@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux file command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/file.gif" width="300" height="300" alt="file command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>file</b> command reports a <a href="/jargon/f/file.htm">file's</a> type.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>file</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>file</b> command tests each <a href="/jargon/a/argument.htm">argument</a> in an attempt to classify it. There are three sets of tests, performed in this order: filesystem tests, magic tests, and language tests. The first test that succeeds causes the file type to be printed.</p>
+<p class="tab">The type printed will usually contain one of the words <b>text</b> (the file contains only printing characters and a few common control characters and is probably safe to read on an <a href="/jargon/a/ascii.htm">ASCII</a> <a href="/jargon/t/terminal.htm">terminal</a>), <b>executable</b> (the file contains the result of <a href="/jargon/c/compile.htm">compiling</a> a program in a form understandable to a <a href="/jargon/k/kernel.htm">kernel</a>), or <b>data</b> meaning anything else (usually <a href="/jargon/b/binary.htm">binary</a> or <a href="/jargon/n/npchar.htm">non-printable</a>). Exceptions are well-known file formats (core files, <a href="/unix/utar.htm">tar</a> <a href="/jargon/a/archive.htm">archives</a>) that are known to contain binary data.</p>
+<p class="tab">The filesystem tests are based on examining the return from a <a href="/unix/stat.htm">stat</a> system call. The program checks to see if the file is empty, or if it's some sort of special file. Any known file types appropriate to the system you are running on (sockets, <a href="/jargon/s/symblink.htm">symbolic links</a>, or named pipes <a href="/jargon/f/fifo.htm">FIFO</a>s (first in first out) on those systems that implement them) are intuited if they are defined in the system header file <b>&lt;sys/stat.h&gt;</b>.</p>
+<p class="tab">The magic tests are used to check for files with data in particular fixed formats. The canonical example of this is a binary executable (compiled program) <b>a.out</b> file, whose format is defined in <b>&lt;elf.h&gt;</b>, <b>&lt;a.out.h&gt;</b> and possibly <b>&lt;exec.h&gt;</b> in the standard include directory. These files have a "magic number" stored in a particular place near the beginning of the file that tells the operating system that the file is a binary executable, and which of several types thereof. The concept of a "magic" is applied by extension to data files. Any file with some invariant identifier at a small fixed offset into the file can usually be described in this way. The information identifying these files is read from <b>/etc/magic</b> and the compiled magic file <b>/usr/share/misc/magic.mgc</b>, or the files in the directory <b>/usr/share/misc/magic</b> if the compiled file does not exist. Also, if <b>$HOME/.magic.mgc</b> or <b>$HOME/.magic</b> exists, it will be used in preference to the system magic files.</p>
+<p class="tab">If a file does not match any of the entries in the magic file, it is examined to see if it seems to be a text file. <a href="/jargon/a/ascii.htm">ASCII</a>, <a href="/jargon/i/iso.htm">ISO</a>-8859-x, non-ISO <a href="/jargon/num/8bit.htm">8-bit</a> extended-ASCII character sets (such as those used on <a href="/jargon/a/applemac.htm">Macintosh</a> and <a href="/comp/ibm.htm">IBM</a> <a href="/jargon/p/pc.htm">PC</a> systems), <a href="/jargon/u/utf.htm">UTF</a>-8-encoded Unicode, UTF-16-encoded Unicode, and <a href="/jargon/e/ebcdic.htm">EBCDIC</a> character sets can be distinguished by the different ranges and sequences of bytes that constitute printable text in each set. If a file passes any of these tests, its character set is reported. ASCII, ISO-8859-x, UTF-8, and extended-ASCII files are identified as "text" because they are mostly readable on nearly any terminal; UTF-16 and EBCDIC are only "character data" because, while they contain text, it is text that requires translation before it can be read. Also, the file attempts to determine other characteristics of text-type files. If the lines of a file are terminated by <a href="/jargon/c/cr.htm">CR</a>, CR <a href="/jargon/l/lf.htm">LF</a>, or NEL, instead of the Unix-standard LF, this will be reported. Files that contain embedded escape sequences or overstriking is also identified.</p>
+<p class="tab">Once file has determined the character set used in a text-type file, it attempts to determine in what language the file is written. The language tests look for particular strings (cf. <b>&lt;names.h&gt;</b>) that can appear anywhere in the first few blocks of a file. For example, the keyword .br indicates that the file is most likely a <a href="/unix/utroff.htm">troff</a> input file, as the keyword struct indicates a <a href="/jargon/c/c.htm">C</a> program. These tests are less reliable than the previous two groups, so they are performed last. The language test routines also test for some miscellany (such as tar archives).</p>
+<p class="tab">Any file that cannot be identified as having been written in any of the character sets listed above is said to be "data."</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">file [-bchiklLNnprsvz0] [--apple] [--mime-encoding] [--mime-type] 
+     [-e <i>testname</i>] [-F <i>separator</i>] [-f <i>namefile</i>] 
+     [-m <i>magicfiles</i>] <i>file</i> ...</pre>
+<pre class="tcy tab">file -C [-m <i>magicfiles</i>]</pre>
+<pre class="tcy tab">file [--help]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>-b</b>, <b>--brief</b></td>
+<td>Do not prepend <a href="/jargon/f/filename.htm">file names</a> to output lines (brief mode).</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b>, <b>--compile</b></td>
+<td>Write a <b>magic.mgc</b> output file containing a pre-parsed version of the magic file or directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>,<br> <b>--checking-printout</b></td>
+<td>Cause a checking printout of the parsed form of the magic file. This option is usually used in conjunction with the <b>-m</b> flag to debug a new magic file before installing it.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>, <b>--exclude</b> <i>testname</i></td>
+<td>Exclude the test named in <i>testname</i> from the list of tests made to determine the file type. Valid test names are:<br><br>
+<table class="mtable">
+<tr class="tcw">
+<td style="width:110px"><b>apptype</b></td>
+<td>EMX application type (only on EMX).</td>
+</tr>
+<tr class="tcw">
+<td><b>ascii</b></td>
+<td>Various types of text files (this test will try to guess the text encoding, irrespective of the setting of the &lsquo;encoding&rsquo; option).</td>
+</tr>
+<tr class="tcw">
+<td><b>encoding</b></td>
+<td>Different text encodings for soft magic tests.</td>
+</tr>
+<tr class="tcw">
+<td><b>tokens</b></td>
+<td>Ignored for <a href="/jargon/b/backcomp.htm">backward compatibility</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>cdf</b></td>
+<td>Prints details of Compound Document Files.</td>
+</tr>
+<tr class="tcw">
+<td><b>compress</b></td>
+<td>Checks for, and looks inside, compressed files.</td>
+</tr>
+<tr class="tcw">
+<td><b>elf</b></td>
+<td>Prints ELF file details.</td>
+</tr>
+<tr class="tcw">
+<td><b>soft</b></td>
+<td>Consults magic files.</td>
+</tr>
+<tr class="tcw">
+<td><b>tar</b></td>
+<td>Examines tar files.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b>,<br> <b>--separator</b> <i>separator</i></td>
+<td>Use the specified string <i>separator</i> as the separator between the file name and the file result returned. Defaults to &lsquo;<b>:</b>&rsquo;.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>,<br> <b>--files-from</b> <i>namefile</i></td>
+<td>Read the names of the files to be examined from <i>namefile</i> (one per line) before the argument list. Either <i>namefile</i> or at least one file name argument must be present; to test the standard input, use &lsquo;<b>-</b>&rsquo; as a file name argument. Please note that <i>namefile</i> is unwrapped and the enclosed file names are processed when this option is encountered and before any further options processing is done. This option allows one to process multiple lists of files with different command line arguments on the same file invocation. Thus if you want to set the delimiter, you need to do it before you specify the list of files, like: "<b>-F @ -f namefile</b>", instead of: "<b>-f namefile -F @</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--no-dereference</b></td>
+<td>option causes <a href="/jargon/s/symblink.htm">symlinks</a> not to be followed (on systems that support symbolic links). This option is the default if the environment variable <b>POSIXLY_CORRECT</b> is not defined.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--mime</b></td>
+<td>Causes the file command to output mime type strings rather than the more traditional human readable ones. Thus it may say &lsquo;<b>text/plain; charset=us-ascii</b>&rsquo; rather than "<b>ASCII text</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>--mime-type</b>,<br> <b>--mime-encoding</b></td>
+<td>Like <b>-i</b>, but print only the specified element(s).</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b>, <b>--keep-going</b></td>
+<td>Don't stop at the first match, keep going. Subsequent matches will be have the string &lsquo;<b>\012-</b> &rsquo; prepended. (If you want a newline, see the <b>-r</b> option.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--list</b></td>
+<td>Print information about the strength of each magic pattern.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--dereference</b></td>
+<td>option causes symlinks to be followed, as the like-named option in <a href="/jargon/l/ls.htm">ls</a> (on systems that support symbolic links). This option is the default if the environment variable <b>POSIXLY_CORRECT</b> is defined.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>Shows sorted patterns list in the order that is used for the matching.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b>,<br> <b>--magic-file</b> <i>magicfiles</i></td>
+<td>Specify an alternate list of files and directories containing magic. This option is a single item, or a colon-separated list. If a compiled magic file is found alongside a file or directory, it will be used instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b>, <b>--no-pad</b></td>
+<td>Don't pad file names so that they align in the output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--no-buffer</b></td>
+<td>Force stdout to be flushed after checking each file. This option is only useful if checking a list of files. It is intended to be used by programs that want filetype output from a pipe.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--preserve-date</b></td>
+<td>On systems that support <b>utime</b> or <b>utimes</b>, attempt to preserve the access time of files analyzed, to pretend that file never read them.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--raw</b></td>
+<td>Don't translate unprintable characters to <b>\ooo</b>. Normally file translates unprintable characters to their <a href="/jargon/o/octal.htm">octal</a> representation.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--special-files</b></td>
+<td>Normally, file only attempts to read and determine the type of argument files which <b>stat</b> reports are ordinary files. This prevents problems, because reading special files may have peculiar consequences. Specifying the <b>-s</b> option causes file to also read argument files that are block or character special files. This option is useful for determining the filesystem types of the data in raw disk <a href="/jargon/p/partition.htm">partitions</a>, which are block special files. This option also causes file to disregard the file size as reported by <b>stat</b> since on some systems it reports a zero size for raw disk partitions.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--version</b></td>
+<td>Print the version of the program and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b>, <b>--uncompress</b></td>
+<td>Try to look inside compressed files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-0</b>, <b>--print0</b></td>
+<td>Output a null character &lsquo;\0&rsquo; after the end of the file name, which is helpful if, for instance, you'd like to <a href="/unix/ucut.htm">cut</a> the output. This option does not affect the separator, which is still printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Print a help message and exit.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">file *</pre>
+<p class="tab">Below is an example of what may appear when running <b>file</b> with a wildcard for all files:</p>
+<pre class="tab">shutdown.htm: HTML document text
+si.htm: HTML document text
+side0.gif: GIF image data, version 89a, 107 x 18
+robots.txt: ASCII text, with CRLF line terminators
+routehlp.htm: HTML document text
+rss: setgid directory
+</pre>
+<pre class="tcy tab">file *.txt</pre>
+<p class="tab">Below is an example of what may appear when running the above example; running the <b>file</b> command listing any file ending with <b>.txt</b>:</p>
+<pre class="tab">form.txt: news or mail text
+friend.txt: news or mail text
+ihave.txt: news or mail text
+index.txt: ASCII Java program text, with 
+very long lines, with CRLF line terminators
+jargon.txt: news or mail text
+news.txt: Non-ISO extended-ASCII C program text, with very long lines, 
+with CRLF line terminators
+newsdata.txt: Non-ISO extended-ASCII English text, with very long lines, with CRLF line terminators
+qad.txt: news or mail text
+refrence.txt: news or mail text
+robots.txt: ASCII text, with CRLF line terminators
+stopwords.txt: ASCII English text, with CRLF line terminators
+yhelp.txt: news or mail text
+</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uls.htm"><b>ls</b></a> &mdash; List the contents of a directory or directories.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82e44e498498',m:'bncMFfX1TTfuGyK5m.nNaGh0IzLSQ_5UQ.H2iyLgBu0-1661495347-0-AdAPbfwWo/7ve6IcgXE+zAsUQBxtPw3MWUkTQTEwqfypg+5T/1nsM3N9+KVpzrj0nsLJqmwsgJAls+pcEhVSn/XsUqHftErhFEpfniBRxJSM+5SQoExH+N7ONEIgJG5bDg==',s:[0xe68771e04b,0x3e3431433c],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux X command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/x.gif" width="300" height="300" alt="x command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>X</b>, typically located at <b>/usr/bin/X</b>, is the original X <a href="/jargon/s/server.htm">server</a> <a href="/jargon/e/execfile.htm">executable</a> of <a href="/jargon/m/mit.htm">MIT</a>'s <a href="/jargon/x/xwin.htm">X Window System</a>.</p>
+<p>Typically, you do not need to run <b>X</b> manually.</p>
+<p>If what you'd like to do is start a new X Window session, use the <a href="/unix/startx.htm"><b>startx</b></a> command instead.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#history">History of X and Xorg</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="history">History of X and Xorg</h2>
+<p class="tab">In <a href="/history/2009.htm">2009</a>, due to changes in its license, the codebase of <b>X</b> was forked to a new version called <b>Xorg</b>, and is included on systems at the default location <b>/usr/bin/Xorg</b>.</p>
+<p class="tab">The <b>X</b> executable is still included as a compatibility layer for programs which expect it to be there. So, for all intents and purposes, <b>X</b> passes commands to <b>Xorg</b>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">X [:<i>display</i>] [<i>option</i>]</pre>
+<h3 class="tab" id="options">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:350px"><b>-a</b> <i>#</i></td>
+<td>Default pointer acceleration.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ac</b></td>
+<td>Disable access control restrictions.</td>
+</tr>
+<tr class="tcw">
+<td><b>-audit</b> <i>int</i></td>
+<td>Set audit trail level.</td>
+</tr>
+<tr class="tcw">
+<td><b>-auth</b> <i>file</i></td>
+<td>Select authorization file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-br</b></td>
+<td>Create root window with black background.</td>
+</tr>
+<tr class="tcw">
+<td><b>+bs</b></td>
+<td>Enable any backing store support.</td>
+</tr>
+<tr class="tcw">
+<td><b>-bs</b></td>
+<td>Disable any backing store support.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>Turns off key-click.</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b> <i>#</i></td>
+<td>Key-click volume (<b>0</b>-<b>100</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-cc</b> <i>int</i></td>
+<td>Default color visual class.</td>
+</tr>
+<tr class="tcw">
+<td><b>-nocursor</b></td>
+<td>Disable the cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>-core</b></td>
+<td>Generate core dump on fatal error.</td>
+</tr>
+<tr class="tcw">
+<td><b>-dpi</b> <i>int</i></td>
+<td>Screen resolution in dots per inch,</td>
+</tr>
+<tr class="tcw">
+<td><b>-dpms</b></td>
+<td>Disables VESA DPMS (<a href="/jargon/e/energyst.htm">Energy Star</a>) monitor control.</td>
+</tr>
+<tr class="tcw">
+<td><b>-deferglyphs</b> [<b>none</b>|<b>all</b>|<b>16</b>]</td>
+<td>Defer loading of [<b>no</b>|<b>all</b>|<b>16-bit</b>] glyphs.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>#</i></td>
+<td>Dbell base (<b>0</b>-<b>100</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-fc</b> <i>string</i></td>
+<td>Cursor font.</td>
+</tr>
+<tr class="tcw">
+<td><b>-fn</b> <i>string</i></td>
+<td>Default font name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-fp</b> <i>string</i></td>
+<td>Default font <a href="/jargon/p/path.htm">path</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-help</b></td>
+<td>Prints message with these options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b></td>
+<td>Ignore all remaining <a href="/jargon/a/argument.htm">arguments</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ld</b> <i>N</i></td>
+<td>Limit data space to <i>N</i> <a href="/jargon/k/kilobit.htm">Kb</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-lf</b> <i>N</i></td>
+<td>Limit number of open files to <i>N</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ls</b> <i>N</i></td>
+<td>Limit <a href="/jargon/s/stack.htm">stack</a> space to <i>N</i> Kb.</td>
+</tr>
+<tr class="tcw">
+<td><b>-nolock</b></td>
+<td>Disable the locking mechanism.</td>
+</tr>
+<tr class="tcw">
+<td><b>-nolisten</b> <i>string</i></td>
+<td>Don't listen on protocol <i>string</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-noreset</b></td>
+<td>Don't reset after last client exists.</td>
+</tr>
+<tr class="tcw">
+<td><b>-background</b></td>
+<td>Create root window with no background.</td>
+</tr>
+<tr class="tcw">
+<td><b>-reset</b></td>
+<td>Reset after last client exists.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>#</i></td>
+<td>Screen-saver pattern duration (minutes).</td>
+</tr>
+<tr class="tcw">
+<td><b>-pn</b></td>
+<td>Accept failure to listen on all ports.</td>
+</tr>
+<tr class="tcw">
+<td><b>-nopn</b></td>
+<td>Reject failure to listen on all ports.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>Turns off auto-repeat.</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b></td>
+<td>Turns on auto-repeat.</td>
+</tr>
+<tr class="tcw">
+<td><b>-render</b> [<b>default</b>|<b>mono</b>|<b>gray</b>|<b>color</b>]</td>
+<td>Set render color alloc policy.</td>
+</tr>
+<tr class="tcw">
+<td><b>-retro</b></td>
+<td>Start with classic stipple and cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>#</i></td>
+<td>Screen-saver timeout (minutes).</td>
+</tr>
+<tr class="tcw">
+<td><b>-seat</b> <i>string</i></td>
+<td>Seat to run on.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>#</i></td>
+<td>Default pointer threshold (<a href="/jargon/p/pixel.htm">pixels</a>/t).</td>
+</tr>
+<tr class="tcw">
+<td><b>-terminate</b></td>
+<td>Terminate at server reset.</td>
+</tr>
+<tr class="tcw">
+<td><b>-to</b> <i>#</i></td>
+<td>Connection time out.</td>
+</tr>
+<tr class="tcw">
+<td><b>-tst</b></td>
+<td>Disable testing extensions.</td>
+</tr>
+<tr class="tcw">
+<td><b>ttyxx</b></td>
+<td>Server started from init on /dev/ttyxx.</td>
+</tr>
+<tr class="tcw">
+<td><b>v</b></td>
+<td>Video blanking for screen-saver.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Screen-saver without video blanking.</td>
+</tr>
+<tr class="tcw">
+<td><b>-wm</b></td>
+<td>WhenMapped default backing-store.</td>
+</tr>
+<tr class="tcw">
+<td><b>-wr</b></td>
+<td>Create root window with white background.</td>
+</tr>
+<tr class="tcw">
+<td><b>-maxbigreqsize</b></td>
+<td>Set maximal bigrequest size.</td>
+</tr>
+<tr class="tcw">
+<td><b>+xinerama</b></td>
+<td>Enable XINERAMA extension.</td>
+</tr>
+<tr class="tcw">
+<td><b>-xinerama</b></td>
+<td>Disable XINERAMA extension.</td>
+</tr>
+<tr class="tcw">
+<td><b>-dumbSched</b></td>
+<td>Disable smart scheduling, enable old behavior.</td>
+</tr>
+<tr class="tcw">
+<td><b>-schedInterval</b> <i>int</i></td>
+<td>Set scheduler interval in milliseconds.</td>
+</tr>
+<tr class="tcw">
+<td><b>-sigstop</b></td>
+<td>Enable SIGSTOP based startup.</td>
+</tr>
+<tr class="tcw">
+<td><b>+extension</b> <i>name</i></td>
+<td>Enable extension.</td>
+</tr>
+<tr class="tcw">
+<td><b>-extension</b> <i>name</i></td>
+<td>Disable extension.</td>
+</tr>
+<tr class="tcw">
+<td><b>-query</b> <i>host-name</i></td>
+<td>Contact named host for XDMCP.</td>
+</tr>
+<tr class="tcw">
+<td><b>-broadcast</b></td>
+<td>Broadcast for XDMCP.</td>
+</tr>
+<tr class="tcw">
+<td><b>-multicast</b> [<i>addr</i> [<i>hops</i>]]</td>
+<td><a href="/jargon/i/ipv6.htm">IPv6</a> multicast for XDMCP.</td>
+</tr>
+<tr class="tcw">
+<td><b>-indirect</b> <i>host-name</i></td>
+<td>Contact named host for indirect XDMCP.</td>
+</tr>
+<tr class="tcw">
+<td><b>-port</b> <i>port-num</i></td>
+<td><a href="/jargon/u/udp.htm">UDP</a> port number to send messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-from</b> <i>local-address</i></td>
+<td>Specify the local address to connect from.</td>
+</tr>
+<tr class="tcw">
+<td><b>-once</b></td>
+<td>Terminate server after one session.</td>
+</tr>
+<tr class="tcw">
+<td><b>-class</b> <i>display-class</i></td>
+<td>Specify display class to send in manage.</td>
+</tr>
+<tr class="tcw">
+<td><b>-cookie</b> <i>xdm-auth-bits</i></td>
+<td>Specify the magic cookie for XDMCP.</td>
+</tr>
+<tr class="tcw">
+<td><b>-displayID</b> <i>display-id</i></td>
+<td>Manufacturer display ID for request.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>+-</b>]<b>accessx</b> [ <i>timeout</i> [ <i>timeout_mask</i> [ <i>feedback</i> [ <i>options_mask</i>] ] ] ]</td>
+<td>Enable/disable accessx key sequences.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ardelay</b></td>
+<td>Set XKB autorepeat delay.</td>
+</tr>
+<tr class="tcw">
+<td><b>-arinterval</b></td>
+<td>Set XKB autorepeat interval.</td>
+</tr>
+</table>
+<h3 class="tab">Device-dependent options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:260px"><b>-modulepath</b> <i>paths</i></td>
+<td>Specify the <a href="/jargon/m/module.htm">module</a> search path.</td>
+</tr>
+<tr class="tcw">
+<td><b>-logfile</b> <i>file</i></td>
+<td>Specify a <a href="/jargon/l/log.htm">log</a> file name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-configure</b></td>
+<td>Probe for devices and write an <b>xorg.conf</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-showopts</b></td>
+<td>Print available options for all installed drivers.</td>
+</tr>
+<tr class="tcw">
+<td><b>-config</b> <i>file</i></td>
+<td>Specify a configuration file, relative to the <b>xorg.conf</b> search path; only <a href="/jargon/r/root.htm">root</a> can use <a href="/jargon/a/absopath.htm">absolute</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-configdir</b> <i>dir</i></td>
+<td>Specify a configuration directory, relative to the <b>xorg.conf.d</b> search path; only root can use absolute.</td>
+</tr>
+<tr class="tcw">
+<td><b>-verbose</b> [<i>n</i>]</td>
+<td><a href="/jargon/v/verbose.htm">Verbose</a> startup messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-logverbose</b> [<i>n</i>]</td>
+<td>Verbose log messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-quiet</b></td>
+<td>Minimal startup messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-pixmap24</b></td>
+<td>Use 24bpp pixmaps for depth 24.</td>
+</tr>
+<tr class="tcw">
+<td><b>-pixmap32</b></td>
+<td>Use 32bpp pixmaps for depth 24.</td>
+</tr>
+<tr class="tcw">
+<td><b>-fbbpp</b> <i>n</i></td>
+<td>Set bpp for the framebuffer. Default: <b>8</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-depth</b> <i>n</i></td>
+<td>Set colour depth. Default: <b>8</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-gamma</b> <i>f</i></td>
+<td>Set gamma value (<b>0.1</b> - <b>10.0</b>) Default: <b>1.0</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-rgamma</b> <i>f</i></td>
+<td>Set gamma value for red phase.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ggamma</b> <i>f</i></td>
+<td>Set gamma value for green phase.</td>
+</tr>
+<tr class="tcw">
+<td><b>-bgamma</b> <i>f</i></td>
+<td>Set gamma value for blue phase.</td>
+</tr>
+<tr class="tcw">
+<td><b>-weight</b> <i>nnn</i></td>
+<td>Set RGB weighting at 16 bpp. Default: <b>565</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-layout</b> <i>name</i></td>
+<td>Specify the ServerLayout section name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-screen</b> <i>name</i></td>
+<td>Specify the Screen section name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-keyboard</b> <i>name</i></td>
+<td>Specify the core keyboard InputDevice name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-pointer</b> <i>name</i></td>
+<td>Specify the core pointer InputDevice name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-nosilk</b></td>
+<td>Disable Silken Mouse.</td>
+</tr>
+<tr class="tcw">
+<td><b>-flipPixels</b></td>
+<td>Swap default black/white pixel values.</td>
+</tr>
+<tr class="tcw">
+<td><b>-disableVidMode</b></td>
+<td>Disable mode adjustments with xvidtune.</td>
+</tr>
+<tr class="tcw">
+<td><b>-allowNonLocalXvidtune</b></td>
+<td>Allow xvidtune to be run as a non-local client.</td>
+</tr>
+<tr class="tcw">
+<td><b>-allowMouseOpenFail</b></td>
+<td>Start server even if the mouse can't be <a href="/jargon/i/initiali.htm">initialized</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ignoreABI</b></td>
+<td>Make module ABI mismatches non-fatal.</td>
+</tr>
+<tr class="tcw">
+<td><b>-isolateDevice</b> <i>bus_id</i></td>
+<td>Restrict device resets to bus_id (PCI only).</td>
+</tr>
+<tr class="tcw">
+<td><b>-version</b></td>
+<td>Show the server version.</td>
+</tr>
+<tr class="tcw">
+<td><b>-showDefaultModulePath</b></td>
+<td>Show the server default module path.</td>
+</tr>
+<tr class="tcw">
+<td><b>-showDefaultLibPath</b></td>
+<td>Show the server default library path.</td>
+</tr>
+<tr class="tcw">
+<td><b>-novtswitch</b></td>
+<td>Don't automatically switch VT at reset &amp; exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-sharevts</b></td>
+<td>Share VTs with another X server.</td>
+</tr>
+<tr class="tcw">
+<td><b>-mir</b> <i>MirID</i></td>
+<td>Run nested in a Mir compositor with app id MirID.</td>
+</tr>
+<tr class="tcw">
+<td><b>vtXX</b></td>
+<td>Use the specified VT number.</td>
+</tr>
+<tr class="tcw">
+<td><b>-keeptty</b></td>
+<td>Don't detach controlling <a href="/jargon/t/tty.htm">tty</a> (for <a href="/jargon/d/debug.htm">debugging</a> purposes).</td>
+</tr>
+</table>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/startx.htm"><b>startx</b></a> &mdash; Start an X Window System session.<br><a href="/unix/xorg.htm"><b>Xorg</b></a> &mdash; The executable of the X Window System server.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a838189d8c41f',m:'9bUpU_cDoeLqTjzfX713Nr4QtNcKhk2QnY1lnff1wCg-1661495373-0-AbS0N9ap8yNSdEYJfYYOYRA30bUT8WfSAVF/gfHlLIMc6phC9liAoIl+E2Hxlk3PpWG27wkGkKawfkP7xocLlI0PzODE8SsCxndfULqzgsvbvBC6kvS2D9EIFlW7iyBlrg==',s:[0xfd78325de6,0x9960fcd626],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

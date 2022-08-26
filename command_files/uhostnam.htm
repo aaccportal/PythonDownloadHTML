@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux hostname command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/hostname.gif" width="300" height="300" alt="hostname command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>hostname</b> command shows or sets the system <a href="/jargon/h/hostname.htm">hostname</a>.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>hostname</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#The-FQDN">The FQDN</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>hostname</b> is used to display the system's <a href="/jargon/d/dns.htm">DNS</a> name, and to display or set its hostname or NIS (Network Information Services) <a href="/jargon/d/domain.htm">domain name</a>.</p>
+<p class="tab">When called without any <a href="/jargon/a/argument.htm">arguments</a>, <b>hostname</b> displays the name of the system as returned by the gethostname function.</p>
+<p class="tab">When called with one argument or with the <b>--file</b> option, <b>hostname</b> sets the system's hostname using the sethostname function. Only the <a href="/jargon/r/root.htm">superuser</a> can set the hostname.</p>
+<p class="tab">The hostname is usually set once at system startup in the <a href="/jargon/s/script.htm">script</a> <b>/etc/init.d/hostname.sh</b> normally by reading the contents of a file which contains the hostname, e.g., <b>/etc/hostname</b>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">hostname [-v] [-a|--alias] [-d|--domain] [-f|--fqdn|--long] [-A|--all-fqdns] 
+         [-i|--ip-address] [-I|--all-ip-addresses] [-s|--short] [-y|--yp|--nis]</pre>
+<pre class="tcy tab">hostname [-v] [-b|--boot] [-F|--file <i>file name</i>] [<i>hostname</i>]</pre>
+<pre class="tcy tab">hostname [-v] [-h|--help] [-V|--version]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-a</b>, <b>--alias</b></td>
+<td>Display the alias name of the host (if used). This option is deprecated and should not be used anymore.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b>, <b>--all-fqdns</b></td>
+<td>Displays every <a href="/jargon/f/fqdn.htm">FQDN</a> of the machine. This option enumerates all configured network addresses on all configured network interfaces, and translates them to DNS domain names. Addresses that cannot be translated (i.e., because they do not have an appropriate reverse DNS entry) are skipped. Note that different addresses may resolve to the same name, therefore the output may contain duplicate entries. Do not make any assumptions about the order of the output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b>, <b>--boot</b></td>
+<td>Always set a hostname; this allows the file specified by <b>-F</b> to be non-existant or empty, in which case the default hostname <b>localhost</b> will be used if none is yet set.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--domain</b></td>
+<td>Display the name of the DNS domain. Don't use the command <b>domainname</b> to get the DNS domain name because it shows the NIS domain name and not the DNS domain name. Use <b>dnsdomainname</b> instead. See the warnings in <a href="#The-FQDN">the FQDN</a> section, and avoid using this option if at all possible.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--fqdn</b>, <b>--long</b></td>
+<td>Display the FQDN (fully qualified domain name). A FQDN consists of a short hostname and the DNS domain name. Unless you are using <a href="/jargon/b/bind.htm">BIND</a> (Berkeley Internet Name Domain) or NIS for host lookups, you can change the FQDN and the DNS domain name (which is part of the FQDN) in the <b>/etc/hosts</b> file. See the warnings in <a href="#The-FQDN">the FQDN</a> section, and avoid using this option if at all possible; use <b>hostname --all-fqdns</b> instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b>, <b>--file</b> <i>file name</i></td>
+<td>Read the hostname from the specified file. Comments (lines starting with a &#96;<b>#</b>') are ignored.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--ip-address</b></td>
+<td>Display the network address(es) of the hostname. Note that this works only if the hostname can be resolved. Avoid using this option if at all possible; use <b>hostname --all-ip-addresses</b> instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b>,<br> <b>--all-ip-addresses</b></td>
+<td>Display all network addresses of the host. This option enumerates all configured addresses on all network interfaces. The loopback interface and IPv6 link-local addresses are omitted. Contrary to option <b>-i</b>, this option does not depend on name resolution. Do not make any assumptions about the order of the output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--short</b></td>
+<td>Display the short hostname. This is the hostname cut at the first dot.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Be <a href="/jargon/v/verbose.htm">verbose</a> with all output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Print version information on standard output and exit successfully.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b>, <b>--yp</b>, <b>--nis</b></td>
+<td>Display the NIS domain name. If a <a href="/jargon/p/paramete.htm">parameter</a> is given (or <b>--file</b> name ) then root (the superuser) can also set a new NIS domain.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Print a help message and exit.</td>
+</tr>
+</table>
+<h2 id="The-FQDN">The FQDN</h2>
+<p class="tab">The FQDN (fully qualified domain name) of the system is the name that the resolver returns for the hostname, such as <b>mysubdomain.example.com</b>. It is usually the hostname followed by the DNS domain name (the part after the first dot). You can check the FQDN using <b>hostname --fqdn</b> or the domain name using <b>dnsdomainname</b>.</p>
+<p class="tab">You cannot change the FQDN with <b>hostname</b> or <b>dnsdomainname</b>.</p>
+<p class="tab">The recommended method of setting the FQDN is to make the hostname be an alias for the fully qualified name using <b>/etc/hosts</b>, DNS, or NIS. For example, if the hostname was "<b>mysubdomain</b>", one might have a line in <b>/etc/hosts</b> which reads:</p>
+<pre class="tab tcy">127.0.1.1 ursula.example.com ursula</pre>
+<p class="tab">Technically: The FQDN is the name <b>getaddrinfo</b> returns for the hostname returned by gethostname. The DNS domain name is the part after the first dot.</p>
+<p class="tab">Therefore it depends on the configuration of the resolver (usually in <b>/etc/host.conf</b>) how you can change it. Usually, the hosts file is parsed before DNS or NIS, so it is most common to change the FQDN in <b>/etc/hosts</b>.</p>
+<p class="tab">If a machine has multiple network interfaces/addresses or is used in a mobile environment, then it may either have multiple FQDNs/domain names or none at all. Therefore avoid using <b>hostname --fqdn</b>, <b>hostname --domain</b> and <b>dnsdomainname</b>.</p>
+<p class="tab"><b>hostname --ip-address</b> is subject to the same limitations so it should be avoided as well.</p>
+<h2 id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>/etc/hostname</b></td>
+<td>Historically this file was supposed to only contain the hostname and not the full canonical FQDN. Nowadays most software can cope with a full FQDN here. This file is read at boot time by the system initialization scripts to set the hostname.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/hosts</b></td>
+<td>Usually, this is where one sets the domain name by aliasing the hostname to the FQDN.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">hostname</pre>
+<p class="tab">Displays the system hostname.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/hostid.htm"><b>hostid</b></a> &mdash; Print the numeric identifier for the current host.<br><a href="/unix/uuname.htm"><b>uname</b></a> &mdash; Print information about the current system.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82f81ca084e0',m:'1mPdAFBHmcZvqAu3oeqjMZzex7caa1SW1U_tKFiNSks-1661495351-0-AdGb4NB+hu3Z13UaX7NZkKbjr3Fa1g67PJrMSBCUe8Al81WOFZJhcUMcvhEsxBkhoYhbzoOKDs/A1qs6oCu1LRtffPNQDh3/owGwDzv+PNNxXvwXKv4PW67OY2QnhA/aHZ3u08KsbgFHOKWTtq/4cpU=',s:[0x1365dc3cf3,0x8146849af4],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

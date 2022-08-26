@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux echo command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2020-11-30">11/30/2020</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/echo.gif" width="300" height="300" alt="echo command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>echo</b> command prints text to <a href="/jargon/s/stdout.htm">standard output</a>, e.g., the <a href="/jargon/t/terminal.htm">terminal</a>.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>echo</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a>
+<ul>
+<li><a href="#short-options">Options</a></li>
+<li><a href="#long-options">Options</a></li>
+<li><a href="#escape-sequences">Escape sequences</a></li>
+</ul>
+</li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>echo</b> is a fundamental command found in most <a href="/jargon/o/os.htm">operating systems</a>. It is frequently used in <a href="/jargon/s/script.htm">scripts</a>, <a href="/jargon/b/batchfil.htm">batch files</a>, and as part of individual commands; anywhere you may need to output text.</p>
+<p class="tab">Most command shells, including <b>bash</b>, <a href="/unix/uksh.htm"><b>ksh</b></a> and <a href="/unix/ucsh.htm"><b>csh</b></a> implement <b>echo</b> as a built-in command. The behavior of built-in <b>echo</b> commands is similar, but the options may be different; those commands are not documented here.</p>
+<p class="tab">This page covers the stand-alone program, <b>/bin/echo</b>. Its options are slightly different than the <a href="/jargon/b/builtin.htm">built-in</a> <b>echo</b> command that is included in your <a href="/jargon/s/shell.htm">shell</a>. If you are using the <a href="/unix/ubash.htm"><b>bash</b></a> shell, you can determine which <b>echo</b> is the default, using the <b>type</b> command:</p>
+<pre class="tab tcy">type echo</pre>
+<pre class="dtab">echo is a shell builtin</pre>
+<p class="tab">To specify that you want to run the stand-alone program instead of the shell built-in, use its complete <a href="/jargon/p/path.htm">path</a> in the command, i.e., run it like this:</p>
+<pre class="tab tcy">/bin/echo</pre>
+<p class="tab">This page describes the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> stand-alone version of <b>echo</b>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab"><b>echo</b> [<i>SHORT-OPTION</i>]... [<i>STRING</i>]...</pre>
+<pre class="tcy tab"><b>echo</b> <b>--help</b></pre>
+<pre class="tcy tab"><b>echo</b> <b>--version</b></pre>
+<h2 id="options">Options</h2>
+<h3 class="tab" id="short-options">Options</h3>
+<p class="tab">These options may be specified before the string, and affect the behavior of <b>echo</b>.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:50px"><b>-n</b></td>
+<td>Do not output a trailing <a href="/jargon/n/newline.htm">newline</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>Enable interpretation of backslash <a href="/jargon/e/esc.htm">escape sequences</a> (see below for a list of these).</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b></td>
+<td>Disable interpretation of backslash escape sequences. This is the default.</td>
+</tr>
+</table>
+<h3 class="tab" id="long-options">Options</h3>
+<p class="tab">If a long option is specified, you may not specify a string to be echoed. These options are for getting information about the program only.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Output version information and exit.</td>
+</tr>
+</table>
+<h3 class="tab" id="escape-sequences">Escape sequences</h3>
+<p class="tab">If you specify the <b>-e</b> option, the following escape sequences are recognized in your string:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<th>Sequence</th>
+<th>Interpreted as</th>
+</tr>
+<tr class="tcw">
+<td><b>\\</b></td>
+<td>A literal <a href="/jargon/b/backslash.htm">backslash</a> character ("<b>\</b>").</td>
+</tr>
+<tr class="tcw">
+<td><b>\a</b></td>
+<td>An alert (The BELL character).</td>
+</tr>
+<tr class="tcw">
+<td><b>\b</b></td>
+<td><a href="/jargon/b/backspac.htm"><kbd>Backspace</kbd></a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>\c</b></td>
+<td>Produce no further output after this.</td>
+</tr>
+<tr class="tcw">
+<td><b>\e</b></td>
+<td>The escape character; equivalent to pressing <a href="/jargon/e/esc.htm"><kbd>Esc</kbd></a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>\f</b></td>
+<td>A <a href="/jargon/f/formfeed.htm">form feed</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>\n</b></td>
+<td>A newline.</td>
+</tr>
+<tr class="tcw">
+<td><b>\r</b></td>
+<td>A <a href="/jargon/c/cr.htm">carriage return</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>\t</b></td>
+<td>A horizontal tab.</td>
+</tr>
+<tr class="tcw">
+<td><b>\v</b></td>
+<td>A vertical tab.</td>
+</tr>
+<tr class="tcw">
+<td><b>\0</b><i>NNN</i></td>
+<td><a href="/jargon/b/byte.htm">Byte</a> with <a href="/jargon/o/octal.htm">octal</a> value <i>NNN</i> (which can be 1 to 3 digits).</td>
+</tr>
+<tr class="tcw">
+<td><b>\x</b><i>HH</i></td>
+<td>Byte with <a href="/jargon/h/hex.htm">hexadecimal</a> value <i>HH</i> (which can be either 1 or 2 digits)</td>
+</tr>
+</table>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>Each shell generally has its own implementation of <b>echo</b>, which may be slightly different than the version described here. Refer to your shell's documentation for details about the options it supports.</p>
+</div>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">/bin/echo Hello, world!</pre>
+<p class="tab">In the above command, the two words (<b>Hello,</b> and <b>world!</b>) are passed to <b>echo</b> as separate arguments, and <b>echo</b> prints them in sequence, separated by a space:</p>
+<pre class="tab">Hello, world!</pre>
+<p class="tab">The next command produces the same output:</p>
+<pre class="tcy tab">/bin/echo 'Hello, World!'</pre>
+<pre class="tab">Hello, world!</pre>
+<p class="tab">However, unlike the first example, the above command provides the single-quoted string '<b>Hello, world!</b>' as a single argument.</p>
+<p class="tab">Single-quoting a string will reliably protect it from interpretation by the shell, passing special characters and escape sequences literally to <b>echo</b>.</p>
+<p class="tab">For instance, in the <b>bash</b> shell, variable names are preceded by a dollar sign (<b>$</b>). In the next command, the variable name inside the quotes is treated literally; outside the quotes, it is converted to its value.</p>
+<pre class="tcy tab">/bin/echo 'The value of $PATH is' $PATH</pre>
+<pre class="tab">The value of $PATH is /home/hope/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin</pre>
+<p class="tab">Escape sequences are not interpreted, by default:</p>
+<pre class="tcy tab">/bin/echo 'Here, \bthe \bbackspace \bsequences \bare \bignored.'</pre>
+<pre class="tab">Here, \bthe \bbackspace \bsequences \bare \bignored.</pre>
+<p class="tab">However, if you provide the <b>-e</b> option, they are interpreted:</p>
+<pre class="tcy tab">/bin/echo -e 'Here, \bhowever, \bthe \bbackspace \bsequences \bare \binterpreted.'</pre>
+<pre class="tab">Here,however,thebackspacesequencesareinterpreted.</pre>
+<p class="tab">If you need to insert newlines in your <b>echo</b> output, specify the <b>-e</b> option and include the <b>\n</b> escape sequence wherever you want a new line:</p>
+<pre class="tcy tab">echo -e 'Here,\nwe\nhave\ninserted\nnewlines.'</pre>
+<pre class="tab">Here,
+we
+have
+inserted
+newlines.</pre>
+<p class="tab">Same for tabs:</p>
+<pre class="tcy tab">echo -e 'Here\twe\thave\tinserted\thorizontal\ttabs.'</pre>
+<pre class="tab">Here     we      have    inserted        horizontal      tabs.</pre>
+<p class="tab">Another example:</p>
+<pre class="tcy tab">echo -e 'This line is not completely \cprinted.'</pre>
+<pre class="tab">This line is not completely</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucat.htm"><b>cat</b></a> &mdash; Output the contents of a file.<br><a href="/unix/uprintf.htm"><b>printf</b></a> &mdash; Write formatted output.<br><a href="/unix/tac.htm"><b>tac</b></a> &mdash; Output the contents of files in reverse order.<br><a href="/unix/utee.htm"><b>tee</b></a> &mdash; Route a file's contents to multiple outputs.<br><a href="/unix/utouch.htm"><b>touch</b></a> &mdash; Update the timestamp of a file or directory.<br><a href="/unix/utr.htm"><b>tr</b></a> &mdash; Translate one set of characters to another.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82d9aa8a8498',m:'R0W73xA2xr1NpvVK7BMFThS94Woj9r82HFu9SFyE9M8-1661495346-0-ARhtYCNsUZNlv8d6PVLEOXEj7djnp858sMGWZ2GfKCnBzknKne0iGytp6ME6Qf/SCvA5Monmgrn87M7pYJ5qPyZH7qRru1xTQH1DGYAWoYc6HnNxr+U5Lm8HDlkE721vhQ==',s:[0xb485e1f4e9,0xed2da54040],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

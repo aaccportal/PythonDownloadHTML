@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux userdel command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/userdel.gif" width="300" height="300" alt="userdel command" class="floatRight">
+<p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>userdel</b> command <a href="/jargon/d/delete.htm">deletes</a> a <a href="/jargon/u/user.htm">user</a> <a href="/jargon/a/account.htm">account</a> and all associated <a href="/jargon/f/file.htm">files</a>.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>userdel</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#exit">Exit status</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>userdel</b> is a low-level <a href="/jargon/u/utility.htm">utility</a> for removing users. (It is not very user-friendly. In most cases, <a href="/jargon/r/root.htm">administrators</a> are advised to use the friendlier <a href="/unix/deluser.htm"><b>deluser</b></a> utility instead.)</p>
+<p class="tab">The <b>userdel</b> command modifies the system account files, deleting all entries that refer to the username <i>LOGIN</i>. The named user must exist.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">userdel [<i>options</i>] <i>LOGIN</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-f</b>, <b>--force</b></td>
+<td>This option forces the removal of the user account, even if the user is still logged in. It also forces <b>userdel</b> to remove the user's <a href="/jargon/h/homedir.htm">home directory</a> and mail <a href="/jargon/s/spool.htm">spool</a>, even if another user uses the same home directory or if the mail spool is not owned by the specified user. If <b>USERGROUPS_ENAB</b> is defined to <b>yes</b> in <b>/etc/login.defs</b> and if a group exists with the same name as the deleted user, then this group will be removed, even if it's still the primary group of another user.<br><br> Note: This option is dangerous and may leave your system in an inconsistent state.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--remove</b></td>
+<td>Files in the user's home directory will be removed with the home directory itself and the user's mail spool. Files located in other file systems have to be searched for and deleted manually.<br><br> The mail spool is defined by the <b>MAIL_DIR</b> variable in the <b>login.defs</b> file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b> <i>CHROOT_DIR</i>,<br><b>--root</b> <i>CHROOT_DIR</i></td>
+<td>Apply changes in the <a href="/jargon/c/chroot.htm">chroot</a> directory <i>CHROOT_DIR</i> and use the configuration files from the same directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Z</b>, <b>--selinux-user</b></td>
+<td>Remove any SELinux (Security-Enhanced Linux) user mapping for the user's login.</td>
+</tr>
+</table>
+<h2 id="configuration">Configuration</h2>
+<p class="tab">The following configuration variables in <b>/etc/login.defs</b> change the behavior of this tool:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th style="width:300px"><b>Name</b></th>
+<th style="width:80px"><b>Type</b></th>
+<th><b>Description</b></th>
+</tr>
+<tr class="tcw">
+<td style="width:200px"><b>MAIL_DIR</b></td>
+<td><a href="/jargon/s/string.htm">string</a></td>
+<td>The mail spool directory. This is needed to manipulate the mailbox when its corresponding user account is modified or deleted. If not specified, a compile-time default is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>MAIL_FILE</b></td>
+<td>string</td>
+<td>Defines the location of the users mail spool files relatively to their home directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>MAX_MEMBERS_PER_GROUP</b></td>
+<td>number</td>
+<td>Maximum members per group entry. When the maximum is reached, a new group entry (line) is started in <b>/etc/group</b> (with the same name, same password, and same Group ID).<br><br> The default value is <b>0</b>, meaning that there are no limits in the number of members in a group.<br><br> This feature (split group) permits to limit the length of lines in the group file. This is useful to make sure that lines for NIS groups are not larger than 1024 characters.<br><br> If you need to enforce such limit, you can use <b>25</b>.<br><br> Note: split groups may not be supported by all tools (including the Shadow toolsuite). You should not use this variable unless you need it.</td>
+</tr>
+<tr class="tcw">
+<td><b>USERDEL_CMD</b></td>
+<td>string</td>
+<td>If defined, this command is run when removing a user. It should remove any <a href="/at.htm"><b>at</b></a>/<a href="/jargon/c/cron.htm"><b>cron</b></a>/<a href="/jargon/p/print.htm">print</a> jobs etc. owned by the user to be removed (passed as the first argument).<br><br> The return code of the script is not taken into account.<br><br> Here is an example script, which removes the user's <b>cron</b>, <b>at</b> and print jobs:<br><br><pre class="tcy">#! /bin/sh# Check for the required argument.if [ $# != 1 ]; then echo "Usage: $0 username" exit 1fi# Remove cron jobs.crontab -r -u $1# Remove at jobs.# Note that it removes any jobs owned by the sam shared by a different username.AT_SPOOL_DIR=/var/spool/cron/atjobsfind $AT_SPOOL_DIRe UID,# even if it was -name "[^.]*" -type f -user $1 -delete \;# Remove print jobs.lprm $1# All done.exit 0</pre></td>
+</tr>
+<tr class="tcw">
+<td><b>USERGROUPS_ENAB</b></td>
+<td><a href="/jargon/b/boolean.htm">boolean</a></td>
+<td>If set to "yes", <b>userdel</b> remove the user's group if it contains no more members, and <b>useradd</b> creates by default a group with the name of the user.</td>
+</tr>
+</table>
+<p class="tab">Note that the <b>MAIL_DIR</b> and <b>MAIL_FILE</b> variables are used by each of <a href="/unix/useradd.htm"><b>useradd</b></a>, <a href="/unix/usermod.htm"><b>usermod</b></a>, and <b>userdel</b> to create, move, or delete the user's mail spool.</p>
+<h2 id="files">Files</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:160px"><b>/etc/group</b></td>
+<td>Group account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/login.defs</b></td>
+<td>Shadow password suite configuration.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/passwd</b></td>
+<td>User account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/shadow</b></td>
+<td>Secure user account information.</td>
+</tr>
+</table>
+<h2 id="exit">Exit status</h2>
+<p class="tab"><b>userdel</b> exits with one of the following exit codes, depending on what occurred:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>0</b></td>
+<td>Success.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>Couldn't update the passwd file.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>Invalid command <a href="/jargon/s/syntax.htm">syntax</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>6</b></td>
+<td>Specified user doesn't exist.</td>
+</tr>
+<tr class="tcw">
+<td><b>8</b></td>
+<td>Couldn't delete user because the specified user is currently <a href="/jargon/l/login.htm">logged in</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>10</b></td>
+<td>Couldn't update group file.</td>
+</tr>
+<tr class="tcw">
+<td><b>12</b></td>
+<td>Couldn't remove home directory.</td>
+</tr>
+</table>
+<h2 id="notes">Notes</h2>
+<p class="tab"><b>userdel</b> prevents you from removing an account if there are running <a href="/jargon/p/process.htm">processes</a> which belong to this account. In that case, you may have to kill those processes or lock the user's password or account and remove the account later. The <b>-f</b> option can force the deletion of this account.</p>
+<p class="tab">You should manually check all file systems to ensure that no files remain owned by this user.</p>
+<p class="tab">You may not remove any NIS attributes on a NIS client. This must be performed on the NIS server.</p>
+<p class="tab">If <b>USERGROUPS_ENAB</b> is defined to "yes" in <b>/etc/login.defs</b>, <b>userdel</b> deletes the group with the same name as the user. To avoid inconsistencies in the passwd and group databases, <b>userdel</b> checks that this group is not used as a primary group for another user, and warns without deleting the group otherwise. The <b>-f</b> option can force the deletion of this group.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">userdel -r username</pre>
+<p class="tab">Deletes the account of user <b>username</b>, and removes that user's home directory and associated mail files.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/useradd.htm"><b>useradd</b></a> &mdash; Add a user to the system.<br><a href="/unix/usermod.htm"><b>usermod</b></a> &mdash; Modify a user's account.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83730d44c438',m:'KZ3vxzzGqs.9Prl4FmvkOt80r1Oao4T0gDeFeFJeqVY-1661495370-0-AQdoZ4VSUz3bAYs1gG71fA+0eoRbmSLmCE3G3jaqTT2dTNtOX5k3+1W3dUE2kW5cCoUtdNC1K3H7doUTp+KWTqGDRUeuyk+coCGaSKoovCYaoGO5i3clY9AsiIfUYG5URrU7ZEmNWW35HHbx2SSfnyk=',s:[0x9fc5f16fc0,0x71a2620ed7],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

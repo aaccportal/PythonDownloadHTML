@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux lpadmin command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/lpadmin.gif" width="300" height="300" alt="lpadmin command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>lpadmin</b> command configures the <a href="/unix/ulp.htm">lp</a> print service.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>lpadmin</b> configures printer and class queues provided by the common printing system CUPS. It can also be used to set the server default printer or class.</p>
+<p class="tab">When specified before the <b>-d</b>, <b>-p</b>, or <b>-x</b> options, the <b>-E</b> option forces <a href="/jargon/e/encrypt.htm">encryption</a> when connecting to the server.</p>
+<p class="tab">The first form of the command (<b>-d</b>) sets the default printer or class to destination. Subsequent print jobs submitted via the <a href="/unix/ulp.htm">lp</a> or <a href="/unix/ulpr.htm">lpr</a> commands use this destination unless the user specifies otherwise with the <b>lpoptions</b> command.</p>
+<p class="tab">The second form of the command (<b>-p</b>) configures the named printer or class. The additional options are described below.</p>
+<p class="tab">The third form of the command (<b>-x</b>) deletes the printer or class destination. Any jobs that are pending for the destination will be removed and any job that is currently printed will be aborted.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">lpadmin [ -E ] [-U <i>username</i> ] [ -h <i>server</i>[:<i>port</i>] ] -d <i>destination</i> 
+</pre>
+<pre class="tcy tab">lpadmin [ -E ] [-U <i>username</i> ] [ -h <i>server</i>[:<i>port</i>] ] -p <i>destination</i> 
+        [ -R <i>name-default</i> ] <i>option(s)</i> 
+</pre>
+<pre class="tcy tab">lpadmin [ -E ] [-U <i>username</i> ] [ -h <i>server</i>[:<i>port</i>] ] -x <i>destination</i>
+</pre>
+<h3 class="tab">Options</h3>
+<p class="tab">The following options configure the printer queue.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:360px"><b>-c</b> <i>class</i></td>
+<td>Adds the named printer to <i>class</i>. If <i>class</i> does not exist it is created automatically.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b> <i>interface</i></td>
+<td>Sets a <a href="/jargon/s/system-v.htm">System V</a> style interface script for the printer. This option cannot be specified with the <b>-P</b> option (PPD file) and is intended for providing support for legacy printer drivers.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b> <i>model</i></td>
+<td>Sets a standard System V interface script or PPD file for the printer from the model directory or using one of the driver interfaces. Use the <b>-m</b> option with the <b>lpinfo</b> command to get a list of supported models.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o cupsIPPSupplies=true</b>,<br><b>-o cupsIPPSupplies=false</b></td>
+<td>Specifies whether IPP supply level values should be reported.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o job-k-limit=</b><i>value</i></td>
+<td>Sets the <a href="/jargon/k/kilobyte.htm">kilobyte</a> limit for per-user quotas. The value is an <a href="/jargon/i/integer.htm">integer</a> number of kilobytes; one kilobyte is 1024 <a href="/jargon/b/byte.htm">bytes</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o job-page-limit=</b><i>value</i></td>
+<td>Sets the page limit for per-user quotas. The value is the integer number of pages that can be printed; double-sided pages are counted as two pages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o job-quota-period=</b><i>value</i></td>
+<td>Sets the accounting period for per-user quotas. The value is an integer number of seconds; 86,400 seconds are in one day.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o job-sheets-default=</b><i>banner</i>,<br><b>-o job-sheets-default=</b><i>banner</i><b>,</b><i>banner</i></td>
+<td>Sets the default banner page(s) to use for print jobs.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o name=</b><i>value</i></td>
+<td>Sets a PPD option for the printer. PPD options can be listed using the <b>-l</b> option with the <b>lpoptions</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o name-default=</b><i>value</i></td>
+<td>Sets a default server-side option for the destination. Any print time option can be defaulted, e.g., "<b>-o cpi-default=17</b>" to set the default "cpi" option <i>value</i> to <b>17</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o port-monitor=</b><i>name</i></td>
+<td>Sets the binary communications program to use when printing, "<b>none</b>", "<b>bcp</b>", or "<b>tbcp</b>". The default program is "<b>none</b>". The specified port monitor must be listed in the printer's PPD file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o printer-error-policy=</b><i>name</i></td>
+<td>Sets the error policy to be used when the printer backend cannot send the job to the printer. The name must be one of "<b>abort-job</b>", "<b>retry-job</b>", "<b>retry-current-job</b>", or "<b>stop-printer</b>". The default error policy is "<b>stop-printer</b>" for printers and "<b>retry-current-job</b>" for classes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o printer-is-shared=</b>[<b>true</b>|<b>false</b>]</td>
+<td>Sets the destination to shared/published or unshared/unpublished. Shared/published destinations are publicly announced by the server on the LAN based on the browsing configuration in <b>cupsd.conf</b>, while unshared/unpublished destinations are not announced. The default value is "<b>true</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-o printer-op-policy=</b><i>name</i></td>
+<td>Sets the IPP operation policy associated with the destination. The name must be defined in the <b>cupsd.conf</b> in a <i>Policy</i> section. The default operation policy is "default".</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b> <i>name-default</i></td>
+<td>Deletes the named option from printer.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b> <i>class</i></td>
+<td>Removes the named printer from <i>class</i>. If the resulting class becomes empty it is removed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u allow:</b><i>user</i><b>,</b><i>user</i><b>,@</b><i>group</i><br><br><b>-u deny:</b><i>user</i><b>,</b><i>user</i><b>,@</b><i>group</i><br><br><b>-u allow:all</b><br><br><b>-u deny:none</b></td>
+<td>Sets user-level access control on a destination. Names starting with "<b>@</b>" are interpreted as <a href="/jargon/u/unix.htm">UNIX</a> groups. The latter two forms turn user-level access control off.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v "</b><i>device-uri</i><b>"</b></td>
+<td>Sets the <i>device-uri</i> attribute of the printer queue. Use the <b>-v</b> option with the <b>lpinfo</b> command to get a list of supported device URIs and schemes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D "</b><i>info</i><b>"</b></td>
+<td>Provides a textual description of the destination.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b></td>
+<td>Enables the destination and accepts jobs; this is the same as running the <b>cupsaccept</b> and <b>cupsenable</b> programs on the destination.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L "</b><i>location</i><b>"</b></td>
+<td>Provides a textual location of the destination.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b> <i>ppd-file</i></td>
+<td>Specifies a PostScript Printer Description file to use with the printer. If specified, this option overrides the <b>-i</b> option (interface script).</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">lpadmin -p LaserJet -E -v socket://10.1.1.1 -m laserjet.ppd</pre>
+<p class="tab">Add a printer named <b>Laserjet</b> which is at the network location <b>10.1.1.1</b>, using the CUPS driver file <b>laserjet.ppd</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uenable.htm"><b>enable</b></a> &mdash; Enable and disable LP printers.<br><a href="/unix/ulp.htm"><b>lp</b></a> &mdash; Print a file on the System V operating system.<br><a href="/unix/ulpstat.htm"><b>lpstat</b></a> &mdash; List the status of the LP print services.<br><a href="/unix/umail.htm"><b>mail</b></a> &mdash; Read, compose, and manage mail.<br><a href="/unix/ustty.htm"><b>stty</b></a> &mdash; Set options for your terminal display.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a830b6d9984e0',m:'8JDIHIBekxTIH3t3GGg.Y5ZhxMEVV0aihY_m1v.UKHk-1661495354-0-AamMwTNRygvQpgvesGf4SDTmd8Vd5IoYoG5iIUfJdQ/2TvQzVI4sUS1bBfJ37nRLkqmM58E/t9rSTewgonRVJYWndkNToNPmfUUtFKlvqWmDh7U/ok0XmR9VqZwwZtHcYYj2LxpOfZV4UZlCKcPLKY0=',s:[0x320f215477,0xccb872b92b],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

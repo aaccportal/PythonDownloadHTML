@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux kill command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/kill.gif" width="300" height="300" alt="kill command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>kill</b> command sends a <a href="/unix/signals.htm">signal</a> to a <a href="/jargon/p/process.htm">process</a>. If you don't specify which signal to send, by default the <b>TERM</b> signal is sent, which terminates the process.</p>
+<p>This page describes the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> <b>kill</b> command, located at <b>/bin/kill</b>.</p>
+<div class="tip" role="note">
+<span class="title note">Note</span>
+<p>When you run <b>kill</b> at the command line, you may be running your shell's built-in <b>kill</b> instead, which may have slightly different options. For information about the built-in version of <b>kill</b> in the <a href="/unix/ubash.htm">bash shell</a>, see <a href="/unix/bash/kill.htm">the bash "kill" built-in command</a>.</p>
+</div>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">To send any signal to a process from the command line, use <b>kill</b>.</p>
+<p class="tab">To list all available signals, use the <b>-l</b> (lowercase L) option. We've also provided a <a href="/unix/signals.htm#linux">list of Linux signals</a> for you to use as a quick reference.</p>
+<p class="tab">Frequently-used signals include <b>HUP</b>, <b>INT</b>, <b>KILL</b>, <b>STOP</b>, <b>CONT</b>, and <b>0</b>.</p>
+<p class="tab">Signals may be specified in three ways:</p>
+<ul>
+<li>by number (e.g., <b>-9</b>)</li>
+<li>with the "SIG" prefix (e.g., <b>-SIGKILL</b>)</li>
+<li>without "SIG" prefix (e.g., <b>-KILL</b>).</li>
+</ul>
+<h2 id="specifying-pid">Specifying PID</h2>
+<p class="tab">To specify which process should receive the signal, use its numeric <a href="/jargon/p/pid.htm">PID</a> (process ID). To see a list of running processes, you can use the <b>ps</b> command.</p>
+<p class="tab">Negative PID values may be used to indicate the process group ID, rather than the process ID. See the <b>PGID</b> column in the output of the <a href="/unix/ups.htm">ps</a> command, e.g., with <b>ps -eo user,pid,pgid,command</b>. If you specify a process group ID as the target of a <b>kill</b> command, all processes in the group will receive the signal.</p>
+<p class="tab">A PID of <b>-1</b> is special. It indicates all processes except two: the <b>kill</b> process itself, and <a href="/unix/telinit.htm">init</a> (PID 1), which is the parent process of all processes on the system. Specifying <b>-1</b> as the target sends the signal to all processes except these two.</p>
+<h2 id="syntax">Syntax</h2>
+<p class="tab">Terminate process(es):</p>
+<pre class="tcy tab"><b>kill</b> <i>pid</i> ...</pre>
+<p class="tab">Send a signal to process(es):</p>
+<pre class="tcy tab"><b>kill</b> {<b>-</b><i>signal</i> | <b>-s</b> <i>signal</i>} <i>pid</i> ...</pre>
+<p class="tab">List available signals:</p>
+<pre class="tcy tab"><b>kill</b> {<b>-l</b> | <b>--list</b>[<b>=</b><i>signal</i>] | <b>-L</b> | <b>--table</b>}</pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<th>Option</th>
+<th>Description</th>
+</tr>
+<tr class="tcw">
+<td style="width:180px"><b>-</b><i>signal</i>, <b>-s</b> <i>signal</i></td>
+<td>The name, abbreviated name, or number of the signal to be sent, preceded by a dash. For example, <b>-SIGTERM</b>, <b>-TERM</b>, or <b>-15</b>. To view a list of available signals, use the <b>-l</b> or <b>-L</b> options (see below), or refer to our <a href="/unix/signals.htm#linux">list of Linux signals</a>.</td>
+</tr>
+<tr class="tcw">
+<td><i>pid</i></td>
+<td>A numeric process ID. If you're not sure what the PID is of a process, use the <b>ps</b> command to list it, e.g., <b>ps -aux</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--list</b>[<b>=</b><i>signal</i>]</td>
+<td>List available signal names. With <b>-l</b> or <b>--list</b>, lists all signal names. With <b>--list=</b><i>signal</i>, translates a number into its signal name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--table</b></td>
+<td>List available signal names and numbers in a table.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<p class="tab">In these examples, if a command is listed as <b>/bin/kill</b>, it should run with that version of the <b>kill</b> command. Other commands may run with built-in <b>kill</b>.</p>
+<pre class="tcy tab">kill -9 -1</pre>
+<p class="tab">Kill all processes the user has permission to kill, except the root process (PID 1) and the <b>kill</b> process itself.</p>
+<pre class="tcy tab">kill -l</pre>
+<p class="tab">List all available signal names. Sample output:</p>
+<pre class="tab">HUP INT QUIT ILL TRAP ABRT BUS FPE KILL USR1 SEGV USR2 PIPE ALRM TERM STKFLT
+CHLD CONT STOP TSTP TTIN TTOU URG XCPU XFSZ VTALRM PROF WINCH POLL PWR SYS</pre>
+<pre class="tab tcy">/bin/kill -l</pre>
+<p class="tab">Same as the previous command.</p>
+<pre class="tab tcy">/bin/kill --list</pre>
+<p class="tab">Same as the previous two commands.</p>
+<pre class="tcy tab">/bin/kill -L</pre>
+<p class="tab">List available signals and their numbers in a table format. Sample output:</p>
+<pre class="tab"> 1 HUP      2 INT      3 QUIT     4 ILL      5 TRAP     6 ABRT     7 BUS
+ 8 FPE      9 KILL    10 USR1    11 SEGV    12 USR2    13 PIPE    14 ALRM
+15 TERM    16 STKFLT  17 CHLD    18 CONT    19 STOP    20 TSTP    21 TTIN
+22 TTOU    23 URG     24 XCPU    25 XFSZ    26 VTALRM  27 PROF    28 WINCH
+29 POLL    30 PWR     31 SYS</pre>
+<pre class="tcy tab">/bin/kill --table</pre>
+<p class="tab">Same as the previous command.</p>
+<pre class="tcy tab">/bin/kill --list=11</pre>
+<p class="tab">Translate signal number <b>11</b> into its signal name. Output:</p>
+<pre class="tab">SEGV</pre>
+<pre class="tcy tab">kill 123 4567</pre>
+<p class="tab">Sends the default signal (<b>KILL</b>, signal number <b>9</b>) for the processes with IDs <b>123</b> and <b>4567</b>. Those processes are terminated.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/fuser.htm"><b>fuser</b></a> &mdash; Identify processes using files or sockets.<br><a href="/unix/killall.htm"><b>killall</b></a> &mdash; Kill processes by name.<br><a href="/unix/ups.htm"><b>ps</b></a> &mdash; List information about running processes.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a830019aac447',m:'yker13zCkZdW4bp3OoCEgxSUamM4Drdt60LUjBH60vk-1661495352-0-AawNwfpfoReqksfpxQylXoNoicSjTgM7RDCVwTvQNawZwM/AiBwKoriYCDhlOV8DqxpNPMdXjOcXi9McWLlQxGaimGGoz6qnaHaPLqHDRxh/rk+Ht/HnfZKC2GDvqlGu7A==',s:[0xcd96f415f8,0x0fdf7466cc],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux ac command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2020-11-30">11/30/2020</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/ac.gif" width="300" height="300" alt="ac command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>ac</b> command displays statistics about the amount of time users are connected to the system.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>ac</b>. On some package managers, the <b>ac</b> command is included as part of the package <b>acct</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>ac</b> prints out a report of connect time (in hours) based on the <a href="/jargon/l/login.htm">logins</a>/<a href="/jargon/s/signoff.htm">logouts</a> in the current <b>wtmp</b> file. A total is also printed out.</p>
+<p class="tab">The accounting file <b>wtmp</b> is maintained by <a href="/jargon/i/init.htm">init</a> and <a href="/jargon/l/login.htm">login</a>. Neither <b>ac</b> nor <b>login</b> creates the <b>wtmp</b> if it doesn't exist, no accounting is done. To begin accounting, create the file with a length of zero.</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>The <b>wtmp</b> file can get really big, really fast. You might want to trim it every once and a while.</p>
+</div>
+<p class="tab"><a href="/jargon/g/gnu.htm">GNU</a> <b>ac</b> works nearly the same <a href="/jargon/u/unix.htm">Unix</a> <b>ac</b>, though it's a little smarter in several ways. You should therefore expect differences in the output of GNU ac and the output of <b>ac</b>'s on other systems. Use the command <b>info accounting</b> to get additional information.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">ac [ -d | --daily-totals ] [ -y | --print-year ] [ -p | --individual-totals ] 
+   [ <i>people</i> ] [ -f | --file <i>file name</i> ] [ -a | --all-days ] [ --complain ] 
+   [ --reboots ] [ --supplants ] [ --timewarps ] [ --compatibility ] 
+   [ --tw-leniency <i>num</i> ] [ --tw-suspicious <i>num</i> ] [ -z | --print-zeros ] 
+   [ --debug ] [ -V | --version ] [ -h | --help ]</pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>-d</b>, <b>--daily-totals</b></td>
+<td>Print totals for each day rather than just one big total at the end. The output looks like this:<br> <br> <pre>Jul  3  total     1.17Jul  4  total     2.10Jul  5  total     8.23Jul  6  total     2.10Jul  7  total     0.30</pre></td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>,<br> <b>--individual-totals</b></td>
+<td>Print time totals for each user in addition to the usual everything-lumped-into-one value. It looks like:<br> <br> <pre>bob       8.06goff      0.60maley     7.37root      0.12total    16.15</pre></td>
+</tr>
+<tr class="tcw">
+<td><b>people</b></td>
+<td>Print out the sum total of the connect time used by all of the users included in people. Note that people is a space separated list of valid user names; <a href="/jargon/w/wildcard.htm">wildcards</a> are not allowed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--file</b> <i>file name</i></td>
+<td>Read from the file name instead of the system's <b>wtmp</b> file.</td>
+</tr>
+<tr class="tcw">
+<td><b>--complain</b></td>
+<td>When the <b>wtmp</b> file has a problem (a time-warp, missing record, or whatever), print out an appropriate error.</td>
+</tr>
+<tr class="tcw">
+<td><b>--reboots</b></td>
+<td>Reboot records are NOT written at the time of a reboot, but when the system restarts; therefore, it is impossible to know exactly when the reboot occurred. Users may be logged in to the system at the time of the reboot, and many <b>ac</b>'s automatically count the time between the login and the reboot record against the user (even though all of that time shouldn't be, perhaps, if the system is down for a long time, for instance). If you want to count this time, include the flag. For maximum compatibility with all versions of <b>ac</b>, include this flag.</td>
+</tr>
+<tr class="tcw">
+<td><b>--supplants</b></td>
+<td>Sometimes, a logout record is not written for a specific <a href="/jargon/t/terminal.htm">terminal</a>, so the time that the last user accrued cannot be calculated. If you want to include the time from the user's login to the next login on the terminal (though probably incorrect), include this you want to include the time from the user's login to the next login on the terminal (though probably incorrect), include this flag. For maximum compatibility with all versions of <b>ac</b>, include this flag.</td>
+</tr>
+<tr class="tcw">
+<td><b>--timewarps</b></td>
+<td>Sometimes, entries in a <b>wtmp</b> file will suddenly jump back into the past without a clock change record occurring. It is impossible to know how long a user was logged in when this occurs. If you want to count the time between the login and the time warp against the user, include this flag. For maximum compatibility with all versions of <b>ac</b>, include this flag.</td>
+</tr>
+<tr class="tcw">
+<td><b>--compatibility</b></td>
+<td>This is shorthand for typing out the three above options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b>, <b>--all-days</b></td>
+<td>If printing daily totals, print a record for every day instead of skipping intervening days where there is no login activity. Without this flag, time accrued during those intervening days gets listed under the next day where there is login activity.</td>
+</tr>
+<tr class="tcw">
+<td><b>--tw-leniency</b> <i>num</i></td>
+<td>Set the time warp leniency to <i>num</i> seconds. Records in <b>wtmp</b> files might be slightly out of order (most notably when two logins occur within a one-second period; the second one gets written first). By default, this value is set to <b>60</b>. If the program notices this problem, time is not assigned to users unless the <b>--timewarps</b> flag is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--tw-suspicious</b> <i>num</i></td>
+<td>Set the time warp suspicious value to <i>num</i> seconds. If two records in the <b>wtmp</b> file are farther than this number of seconds apart, there is a problem with the <b>wtmp</b> file (or your machine hasn't been used in a year). If the program notices this problem, time is not assigned to users unless the <b>--timewarps</b> flag is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b>, <b>--print-year</b></td>
+<td>Print year when displaying dates.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b>, <b>--print-zeros</b></td>
+<td>If a total for any category (other than the grand total) is zero, print it. The default is to suppress printing.</td>
+</tr>
+<tr class="tcw">
+<td><b>--debug</b></td>
+<td>Print <a href="/jargon/v/verbose.htm">verbose</a> internal information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Print the <a href="/jargon/v/version.htm">version</a> number of <b>ac</b> to standard output and quit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Prints the usage <a href="/jargon/s/string.htm">string</a> and default locations of system files to standard output and exits.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">ac -d -y</pre>
+<p class="tab">Display daily results with the year as part of the date, similar to the example below:</p>
+<pre class="tab">Mar  6 2013	total       45.41
+Mar  7 2013	total       69.84
+Mar  8 2013	total       50.96
+Mar 10 2013	total       37.69
+Mar 11 2013	total        2.21
+Mar 12 2013	total       10.20
+Mar 14 2013	total       48.00
+Mar 15 2013	total       34.34
+Mar 16 2013	total       56.76
+Mar 17 2013	total       66.41
+Mar 18 2013	total       70.18
+Mar 19 2013	total       40.90
+Mar 20 2013	total       21.29
+Mar 23 2013	total      156.54
+Mar 24 2013	total       67.71
+Today		total      133.35</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ulogin.htm"><b>login</b></a> &mdash; Begin a session on a system.<br><a href="/unix/unetstat.htm"><b>netstat</b></a> &mdash; Print information about network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82aaff9c84d4',m:'C1qiVyzGLz74uY9Z3H11_16zzlEAw.D9NPYNqc.D9dw-1661495338-0-Aa8NixwnzRAcfOaeyVMWRaTWQ9ujz61h5e7kBlUQh9YH5q5zEuBnVFFvqyQoGJFCC3yiSh2EZwMxtDIVZFmYquSPwr+UG7bEnRiiYf2+AhsIZDHpA7ajVy8hagwnSc/jvQ==',s:[0x3aa2ab9d0c,0xb0def3d512],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

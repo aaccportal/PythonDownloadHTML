@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux uniq command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/uniq.gif" width="300" height="300" alt="uniq command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>uniq</b> command reports or filters out repeated lines in a file.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>uniq</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>uniq</b> filters out adjacent, matching lines from input file <i>INPUT</i>, writing the filtered data to output file <i>OUTPUT</i>. A matching line is "adjacent" if it's immediately before or after another matching line.</p>
+<p class="tab">For example, consider a file <b>fruits.txt</b> with the following lines of text:</p>
+<pre class="tab">apple
+apple
+apple
+pear
+apple
+pear
+pear</pre>
+<p class="tab">If you run <b>uniq</b> on these lines of text, every line that matches an adjacent line is omitted:</p>
+<pre class="tab tcy">uniq fruits.txt</pre>
+<pre class="dtab">apple
+pear
+apple
+pear</pre>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">uniq [<i>OPTION</i>]... [<i>INPUT</i> [<i>OUTPUT</i>]]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:310px"><b>-c</b>, <b>--count</b></td>
+<td>Prefix lines with a number representing how many times they occurred.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--repeated</b></td>
+<td>Only print duplicated lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b>,<br><b>--all-repeated</b>[<b>=</b><i>delimit-method</i>]</td>
+<td>Print all duplicate lines. <i>delimit-method</i> may be one of the following:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:100px"><b>none</b></td>
+<td>Do not delimit duplicate lines at all. This is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>prepend</b></td>
+<td>Insert a blank line before each set of duplicated lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>separate</b></td>
+<td>Insert a blank line between each set of duplicated lines.</td>
+</tr>
+</table>
+The <b>-D</b> option is the same as specifying <b>--all-repeated=none</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>N</i>, <b>--skip-fields=</b><i>N</i></td>
+<td>Avoid comparing the first <i>N</i> fields of a line before determining uniqueness. A field is a group of <a href="/jargon/c/charact.htm">characters</a>, <a href="/jargon/d/delimite.htm">delimited</a> by <a href="/jargon/w/whitspac.htm">whitespace</a>.<br><br> This option is useful, for instance, if your document's lines are numbered, and you want to compare everything in the line except the line number. If the option <b>-f 1</b> were specified, the adjacent lines<br><br><pre class="tcy">1 This is a line. 2 This is a line.</pre> would be considered identical. If no <b>-f</b> option were specified, they would be considered unique.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--ignore-case</b></td>
+<td>Normally, comparisons are <a href="/jargon/c/casesens.htm">case-sensitive</a>. This option performs case-insensitive comparisons instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>N</i>, <b>--skip-chars=</b><i>N</i></td>
+<td>Avoid comparing the first <i>N</i> characters of each line when determining uniqueness. This is like the <b>-f</b> option, but it skips individual characters rather than fields.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--unique</b></td>
+<td>Only print unique lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b>, <b>--zero-terminated</b></td>
+<td>End lines with 0 byte (<a href="/jargon/n/null.htm">null</a>), instead of a <a href="/jargon/n/newline.htm">newline</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>, <b>--check-chars=</b><i>N</i></td>
+<td>Compare no more than <i>N</i> characters in lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Output version information and exit.</td>
+</tr>
+</table>
+<h2 id="notes">Notes</h2>
+<p class="tab">If <i>INPUT</i> is not specified, <b>uniq</b> reads from the <a href="/jargon/s/stdin.htm">standard input</a>.</p>
+<p class="tab">If <i>OUTPUT</i> is not specified, <b>uniq</b> writes to the standard output.</p>
+<p class="tab">If no options are specified, matching lines are merged to the first occurrence.</p>
+<p class="tab"><b>uniq</b> does not detect repeated lines unless they are adjacent. If you want to omit ALL occurrences of identical lines, <a href="/unix/usort.htm">sort</a> the input first, or use <b>sort -u</b> instead of <b>uniq</b>.</p>
+<h2 id="examples">Examples</h2>
+<p class="tab">In the following examples, we have a <a href="/jargon/t/textfile.htm">text file</a>, <b>myfruit.txt</b>, with five lines of text:</p>
+<pre class="tab"> I have an apple.
+ I have an apple.
+ I also have two pears.
+ I have an apple.
+ I have three fruits total.</pre>
+<p class="tab">Here are several ways to run <b>uniq</b> on this file to omit repeated lines.</p>
+<h3 class="tab">If adjacent lines are identical, display the line once</h3>
+<pre class="tcy tab">uniq myfruit.txt</pre>
+<pre class="tab"> I have an apple.
+ I also have two pears.
+ I have an apple.
+ I have three fruits total.</pre>
+<h3 class="tab">Same as above, but prefix each line with the number of times repeated</h3>
+<pre class="tcy tab">uniq -c myfruit.txt</pre>
+<pre class="tab"> &#32;&#32;&#32;2 I have an apple.
+ &#32;&#32;&#32;1 I also have two pears.
+ &#32;&#32;&#32;1 I have an apple.
+ &#32;&#32;&#32;1 I have three fruits total.</pre>
+<h3 class="tab">Show only duplicates (adjacent identical lines)</h3>
+<pre class="tcy tab">uniq -d myfruit.txt</pre>
+<pre class="tab">I have an apple.</pre>
+<h3 class="tab">Show only unique lines (with no adjacent identical lines)</h3>
+<pre class="tcy tab">uniq -u myfruit.txt</pre>
+<pre class="tab"> I also have two pears.
+ I have an apple.
+ I have three fruits total.</pre>
+<h3 class="tab">Sort the lines alphabetically</h3>
+<p class="tab">The <a href="/unix/usort.htm">sort</a> command sorts the lines of text alphabetically.</p>
+<pre class="tcy tab">sort myfruit.txt</pre>
+<pre class="tab"> I also have two pears.
+ I have an apple.
+ I have an apple.
+ I have an apple.
+ I have three fruits total.</pre>
+<p class="tab">Now all identical lines are adjacent.</p>
+<h3 class="tab">Show unique lines only once</h3>
+<p class="tab">The output of <b>sort</b> can be <a href="/jargon/p/pipe.htm#command">piped</a> to <b>uniq</b>. Because the input is sorted, all identical lines will be adjacent. As a result, all identical lines in the file are displayed only once.</p>
+<pre class="tcy tab">sort myfruit.txt | uniq</pre>
+<pre class="tab"> I also have two pears.
+ I have an apple.
+ I have three fruits total.</pre>
+<p class="tab">The same result can be accomplished by running <b>sort -u</b>.</p>
+<pre class="tcy tab">sort -u myfruit.txt</pre>
+<pre class="tab"> I also have two pears.
+ I have an apple.
+ I have three fruits total.</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucomm.htm"><b>comm</b></a> &mdash; Compare two sorted files line by line.<br><a href="/unix/upack.htm"><b>pack</b></a> &mdash; Compress files using a Huffman algorithm.<br><a href="/unix/upcat.htm"><b>pcat</b></a> &mdash; Print the uncompressed contents of a compressed file.<br><a href="/unix/usort.htm"><b>sort</b></a> &mdash; Sort the lines in a text file.<br><a href="/unix/uuncompr.htm"><b>uncompress</b></a> &mdash; Extract files from compressed archives.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a836cae7ec3f2',m:'3S7YJdzS1tp.86qsl3VVAPXYyBCeyR2p5Z1hPlbm2Jo-1661495369-0-ATsB2fDjTMX1oNL92K2f0QW4sYXpLxmSh+PICo9ZQQViHixf3yv6heh7JUCXYE7ggasTiZOIlbiK7htMwrvm63EQIbl0v3wgvbJEfCVMy3PPbgyq0lqZnTCr5W9M/OIfOw==',s:[0x1c0763584e,0x96510eba9c],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

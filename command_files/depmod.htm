@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux depmod command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/depmod.gif" width="300" height="300" alt="depmod command" class="floatRight"><p class="intro">On Linux operating systems, the <b>depmod</b> command generates a list of <a href="/jargon/k/kernel.htm">kernel</a> <a href="/jargon/m/module.htm">module</a> <a href="/jargon/d/dependen.htm">dependences</a> and associated map files.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>depmod</b> analyzes your kernel modules (in the directory <b>/lib/modules/</b><i>kernel-release</i>) and creates a list of dependencies (named <b>modules.dep</b>), so that when modules are added and removed with <a href="/unix/modprobe.htm"><b>modprobe</b></a>, no modules are without the other modules they require. At the same time, it creates a map correlating hardware identifiers and the modules that handle them. This mapping is used to find the correct module when a piece of hardware requests it.</p>
+<p class="tab">The kernel relies on <b>depmod</b> and <b>modprobe</b> to pass it the raw data for its modules, in the order it needs to load them.</p>
+<h3 class="tab">Technical description</h3>
+<p class="tab">Linux kernel modules can provide services (called "symbols") for other modules to use (using one of the <b>EXPORT_SYMBOL</b> variants in the code). If a second module uses this symbol, that second module clearly depends on the first module. These dependencies can get quite complex.</p>
+<p class="tab"><b>depmod</b> creates a list of module dependencies by reading each module under <b>/lib/modules/<i>kernel-release</i></b> and determining what symbols it exports and what symbols it needs. By default, this list is written to <b>modules.dep</b>, and a <a href="/jargon/b/binary.htm">binary</a> <a href="/jargon/h/hash.htm">hashed</a> version named <b>modules.dep.bin</b>, in the same <a href="/jargon/d/director.htm">directory</a>. If <a href="/jargon/f/filename.htm">file names</a> are given on the <a href="/jargon/c/commandi.htm">command line</a>, only those modules are examined (which is rarely useful unless all modules are listed).</p>
+<p class="tab"><b>depmod</b> also creates a list of symbols provided by modules in the file named <b>modules.symbols</b> and its binary hashed version, <b>modules.symbols.bin</b>.</p>
+<p class="tab">Finally, <b>depmod</b> outputs a file named <b>modules.devname</b> if modules supply special <a href="/jargon/d/device.htm">device</a> names (<i>devname</i>) that should be populated in <b>/dev</b> on <a href="/jargon/b/boot.htm">boot</a> (by a <a href="/jargon/u/utility.htm">utility</a> such as udev).</p>
+<p class="tab">If a version is provided, then that kernel version's module directory is used rather than the current kernel version (as returned by <b><a href="/unix/uuname.htm">uname</a> -r</b>).</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">depmod [-b <i>basedir</i>] [-e] [-E <i>Module</i>.<i>symvers</i>] [-F <i>System.map</i>]
+       [-n] [-v] [-A] [-P <i>prefix</i>] [-w] [<i>version</i>]
+</pre>
+<pre class="tcy tab">depmod [-e] [-E <i>Module.symvers</i>] [-F <i>System.map</i>] [-m] [-n] [-v] [-P <i>prefix</i>]
+       [-w] [<i>version</i>] [<i>filename</i>...]
+</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>-a</b>, <b>--all</b></td>
+<td>Probe all modules. This option is enabled by default if no file names are given in the command-line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b>, <b>--quick</b></td>
+<td>This option scans to see if any modules are newer than the modules.dep file before any work is done: if not, it silently exits rather than regenerating the files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b> <i>basedir</i>,<br> <b>--basedir</b>, <i>basedir</i></td>
+<td>If your modules are not currently in the (normal) directory <b>/lib/modules/<i>kernel-version</i></b>, but in a staging area, you can specify a basedir that is prepended to the directory name. This basedir is stripped from the resulting <b>modules.dep</b> file, so it is ready to be moved into the normal location. Use this option if you are a distribution vendor who needs to pre-generate the <a href="/jargon/m/metadata.htm">metadata</a> files rather than running <b>depmod</b> again later.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b>,<br> <b>--config</b> <i>file-or-directory</i></td>
+<td>This option overrides the default configuration directory at <b>/etc/depmod.d/</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>, <b>--errsyms</b></td>
+<td>When combined with the <b>-F</b> option, this reports any symbols which a module needs that are not supplied by other modules or the kernel. Normally, any symbols not provided by modules are assumed to be provided by the kernel (which should be true in a perfect world), but this assumption can break especially when additionally updated third-party drivers are not correctly installed or were built incorrectly.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b>, <b>--symvers</b></td>
+<td>When combined with the <b>-e</b> option, this reports any symbol versions supplied by modules that do not match with the symbol versions provided by the kernel in its <b>Module.symvers</b>. This option is mutually incompatible with <b>-F</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b>,<br> <b>--filesyms</b> <i>System.map</i></td>
+<td>Supplied with the <b>System.map</b> produced when the kernel was built, this allows the <b>-e</b> option to report unresolved symbols. This option is mutually incompatible with <b>-E</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Print the help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--dry-run</b></td>
+<td>This sends the resulting <b>modules.dep</b> and the various map files to standard output rather than writing them into the module directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b></td>
+<td>Some <a href="/jargon/a/architec.htm">architectures</a> prefix symbols with extraneous <a href="/jargon/c/charact.htm">characters</a>. This specifies a prefix character (for example '<b>_</b>') to ignore.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td><a href="/jargon/v/verbose.htm">Verbose</a> mode; <b>depmod</b> prints to standard output all the symbols each module depends on and the module's file name which provides that symbol.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Show <b>depmod</b>'s version and exit. See below for caveats when run on older kernels.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b></td>
+<td>Warn on duplicate dependencies, aliases, symbol versions, etc.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<p class="tab">The following series of commands illustrate a common way to use <b>depmod</b>. Each command is prefixed with <a href="/unix/sudo.htm"><b>sudo</b></a>, since they require <a href="/jargon/r/root.htm">root</a> permissions:</p>
+<pre class="tcy tab">sudo ln -s /path/to/your-kernel-module.ko /lib/modules/&#96;uname -r&#96;</pre>
+<pre class="tcy tab">sudo depmod -a</pre>
+<pre class="tcy tab">sudo modprobe your-kernel-module</pre>
+<p class="tab">These commands perform the following operations:</p>
+<ol>
+<li>In the first command, we use <a href="/unix/uln.htm"><b>ln</b></a> to create a <a href="/jargon/s/symblink.htm">symbolic link</a> to our module file in the directory <b>/lib/modules/</b><i>kernel-release</i>. The command <b><a href="/unix/uuname.htm">uname -r</a></b>, enclosed in <a href="/jargon/b/backquot.htm">back quotes</a>, is executed by the shell and translates to the appropriate <a href="/jargon/s/string.htm">string</a> representing our kernel release version.</li>
+<li>In the second command, an updated dependency list is generated by <b>depmod -a</b> to make sure that the module we're installing is aware of all existing modules and dependencies. This dependency list will be used by <b>modprobe</b> when installing the module in the third command.</li>
+<li><a href="/unix/modprobe.htm"><b>modprobe</b></a> installs the kernel module.</li>
+</ol>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/insmod.htm"><b>insmod</b></a> &mdash; Insert a module into the Linux kernel.<br><a href="/unix/lsmod.htm"><b>lsmod</b></a> &mdash; Show the status of Linux kernel modules.<br><a href="/unix/modinfo.htm"><b>modinfo</b></a> &mdash; Show information about a Linux kernel module.<br><a href="/unix/modprobe.htm"><b>modprobe</b></a> &mdash; Add and remove modules from the Linux kernel.<br><a href="/unix/rmmod.htm"><b>rmmod</b></a> &mdash; Remove a module from the Linux kernel.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82d21d8084d4',m:'6RglbGGDeX_etDWK3BKZPNd0enL2yee7wSgbqtGxhdU-1661495344-0-AS0Q7Wx5v8CtYqHWot4dMkNEGuhM1RksSeJ02YSJGg5E13C2qazkpIT81jNpNc5fPqnRQ16J8by+HNbNI/N389FAjoRbC4azk74bcXUnaa3KwUIBOt0nyEHogxSV+P2xsQ==',s:[0x5c3a43ea85,0x696b71a2ee],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

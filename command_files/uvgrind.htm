@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux vgrind command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/vgrind.gif" width="300" height="300" alt="vgrind command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>vgrind</b> command "grinds" program listings, creating a more appealing output format.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>vgrind</b> <a href="/jargon/u/utility.htm">utility</a> formats the program sources named by the <i>filename</i> arguments in a nice style using <a href="/unix/utroff.htm"><b>troff</b></a>. Comments are placed in italics, keywords in bold face, and as each function is encountered its name is listed on the page margin.</p>
+<p class="tab"><b>vgrind</b> runs in two basic modes, filter mode or regular mode. In filter mode, <b>vgrind</b> acts as a filter in a manner similar to <a href="/unix/utbl.htm"><b>tbl</b></a><b>.</b> The standard input is passed directly to the standard output except for lines bracketed by the <b>troff</b>-like <a href="/jargon/m/macro.htm">macros</a>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:40px"><b>.vS</b></td>
+<td>starts processing</td>
+</tr>
+<tr class="tcw">
+<td><b>.vE</b></td>
+<td>ends processing</td>
+</tr>
+</table>
+<p class="tab">These lines are formatted as described above. The output from this filter can be passed to <b>troff</b> for output. There need be no particular ordering with <a href="/unix/ueqn.htm"><b>eqn</b></a> or <b>tbl</b>. In regular mode, <b>vgrind</b> accepts input file names, processes them, and passes them to <b>troff</b> for output. Use a hyphen ('<b>-</b>') to specify <a href="/jargon/s/stdin.htm">standard input</a>; otherwise, <b>vgrind</b> will exit without attempting to read from the standard input. File names must be specified after all other option <a href="/jargon/a/argument.htm">arguments</a>.</p>
+<p class="tab">In regular mode, if the <b>-t</b> or <b>-P</b> option is specified, the output is:</p>
+<ul>
+<li>emitted (in <b>troff</b> format) to stdout if the <b>-t</b> option is specified.</li>
+<li>printed (as <a href="/jargon/p/postscri.htm">PostScript</a>) to the named printer if the <b>-P</b> option is specified.</li>
+</ul>
+<p class="tab">Otherwise, the output is:</p>
+<ul>
+<li>printed (as PostScript) on the system default printer, if one is defined, and the command's stdout is a <a href="/jargon/t/tty.htm">tty</a>.</li>
+<li>emitted (as PostScript) to stdout if it's not a tty (that is, if stdout is a <a href="/jargon/p/pipe.htm">pipe</a> or a redirect to a file).</li>
+</ul>
+<p class="tab">In both modes, <b>vgrind</b> passes any lines beginning with a decimal point without conversion.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">vgrind [-2] [-f] [-n] [-t] [-w] [-W] [-x] [-d <i>defs-file</i>] [ -h <i>header</i>] 
+       [-l <i>language</i>] [-s <i>n</i>] [-o <i>pagelist</i>] [ -P <i>printer</i>] [-T <i>output</i>-device] 
+       <i>filename</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>-2</b></td>
+<td>Produces two-column output. Specifying this option changes the default point size to 8 (as if the <b>-s8</b> option were supplied). It also arranges for output to appear in landscape mode, by supplying the <b>-L</b> flag to the formatter and changing the page height and width accordingly.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>Forces filter mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Does not make keywords boldface.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Similar to the same option in <b>troff</b>; that is, formatted text goes to the standard output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b></td>
+<td>Considers <a href="/jargon/t/tab.htm">tab</a> characters to be spaced four columns apart instead of the usual eight.</td>
+</tr>
+<tr class="tcw">
+<td><b>-W</b></td>
+<td>Forces output to the (wide) Versatec printer rather than the (narrow) Varian.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b></td>
+<td>Outputs the index file in a "pretty" format. The index file itself is produced whenever <b>vgrind</b> is run with a file called index present in the <a href="/jargon/c/currentd.htm">current directory</a>. The index of function definitions can then run off by giving <b>vgrind</b> the <b>-x</b> option and the file index as argument.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>defs-file</i></td>
+<td>Specify an alternate language definitions file (default is <b>/usr/lib/vgrindefs</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b> <i>header</i></td>
+<td>Specify a header to appear in the center of every output page.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b> <i>language</i></td>
+<td>Specify the language to use. Among the languages currently known are: <a href="/jargon/b/bourne.htm">Bourne shell</a> (<b>-lsh</b>), C (<b>-lc</b>, the default), C++ (<b>-lc++</b>), <a href="/unix/ucsh.htm">C shell</a> (<b>-lcsh</b>), emacs MLisp (<b>-lml</b>), <a href="/jargon/f/fortran.htm">FORTRAN</a> (<b>-lf</b>), Icon (<b>-lI</b>), ISP (<b>-i</b>), LDL (<b>-lLDL</b>), Model (<b>-lm</b>), Pascal (<b>-lp</b>), and RATFOR (<b>-lr</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>n</i></td>
+<td>Specify a point size to use on output (exactly the same as the argument of a <b>troff</b> .ps point size request).</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b> <i>pagelist</i></td>
+<td>Prints only those pages whose page numbers appear in the comma-separated pagelist of numbers and ranges. A range <i>N</i><b>-</b><i>M</i> means pages <i>N</i> through <i>M</i>; an initial <b>-</b><i>N</i> means from the beginning to page <i>N</i>; and a final <i>N</i><b>-</b> means from <i>N</i> to the end.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b> <i>printer</i></td>
+<td>Sends output to the named printer.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b> <i>output-device</i></td>
+<td>Formats output for the specified output-device.</td>
+</tr>
+<tr class="tcw">
+<td><i>filename</i></td>
+<td>Name of the program source to be processed by vgrind. Use '<b>-</b>' to specify the standard input.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">vgrind -t myfile.c | lpr -t</pre>
+<p class="tab">print a formatted listing of the program file <b>myfile.c</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucsh.htm"><b>csh</b></a> &mdash; The C shell command interpreter.<br><a href="/unix/uctags.htm"><b>ctags</b></a> &mdash; Create tag files for source code.<br><a href="/unix/ueqn.htm"><b>eqn</b></a> &mdash; Language processor for describing equations.<br><a href="/unix/utbl.htm"><b>tbl</b></a> &mdash; Preprocessor which formats tables for nroff or troff.<br><a href="/unix/utroff.htm"><b>troff</b></a> &mdash; Typeset or format documents for terminal display or line-printer.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8376bbc384e0',m:'okQW.2eK8UrV5QhqBPs4jYF37rgbnHhdZSaJdo.h128-1661495371-0-AW4Rv8iqX5Jr2pkO/bH1v6UO+zUgz92+1PaL8IEOwho74CM79qKiFzBlyEFrI8/87A0Lt7BoXrWI9bxlaxJ7DGqCm8KPf8iAzshZ0n3WXgLjQiK4l2Eib6AvXepisiMt0m2TDGjjWFakIYGK+b1j66w=',s:[0xc0589fda9b,0xfb01a8bdd9],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

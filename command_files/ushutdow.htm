@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux shutdown command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/shutdown.gif" width="300" height="300" alt="shutdown command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>shutdown</b> command <a href="/jargon/s/shutdown.htm">shuts down</a> or <a href="/jargon/r/reboot.htm">reboots</a> the <a href="/jargon/s/system.htm">system</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#details">Details</a></li>
+<li><a href="#Access-Control">Access control</a></li>
+<li><a href="#halting">Halting vs. powering off</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>shutdown</b> command brings the system down in a secure way. All <a href="/jargon/l/login.htm">logged-in</a> users are notified that the system is going down, and <a href="/unix/ulogin.htm"><b>login</b></a> operations are blocked. It is possible to shut the system down immediately, or after a specified delay.</p>
+<p class="tab">All processes are first notified that the system is going down by the <a href="/unix/signals.htm">signal</a> <b>SIGTERM</b>. This gives programs like <a href="/unix/uvi.htm"><b>vi</b></a> time to save the file being edited, <a href="/jargon/e/email.htm">mail</a> and <a href="/jargon/n/newsgrou.htm">news</a> processing programs a chance to exit cleanly, etc.</p>
+<p class="tab"><b>shutdown</b> does its job by signalling the <a href="/unix/telinit.htm"><b>init</b></a> process, asking it to change the <a href="/jargon/r/runlevel.htm">runlevel</a>. Runlevel 0 is used to <a href="/unix/uhalt.htm">halt</a> the system, runlevel 6 is used to reboot the system, and runlevel 1 is used to put the system into a state where administrative tasks can be performed (single-user mode). Runlevel 1 is the default, unless the <b>-h</b> or <b>-r</b> options are specified.</p>
+<p class="tab">Your system may have a different set of options for the <b>shutdown</b> command; check your documentation for details.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">shutdown [-akrhPHfFnc] [-t <i>sec</i>] <i>time</i> [<i>message</i>]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:90px"><b>-a</b></td>
+<td>Control access to the <b>shutdown</b> command using the control access file <b>/etc/shutdown.allow</b>. See <a href="#Access-Control">access control</a> below for more information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b></td>
+<td>Do not shut down, but send the warning messages as if the shutdown were real.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td><a href="/jargon/r/reboot.htm">Reboot</a> after shutdown.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Instructs the system to shut down and then halt.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b></td>
+<td>Instructs the system to shut down and then power down.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b></td>
+<td>If <b>-h</b> is also specified, this option instructs the system to drop into boot monitor on systems that support it.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>Skip <a href="/jargon/f/fsck.htm"><b>fsck</b></a> after reboot.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b></td>
+<td>Force <b>fsck</b> after reboot.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Don't call <b>init</b> to do the shutdown of processes; instruct <b>shutdown</b> to do that itself.<br><br> The use of this option is discouraged, and its results are not always predictable.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>Cancel a pending shutdown. (This does not apply to "<b>shutdown now</b>", which does not wait before shutting down.) With this option, it is not possible to give the <i>time</i> argument, but you can still specify an explanatory message that is sent to all users.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>sec</i></td>
+<td>Tell <b>init</b> to wait <i>sec</i> seconds between sending processes the warning and the <a href="/jargon/k/kill.htm">kill</a> signal, before changing to another runlevel.</td>
+</tr>
+<tr class="tcw">
+<td><i>time</i></td>
+<td>The <i>time</i> argument specifies when to perform the shutdown operation.<br><br> The <i>time</i> can be formatted in different ways:<br><br> First, it can be an absolute time in the format <i>hh</i><b>:</b><i>mm</i>, where <i>hh</i> is the hour (1 or 2 digits, from <b>0</b> to <b>23</b>) and <i>mm</i> is the minute of the hour (in two digits).<br><br> Second, it can be in the format <b>+</b><i>m</i>, where <i>m</i> is the number of minutes to wait.<br><br> Also, the word <b>now</b> is the same as specifying <b>+0</b>; it shuts the system down immediately.</td>
+</tr>
+<tr class="tcw">
+<td><i>message</i></td>
+<td>A message to be sent to all users, along with the standard shutdown notification.</td>
+</tr>
+</table>
+<h2 id="details">Details</h2>
+<p class="tab">If a <b>shutdown</b> is scheduled for the future, it creates the advisory file <b>/etc/nologin</b> which causes programs such as <b>login</b> not to allow new user logins. This file is created five minutes before the shutdown sequence starts. <b>shutdown</b> removes this file if it's stopped before it can signal <b>init</b> (i.e., it is canceled or something goes wrong). It also removes it before calling <b>init</b> to change the runlevel.</p>
+<p class="tab">The <b>-f</b> flag means "reboot fast". This only creates an advisory file <b>/fastboot</b> which can be tested by the system when it comes up again. The system boot rc file ("rc" stands for "runcom", which is short for "run commands") can test if this file is present, and decide not to run <b>fsck</b> since the system was shut down in the proper way. After that, the boot process should remove <b>/fastboot</b>.</p>
+<p class="tab">The <b>-F</b> flag means "force <a href="/unix/fsck.htm"><b>fsck</b></a>". This only creates an advisory file <b>/forcefsck</b> which can be tested by the system when it comes up again. The boot rc file can test if this file is present, and decide to run <b>fsck</b> with a special "force" flag so that even properly unmounted <a href="/jargon/f/filesyst.htm">file systems</a> get checked. After that, the boot process should remove <b>/forcefsck</b>.</p>
+<p class="tab">The <b>-n</b> flag causes <b>shutdown</b> not to call <b>init</b>, but to kill all running processes itself. <b>Shutdown</b> then turns off <a href="/jargon/d/diskqm.htm">quota</a>, accounting, and <a href="/jargon/s/swapfile.htm">swapping</a> and <a href="/unix/umount.htm">unmount</a> all file systems.</p>
+<h2 id="Access-Control">Access control</h2>
+<p class="tab"><b>shutdown</b> can be called from <b>init</b> when the <a href="/jargon/t/tfs.htm"><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>Del</kbd></a> key combination is pressed, if there exists an appropriate entry in <b>/etc/inittab</b>. This would mean that everyone who has physical access to the console keyboard can shut the system down, however.</p>
+<p class="tab">To prevent this, <b>shutdown</b> can check to see if an authorized user is logged in. If <b>shutdown</b> is called with the <b>-a</b> argument (add this to the invocation of <b>shutdown</b> in <b>/etc/inittab</b>), it checks to see if the file <b>/etc/shutdown.allow</b> is present. It then compares the login names in that file with the list of people that are logged in on a virtual console (from <b>/var/run/utmp</b>). Only if one of those authorized users or root is logged in, it proceeds. Otherwise, it writes the message</p>
+<pre class="tab">shutdown: no authorized users logged in</pre>
+<p class="tab">...to the (physical) system console. The format of <b>/etc/shutdown.allow</b> is one username per line. Empty lines and comment lines (prefixed by a <b>#</b>) are allowed. Currently there is a limit of 32 users in this file.</p>
+<p class="tab">Note that if <b>/etc/shutdown.allow</b> is not present, the <b>-a</b> argument is ignored.</p>
+<h2 id="halting">Halting vs. powering off</h2>
+<p class="tab">The <b>-H</b> option sets the <b>init</b> <a href="/jargon/e/envivari.htm">environment variable</a> <b>INIT_HALT</b> to <b>HALT</b>, and the <b>-P</b> option sets that variable to <b>POWEROFF</b>. The shutdown script that calls <b>halt</b> as the last thing in the shutdown sequence should check these environment variables and call <b>halt</b> with the right options for these options to actually have any effect.</p>
+<h2 id="files">Files</h2>
+<p class="tabb">/fastboot<br> /etc/inittab<br> /etc/init.d/halt<br> /etc/init.d/reboot<br> /etc/shutdown.allow</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">shutdown 8:00</pre>
+<p class="tab">Schedule the system to shut down at 8 A.M.</p>
+<pre class="tcy tab">shutdown 20:00</pre>
+<p class="tab">Schedule the system to shut down at 8 P.M.</p>
+<pre class="tcy tab">shutdown +15 "Upgrading hardware, downtime should be minimal"</pre>
+<p class="tab">Schedule the system to shut down in fifteen minutes. Along with the normal message alerting users that the system is shutting down, they are given the descriptive message about a hardware upgrade.</p>
+<pre class="tcy tab">shutdown now</pre>
+<p class="tab">Bring down the system immediately.</p>
+<pre class="tcy tab">shutdown -r now</pre>
+<p class="tab">Bring down the system immediately, and automatically reboot it.</p>
+<pre class="tcy tab">shutdown -P now</pre>
+<p class="tab">Bring down the system immediately, and automatically power off the system.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><b>halt</b> &mdash; Stop the computer.<br><b>poweroff</b> &mdash; Stop the computer.<br><b>reboot</b> &mdash; Stop the computer.<br><a href="/unix/wall.htm"><b>wall</b></a> &mdash; Send a message to all logged-in users.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83520b6a84bc',m:'2I7sHPoXt34RONgWu_k0hKGh7pZOD.ioAxkCuPlSFJE-1661495365-0-AaLhGQUF1qC9rQkO8qyfXKOR9/8cm4fNxyWvf0+W/VG5/urz2WBcYQsvcPF8DxJPFsZ8UbLFO6F00r9TDdvT/3bCykvYSijQHOTBzxylaqvxWkjTzmX8CZsI2HxR0nCrjKe+Xy1LTL2L+EmPIaV5MY0=',s:[0x08227f3d90,0x4b44c3077e],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

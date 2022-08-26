@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux xrdb command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/xrdb.gif" width="300" height="300" alt="xrdb command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>xrdb</b> command is the <a href="/jargon/x/xwin.htm">X window server</a> resource <a href="/jargon/d/database.htm">database</a> <a href="/jargon/u/utility.htm">utility</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#resource">Syntax of an x resource</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">If you are configuring the <b>X</b> windowing system for use on multiple clients, the <b>xrdb</b> program can be useful by helping you maintain multiple resource files in one unified resource database. The resources are stored on the X server, where they are accessible to any clients that connect to that server.</p>
+<p class="tab">The <b>xrdb</b> command can run interactively from the command line, or it can be included in your <b>.xinitrc</b> or <b>.xsession</b> file so that it initializes resources at login.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">xrdb [-<i>option</i> ...] [<i>file name</i>]</pre>
+<p class="tab">The <i>file name</i> is optional, and specifies a file which contains the values of client variables ("resources") to be read. If no <i>file name</i> is specified, <b>xrdb</b> will expect these values to be provided via <a href="/jargon/s/stdin.htm">standard input</a>. <b>xrdb</b> will overwrite its values with whatever you provide; so, if you run <b>xrdb</b> with no file name (starting it in interactive mode), and then enter no values, any values already loaded by your init scripts will be overwritten as valueless.</p>
+<p class="tab">The values can be stored in a file named anything at all, but the file is commonly named <b>.Xresources</b> or <b>.Xdefaults</b>. <b>.Xdefaults</b> is a deprecated name in modern implementations; <b>.Xresources</b> is the preferred file name.</p>
+<p class="tab"><b>.Xresources</b> is often loaded with <b>xrdb</b> automatically when <a href="/unix/xinit.htm"><b>xinit</b></a> is called by your startup script. But if you'd like to make changes to the resource database manually, or change how <b>xrdb</b> is invoked in your scripts, you can invoke <b>xrdb</b> with these options.</p>
+<h3 class="tab" id="options">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>-help</b></td>
+<td>Display a brief help message.</td>
+</tr>
+<tr class="tcw">
+<td><b>-display</b> <i>display</i></td>
+<td>Specifies the X server to be used (see <b><a href="/unix/ux.htm">X</a></b> for more information about multiple X displays). This option also specifies the screen to use for the <b>-screen</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-all</b></td>
+<td>This option indicates that any other operation specified should be performed on the screen-independent resource property (<b>RESOURCE_MANAGER</b>), and the screen-specific property (<b>SCREEN_RESOURCES</b>) on every screen of the display. For example, when used in conjunction with <b>-query</b>, the contents of all properties are output. For <b>-load</b>, <b>-override</b> and <b>-merge</b>, the input file is processed once <i>for each screen</i>. The resources which occur in common in the output for every screen are collected, and these are applied as the screen-independent resources. The remaining resources are applied for each per-screen property. This the default mode of operation.</td>
+</tr>
+<tr class="tcw">
+<td><b>-global</b></td>
+<td>Indicates that the operation should <i>only</i> be performed on the screen-independent <b>RESOURCE_MANAGER</b> property.</td>
+</tr>
+<tr class="tcw">
+<td><b>-screen</b></td>
+<td>This option indicates that the operation should only be performed on the <b>SCREEN_RESOURCES</b> property of the default screen of the display.</td>
+</tr>
+<tr class="tcw">
+<td><b>-screens</b></td>
+<td>This option indicates that the operation should be performed on the <b>SCREEN_RESOURCES</b> property of each screen of the display. For <b>-load</b>, <b>-override</b> and <b>-merge</b>, the input file is processed for each screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Show changes, but do not write them to the database. When specified, <b>-n</b> indicates changes to the specified properties (when used with <b>-load</b>, <b>-override</b> or <b>-merge</b>) or the resource file (when used with <b>-edit</b>) should be shown on the standard output, but not performed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-quiet</b></td>
+<td>Quiet mode; specifically, any warnings about duplicate entries are not displayed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-cpp</b> <i>file name</i></td>
+<td><b>xrdb</b> uses a C preprocessor to interpret input; this option specifies the pathname of which C preprocessor program should be used. Although <b>xrdb</b> was designed to use the standard CPP, any program that acts as a filter and accepts the <b>-D</b>, <b>-I</b>, and <b>-U</b> options may be used.<br><br> This option should not be needed for typical users.</td>
+</tr>
+<tr class="tcw">
+<td><b>-nocpp</b></td>
+<td>This option indicates that <b>xrdb</b> should not run the input file through a preprocessor before loading it into properties.</td>
+</tr>
+<tr class="tcw">
+<td><b>-symbols</b></td>
+<td>Preprocessor-specific symbols will be printed onto the standard output. This option is useful for debugging purposes, and should not be needed for typical users.</td>
+</tr>
+<tr class="tcw">
+<td><b>-query</b></td>
+<td>Query the database for the current contents of the specified properties, and print them to standard output. This option lets you see what values are currently set.</td>
+</tr>
+<tr class="tcw">
+<td><b>-load</b></td>
+<td>This option indicates that the input should be loaded as the new value of the specified properties, replacing whatever was there (i.e., the old contents are removed). This option is the default action.</td>
+</tr>
+<tr class="tcw">
+<td><b>-override</b></td>
+<td>This option indicates that the input should be added to, instead of replacing, the current contents of the specified properties. If new entries overlap previous entries, the new ones overrides the previous values.</td>
+</tr>
+<tr class="tcw">
+<td><b>-merge</b></td>
+<td>This option indicates that the input should be merged and <a href="/jargon/l/lexicography.htm">lexicographically</a> sorted with, instead of replacing, the current contents of the specified properties.</td>
+</tr>
+<tr class="tcw">
+<td><b>-remove</b></td>
+<td>Indicates that the specified properties should be removed from the database.</td>
+</tr>
+<tr class="tcw">
+<td><b>-retain</b></td>
+<td>This option indicates that the server should be instructed not to reset if <b>xrdb</b> is the first client. This option should never be necessary under normal conditions since <b>xdm</b> and <a href="/unix/xinit.htm"><b>xinit</b></a> always act as the first client.</td>
+</tr>
+<tr class="tcw">
+<td><b>-edit</b> <i>file name</i></td>
+<td>This option indicates that the contents of the specified properties should be edited into the given file, replacing any values already listed there. This option lets you put changes you have made to your defaults back into your resource file, preserving any comments or preprocessor lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-backup</b> <i>string</i></td>
+<td>This option specifies a suffix to be appended to the file name used with <b>-edit</b> to generate a backup file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b><i>name</i>[<b>=</b><i>value</i>]</td>
+<td>This option is passed through to the preprocessor and is used to define symbols for use with conditionals.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b><i>name</i></td>
+<td>This option is passed through to the preprocessor and is used to remove any definitions of this symbol.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b><i>directory</i></td>
+<td>This option is passed through to the preprocessor and specifies a directory to search for files that are referenced with <b>#include</b>.</td>
+</tr>
+</table>
+<h2 id="resource">Syntax of an x resource</h2>
+<p class="tab">The general form of an X resource entry is:</p>
+<pre class="tab"><i>name</i><b>.</b><i>Class</i><b>.</b><i>resource</i><b>:</b> <i>value</i></pre>
+<ul>
+<li>The <i>name</i> is the name of the application, for instance "<b>xterm</b>" or "<b>xscreensaver</b>".</li>
+<li>The <i>class</i> is the class of resources, such as "<b>Dialog</b>" or "<b>Scrollbar</b>". The name of a class often starts with an uppercase letter.</li>
+<li>The <i>resource</i> is the name of the resource of the named application, in the resource class specified, to be changed. Resource names are often in "<a href="/jargon/c/camelcase.htm">camel case</a>", they start with a lowercase letter, and use uppercase letters in the name when there is a new word. For instance, "<b>buttonFont</b>".</li>
+<li>The <i>value</i> is the value of the resource.</li>
+</ul>
+<p class="tab">So, the following resource entry would set the resource "<b>foreground</b>", of the "<b>Dialog</b>" class of resources, of the application "<b>xscreensaver</b>":</p>
+<pre class="tab">xscreensaver.Dialog.foreground: #101010</pre>
+<p class="tab">With this resource value set, the dialog boxes of the xscreensaver application has the <a href="/jargon/h/hex.htm">hexadecimal</a> <a href="/htmcolor.htm">color value</a> <b>#101010</b>.<br><br> Classes can also have sub-classes. For instance, the <b>screensaver</b> "<b>Dialog</b>" class has a sub-class "<b>Button</b>", that also takes a color value. To set the <b>foreground</b> resource to the same gray color, you could use the line:</p>
+<pre class="tab">xscreensaver.Dialog.Button.foreground: #101010</pre>
+<h3 class="tab">Using comments in your resource file</h3>
+<p class="tab">If a line in your resource file starts with an exclamation point "!", it will considered a comment and ignored by <b>xrdb</b>. So, you could include these lines in your resource file, for instance:</p>
+<pre class="tab">! My favorite xscreensaver dialog and button foreground colors: light gray
+xscreensaver.Dialog.Button.foreground: #101010
+screensaver.Dialog.foreground: #101010
+</pre>
+<h3 class="tab">Using wildcards</h3>
+<p class="tab"><b>xrdb</b> will interpret an asterisk ("<b>*</b>") as a <a href="/jargon/w/wildcard.htm">wildcard</a>, similar to using the asterisk when specifying file names in a shell. For instance, to set all <b>xscreensaver</b> "<b>Dialog</b>" resources to the same value, you could use the line:</p>
+<pre class="tab">xscreenaver*Dialog*: #101010</pre>
+<p class="tab">...or, to set the "<b>Dialog</b>" resources for <i>every</i> application:</p>
+<pre class="tab">*Dialog*: #101010</pre>
+<h3 class="tab">Examples of typical resources</h3>
+<p class="tab"><b>Xft</b>, the application which controls the rendering of fonts in X, can be configured with the following standard resources values:</p>
+<pre class="tab">Xft.dpi:        96
+Xft.antialias:  true
+Xft.rgba:       rgb
+Xft.hinting:    true
+Xft.hintstyle:  hintslight</pre>
+<p class="tab"><a href="/unix/uxterm.htm"><b>xterm</b></a> is the default X terminal emulator. Typical resource values for <b>xterm</b> include:</p>
+<pre class="tab">xterm*VT100.geometry:     80x25
+xterm*faceName:           Courier:style=Regular:size=10
+xterm*dynamicColors:      true
+xterm*utf8:               2
+xterm*eightBitInput:      true
+xterm*saveLines:          512
+xterm*scrollKey:          true
+xterm*scrollTtyOutput:    false
+xterm*scrollBar:          true
+xterm*rightScrollBar:     true
+xterm*jumpScroll:         true
+xterm*multiScroll:        true
+xterm*toolBar:            false</pre>
+<p class="tab">You can find the names of additional <b>xterm</b> resources and their values <a href="/unix/uxterm.htm#Resources">in our xterm documentation</a>. In general, when configuring an X application's resources, it's a good idea to consult the application's <a href="/unix/uman.htm"><b>man</b></a> page for details.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">xrdb</pre>
+<p class="tab">Open the server resource database utility in interactive mode. Values can be entered manually, and you can enter <b>Ctrl-D</b> when you are finished to be returned to the command line. If you enter nothing, any values already stored in the database will be removed.</p>
+<p class="tab">Entering the values manually is the least-convenient way to access the resource database, and it's easy to make a typo. It's much more common is to load values from a resource file, as in the next example.</p>
+<pre class="tcy tab">xrdb -load ~/.Xresources</pre>
+<p class="tab">Load the file <b>.Xresources</b> in your home directory and write the values contained in it to the database. This command is often performed automatically when you start an X session, but this command will force a re-load of the resource values contained in the file, overwriting any other values stored in the database.</p>
+<pre class="tcy tab">xrdb -query</pre>
+<p class="tab">Query the resource database to see what variables and values are currently set. Output resembles the following sample contents of an X resources file:</p>
+<pre class="tab"> *dialog*value*background: white
+ *Dialog*Label*font:    -adobe-helvetica-bold-r-*-*-12-*-*-*-*-*-*-*
+ *MenuButton*font:      -adobe-helvetica-medium-r-*-*-12-*-*-*-*-*-*-*
+ *MenuButton*background:        grey80
+ *MenuButton*foreground:        black
+ *Label.font:           -adobe-helvetica-medium-r-*-*-10-*-*-*-*-*-*-*
+ *Label*shadowWidth:    1
+ *SmeBSB.font:          -adobe-helvetica-bold-r-*-*-12-*-*-*-*-*-*-*
+ *SimpleMenu*font:      -adobe-helvetica-medium-r-*-*-10-*-*-*-*-*-*-*
+ *OptionMenu*font:      -adobe-helvetica-medium-r-*-*-10-*-*-*-*-*-*-*
+ *Command.font:         -linotype-helvetica-bold-r-narrow-*-12-*-*-*-*-*-*-*
+ *Toggle.font:          -adobe-helvetica-bold-o-*-*-12-*-*-*-*-*-*-*
+ *Form.background:      grey70
+ *TransientShell*Dialog.background: grey70
+ *Scrollbar.Foreground: grey80
+ *Scrollbar.Background: grey50
+ *Scrollbar*cursorName: top_left_arrow
+ *Scrollbar*width:      16
+ *shapeStyle:           Rectangle
+ *XlwMenu.shadowThickness: 1
+ *shadowWidth:          1
+ xterm*scrollbar.background: grey40
+ xterm*foreground: grey90
+ xterm*background: grey25
+ xterm*cursorColor: white
+ xterm*visualbell: on
+ rxvt*color12: steelblue
+ rxvt*color15: white
+ rxvt*color9: rgb:ff/7f/5f
+ rxvt*foreground: grey90
+ rxvt*background: grey10
+ rxvt*cursorColor: white
+ rxvt*font: lucidasanstypewriter-12
+ rxvt*loginShell: false
+ rxvt*saveLines: 1024
+ rxvt*title: shell
+ rxvt*geometry: 80x2
+ xman*topBox: false
+ xman*background: lightsteelblue
+ xman*foreground: black
+ xcalc*Command.font: -adobe-helvetica-bold-r-*-*-10-*-*-*-*-*-*-*
+ xcalc*customization: -color</pre>
+<pre class="tcy tab">xrdb -merge my-xr-values</pre>
+<p class="tab">Merge the values listed in the file <b>my-xr-values</b> with any resource values currently stored in the database. This command is an alternative to overwriting all values with <b>-load</b>, for instance.</p>
+<p class="tab">You could also use the <b>-merge</b> option without a file name, in which case you could manually enter a value (or values) and your entry would be merged with values already in the database. For instance, if you run</p>
+<pre class="tcy tab">xrdb -merge</pre>
+<p class="tab">...and then type:</p>
+<pre class="tcy tab">xterm.AllowBoldFonts.allowBoldFonts: true</pre>
+<p class="tab">...and then press <a href="/jargon/c/ctrl-d.htm"><kbd>Ctrl</kbd>+<kbd>D</kbd></a> to terminate the entry, your resource database would store that value to the database, without removing any previous values stored. Any subsequent <b>xterm</b> sessions would use this value, and display bold font faces if called for.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/startx.htm"><b>startx</b></a> &mdash; Start an X Window System session.<br><a href="/unix/ux.htm"><b>X</b></a> &mdash; Executable of the X Window System.<br><a href="/unix/xinit.htm"><b>xinit</b></a> &mdash; The initializer of the X Window System.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8386ae0bc429',m:'LmH6f4dyQiFqRdbPhBrv.RD.EItsxBo8h9bZ95gOxao-1661495373-0-AXlRfQ69u6iTgdf6SAPT5ut/UpHuA+JOdQzVb1jN33EXZF9DSVn20zbkI7nSBS09xT/LtJmXrMge6lVALTfvqtc1Up2zg4QBFIDCMqS0s/1/DGvAwKIt1N/ptDQixB3XTw==',s:[0x97d8f59c66,0xe0da52cbca],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux tail command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/tail.gif" width="300" height="300" alt="tail command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>tail</b> command reads a <a href="/jargon/f/file.htm">file</a>, and outputs the last part of it (the "tail").</p>
+<p>The <b>tail</b> command can also monitor data streams and open files, displaying new information as it is <a href="/jargon/w/write.htm">written</a>. For example, it's a useful way to monitor the newest events in a system <a href="/jargon/l/log.htm">log</a> in <a href="/jargon/r/realtime.htm">real time</a>.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>tail</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">By default, <b>tail</b> prints the last 10 lines of each <i>file</i> to <a href="/jargon/s/stdout.htm">standard output</a>. If you specify more than one file, each set of output is prefixed with a <a href="/jargon/h/header.htm">header</a> showing the <a href="/jargon/f/file.htm">file name</a>.</p>
+<p class="tab">If no <i>file</i> is specified, or if <i>file</i> is a dash ("<b>-</b>"), <b>tail</b> reads from <a href="/jargon/s/stdin.htm">standard input</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab"><b>tail</b> [{<b>-c</b> |<b>--bytes=</b>}<i>num</i>] [<b>-f</b>] [<b>--follow</b>[<b>=</b>{<b>name</b>|<b>descriptor</b>}]] 
+     [<b>-F</b>] [{<b>-n</b> |<b>--lines=</b>}<i>num</i>] [<b>--max-unchanged-stats</b>[<b>=</b><i>num</i>]] 
+     [<b>--pid=</b><i>pid</i>] [{<b>-p</b>|<b>--quiet</b>|<b>--silent</b>}] [<b>--retry</b>] 
+     [{<b>-s</b> |<b>--sleep-interval=</b>}<i>num</i>] [{<b>-v</b>|<b>--verbose</b>}] [<i>file</i> ...]</pre>
+<pre class="tcy tab"><b>tail --help</b></pre>
+<pre class="tcy tab"><b>tail --version</b></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<th>Option</th>
+<th>Description</th>
+</tr>
+<tr class="tcw">
+<td style="width:300px"><b>-c</b> [<b>+</b>]<i>num</i>,<br><b>--bytes=</b>[<b>+</b>]<i>num</i></td>
+<td>Output the last <i>num</i> <a href="/jargon/b/byte.htm">bytes</a> of each <i>file</i>.<br><br>You can also use a plus sign before <i>num</i> to output everything starting at byte <i>num</i>. For instance, <b>-c +1</b> prints everything.<br><br>A multiplier suffix can be used after <i>num</i> to specify units: <b>b</b> (512), <b>kB</b> (1000), <b>K</b> (1024), <b>MB</b> (1000*1000), <b>M</b> (1024*1024), <b>GB</b> (1000*1000*1000), <b>G</b> (1024*1024*1024), and so on for <b>T</b> (<a href="/jargon/t/terabyte.htm">terabyte</a>), <b>P</b> (<a href="/jargon/p/petabyte.htm">petabyte</a>), <b>E</b> (<a href="/jargon/e/exabyte.htm">exabyte</a>), <b>Z</b> (<a href="/jargon/z/zettabyt.htm">zettabyte</a>), <b>Y</b> (<a href="/jargon/y/yottabyt.htm">yottabyte</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>,<br><b>--follow</b>[<b>=</b>{<b>name</b>|<b>descriptor</b>}]</td>
+<td>This option causes <b>tail</b> to loop forever, checking for new data at the end of the file(s). When new data appears, it will be printed.<br><br>If you follow more than one file, a header will be printed to indicate which file's data is being printed.<br><br>If the file shrinks instead of grows, <b>tail</b> lets you know with a message.<br><br>If you specify <b>name</b>, the file with that name is followed, regardless of its <a href="/jargon/f/file-descriptor.htm">file descriptor</a>.<br><br>If you specify <b>descriptor</b>, the same file is followed, even if it's <a href="/jargon/r/rename.htm">renamed</a>. This is the default behavior.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b></td>
+<td>"Follow and retry". Same as using <b>--follow=name --retry</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b> <i>num</i>,<br><b>--lines=</b><i>num</i></td>
+<td>Output the last <i>num</i> lines, instead of the default (10).<br><br>If you put a plus sign before <i>num</i>, <b>tail</b> outputs all lines beginning with that line. For example, <b>-n +1</b> prints every line.</td>
+</tr>
+<tr class="tcw">
+<td><b>--max-unchanged-stats=</b><i>num</i></td>
+<td>If you are following a file with <b>-f</b> or <b>--follow=name</b>, <b>tail</b> continuously checks the file to see if its size has changed. If the size has changed, it reopens the file and looks for new data to print. The <b>--max-unchanged-stats</b> option reopens a file, even if its size has not changed, after every <i>num</i> checks.<br><br>This option is useful if the file might be spontaneously <a href="/unix/unlink.htm">unlinked</a> or renamed, such as when log files are automatically rotated.</td>
+</tr>
+<tr class="tcw">
+<td><b>--pid=</b><i>pid</i></td>
+<td>When following with <b>-f</b> or <b>--follow</b>, terminate operation after <a href="/jargon/p/pid.htm">process ID</a> <i>pid</i> dies.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>,<br><b>--quiet</b>,<br><b>--silent</b></td>
+<td>Never output headers.</td>
+</tr>
+<tr class="tcw">
+<td><b>--retry</b></td>
+<td>Keep trying to open a file even if it's temporarily inaccessible; useful with the <b>--follow=name</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>num</i>,<br><b>--sleep-interval=</b><i>num</i></td>
+<td>When following with <b>-f</b> or <b>--follow</b>, <a href="/unix/usleep.htm"><b>sleep</b></a> for approximately <i>num</i> seconds between file checks. With <b>--pid=</b><i>pid</i>, check process <i>pid</i> at least once every <i>num</i> seconds.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>,<br><b>--verbose</b></td>
+<td>Always print headers.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">tail myfile.txt</pre>
+<p class="tab">Outputs the last 10 lines of the file <b>myfile.txt</b>.</p>
+<pre class="tcy tab">tail -n 100 myfile.txt</pre>
+<p class="tab">Outputs the last <b>100</b> lines of the file <b>myfile.txt</b>.</p>
+<pre class="tcy tab">tail -f myfile.txt</pre>
+<p class="tab">Outputs the last 10 lines of <b>myfile.txt</b>, and monitors <b>myfile.txt</b> for updates; <b>tail</b> then continues to output any new lines that are added to <b>myfile.txt</b>.</p>
+<div class="tip tab" role="note">
+<span class="title">Tip</span>
+<p>The <b>tail</b> command follows the file forever. To stop it, press <a href="/jargon/c/ctrlc.htm"><kbd>Ctrl</kbd>+<kbd>C</kbd></a>.</p>
+</div>
+<pre class="tcy tab">tail -f access.log | grep 24.10.160.10</pre>
+<p class="tab">This is a useful example of using <b>tail</b> and <a href="/unix/ugrep.htm"><b>grep</b></a> to selectively monitor a log file in real time.</p>
+<p class="tab">In this command, <b>tail</b> monitors the file <b>access.log</b>. It <a href="/jargon/p/pipe.htm">pipes</a> <b>access.log</b>'s final ten lines, and any new lines added, to the <b>grep</b> <a href="/jargon/u/utility.htm">utility</a>. <b>grep</b> reads the output from <b>tail</b>, and outputs only those lines which contain the <a href="/jargon/i/ip.htm">IP address</a> <b>24.10.160.10</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucat.htm"><b>cat</b></a> &mdash; Output the contents of a file.<br><a href="/unix/uhead.htm"><b>head</b></a> &mdash; Display the first lines of a file.<br><a href="/unix/umore.htm"><b>more</b></a> &mdash; Display text one screen at a time.<br><a href="/unix/upg.htm"><b>pg</b></a> &mdash; Browse page by page through text files.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a835d2ed2c43d',m:'wbdCPmzNjCrR1zYm_yi0AUtbmCzMWCTXO_wfNGl3dww-1661495367-0-AVwsFaMjtIFMt/rjnss8womL/2pPzfgeS5Ojp/HqoucZCUulJKZtWAuhKr0/d9R7RCVBROSo4ANOgRIr15Divc6/NmM/GMCJMf7dIMQQrR8JA7hjWLNdE2oOBeWHalv6+A==',s:[0xd915b082af,0x1117474436],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

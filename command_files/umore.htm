@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux more command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/more.gif" width="300" height="300" alt="more command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>more</b> command displays text, one screen at a time.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>more</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>more</b> is a filter for paging through text one screen at a time. It does not provide as many options or enhancements as <a href="/unix/uless.htm">less</a>, but is nevertheless quite useful and simple to use.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">more [-dlfpcsu] [-num <i>lines</i>] [+/<i>pattern</i>] [+<i>linenum</i>] [<i>file</i> ...]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>-num</b> <i>lines</i></td>
+<td>Sets the number of lines that makes up a screenful. The <i>lines</i> must be an <a href="/jargon/i/integer.htm">integer</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>With this option, <b>more</b> prompts the user with the message &quot;<b>[Press space to continue, 'q' to quit.]</b>&quot; and display &quot;<b>[Press 'h' for instructions.]</b>&quot; when an illegal key is pressed, instead of ringing a bell.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td><b>more</b> usually treats <b>^L</b> (<b>CONTROL-L</b>, the <a href="/jargon/f/formfeed.htm">form feed</a>) as a special <a href="/jargon/c/charact.htm">character</a>, and pauses after any line containing it. The <b>-l</b> option prevents this behavior.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>Causes <b>more</b> to count logical, rather than screen lines (i.e., long lines are not wrapped).</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Do not scroll. Instead, clear the whole screen and then display the text. This option is switched on automatically if the <b>more</b> executable is named <b>page</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>Do not scroll. Instead, paint each screen from the top, clearing the remainder of each line as it is displayed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Squeeze multiple blank lines into one blank line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>Do not display underlines.</td>
+</tr>
+<tr class="tcw">
+<td><b>+/</b><i>string</i></td>
+<td>Search for the <a href="/jargon/s/string.htm">string</a> <i>string</i>, and advance to the first line containing <i>string</i> when the file is displayed.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b><i>num</i></td>
+<td>Start displaying text at line number <i>num</i>.</td>
+</tr>
+</table>
+<h2 id="commands">Commands</h2>
+<p class="tab">When displaying a file, <b>more</b> can be controlled with a set of commands loosely based on the text editor <a href="/unix/uvi.htm">vi</a>. Some commands can be preceded by a <a href="/jargon/d/decimal.htm">decimal</a> number referred to as <i>k</i> in the following descriptions.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><b>h</b>, <b>?</b></td>
+<td>Show help (display a brief command summary). If you forget all the other commands, remember this one!</td>
+</tr>
+<tr class="tcw">
+<td>[<i>k</i>]<b>SPACE</b></td>
+<td>Pressing the <a href="/jargon/s/spacebar.htm">spacebar</a> displays the next <i>k</i> lines of text. If <i>k</i> is not specified, <b>more</b> displays a full screen of new text.</td>
+</tr>
+<tr class="tcw">
+<td>[<i>k</i>]<b>z</b></td>
+<td>Like pressing <b>SPACE</b>, but <i>k</i> becomes the new default number of lines to display.</td>
+</tr>
+<tr class="tcw">
+<td>[<i>k</i>]<b>RETURN</b></td>
+<td>Pressing the <kbd>Enter</kbd> or <kbd>Return</kbd> key displays next <i>k</i> lines of text. The default is 1 line. If specified, <i>k</i> becomes the new default.</td>
+</tr>
+<tr class="tcw">
+<td>[<i>k</i>]<b>d</b>, [<i>k</i>]<b>^D</b></td>
+<td>Pressing <b>d</b> or <b>CONTROL-D</b> scrolls <i>k</i> lines. The default is the current scroll size, which is initially 11 lines. If specified, <i>k</i> becomes the new default.</td>
+</tr>
+<tr class="tcw">
+<td><b>q</b>, <b>Q</b>, <b>^C</b></td>
+<td>Pressing <b>q</b>, <b>Q</b>, or <b>CONTROL-C</b> (the interrupt key) exits the program.</td>
+</tr>
+<tr class="tcw">
+<td>[<i>k</i>]<b>s</b></td>
+<td>Skip forward <i>k</i> lines of text. Defaults to 1.</td>
+</tr>
+<tr class="tcw">
+<td>[<i>k</i>]<b>f</b></td>
+<td>Skip forward <i>k</i> screenfuls of text. Defaults to 1.</td>
+</tr>
+<tr class="tcw">
+<td><b>b</b>, <b>^B</b></td>
+<td>Pressing <b>b</b> or <b>CONTROL-B</b> skips backward <i>k</i> lines of text. Defaults to 1. (This only works when viewing files, not <a href="/jargon/p/pipe.htm">piped</a> input).</td>
+</tr>
+<tr class="tcw">
+<td><b>'</b></td>
+<td>Go to the place where the previous search started.</td>
+</tr>
+<tr class="tcw">
+<td><b>=</b></td>
+<td>Display the current line number.</td>
+</tr>
+<tr class="tcw">
+<td>[<i>k</i>]<b>/</b><i>pattern</i></td>
+<td>Search for the <i>k</i>th occurrence of the <a href="/jargon/r/regex.htm">regular expression</a> <i>pattern</i>. Defaults to 1.</td>
+</tr>
+<tr class="tcw">
+<td>[<i>k</i>]<b>n</b></td>
+<td>Search for the <i>k</i>th occurrence of the last regular expression searched for, which defaults to 1.</td>
+</tr>
+<tr class="tcw">
+<td><b>!</b><i>command</i>, <b>:!</b><i>command</i></td>
+<td>Execute <i>command</i> in a <a href="/jargon/s/shell.htm">subshell</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>v</b></td>
+<td>Start up an editor at current line. The editor is taken from the <a href="/jargon/e/envivari.htm">environment variable</a> <b>VISUAL</b> if it's defined, or <b>EDITOR</b> if <b>VISUAL</b> is undefined; if neither is defined, defaults to &quot;<a href="/unix/uvi.htm">vi</a>&quot;.</td>
+</tr>
+<tr class="tcw">
+<td><b>^L</b></td>
+<td>Pressing <b>CONTROL-L</b> redraws the screen.</td>
+</tr>
+<tr class="tcw">
+<td>[<i>k</i>]<b>:n</b></td>
+<td>Go to the <i>k</i>th next file. Defaults to 1.</td>
+</tr>
+<tr class="tcw">
+<td>[<i>k</i>]<b>:p</b></td>
+<td>Go to the <i>k</i>th previous file. Defaults to 1.</td>
+</tr>
+<tr class="tcw">
+<td><b>:f</b></td>
+<td>Display the current file name and line number.</td>
+</tr>
+<tr class="tcw">
+<td><b>.</b></td>
+<td>Repeat previous command.</td>
+</tr>
+</table>
+<h2 id="environment">Environment</h2>
+<p class="tab"><b>more</b> uses the values of the following <a href="/jargon/e/envivari.htm">environment variables</a>, if they are defined:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:90px"><b>MORE</b></td>
+<td>Default <b>more</b> options. If this variable is set, <b>more</b> reads as the default set of options to use. Any options specified on the <a href="/jargon/c/commandi.htm">command line</a> override the options specified in <b>$MORE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>SHELL</b></td>
+<td>The current <a href="/jargon/s/shell.htm">shell</a> in use (this variable is normally set by the shell itself at <a href="/jargon/l/login.htm">login</a> time).</td>
+</tr>
+<tr class="tcw">
+<td><b>TERM</b></td>
+<td>The current <a href="/jargon/t/terminal.htm">terminal</a> type. This value is used by <b>more</b> to determine the proper way to manipulate the screen.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">more +3 myfile.txt</pre>
+<p class="tab">Display the contents of file <b>myfile.txt</b>, beginning at line 3.</p>
+<pre class="tcy tab">more +/&quot;hope&quot; myfile.txt</pre>
+<p class="tab">Display the contents of file <b>myfile.txt</b>, beginning at the first line containing the string &quot;<b>hope&quot;</b>.</p>
+<pre class="tcy tab">ls | more</pre>
+<p class="tab">List the contents of the current directory with <a href="/jargon/l/ls.htm"><b>ls</b></a>, using <b>more</b> to display the list one screen at a time.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucat.htm"><b>cat</b></a> &mdash; Output the contents of a file.<br><a href="/unix/ucsh.htm"><b>csh</b></a> &mdash; The C shell command interpreter.<br><a href="/unix/uctags.htm"><b>ctags</b></a> &mdash; Create tag files for source code.<br><a href="/unix/uless.htm"><b>less</b></a> &mdash; Scrolling text viewer.<br><a href="/unix/uman.htm"><b>man</b></a> &mdash; Display the manual page of a given command.<br><a href="/unix/unroff.htm"><b>nroff</b></a> &mdash; Format documents for terminal display or line-printer.<br><a href="/unix/uscript.htm"><b>script</b></a> &mdash; Record everything printed on your screen.<br><a href="/unix/ush.htm"><b>sh</b></a> &mdash; The Bourne shell command interpreter.<br><a href="/unix/uul.htm"><b>ul</b></a> &mdash; Translate underscores to underlining.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8318fb0a84c8',m:'nI8p76iJfsbX2EjxaYuqca750VQwwNZOANnbLzOFLEQ-1661495356-0-AVTUDHVOlHe5yrH/zkxtdOobhOVjKwzxsihoYSGGdj/4I3NTvRAihTgb/hpU/AasIFuz/icGunvay8kOSOHG+OKh2mcyCgpxG88bG3eemJp5VECcNVmjLtkCPZ5kzj7IKQ==',s:[0xcd96f415f8,0xe0da52cbca],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux printf command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/printf.gif" width="300" height="300" alt="printf command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>printf</b> command inserts <a href="/jargon/a/argument.htm">arguments</a> into a user-defined <a href="/jargon/s/string.htm">string</a> of <a href="/jargon/t/text.htm">text</a>, creating formatted output.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>printf</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#Format">Format</a></li>
+<li><a href="#Conversion-Specifications">Conversion specifications</a></li>
+<li><a href="#escaped">Interpreted escaped character sequences</a></li>
+<li><a href="#quoting">Quoting in the shell</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>printf</b> prints a <i>formatted string</i> to the standard output. Its roots are in the <a href="/jargon/c/c.htm">C programming language</a>, which uses a <a href="/jargon/f/function.htm">function</a> by the same name. It is a handy way to produce precisely-formatted output from numerical or textual arguments.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">printf <i>FORMAT</i> [<i>ARGUMENT</i>]...</pre>
+<pre class="tcy tab">printf <i>OPTION</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><i>FORMAT</i></td>
+<td><i>FORMAT</i> controls the output, and defines the way that the <i>ARGUMENT</i>s will be expressed in the output. See the <a href="#Format">Format</a> section, below.</td>
+</tr>
+<tr class="tcw">
+<td><i>ARGUMENT</i></td>
+<td>Each <i>ARGUMENT</i> will be inserted into the formatted output according to the definition of <i>FORMAT</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+</table>
+<h2 id="Format">Format</h2>
+<p class="tab">The <i>FORMAT</i> string contains three types of objects:</p>
+<ul>
+<li>ordinary <a href="/jargon/c/charact.htm">characters</a>, which are copied verbatim to the output.</li>
+<li>interpreted character sequences, which are <a href="/jargon/e/esc.htm">escaped</a> with a backslash ("<b>\</b>").</li>
+<li>conversion specifications, which define the way the <i>ARGUMENT</i>s will be expressed as part of the output.</li>
+</ul>
+<p class="tab">Here is a quick example which uses these three types of objects:</p>
+<pre class="tab tcy">printf "My name is \"%s\".\nIt's a pleasure to meet you." "John"</pre>
+<p class="tab">This command produces the output:</p>
+<pre class="tab">My name is "John".
+It's a pleasure to meet you.</pre>
+<p class="tab">Here, <i>FORMAT</i> is enclosed in double-quotes (<b>"</b>). There is one conversion specification: <b>%s</b>, which interprets the argument <b>"John"</b> as a string and inserts it into the output. There are three escaped character sequences: two occurrences of <b>\"</b> and one occurrence of <b>\n</b>. The sequence <b>\"</b> translates as a literal double-quote; it is escaped with a backslash so that <b>printf</b> knows to treat it as a literal character, and not as the end of the <i>FORMAT</i> string. <b>\n</b> is the sequence for a <a href="/jargon/n/newline.htm">newline</a> character, and tells <b>printf</b> to begin a new line and continue the output from there.</p>
+<p class="tab">The power of <b>printf</b> lies in the fact that for any given <i>FORMAT</i> string, the <i>ARGUMENT</i>s can be changed to affect the output. For example, the output of the command in the above example can be altered by changing the argument, "John". If used in a <a href="/jargon/s/script.htm">script</a>, this argument can be set to a <a href="/jargon/v/variable.htm">variable</a>. For instance, the command</p>
+<pre class="tab tcy">printf "Hi, I'm %s.\n" $LOGNAME</pre>
+<p class="tab">...will insert the value of the <a href="/jargon/e/envivari.htm">environment variable</a> <b>$LOGNAME</b>, which is the <a href="/jargon/u/username.htm">username</a> of whoever ran the command.</p>
+<h2 id="Conversion-Specifications">Conversion specifications</h2>
+<p class="tab">Each conversion specification begins with a <b>%</b> and ends with a conversion character. Between the <b>%</b> and the conversion character there may be, in order:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:80px"><b>-</b></td>
+<td>A minus sign. This tells <b>printf</b> to left-adjust the conversion of the argument.</td>
+</tr>
+<tr class="tcw">
+<td><i>number</i></td>
+<td>An <a href="/jargon/i/integer.htm">integer</a> that specifies field width; <b>printf</b> prints a conversion of <i>ARGUMENT</i> in a field at least <i>number</i> characters wide. If necessary it will be padded on the left (or right, if left-adjustment is called for) to make up the field width.</td>
+</tr>
+<tr class="tcw">
+<td><b>.</b></td>
+<td>A period, which separates the field width from the precision.</td>
+</tr>
+<tr class="tcw">
+<td><i>number</i></td>
+<td>An integer, the precision, which specifies the maximum number of characters to be printed from a string, or the number of digits after the decimal point of a <a href="/jargon/f/floapoin.htm">floating-point</a> value, or the minimum number of digits for an integer.</td>
+</tr>
+<tr class="tcw">
+<td><b>h</b> or <b>l</b></td>
+<td>These differentiate between a short and a long integer, respectively, and are generally only needed for computer programming.</td>
+</tr>
+</table>
+<p class="tab">The conversion characters themselves, which tell <b>printf</b> what kind of argument to expect, are as follows:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th><b>conversion character</b></th>
+<th><b>argument type</b></th>
+</tr>
+<tr class="tcw">
+<td><b>d</b>, <b>i</b></td>
+<td>An integer, expressed as a decimal number.</td>
+</tr>
+<tr class="tcw">
+<td><b>o</b></td>
+<td>An integer, expressed as an unsigned <a href="/jargon/o/octal.htm">octal</a> number.</td>
+</tr>
+<tr class="tcw">
+<td><b>x</b>, <b>X</b></td>
+<td>An integer, expressed as an unsigned <a href="/jargon/h/hex.htm">hexadecimal</a> number</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b></td>
+<td>An integer, expressed as an unsigned decimal number.</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td>An integer, expressed as a character. The integer corresponds to the character's <a href="/jargon/a/ascii.htm">ASCII code</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b></td>
+<td>A string.</td>
+</tr>
+<tr class="tcw">
+<td><b>f</b></td>
+<td>A floating-point number, with a default precision of 6.</td>
+</tr>
+<tr class="tcw">
+<td><b>e</b>, <b>E</b></td>
+<td>A floating-point number expressed in scientific notation, with a default precision of 6.</td>
+</tr>
+<tr class="tcw">
+<td><b>p</b></td>
+<td>A memory address pointer.</td>
+</tr>
+<tr class="tcw">
+<td><b>%</b></td>
+<td>No conversion; a literal percent sign ("<b>%</b>") is printed instead.</td>
+</tr>
+</table>
+<p class="tab">A width or precision may be represented with an asterisk ("<b>*</b>"); if so, the asterisk reads in an argument, which must be an integer, and uses that value. For example,</p>
+<pre class="tab tcy">printf "%.*s" 5 "abcdefg"</pre>
+<p class="tab">...produces the following output:</p>
+<pre class="tab">abcde</pre>
+<p class="tab">The following table represents the way that <b>printf</b> would output its <i>ARGUMENT</i>, "<b>computerhope</b>", using various <i>FORMAT</i> strings. Each string is enclosed in quotes so that it's easier to see the exact extent of each:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th><b><i>FORMAT</i> string</b></th>
+<th><b><i>ARGUMENT</i> string</b></th>
+<th><b>output string</b></th>
+</tr>
+<tr class="tcw">
+<td>"%s"</td>
+<td>"computerhope"</td>
+<td><pre>"computerhope"</pre></td>
+</tr>
+<tr class="tcw">
+<td>"%8s"</td>
+<td>"computerhope"</td>
+<td><pre>"computerhope"</pre></td>
+</tr>
+<tr class="tcw">
+<td>"%.8s"</td>
+<td>"computerhope"</td>
+<td><pre>"computer"</pre></td>
+</tr>
+<tr class="tcw">
+<td>"%-8s"</td>
+<td>"computerhope"</td>
+<td><pre>"computerhope"</pre></td>
+</tr>
+<tr class="tcw">
+<td>"%-15s"</td>
+<td>"computerhope"</td>
+<td><pre>"computerhope "</pre></td>
+</tr>
+<tr class="tcw">
+<td>"%15.8s"</td>
+<td>"computerhope"</td>
+<td><pre>" computer"</pre></td>
+</tr>
+<tr class="tcw">
+<td>"%-15.8"</td>
+<td>"computerhope"</td>
+<td><pre>"computer "</pre></td>
+</tr>
+<tr class="tcw">
+<td>"%-15.2"</td>
+<td>"computerhope"</td>
+<td><pre>"co "</pre></td>
+</tr>
+</table>
+<p class="tab">Please note that <b>printf</b> requires the number of conversion strings to match the number of <i>ARGUMENT</i>s; it maps them one-to-one, and expects to find exactly one <i>ARGUMENT</i> for each conversion string. The only exception is a conversion string which uses an asterisk; such strings require two arguments each.</p>
+<p class="tab">Conversion strings are always interpreted from left to right. For example, the following <b>printf</b> command:</p>
+<pre class="tab tcy">printf "%d plus %5f %s %.*f." 5 5.05 "equals" 3 10.05</pre>
+<p class="tab">...produces the following output:</p>
+<pre class="tab">5 plus 5.050000 equals 10.050.</pre>
+<h2 id="escaped">Interpreted escaped character sequences</h2>
+<p class="tab">The following character sequences are interpreted as special characters by <b>printf</b>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:140px"><b>\&quot;</b></td>
+<td>prints a <a href="/jargon/q/quote.htm">double-quote</a> (<b>&quot;</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>\\</b></td>
+<td>prints a <a href="/jargon/b/backslash.htm">backslash</a> (<b>\</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>\a</b></td>
+<td>issues an alert (plays a bell)</td>
+</tr>
+<tr class="tcw">
+<td><b>\b</b></td>
+<td>prints a <a href="/jargon/b/backspac.htm">backspace</a></td>
+</tr>
+<tr class="tcw">
+<td><b>\c</b></td>
+<td>instructs <b>printf</b> to produce no further output</td>
+</tr>
+<tr class="tcw">
+<td><b>\e</b></td>
+<td>prints an escape character (ASCII code 27)</td>
+</tr>
+<tr class="tcw">
+<td><b>\f</b></td>
+<td>prints a <a href="/jargon/f/formfeed.htm">form feed</a></td>
+</tr>
+<tr class="tcw">
+<td><b>\n</b></td>
+<td>prints a <a href="/jargon/n/newline.htm">newline</a></td>
+</tr>
+<tr class="tcw">
+<td><b>\r</b></td>
+<td>prints a <a href="/jargon/c/cr.htm">carriage return</a></td>
+</tr>
+<tr class="tcw">
+<td><b>\t</b></td>
+<td>prints a horizontal <a href="/jargon/t/tab.htm">tab</a></td>
+</tr>
+<tr class="tcw">
+<td><b>\v</b></td>
+<td>prints a vertical tab</td>
+</tr>
+<tr class="tcw">
+<td><b>\</b><i>NNN</i></td>
+<td>prints a byte with octal value <i>NNN</i> (1 to 3 digits)</td>
+</tr>
+<tr class="tcw">
+<td><b>\x</b><i>HH</i></td>
+<td>prints a byte with hexadecimal value <i>HH</i> (1 to 2 digits)</td>
+</tr>
+<tr class="tcw">
+<td><b>\u</b><i>HHHH</i></td>
+<td>prints the <a href="/jargon/u/unicode.htm">unicode</a> character with hexadecimal value <i>HHHH</i> (4 digits)</td>
+</tr>
+<tr class="tcw">
+<td><b>\U</b><i>HHHHHHHH</i></td>
+<td>prints the unicode character with hexadecimal value <i>HHHHHHHH</i> (8 digits)</td>
+</tr>
+<tr class="tcw">
+<td><b>%b</b></td>
+<td>prints <i>ARGUMENT</i> as a string with "<b>\</b>" escapes interpreted as listed above, with the exception that octal escapes take the form <b>\0</b> or <b>\0</b><i>NN</i></td>
+</tr>
+</table>
+<h2 id="quoting">Quoting in the shell</h2>
+<p class="tab">Be careful with the way your <a href="/jargon/s/shell.htm">shell</a> interprets quoted strings. If your shell is not interpreting your quoted string correctly, try using single-quotes rather than double-quotes.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">printf 'hello\nworld\n!'</pre>
+<p class="tab">Prints the following output:</p>
+<pre class="tab">hello 
+world 
+!</pre>
+<pre class="tcy tab">printf "%b" 'hello\nworld\n!'</pre>
+<p class="tab">Prints the same output as the above example.</p>
+<pre class="tcy tab">printf "Your home folder is %s.\n" $HOME</pre>
+<p class="tab">Prints a string telling you the location of your <a href="/jargon/h/homedir.htm">home directory</a>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uawk.htm"><b>awk</b></a> &mdash; Interpreter for the AWK text processing programming language.<br><a href="/unix/ubc.htm"><b>bc</b></a> &mdash; A calculator.<br><a href="/unix/uecho.htm"><b>echo</b></a> &mdash; Output text.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83354a2884ec',m:'l31dmiTQMDphu5fxZLVFigTna5U6wcgDTasNe8gq650-1661495360-0-AXvXHbd5+cJyYGIhATFiOn8MQHRWr393pSMsiAsbRGkFB3/m+j7G1yGkq9XBbukY6RWq3RKVBApWPa+S3KJT7ZS2FB8leNaMGCFoR/iLDq1RPhjrw2d4xF6E2tbRC/av8x1GFIyFBI7vKv1UH7d55Xw=',s:[0x75c5b69266,0x6626f69fcb],u:'/cdn-cgi/challenge-platform/h/b'};var _cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/cb/invisible.js?cb=740a83354a2884ec',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

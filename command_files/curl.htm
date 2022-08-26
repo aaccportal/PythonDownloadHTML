@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux curl command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-08-16">08/16/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/curl.gif" width="300" height="300" alt="curl command" class="floatRight"><p class="intro">The <b>curl</b> command transfers data to or from a network server, using one of the supported <a href="/jargon/p/protocol.htm">protocols</a> (<a href="/jargon/h/http.htm">HTTP, HTTPS</a>, <a href="/jargon/f/ftp.htm">FTP</a>, FTPS, <a href="/unix/scp.htm">SCP</a>, <a href="/jargon/f/ftp.htm">SFTP</a>, <a href="/jargon/t/tftp.htm">TFTP</a>, DICT, <a href="/jargon/t/telnet.htm">TELNET</a>, <a href="/jargon/l/ldap.htm">LDAP</a> or FILE). It is designed to work without user interaction, so it is ideal for use in a shell <a href="/jargon/s/script.htm">script</a>.</p>
+<p>The software offers <a href="/jargon/p/proxyser.htm">proxy</a> support, user <a href="/jargon/a/auth.htm">authentication</a>, FTP <a href="/jargon/u/upload.htm">uploading</a>, HTTP posting, <a href="/jargon/s/ssl.htm">SSL</a> connections, <a href="/jargon/c/cookie.htm">cookies</a>, file transfer resume, metalink, and other features.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#urls">URLs</a></li>
+<li><a href="#progress-meter">Progress meter</a></li>
+<li><a href="#exit">Exit codes</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">curl [<i>options</i>] [<i>URL</i>...]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:310px"><b>-a</b>, <b>--append</b></td>
+<td>(<b>FTP</b>/<b>SFTP</b>) When used in an FTP <a href="/jargon/u/upload.htm">upload</a>, this will tell <b>curl</b> to append to the target file instead of <a href="/jargon/o/overwrit.htm">overwriting</a> it. If the file doesn't exist, it is created.<br><br>Note that this option is ignored by some SSH servers, including OpenSSH.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b>, <b>--user-agent</b> <i>&lt;agent string&gt;</i></td>
+<td>(<b>HTTP</b>) Specify the <a href="/jargon/u/useragen.htm">User-Agent</a> <a href="/jargon/s/string.htm">string</a> to send to the HTTP server. Some <a href="/jargon/c/cgi.htm">CGI</a> fail if the agent string is not set to "<b>Mozilla/4.0</b>". To encode blanks in the string, surround the string with single quote marks.<br><br>This value can also be set with the <b>-H</b>/<b>--header</b> option.<br><br>If this option is set more than once, the last one will be the one that's used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--anyauth</b></td>
+<td>(<b>HTTP</b>) Tells <b>curl</b> to figure out <a href="/jargon/a/auth.htm">authentication</a> method by itself, and use the most secure method the remote site claims it supports. This is done by first making a request and checking the response-headers, thus possibly inducing a network round-trip. This is used instead of setting a specific authentication method, which you can do with <b>--basic</b>, <b>--digest</b>, <b>--ntlm</b>, and <b>--negotiate</b>.<br><br>Note that using <b>--anyauth</b> is not recommended if you do <a href="/jargon/u/upload.htm">uploads</a> from <a href="/jargon/s/stdin.htm">stdin</a> since it may require data to be sent twice and then the client must be able to rewind. If the need should arise when uploading from stdin, the upload operation fails.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b>, <b>--cookie</b> <i>&lt;name</i><b>=</b><i>data&gt;</i></td>
+<td>(<b>HTTP</b>) Pass the data to the HTTP server as a <a href="/jargon/c/cookie.htm">cookie</a>. It is expected to be the data previously received from the server in a "<b>Set-Cookie:</b>" line. The data should be in the format "<b>NAME1=VALUE1; NAME2=VALUE2</b>".<br><br>If no '<b>=</b>' (equals) <a href="/jargon/c/charact.htm">character</a> is used in the line, it is treated as a <a href="/jargon/f/filename.htm">file name</a> to use to read previously stored cookie lines from, which should be used in this session if they match. Using this method also activates the "cookie parser" which makes curl record incoming cookies too, which may be handy if you're using this in combination with the <b>--location</b> option. The file format of the file to read cookies from should be plain HTTP <a href="/jargon/h/header.htm">headers</a> or the Netscape/Mozilla cookie file format.<br><br><b>NOTE:</b> the file specified with <b>-b</b>/<b>--cookie</b> is only used as <a href="/jargon/i/input.htm">input</a>. No cookies will be stored in the file. To store cookies, use the <b>-c</b>/<b>--cookie-jar</b> option, or you can save the HTTP headers to a file using <b>-D</b>/<b>--dump-header</b>.<br><br>If this option is set more than once, the last occurrence will be the option that's used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b>, <b>--use-ascii</b></td>
+<td>(<b>FTP/LDAP</b>) Enable ASCII transfer. For <b>FTP</b>, this can also be enforced using an URL that ends with "<b>;Type=A</b>". This option causes data sent to stdout to be in text mode for <a href="/jargon/w/win32.htm">win32</a> systems.<br><br>If this option is used twice, the second one disables ASCII usage.</td>
+</tr>
+<tr class="tcw">
+<td><b>--basic</b></td>
+<td>(<b>HTTP</b>) Tells <b>curl</b> to use HTTP Basic authentication. This is the default and this option is usually pointless, unless you use it to override a previously set option that sets a different authentication method (such as <b>--ntlm</b>, <b>--digest</b> and <b>--negotiate</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>--ciphers</b> <i>&lt;list of ciphers&gt;</i></td>
+<td>(<b>SSL</b>) Specifies which <a href="/jargon/c/cipher.htm">ciphers</a> to use in the connection. The ciphers listed must be valid. You can read up on <a href="/jargon/s/ssl.htm">SSL</a> cipher list details at <a href="https://www.openssl.org/docs/man1.1.0/apps/ciphers.html" class="external">openssl.org</a>.<br><br>NSS ciphers are done differently than OpenSSL and GnuTLS. The full list of NSS ciphers is in the NSSCipherSuite entry at this URL: <a href="https://pagure.io/mod_nss#Directives" class="external">https://pagure.io/mod_nss#Directives</a>.<br><br>If this option is used several times, the last one overrides the others.</td>
+</tr>
+<tr class="tcw">
+<td><b>--compressed</b></td>
+<td>(<b>HTTP</b>) Request a <a href="/jargon/c/compress.htm">compressed</a> response using one of the <a href="/jargon/a/algorith.htm">algorithms</a> <b>curl</b> supports, and return the uncompressed document. If this option is used and the server sends an unsupported <a href="/jargon/e/encode.htm">encoding</a>, Curl will report an error.</td>
+</tr>
+<tr class="tcw">
+<td><b>--connect-timeout</b> <i>&lt;seconds&gt;</i></td>
+<td>Maximum time in seconds that the connection to the server may take. This only limits the connection phase; once curl has connected this option no longer applies. Since 7.32.0, this option accepts decimal values, but the actual timeout decreases in accuracy as the specified timeout increases in decimal precision. See also the <b>-m</b>/<b>--max-time</b> option.<br><br> If this option is used several times, the last one will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--cookie-jar</b> <i>&lt;file name&gt;</i></td>
+<td>(<b>HTTP</b>) Specify what file you want <b>curl</b> to write all cookies after a completed operation. Curl writes all cookies previously read from a specified file and all cookies received from remote server(s). If no cookies are known, no file will be written. The file will be written using the <a href="/jargon/n/netscape.htm">Netscape</a> cookie file format. If you set the file name to a single dash ("<b>-</b>"), the cookies will be written to stdout.<br><br> This command line option activates the cookie engine that makes <b>curl</b> record and use cookies. Another way to activate it is to use the <b>-b</b>/<b>--cookie option</b>.<br><br> <b>NOTE:</b> If the cookie jar can't be created or written to, the whole curl operation won't fail or even report an error. If <b>-v</b> is specified a warning is displayed, but that is the only visible feedback you get about this possibly fatal situation.<br><br> If this option is used several times, the last specified file name will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b>, <b>--continue-at</b> <i>&lt;offset&gt;</i></td>
+<td>Continue/Resume a previous file transfer at the given <i><a href="/jargon/o/offset.htm">offset</a></i>. The given offset is the exact number of <a href="/jargon/b/byte.htm">bytes</a> that will be skipped, counted from the beginning of the source file before it is transferred to the destination. If used with uploads, the ftp server command SIZE is not used by curl.<br><br> Use "<b>-C -</b>" to tell curl to automatically find out where/how to resume the transfer. It then uses the given output/input files to figure that out.<br><br> If this option is used several times, the last one will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--create-dirs</b></td>
+<td>When used in conjunction with the <b>-o</b> option, <b>curl</b> creates the necessary local <a href="/jargon/d/director.htm">directory</a> <a href="/jargon/h/hierfile.htm">hierarchy</a> as needed. This option creates the dirs mentioned with the <b>-o</b> option, nothing else. If the <b>-o</b> file name uses no directory or if the directories it mentions already exist, no directories are created.<br><br> To create remote directories when using FTP or SFTP, try <b>--ftp-create-dirs</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--crlf</b></td>
+<td>(<b>FTP</b>) Convert <b><a href="/jargon/l/lf.htm">LF</a></b> to <b><a href="/jargon/c/cr.htm">CRLF</a></b> in upload. Useful for MVS (OS/390).</td>
+</tr>
+<tr class="tcw">
+<td><b>--crlfile</b> <i>&lt;file&gt;</i></td>
+<td>(<b>HTTPS/FTPS</b>) Provide a file using PEM format with a Certificate Revocation List that may specify peer certificates that are to be considered revoked.<br><br> If this option is used several times, the last one will be used.<br><br> (Added in 7.19.7)</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--data</b> <i>&lt;data&gt;</i></td>
+<td>(<b>HTTP</b>) Sends the specified data in a <b>POST</b> request to the HTTP server, in a way that emulates as if a user has filled in an HTML <a href="/jargon/f/form.htm">form</a> and pressed the submit button. Note that the data is sent exactly as specified with no extra processing (with all <a href="/jargon/n/newline.htm">newlines</a> cut off). The data is expected to be "url-encoded". This causes <b>curl</b> to pass the data to the server using the content-type <b>application/x-www-form-urlencoded</b>. Compare to <b>-F</b>/<b>--form</b>. If this option is used more than once on the same <a href="/jargon/c/commandi.htm">command line</a>, the data pieces specified will be merged together with a separating "<b>&amp;</b>" character. Thus, using <b>'-d name=daniel -d skill=lousy'</b> would generate a POST chunk that looks like <b>'name=daniel&amp;skill=lousy'</b>.<br><br> If you start the data with the "<b>@</b>" character, the rest should be a file name to read the data from, or "<b>-</b>" (dash) if you want curl to read the data from stdin. The contents of the file must already be url-encoded. Multiple files can also be specified. Posting data from a file named 'foobar' would thus be done with "<b>--data @foo-bar</b>".<br><br> <b>-d</b>/<b>--data</b> is the same as <b>--data-ascii</b>. To post data purely <a href="/jargon/b/binary.htm">binary</a>, use the <b>--data-binary</b> option. To URL-encode the value of a form field you may use <b>--data-urlencode</b>.<br><br> If this option is used several times, the ones following the first will append data.</td>
+</tr>
+<tr class="tcw">
+<td><b>--data-ascii</b> <i>&lt;data&gt;</i></td>
+<td>(<b>HTTP</b>) This is an <a href="/jargon/a/alias.htm">alias</a> for the <b>-d</b>/<b>--data</b> option.<br><br> If this option is used several times, the ones following the first will append data.</td>
+</tr>
+<tr class="tcw">
+<td><b>--data-binary</b> <i>&lt;data&gt;</i></td>
+<td>(<b>HTTP</b>) This posts data exactly as specified with no extra processing whatsoever.<br><br> If you start the data with the character <b>@</b>, the rest should be a filename. Data is posted in a similar manner as <b>--data-ascii</b> does, except that newlines are preserved and conversions are never done.<br> If this option is used several times, the ones following the first will append data as described in <b>-d</b>, <b>--data</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--data-urlencode</b> <i>&lt;data&gt;</i></td>
+<td>(<b>HTTP</b>) This posts data, similar to the other --data options with the exception that this performs URL-encoding. (Added in 7.18.0)<br><br> To be CGI-compliant, the <i>&lt;data&gt;</i> part should begin with a name followed by a separator and a content specification. The <i>&lt;data&gt;</i> part can be passed to <b>curl</b> using one of the following syntaxes:<br><br> <b>content</b><br><br> This makes curl URL-encode the content and pass that on. Just be careful so that the content doesn't contain any <b>=</b> or <b>@</b> symbols, as that will then make the syntax match one of the other cases below!<br><br> <b>=content</b><br><br> This makes curl URL-encode the content and pass that on. The preceding <b>=</b> symbol is not included in the data.<br><br> <b>name=content</b><br><br> This makes curl URL-encode the content part and pass that on. Note that the name part is expected to be URL-encoded already.<br><br> <b>@filename</b><br><br> This makes curl load data from the given file (including any newlines), URL-encode that data and pass it on in the POST.<br><br> <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cba5aaa6ae8bada2a7aea5aaa6ae">[email&#160;protected]</a></b><br><br> This makes curl load data from the given file (including any newlines), URL-encode that data and pass it on in the POST. The name part gets an equal sign appended, resulting in <b>name=urlencoded-file-content</b>. Note that the name is expected to be URL-encoded already.</td>
+</tr>
+<tr class="tcw">
+<td><b>--delegation</b> <i>LEVEL</i></td>
+<td>Set <i>LEVEL</i> to tell the server what it is allowed to delegate with the user credentials. Used with GSS/kerberos.<br><br> <b>none</b><br><br> Don't allow any delegation.<br><br> <b>policy</b><br><br> Delegates if and only if the OK-AS-DELEGATE flag is set in the Kerberos service ticket, which is a matter of realm policy.<br><br> <b>always</b><br><br> Unconditionally allow the server to delegate.</td>
+</tr>
+<tr class="tcw">
+<td><b>--digest</b></td>
+<td>(<b>HTTP</b>) Enables HTTP Digest authentication. This is an authentication that prevents the <a href="/jargon/p/password.htm">password</a> from being sent as clear text. Use this in combination with the normal <b>-u</b>/<b>--user</b> option to set <a href="/jargon/u/username.htm">username</a> and password. See also <b>--ntlm</b>, <b>--negotiate</b> and <b>--anyauth</b> for related options.<br><br> If this option is used several times, the following occurrences make no difference.</td>
+</tr>
+<tr class="tcw">
+<td><b>--disable-eprt</b></td>
+<td>(<b>FTP</b>) Tell <b>curl</b> to disable the use of the EPRT and LPRT commands when doing active FTP transfers. Curl will normally always first attempt to use EPRT, then LPRT before using PORT, but with this option, it uses PORT right away. EPRT and LPRT are extensions to the original FTP protocol, may not work on all servers but enable more functionality in a better way than the traditional PORT command.<br><br> <b>--eprt</b> can explicitly enable EPRT again and <b>--no-eprt</b> is an alias for <b>--disable-eprt</b>.<br><br> Disabling EPRT only changes the active behavior. If you want to switch to passive mode you need to not use <b>-P</b>, <b>--ftp-port</b> or force it with <b>--ftp-pasv</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--disable-epsv</b></td>
+<td>(<b>FTP</b>) Tell <b>curl</b> to disable the use of the EPSV command when doing passive FTP transfers. Curl will normally always first attempt to use EPSV before PASV, but with this option, it will not try using EPSV.<br><br> <b>--epsv</b> can explicitly enable EPSV again and <b>--no-epsv</b> is an alias for <b>--disable-epsv</b>.<br><br> Disabling EPSV only changes the passive behavior. If you want to switch to active mode you need to use <b>-P</b>, <b>--ftp-port</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b>, <b>--dump-header</b> <i>&lt;file&gt;</i></td>
+<td>Write the protocol headers to the specified file.<br><br> This option is handy to use when you want to store the headers that an HTTP site sends to you. Cookies from the headers could then be read in a second <b>curl</b> invoke using the <b>-b</b>/<b>--cookie</b> option. However, the <b>-c</b>/<b>--cookie-jar</b> option is a better way to store cookies.<br><br> When used on FTP, the ftp server response lines are considered being "headers" and thus are saved there.<br><br> If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>, <b>--referer</b> <i>&lt;URL&gt;</i></td>
+<td>(<b>HTTP</b>) Sends the "Referer Page" information to the HTTP server. This can also be set with the <b>-H</b>/<b>--header</b>. When used with <b>-L</b>/<b>--location</b>, you can append "<b>;auto</b>" to the <b>--referer</b> <a href="/jargon/u/url.htm">URL</a> to make <b>curl</b> automatically set the previous URL when it follows a <b>Location:</b> header. The "<b>;auto</b>" string can be used alone, even if you don't set an initial <b>--referer</b>.<br><br> If this option is used several times, the last one will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--engine</b> <i>&lt;name&gt;</i></td>
+<td>Select the OpenSSL crypto engine to use for cipher operations. Use <b>--engine list</b> to print a list of build-time supported engines. Note that not all (or none) of the engines may be available at run time.</td>
+</tr>
+<tr class="tcw">
+<td><b>--environment</b></td>
+<td>(<b>RISC OS ONLY</b>) Sets a range of <a href="/jargon/e/envivari.htm">environment variables</a>, using the names the <b>-w</b> option supports, to easier allow extraction of useful information after having run <b>curl</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--egd-file</b> <i>&lt;file&gt;</i></td>
+<td>(<b>HTTPS</b>) Specify the <a href="/jargon/p/path.htm">path</a> name to the Entropy Gathering Daemon <a href="/jargon/s/socket.htm">socket</a>. The socket is used to seed the random engine for SSL connections. See also the <b>--random-file</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b>, <b>--cert</b><br>&lt;<i>certificate</i><br>[<b>:</b><i>password</i>]&gt;</td>
+<td>(<b>SSL</b>) Tells <b>curl</b> to use the specified client certificate file when getting a file with HTTPS, FTPS or another SSL-based protocol. The certificate must be in PEM format. If the optional password isn't specified, it will be queried for on the terminal. Note that this option assumes a "certificate" file that is the private key and the private certificate concatenated. See <b>--cert</b> and <b>--key</b> to specify them independently.<br><br> If <b>curl</b> is built against the NSS SSL library then this option can tell <b>curl</b> the nickname of the certificate to use in the NSS database defined by the environment variable <b>SSL_DIR</b> (or by default <b>/etc/pki/nssdb</b>). If the NSS PEM PKCS#11 module (libnsspem.so) is available then PEM files may be loaded. If you want to use a file from the current directory, please precede it with "<b>./</b>" prefix, to avoid confusion with a nickname. If the nickname contains "<b>:</b>", it needs to be preceded by "<b>\</b>" so that it is not recognized as password delimiter. If the nickname contains "<b>\</b>", it needs to be escaped as "<b>\\</b>" so that it is not recognized as an escape character.<br><br> (<b>iOS and Mac OS X only</b>) If <b>curl</b> is built against Secure Transport, then the certificate string must match the name of a certificate that's in the system or user keychain. The private key corresponding to the certificate, and certificate chain (if any), must also be present in the keychain.<br><br> If this option is used several times, the last one will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--cert-type</b> <i>&lt;type&gt;</i></td>
+<td>(<b>SSL</b>) Tells <b>curl</b> the type of certificate type of the provided certificate. <b>PEM</b>, <b>DER</b> and <b>ENG</b> are recognized <i>types</i>. If not specified, PEM is assumed.<br><br> If this option is used several times, the last one will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--cacert</b><br><i>&lt;CA certificate&gt;</i></td>
+<td>(<b>SSL</b>) Tells <b>curl</b> to use the specified certificate file to verify the <a href="/jargon/p/peer.htm">peer</a>. The file may contain multiple CA certificates. The certificate(s) must be in PEM format. Normally curl is built to use a default file for this, so this option is used to alter that default file.<br><br> <b>curl</b> recognizes the environment variable named '<b>CURL_CA_BUNDLE</b>' if that is set, and uses the given path as a path to a CA cert bundle. This option overrides that variable.<br><br> The <a href="/jargon/w/windows.htm">Windows</a> version of <b>curl</b> automatically looks for a CA certs file named '<b>curl-ca-bundle.crt</b>', either in the same directory as <b>curl.exe</b>, or in the current working directory, or in any folder along your PATH.<br><br> If <b>curl</b> is built against the NSS SSL library, the NSS PEM PKCS#11 module (libnsspem.so) needs to be available for this option to work properly.<br><br> If this option is used several times, the last one will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--capath</b><br><i>&lt;CA certificate<br>directory&gt;</i></td>
+<td>(<b>SSL</b>) Tells <b>curl</b> to use the specified certificate directory to verify the peer. The certificates must be in PEM format, and the directory must be processed using the <b>c_rehash</b> utility supplied with openssl. Using <b>--capath</b> can allow <b>curl</b> to make https connections much more efficiently than using <b>--cacert</b> if the <b>--cacert</b> file contains many CA certificates.<br><br> If this option is used several times, the last one will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--fail</b></td>
+<td>(<b>HTTP</b>) Fail silently (no output at all) on server errors. This is mostly done to better enable scripts, etc. to better deal with failed attempts. In normal cases when an HTTP server fails to deliver a document, it returns an HTML document stating so (which often also describes why). This flag prevents <b>curl</b> from outputting that and return error 22.<br><br> This method is not fail-safe and there are occasions where non-successful response codes will slip through, especially when authentication is involved (response codes 401 and 407).</td>
+</tr>
+<tr class="tcw">
+<td><b>--ftp-account</b> [<i>data</i>]</td> 
+<td>(<b>FTP</b>) When an FTP server asks for "account data" after username and password was provided, this data is sent off using the <b>ACCT</b> command. (Added in 7.13.0)<br><br> If this option is used twice, the second overrides the previous use.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ftp-create-dirs</b></td>
+<td>(<b>FTP/SFTP</b>) When an FTP URL/operation uses a path that doesn't currently exist on the server, the standard behavior of curl is to fail. Using this option, <b>curl</b> will instead attempt to create missing directories.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ftp-method</b> [<i>method</i>]</td>
+<td>(<b>FTP</b>) Control what method curl should use to reach a file on an FTP(S) server. The method argument should be one of the following alternatives:<br><br> <b>multicwd</b><br><br> curl does a single <b>CWD</b> operation for each path part in the given URL. For deep hierarchies this means a lot of commands. This is the default but the slowest behavior.<br><br> <b>nocwd</b><br><br> curl does no <b>CWD</b> at all. curl will do <b>SIZE</b>, <b>RETR</b>, <b>STOR</b>, etc. and give a full path to the server for all these commands. This is the fastest behavior.<br><br> <b>singlecwd</b><br><br> curl does one CWD with the full target directory and then operates on the file "normally" (like in the multicwd case). This is somewhat more standards-compliant than '<b>nocwd</b>' but without the full penalty of '<b>multicwd</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ftp-pasv</b></td>
+<td>(<b>FTP</b>) Use PASV when transferring. PASV is the internal default behavior, but using this option can override a previous <b>--ftp-port</b> option. (Added in 7.11.0)<br><br> If this option is used several times, the following occurrences make no difference. Undoing an enforced passive really isn't doable but you must then instead enforce the correct <b>-P</b>, <b>--ftp-port</b> again.<br><br> Passive mode means that curl will try the EPSV command first and then PASV, unless <b>--disable-epsv</b> is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ftp-alternative-to-user</b> <i>&lt;command&gt;</i></td>
+<td>(<b>FTP</b>) If authenticating with the <b>USER</b> and <b>PASS</b> commands fail, send this command. When connecting to Tumbleweed's Secure Transport server over FTPS using a client certificate, using "<b>SITE AUTH</b>" will tell the server to retrieve the username from the certificate. (Added in 7.15.5)</td>
+</tr>
+<tr class="tcw">
+<td><b>--ftp-skip-pasv-ip</b></td>
+<td>(<b>FTP</b>) Tell <b>curl</b> to not use the <a href="/jargon/i/ip.htm">IP</a> address the server suggests in its response to <b>curl</b>'s PASV command when <b>curl</b> connects the data connection. Instead, <b>curl</b> will re-use the same IP address it already uses for the control connection. (Added in 7.14.2)<br><br> This option has no effect if PORT, EPRT or EPSV is used instead of PASV.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ftp-pret</b></td>
+<td>(<b>FTP</b>) Tell <b>curl</b> to send a PRET command before PASV (and EPSV). Certain FTP servers, mainly drftpd, require this non-standard command for directory listings and up and downloads in PASV mode. (Added in 7.20.x)</td>
+</tr>
+<tr class="tcw">
+<td><b>--ftp-ssl</b></td>
+<td>(<b>FTP</b>) Try to use SSL/TLS for the FTP connection. Reverts to a non-secure connection if the server doesn't support SSL/TLS. (Added in 7.11.0)<br><br> If this option is used twice, the second will again disable this.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ftp-ssl-ccc</b></td>
+<td>(<b>FTP</b>) Use CCC (Clear Command Channel) Shuts down the SSL/TLS layer after authenticating. The rest of the control channel communication will be unencrypted. This allows NAT routers to follow the FTP transaction. The default mode is passive. See <b>--ftp-ssl-ccc-mode</b> for other modes. (Added in 7.16.1)</td>
+</tr>
+<tr class="tcw">
+<td><b>--ftp-ssl-ccc-mode</b> [<i>active/passive</i>]</td>
+<td>(<b>FTP</b>) Use CCC (Clear Command Channel) Sets the CCC mode. The passive mode will not initiate the shutdown, but instead wait for the server to do it, and will not reply to the shutdown from the server. The active mode initiates the shutdown and waits for a reply from the server. (Added in 7.16.2)</td>
+</tr>
+<tr class="tcw">
+<td><b>--ftp-ssl-control</b></td>
+<td>(<b>FTP</b>) Require SSL/TLS for the FTP login, clear for transfer. Allows secure authentication, but non-encrypted data transfers for efficiency. Fails the transfer if the server doesn't support SSL/TLS. (Added in 7.16.0)</td>
+</tr>
+<tr class="tcw">
+<td><b>--ftp-ssl-reqd</b></td>
+<td>(<b>FTP</b>) Require SSL/TLS for the FTP connection. Terminates the connection if the server doesn't support SSL/TLS. (Added in 7.15.5)<br><br> If this option is used twice, the second will again disable this.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b>, <b>--form</b> <i>&lt;name=content&gt;</i></td>
+<td>(<b>HTTP</b>) This lets <b>curl</b> emulate a filled-in form where a user has pressed the submit button. This causes <b>curl</b> to <b>POST</b> data using the Content-Type <b>multipart/form-data</b> according to RFC1867. This enables uploading of binary files etc. To force the 'content' part to be a file, prefix the file name with an "<b>@</b>" character. To get the content part of a file, prefix the file name with the letter "<b>&lt;</b>". The difference between "<b>@</b>" and "<b>&lt;</b>" is that <b>@</b> makes a file get attached in the post as a file upload, while the <b>&lt;</b> makes a text <a href="/jargon/f/field.htm">field</a> and gets the contents for that text field from a file.<br><br> For example, to send your password file to the server, where 'password' is the name of the form-field that /etc/passwd is the input:<br><br> <b>curl -F <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ea9a8b99999d85988ed7aa">[email&#160;protected]</a>/etc/passwd www.mypasswords.com</b><br><br> To read the file's content from stdin instead of a file, use "<b>-</b>" where the file name should've been. This goes for both <b>@</b> and <b>&lt;</b> constructs.<br><br> You can also tell curl to use a specific Content-Type using '<b>Type=</b>', in a manner similar to:<br><br> <b>curl -F "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f4839196c9b49d9a90918cda9c809998">[email&#160;protected]</a>;Type=text/html" url.com</b><br><br> or<br><br> <b>curl -F "name=daniel;Type=text/foo" url.com</b><br><br> You can also explicitly change the name field of a file upload part by setting filename=, like this:<br><br> <b>curl -F "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f1916131a423f13101c1e131916131a">[email&#160;protected]</a>;filename=nameinpost" url.com</b><br><br> If filename/path contains '<b>,</b>' or '<b>;</b>', it must be double-quoted, for example:<br><br> <b>curl -F "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5a3c33363f671a">[email&#160;protected]</a>\"localfile\";filename=\"nameinpost\"" url.com</b><br><br> or<br><br> <b>curl -F '<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="37515e5b520a77">[email&#160;protected]</a>"localfile";filename="nameinpost"' url.com</b><br><br> Note that if a filename/path is double-quoted, any double quote or backslash in the filename must be escaped by backslash.<br><br> This option can be used multiple times.</td>
+</tr>
+<tr class="tcw">
+<td><b>--form-string</b> <i>&lt;name=string&gt;</i></td>
+<td>(<b>HTTP</b>) Similar to <b>--form</b> except that the value string for the named parameter is used literally. Leading '<b>@</b>' and '<b>&lt;</b>' characters, and the '<b>;Type=</b>' string in the value have no special meaning. Use this in preference to <b>--form</b> if there's any possibility that the string value may accidentally trigger the '<b>@</b>' or '<b>&lt;</b>' features of <b>--form</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>, <b>--globoff</b></td>
+<td>This option switches off the "URL globbing parser". When you set this option, you can specify URLs that contain the letters <b>{}[]</b> without having them being interpreted by <b>curl</b> itself. Note that these letters are not normal legal URL contents but they should be encoded according to the URI standard.</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b>, <b>--get</b></td>
+<td>When used, this option makes all data specified with <b>-d</b>/<b>--data</b> or <b>--data-binary</b> to be used in an HTTP GET request instead of the POST request that otherwise would be used. The data will be appended to the URL with a '<b>?</b>' separator.<br><br> If used in combination with <b>-I</b>, the POST data will instead be appended to the URL with a HEAD request.<br><br> If this option is used several times, only the first one is used. This is because undoing a GET doesn't make sense, but enforce the alternative method you prefer.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b>, <b>--header</b> <i>&lt;header&gt;</i></td>
+<td>(<b>HTTP</b>) Extra header to use when getting a <a href="/jargon/w/webpage.htm">web page</a>. You may specify any number of extra headers. Note that if you add a custom header with the same name as one of the internal ones curl would use, your externally set header will be used instead of the internal one. This lets you make even trickier stuff than <b>curl</b> would normally do. You should not replace internally set headers without knowing perfectly well what you're doing. Remove an internal header by giving a replacement without content on the right side of the colon, as in: <b>-H "Host:"</b>. If you send the custom header with no-value then its header must be terminated with a semicolon, such as <b>-H "X-Custom-Header;"</b> to send "<b>X-Custom-Header:</b>".<br><br> <b>curl</b> makes sure that each header you add/replace get sent with the proper end of line marker, therefore don't add that as a part of the header content: do not add newlines or <a href="/jargon/c/cr.htm">carriage returns</a> they only mess things up for you.<br><br> See also the <b>-A</b>/<b>--user-agent</b> and <b>-e</b>/<b>--referer</b> options.<br><br> This option can be used multiple times to add/replace/remove multiple headers.</td>
+</tr>
+<tr class="tcw">
+<td><b>--hostpubmd5</b> <i>&lt;md5&gt;</i></td>
+<td>(<b>SCP/SFTP</b>) Pass a string containing 32 <a href="/jargon/h/hex.htm">hexadecimal</a> digits. The string should be the 128 bit MD5 <a href="/jargon/c/checksum.htm">checksum</a> of the remote host's public key, curl will refuse the connection with the host unless the md5sums match. (Added in 7.17.1)</td>
+</tr>
+<tr class="tcw">
+<td><b>--ignore-content-length</b></td>
+<td>(<b>HTTP</b>) Ignore the Content-Length header. This is particularly useful for servers running Apache 1.x, which will report incorrect <b>Content-Length</b> for files larger than 2 <a href="/jargon/g/gigabyte.htm">gigabytes</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--include</b></td>
+<td>(<b>HTTP</b>) Include the HTTP-header in the output. The HTTP-header includes things like server-name, date of the document, HTTP-version and more.</td>
+</tr>
+<tr class="tcw">
+<td><b>--interface</b> <i>&lt;name&gt;</i></td>
+<td>Perform an operation using a specified <a href="/jargon/i/interfac.htm">interface</a>. You can enter interface name, IP address or <a href="/jargon/h/hostname.htm">hostname</a>. An example could look like:<br><br><b>curl --interface eth0:1 http://www.netscape.com/</b><br><br>If this option is used several times, the last one will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b>, <b>--head</b></td>
+<td>(<b>HTTP/FTP/FILE</b>) Fetch the HTTP-header only. HTTP-servers feature the command HEAD which this uses to get nothing but the header of a document. When used on an FTP or FILE file, <b>curl</b> displays the file size and last modification time only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-j</b>, <b>--junk-session-cookies</b></td>
+<td>(<b>HTTP</b>) When <b>curl</b> is told to read cookies from a file, this option makes it discard all &quot;session cookies.&quot; This option has the same effect as if a new session is started. Typical browsers always discard session cookies when they're closed down.</td>
+</tr>
+<tr class="tcw">
+<td><b>-J</b>, <b>--remote-header-name</b></td>
+<td>(<b>HTTP</b>) This option tells the <b>-O</b>, <b>--remote-name</b> option to use the server-specified Content-Disposition filename instead of extracting a filename from the URL.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b>, <b>--insecure</b></td>
+<td>(<b>SSL</b>) This option explicitly allows <b>curl</b> to perform "insecure" SSL connections and transfers. All SSL connections are attempted to be made secure using the CA certificate bundle installed by default. All connections considered "insecure" fail unless <b>-k</b>/<b>--insecure</b> is used.<br><br> See this online resource for more information: <a href="https://curl.haxx.se/docs/sslcerts.html" class="external">https://curl.haxx.se/docs/sslcerts.html</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--key</b> <i>&lt;key&gt;</i></td>
+<td>(<b>SSL/SSH</b>) Private key file name. Allows you to provide your private key in this separate file.<br><br> If this option is used several times, the last one will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--key-type</b> <i>&lt;type&gt;</i></td>
+<td>(<b>SSL</b>) Private key file type. Specify which type your <b>--key</b> provided private key is. DER, PEM, and ENG are supported. If not specified, PEM is assumed.<br><br> If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--krb</b> <i>&lt;level&gt;</i></td>
+<td>(<b>FTP</b>) Enable <a href="/jargon/k/kerberos.htm">Kerberos</a> authentication and use. The level must be entered and should be one of 'clear', 'safe', 'confidential', or 'private'. Should you use a level that is not one of these, 'private' instead is used.<br><br> This option requires a library built with kerberos4 or GSSAPI (GSS-Negotiate) support. This is not very common. Use <b>-V</b>, <b>--version</b> to see if your <b>curl</b> supports it.<br><br> If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-K</b>, <b>--config</b> <i>&lt;config file&gt;</i></td>
+<td>Specify which config file to read the <b>curl</b> arguments. The config file is a <a href="/jargon/t/textfile.htm">text file</a> where command line arguments can be written, which then are used as if they were written on the actual command line. Options and their parameters must be specified on the same config file line. If the parameter is to contain white spaces, the parameter must be enclosed within quotes. If the first column of a config line is a '<b>#</b>' character, the rest of the line is treated as a <a href="/jargon/c/comment.htm">comment</a>. Only write one option per physical line in the config file.<br><br> Specify the filename as '<b>-</b>' to make curl read the file from stdin.<br><br> Note that to be able to specify a URL in the config file, you need to specify it using the <b>--url</b> option, and not by writing the URL on its own line. So, it could look similar to this:<br><br> <b>url = "https://curl.haxx.se/docs/"</b><br><br> Long option names can optionally be given in the config file without the initial double dashes.<br><br> When <b>curl</b> is invoked, it always (unless <b>-q</b> is used) checks for a default config file and uses it if found. The default config file is checked for in the following places in this order:<br><br> 1) <b>curl</b> tries to find the "home dir": It first checks for the <b>CURL_HOME</b> and then the <b>HOME</b> environment variables. Failing that, it uses <b>getpwuid()</b> on unix-like systems (which returns the home dir given the current user in your system). On Windows, it then checks for the <b>APPDATA</b> variable, or as a last resort the '<b>%USER-PROFILE%\Application Data</b>'.<br><br> 2) On Windows, if there is no <b>_curlrc</b> file in the home dir, it checks for one in the same dir the executable <b>curl</b> is placed. On unix-like systems, it will try to load <b>.curlrc</b> from the determined home dir.<br><br> This option can be used multiple times to load multiple config files.</td>
+</tr>
+<tr class="tcw">
+<td><b>--keepalive-time</b> <i>&lt;seconds&gt;</i></td>
+<td>This option sets the time a connection needs to remain idle before sending keepalive probes and the time between individual keepalive probes. It is currently effective on operating systems offering the TCP_KEEPIDLE and TCP_KEEPINTVL socket options (meaning Linux, recent AIX, HP-UX, and more). This option has no effect if <b>--no-keepalive</b> is used. (Added in 7.18.0)<br><br> If this option is used several times, the last one will be used. If unspecified, the option defaults to 60 seconds.</td>
+</tr>
+<tr class="tcw">
+<td><b>--limit-rate</b> <i>&lt;speed&gt;</i></td>
+<td>Specify the maximum transfer rate you want <b>curl</b> to use. This feature is useful if you have a limited pipe and you'd like your transfer not use your entire bandwidth.<br><br> The given speed is measured in bytes/second, unless a suffix is appended. Appending '<b>k</b>' or '<b>K</b>' will count the number as <a href="/jargon/k/kilobyte.htm">kilobytes</a>, '<b>m</b>' or '<b>M</b>' makes it <a href="/jargon/m/megabyte.htm">megabytes</a> while '<b>g</b>' or '<b>G</b>' makes it gigabytes. Examples: <b>200K</b>, <b>3m</b> and <b>1G</b>.<br><br> The given rate is the average speed counted during the entire transfer. It means that <b>curl</b> might use higher transfer speeds in short bursts, but over time it uses no more than the given rate.<br><br> If you are also using the <b>-Y</b>/<b>--speed-limit</b> option, that option takes precedence and might cripple the rate-limiting slightly, to help keep the speed-limit logic working.<br><br> If this option is used several times, the last one will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>/<b>--list-only</b></td>
+<td>(<b>FTP</b>) When listing an FTP directory, this switch forces a name-only view. Especially useful if you want to machine-parse the contents of an FTP directory since the normal directory view doesn't use a standard look or format.<br><br> This option causes an FTP NLST command to be sent. Some FTP servers list only files in their response to NLST; they do not include <a href="/jargon/s/subdirec.htm">subdirectories</a> and <a href="/jargon/s/symblink.htm">symbolic links</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--local-port</b> <i>&lt;num&gt;</i>[<b>-</b><i>num</i>]</td>
+<td>Set a preferred number or range of local <a href="/jargon/p/port.htm">port</a> numbers to use for the connection(s). Note that port numbers by nature are a scarce resource that will be busy at times so setting this range to something too narrow might cause unnecessary connection setup failures. (Added in 7.15.2)</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--location</b></td>
+<td>(<b>HTTP/HTTPS</b>) If the server reports that the requested page has moved to a different location (indicated with a <b>Location:</b> header and a 3XX response code) this option makes <b>curl</b> redo the request on the new place. If used together with <b>-i</b>/<b>--include</b> or <b>-I</b>/<b>--head</b>, headers from all requested pages are shown. When authentication is used, <b>curl</b> only sends its credentials to the initial host. If a redirect takes <b>curl</b> to a different host, it won't be able to intercept the user+password. See also <b>--location-trusted</b> on how to change this. You can limit the amount of redirects to follow using the <b>--max-redirs</b> option.<br><br>When <b>curl</b> follows a redirect and the request is not a plain GET (for example POST or PUT), it does the following request with a GET if the HTTP response was 301, 302, or 303. If the response code was any other 3xx code, <b>curl</b> re-sends the following request using the same unmodified method.</td>
+</tr>
+<tr class="tcw">
+<td><b>--libcurl</b> <i>&lt;file&gt;</i></td>
+<td>Append this option to any ordinary <b>curl</b> command line, and you receive as output C source code that uses libcurl, written to the file that does the equivalent of what your command-line operation does! It should be noted that this option is extremely awesome.<br><br>If this option is used several times, the last given file name is used. (Added in 7.16.1)</td>
+</tr>
+<tr class="tcw">
+<td><b>--location-trusted</b></td>
+<td>(<b>HTTP/HTTPS</b>) Similar to <b>-L</b>/<b>--location</b>, but allows sending the name + password to all hosts that the site may redirect to. This may or may not introduce a security breach if the site redirects you do a site to send your authentication info (which is plaintext in the case of HTTP Basic authentication).</td>
+</tr>
+<tr class="tcw">
+<td><b>--max-filesize</b> <i>&lt;bytes&gt;</i></td>
+<td>Specify the maximum size (in bytes) of a file to download. If the file requested is larger than this value, the transfer doesn't start and <b>curl</b> returns with exit code 63.<br><br><b>NOTE:</b> The file size is not always known before download, and for such files this option has no effect even if the file transfer ends up being larger than this given limit. This concerns both FTP and HTTP transfers.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b>, <b>--max-time</b> <i>&lt;seconds&gt;</i></td>
+<td>Maximum time in seconds you allow the whole operation to take. This is useful for preventing your batch jobs from hanging for hours due to slow networks or links going down. See also the <b>--connect-timeout</b> option.<br><br>If this option is used several times, the last one will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--mail-auth</b> <i>&lt;address&gt;</i></td>
+<td>(<b>SMTP</b>) Specify a single address. This will be used to specify the authentication address (identity) of a submitted message that is being relayed to another server.<br><br>(Added in 7.25.0)</td>
+</tr>
+<tr class="tcw">
+<td><b>--mail-from</b> <i>&lt;address&gt;</i></td>
+<td>(<b>SMTP</b>) Specify a single address that the given mail should get sent from.<br><br>(Added in 7.20.0)</td>
+</tr>
+<tr class="tcw">
+<td><b>--mail-rcpt</b> <i>&lt;address&gt;</i></td>
+<td>(<b>SMTP</b>) Specify a single address that the given mail should get sent to. This option can be used multiple times to specify many recipients.<br><br>(Added in 7.20.0)</td>
+</tr>
+<tr class="tcw">
+<td><b>--metalink</b></td>
+<td>This option can tell <b>curl</b> to parse and process a given URI as Metalink file (both version 3 and 4 (RFC 5854) are supported) and make use of the mirrors listed within for failover if there are errors (such as the file or server not being available). It also verifies the <a href="/jargon/h/hash.htm">hash</a> of the file after the download completes. The Metalink file itself is downloaded and processed in memory and not stored in the local file system.<br><br>Example to use a remote Metalink file:<br><br><b>curl --metalink http://www.example.com/example.metalink</b><br><br>To use a Metalink file in the local file system, use FILE protocol (file://):<br><br><b>curl --metalink file://example.metalink</b><br><br>Please note that if FILE protocol is disabled, there is no way to use a local Metalink file at the time of this writing. Also, note that if <b>--metalink</b> and <b>--include</b> are used together, <b>--include</b> will be ignored. This is because including headers in the response will break Metalink parser and if the headers are included in the file described in Metalink file, hash check fails.<br><br>(Added in 7.27.0, if built against the libmetalink library.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--netrc</b></td>
+<td>Makes curl scan the <b>.netrc</b> file in the user's home directory for login name and password. This is used for <b>ftp</b> on unix. If used with http, <b>curl</b> enables user authentication. See <b>netrc(4)</b> or <a href="/unix/ftp.htm">ftp</a> documentation for details on the file format. <b>Curl</b> will not complain if that file hasn't the right permissions (it should not be world nor group readable). The environment variable "<b>HOME</b>" is used to find the home directory.<br><br>A quick and very simple example of how to set up a <b>.netrc</b> to allow <b>curl</b> to ftp to the machine host.domain.com with username 'myself' and password 'secret' should look similar to:<br><br><b>machine host.domain.com login myself password secret</b><br><br>If this option is used twice, the second will again disable netrc usage.</td>
+</tr>
+<tr class="tcw">
+<td><b>--negotiate</b></td>
+<td>(<b>HTTP</b>) Enables GSS-Negotiate authentication. The GSS-Negotiate method was designed by Microsoft and is used in their web applications. It is primarily meant as a support for Kerberos5 authentication but may be also used with another authentication methods.<br><br>This option requires that the curl library was built with GSSAPI support. This is not very common. Use <b>-V</b>/<b>--version</b> to see if your version supports GSS-Negotiate.<br><br>When using this option, you must also provide a fake <b>-u</b>/<b>--user</b> option to activate the authentication code properly. Sending a '<b>-u :</b>' is enough as the username and password from the <b>-u</b> option aren't actually used.<br><br>If this option is used several times, the following occurrences make no difference.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-keepalive</b></td>
+<td>Disables the use of keepalive messages on the <a href="/jargon/t/tcpip.htm">TCP</a> connection, as by default <b>curl</b> enables them.<br><br>Note that this is the negated option name documented. You can thus use <b>--keepalive</b> to enforce keepalive.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-sessionid</b></td>
+<td>(<b>SSL</b>) Disable <b>curl</b>'s use of SSL session-ID caching. By default, all transfers are done using the cache. Note that while nothing should ever get hurt by attempting to reuse SSL session-IDs, there seem to be broken SSL implementations in the wild that may require you to disable this for you to succeed. (Added in 7.16.0)<br><br>Note that this is the negated option name documented. You can thus use <b>--sessionid</b> to enforce session-ID caching.</td>
+</tr>
+<tr class="tcw">
+<td><b>--noproxy</b> <i>&lt;no-proxy-list&gt;</i></td>
+<td>Comma-separated list of hosts which do not use a proxy, if one is specified. The only wildcard is a single <b>*</b> character, which matches all hosts, and effectively disables the proxy. Each name in this list is matched as either a domain which contains the hostname, or the hostname itself. For example, <b>local.com</b> would match <b>local.com</b>, <b>local.com:80</b>, and <b>www.local.com</b>, but not <b>www.notlocal.com</b>. (Added in 7.19.4).</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b>, <b>--no-buffer</b></td>
+<td>Disables the buffering of the output stream. In normal work situations, <b>curl</b> uses a standard buffered output stream with the effect of outputting the data in chunks, not necessarily exactly when the data arrives. Using this option disables that buffering.<br><br>Note that this is the negated option name documented. You can thus use <b>--buffer</b> to enforce the buffering.</td>
+</tr>
+<tr class="tcw">
+<td><b>--netrc-file</b></td>
+<td>This option is similar to <b>--netrc</b>, except you provide the path (absolute or relative) to the netrc file that <b>curl</b> should use. You can only specify one netrc file per invocation. If several <b>--netrc-file</b> options are provided, only the last one will be used. (Added in 7.21.5)<br><br>This option overrides any use of <b>--netrc</b> as they are mutually exclusive. It also abides by <b>--netrc-optional</b> if specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>--netrc-optional</b></td>
+<td>Very similar to <b>--netrc</b>, but this option makes the .netrc usage optional and not mandatory as the <b>--netrc</b> option does.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ntlm</b></td>
+<td>(<b>HTTP</b>) Enables NTLM authentication. The NTLM authentication method was designed by Microsoft and is used by IIS web servers. It is a proprietary protocol, reverse-engineered by clever people and implemented in <b>curl</b> based on their efforts. This kind of behavior should not be endorsed, encourage everyone who uses NTLM to switch to a public and documented authentication method instead, such as Digest.<br><br>If you want to enable NTLM for your proxy authentication, then use <b>--proxy-ntlm</b>.<br><br>This option requires a library built with SSL support. Use <b>-V</b>, <b>--version</b> to see if your <b>curl</b> supports NTLM.<br><br>If this option is used several times, only the first one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--output</b> <i>&lt;file&gt;</i></td>
+<td>Write output to <i>&lt;file&gt;</i> instead of stdout. If you are using <b>{}</b> or <b>[]</b> to fetch multiple documents, you can use '<b>#</b>' followed by a number in the <i>&lt;file&gt;</i> specifier. That variable will be replaced with the current string for the URL being fetched. Like in:<br><br><b>curl http://{one,two}.site.com -o "file_#1.txt"</b><br><br>or use several variables like:<br><br><b>curl http://{site,host}.host[1-5].com -o "#1_#2"</b><br><br>You may use this option as many times as you have number of URLs.<br><br>See also the <b>--create-dirs</b> option to create the local directories dynamically. Specifying the output as '<b>-</b>' (a single dash) will force the output to be done to stdout.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b>, <b>--remote-name</b></td>
+<td>Write output to a local file named like the remote file we get. (Only the file part of the remote file is used, the path is cut off.)<br><br>The remote file name to use for saving is extracted from the given URL, nothing else.<br><br>Consequentially, the file will be saved in the current working directory. If you want the file saved in a different directory, make sure you change current working directory before you invoke <b>curl</b> with the <b>-O</b>, <b>--remote-name</b> flag!<br><br>You may use this option as many times as you have number of URLs.</td>
+</tr>
+<tr class="tcw">
+<td><b>--pass</b> <i>&lt;phrase&gt;</i></td>
+<td>(<b>SSL/SSH</b>) Pass phrase for the private key.<br><br>If this option is used several times, the last one will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--post301</b></td>
+<td>(<b>HTTP</b>) Tells <b>curl</b> to respect RFC 2616/10.3.2 and not convert POST requests into GET requests when following a 301 redirection. The non-RFC behaviour is ubiquitous in web browsers, so <b>curl</b> does the conversion by default to maintain consistency. However, a server may require a POST to remain a POST after such a redirection. This option is meaningful only when using <b>-L</b>, <b>--location</b> (Added in 7.17.1)</td>
+</tr>
+<tr class="tcw">
+<td><b>--post302</b></td>
+<td>(<b>HTTP</b>) Tells <b>curl</b> to respect RFC 2616/10.3.2 and not convert POST requests into GET requests when following a 302 redirection. The non-RFC behaviour is ubiquitous in web browsers, so <b>curl</b> does the conversion by default to maintain consistency. However, a server may require a POST to remain a POST after such a redirection. This option is meaningful only when using <b>-L</b>, <b>--location</b> (Added in 7.19.1)</td>
+</tr>
+<tr class="tcw">
+<td><b>--post303</b></td>
+<td>(<b>HTTP</b>) Tells <b>curl</b> to respect RFC 2616/10.3.2 and not convert POST requests into GET requests when following a 303 redirection. The non-RFC behaviour is ubiquitous in web browsers, so <b>curl</b> does the conversion by default to maintain consistency. However, a server may require a POST to remain a POST after such a redirection. This option is meaningful only when using <b>-L</b>, <b>--location</b> (Added in 7.26.0)</td>
+</tr>
+<tr class="tcw">
+<td><b>--proto</b> <i>&lt;protocols&gt;</i></td>
+<td>Tells <b>curl</b> to use the listed protocols for its initial retrieval. Protocols are evaluated left to right, are comma separated, and are each a protocol name or '<b>all</b>', optionally prefixed by zero or more modifiers. Available modifiers are:<br><br><b>+</b><br><br>Permit this protocol in addition to protocols already permitted (this is the default if no modifier is used).<br><br><b>-</b><br><br>Deny this protocol, removing it from the list of protocols already permitted.<br><br><b>=</b><br><br>Permit only this protocol (ignoring the list already permitted), though subject to later modification by subsequent entries in the comma separated list.<br><br>For example:<br><br><b>--proto -ftps</b> uses the default protocols, but disables ftps<br><br><b>--proto -all,https,+http</b> only enables http and https<br><br><b>--proto =http,https</b> also only enables http and https<br><br>Unknown protocols produce a warning. This allows <a href="/jargon/s/script.htm">scripts</a> to safely rely on being able to disable potentially dangerous protocols, without relying upon support for that protocol being built into <b>curl</b> to avoid an error.<br><br>This option can be used multiple times, which is the same as concatenating the protocols into one instance of the option. (Added in 7.20.2)</td>
+</tr>
+<tr class="tcw">
+<td><b>--proto-redir</b><br><i>&lt;protocols&gt;</i></td>
+<td>Tells <b>curl</b> to use the listed protocols after a redirect. See <b>--proto</b> for how protocols are represented. (Added in 7.20.2)</td>
+</tr>
+<tr class="tcw">
+<td><b>--proxy-anyauth</b></td>
+<td>Tells <b>curl</b> to pick a suitable authentication method when communicating with the given proxy. This causes an extra request/response round-trip. (Added in 7.13.2)</td>
+</tr>
+<tr class="tcw">
+<td><b>--proxy-basic</b></td>
+<td>Tells <b>curl</b> to use HTTP Basic authentication when communicating with the given proxy. Use <b>--basic</b> for enabling HTTP Basic with a remote host. Basic is the default authentication method <b>curl</b> uses with proxies.</td>
+</tr>
+<tr class="tcw">
+<td><b>--proxy-digest</b></td>
+<td>Tells <b>curl</b> to use HTTP Digest authentication when communicating with the given proxy. Use <b>--digest</b> for enabling HTTP Digest with a remote host.</td>
+</tr>
+<tr class="tcw">
+<td><b>--proxy-ntlm</b></td>
+<td>Tells <b>curl</b> to use HTTP NTLM authentication when communicating with the given proxy. Use <b>--ntlm</b> for enabling NTLM with a remote host.</td>
+</tr>
+<tr class="tcw">
+<td><b>--proxy1.0</b><br><i>&lt;proxyhost</i>[<b>:</b><i>port</i>]&gt;</td>
+<td>Use the specified HTTP 1.0 proxy. If the port number is not specified, it is assumed at port 1080.<br><br>The only difference between this and the HTTP proxy option (<b>-x</b>, <b>--proxy</b>), is that attempts to use CONNECT through the proxy specifying an HTTP 1.0 protocol instead of the default HTTP 1.1.</td>
+</tr>
+<tr class="tcw">
+<td><b>--pubkey</b> <i>&lt;key&gt;</i></td>
+<td>(<b>SSH</b>) Public key file name. Allows you to provide your public key in this separate file.<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--proxytunnel</b></td>
+<td>When an HTTP proxy is used (<b>-x</b>, <b>--proxy</b>), this option causes non-HTTP protocols to attempt to tunnel through the proxy instead of merely using it to do HTTP-like operations. The tunnel approach is made with the HTTP proxy CONNECT request and requires that the proxy allows direct connect to the remote port number <b>curl</b> wants to tunnel through to.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b>, <b>--ftp-port</b><br><i>&lt;address&gt;</i></td>
+<td>(<b>FTP</b>) Reverses the default initiator/listener roles when connecting with FTP. This switch makes <b>curl</b> use active mode. In practice, <b>curl</b> then tells the server to connect back to the client's specified address and port, while passive mode asks the server to set up an IP address and port for it to connect to. <i>&lt;address&gt;</i> should be one of:<br><br><b>interface</b><br><br>i.e "<b>eth0</b>" to specify which interface's IP address you want to use (Unix only)<br><br><b>IP address</b><br><br>i.e "<b>192.168.10.1</b>" to specify the exact IP address<br><br><b>hostname</b><br><br>i.e "<b>my.host.domain</b>" to specify the machine<br><br><b>-</b><br><br>make <b>curl</b> pick the same IP address that is already used for the control connection.<br><br>If this option is used several times, the last one is used. Disable the use of PORT with <b>--ftp-pasv</b>. Disable the attempt to use the EPRT command instead of PORT using <b>--disable-eprt</b>. EPRT is really PORT++.<br><br>Starting in 7.19.5, you can append "<b>:[start]-[end]</b>" to the right of the address, to tell curl what TCP port range to use. That means you specify a port range, from a lower to a higher number. A single number works as well, but do note that it increases the risk of failure since the port may not be available.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b></td>
+<td>If used as the first parameter on the command line, the <b>curlrc</b> config file is not read and used. See the <b>-K</b>, <b>--config</b> for details on the default config file search path.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Q</b>, <b>--quote</b><br><i>&lt;command&gt;</i></td>
+<td>(FTP/SFTP) Send an arbitrary command to the remote FTP or SFTP server. Quote commands are sent BEFORE the transfer is taking place (after the initial PWD command to be exact). To make commands take place after a successful transfer, prefix them with a dash '<b>-</b>'. To make commands get sent after libcurl has changed working directory, before the transfer command(s), prefix the command with '<b>+</b>' (this is only supported for FTP). You may specify any amount of commands. If the server returns failure for one of the commands, the entire operation will be aborted. You must send syntactically correct FTP commands as RFC959 defines to FTP servers, or one of the commands listed below to SFTP servers.<br><br>This option can be used multiple times. When speaking to an FTP server, prefix the command with an asterisk (<b>*</b>) to make <b>curl</b> continue even if the command fails as by default <b>curl</b> stops at first failure.<br><br>SFTP is a binary protocol. Unlike for FTP, <b>curl</b> interprets SFTP quote commands itself before sending them to the server. File names may be quoted shell-style to embed spaces or special characters. Following is the list of all supported SFTP quote commands:<br><br><b>chgrp group file</b><br><br>The <b>chgrp</b> command sets the group ID of the file named by the file operand to the group ID specified by the group operand. The group operand is a decimal integer group ID.<br><br><b>chmod mode file</b><br><br>The <b>chmod</b> command modifies the file mode bits of the specified file. The mode operand is an <a href="/jargon/o/octal.htm">octal</a> integer mode number.<br><br><b>chown user file</b><br><br>The <b>chown</b> command sets the owner of the file named by the file operand to the user ID specified by the user operand. The user operand is a decimal integer user ID.<br><br><b>ln source_file target_file</b><br><br>The <b>ln</b> and <b>symlink</b> commands create a symbolic link at the target_file location pointing to the source_file location.<br><br><b>mkdir directory_name</b><br><br>The <b>mkdir</b> command creates the directory named by the directory_name operand.<br><br><b>pwd</b><br><br>The <b>pwd</b> command returns the absolute pathname of the current working directory.<br><br><b>rename source target</b><br><br>The <b>rename</b> command renames the file or directory named by the source operand to the destination path named by the target operand.<br><br><b>rm file</b><br><br>The <b>rm</b> command removes the file specified by the file operand.<br><br><b>rmdir directory</b><br><br>The <b>rmdir</b> command removes the directory entry specified by the directory operand, provided it is empty.<br><br><b>symlink source_file target_file</b><br><br>See <a href="/unix/uln.htm"><b>ln</b></a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--random-file</b> <i>&lt;file&gt;</i></td>
+<td>(<b>SSL</b>) Specify the path name to file containing what will be considered as random data. The data is used to seed the random engine for SSL connections. See also the <b>--egd-file</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>--raw</b></td>
+<td>(<b>HTTP</b>) When used, it disables all internal HTTP decoding of content or transfer encodings and instead makes them passed on unaltered, raw. (Added in 7.16.2)</td>
+</tr>
+<tr class="tcw">
+<td><b>--remote-name-all</b></td>
+<td>This option changes the default action for all given URLs to be dealt with as if <b>-O</b>, <b>--remote-name</b> were used for each one. So if you want to disable that for a specific URL after <b>--remote-name-all</b> is used, you must use "<b>-o -</b>" or <b>--no-remote-name</b>. (Added in 7.19.0)</td>
+</tr>
+<tr class="tcw">
+<td><b>--resolve</b> <i>&lt;host</i><b>:</b><i>port</i><b>:</b><i>address&gt;</i></td>
+<td>Provide a custom address for a specific host and port pair. Using this, you can make the <b>curl</b> requests(s) use a specified address and prevent the otherwise normally resolved address to be used. Consider it a sort of <b>/etc/hosts</b> alternative provided on the command line. The port number should be the number used for the specific protocol the host will be used for. It means you need several entries if you want to provide address for the same host but different ports.<br><br>This option can be used many times to add many hostnames to resolve.<br><br>(Added in 7.21.3)</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--range</b> <i>&lt;range&gt;</i></td>
+<td>(<b>HTTP/FTP</b>) Retrieve a byte range (i.e a partial document) from an HTTP/1.1 or FTP server. Ranges can be specified in many ways.<br><br><b>0-499</b> specifies the first 500 bytes;<br><br><b>500-999</b> specifies the second 500 bytes;<br><br><b>-500</b> specifies the last 500 bytes;<br><br><b>9500-</b> specifies the bytes from offset 9500 and forward;<br><br><b>0-0,-1</b> specifies the first and last byte only(*)(H);<br><br><b>500-700,600-799</b> specifies 300 bytes from offset 500(H);<br><br><b>100-199,500-599</b> specifies two separate 100 bytes ranges(*)(H).<br><br>(*) = <b>NOTE</b> that this causes the server to reply with a multipart response!<br><br>Also be aware that many HTTP/1.1 servers do not have this feature enabled, so that when you attempt to get a range, you'll instead get the whole document.<br><br>FTP range downloads only support the simple syntax '<b>start-stop</b>' (optionally with one of the numbers omitted). It depends on the non-RFC command SIZE.<br><br>Only digit characters (0-9) are valid in the '<b>start</b>' and '<b>stop</b>' fields of the '<b>start-stop</b>' range syntax. If a non-digit character is given in the range, the server's response will be unspecified, depending on the server's configuration.<br><br>If this option is used several times, the last one will be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--remote-time</b></td>
+<td>When used, this makes libcurl attempt to figure out the <a href="/jargon/t/timestam.htm">timestamp</a> of the remote file, and if that is available make the local file get that same timestamp.</td>
+</tr>
+<tr class="tcw">
+<td><b>--retry</b> <i>&lt;num&gt;</i></td>
+<td>If a transient error is returned when <b>curl</b> tries to perform a transfer, it retries this number of times before giving up. Setting the number to <b>0</b> makes <b>curl</b> do no retries (which is the default). Transient error means either: a timeout, an FTP 5xx response code or an HTTP 5xx response code.<br><br>When <b>curl</b> is about to retry a transfer, it first waits one second, and then for all forthcoming retries, it doubles the waiting time until it reaches 10 minutes, which then is the delay between the rest of the retries. Using <b>--retry-delay</b>, you disable this exponential backoff algorithm. See also <b>--retry-max-time</b> to limit the total time allowed for retries. (Added in 7.12.3)<br><br>If this option is used multiple times, the last occurrence decide the amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>--retry-delay</b><br><i>&lt;seconds&gt;</i></td>
+<td>Make <b>curl</b> sleep this amount of time between each retry when a transfer has failed with a transient error (it changes the default backoff time algorithm between retries). This option is only interesting if <b>--retry</b> is also used. Setting this delay to zero makes curl use the default backoff time. (Added in 7.12.3)<br><br>If this option is used multiple times, the last occurrence decide the amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>--retry-max-time</b> <i>&lt;seconds&gt;</i></td>
+<td>The retry timer is reset before the first transfer attempt. Retries will be done as usual (see <b>--retry</b>) as long as the timer hasn't reached this given limit. Notice that if the timer hasn't reached the limit, the request will be made and while performing, it may take longer than this given time. To limit a single request's maximum time, use <b>-m</b>, <b>--max-time</b>. Set this option to zero to not timeout retries. (Added in 7.12.3)<br><br>If this option is used multiple times, the last occurrence decide the amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--silent</b></td>
+<td>Silent mode. Don't show progress meter or error messages. Makes <b>curl</b> mute. It still outputs the data you ask for, potentially even to the terminal/stdout unless you redirect it.</td>
+</tr>
+<tr class="tcw">
+<td><b>--sasl-ir</b></td>
+<td>Enable initial response in SASL authentication. (Added in 7.31.0)</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b>, <b>--show-error</b></td>
+<td>When used with <b>-s</b>, it makes <b>curl</b> show error message if it fails.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ssl</b></td>
+<td>(<b>FTP, POP3, IMAP, SMTP</b>) Try to use SSL/TLS for the connection. Reverts to a non-secure connection if the server doesn't support SSL/TLS. See also <b>--ftp-ssl-control</b> and <b>--ssl-reqd</b> for different levels of encryption required. (Added in 7.20.0)<br><br>This option was formerly known as <b>--ftp-ssl</b> (Added in 7.11.0). That option name can still be used but will be removed in a future version.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ssl-reqd</b></td>
+<td>(<b>FTP, POP3, IMAP, SMTP</b>) Require SSL/TLS for the connection. Terminates the connection if the server doesn't support SSL/TLS. (Added in 7.20.0)<br><br>This option was formerly known as <b>--ftp-ssl-reqd</b> (added in 7.15.5). That option name can still be used, but is removed in a future version.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ssl-allow-beast</b></td>
+<td>(<b>SSL</b>) This option tells <b>curl</b> not to work around a security flaw in the SSL3 and TLS1.0 protocols known as BEAST. If this option isn't used, the SSL layer may use work-arounds known to cause interoperability problems with some older SSL implementations. <b>WARNING:</b> this option loosens the SSL security, and using this flag, you ask for exactly that. (Added in 7.25.0)</td>
+</tr>
+<tr class="tcw">
+<td><b>--socks4</b> <i>&lt;host</i>[<b>:</b><i>port</i>]&gt;</td>
+<td>Use the specified SOCKS4 proxy. If the port number is not specified, it is assumed at port 1080. (Added in 7.15.2)<br><br>This option overrides any previous use of <b>-x</b>, <b>--proxy</b>, as they are mutually exclusive.<br><br>Since 7.21.7, this option is superfluous since you can specify a socks4 proxy with <b>-x</b>, <b>--proxy</b> using a <b>socks4://</b> protocol prefix.<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--socks4a</b> <i>&lt;host</i>[<b>:</b><i>port</i>]&gt;</td>
+<td>Use the specified SOCKS4a proxy. If the port number is not specified, it is assumed at port 1080. (Added in 7.18.0)<br><br>This option overrides any previous use of <b>-x</b>, <b>--proxy</b>, as they are mutually exclusive.<br><br>Since 7.21.7, this option is superfluous since you can specify a socks4a proxy with <b>-x</b>, <b>--proxy</b> using a <b>socks4a://</b> protocol prefix.<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--socks5-hostname</b> <i>&lt;host</i>[<b>:</b><i>port</i>]&gt;</td>
+<td>Use the specified SOCKS5 proxy (and let the proxy resolve the hostname). If the port number is not specified, it is assumed at port 1080. (Added in 7.18.0)<br><br>This option overrides any previous use of <b>-x</b>, <b>--proxy</b>, as they are mutually exclusive.<br><br>Since 7.21.7, this option is superfluous since you can specify a socks5 hostname proxy with <b>-x</b>, <b>--proxy</b> using a <b>socks5h://</b> protocol prefix.<br><br>If this option is used several times, the last one is used. (This option was previously wrongly documented and used as <b>--socks</b> without the number appended.)</td>
+</tr>
+<tr class="tcw">
+<td><b>--socks5</b> <i>&lt;host</i>[<b>:</b><i>port</i>]&gt;</td>
+<td>Use the specified SOCKS5 proxy - but resolve the hostname locally. If the port number is not specified, it is assumed at port 1080.<br><br>This option overrides any previous use of <b>-x</b>, <b>--proxy</b>, as they are mutually exclusive.<br><br>Since 7.21.7, this option is superfluous since you can specify a socks5 proxy with <b>-x</b>, <b>--proxy</b> using a <b>socks5://</b> protocol prefix.<br><br>If this option is used several times, the last one is used. (This option was previously wrongly documented and used as <b>--socks</b> without the number appended.)<br><br>This option (and <b>--socks4</b>) does not work with IPV6, FTPS or LDAP.</td>
+</tr>
+<tr class="tcw">
+<td><b>--socks5-gssapi-service</b> <i>&lt;servicename&gt;</i></td>
+<td>The default service name for a socks server is rcmd/server-fqdn. This option lets you change it.<br><br>Examples:<br><br><b>--socks5 proxy-name --socks5-gssapi-service sockd</b><br><br>would use sockd/proxy-name;<br><br><b>--socks5 proxy-name --socks5-gssapi-service sockd/real-name</b><br><br>would use sockd/real-name for cases where the proxy-name does not match the principal name.</td>
+</tr>
+<tr class="tcw">
+<td><b>--socks5-gssapi-nec</b></td>
+<td>As part of the gssapi negotiation a protection mode is negotiated. RFC 1961 says in section 4.3/4.4 it should be protected, but the NEC reference implementation does not. The option <b>--socks5-gssapi-nec</b> allows the unprotected exchange of the protection mode negotiation. (Added in 7.19.4).</td>
+</tr>
+<tr class="tcw">
+<td><b>--stderr</b> <i>&lt;file&gt;</i></td>
+<td>Redirect all writes to stderr to the specified file instead. If the file name is a plain '<b>-</b>', it is instead written to stdout.<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--tcp-nodelay</b></td>
+<td>Turn on the <b>TCP_NODELAY</b> option. See the <b>curl_easy_setopt</b> man page for details about this option. (Added in 7.11.2)</td>
+</tr>
+<tr class="tcw">
+<td><b>--tftp-blksize</b> <i>&lt;value&gt;</i></td>
+<td>(<b>TFTP</b>) Set TFTP BLKSIZE option (must be &gt;512). This is the block size that curl tries to use when transferring data to or from a TFTP server. By default, 512 bytes is used.<br><br>If this option is used several times, the last one is used.<br><br>(Added in 7.20.0)</td>
+</tr>
+<tr class="tcw">
+<td><b>--tlsauthtype</b><br><i>&lt;authtype&gt;</i></td>
+<td>Set TLS authentication type. Currently, the only supported option is "SRP", for TLS-SRP (RFC 5054). If <b>--tlsuser</b> and <b>--tlspassword</b> are specified but <b>--tlsauthtype</b> is not, then this option defaults to "SRP". (Added in 7.21.4)</td>
+</tr>
+<tr class="tcw">
+<td><b>--tlsuser</b> <i>&lt;user&gt;</i></td>
+<td>Set username for use with the TLS authentication method specified with <b>--tlsauthtype</b>. Requires that <b>--tlspassword</b> also be set. (Added in 7.21.4)</td>
+</tr>
+<tr class="tcw">
+<td><b>--tlspassword</b><br><i>&lt;password&gt;</i></td>
+<td>Set password for use with the TLS authentication method specified with <b>--tlsauthtype</b>. Requires that <b>--tlsuser</b> also be set. (Added in 7.21.4)</td>
+</tr>
+<tr class="tcw">
+<td><b>--tr-encoding</b></td>
+<td>(<b>HTTP</b>) Request a compressed Transfer-Encoding response using one of the algorithms <b>curl</b> supports, and uncompress the data while receiving it.<br><br>(Added in 7.21.6)</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--telnet-option</b> <i>&lt;OPT=val&gt;</i></td>
+<td>Pass options to the telnet protocol. Supported options are:<br><br><b>TType=&lt;term&gt;</b> Sets the terminal type.<br><br><b>XDISPLOC=&lt;X display&gt;</b> Sets the X display location.<br><br><b>NEW_ENV=&lt;var,val&gt;</b> Sets an environment variable.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>, <b>--upload-file</b> <i>&lt;file&gt;</i></td>
+<td>This transfers the specified local file to the remote URL. If there is no file part in the specified URL, Curl appends the local file name. <b>NOTE</b> you must use a trailing <b>/</b> on the last directory to really prove to <b>curl</b> that there is no file name or <b>curl</b> thinks that your last directory name is the remote file name to use. That most likely causes the upload operation to fail. If this is used on a http(s) server, the PUT command is used.<br><br>Use the file name "<b>-</b>" (a single dash) to use stdin instead of a given file. Alternately, the file name "<b>.</b>" (a single period) may be specified instead of "<b>-</b>" to use stdin in non-blocking mode to allow reading server output while stdin is being uploaded.<br><br>You can specify one <b>-T</b> for each URL on the command line. Each <b>-T</b> + <b>URL</b> pair specifies what to upload and to where. <b>curl</b> also supports "globbing" of the <b>-T</b> argument, meaning you can upload multiple files to a single URL using the same URL globbing style supported in the URL, like this:<br><br><b>curl -T "{file1,file2}" http://www.uploadtothissite.com</b><br><br>or even<br><br><b>curl -T "img[1-1000].png" ftp://ftp.picturemania.com/upload/</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--trace</b> <i>&lt;file&gt;</i></td>
+<td>Enables a full trace dump of all incoming and outgoing data, including descriptive information, to the given output file. Use "<b>-</b>" as filename to have the output sent to stdout.<br><br>This option overrides previous uses of <b>-v</b>, <b>--verbose</b> or <b>--trace-ascii</b>.<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--trace-ascii</b> <i>&lt;file&gt;</i></td>
+<td>Enables a full trace dump of all incoming and outgoing data, including descriptive information, to the given output file. Use "<b>-</b>" as filename to have the output sent to stdout.<br><br>This is very similar to <b>--trace</b>, but leaves out the hex part and only shows the ASCII part of the dump. It makes smaller output that might be easier to read for untrained humans.<br><br>This option overrides previous uses of <b>-v</b>, <b>--verbose</b> or <b>--trace</b>.<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--trace-time</b></td>
+<td>Prepends a timestamp to each trace or verbose line that <b>curl</b> displays. (Added in 7.14.0)</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--user</b> <i>&lt;user</i><b>:</b><i>password&gt;</i></td>
+<td>Specify user and password to use for server authentication. Overrides <b>-n</b>, <b>--netrc</b> and <b>--netrc-optional</b>.<br><br>If you give the username (without entering a colon) <b>curl</b> prompts for a password.<br><br>If you use an SSPI-enabled <b>curl</b> binary and do NTLM authentication, you can force <b>curl</b> to pick up the username and password from your environment by specifying a single colon with this option: "<b>-u :</b>".<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b>, <b>--proxy-user</b> <i>&lt;user</i><b>:</b><i>password&gt;</i></td>
+<td>Specify user and password to use for proxy authentication.<br><br>If you use an SSPI-enabled <b>curl</b> binary and do NTLM authentication, you can force <b>curl</b> to pick up the username and password from your environment by specifying a single colon with this option: "<b>-U :</b>".<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--url</b> <i>&lt;URL&gt;</i></td>
+<td>Specify a URL to fetch. This option is mostly handy when you want to specify URL(s) in a config file.<br><br>This option may be used any number of times. To control where this URL is written, use the <b>-o</b>, <b>--output</b> or the <b>-O</b>, <b>--remote-name options</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Makes the fetching more verbose/talkative. Mostly usable for debugging. Lines starting with '<b>&gt;</b>' means "header data" sent by <b>curl</b>, '<b>&lt;</b>' means "header data" received by <b>curl</b> that is hidden in normal cases and lines starting with '<b>*</b>' means additional info provided by <b>curl</b>.<br><br>Note that if you only want HTTP headers in the output, <b>-i</b>, <b>--include</b> might be option you're looking for.<br><br>If you think this option still doesn't give you enough details, consider using <b>--trace</b> or <b>--trace-ascii</b> instead.<br><br>This option overrides previous uses of <b>--trace-ascii</b> or <b>--trace</b>.<br><br>Use <b>-s</b>, <b>--silent</b> to make <b>curl</b> quiet.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>, <b>--write-out</b><br><i>&lt;format&gt;</i></td>
+<td>Defines what to display on stdout after a completed and successful operation. The format is a string that may contain plain text mixed with any number of variables. The string can be specified as "<b>string</b>", to get read from a particular file you specify it "<b>@filename</b>" and to tell curl to read the format from stdin you write "<b>@-</b>".<br><br>The variables present in the output format are substituted by the value or text that <b>curl</b> thinks fit, as described below. All variables are specified like <b>%{variable_name}</b> and to output a normal <b>%</b> you write them like <b>%%</b>. You can output a newline using <b>\n</b>, a carriage return with <b>\r</b> and a tab space with <b>\t</b>.<br><br><b>NOTE:</b> The <b>%</b>-letter is a special letter in the win32-environment, where all occurrences of <b>%</b> must be doubled when using this option.<br><br>Available variables are at this point:<br><br><b>content_type</b><br><br>The Content-Type of the requested document, if there was any.<br><br><b>filename_effective</b><br><br>The ultimate filename that <b>curl</b> writes out to. This is only meaningful if <b>curl</b> is told to write to a file with the <b>--remote-name</b> or <b>--output</b> option. It's most useful in combination with the <b>--remote-header-name</b> option. (Added in 7.25.1)<br><br><b>ftp_entry_path</b><br><br>The initial path <b>curl</b> ended up in when logging on to the remote FTP server. (Added in 7.15.4)<br><br><b>http_code</b><br><br>The numerical response code that was found in the last retrieved HTTP(S) or FTP(s) transfer. In 7.18.2 the alias <b>response_code</b> was added to show the same info.<br><br><b>http_connect</b><br><br>The numerical code that was found in the last response (from a proxy) to a <b>curl</b> CONNECT request. (Added in 7.12.4)<br><br><b>local_ip</b><br><br>The IP address of the local end of the most recently done connection - can be either IPv4 or IPv6 (Added in 7.29.0)<br><br><b>local_port</b><br><br>The local port number of the most recently done connection (Added in 7.29.0)<br><br><b>num_connects</b><br><br>Number of new connects made in the recent transfer. (Added in 7.12.3)<br><br><b>num_redirects</b><br><br>Number of redirects that were followed in the request. (Added in 7.12.3)<br><br><b>redirect_url</b><br><br>When an HTTP request was made without <b>-L</b> to follow redirects, this variable shows the actual URL a redirect would take you to. (Added in 7.18.2)<br><br><b>remote_ip</b><br><br>The remote IP address of the most recently done connection - can be either IPv4 or IPv6 (Added in 7.29.0)<br><br><b>remote_port</b><br><br>The remote port number of the most recently done connection (Added in 7.29.0)<br><br><b>size_download</b><br><br>The total amount of bytes that were downloaded.<br><br><b>size_header</b><br><br>The total amount of bytes of the downloaded headers.<br><br><b>size_request</b><br><br>The total amount of bytes that were sent in the HTTP request.<br><br><b>size_upload</b><br><br>The total amount of bytes that were uploaded.<br><br><b>speed_download</b><br><br>The average download speed that <b>curl</b> measured for the complete download. Bytes per second.<br><br><b>speed_upload</b><br><br>The average upload speed that <b>curl</b> measured for the complete upload. Bytes per second.<br><br><b>ssl_verify_result</b><br><br>The result of the SSL peer certificate verification that was requested. 0 means the verification was successful. (Added in 7.19.0)<br><br><b>time_appconnect</b><br><br>The time, in seconds, it took from the start until the SSL/SSH/etc connect/handshake to the remote host was completed. (Added in 7.19.0)<br><br><b>time_connect</b><br><br>The time, in seconds, it took from the start until the TCP connect to the remote host (or proxy) was completed.<br><br><b>time_namelookup</b><br><br>The time, in seconds, it took from the start until the name resolving was completed.<br><br><b>time_pretransfer</b><br><br>The time, in seconds, it took from the start until the file transfer was about to begin. This includes all pre-transfer commands and negotiations that are specific to the particular protocol(s) involved.<br><br><b>time_redirect</b><br><br>The time, in seconds, it took for all redirection steps include name look up, connect, pretransfer, and transfer before the final transaction was started. <b>time_redirect</b> shows the complete execution time for multiple redirections. (Added in 7.12.3)<br><br><b>time_starttransfer</b><br><br>The time, in seconds, it took from the start until the first byte was about to be transferred. This includes <b>time_pretransfer</b> and also the time the server needed to calculate the result.<br><br><b>time_total</b><br><br>The total time, in seconds, that the full operation lasted. The time is displayed with millisecond resolution.<br><br><b>url_effective</b><br><br>The URL that was fetched last. This is most meaningful if you've told <b>curl</b> to follow <b>location:</b> headers.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b>, <b>--proxy</b><br><i>&lt;[protocol://][user:password<br>@]proxyhost[:port]&gt;</i></td>
+<td>Use the specified HTTP proxy. If the port number is not specified, it is assumed at port 1080.<br><br>This option overrides existing environment variables that set the proxy to use. If there's an environment variable setting a proxy, you can set proxy to <b>""</b> to override it.<br><br>All operations that are performed over an HTTP proxy are transparently converted to HTTP. It means that certain protocol specific operations might not be available. This is not the case if you can tunnel through the proxy, as one with the <b>-p</b>, <b>--proxytunnel</b> option.<br><br>User and password that might be provided in the proxy string are URL decoded by <b>curl</b>. This lets you pass in special characters, such as <b>@</b>, using %40 or pass in a colon with %3a.<br><br>The proxy host can be specified the exact same way as the proxy environment variables, including the protocol prefix (http://) and the embedded user <b>+</b> password.<br><br>From 7.21.7, the proxy string may be specified with a <b>protocol://</b> prefix to specify alternative proxy protocols. Use <b>socks4://</b>, <b>socks4a://</b>, <b>socks5://</b> or <b>socks5h://</b> to request the specific SOCKS version to be used. No protocol specified, <b>http://</b> and all others are treated as HTTP proxies.<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-X</b>, <b>--request</b><br><i>&lt;command&gt;</i></td>
+<td>(<b>HTTP</b>) Specifies a custom request method to use when communicating with the HTTP server. The specified request is used instead of the method otherwise used (which defaults to GET). Read the HTTP 1.1 specification for details and explanations. Common additional HTTP requests include <b>PUT</b> and <b>DELETE</b>, but related technologies like WebDAV offers <b>PROPFIND</b>, <b>COPY</b>, <b>MOVE</b>, and more.<br><br>Normally you don't need this option. All sorts of GET, HEAD, POST, and PUT requests are rather invoked using dedicated command line options.<br><br>This option only changes the actual word used in the HTTP request, it does not alter the way curl behaves. So for example if you want to make a proper HEAD request, using <b>-X</b> HEAD does not suffice. You need to use the <b>-I</b>, <b>--head</b> option.<br><br>(<b>FTP</b>) Specifies a custom FTP command to use instead of LIST when doing file lists with FTP.<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--xattr</b></td>
+<td>When saving output to a file, this option tells <b>curl</b> to store certain file metadata in extended file attributes. Currently, the URL is stored in the <b>xdg.origin.url</b> attribute and, for HTTP, the content type is stored in the <b>mime_type</b> attribute. If the file system does not support extended attributes, a warning is issued.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b>, <b>--speed-time</b> <i>&lt;time&gt;</i></td>
+<td>If a download is slower than <b>speed-limit</b> bytes per second during a <b>speed-time</b> period, the download gets aborted. If <b>speed-time</b> is used, the default <b>speed-limit</b> is 1 unless set with <b>-Y</b>.<br><br>This option controls transfers and thus will not affect slow connects etc. If this is a concern for you, try the <b>--connect-timeout</b> option.<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Y</b>, <b>--speed-limit</b> <i>&lt;speed&gt;</i></td>
+<td>If a download is slower than this given speed, in bytes per second, for <b>speed-time</b> seconds it gets aborted. <b>speed-time</b> is set with <b>-y</b> and is 30 if not set.<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b>, <b>--time-cond</b> <i>&lt;date expression&gt;|&lt;file&gt;</i></td>
+<td>(HTTP) Request a file that was modified later than the given time and date, or one that was modified before that time. The <i>&lt;date expression&gt;</i> can be all sorts of date strings or if it doesn't match any internal ones, it is taken as a filename and tries to get the modification date (mtime) from <i>&lt;file&gt;</i> instead. See the <b>curl_getdate</b> man pages for date expression details.<br><br>Start the date expression with a dash (-) to make it request for a document that is older than the given date/time, default is a document that is newer than the specified date/time.<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--max-redirs</b> <i>&lt;num&gt;</i></td>
+<td>Set maximum number of redirections which may be followed. If <b>-L</b>/<b>--location</b> is used, this option can prevent <b>curl</b> from following redirections "in absurdum". By default, the limit is set to 50 redirections. Set this option to <b>-1</b> to make it limitless.<br><br>If this option is used several times, the last one is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-0</b>, <b>--http1.0</b></td>
+<td>(<b>HTTP</b>) Forces <b>curl</b> to issue its requests using HTTP 1.0 instead of using its internally preferred: HTTP 1.1.</td>
+</tr>
+<tr class="tcw">
+<td><b>-1</b>, <b>--tlsv1</b></td>
+<td>(<b>SSL</b>) Forces <b>curl</b> to use TSL version 1 when negotiating with a remote TLS server.</td>
+</tr>
+<tr class="tcw">
+<td><b>-2</b>, <b>--sslv2</b></td>
+<td>(<b>SSL</b>) Forces <b>curl</b> to use SSL version 2 when negotiating with a remote SSL server.</td>
+</tr>
+<tr class="tcw">
+<td><b>-3</b>, <b>--sslv3</b></td>
+<td>(<b>SSL</b>) Forces <b>curl</b> to use SSL version 3 when negotiating with a remote SSL server.</td>
+</tr>
+<tr class="tcw">
+<td><b>--3p-quote</b></td>
+<td>(<b>FTP</b>) Specify arbitrary commands to send to the source server. See the <b>-Q</b>, <b>--quote</b> option for details. (Added in 7.13.0)</td>
+</tr>
+<tr class="tcw">
+<td><b>--3p-url</b></td>
+<td>(<b>FTP</b>) Activates an FTP 3rd party transfer. Specifies the source URL to get a file from, while the "normal" URL will be used as target URL, the file that will be written/created.<br><br>Note that not all FTP server allow 3rd party transfers. (Added in 7.13.0)</td>
+</tr>
+<tr class="tcw">
+<td><b>--3p-user</b></td>
+<td>(<b>FTP</b>) Specify <b>user:password</b> for the source URL transfer. (Added in 7.13.0)</td>
+</tr>
+<tr class="tcw">
+<td><b>-4</b>, <b>--ipv4</b></td>
+<td>If libcurl is capable of resolving an address to multiple IP versions (which it is if it's ipv6-capable), this option tells libcurl to resolve names to IPv4 addresses only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-6</b>, <b>--ipv6</b></td>
+<td>If libcurl is capable of resolving an address to multiple IP versions (which it is if it's ipv6-capable), this option tells libcurl to resolve names to IPv6 addresses only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-#</b>, <b>--progress-bar</b></td>
+<td>Make <b>curl</b> display progress information as a progress bar instead of the default statistics.<br><br> If this option is used twice, the second again disables the progress bar.</td>
+</tr>
+</table>
+<h2 id="urls">URLs</h2>
+<p class="tab">The <a href="/jargon/u/url.htm">URL</a> <a href="/jargon/s/syntax.htm">syntax</a> is protocol-dependent. You'll find a detailed description in <a href="https://www.ietf.org/rfc/rfc3986.txt" class="external">RFC 3986</a>.</p>
+<p class="tab">You can specify multiple URLs or parts of URLs by writing part sets within braces as in:</p>
+<p class="tabb">http://site.{one,two,three}.com</p>
+<p class="tab">or you can get sequences of alphanumeric series using <b>[]</b> as in:</p>
+<p class="tabb">ftp://ftp.numericals.com/file[1-100].txt<br> ftp://ftp.numericals.com/file[001-100].txt<br> ftp://ftp.letters.com/file[a-z].txt</p>
+<p class="tab">Nested sequences are not supported, but you can use several ones next to each other:</p>
+<p class="tabb">http://any.org/archive[1996-1999]/vol[1-4]/part{a,b,c}.html</p>
+<p class="tab">You can specify any amount of URLs on the command line. They are fetched in a sequential manner in the specified order.</p>
+<p class="tab">You can specify a step counter for the ranges to get every Nth number or letter:</p>
+<p class="tabb">http://www.numericals.com/file[1-100:10].txt<br> http://www.letters.com/file[a-z:2].txt</p>
+<p class="tab">If you specify URL without <b>protocol://</b> prefix, <b>curl</b> attempts to guess what protocol you might want. It then defaults to HTTP but try other protocols based on often-used hostname prefixes. For example, for hostnames starting with "ftp." <b>curl</b> assumes you want to speak FTP.</p>
+<p class="tab"><b>curl</b> does its best to use what you pass to it as a URL. It is not trying to validate it as a syntactically correct URL by any means but is instead very liberal with what it accepts.</p>
+<p class="tab"><b>curl</b> attempts to re-use connections for multiple file transfers, so that getting many files from the same server does not do multiple connects / handshakes. This improves speed. Of course, this is only done on files specified on a single command line and cannot be used between separate <b>curl</b> invokes.</p>
+<h2 id="progress-meter">Progress meter</h2>
+<p class="tab"><b>curl</b> normally displays a progress meter during operations, indicating the amount of transferred data, transfer speeds and estimated time left, etc.</p>
+<p class="tab"><b>curl</b> displays this data to the <a href="/jargon/t/terminal.htm">terminal</a> by default, so if you invoke <b>curl</b> to do an operation and it is about to <a href="/jargon/w/write.htm">write</a> <a href="/jargon/d/data.htm">data</a> to the terminal, it disables the progress meter as otherwise it would mess up the output mixing progress meter and response data.</p>
+<p class="tab">If you want a progress meter for HTTP POST or PUT requests, you need to redirect the response output to a file, using <a href="/jargon/s/shell.htm">shell</a> redirect (<b>&gt;</b>), <b>-o</b> <i>[file]</i> or similar.</p>
+<p class="tab">It is not the same case for FTP upload as that operation does not spit out any response data to the terminal.</p>
+<p class="tab">If you prefer a progress "bar" instead of the regular meter, <b>-#</b> is your friend.</p>
+<h3 class="tab">Environment variables</h3>
+<p class="tab">The <a href="/jargon/e/envivari.htm">environment variables</a> can be specified in <a href="/jargon/l/lowercas.htm">lowercase</a> or <a href="/jargon/u/uppercase.htm">uppercase</a>. The lowercase version has precedence. <b>http_proxy</b> is an exception as it is only available in lowercase.</p>
+<p class="tab">Using an environment variable to set the proxy has the same effect as using the <b>--proxy</b> option.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:300px"><b>http_proxy</b> [<i>protocol</i><b>://</b>]<i>&lt;host&gt;</i>[<b>:</b><i>port</i>]</td>
+<td>Sets the proxy server to use for HTTP.</td>
+</tr>
+<tr class="tcw">
+<td><b>HTTPS_PROXY</b> [<i>protocol</i><b>://</b>]<i>&lt;host&gt;</i>[<b>:</b><i>port</i>]</td>
+<td>Sets the proxy server to use for HTTPS.</td>
+</tr>
+<tr class="tcw">
+<td>[<i>url-protocol</i>]<b>_PROXY</b> [<i>protocol</i><b>://</b>]<i>&lt;host&gt;</i>[<b>:</b><i>port</i>]</td>
+<td>Sets the proxy server to use for [<i>url-protocol</i>], where the <i>protocol</i> is a protocol that <b>curl</b> supports and as specified in a URL: <b>FTP</b>, <b>FTPS</b>, <b>POP3</b>, <b>IMAP</b>, <b>SMTP</b>, <b>LDAP</b> etc.</td>
+</tr>
+<tr class="tcw">
+<td><b>ALL_PROXY</b> [<i>protocol</i><b>://</b>]<i>&lt;host&gt;</i>[<b>:</b><i>port</i>]</td>
+<td>Sets the proxy server to use if no protocol-specific proxy is set.</td>
+</tr>
+<tr class="tcw">
+<td><b>NO_PROXY </b><i><br> &lt;comma-separated list of hosts&gt;</i></td>
+<td>List of hostnames that shouldn't go through any proxy. If set to an asterisk '<b>*</b>' only, it matches all hosts.</td>
+</tr>
+</table>
+<h2 id="exit">Exit codes</h2>
+<p class="tab">There are a bunch of different error codes and their corresponding error messages that may appear during bad conditions. At the time of this writing, the exit codes are:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>1</b></td>
+<td>Unsupported protocol. This build of curl has no support for this protocol.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>Failed to initialize.</td>
+</tr>
+<tr class="tcw">
+<td><b>3</b></td>
+<td>URL malformed. The syntax was not correct.</td>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td>A feature or option that was needed to perform the desired request was not enabled or was explicitly disabled at build-time. To make curl able to do this, you probably need another build of libcurl!</td>
+</tr>
+<tr class="tcw">
+<td><b>5</b></td>
+<td>Couldn't resolve proxy. The given proxy host could not be resolved.</td>
+</tr>
+<tr class="tcw">
+<td><b>6</b></td>
+<td>Couldn't resolve host. The given remote host was not resolved.</td>
+</tr>
+<tr class="tcw">
+<td><b>7</b></td>
+<td>Failed to connect to host.</td>
+</tr>
+<tr class="tcw">
+<td><b>8</b></td>
+<td>FTP weird server reply. The server sent data curl couldn't parse.</td>
+</tr>
+<tr class="tcw">
+<td><b>9</b></td>
+<td>FTP access denied. The server denied login or denied access to the particular resource or directory you wanted to reach. Most often you tried to change to a directory that doesn't exist on the server.</td>
+</tr>
+<tr class="tcw">
+<td><b>11</b></td>
+<td>FTP weird PASS reply. Curl couldn't parse the reply sent to the PASS request.</td>
+</tr>
+<tr class="tcw">
+<td><b>13</b></td>
+<td>FTP weird PASV reply, Curl couldn't parse the reply sent to the PASV request.</td>
+</tr>
+<tr class="tcw">
+<td><b>14</b></td>
+<td>FTP weird 227 format. Curl couldn't parse the 227-line the server sent.</td>
+</tr>
+<tr class="tcw">
+<td><b>15</b></td>
+<td>FTP can't get host. Couldn't resolve the host IP we got in the 227-line.</td>
+</tr>
+<tr class="tcw">
+<td><b>17</b></td>
+<td>FTP couldn't set binary. Couldn't change transfer method to binary.</td>
+</tr>
+<tr class="tcw">
+<td><b>18</b></td>
+<td>Partial file. Only a part of the file was transferred.</td>
+</tr>
+<tr class="tcw">
+<td><b>19</b></td>
+<td>FTP couldn't download/access the given file, the RETR (or similar) command failed.</td>
+</tr>
+<tr class="tcw">
+<td><b>21</b></td>
+<td>FTP quote error. A quote command returned error from the server.</td>
+</tr>
+<tr class="tcw">
+<td><b>22</b></td>
+<td>HTTP page not retrieved. The requested url was not found or returned another error with the HTTP error code being 400 or above. This return code only appears if <b>-f</b>, <b>--fail</b> is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>23</b></td>
+<td>Write error. Curl couldn't write data to a local filesystem or similar.</td>
+</tr>
+<tr class="tcw">
+<td><b>25</b></td>
+<td>FTP couldn't STOR file. The server denied the STOR operation, used for FTP uploading.</td>
+</tr>
+<tr class="tcw">
+<td><b>26</b></td>
+<td>Read error. Various reading problems.</td>
+</tr>
+<tr class="tcw">
+<td><b>27</b></td>
+<td>Out of memory. A memory allocation request failed.</td>
+</tr>
+<tr class="tcw">
+<td><b>28</b></td>
+<td>Operation timeout. The specified time-out period was reached according to the conditions.</td>
+</tr>
+<tr class="tcw">
+<td><b>30</b></td>
+<td>FTP PORT failed. The PORT command failed. Not all FTP servers support the PORT command, try doing a transfer using PASV instead!</td>
+</tr>
+<tr class="tcw">
+<td><b>31</b></td>
+<td>FTP couldn't use REST. The REST command failed. This command is used for resumed FTP transfers.</td>
+</tr>
+<tr class="tcw">
+<td><b>33</b></td>
+<td>HTTP range error. The range "command" didn't work.</td>
+</tr>
+<tr class="tcw">
+<td><b>34</b></td>
+<td>HTTP post error. Internal post-request generation error.</td>
+</tr>
+<tr class="tcw">
+<td><b>35</b></td>
+<td>SSL connect error. The SSL handshaking failed.</td>
+</tr>
+<tr class="tcw">
+<td><b>36</b></td>
+<td>FTP bad download resume. Couldn't continue an earlier aborted download.</td>
+</tr>
+<tr class="tcw">
+<td><b>37</b></td>
+<td>FILE couldn't read file. Failed to open the file. Permissions?</td>
+</tr>
+<tr class="tcw">
+<td><b>38</b></td>
+<td>LDAP cannot bind. LDAP bind operation failed.</td>
+</tr>
+<tr class="tcw">
+<td><b>39</b></td>
+<td>LDAP search failed.</td>
+</tr>
+<tr class="tcw">
+<td><b>41</b></td>
+<td>Function not found. A required LDAP function was not found.</td>
+</tr>
+<tr class="tcw">
+<td><b>42</b></td>
+<td>Aborted by callback. An application told curl to abort the operation.</td>
+</tr>
+<tr class="tcw">
+<td><b>43</b></td>
+<td>Internal error. A function was called with a bad parameter.</td>
+</tr>
+<tr class="tcw">
+<td><b>45</b></td>
+<td>Interface error. A specified outgoing interface could not be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>47</b></td>
+<td>Too many redirects. When following redirects, curl hit the maximum amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>48</b></td>
+<td>Unknown option specified to libcurl. This indicates that you passed a weird option to curl that was passed on to libcurl and rejected. Read up in the manual!</td>
+</tr>
+<tr class="tcw">
+<td><b>49</b></td>
+<td>Malformed telnet option.</td>
+</tr>
+<tr class="tcw">
+<td><b>51</b></td>
+<td>The peer's SSL certificate or SSH MD5 fingerprint was not OK.</td>
+</tr>
+<tr class="tcw">
+<td><b>52</b></td>
+<td>The server didn't reply anything, which here is considered an error.</td>
+</tr>
+<tr class="tcw">
+<td><b>53</b></td>
+<td>SSL crypto engine not found.</td>
+</tr>
+<tr class="tcw">
+<td><b>54</b></td>
+<td>Cannot set SSL crypto engine as default.</td>
+</tr>
+<tr class="tcw">
+<td><b>55</b></td>
+<td>Failed sending network data.</td>
+</tr>
+<tr class="tcw">
+<td><b>56</b></td>
+<td>Failure in receiving network data.</td>
+</tr>
+<tr class="tcw">
+<td><b>58</b></td>
+<td>Problem with the local certificate.</td>
+</tr>
+<tr class="tcw">
+<td><b>59</b></td>
+<td>Couldn't use specified SSL cipher.</td>
+</tr>
+<tr class="tcw">
+<td><b>60</b></td>
+<td>Peer certificate cannot be authenticated with known CA certificates.</td>
+</tr>
+<tr class="tcw">
+<td><b>61</b></td>
+<td>Unrecognized transfer encoding.</td>
+</tr>
+<tr class="tcw">
+<td><b>62</b></td>
+<td>Invalid LDAP URL.</td>
+</tr>
+<tr class="tcw">
+<td><b>63</b></td>
+<td>Maximum file size exceeded.</td>
+</tr>
+<tr class="tcw">
+<td><b>64</b></td>
+<td>Requested FTP SSL level failed.</td>
+</tr>
+<tr class="tcw">
+<td><b>65</b></td>
+<td>Sending the data requires a rewind that failed.</td>
+</tr>
+<tr class="tcw">
+<td><b>66</b></td>
+<td>Failed to initialize SSL Engine.</td>
+</tr>
+<tr class="tcw">
+<td><b>67</b></td>
+<td>The username, password, or similar was not accepted and curl failed to log in.</td>
+</tr>
+<tr class="tcw">
+<td><b>68</b></td>
+<td>File not found on TFTP server.</td>
+</tr>
+<tr class="tcw">
+<td><b>69</b></td>
+<td>Permission problem on TFTP server.</td>
+</tr>
+<tr class="tcw">
+<td><b>70</b></td>
+<td>Out of disk space on TFTP server.</td>
+</tr>
+<tr class="tcw">
+<td><b>71</b></td>
+<td>Illegal TFTP operation.</td>
+</tr>
+<tr class="tcw">
+<td><b>72</b></td>
+<td>Unknown TFTP transfer ID.</td>
+</tr>
+<tr class="tcw">
+<td><b>73</b></td>
+<td>File already exists (TFTP).</td>
+</tr>
+<tr class="tcw">
+<td><b>74</b></td>
+<td>No such user (TFTP).</td>
+</tr>
+<tr class="tcw">
+<td><b>75</b></td>
+<td>Character conversion failed.</td>
+</tr>
+<tr class="tcw">
+<td><b>76</b></td>
+<td>Character conversion functions required.</td>
+</tr>
+<tr class="tcw">
+<td><b>77</b></td>
+<td>Problem with reading the SSL CA cert (path? access rights?).</td>
+</tr>
+<tr class="tcw">
+<td><b>78</b></td>
+<td>The resource referenced in the URL does not exist.</td>
+</tr>
+<tr class="tcw">
+<td><b>79</b></td>
+<td>An unspecified error occurred during the SSH session.</td>
+</tr>
+<tr class="tcw">
+<td><b>80</b></td>
+<td>Failed to shut down the SSL connection.</td>
+</tr>
+<tr class="tcw">
+<td><b>82</b></td>
+<td>Could not load CRL file, missing or wrong format (added in 7.19.0).</td>
+</tr>
+<tr class="tcw">
+<td><b>83</b></td>
+<td>Issuer check failed (added in 7.19.0).</td>
+</tr>
+<tr class="tcw">
+<td><b>84</b></td>
+<td>The FTP PRET command failed.</td>
+</tr>
+<tr class="tcw">
+<td><b>85</b></td>
+<td>RTSP: mismatch of CSeq numbers.</td>
+</tr>
+<tr class="tcw">
+<td><b>86</b></td>
+<td>RTSP: mismatch of Session Identifiers.</td>
+</tr>
+<tr class="tcw">
+<td><b>87</b></td>
+<td>Unable to parse FTP file list.</td>
+</tr>
+<tr class="tcw">
+<td><b>88</b></td>
+<td>FTP chunk callback reported error.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">curl https://www.computerhope.com/index.htm</pre>
+<p class="tab">Fetch the file <b>index.htm</b> from <b>www.computerhope.com</b> using the <b>HTTP</b> protocol, and display it to standard output. This is essentially the same as "viewing the source" of the webpage; the raw HTML is displayed.</p>
+<pre class="tcy tab">curl https://www.computerhope.com/index.htm &gt; index.htm</pre>
+<p class="tab">Fetch the same file as above, but redirect the output to a file, <b>index.htm</b>, in the current directory.</p>
+<pre class="tcy tab">curl -O https://www.computerhope.com/index.htm</pre>
+<p class="tab">Fetch the same file as above, and output to a file with the same name (<b>index.htm</b>) in the current directory, this time using the curl function <b>-O</b>.</p>
+<pre class="tcy tab">curl --limit-rate 1234B -O https://www.computerhope.com/index.htm</pre>
+<p class="tab">Same as above, but this time, limit the download speed to (an average speed of) 1,234 bytes/second.</p>
+<pre class="tcy tab">curl --limit-rate 1234B -O -# https://www.computerhope.com/index.htm</pre>
+<p class="tab">Same as above, but this time, display a progress bar (the <b>-#</b> option) instead of the numerical progress meter.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/wget.htm"><b>wget</b></a> &mdash; Download files via HTTP or FTP.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82ce2c53c3d9',m:'NmROBB0MsCDSsXYwUMVYojLUdn9Ygi9OJ6sL2LxBTB8-1661495344-0-AaxIf5Z3YTdQJsRqkbU8/ctJyTf1zpzWMevxM7wOwsKP7ZMz5G96u8GTC8AaqJ9Gj/1/G6nX7smUi1CQddGX9tOckE9SHY0Za5Vw8SwaGbwaQEouCw5r8VeUqjnG8ntY0g==',s:[0xbb7d6039f9,0xe0da52cbca],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

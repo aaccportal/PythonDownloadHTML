@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux sar command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/sar.gif" width="300" height="300" alt="sar command" class="floatRight"><p class="intro">On the <a href="/jargon/s/solaris.htm">Solaris</a> operating system, the <b>sar</b> command collects, reports, or saves <a href="/jargon/s/system.htm">system</a> activity information.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>sar</b> command writes to standard output the contents of selected cumulative activity counters in the <a href="/jargon/o/os.htm">operating system</a>. The accounting system, based on the values in the <i>count</i> and <i>interval</i> <a href="/jargon/p/paramete.htm">parameters</a>, writes information the specified number of times spaced at the specified intervals in seconds. If the <i>interval</i> parameter is set to zero, the <b>sar</b> command displays the average statistics for the time since the system was started. If the <i>interval</i> parameter is specified without the <i>count</i> parameter, then reports are generated continuously. The collected data can also be saved in the file specified by the <b>-o</b> <i>file name</i> flag, in addition to being displayed onto the screen. If <i>file name</i> is omitted, <b>sar</b> uses the standard system activity daily data file, the <b>/var/log/sysstat/sa</b><i>dd</i> file, where the <i>dd</i> parameter indicates the current day. By default, all the data available from the <a href="/jargon/k/kernel.htm">kernel</a> are saved in the data file.</p>
+<p class="tab">The <b>sar</b> command extracts and writes to standard output records previously saved in a file. This file can be either the one specified by the <b>-f</b> flag or, by default, the standard system activity daily data file. It is also possible to enter <b>-1</b>, <b>-2</b> (etc.) as an <a href="/jargon/a/argument.htm">argument</a> to <b>sar</b> to display data of that days ago. For example, <b>-1</b> points at the standard system activity file of yesterday.</p>
+<p class="tab">Without the <b>-P</b> flag, the <b>sar</b> command reports system-wide (global among all <a href="/jargon/c/cpu.htm">processors</a>) statistics, which are calculated as averages for values expressed as percentages, and as sums otherwise. If the <b>-P</b> flag is given, the <b>sar</b> command reports activity which relates to the specified processor or processors. If <b>-P ALL</b> is given, the <b>sar</b> command reports statistics for each processor and global statistics among all processors.</p>
+<p class="tab">You can select information about specific system activities using flags. Not specifying any flags selects only CPU activity. Specifying the <b>-A</b> flag selects all possible activities.</p>
+<p class="tab">The default version of the <b>sar</b> command (CPU utilization report) might be one of the first facilities the user runs to begin system activity investigation, because it monitors major system resources. If CPU utilization is near 100 percent (user + <a href="/unix/unice.htm">nice</a> + system), the workload sampled is CPU-bound.</p>
+<p class="tab">If multiple samples and multiple reports are desired, it is convenient to specify an output file for the <b>sar</b> command. Run the <b>sar</b> command as a background process. The syntax for this is:</p>
+<pre class="tab tcy">sar -o datafile interval count &gt;/dev/null 2&gt;&amp;1 &amp;</pre>
+<p class="tab">All data are captured in <a href="/jargon/b/binary.htm">binary</a> form and saved to a file (datafile). The data can then be selectively displayed with the <b>sar</b> command using the <b>-f</b> option. Set the <i>interval</i> and <i>count</i> parameters to select <i>count</i> records at <i>interval</i> second intervals. If the <i>count</i> parameter is not set, all the records saved in the file is selected. Collection of data in this manner is useful to characterize system usage over a period and determine peak usage hours.</p>
+<p class="tab">Note: The <b>sar</b> command only reports on local activities.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">sar [-A] [-B] [-b] [-C] [-d] [-F] [-H] [-h] [-p] [-q] [-R] [-r] [-S] [-t] 
+    [-u [ALL]] [-V] [-v] [-W] [-w] [-y] [-I {int [,...] | SUM | ALL | XALL}] 
+    [-P {cpu [,...] | ALL}] [-m {<i>keyword</i> [,...] | ALL}] 
+    [-n {<i>keyword</i> [,...] | ALL}] [-j {ID | LABEL | PATH | UUID | ...}] 
+    [-f [<i>file name</i>] | -o [<i>file name</i>] | -[0-9]+] [-i <i>interval</i>] [-s [hh:mm:ss]] 
+    [-e [hh:mm:ss]] [<i>interval</i> [<i>count</i>]]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td width="200"><b>-A</b></td>
+<td>This option is equivalent to specifying <b>-bBdHqrRSuvwWy -I SUM -I XALL -m ALL -n ALL -u ALL -P ALL</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b></td>
+<td><p>Report paging statistics. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:120px"><b>pgpgin/s</b></td>
+<td>Total number of <a href="/jargon/k/kilobyte.htm">kilobytes</a> the system paged in from <a href="/jargon/d/disk.htm">disk</a> per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>pgpgout/s</b></td>
+<td>Total number of kilobytes the system paged out to disk per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>fault/s</b></td>
+<td>Number of <a href="/jargon/p/pagefaul.htm">page faults</a> (major + minor) made by the system per second. This value is not a count of page faults that generate <a href="/jargon/i/io.htm">I/O</a>, because some page faults can be resolved without I/O.</td>
+</tr>
+<tr class="tcw">
+<td><b>majflt/s</b></td>
+<td>Number of major faults the system has made per second, those which have required loading a memory page from disk.</td>
+</tr>
+<tr class="tcw">
+<td><b>pgfree/s</b></td>
+<td>Number of pages placed on the free list by the system per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>pgscank/s</b></td>
+<td>Number of pages scanned by the <b>kswapd</b> <a href="/jargon/d/daemon.htm">daemon</a> per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>pgscand/s</b></td>
+<td>Number of pages scanned directly per second.</td>
+</tr>
+ <tr class="tcw">
+<td><b>pgsteal/s</b></td>
+<td>Number of pages the system has reclaimed from <a href="/jargon/c/cache.htm">cache</a> (page cache and swap cache) per second to satisfy its memory demands.</td>
+</tr>
+<tr class="tcw">
+<td><b>%vmeff</b></td>
+<td>Calculated as <b>pgsteal / pgscan</b>, this is a metric of the efficiency of page reclaim. If it is near 100% then almost every page coming off the tail of the inactive list is being reaped. If it gets too low (e.g., less than 30%) then the virtual memory is having some difficulty. This field is displayed as zero if no pages have been scanned during the interval of time.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td><p>Report I/O and transfer rate statistics. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:100px"><b>tps</b></td>
+<td>Total number of transfers per second that were issued to physical devices. A transfer is an I/O request to a physical device. Multiple logical requests can be combined into a single I/O request to the device. A transfer is of indeterminate size.</td>
+</tr>
+<tr class="tcw">
+<td><b>rtps</b></td>
+<td>Total number of read requests per second issued to physical devices.</td>
+</tr>
+<tr class="tcw">
+<td><b>wtps</b></td>
+<td>Total number of write requests per second issued to physical devices.</td>
+</tr>
+<tr class="tcw">
+<td><b>bread/s</b></td>
+<td>Total amount of data read from the devices in <a href="/jargon/b/block.htm">blocks</a> per second. Blocks are equivalent to sectors and therefore have a size of 512 <a href="/jargon/b/byte.htm">bytes</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>bwrtn/s</b></td>
+<td>Total amount of data written to devices in blocks per second.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>When reading data from a file, tell <b>sar</b> to display comments that have been inserted by <b>sadc</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td><p>Report activity for each block device. When data are displayed, the device specification <b>dev</b> <i>m</i><b>-</b><i>n</i> is generally used ( <b>DEV</b> column). <i>m</i> is the major number of the device and <i>n</i> its minor number. Device names may also be pretty-printed if option <b>-p</b> is used or persistent device names can be printed if option <b>-j</b> is used (see below). Note that disk activity depends on <b>sadc</b> options "<b>-S DISK</b>" and "<b>-S XDISK</b>" to be collected. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:110px"><b>tps</b></td>
+<td>Indicate the number of transfers per second that were issued to the device. Multiple logical requests can be combined into a single I/O request to the device. A transfer is of indeterminate size.</td>
+</tr>
+<tr class="tcw">
+<td><b>rd_sec/s</b></td>
+<td>Number of <a href="/jargon/s/sector.htm">sectors</a> read from the device. The size of a sector is 512 bytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>wr_sec/s</b></td>
+<td>Number of sectors written to the device. The size of a sector is 512 bytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>avgrq-sz</b></td>
+<td>The average size (in sectors) of the requests that were issued to the device.</td>
+</tr>
+<tr class="tcw">
+<td><b>avgqu-sz</b></td>
+<td>The average <a href="/jargon/q/queue.htm">queue</a> length of the requests that were issued to the device.</td>
+</tr>
+<tr class="tcw">
+<td><b>await</b></td>
+<td>The average time (in milliseconds) for I/O requests issued to the device to be served. This value includes the time spent by the requests in queue and the time spent servicing them.</td>
+</tr>
+<tr class="tcw">
+<td><b>svctm</b></td>
+<td>The average service time (in milliseconds) for I/O requests that were issued to the device. Warning: Do not trust this field any more. This field is removed in a future sysstat version.</td>
+</tr>
+<tr class="tcw">
+<td><b>%util</b></td>
+<td>Percentage of CPU time during which I/O requests were issued to the device (<a href="/jargon/b/bandwidt.htm">bandwidth</a> utilization for the device). Device saturation occurs when this value is close to 100%.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b> [<i>hh</i><b>:</b><i>mm</i><b>:</b><i>ss</i>]</td>
+<td>Set the ending time of the report. The default ending time is 18:00:00. Hours must be given in 24-hour format. This option can be used when data are read from or written to a file (options <b>-f</b> or <b>-o</b> ).</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b></td>
+<td><p>Display statistics for currently mounted <a href="/jargon/f/filesyst.htm">filesystems</a>. Pseudo-filesystems are ignored. At the end of the report, <b>sar</b> displays a summary of all those filesystems. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:120px"><b>MBfsfree</b></td>
+<td>Total amount a free space in <a href="/jargon/m/megabyte.htm">megabytes</a> (including space available only to privileged user).</td>
+</tr>
+<tr class="tcw">
+<td><b>MBfsused</b></td>
+<td>Total amount of space used in megabytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>%fsused</b></td>
+<td>Percentage of filesystem space used, as seen by a privileged user.</td>
+</tr>
+<tr class="tcw">
+<td><b>%ufsused</b></td>
+<td>Percentage of filesystem space used, as seen by an unprivileged user.</td>
+</tr>
+<tr class="tcw">
+<td><b>Ifree</b></td>
+<td>Total number of free file <a href="/jargon/i/inode.htm">nodes</a> in filesystem.</td>
+</tr>
+<tr class="tcw">
+<td><b>Iused</b></td>
+<td>Total number of file nodes used in filesystem.</td>
+</tr>
+<tr class="tcw">
+<td><b>%Iused</b></td>
+<td>Percentage of file nodes used in filesystem.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> [<i>file name</i>]</td>
+<td>Extract records from file name (created by the <b>-o</b> <i>file name</i> flag). The default value of the <i>file name</i> parameter is the current daily data file, the <b>/var/log/sysstat/sadd</b> file. The <b>-f</b> option is exclusive of the <b>-o</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b></td>
+<td><p>Report hugepages utilization statistics. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>kbhugfree</b></td>
+<td>Amount of hugepages memory in kilobytes that is not yet allocated.</td>
+</tr>
+<tr class="tcw">
+<td><b>kbhugused</b></td>
+<td>Amount of hugepages memory in kilobytes that is allocated.</td>
+</tr>
+<tr class="tcw">
+<td><b>%hugused</b></td>
+<td>Percentage of total hugepages memory that is allocated.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Display a short help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> {<i>int</i> [<b>,</b>...] | <b>SUM</b> | <b>ALL</b> | <b>XALL</b>}</td>
+<td>Report statistics for a given <a href="/jargon/i/interrup.htm">interrupt</a>. The <i>int</i> is the interrupt number. Specifying multiple <b>-I</b> <i>int</i> parameters on the <a href="/jargon/c/commandi.htm">command line</a> looks at multiple independent interrupts. The <b>SUM</b> keyword indicates that the total number of interrupts received per second is to be displayed. The <b>ALL</b> keyword indicates that statistics from the first 16 interrupts are to be reported, whereas the <b>XALL</b> keyword indicates that statistics from all interrupts, including potential <a href="/jargon/a/apic.htm">APIC</a> interrupt sources, are to be reported. Note that interrupt statistics depend on <b>sadc</b> option "<b>-S INT</b>" to be collected.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b> <i>interval</i></td>
+<td>Select data records at seconds as close as possible to the number specified by the <i>interval</i> parameter.</td>
+</tr>
+<tr class="tcw">
+<td><b>-j</b> {<b>ID</b> | <b>LABEL</b> | <b>PATH</b> | <b>UUID</b> | ...}</td>
+<td>Display persistent device names. Use this option in conjunction with option <b>-d</b>. Options <b>ID</b>, <b>LABEL</b>, etc. specify the type of the persistent name. These options are not limited; the only prerequisite is that a <a href="/jargon/d/director.htm">directory</a> with required persistent names is present in <b>/dev/disk</b>. If persistent name is not found for the device, the device name is pretty-printed (see option <b>-p</b> below).</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b> {<i>keyword</i> [<b>,</b>...] | <b>ALL</b>}</td>
+<td><p>Report power management statistics. Note that these statistics depend on <b>sadc</b> option "<b>-S POWER</b>" to be collected.</p>
+<p>Possible keywords are <b>CPU</b>, <b>FAN</b>, <b>FREQ</b>, <b>IN</b>, <b>TEMP</b> and <b>USB</b>.</p>
+<p>With the <b>CPU</b> keyword, statistics about CPU are reported. The following value is displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:50px"><b>MHz</b></td>
+<td>Instantaneous CPU clock frequency in <a href="/jargon/m/mhz.htm">MHz</a>.</td>
+</tr>
+</table>
+<p>With the <b>FAN</b> keyword, statistics about fans speed are reported. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:90px"><b>rpm</b></td>
+<td>Fan speed expressed in <a href="/jargon/r/rpm.htm">revolutions per minute</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>drpm</b></td>
+<td>This field is calculated as the difference between current fan speed (<b>rpm</b>) and its low limit (<b>fan_min</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>DEVICE</b></td>
+<td>Sensor device name.</td>
+</tr>
+</table>
+<p>With the <b>FREQ</b> keyword, statistics about CPU clock frequency are reported. The following value is displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:100px"><b>wghMHz</b></td>
+<td>Weighted average CPU clock frequency in MHz. Note that the <b>cpufreq-stats</b> driver must be <a href="/jargon/c/compile.htm">compiled</a> in the kernel for this option to work.</td>
+</tr>
+</table>
+<p>With the <b>IN</b> keyword, statistics about voltage inputs are reported. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:90px"><b>inV</b></td>
+<td>Voltage input expressed in Volts.</td>
+</tr>
+<tr class="tcw">
+<td><b>%in</b></td>
+<td>Relative input value. A value of 100% means that voltage input has reached its high limit (<b>in_max</b>) whereas a value of 0% means that it has reached its low limit (<b>in_min</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>DEVICE</b></td>
+<td>Sensor device name.</td>
+</tr>
+</table>
+<p>With the <b>TEMP</b> keyword, statistics about device temperatures are reported. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:90px"><b>degC</b></td>
+<td>Device temperature expressed in degrees Celsius.</td>
+</tr>
+<tr class="tcw">
+<td><b>%temp</b></td>
+<td>Relative device temperature. A value of 100% means that temperature has reached its high limit (<b>temp_max</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>DEVICE</b></td>
+<td>Sensor device name.</td>
+</tr>
+</table>
+<p>With the <b>USB</b> keyword, the <b>sar</b> command takes a snapshot of all the <a href="/jargon/u/usb.htm">USB</a> devices currently plugged into the system. At the end of the report, <b>sar</b> displays a summary of all those USB devices. The following values are displayed:</p> 
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:120px"><b>BUS</b></td>
+<td>Root hub number of the USB device.</td>
+</tr>
+<tr class="tcw">
+<td><b>idvendor</b></td>
+<td>Vendor ID number (assigned by USB organization).</td>
+</tr>
+<tr class="tcw">
+<td><b>idprod</b></td>
+<td>Product ID number (assigned by Manufacturer).</td>
+</tr>
+<tr class="tcw">
+<td><b>maxpower</b></td>
+<td>Maximum power consumption of the device (expressed in <b>mA</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>manufact</b></td>
+<td>Manufacturer name.</td>
+</tr>
+<tr class="tcw">
+<td><b>product</b></td>
+<td>Product name.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b> {<i>keyword</i> [<b>,</b>...] | <b>ALL</b>}</td>
+<td><p>Report network statistics.</p>
+<p>Possible keywords are <b>DEV</b>, <b>EDEV</b>, <b>NFS</b>, <b>NFSD</b>, <b>SOCK</b>, <b>IP</b>, <b>EIP</b>, <b>ICMP</b>, <b>EICMP</b>, <b>TCP</b>, <b>ETCP</b>, <b>UDP</b>, <b>SOCK6</b>, <b>IP6</b>, <b>EIP6</b>, <b>ICMP6</b>, <b>EICMP6</b> and <b>UDP6</b>.</p>
+<p>With the <b>DEV</b> keyword, statistics from the network devices are reported. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:110px"><b>IFACE</b></td>
+<td>Name of the network interface for which statistics are reported.</td>
+</tr>
+<tr class="tcw">
+<td><b>rxpck/s</b></td>
+<td>Total number of <a href="/jargon/p/packet.htm">packets</a> received per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>txpck/s</b></td>
+<td>Total number of packets transmitted per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>rxkB/s</b></td>
+<td>Total number of kilobytes received per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>txkB/s</b></td>
+<td>Total number of kilobytes transmitted per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>rxcmp/s</b></td>
+<td>Number of compressed packets received per second (for cslip etc.).</td>
+</tr>
+<tr class="tcw">
+<td><b>txcmp/s</b></td>
+<td>Number of compressed packets transmitted per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>rxmcst/s</b></td>
+<td>Number of multicast packets received per second.</td>
+</tr>
+</table>
+<p>With the <b>EDEV</b> keyword, statistics on failures (errors) from the network devices are reported. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:110px"><b>IFACE</b></td>
+<td>Name of the network interface for which statistics are reported.</td>
+</tr>
+<tr class="tcw">
+<td><b>rxerr/s</b></td>
+<td>Total number of bad packets received per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>txerr/s</b></td>
+<td>Total number of errors that happened per second while transmitting packets.</td>
+</tr>
+<tr class="tcw">
+<td><b>coll/s</b></td>
+<td>Number of collisions that happened per second while transmitting packets.</td>
+</tr>
+<tr class="tcw">
+<td><b>rxdrop/s</b></td>
+<td>Number of received packets dropped per second because of a lack of space in linux buffers.</td>
+</tr>
+<tr class="tcw">
+<td><b>txdrop/s</b></td>
+<td>Number of transmitted packets dropped per second because of a lack of space in linux buffers.</td>
+</tr>
+<tr class="tcw">
+<td><b>txcarr/s</b></td>
+<td>Number of carrier-errors that happened per second while transmitting packets.</td>
+</tr>
+<tr class="tcw">
+<td><b>rxfram/s</b></td>
+<td>Number of frame alignment errors that happened per second on received packets.</td>
+</tr>
+<tr class="tcw">
+<td><b>rxfifo/s</b></td>
+<td>Number of <a href="/jargon/f/fifo.htm">FIFO</a> overrun errors that happened per second on received packets.</td>
+</tr>
+<tr class="tcw">
+<td><b>txfifo/s</b></td>
+<td>Number of FIFO overrun errors that happened per second on transmitted packets.</td>
+</tr>
+</table>
+<p>With the <b>NFS</b> keyword, statistics about <a href="/jargon/n/nfs.htm">NFS</a> client activity are reported. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:110px"><b>call/s</b></td>
+<td>Number of RPC requests made per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>retrans/s</b></td>
+<td>Number of RPC requests per second, those which needed to be retransmitted (for example because of a server <a href="/jargon/t/timeout.htm">timeout</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>read/s</b></td>
+<td>Number of 'read' RPC calls made per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>write/s</b></td>
+<td>Number of 'write' RPC calls made per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>access/s</b></td>
+<td>Number of 'access' RPC calls made per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>getatt/s</b></td>
+<td>Number of 'getattr' RPC calls made per second.</td>
+</tr>
+</table>
+<p>With the <b>NFSD</b> keyword, statistics about NFS server activity are reported. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:110px"><b>scall/s</b></td>
+<td>Number of RPC requests received per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>badcall/s</b></td>
+<td>Number of bad RPC requests received per second, those whose processing generated an error.</td>
+</tr>
+<tr class="tcw">
+<td><b>packet/s</b></td>
+<td>Number of network packets received per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>udp/s</b></td>
+<td>Number of UDP packets received per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>tcp/s</b></td>
+<td>Number of TCP packets received per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>hit/s</b></td>
+<td>Number of reply cache hits per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>miss/s</b></td>
+<td>Number of reply cache misses per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>sread/s</b></td>
+<td>Number of 'read' RPC calls received per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>swrite/s</b></td>
+<td>Number of 'write' RPC calls received per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>saccess/s</b></td>
+<td>Number of 'access' RPC calls received per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>sgetatt/s</b></td>
+<td>Number of 'getattr' RPC calls received per second.</td>
+</tr>
+</table>
+<p>With the <b>SOCK</b> keyword, statistics on sockets in use are reported (<a href="/jargon/i/ipv4.htm">IPv4</a>). The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:100px"><b>totsck</b></td>
+<td>Total number of sockets used by the system.</td>
+</tr>
+<tr class="tcw">
+<td><b>tcpsck</b></td>
+<td>Number of TCP sockets currently in use.</td>
+</tr>
+<tr class="tcw">
+<td><b>udpsck</b></td>
+<td>Number of UDP sockets currently in use.</td>
+</tr>
+<tr class="tcw">
+<td><b>rawsck</b></td>
+<td>Number of RAW sockets currently in use.</td>
+</tr>
+<tr class="tcw">
+<td><b>ip-frag</b></td>
+<td>Number of IP fragments currently in queue.</td>
+</tr>
+<tr class="tcw">
+<td><b>tcp-tw</b></td>
+<td>Number of TCP sockets in TIME_WAIT state.</td>
+</tr>
+</table>
+<p>With the <b>IP</b> keyword, statistics about IPv4 network traffic are reported. Note that IPv4 statistics depend on <b>sadc</b> option "<b>-S SNMP</b>" to be collected. The following values are displayed (formal <a href="/jargon/s/snmp.htm">SNMP</a> names between square brackets):</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:120px"><b>irec/s</b></td>
+<td>The total number of input <a href="/jargon/p/packet.htm">datagrams</a> received from interfaces per second, including those received in error [ipInReceives].</td>
+</tr>
+<tr class="tcw">
+<td><b>fwddgm/s</b></td>
+<td>The number of input datagrams per second, for which this entity was not their final IP destination, as a result of which an attempt was made to find a route to forward them to that final destination [ipForwDatagrams].</td>
+</tr>
+<tr class="tcw">
+<td><b>idel/s</b></td>
+<td>The total number of input datagrams successfully delivered per second to IP user-protocols (including ICMP) [ipInDelivers].</td>
+</tr>
+<tr class="tcw">
+<td><b>orq/s</b></td>
+<td>The total number of IP datagrams which local IP user-protocols (including ICMP) supplied per second to IP in requests for transmission [ipOutRequests]. Note that this counter does not include any datagrams counted in fwddgm/s.</td>
+</tr>
+<tr class="tcw">
+<td><b>asmrq/s</b></td>
+<td>The number of IP fragments received per second which needed to be reassembled at this entity [ipReasmReqds].</td>
+</tr>
+<tr class="tcw">
+<td><b>asmok/s</b></td>
+<td>The number of IP datagrams successfully re-assembled per second [ipReasmOKs].</td>
+</tr>
+<tr class="tcw">
+<td><b>fragok/s</b></td>
+<td>The number of IP datagrams that have been successfully fragmented at this entity per second [ipFragOKs].</td>
+</tr>
+<tr class="tcw">
+<td><b>fragcrt/s</b></td>
+<td>The number of IP datagram fragments that have been generated per second as a result of fragmentation at this entity [ipFragCreates].</td>
+</tr>
+</table>
+<p>With the <b>EIP</b> keyword, statistics about IPv4 network errors are reported. Note that IPv4 statistics depend on <b>sadc</b> option "<b>-S SNMP</b>" to be collected. The following values are displayed (formal SNMP names between square brackets):</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:120px"><b>ihdrerr/s</b></td>
+<td>The number of input datagrams discarded per second due to errors in their IP headers, including bad checksums, version number mismatch, other format errors, time-to-live exceeded, errors discovered in processing their IP options, etc. [ipInHdrErrors]</td>
+</tr>
+<tr class="tcw">
+<td><b>iadrerr/s</b></td>
+<td>The number of input datagrams discarded per second because the IP address in their IP header's destination field was not a valid address to be received at this entity. This count includes invalid addresses (e.g., 0.0.0.0) and addresses of unsupported Classes (e.g., Class E). For entities that are not IP routers and therefore do not forward datagrams, this counter includes datagrams discarded because the destination address was not a local address [ipInAddrErrors].</td>
+</tr>
+<tr class="tcw">
+<td><b>iukwnpr/s</b></td>
+<td>The number of locally-addressed datagrams received successfully but discarded per second because of an unknown or unsupported protocol [ipInUnknownProtos].</td>
+</tr>
+<tr class="tcw">
+<td><b>idisc/s</b></td>
+<td>The number of input IP datagrams per second for which no problems were encountered to prevent their continued processing, but which were discarded (e.g., for lack of buffer space) [ipInDiscards]. Note that this counter does not include any datagrams discarded while awaiting re-assembly.</td>
+</tr>
+<tr class="tcw">
+<td><b>odisc/s</b></td>
+<td>The number of output IP datagrams per second for which no problem was encountered to prevent their transmission to their destination, but which were discarded (e.g., for lack of buffer space) [ipOutDiscards]. Note that this counter would include datagrams counted in fwddgm/s if any such packets met this (discretionary) discard criterion.</td>
+</tr>
+<tr class="tcw">
+<td><b>onort/s</b></td>
+<td>The number of IP datagrams discarded per second because no route is found to transmit them to their destination [ipOutNoRoutes]. Note that this counter includes any packets counted in fwddgm/s which meet this 'no-route' criterion. Note that this includes any datagrams which a host cannot route because all of its default routers are down.</td>
+</tr>
+<tr class="tcw">
+<td><b>asmf/s</b></td>
+<td>The number of failures detected per second by the IP re-assembly algorithm (for whatever reason: timed out, errors, etc) [ipReasmFails]. Note that this is not necessarily a count of discarded IP fragments since some algorithms can lose track of the number of fragments by combining them as they are received.</td>
+</tr>
+<tr class="tcw">
+<td><b>fragf/s</b></td>
+<td>The number of IP datagrams that have been discarded per second because they needed to be fragmented at this entity but could not be, e.g., because their Don't Fragment flag was set [ipFragFails].</td>
+</tr>
+</table>
+<p>With the <b>ICMP</b> keyword, statistics about ICMPv4 network traffic are reported. Note that ICMPv4 statistics depend on <b>sadc</b> option "<b>-S SNMP</b>" to be collected. The following values are displayed (formal SNMP names between square brackets):</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:120px"><b>imsg/s</b></td>
+<td>The total number of ICMP messages which the entity received per second [icmpInMsgs]. Note that this counter includes all those counted by ierr/s.</td>
+</tr>
+<tr class="tcw">
+<td><b>omsg/s</b></td>
+<td>The total number of ICMP messages which this entity attempted to send per second [icmpOutMsgs]. Note that this counter includes all those counted by oerr/s.</td>
+</tr>
+<tr class="tcw">
+<td><b>iech/s</b></td>
+<td>The number of ICMP Echo (request) messages received per second [icmpInEchos].</td>
+</tr>
+<tr class="tcw">
+<td><b>iechr/s</b></td>
+<td>The number of ICMP Echo Reply messages received per second [icmpInEchoReps].</td>
+</tr>
+<tr class="tcw">
+<td><b>oech/s</b></td>
+<td>The number of ICMP Echo (request) messages sent per second [icmpOutEchos].</td>
+</tr>
+<tr class="tcw">
+<td><b>oechr/s</b></td>
+<td>The number of ICMP Echo Reply messages sent per second [icmpOutEchoReps].</td>
+</tr>
+<tr class="tcw">
+<td><b>itm/s</b></td>
+<td>The number of ICMP Timestamp (request) messages received per second [icmpInTimestamps].</td>
+</tr>
+<tr class="tcw">
+<td><b>itmr/s</b></td>
+<td>The number of ICMP Timestamp Reply messages received per second [icmpInTimestampReps].</td>
+</tr>
+<tr class="tcw">
+<td><b>otm/s</b></td>
+<td>The number of ICMP Timestamp (request) messages sent per second [icmpOutTimestamps].</td>
+</tr>
+<tr class="tcw">
+<td><b>otmr/s</b></td>
+<td>The number of ICMP Timestamp Reply messages sent per second [icmpOutTimestampReps].</td>
+</tr>
+<tr class="tcw">
+<td><b>iadrmk/s</b></td>
+<td>The number of ICMP Address Mask Request messages received per second [icmpInAddrMasks].</td>
+</tr>
+<tr class="tcw">
+<td><b>iadrmkr/s</b></td>
+<td>The number of ICMP Address Mask Reply messages received per second [icmpInAddrMaskReps].</td>
+</tr>
+<tr class="tcw">
+<td><b>oadrmk/s</b></td>
+<td>The number of ICMP Address Mask Request messages sent per second [icmpOutAddrMasks].</td>
+</tr>
+<tr class="tcw">
+<td><b>oadrmkr/s</b></td>
+<td>The number of ICMP Address Mask Reply messages sent per second [icmpOutAddrMaskReps].</td>
+</tr>
+</table>
+<p>With the <b>EICMP</b> keyword, statistics about ICMPv4 error messages are reported. Note that ICMPv4 statistics depend on <b>sadc</b> option "<b>-S SNMP</b>" to be collected. The following values are displayed (formal SNMP names between square brackets):</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>ierr/s</b></td>
+<td>The number of ICMP messages per second which the entity received but determined as having ICMP-specific errors (bad ICMP checksums, bad length, etc.) [icmpInErrors].</td>
+</tr>
+<tr class="tcw">
+<td><b>oerr/s</b></td>
+<td>The number of ICMP messages per second which this entity did not send due to problems discovered within ICMP such as a lack of buffers [icmpOutErrors].</td>
+</tr>
+<tr class="tcw">
+<td><b>idstunr/s</b></td>
+<td>The number of ICMP Destination Unreachable messages received per second [icmpInDestUnreachs].</td>
+</tr>
+<tr class="tcw">
+<td><b>odstunr/s</b></td>
+<td>The number of ICMP Destination Unreachable messages sent per second [icmpOutDestUnreachs].</td>
+</tr>
+<tr class="tcw">
+<td><b>itmex/s</b></td>
+<td>The number of ICMP Time Exceeded messages received per second [icmpInTimeExcds].</td>
+</tr>
+<tr class="tcw">
+<td><b>otmex/s</b></td>
+<td>The number of ICMP Time Exceeded messages sent per second [icmpOutTimeExcds].</td>
+</tr>
+<tr class="tcw">
+<td><b>iparmpb/s</b></td>
+<td>The number of ICMP Parameter Problem messages received per second [icmpInParmProbs].</td>
+</tr>
+<tr class="tcw">
+<td><b>oparmpb/s</b></td>
+<td>The number of ICMP Parameter Problem messages sent per second [icmpOutParmProbs].</td>
+</tr>
+<tr class="tcw">
+<td><b>isrcq/s</b></td>
+<td>The number of ICMP Source Quench messages received per second [icmpInSrcQuenchs].</td>
+</tr>
+<tr class="tcw">
+<td><b>osrcq/s</b></td>
+<td>The number of ICMP Source Quench messages sent per second [icmpOutSrcQuenchs].</td>
+</tr>
+<tr class="tcw">
+<td><b>iredir/s</b></td>
+<td>The number of ICMP Redirect messages received per second [icmpInRedirects].</td>
+</tr>
+<tr class="tcw">
+<td><b>oredir/s</b></td>
+<td>The number of ICMP Redirect messages sent per second [icmpOutRedirects].</td>
+</tr>
+</table>
+<p>With the <b>TCP</b> keyword, statistics about TCPv4 network traffic are reported. Note that TCPv4 statistics depend on <b>sadc</b> option "<b>-S SNMP</b>" to be collected. The following values are displayed (formal SNMP names between square brackets):</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:120px"><b>active/s</b></td>
+<td>The number of times TCP connections have made a direct transition to the SYN-SENT state from the CLOSED state per second [tcpActiveOpens].</td>
+</tr>
+<tr class="tcw">
+<td><b>passive/s</b></td>
+<td>The number of times TCP connections have made a direct transition to the SYN-RCVD state from the LISTEN state per second [tcpPassiveOpens].</td>
+</tr>
+<tr class="tcw">
+<td><b>iseg/s</b></td>
+<td>The total number of segments received per second, including those received in error [tcpInSegs]. This count includes segments received on currently established connections.</td>
+</tr>
+<tr class="tcw">
+<td><b>oseg/s</b></td>
+<td>The total number of segments sent per second, including those on current connections but excluding those containing only retransmitted octets [tcpOutSegs].</td>
+</tr>
+</table>
+<p>With the <b>ETCP</b> keyword, statistics about TCPv4 network errors are reported. Note that TCPv4 statistics depend on <b>sadc</b> option "<b>-S SNMP</b>" to be collected. The following values are displayed (formal SNMP names between square brackets):</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:120px"><b>atmptf/s</b></td>
+<td>The number of times per second TCP connections have made a direct transition to the CLOSED state from either the SYN-SENT state or the SYN-RCVD state, plus the number of times per second TCP connections have made a direct transition to the LISTEN state from the SYN-RCVD state [tcpAttemptFails].</td>
+</tr>
+<tr class="tcw">
+<td><b>estres/s</b></td>
+<td>The number of times per second TCP connections have made a direct transition to the CLOSED state from either the ESTABLISHED state or the CLOSE-WAIT state [tcpEstabResets].</td>
+</tr>
+<tr class="tcw">
+<td><b>retrans/s</b></td>
+<td>The total number of segments retransmitted per second; that is, the number of TCP segments transmitted containing one or more previously transmitted octets [tcpRetransSegs].</td>
+</tr>
+<tr class="tcw">
+<td><b>isegerr/s</b></td>
+<td>The total number of segments received in error (e.g., bad TCP checksums) per second [tcpInErrs].</td>
+</tr>
+<tr class="tcw">
+<td><b>orsts/s</b></td>
+<td>The number of TCP segments sent per second containing the RST flag [tcpOutRsts].</td>
+</tr>
+</table>
+<p>With the <b>UDP</b> keyword, statistics about UDPv4 network traffic are reported. Note that UDPv4 statistics depend on <b>sadc</b> option "<b>-S SNMP</b>" to be collected. The following values are displayed (formal SNMP names between square brackets):</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:120px"><b>idgm/s</b></td>
+<td>The total number of UDP datagrams delivered per second to UDP users [udpInDatagrams].</td>
+</tr>
+<tr class="tcw">
+<td><b>odgm/s</b></td>
+<td>The total number of UDP datagrams sent per second from this entity [udpOutDatagrams].</td>
+</tr>
+<tr class="tcw">
+<td><b>noport/s</b></td>
+<td>The total number of received UDP datagrams per second for which there was no application at the destination port [udpNoPorts].</td>
+</tr>
+<tr class="tcw">
+<td><b>dgmerr/s</b></td>
+<td>The number of received UDP datagrams per second that could not be delivered for reasons other than the lack of an application at the destination port [udpInErrors].</td>
+</tr>
+</table>
+<p>With the <b>SOCK6</b> keyword, statistics on sockets in use are reported (IPv6). Note that IPv6 statistics depend on <b>sadc</b> option "<b>-S IPV6</b>" to be collected. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:110px"><b>tcp6sck</b></td>
+<td>Number of TCPv6 sockets currently in use.</td>
+</tr>
+<tr class="tcw">
+<td><b>udp6sck</b></td>
+<td>Number of UDPv6 sockets currently in use.</td>
+</tr>
+<tr class="tcw">
+<td><b>raw6sck</b></td>
+<td>Number of RAWv6 sockets currently in use.</td>
+</tr>
+<tr class="tcw">
+<td><b>ip6-frag</b></td>
+<td>Number of IPv6 fragments currently in use.</td>
+</tr>
+</table>
+<p>With the <b>IP6</b> keyword, statistics about IPv6 network traffic are reported. Note that IPv6 statistics depend on <b>sadc</b> option "<b>-S IPV6</b>" to be collected. The following values are displayed (formal SNMP names between square brackets):</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>irec6/s</b></td>
+<td>The total number of input datagrams received from interfaces per second, including those received in error [ipv6IfStatsInReceives].</td>
+</tr>
+<tr class="tcw">
+<td><b>fwddgm6/s</b></td>
+<td>The number of output datagrams per second which this entity received and forwarded to their final destinations [ipv6IfStatsOutForwDatagrams].</td>
+</tr>
+<tr class="tcw">
+<td><b>idel6/s</b></td>
+<td>The total number of datagrams successfully delivered per second to IPv6 user-protocols (including ICMP) [ipv6IfStatsInDelivers].</td>
+</tr>
+<tr class="tcw">
+<td><b>orq6/s</b></td>
+<td>The total number of IPv6 datagrams which local IPv6 user-protocols (including ICMP) supplied per second to IPv6 in requests for transmission [ipv6IfStatsOutRequests]. Note that this counter does not include any datagrams counted in fwddgm6/s.</td>
+</tr>
+<tr class="tcw">
+<td><b>asmrq6/s</b></td>
+<td>The number of IPv6 fragments received per second which needed to be reassembled at this interface [ipv6IfStatsReasmReqds].</td>
+</tr>
+<tr class="tcw">
+<td><b>asmok6/s</b></td>
+<td>The number of IPv6 datagrams successfully reassembled per second [ipv6IfStatsReasmOKs].</td>
+</tr>
+<tr class="tcw">
+<td><b>imcpck6/s</b></td>
+<td>The number of multicast packets received per second by the interface [ipv6IfStatsInMcastPkts].</td>
+</tr>
+<tr class="tcw">
+<td><b>omcpck6/s</b></td>
+<td>The number of multicast packets transmitted per second by the interface [ipv6IfStatsOutMcastPkts].</td>
+</tr>
+<tr class="tcw">
+<td><b>fragok6/s</b></td>
+<td>The number of IPv6 datagrams that have been successfully fragmented at this output interface per second [ipv6IfStatsOutFragOKs].</td>
+</tr>
+<tr class="tcw">
+<td><b>fragcr6/s</b></td>
+<td>The number of output datagram fragments that have been generated per second as a result of fragmentation at this output interface [ipv6IfStatsOutFragCreates].</td>
+</tr>
+</table>
+<p>With the <b>EIP6</b> keyword, statistics about IPv6 network errors are reported. Note that IPv6 statistics depend on <b>sadc</b> option "<b>-S IPV6</b>" to be collected. The following values are displayed (formal SNMP names between square brackets):</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:140px"><b>ihdrer6/s</b></td>
+<td>The number of input datagrams discarded per second due to errors in their IPv6 headers, including version number mismatch, other format errors, hop count exceeded, errors discovered in processing their IPv6 options, etc. [ipv6IfStatsInHdrErrors]</td>
+</tr>
+<tr class="tcw">
+<td><b>iadrer6/s</b></td>
+<td>The number of input datagrams discarded per second because the IPv6 address in their IPv6 header's destination field was not a valid address to be received at this entity. This count includes invalid addresses (e.g., ::0) and unsupported addresses (e.g., addresses with unallocated prefixes). For entities that are not IPv6 routers and therefore do not forward datagrams, this counter includes datagrams discarded because the destination address was not a local address [ipv6IfStatsInAddrErrors].</td>
+</tr>
+<tr class="tcw">
+<td><b>iukwnp6/s</b></td>
+<td>The number of locally-addressed datagrams received successfully but discarded per second because of an unknown or unsupported protocol [ipv6IfStatsInUnknownProtos].</td>
+</tr>
+<tr class="tcw">
+<td><b>i2big6/s</b></td>
+<td>The number of input datagrams that could not be forwarded per second because their size exceeded the link MTU of outgoing interface [ipv6IfStatsInTooBigErrors].</td>
+</tr>
+<tr class="tcw">
+<td><b>idisc6/s</b></td>
+<td>The number of input IPv6 datagrams per second for which no problems were encountered to prevent their continued processing, but which were discarded (e.g., for lack of buffer space) [ipv6IfStatsInDiscards]. Note that this counter does not include any datagrams discarded while awaiting re-assembly.</td>
+</tr>
+<tr class="tcw">
+<td><b>odisc6/s</b></td>
+<td>The number of output IPv6 datagrams per second for which no problem was encountered to prevent their transmission to their destination, but which were discarded (e.g., for lack of buffer space) [ipv6IfStatsOutDiscards]. Note that this counter would include datagrams counted in fwddgm6/s if any such packets met this (discretionary) discard criterion.</td>
+</tr>
+<tr class="tcw">
+<td><b>inort6/s</b></td>
+<td>The number of input datagrams discarded per second because no route is found to transmit them to their destination [ipv6IfStatsInNoRoutes].</td>
+</tr>
+<tr class="tcw">
+<td><b>onort6/s</b></td>
+<td>The number of locally generated IP datagrams discarded per second because no route is found to transmit them to their destination [unknown formal SNMP name].</td>
+</tr>
+<tr class="tcw">
+<td><b>asmf6/s</b></td>
+<td>The number of failures detected per second by the IPv6 re-assembly algorithm (for whatever reason: timed out, errors, etc.) [ipv6IfStatsReasmFails]. Note that this is not necessarily a count of discarded IPv6 fragments since some algorithms can lose track of the number of fragments by combining them as they are received.</td>
+</tr>
+<tr class="tcw">
+<td><b>fragf6/s</b></td>
+<td>The number of IPv6 datagrams that have been discarded per second because they needed to be fragmented at this output interface but could not be [ipv6IfStatsOutFragFails].</td>
+</tr>
+<tr class="tcw">
+<td><b>itrpck6/s</b></td>
+<td>The number of input datagrams discarded per second because datagram frame didn't carry enough data [ipv6IfStatsInTruncatedPkts].</td>
+</tr>
+</table>
+<p>With the <b>ICMP6</b> keyword, statistics about ICMPv6 network traffic are reported. Note that ICMPv6 statistics depend on <b>sadc</b> option "<b>-S IPV6</b>" to be collected. The following values are displayed (formal SNMP names between square brackets):</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>imsg6/s</b></td>
+<td>The total number of ICMP messages received by the interface per second which includes all those counted by ierr6/s [ipv6IfIcmpInMsgs].</td>
+</tr>
+<tr class="tcw">
+<td><b>omsg6/s</b></td>
+<td>The total number of ICMP messages which this interface attempted to send per second [ipv6IfIcmpOutMsgs].</td>
+</tr>
+<tr class="tcw">
+<td><b>iech6/s</b></td>
+<td>The number of ICMP Echo (request) messages received by the interface per second [ipv6IfIcmpInEchos].</td>
+</tr>
+<tr class="tcw">
+<td><b>iechr6/s</b></td>
+<td>The number of ICMP Echo Reply messages received by the interface per second [ipv6IfIcmpInEchoReplies].</td>
+</tr>
+<tr class="tcw">
+<td><b>oechr6/s</b></td>
+<td>The number of ICMP Echo Reply messages sent by the interface per second [ipv6IfIcmpOutEchoReplies].</td>
+</tr>
+<tr class="tcw">
+<td><b>igmbq6/s</b></td>
+<td>The number of ICMPv6 Group Membership Query messages received by the interface per second [ipv6IfIcmpInGroupMembQueries].</td>
+</tr>
+<tr class="tcw">
+<td><b>igmbr6/s</b></td>
+<td>The number of ICMPv6 Group Membership Response messages received by the interface per second [ipv6IfIcmpInGroupMembResponses].</td>
+</tr>
+<tr class="tcw">
+<td><b>ogmbr6/s</b></td>
+<td>The number of ICMPv6 Group Membership Response messages sent per second [ipv6IfIcmpOutGroupMembResponses].</td>
+</tr>
+<tr class="tcw">
+<td><b>igmbrd6/s</b></td>
+<td>The number of ICMPv6 Group Membership Reduction messages received by the interface per second [ipv6IfIcmpInGroupMembReductions].</td>
+</tr>
+<tr class="tcw">
+<td><b>ogmbrd6/s</b></td>
+<td>The number of ICMPv6 Group Membership Reduction messages sent per second [ipv6IfIcmpOutGroupMembReductions].</td>
+</tr>
+<tr class="tcw">
+<td><b>irtsol6/s</b></td>
+<td>The number of ICMP Router Solicit messages received by the interface per second [ipv6IfIcmpInRouterSolicits].</td>
+</tr>
+<tr class="tcw">
+<td><b>ortsol6/s</b></td>
+<td>The number of ICMP Router Solicitation messages sent by the interface per second [ipv6IfIcmpOutRouterSolicits].</td>
+</tr>
+<tr class="tcw">
+<td><b>irtad6/s</b></td>
+<td>The number of ICMP Router Advertisement messages received by the interface per second [ipv6IfIcmpInRouterAdvertisements].</td>
+</tr>
+<tr class="tcw">
+<td><b>inbsol6/s</b></td>
+<td>The number of ICMP Neighbor Solicit messages received by the interface per second [ipv6IfIcmpInNeighborSolicits].</td>
+</tr>
+<tr class="tcw">
+<td><b>onbsol6/s</b></td>
+<td>The number of ICMP Neighbor Solicitation messages sent by the interface per second [ipv6IfIcmpOutNeighborSolicits].</td>
+</tr>
+<tr class="tcw">
+<td><b>inbad6/s</b></td>
+<td>The number of ICMP Neighbor Advertisement messages received by the interface per second [ipv6IfIcmpInNeighborAdvertisements].</td>
+</tr>
+<tr class="tcw">
+<td><b>onbad6/s</b></td>
+<td>The number of ICMP Neighbor Advertisement messages sent by the interface per second [ipv6IfIcmpOutNeighborAdvertisements].</td>
+</tr>
+</table>
+<p>With the <b>EICMP6</b> keyword, statistics about ICMPv6 error messages are reported. Note that ICMPv6 statistics depend on <b>sadc</b> option "<b>-S IPV6</b>" to be collected. The following values are displayed (formal SNMP names between square brackets):</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>ierr6/s</b></td>
+<td>The number of ICMP messages per second which the interface received but determined as having ICMP-specific errors (bad ICMP checksums, bad length, etc.) [ipv6IfIcmpInErrors]</td>
+</tr>
+<tr class="tcw">
+<td><b>idtunr6/s</b></td>
+<td>The number of ICMP Destination Unreachable messages received by the interface per second [ipv6IfIcmpInDestUnreachs].</td>
+</tr>
+<tr class="tcw">
+<td><b>odtunr6/s</b></td>
+<td>The number of ICMP Destination Unreachable messages sent by the interface per second [ipv6IfIcmpOutDestUnreachs].</td>
+</tr>
+<tr class="tcw">
+<td><b>itmex6/s</b></td>
+<td>The number of ICMP Time Exceeded messages received by the interface per second [ipv6IfIcmpInTimeExcds].</td>
+</tr>
+<tr class="tcw">
+<td><b>otmex6/s</b></td>
+<td>The number of ICMP Time Exceeded messages sent by the interface per second [ipv6IfIcmpOutTimeExcds].</td>
+</tr>
+<tr class="tcw">
+<td><b>iprmpb6/s</b></td>
+<td>The number of ICMP Parameter Problem messages received by the interface per second [ipv6IfIcmpInParmProblems].</td>
+</tr>
+<tr class="tcw">
+<td><b>oprmpb6/s</b></td>
+<td>The number of ICMP Parameter Problem messages sent by the interface per second [ipv6IfIcmpOutParmProblems].</td>
+</tr>
+<tr class="tcw">
+<td><b>iredir6/s</b></td>
+<td>The number of Redirect messages received by the interface per second [ipv6IfIcmpInRedirects].</td>
+</tr>
+<tr class="tcw">
+<td><b>oredir6/s</b></td>
+<td>The number of Redirect messages sent by the interface by second [ipv6IfIcmpOutRedirects].</td>
+</tr>
+<tr class="tcw">
+<td><b>ipck2b6/s</b></td>
+<td>The number of ICMP Packet Too Big messages received by the interface per second [ipv6IfIcmpInPktTooBigs].</td>
+</tr>
+<tr class="tcw">
+<td><b>opck2b6/s</b></td>
+<td>The number of ICMP Packet Too Big messages sent by the interface per second [ipv6IfIcmpOutPktTooBigs].</td>
+</tr>
+</table>
+<p>With the <b>UDP6</b> keyword, statistics about UDPv6 network traffic are reported. Note that UDPv6 statistics depend on <b>sadc</b> option "<b>-S IPV6</b>" to be collected. The following values are displayed (formal SNMP names between square brackets):</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:120px"><b>idgm6/s</b></td>
+<td>The total number of UDP datagrams delivered per second to UDP users [udpInDatagrams].</td>
+</tr>
+<tr class="tcw">
+<td><b>odgm6/s</b></td>
+<td>The total number of UDP datagrams sent per second from this entity [udpOutDatagrams].</td>
+</tr>
+<tr class="tcw">
+<td><b>noport6/s</b></td>
+<td>The total number of received UDP datagrams per second for which there was no application at the destination port [udpNoPorts].</td>
+</tr>
+<tr class="tcw">
+<td><b>idgmer6/s</b></td>
+<td>The number of received UDP datagrams per second that could not be delivered for reasons other than the lack of an application at the destination port [udpInErrors].</td>
+</tr>
+</table>
+The <b>ALL</b> keyword is equivalent to specifying all the keywords above and therefore all the network activities are reported.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b> [<i>file name</i>]</td>
+<td>Save the readings in the file in binary form. Each reading is in a separate record. The default value of the <i>file name</i> parameter is the current daily data file, the <b>/var/log/sysstat/sadd</b> file. The <b>-o</b> option is exclusive of the <b>-f</b> option. All the data available from the kernel are saved in the file (in fact, <b>sar</b> calls its data collector <b>sadc</b> with the option "<b>-S ALL</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b> {<i>cpu</i> [<b>,</b>...] | <b>ALL</b>}</td>
+<td>Report per-processor statistics for the specified processor or processors. Specifying the <b>ALL</b> keyword reports statistics for each processor, and globally for all processors. Note that processor <b>0</b> is the first processor.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Pretty-print device names. Use this option in conjunction with option <b>-d</b>. By default, names are printed as <b>dev</b> <i>m</i><b>-</b><i>n</i> where <i>m</i> and <i>n</i> are the major and minor numbers for the device. Use of this option displays the names of the devices as they (should) appear in <b>/dev</b>. Name mappings are controlled by <b>/etc/sysstat/sysstat.ioconf</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b></td>
+<td>Report queue length and <a href="/jargon/l/load.htm">load</a> averages. The following values are displayed:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:110px"><b>runq-sz</b></td>
+<td>Run queue length (number of tasks waiting for run time).</td>
+</tr>
+<tr class="tcw">
+<td><b>plist-sz</b></td>
+<td>Number of tasks in the task list.</td>
+</tr>
+<tr class="tcw">
+<td><b>ldavg-1</b></td>
+<td>System load average for the last minute. The load average is calculated as the average number of runnable or running tasks (R state), and the number of tasks in uninterruptible sleep (D state) over the specified interval.</td>
+</tr>
+<tr class="tcw">
+<td><b>ldavg-5</b></td>
+<td>System load average for the past 5 minutes.</td>
+</tr>
+<tr class="tcw">
+<td><b>ldavg-15</b></td>
+<td>System load average for the past 15 minutes.</td>
+</tr>
+<tr class="tcw">
+<td><b>blocked</b></td>
+<td>Number of tasks currently blocked, waiting for I/O to complete.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b></td>
+<td>Report memory statistics. The following values are displayed:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:110px"><b>frmpg/s</b></td>
+<td>Number of memory pages freed by the system per second. A negative value represents many pages allocated by the system. Note that a page has a size of 4 kiB or 8 kiB according to the machine architecture.</td>
+</tr>
+<tr class="tcw">
+<td><b>bufpg/s</b></td>
+<td>Number of additional memory pages used as buffers by the system per second. A negative value means fewer pages used as buffers by the system.</td>
+</tr>
+<tr class="tcw">
+<td><b>campg/s</b></td>
+<td>Number of additional memory pages cached by the system per second. A negative value means fewer pages in the cache.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>Report memory utilization statistics. The following values are displayed:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:140px"><b>kbmemfree</b></td>
+<td>Amount of free memory available in kilobytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>kbmemused</b></td>
+<td>Amount of used memory in kilobytes. This value does not take into account memory used by the kernel itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>%memused</b></td>
+<td>Percentage of used memory.</td>
+</tr>
+<tr class="tcw">
+<td><b>kbbuffers</b></td>
+<td>Amount of memory used as buffers by the kernel in kilobytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>kbcached</b></td>
+<td>Amount of memory used to cache data by the kernel in kilobytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>kbcommit</b></td>
+<td>Amount of memory in kilobytes needed for current workload. This value is an estimate of how much <a href="/jargon/r/ram.htm">RAM</a>/<a href="/jargon/s/swapfile.htm">swap</a> is needed to guarantee that there never is out of memory.</td>
+</tr>
+<tr class="tcw">
+<td><b>%commit</b></td>
+<td>Percentage of memory needed for current workload related to the total amount of memory (RAM+swap). This number may be greater than 100% because the kernel usually overcommits memory.</td>
+</tr>
+<tr class="tcw">
+<td><b>kbactive</b></td>
+<td>Amount of active memory in kilobytes (memory that is used more recently and usually not reclaimed unless absolutely necessary).</td>
+</tr>
+<tr class="tcw">
+<td><b>kbinact</b></td>
+<td>Amount of inactive memory in kilobytes (memory which is less recently used. It is more eligible to be reclaimed for other purposes).</td>
+</tr>
+<tr class="tcw">
+<td><b>kbdirty</b></td>
+<td>Amount of memory in kilobytes waiting to get written back to the disk.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b></td>
+<td>Report swap space utilization statistics. The following values are displayed:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>kbswpfree</b></td>
+<td>Amount of free swap space in kilobytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>kbswpused</b></td>
+<td>Amount of used swap space in kilobytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>%swpused</b></td>
+<td>Percentage of used swap space.</td>
+</tr>
+<tr class="tcw">
+<td><b>kbswpcad</b></td>
+<td>Amount of cached swap memory in kilobytes. This value is memory that once was swapped out, is swapped back in but still also is in the swap area (if memory is needed it doesn't need to be swapped out again because it is already in the swap area. This saves I/O).</td>
+</tr>
+<tr class="tcw">
+<td><b>%swpcad</b></td>
+<td>Percentage of cached swap memory related to the amount of used swap space.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> [<i>hh</i><b>:</b><i>mm</i><b>:</b><i>ss</i>]</td>
+<td>Set the starting time of the data, causing the <b>sar</b> command to extract records time-tagged at, or following, the time specified. The default starting time is 08:00:00. Hours must be given in 24-hour format. This option can be used only when data are read from a file (option <b>-f</b> ).</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>When reading data from a daily data file, indicate that <b>sar</b> should display the <a href="/jargon/t/timestam.htm">timestamps</a> in the original local time of the data file creator. Without this option, the <b>sar</b> command displays the timestamps in the user's locale time.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b> [<b>ALL</b>]</td>
+<td>Report CPU utilization. The <b>ALL</b> keyword indicates that all the CPU fields should be displayed. The report may show the following fields:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:120px"><b>%user</b></td>
+<td>Percentage of CPU utilization that occurred while executing at the user level (application). Note that this field includes time spent running virtual processors.</td>
+</tr>
+<tr class="tcw">
+<td><b>%usr</b></td>
+<td>Percentage of CPU utilization that occurred while executing at the user level (application). Note that this field does NOT include time spent running virtual processors.</td>
+</tr>
+<tr class="tcw">
+<td><b>%nice</b></td>
+<td>Percentage of CPU utilization that occurred while executing at the user level with nice priority.</td>
+</tr>
+<tr class="tcw">
+<td><b>%system</b></td>
+<td>Percentage of CPU utilization that occurred while executing at the system level (kernel). Note that this field includes time spent servicing hardware and software interrupts.</td>
+</tr>
+<tr class="tcw">
+ <td><b>%sys</b></td>
+<td>Percentage of CPU utilization that occurred while executing at the system level (kernel). Note that this field does NOT include time spent servicing hardware or software interrupts.</td>
+</tr>
+<tr class="tcw">
+<td><b>%iowait</b></td>
+<td>Percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request.</td>
+</tr>
+<tr class="tcw">
+<td><b>%steal</b></td>
+<td>Percentage of time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another virtual processor.</td>
+</tr>
+<tr class="tcw">
+<td><b>%irq</b></td>
+<td>Percentage of time spent by the CPU or CPUs to service hardware interrupts.</td>
+</tr>
+<tr class="tcw">
+<td><b>%soft</b></td>
+<td>Percentage of time spent by the CPU or CPUs to service software interrupts.</td>
+</tr>
+<tr class="tcw">
+<td><b>%guest</b></td>
+<td>Percentage of time spent by the CPU or CPUs to run a virtual processor.</td>
+</tr>
+<tr class="tcw">
+<td><b>%gnice</b></td>
+<td>Percentage of time spent by the CPU or CPUs to run a niced guest.</td>
+</tr>
+<tr class="tcw">
+<td><b>%idle</b></td>
+<td>Percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.</td>
+</tr>
+</table>
+Note: On <a href="/jargon/s/smp.htm">SMP</a> machines a processor that does not have any activity at all (0.00 for every field) is a disabled (offline) processor.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b></td>
+<td>Print version number then exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Report status of <a href="/jargon/i/inode.htm">inode</a>, file and other kernel tables. The following values are displayed:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>dentunusd</b></td>
+<td>Number of unused cache entries in the directory cache.</td>
+</tr>
+<tr class="tcw">
+<td><b>file-nr</b></td>
+<td>Number of file handles used by the system.</td>
+</tr>
+<tr class="tcw">
+<td><b>inode-nr</b></td>
+<td>Number of inode handlers used by the system.</td>
+</tr>
+<tr class="tcw">
+<td><b>pty-nr</b></td>
+<td>Number of pseudo-terminals used by the system.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-W</b></td>
+<td>Report swapping statistics. The following values are displayed:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>pswpin/s</b></td>
+<td>Total number of swap pages the system brought in per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>pswpout/s</b></td>
+<td>Total number of swap pages the system brought out per second.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b></td>
+<td>Report task creation and system switching activity.<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:120px"><b>proc/s</b></td>
+<td>Total number of tasks created per second.</td>
+</tr>
+<tr class="tcw">
+<td><b>cswch/s</b></td>
+<td>Total number of context switches per second.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b></td>
+<td><p>Report <a href="/jargon/t/tty.htm">TTY</a> devices activity. The following values are displayed:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:110px"><b>rcvin/s</b></td>
+<td>Number of receive interrupts per second for current <a href="/jargon/s/serial.htm">serial</a> line. Serial line number is given in the TTY column.</td>
+</tr>
+<tr class="tcw">
+<td><b>xmtin/s</b></td>
+<td>Number of transmit interrupts per second for current serial line.</td>
+</tr>
+<tr class="tcw">
+<td><b>framerr/s</b></td>
+<td>Number of frame errors per second for current serial line.</td>
+ </tr>
+<tr class="tcw">
+<td><b>prtyerr/s</b></td>
+<td>Number of parity errors per second for current serial line.</td>
+</tr>
+<tr class="tcw">
+<td><b>brk/s</b></td>
+<td>Number of breaks per second for current serial line.</td>
+</tr>
+<tr class="tcw">
+<td><b>ovrun/s</b></td>
+<td>Number of overrun errors per second for current serial line.</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<h2 id="environment">Environment</h2>
+<p class="tab">The <b>sar</b> command takes into account the following <a href="/jargon/e/envivari.htm">environment variables</a>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>S_TIME_FORMAT</b></td>
+<td>If this variable exists and its value is <a href="/jargon/i/iso.htm">ISO</a> then the current locale is ignored when printing the date in the report header. The <b>sar</b> command use the ISO 8601 format (YYYY-MM-DD) instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>S_TIME_DEF_TIME</b></td>
+<td>If this variable exists and its value is UTC then <b>sar</b> saves its data in UTC time (data is still displayed in local time). <b>sar</b> also uses UTC time instead of local time to determine the current daily data file located in the <b>/var/log/sysstat</b> directory. This variable may be useful for servers with users located across several timezones.</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>/var/log/sysstat/sa</b><i>dd</i></td>
+<td>Indicate the daily data file, where the <i>dd</i> parameter is a number representing the day of the month.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc</b></td>
+<td>contains various files with system statistics.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">sar -u 2 5</pre>
+<p class="tab">Report CPU utilization for each <b>2</b> seconds. <b>5</b> lines are displayed.</p>
+<pre class="tcy tab">sar -I 14 -o int14.file 2 10</pre>
+<p class="tab">Report statistics on IRQ <b>14</b> for each <b>2</b> seconds. <b>10</b> lines are displayed. Data are stored in a file called <b>int14.file</b>.</p>
+<pre class="tcy tab">sar -r -n DEV -f /var/log/sysstat/sa16</pre>
+<p class="tab">Display memory and network statistics saved in daily data file '<b>sa16</b>'.</p>
+<pre class="tcy tab">sar -A</pre>
+<p class="tab">Display all the statistics saved in current daily data file.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/iostat.htm"><b>iostat</b></a> &mdash; Report CPU and I/O statistics for devices and partitions.<br><a href="/unix/vmstat.htm"><b>vmstat</b></a> &mdash; Report statistics about virtual memory usage.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a834798a4c44c',m:'mFaK.PjkltgBFtsHf5kAtB.noCXVXl23xbn1oqZAfqs-1661495363-0-Ad+MzhPc624Bh6fSQRP6uBUZ4Dh4PamcVvQNCzIItxqnyp8iHdBnlrEbT4t4j8Em7RUjQRvpck3Eg96vVlNDvGa4n6Gy06phC4pCBw5//nnDTX9b5VSvKZBBvVcdjLDdtg==',s:[0x30dc5eff7b,0xeed0f2e316],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

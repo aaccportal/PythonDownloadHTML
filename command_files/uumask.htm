@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux umask command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/umask.gif" width="300" height="300" alt="umask command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>umask</b> command returns, or sets, the value of the system's file mode creation mask.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>umask</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#filepermissions">What are permissions, and how do they work?</a></li>
+<li><a href="#how">How are permissions represented?</a></li>
+<li><a href="#mask">Specifying the file creation mask using symbols.</a></li>
+<li><a href="#numeric">Specifying the file creation mask using numeric representation.</a></li>
+<li><a href="#digit">The other permission digit.</a></li>
+<li><a href="#work">So how does the umask actually work?</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">On <a href="/jargon/l/linux.htm">Linux</a> and other <a href="/jargon/u/unix.htm">Unix</a>-like <a href="/jargon/o/os.htm">operating systems</a>, new <a href="/jargon/f/file.htm">files</a> are created with a default set of <a href="/jargon/p/permissi.htm">permissions</a>. Specifically, a new file's permissions may be <i>restricted</i> in a specific way by applying a permissions "mask" called the <b>umask</b>. The <b>umask</b> command is used to set this mask, or to show you its current value.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">umask [-S] [<i>mask</i>]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:60px"><b>-S</b></td>
+<td>Accept a symbolic representation of a <i>mask</i>, or return one.</td>
+</tr>
+<tr class="tcw">
+<td><i>mask</i></td>
+<td>If a valid <i>mask</i> is specified, the umask is set to this value. If no <i>mask</i> is specified, the current umask value is returned.</td>
+</tr>
+</table>
+<h2 id="filepermissions">What are permissions, and how do they work?</h2>
+<p class="tab">As you may know, each file on your system has associated with it a set of <i>permissions</i> used to protect files: a file's permissions determine which users may access that file, and what type of access they have to it.</p>
+<p class="tab">There are three general classes of users:</p>
+<ul>
+<li>The user who <a href="/jargon/o/owner.htm">owns</a> the file ("<b>User</b>").</li>
+<li>Users belonging to the file's defined ownership group ("<b>Group</b>").</li>
+<li>Everyone else ("<b>Other</b>").</li>
+</ul>
+<p class="tab">In turn, for each of these classes of user, there are three types of file access:</p>
+<ul>
+<li>The ability to look at the contents of the file ("<b>Read</b>").</li>
+<li>The ability to change the contents of the file ("<b>Write</b>").</li>
+<li>The ability to run the contents of the file as a program on the system ("<b>Execute</b>").</li>
+</ul>
+<p class="tab">So, for each of the three classes of user, there are three types of access. Taken together, this information makes up the file's <i>permissions</i>.</p>
+<h2 id="how">How are permissions represented?</h2>
+<p class="tab">There are two ways to represent a file's permissions: symbolically (using symbols like "<b>r</b>" for read, "<b>w</b>" for write, and "<b>x</b>" for execute) or with an <a href="/jargon/o/octal.htm">octal</a> numeric value.</p>
+<p class="tab">For example, when you list the contents of a directory at the <a href="/jargon/c/commandi.htm">command line</a> using the <a href="/unix/uls.htm">ls</a> command as follows:</p>
+<pre class="tab tcy">ls -l</pre>
+<p class="tab">you will see (among other information) the file permission information for each file. Here, it is represented <i>symbolically</i>, which looks like the following example:</p>
+<pre class="tab">-rwxr-xr--</pre>
+<p class="tab">There are ten symbols here. The first dash ("<b>-</b>") means that this is a "regular" file, in other words, not a directory (or a device, or any other special kind of file). The remaining nine symbols represent the permissions: <b>rwxr-xr--</b>. These nine symbols are actually three sets of three symbols each, and represent the respective specific permissions, from left to right:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th>symbols</th>
+<th>meaning</th>
+</tr>
+<tr class="tcw">
+<td><b>rwx</b></td>
+<td><b>the file's owner</b> may <b>read</b>, <b>write</b>, or <b>execute</b> this file as a process on the system.</td>
+</tr>
+<tr class="tcw">
+<td><b>r-x</b></td>
+<td>anyone in <b>the file's group</b> may <b>read</b> or <b>execute</b> this file, but not write to it.</td>
+</tr>
+<tr class="tcw">
+<td><b>r--</b></td>
+<td><b>anyone at all</b> may <b>read</b> this file, but not write to it or execute its contents as a process.</td>
+</tr>
+</table>
+<h2 id="mask">Specifying the file creation mask using symbols</h2>
+<p class="tab">The general symbolic form of a mask is as follows:</p>
+<pre class="tcy tab">[<i>user class symbol(s)</i>][<i>permissions operator</i>][<i>permission symbol(s)</i>][<b>,</b>]...</pre>
+<p class="tab"><i>permission symbol</i> is any combination of <b>r</b> (read), <b>w</b> (write), or <b>x</b> (execute), as described above.</p>
+<p class="tab"><i>user class symbol</i> may be one or more of the following:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>u</b></td>
+<td>User (the owner of the file).</td>
+</tr>
+<tr class="tcw">
+<td><b>g</b></td>
+<td>Group (any member of the file's defined group).</td>
+</tr>
+<tr class="tcw">
+<td><b>o</b></td>
+<td>Other (anyone else).</td>
+</tr>
+<tr class="tcw">
+<td><b>a</b></td>
+<td>All (equivalent to <b>ugo</b>).</td>
+</tr>
+</table>
+<p class="tab"><i>permissions operator</i> may be one of the following:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>+</b></td>
+<td>allow the specified file permissions to be enabled for the specified user classes (permissions that are not specified are unchanged in the mask).</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>prohibit the specified file permissions from being enabled for the specified user classes (permissions that are not specified are unchanged in the mask).</td>
+</tr>
+<tr class="tcw">
+<td><b>=</b></td>
+<td>allow the specified file permissions to be enabled for the specified user classes (permissions not specified will be prohibited by the mask during file creation).</td>
+</tr>
+</table>
+<p class="tab">So, for example, the following <b>umask</b> command:</p>
+<pre class="tcy tab">umask u+w</pre>
+<p class="tab">sets the mask so that when files are created, they have permissions which allow write permission for the user (file owner). The rest of the file's permissions would be unchanged from the operating system default.</p>
+<p class="tab">Multiple changes can be specified by separating multiple sets of symbolic notation with commas (but not spaces!). For example:</p>
+<pre class="tcy tab">umask u-x,g=r,o+w</pre>
+<p class="tab">This command sets the mask so that when subsequent files are created, they have permissions that:</p>
+<ol>
+<li>prohibit the execute permission from being set for the file's owner (user), while leaving the rest of the owner permissions unchanged;</li>
+<li>enable read permission for the group, while prohibiting write and execute permission for the group;</li>
+<li>enable write permission for others, while leaving the rest of the other permissions unchanged.</li>
+</ol>
+<p class="tab">Note that if you use the equals operator ("<b>=</b>"), any permissions not specified will be specifically prohibited. For example, the command</p>
+<pre class="tcy tab">umask a=</pre>
+<p class="tab">Sets the file creation mask so that new files are inaccessible to everyone.</p>
+<h2 id="numeric">Specifying the file creation mask using numeric representation</h2>
+<p class="tab">The file creation mask can also be represented <i>numerically</i>, using octal values (the digits from 0 to 7). When using octal numeric representation, certain numbers represent certain permissions, and these numbers are added or subtracted from each other to represent the final, combined permissions value. Specifically, the numbers <b>1</b>, <b>2</b>, and <b>4</b> represent the following permissions:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th>number</th>
+<th>permission</th>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td>read</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>write</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>execute</td>
+</tr>
+</table>
+<p class="tab">These numbers are used because any combination of these three numbers will be unique. The following table illustrates their unique combinations:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th>read value +</th>
+<th>write value +</th>
+<th>execute value =</th>
+<th>combined value:</th>
+<th>symbolic equivalent:</th>
+</tr>
+<tr class="tcw">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td><b>0</b></td>
+<td></td>
+</tr>
+<tr class="tcw">
+<td>0</td>
+<td>0</td>
+<td><b>1</b></td>
+<td><b>1</b></td>
+<td><b>x</b></td>
+</tr>
+<tr class="tcw">
+<td>0</td>
+<td><b>2</b></td>
+<td>0</td>
+<td><b>2</b></td>
+<td><b>w</b></td>
+</tr>
+<tr class="tcw">
+<td>0</td>
+<td><b>2</b></td>
+<td><b>1</b></td>
+<td><b>3</b></td>
+<td><b>wx</b></td>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td>0</td>
+<td>0</td>
+<td><b>4</b></td>
+<td><b>r</b></td>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td>0</td>
+<td><b>1</b></td>
+<td><b>5</b></td>
+<td><b>rx</b></td>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td><b>2</b></td>
+<td>0</td>
+<td><b>6</b></td>
+<td><b>rw</b></td>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td><b>2</b></td>
+<td><b>1</b></td>
+<td><b>7</b></td>
+<td><b>rwx</b></td>
+</tr>
+</table>
+<p class="tab">For each class of user, one digit can represent their permissions; using the example above, we could represent the symbolic permission of <b>rwxr-xr--</b> using the three-digit octal number <b>754</b>. The order of the digits is always the same: <b>User</b>, <b>Group</b>, <b>Other</b>.</p>
+<h2 id="digit">The other permission digit</h2>
+<p class="tab">In octal representations of file permissions, there are actually four digits. The three important digits we've discussed are the last three digits. The first digit is a special file permission indicator, and for this discussion can be considered always to be zero. So from here on out, when we discuss file permission <b>777</b>, it may also be referred to as <b>0777</b>.</p>
+<h2 id="work">So how does the umask actually work?</h2>
+<p class="tab">The <b>umask</b> <i>masks</i> permissions by restricting them by a certain value.</p>
+<p class="tab">Essentially, each digit of the umask is "subtracted" from the OS's default value to arrive at the default value you define. It's not really subtraction; technically, the mask is negated (its <a href="/jargon/b/bitwoper.htm">bitwise</a> compliment is taken) and this value is then applied to the default permissions using a <a href="/jargon/b/boolean.htm">logical AND</a> operation. The result is that the umask tells the operating system which permission bits to "turn off" when it creates a file.</p>
+<p class="tab">In Linux, the default permissions value is <b>666</b> for a regular file, and <b>777</b> for a directory. When creating a new file or directory, the <a href="/jargon/k/kernel.htm">kernel</a> takes this default value, "subtracts" the umask value, and gives the new files the resulting permissions.</p>
+<p class="tab">This table shows how each digit of the <b>umask</b> value affects new file and directory permissions:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th>umask digit</th>
+<th>default file permissions</th>
+<th>default directory permissions</th>
+</tr>
+<tr class="tcw">
+<td><b>0</b></td>
+<td>rw</td>
+<td>rwx</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>rw</td>
+<td>rw</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>r</td>
+<td>rx</td>
+</tr>
+<tr class="tcw">
+<td><b>3</b></td>
+<td>r</td>
+<td>r</td>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td>w</td>
+<td>wx</td>
+</tr>
+<tr class="tcw">
+<td><b>5</b></td>
+<td>w</td>
+<td>w</td>
+</tr>
+<tr class="tcw">
+<td><b>6</b></td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr class="tcw">
+<td><b>7</b></td>
+<td>(no permission allowed)</td>
+<td>(no permission allowed)</td>
+</tr>
+</table>
+<p class="tab">So if our <b>umask</b> value is <b>022</b>, then any new files will, by default, have the permissions <b>644</b> (666 - 022). Likewise, any new directories will, by default, be created with the permissions <b>755</b> (777 - 022).</p>
+<h2 id="examples">Examples</h2>
+<p class="tab">To view your system's current <b>umask</b> value, enter the command:</p>
+<pre class="tcy tab">umask</pre>
+<p class="tab">which returns your system's umask as a four-digit octal number, for example:</p>
+<pre class="tab">0002</pre>
+<p class="tab">Again, the first zero is a special permission digit and can be ignored; for our purposes, <b>0002</b> is the same as <b>002</b>.</p>
+<p class="tab">To view this as a symbolic representation, use the <b>-S</b> flag:</p>
+<pre class="tcy tab">umask -S</pre>
+<p class="tab">Which returns the same value symbolically, for example:</p>
+<pre class="tab">u=rwx,g=rwx,o=rx</pre>
+<p class="tab">where <b>u</b> stands for <b>user</b>, <b>g</b> stands for <b>group</b>, and <b>o</b> stands for <b>other</b>. This is telling us the <i>So</i> if we create a new file, it has the default permissions <b>664</b>, which is <b>666</b> (the default permissions for files) masked by <b>002</b> (our umask value).</p>
+<p class="tab">Let's test this by creating a new file with the <a href="/unix/utouch.htm">touch</a> command:</p>
+<pre class="tcy tab">touch testfile</pre>
+<p class="tab">And now let's get a directory listing for that file:</p>
+<pre class="tcy tab">ls -l testfile</pre>
+<pre class="tab">-rw-rw-r-- 1 myusername myusername 0 Jan 7 14:29 testfile</pre>
+<p class="tab">As expected, the new file has permissions <b>-rw-rw-r--</b>, or <b>0664</b>: The owner and group may read or write the file, and others may only read it.</p>
+<p class="tab">Now let's change the umask. To set a umask of <b>022</b>, use the command:</p>
+<pre class="tcy tab">umask 022</pre>
+<p class="tab">This is the same as running <b>umask 0022</b>; if you specify only three digits, the first digit will be assumed to be zero. Let's verify that the change took place:</p>
+<pre class="tcy tab">umask</pre>
+<pre class="tab">0022</pre>
+<p class="tab">And now let's create a new file:</p>
+<pre class="tcy tab">touch testfile2</pre>
+<p class="tab">And now let's view its directory listing, with the first file we created, using the asterisk <a href="/jargon/w/wildcard.htm">wildcard</a> ("<b>*</b>") to view all files whose name start with "<b>testfile</b>":</p>
+<pre class="tcy tab">ls -l testfile*</pre>
+<pre class="tab">-rw-rw-r-- 1 myusername myusername 0 Jan  7 14:29 testfile
+-rw-r--r-- 1 myusername myusername 0 Jan  7 14:39 testfile2</pre>
+<p class="tab">As you can see, <b>testfile2</b> has the permissions <b>644</b>.</p>
+<p class="tab">Here are some other example <b>umask</b> commands:</p>
+<pre class="tcy tab">umask a+r</pre>
+<p class="tab">Sets the mask so that new files allows all users to read them; other permissions will be unchanged from the default.</p>
+<p class="tcy tab">umask a-x</p>
+<p class="tab">Sets the mask so that new files will not initially be executable by any user; other default permissions unchanged from defaults.</p>
+<p class="tcy tab">umask u=rw,go=</p>
+<p class="tab">Sets the mask so that new files will be readable and writable by the user who owns the file, but may not be executed; group members and others have no permissions to access the file.</p>
+<pre class="tcy tab">umask 777</pre>
+<p class="tab">Make new files inaccessible to everyone - no one can read, write, or execute them.</p>
+<pre class="tcy tab">umask 000</pre>
+<p class="tab">Make new files completely accessible (read, write, and execute) to absolutely everyone. However, this is a bad idea. Don't do this.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uchmod.htm"><b>chmod</b></a> &mdash; Change the permissions of files or directories.<br><a href="/unix/ucsh.htm"><b>csh</b></a> &mdash; The C shell command interpreter.<br><a href="/unix/uksh.htm"><b>ksh</b></a> &mdash; The Korn shell command interpreter.<br><a href="/unix/ush.htm"><b>sh</b></a> &mdash; The Bourne shell command interpreter.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8369b9a9848c',m:'5LHO21r_EDYpjS_OC1fMVFgeXV.xjiOOOMqcgQgH03M-1661495369-0-AQKGSbObqNtspXsOEDLokma7wjmZAEmnc964fBJqdVK0SF3EJWH1X0U3BckG61/r48DcmnestFKS1wYHVLJbzL/uWuUl+hjen5EA0ouUqrzbawFRLTNoPcrG9mI89RX3XA==',s:[0x534f71c485,0x4c8fd3b77d],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

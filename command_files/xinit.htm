@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux xinit command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/xinit.gif" width="300" height="300" alt="xinit command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>xinit</b> command initializes the <a href="/jargon/x/xwin.htm">X Window System</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#extended">Extended description</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#file">Example .xinitrc file</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">Run <a href="/unix/startx.htm"><b>startx</b></a> rather than <b>xinit</b> directly. <b>startx</b> is a script which runs <b>xinit</b> and is a more user-friendly way to start an X session.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">xinit [ [ <i>client</i> ] <i>options</i> ... ] [ -- [ <i>server</i> ] [ <i>display</i> ] <i>options</i> ... ]</pre>
+<h2 id="extended">Extended description</h2>
+<p class="tab">The <b>xinit</b> program is used to start the X Window System server and a first client program on systems that are not using a display manager, such as <b>xdm</b>, or in environments that use multiple window systems. When the first client exits, <b>xinit</b> will kill the X server and then terminate.</p>
+<p class="tab">If no specific client program is given on the <a href="/jargon/c/commandi.htm">command line</a>, <b>xinit</b> looks for a file in the user's <a href="/jargon/h/homedir.htm">home directory</a> called <b>.xinitrc</b> to run as a <a href="/jargon/s/shell.htm">shell</a> <a href="/jargon/s/script.htm">script</a> to start up client programs. If no such file exists, <b>xinit</b> uses the following as a default:</p>
+<pre class="tab tcy">xterm -geometry +1+1 -n login -display :0</pre>
+<p class="tab">If no specific server program is given on the command line, <b>xinit</b> looks for a file in the user's home directory called <b>.xserverrc</b> to run as a shell script to start up the server. If no such file exists, xinit uses the following as a default:</p>
+<pre class="tab tcy">X :0</pre>
+<p class="tab">Note that this assumes that there is a program named <a href="/unix/ux.htm">X</a> in the current search <a href="/jargon/p/path.htm">path</a>. The site administrator should, therefore, make a link to the appropriate type of server on the machine, or create a shell script that runs <b>xinit</b> with the appropriate server.</p>
+<p class="tab">Note, when using a <b>.xserverrc</b> script <a href="/jargon/e/exec.htm">exec</a> the real X server. Failing to do this can make the X server slow to start and exit. For example:</p>
+<pre class="tab tcy">exec Xdisplaytype</pre>
+<p class="tab">An important point is that programs that are run by <b>.xinitrc</b> should run in the background if they do not exit right away, so that they don't prevent other programs from starting up. However, the last long-lived program started (usually a window manager or terminal emulator) should be left in the foreground so that the script won't exit (which indicates that the user is done and that <b>xinit</b> should exit).</p>
+<p class="tab">An alternate client or server may be specified on the command line. The desired client program and its <a href="/jargon/a/argument.htm">arguments</a> should be given as the first command line arguments to <b>xinit</b>. To specify a particular server command line, append a double dash ("<b>--</b>") to the <b>xinit</b> command line (after any client and arguments) followed by the desired server command.</p>
+<p class="tab">Both the client program name and the server program name must begin with a slash ("<b>/</b>") or a period ("<b>.</b>"). Otherwise, they are treated as arguments to be appended to their respective startup lines. This setting makes it possible to add arguments (for example, foreground and background colors) without having to retype the whole command line.</p>
+<p class="tab">If an explicit server name is not given and the first argument following the double dash ("<b>--</b>") is a colon followed by a digit, <b>xinit</b> uses that number as the display number instead of zero. All remaining arguments are appended to the server command line.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">xinit</pre>
+<p class="tab">Start up a server named <b>X</b> and run the user's <b>.xinitrc</b>, if it exists, or else start an <a href="/unix/uxterm.htm">xterm</a>.</p>
+<pre class="tcy tab">xinit -- /usr/local/bin/Xvnc :1</pre>
+<p class="tab">Start a specific type of server. Here, we use <b>Xvnc</b>, on an alternate display.</p>
+<pre class="tcy tab">xinit -geometry =80x65+10+10 -fn 8x13 -j -fg white -bg navy</pre>
+<p class="tab">Start up a server named <b>X</b>, and append the given arguments to the default <b>xterm</b> command. It ignores <b>.xinitrc</b>.</p>
+<pre class="tcy tab">xinit -e widgets -- ./Xorg -l -c</pre>
+<p class="tab">Use the command <b>.Xorg -l -c</b> to start the server and append the arguments <b>-e widgets</b> to the default <b>xterm</b> command.</p>
+<pre class="tcy tab">xinit /usr/ucb/rsh fasthost cpupig -display ws:1 --  :1 -a 2 -t 5</pre>
+<p class="tab">This starts a server named <b>X</b> on display <b>1</b> with the arguments <b>-a 2 -t 5</b>. It will then start a remote shell on the machine <b>fasthost</b> where it runs the command <b>cpupig</b>, telling it to display back on the local workstation.</p>
+<h2 id="file">Example .xinitrc file</h2>
+<p class="tab">Below is a sample <b>.xinitrc</b> that starts a clock, several <a href="/jargon/t/terminal.htm">terminals</a>, and leaves the window manager running as the "last" application. Assuming that the window manager was configured properly, the user then chooses the "Exit" menu item to shut down <b>X</b>.</p>
+<pre class="tab">xrdb -load $HOME/.Xresources
+xsetroot -solid gray &amp;
+xclock -g 50x50-0+0 -bw 0 &amp;
+xload -g 50x50-50+0 -bw 0 &amp;
+xterm -g 80x24+0+0 &amp;
+xterm -g 80x24+0-0 &amp;
+twm</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/startx.htm"><b>startx</b></a> &mdash; Start an X Window System session.<br><a href="/unix/xorg.htm"><b>Xorg</b></a> &mdash; The executable of the X Window System server.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8383ab47c438',m:'Muwd5ex6N0H4TgLsZJ5OUnZO3ulpvHh5KylrHh0P9ak-1661495373-0-AVezvOyJrZDms/VlfoOT4O7mbZcG095yDx/nmVirfBf5LCCRhTLcMakjIpW353t/kPkIVf94Qb3BorWLC7sBpaqtdT0xC3JCCYBAe64sUPicP9OcO4YV5H++AK3Q1FzW3Q==',s:[0x92fafa7ed1,0x9e589bbd0b],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

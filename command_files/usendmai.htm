@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux sendmail command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/sendmail.gif" width="300" height="300" alt="sendmail command" class="floatRight">
+<p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>sendmail</b> is a general purpose <a href="/jargon/e/email.htm">e-mail</a> <a href="/jargon/r/routing.htm">routing</a> facility that supports many kinds of mail-transfer and delivery methods, including the <a href="/jargon/s/smtp.htm">SMTP</a> (Simple Mail Transfer Protocol) used for e-mail transport over the <a href="/jargon/i/internet.htm">Internet</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#a-syntax">Alternate syntax</a></li>
+<li><a href="#parameters">Parameters</a></li>
+<li><a href="#exit">Exit Status</a></li>
+<li><a href="#invocations">Alternate invocations</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>sendmail</b> sends a message to one or more recipients, routing the message over whatever networks are necessary. <b>sendmail</b> does internetwork forwarding as necessary to deliver the message to the correct place.</p>
+<p class="tab"><b>sendmail</b> is not intended as a user interface routine; other programs provide user-friendly front ends. <b>sendmail</b> is used only to deliver pre-formatted messages.</p>
+<p class="tab">With no flags specified, <b>sendmail</b> reads its <a href="/jargon/s/stdin.htm">standard input</a> up to an <a href="/jargon/e/eof.htm">end-of-file</a> or a line consisting only of a single dot, and sends a copy of the message found there to all of the addresses listed. It determines the network(s) to use based on the syntax and contents of the addresses.</p>
+<p class="tab">Local addresses are looked up in a file and aliased appropriately. Aliasing can be prevented by preceding the address with a backslash. Beginning with version 8.10, the sender is included in any alias expansions; for example, if "john" sends mail to "group", and "group" includes "john" in the expansion, then the letter also delivers to "john".</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">sendmail [<i>flags</i>] [<i>address</i> ...]</pre>
+<h2 id="a-syntax">Alternate syntax</h2>
+<p class="tab"><b>sendmail</b> can also be invoked, with special functionality, using the following commands.</p>
+<pre class="tcy tab">newaliases</pre>
+<pre class="tcy tab">mailq [-v]</pre>
+<pre class="tcy tab">hoststat</pre>
+<pre class="tcy tab">purgestat</pre>
+<pre class="tcy tab">smtpd</pre>
+<p class="tab"><a href="#invocations">See below</a> for more information.</p>
+<h2 id="parameters">Parameters</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><b>-Ac</b></td>
+<td>Use <b>submit.cf</b> even if the operation mode does not indicate an initial mail submission.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Am</b></td>
+<td>Use <b>sendmail.cf</b> even if the operation mode indicates an initial mail submission.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b><i>type</i></td>
+<td>Set the body type to <i>type</i>. Current legal values are <b>7BIT</b> or <b>8BITMIME</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ba</b></td>
+<td>Go into <a href="/jargon/a/arpanet.htm">ARPANET</a> mode. All input lines must end with a <a href="/jargon/c/cr.htm">CR</a>-<a href="/jargon/l/lf.htm">LF</a>, and all messages will be generated with a CR-LF at the end. Also, the "From:" and "Sender:" fields are examined for the name of the sender.</td>
+</tr>
+<tr class="tcw">
+<td><b>-bd</b></td>
+<td>Run as a <a href="/jargon/d/daemon.htm">daemon</a>. <b>sendmail</b> will fork and run in background listening on socket 25 for incoming SMTP connections. This is normally run from <b>/etc/rc</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-bD</b></td>
+<td>Same as <b>-bd</b>, except it runs in foreground.</td>
+</tr>
+<tr class="tcw">
+<td><b>-bh</b></td>
+<td>Print the persistent host status <a href="/jargon/d/database.htm">database</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-bH</b></td>
+<td><a href="/jargon/p/purge.htm">Purge</a> expired entries from the persistent host status database.</td>
+</tr>
+<tr class="tcw">
+<td><b>-bi</b></td>
+<td>Initialize the alias database.</td>
+</tr>
+<tr class="tcw">
+<td><b>-bm</b></td>
+<td>Deliver mail in the usual way (default).</td>
+</tr>
+<tr class="tcw">
+<td><b>-bp</b></td>
+<td>Print a listing of the <a href="/jargon/q/queue.htm">queue</a>(s).</td>
+</tr>
+<tr class="tcw">
+<td><b>-bP</b></td>
+<td>Print number of entries in the queue(s); only available with shared memory support.</td>
+</tr>
+<tr class="tcw">
+<td><b>-bs</b></td>
+<td>Use the SMTP <a href="/jargon/p/protocol.htm">protocol</a> as described in <a href="/jargon/r/rfc.htm">RFC</a> 821 on standard input and output. This flag implies all the operations of the <b>-ba</b> flag that are compatible with SMTP.</td>
+</tr>
+<tr class="tcw">
+<td><b>-bt</b></td>
+<td>Run in address test mode. This mode reads addresses and shows the steps in parsing; it is used for <a href="/jargon/d/debug.htm">debugging</a> configuration tables.</td>
+</tr>
+<tr class="tcw">
+<td><b>-bv</b></td>
+<td>Verify names only; do not try to collect or deliver a message. Verify mode is normally used for validating users or mailing lists.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b><i>file</i></td>
+<td>Use alternate configuration file. <b>sendmail</b> gives up any enhanced (<a href="/jargon/s/suid.htm">set-user-ID</a> or set-group-ID) privileges if an alternate configuration file is specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b> <i>logfile</i></td>
+<td>Send debugging output to the indicated <a href="/jargon/l/log.htm">log</a> file instead of stdout.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b><i>category</i><b>.</b><i>level</i>...</td>
+<td>Set the debugging flag for <i>category</i> to <i>level</i>. The <i>category</i> is either an <a href="/jargon/i/integer.htm">integer</a> or a name specifying the topic, and <i>level</i> an integer specifying the level of debugging output desired. Higher levels generally mean more output. More than one flag can be specified by separating them with commas. A list of numeric debugging categories found in the <b>TRACEFLAGS</b> file in the <b>sendmail</b> <a href="/jargon/s/source.htm">source</a> distribution. The option <b>-d0.1</b> prints the version of <b>sendmail</b> and the options used during the compile. Most other categories are only useful with, and documented in, <b>sendmail</b>'s source code.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b><i>fullname</i></td>
+<td>Set the full name of the sender.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b><i>name</i></td>
+<td>Sets the name of the "from" person (i.e., the envelope sender of the mail). This address may also be used in the "From:" header if that header is missing during initial submission. The envelope sender address is used as the recipient for delivery status notifications and may also appear in a "Return-Path:" header. <b>-f</b> should only be used by "trusted" users (normally <a href="/jargon/r/root.htm">root</a>, <b>daemon</b>, and <b>network</b>) or if the person you are trying to become is the same as the person you are. Otherwise, an "X-Authentication-Warning" header is added to the message.</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b></td>
+<td>Relay (gateway) submission of a message, e.g., when <a href="/unix/umail.htm">rmail</a> calls <b>sendmail</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b><i>N</i></td>
+<td>Set the hop count to <i>N</i>. The hop count is incremented every time the mail is processed. When it reaches a limit, the mail is returned with an error message, most likely the victim of an aliasing loop. If not specified, "Received:" lines in the message are counted.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td>Ignore dots alone on lines by themselves in incoming messages. This should be set if you are reading data from a file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b> <i>tag</i></td>
+<td>Set the identifier used in <a href="/jargon/s/syslog.htm">syslog</a> messages to the supplied <i>tag</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b> <i>dsn</i></td>
+<td>Set delivery status notification conditions to <i>dsn</i>, which can be "<b>never</b>" for no notifications, or a comma separated list of the values "<b>failure</b>" to be notified if delivery failed, "<b>delay</b>" to be notified if delivery is delayed, and "<b>success</b>" to be notified when the message is successfully delivered.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Don't do aliasing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b> <i>option</i><b>=</b><i>value</i></td>
+<td>Set option <i>option</i> to the specified <i>value</i>. This form uses long names. See below for more details.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b><i>x</i> <i>value</i></td>
+<td>Set option <i>x</i> to the specified <i>value</i>. This form uses single <a href="/jargon/c/charact.htm">character</a> names only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b><i>protocol</i></td>
+<td>Set the name of the protocol used to receive the message. This can be a simple protocol name such as "<b>UUCP</b>" or a protocol and hostname, such as "<b>UUCP:ucbvax</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>[<i>time</i>]</td>
+<td>Process saved messages in the queue at given intervals. If <i>time</i> is omitted, process the queue once. The <i>time</i> is given as a tagged number, with "<b>s</b>" being seconds, "<b>m</b>" being minutes (default), "<b>h</b>" being hours, "<b>d</b>" being days, and "<b>w</b>" being weeks. For example, "<b>-q1h30m</b>" or "<b>-q90m</b>" would both set the <a href="/jargon/t/timeout.htm">timeout</a> to one hour thirty minutes. By default, <b>sendmail</b> runs in the background. This option can be used safely with <b>-bd</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-qp</b>[<i>time</i>]</td>
+<td>Similar to <b>-q</b><i>time</i>, except that instead of periodically <a href="/jargon/f/fork.htm">forking</a> a <a href="/jargon/p/parechil.htm">child</a> to process the queue, <b>sendmail</b> forks a single persistent child for each queue that alternates between processing the queue and sleeping. The sleep time is given as the <a href="/jargon/a/argument.htm">argument</a>; it defaults to 1 second. The process always sleeps at least 5 seconds if the queue was empty in the previous queue run.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b><i>f</i></td>
+<td>Process saved messages in the queue once and do not fork, but run in the foreground.</td>
+</tr>
+<tr class="tcw">
+<td><b>-qG</b><i>name</i></td>
+<td>Process jobs in queue group called <i>name</i> only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>[<b>!</b>]<b>I</b><i>substr</i></td>
+<td>Limit processed jobs to those containing <i>substr</i> as a <a href="/jargon/s/substring.htm">substring</a> of the queue id or not when <b>!</b> is specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>[<b>!</b>]<b>Q</b><i>substr</i></td>
+<td>Limit processed jobs to quarantined jobs containing <i>substr</i> as a substring of the quarantine reason or not when <b>!</b> is specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>[<b>!</b>]<b>R</b><i>substr</i></td>
+<td>Limit processed jobs to those containing <i>substr</i> as a substring of one of the recipients or not when <b>!</b> is specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>[<b>!</b>]<b>S</b><i>substr</i></td>
+<td>Limit processed jobs to those containing <i>substr</i> as a substring of the sender or not when <b>!</b> is specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Q</b>[<i>reason</i>]</td>
+<td>Quarantine a normal queue items with the given reason or unquarantine quarantined queue items if no reason is given. This should only be used with some sort of item matching using as described above.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b> <i>return</i></td>
+<td>Set the amount of the message to be returned if the message <a href="/jargon/b/bounce.htm">bounces</a>. The return parameter can be "<b>full</b>" to return the entire message or "<b>hdrs</b>" to return only the headers. In the latter case, local bounces return only the headers.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b><i>name</i></td>
+<td>An alternate and obsolete form of the <b>-f</b> flag.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Read message for recipients. <b>To:</b>, <b>Cc:</b>, and <b>Bcc:</b> lines will be scanned for recipient addresses. The <b>Bcc:</b> line are deleted before transmission.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b> <i>envid</i></td>
+<td>Set the original envelope id. This is propagated across SMTP to servers that support DSNs and is returned in DSN-compliant error messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Go into <a href="/jargon/v/verbose.htm">verbose</a> mode. Alias expansions will be announced, etc.</td>
+</tr>
+<tr class="tcw">
+<td><b>-X</b> <i>logfile</i></td>
+<td>Log all traffic in and out of mailers in the indicated log file. This should only be used as a last resort for debugging mailer bugs. It will log a lot of data very quickly.</td>
+</tr>
+<tr class="tcw">
+<td><b>--</b></td>
+<td>Stop processing command flags and use the rest of the arguments as addresses.</td>
+</tr>
+</table>
+<h3 class="tab">Options</h3>
+<p class="tab">There are also many processing options that can be set. Normally these are only used by a <a href="/jargon/r/root.htm">system administrator</a>. Options may be set either on the <a href="/jargon/c/commandi.htm">command line</a> using the <b>-o</b> flag (for short names), the <b>-O</b> flag (for long names), or in the configuration file. This is a partial list limited to those options that are likely to be useful on the command line and only shows the long names. The options are:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:340px"><b>AliasFile=</b><i>file</i></td>
+<td>Use alternate alias file.</td>
+</tr>
+<tr class="tcw">
+<td><b>HoldExpensive</b></td>
+<td>On mailers that are considered "expensive" to connect to, don't initiate immediate connection. This requires queueing.</td>
+</tr>
+<tr class="tcw">
+<td><b>CheckpointInterval=</b><i>N</i></td>
+<td>Checkpoint the queue file after every <i>N</i> successful deliveries (default <b>10</b>). This avoids excessive duplicate deliveries when sending to long mailing lists interrupted by system crashes.</td>
+</tr>
+<tr class="tcw">
+<td><b>DeliveryMode=</b><i>x</i></td>
+<td>Set the delivery mode to <i>x</i>. Delivery modes are "<b>i</b>" for interactive (synchronous) delivery, "<b>b</b>" for background (<a href="/jargon/a/asynchro.htm">asynchronous</a>) delivery, "<b>q</b>" for queue only; i.e., actual delivery is done the next time the queue is run, and "<b>d</b>" for deferred: the same as "<b>q</b>" except that database lookups for maps which have set the <b>-D</b> option (default for the host map) are avoided.</td>
+</tr>
+<tr class="tcw">
+<td><b>ErrorMode=</b><i>x</i></td>
+<td>Set error processing to mode <i>x</i>. Valid modes are "<b>m</b>" to mail back the error message, "<b>w</b>" to "write" back the error message (or mail it back if the sender is not logged in), "<b>p</b>" to print the errors on the <a href="/jargon/t/terminal.htm">terminal</a> (default), "<b>q</b>" to throw away error messages (only exit status is returned), and "<b>e</b>" to do special processing for BerkNet. If the text of the message is not mailed back by modes "<b>m</b>" or "<b>w</b>" and if the sender is local to this machine, a copy of the message is appended to the file <b>dead.letter</b> in the sender's <a href="/jargon/h/homedir.htm">home directory</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>SaveFromLine</b></td>
+<td>Save Unix-style <b>From</b> lines at the front of messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>MaxHopCount=</b><i>N</i></td>
+<td>The maximum number of times a message is allowed to "hop" before we decide it's in a loop.</td>
+</tr>
+<tr class="tcw">
+<td><b>IgnoreDots</b></td>
+<td>Do not take dots on a line by themselves as a message terminator.</td>
+</tr>
+<tr class="tcw">
+<td><b>SendMimeErrors</b></td>
+<td>Send error messages in <a href="/jargon/m/mime.htm">MIME</a> format. If not set, the DSN (Delivery Status Notification) SMTP extension is disabled.</td>
+</tr>
+<tr class="tcw">
+<td><b>ConnectionCacheTimeout=</b><i>timeout</i></td>
+<td>Set connection cache timeout.</td>
+</tr>
+<tr class="tcw">
+<td><b>ConnectionCacheSize=</b><i>N</i></td>
+<td>Set connection cache size.</td>
+</tr>
+<tr class="tcw">
+<td><b>LogLevel=</b><i>n</i></td>
+<td>The log level.</td>
+</tr>
+<tr class="tcw">
+<td><b>MeToo=False</b></td>
+<td>Don't send to "me" (the sender) if I am in an alias expansion.</td>
+</tr>
+<tr class="tcw">
+<td><b>CheckAliases</b></td>
+<td>Validate the right side of aliases during a <b>newaliases</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>OldStyleHeaders</b></td>
+<td>If set, this message may have old style headers. If not set, this message is guaranteed to have new style headers (i.e., commas instead of spaces between addresses). If set, an adaptive algorithm is used that will correctly determine the header format in most cases.</td>
+</tr>
+<tr class="tcw">
+<td><b>QueueDirectory=</b><i>queuedir</i></td>
+<td>Select the directory where to queue messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>StatusFile=</b><i>file</i></td>
+<td>Save statistics in the named <i>file</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Timeout.queuereturn=</b><i>time</i></td>
+<td>Set the timeout on undelivered messages in the queue to the specified time. After delivery has failed (e.g., because of a host being down) for this amount of time, failed messages will be returned to the sender. The default is five days.</td>
+</tr>
+<tr class="tcw">
+<td><b>UserDatabaseSpec=</b><i>userdatabase</i></td>
+<td>If set, a user database is consulted to get forwarding information. You can consider this an adjunct to the aliasing mechanism, except that the database is intended to be distributed; aliases are local to a particular host. This may not be available if your <b>sendmail</b> does not have the <b>USERDB</b> option compiled in.</td>
+</tr>
+<tr class="tcw">
+<td><b>ForkEachJob</b></td>
+<td>Fork each job during queue runs. May be convenient on memory-poor machines.</td>
+</tr>
+<tr class="tcw">
+<td><b>SevenBitInput</b></td>
+<td>Strip incoming messages to seven bits.</td>
+</tr>
+<tr class="tcw">
+<td><b>EightBitMode=</b><i>mode</i></td>
+<td>Set the handling of eight bit input to seven bit destinations to mode: <b>m</b> (mimefy) will convert to seven-bit MIME format, <b>p</b> (pass) will pass as eight bits (but violates protocols), and <b>s</b> (strict) will bounce the message.</td>
+</tr>
+<tr class="tcw">
+<td><b>MinQueueAge=</b><i>timeout</i></td>
+<td>Sets how long a job must ferment in the queue between attempts to send it.</td>
+</tr>
+<tr class="tcw">
+<td><b>DefaultCharSet=</b><i>charset</i></td>
+<td>Sets the default character set used to label 8-bit data that is not otherwise labelled.</td>
+</tr>
+<tr class="tcw">
+<td><b>DialDelay=</b><i>sleeptime</i></td>
+<td>If opening a connection fails, sleep for <i>sleeptime</i> seconds and try again. Useful on dial-on-demand sites.</td>
+</tr>
+<tr class="tcw">
+<td><b>NoRecipientAction=</b><i>action</i></td>
+<td>Set the behaviour when there are no recipient headers (<b>To:</b>, <b>Cc:</b> or <b>Bcc:</b>) in the message to <i>action</i>: <b>none</b> leaves the message unchanged, <b>add-to</b> adds a <b>To:</b> header with the envelope recipients, <b>add-apparently-to</b> adds an <b>Apparently-To:</b> header with the envelope recipients, <b>add-bcc</b> adds an empty <b>Bcc:</b> header, and <b>add-to-undisclosed</b> adds a header reading &#96;<b>To: undisclosed-recipients:;</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>MaxDaemonChildren=</b><i>N</i></td>
+<td>Sets the maximum number of children that an incoming SMTP daemon allows to spawn at any time to <i>N</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>ConnectionRateThrottle=</b><i>N</i></td>
+<td>Sets the maximum number of connections per second to the SMTP port to <i>N</i>.</td>
+</tr>
+</table>
+<p class="tab">In aliases, the first character of a name may be a vertical bar ("<b>|</b>") to cause interpretation of the rest of the name as a command that <a href="/jargon/p/pipe.htm">pipes</a> the mail. It may be necessary to quote the name to keep <b>sendmail</b> from suppressing the blanks from between arguments. For example, a common alias is:</p>
+<pre class="tab tcy">msgs: "|/usr/bin/msgs -s"</pre>
+<p class="tab">Aliases may also have the syntax "<b>:include:filename</b>" to ask <b>sendmail</b> to read the named file for a list of recipients. For example, an alias such as:</p>
+<pre class="tab tcy">poets: ":include:/usr/local/lib/poets.list"</pre>
+<p class="tab">would read <b>/usr/local/lib/poets.list</b> for the list of addresses making up the group.</p>
+<h2 id="exit">Exit status</h2>
+<p class="tab">Sendmail returns an exit status describing what it did. The exit codes are listed below, and defined in <b>&lt;sysexits.h&gt;</b>.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:190px"><b>EX_OK</b></td>
+<td>Successful completion on all addresses.</td>
+</tr>
+<tr class="tcw">
+<td><b>EX_NOUSER</b></td>
+<td>Username not recognized.</td>
+</tr>
+<tr class="tcw">
+<td><b>EX_UNAVAILABLE</b></td>
+<td>Catchall meaning necessary resources were not available.</td>
+</tr>
+<tr class="tcw">
+<td><b>EX_SYNTAX</b></td>
+<td>Syntax error in address.</td>
+</tr>
+<tr class="tcw">
+<td><b>EX_SOFTWARE</b></td>
+<td>Internal software error, including bad arguments.</td>
+</tr>
+<tr class="tcw">
+<td><b>EX_OSERR</b></td>
+<td>Temporary <a href="/jargon/o/os.htm">operating system</a> error, such as "cannot fork".</td>
+</tr>
+<tr class="tcw">
+<td><b>EX_NOHOST</b></td>
+<td><a href="/jargon/h/hostname.htm">Hostname</a> not recognized.</td>
+</tr>
+<tr class="tcw">
+<td><b>EX_TEMPFAIL</b></td>
+<td>Message could not be sent immediately, but was queued.</td>
+</tr>
+</table>
+<h2 id="invocations">Alternate invocations</h2>
+<p class="tab">If invoked as <b>newaliases</b>, sendmail will rebuild the alias database.</p>
+<p class="tab">If invoked as <b>mailq</b>, sendmail prints the contents of the mail queue.</p>
+<p class="tab">If invoked as <b>hoststat</b>, sendmail prints the persistent host status database.</p>
+<p class="tab">If invoked as <b>purgestat</b>, sendmail purges expired entries from the persistent host status database.</p>
+<p class="tab">If invoked as <b>smtpd</b>, sendmail acts as a daemon, as if the <b>-bd</b> option were specified.</p>
+<h2 id="files">Files</h2>
+<p class="tab">Except for the file <b>/etc/mail/sendmail.cf</b> itself, the following pathnames are all specified in <b>/etc/mail/sendmail.cf</b>. Thus, these values should only be considered approximations.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>/etc/mail/aliases</b></td>
+<td>raw data for alias names</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/mail/aliases.db</b></td>
+<td>database of alias names</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/mail/sendmail.cf</b></td>
+<td>configuration file</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/mail/helpfile</b></td>
+<td>help file</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/mail/statistics</b></td>
+<td>collected statistics</td>
+</tr>
+<tr class="tcw">
+<td><b>/var/spool/mqueue/*</b></td>
+<td>temp files</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">sendmail <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="671214021527021f060a170b024904080a">[email&#160;protected]</a></pre>
+<p class="tab"><b>sendmail</b> will read your e-mail from standard input, and attempt to send the e-mail when you enter a single dot ("<b>.</b>") on a new line and press <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a>. For example, after running the above command, you could type:</p>
+<pre class="tab tcy">From: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cfa2aa8fa2b6a7a0bcbbe1aca0a2">[email&#160;protected]</a>
+To: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d5a0a6b0a795b0adb4b8a5b9b0fbb6bab8">[email&#160;protected]</a>
+Hi, this is my message, and I'm sending it to you!
+.
+</pre>
+<p class="tab">and <b>sendmail</b> attempts to send it.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ubiff.htm"><b>biff</b></a> &mdash; Receive detailed mail notifications at the command line.<br><a href="/unix/umail.htm"><b>mail</b></a> &mdash; Read, compose, and manage mail.<br><a href="/unix/umailx.htm"><b>mailx</b></a> &mdash; Process mail messages.<br><a href="/unix/unewalia.htm"><b>newalias</b></a> &mdash; Install new elm aliases.<br><a href="/unix/upine.htm"><b>pine</b></a> &mdash; A client for using mail and newsgroups.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a834b0aab84e0',m:'YQz3Ad3aluPTuGMeD6Uz9.J289G0lpNbZ.MHWj.Bd4A-1661495364-0-AVTvOzoOlc86i7t4ez5Ru19hoSLkyH5xcSf+IZ58+5+dJvqghbqkoXD8KYKs7EI1lg3bUnyAu/O3wsBbZN/rsaXpjSYcf70wpjXk9wYBUtHV/wiliF2HfdTqvKwXsduEwABL+KUbAi62lKzq/eOgLE8=',s:[0x5e1bb29797,0xddf5c140b4],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

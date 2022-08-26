@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux dig command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-08-16">08/16/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/dig.gif" width="300" height="300" alt="dig command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>dig</b> command performs network <a href="/jargon/d/dns.htm">DNS</a> lookups.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#usage">Simple usage</a></li>
+<li><a href="#query">Query options</a></li>
+<li><a href="#idn">IDN support</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>dig</b> (which stands for <i><b>domain information groper</b></i>) is a flexible tool for interrogating DNS <a href="/jargon/n/nameser.htm">name servers</a>. It performs DNS lookups and displays the answers that are returned from the name server(s) that were <a href="/jargon/q/query.htm">queried</a>. Most DNS <a href="/jargon/r/root.htm">administrators</a> use dig to troubleshoot DNS problems because of its flexibility, ease of use and clarity of output. Other lookup tools tend to have less functionality than dig.</p>
+<p class="tab">Although dig is normally used with <a href="/jargon/c/commandi.htm">command-line</a> <a href="/jargon/a/argument.htm">arguments</a>, it also has a <a href="/jargon/b/batchfil.htm">batch mode</a> of operation for reading lookup requests from a <a href="/jargon/f/file.htm">file</a>. A summary of its command-line arguments and options is printed when the <b>-h</b> option is given. Unlike earlier versions, the <a href="/jargon/b/bind.htm">BIND</a> 9 implementation of dig allows multiple lookups to be issued from the command line.</p>
+<p class="tab">Unless it is told to query a specific name server, dig tries each of the servers listed in <b>/etc/resolv.conf</b>.</p>
+<p class="tab">When no command line arguments or options are given, dig performs an NS query for &quot;<b>.</b>&quot; (the root).</p>
+<p class="tab">It is possible to set per-user defaults for dig via <b>${HOME}/.digrc</b>. This file is read and any options in it are applied before the command line arguments.</p>
+<p class="tab">The IN and CH class names overlap with the IN and CH top level domains names. Either use the <b>-t</b> and <b>-c</b> options to specify the type and class, use the <b>-q</b> the specify the domain name, or use &quot;IN.&quot; and &quot;CH.&quot; when looking up these top level <a href="/jargon/d/domain.htm">domains</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">dig [@<i>server</i>] [-b <i>address</i>] [-c <i>class</i>] [-f <i>filename</i>] [-k <i>filename</i>]
+    [-m] [-p <i>port</i>#] [-q <i>name</i>] [-t <i>type</i>] [-x <i>addr</i>] [-y [<i>hmac</i>:]<i>name</i>:<i>key</i>]
+    [-4] [-6] [<i>name</i>] [<i>type</i>] [<i>class</i>] [<i>queryopt</i>...]</pre>
+<pre class="tcy tab">dig [-h]</pre>
+<pre class="tcy tab">dig [<i>global-queryopt</i>...] [<i>query</i>...]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:190px"><b>-b</b> <i>address</i></td>
+<td>The <b>-b</b> option sets the source IP address of the query to <i>address</i>. This must be a valid address on one of the host's network interfaces or &quot;0.0.0.0&quot; or &quot;::&quot;. An optional <a href="/jargon/p/port.htm">port</a> may be specified by appending &quot;#<i>&lt;port&gt;</i>&quot;</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b> <i>class</i></td>
+<td>The default query class (<b>IN</b> for <a href="/jargon/i/internet.htm">Internet</a>) is <a href="/jargon/o/override.htm">overridden</a> by the <b>-c</b> option. <i>class</i> is any valid class, such as <b>HS</b> for Hesiod records or <b>CH</b> for CHAOSNET records.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>filename</i></td>
+<td>The <b>-f</b> option makes <b>dig</b> operate in batch mode by reading a list of lookup requests to process from the file <i>filename</i>. The file contains many queries, one per line. Each entry in the file should be organized in the same way they would be presented as queries to dig using the command-line interface.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>port#</i></td>
+<td>If a non-standard port number is to be queried, the <b>-p</b> option is used. <i>port#</i> is the port number that dig sends its queries instead of the standard DNS port number 53. This option would be used to test a name server that was configured to listen for queries on a non-standard port number.</td>
+</tr>
+<tr class="tcw">
+<td><b>-4</b></td>
+<td>The <b>-4</b> option forces dig to only use <a href="/jargon/i/ipv4.htm">IPv4</a> query transport.</td>
+</tr>
+<tr class="tcw">
+<td><b>-6</b></td>
+<td>The <b>-6</b> option forces dig to only use <a href="/jargon/i/ipv6.htm">IPv6</a> query transport.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>type</i></td>
+<td>The <b>-t</b> option sets the query type to <i>type</i>. It can be any valid query type that is supported in BIND9. The default query type &quot;<b>A</b>&quot;, unless the <b>-x</b> option is supplied to indicate a <a href="/jargon/r/rdns.htm">reverse lookup</a>. A <a href="/jargon/z/zone.htm">zone</a> transfer can be requested by specifying a <b>AXFR</b>. When an incremental zone transfer (<b>IXFR</b>) is required, type is set to <b>ixfr=N</b>. The incremental zone transfer contains the changes made to the zone since the <a href="/jargon/s/serinumb.htm">serial number</a> in the zone's <a href="/jargon/s/soa.htm">SOA</a> record was <b>N</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b> <i>addr</i></td>
+<td><a href="/jargon/r/rdns.htm">Reverse lookups</a> (mapping addresses to names) are simplified by the <b>-x</b> option. <i>addr</i> is an IPv4 address in dotted-decimal notation, or a colon-delimited IPv6 address. When this option is used, there is no need to provide the name, class, and type arguments. The dig automatically performs a lookup for a name like <b>11.12.13.10.in-addr.arpa</b> and sets the query type and class to <b>PTR</b> and <b>IN</b> respectively. By default, IPv6 addresses are looked up using nibble format under the IP6.ARPA domain. To use the older RFC1886 method using the IP6.INT domain specify the <b>-i</b> option. Bit string labels (RFC2874) are now experimental and are not attempted.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b> <i>filename</i></td>
+<td>To sign the DNS queries sent by dig and their responses using TSIG (transaction signatures), specify a TSIG key file using the <b>-k</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b> [<i>hmac</i><b>:</b>]<i>name</i><b>:</b><i>key</i></td>
+<td>You can also specify the TSIG key itself on the command line using the <b>-y</b> option; name is the name of the TSIG key and key is the actual key. The key is a base-64 encoded string, generated by <b>dnssec-keygen</b>. Caution should be taken when using the <b>-y</b> option on <a href="/jargon/m/multsyst.htm">multi-user systems</a> as the key can be visible in the output from <a href="/unix/ups.htm">ps</a> or in the <a href="/jargon/s/shell.htm">shell's</a> <a href="/jargon/h/history.htm">history</a> file. When using TSIG authentication with dig, the name server that is queried needs to know the key and algorithm that is being used. In BIND, this is done by providing appropriate key and server statements in <b>named.conf</b>.</td>
+</tr>
+</table>
+<h2 id="usage">Simple usage</h2>
+<p class="tab">A typical invocation of <b>dig</b> looks like:</p>
+<pre class="tab tcy">dig @server name type</pre>
+<p class="tab">where:</p>
+<ul>
+<li><b>server</b> is the name or IP address of the name server to query. This is an IPv4 address in dotted-decimal notation or an IPv6 address in colon-delimited notation. When the supplied server argument is a <a href="/jargon/h/hostname.htm">hostname</a>, dig resolves that name before querying that name server. If no server argument is provided, dig consults <b>/etc/resolv.conf</b> and queries the name servers listed there. The reply from the name server that responds is displayed.</li>
+<li><b>name</b> is the name of the resource record that is to be looked up.</li>
+<li><b>type</b> indicates what type of query is required - <b>ANY</b>, <b>A</b>, <b>MX</b>, <b>SIG</b>, etc. <b>type</b> can be any valid query type. If no type argument is supplied, dig performs a lookup for an <b>A</b> record.</li>
+</ul>
+<h2 id="query">Query options</h2>
+<p class="tab"><b>dig</b> provides many query options which affect the way lookups are made and the results displayed. Some of these set or reset flag <a href="/jargon/b/bit.htm">bits</a> in the query header, some determine which sections of the answer get printed, and others determine the timeout and retry strategies.</p>
+<p class="tab">Each query option is identified by a keyword preceded by a plus sign (<b>+</b>). Some keywords set or reset an option. These may be preceded by the string no to negate the meaning of that keyword. Other keywords assign values to options like the <a href="/jargon/t/timeout.htm">timeout</a> interval. They have the form <b>+keyword=value</b>. The query options are:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>+</b>[<b>no</b>]<b>tcp</b></td>
+<td>Use [do not use] TCP when querying name servers. The default behavior is to use UDP, unless an AXFR or IXFR query is requested, where a TCP connection is used instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>vc</b></td>
+<td>Use [do not use] TCP when querying name servers. This alternate syntax to +[no]tcp is provided for <a href="/jargon/b/backcomp.htm">backward compatibility</a>. The &quot;vc&quot; stands for &quot;virtual circuit.&quot;</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>ignore</b></td>
+<td>Ignore truncation in UDP responses instead of retrying with TCP. By default, TCP retries are performed.</td>
+</tr>
+<tr class="tcw">
+<td><b>+domain=</b><i>somename</i></td>
+<td>Set the search list to contain the single domain <i>somename</i>, as if specified in a domain directive in <b>/etc/resolv.conf</b>, and enable search list processing as if the <b>+search</b> option were given.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>search</b></td>
+<td>Use [do not use] the search list defined by the searchlist or domain directive in resolv.conf (if any). The search list is not used by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>showsearch</b></td>
+<td>Perform [do not perform] a search showing intermediate results.</td>
+</tr>
+<tr class="tcw">
+ <td><b>+</b>[<b>no</b>]<b>defname</b></td>
+<td>Deprecated, treated as a synonym for +[no]search</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>aaonly</b></td>
+<td>Sets the &quot;<b>aa</b>&quot; flag in the query.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>aaflag</b></td>
+<td>A synonym for +[no]aaonly.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>adflag</b></td>
+<td>Set [do not set] the AD (authentic data) bit in the query. This requests the server to return whether all the answer and authority sections are validated as secure according to the security policy of the server. AD=1 indicates that all records are validated as secure and the answer is not from an OPT-OUT range. AD=0 indicate that some part of the answer was insecure or not validated.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>cdflag</b></td>
+<td>Set [do not set] the CD (checking disabled) bit in the query. This requests the server to not perform DNSSEC validation of responses.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>cl</b></td>
+<td>Display [do not display] the CLASS when printing the record.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>ttlid</b></td>
+<td>Display [do not display] the TTL when printing the record.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>recurse</b></td>
+<td>Toggle the setting of the RD (recursion desired) bit in the query. This bit is set by default, which means dig normally sends recursive queries. Recursion is automatically disabled when the +nssearch or +trace query options are used.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>nssearch</b></td>
+<td>When this option is set, dig attempts to find the authoritative name servers for the zone containing the name being looked up and display the SOA record that each name server has for the zone.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>trace</b></td>
+<td>Toggle tracing of the delegation path from the root name servers for the name being looked up. Tracing is disabled by default. When tracing is enabled, dig makes iterative queries to resolve the name being looked up. It follows referrals from the root servers, showing the answer from each server that was used to resolve the lookup.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>cmd</b></td>
+<td>Toggles the printing of the initial comment in the output identifying the version of dig and the query options that were applied. This comment is printed by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>short</b></td>
+<td>Provide a terse answer. The default is to print the answer in a verbose form.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>identify</b></td>
+<td>Show [or do not show] the IP address and port number that supplied the answer when the +short option is enabled. If short form answers are requested, the default is not to show the source address and port number of the server that provided the answer.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>comments</b></td>
+<td>Toggle the display of comment lines in the output. The default is to print comments.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>stats</b></td>
+<td>This query option toggles the printing of statistics: when the query was made, the size of the reply, etc. The default behavior is to print the query statistics.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>qr</b></td>
+<td>Print [do not print] the query as it is sent. By default, the query is not printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>question</b></td>
+<td>Print [do not print] the question section of a query when an answer is returned. The default is to print the question section as a comment.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>answer</b></td>
+<td>Display [do not display] the answer section of a reply. The default is to display it.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>authority</b></td>
+<td>Display [do not display] the authority section of a reply. The default is to display it.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>additional</b></td>
+<td>Display [do not display] the additional section of a reply. The default is to display it.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>all</b></td>
+<td>Set or clear all display flags.</td>
+</tr>
+<tr class="tcw">
+<td><b>+time=</b><i>T</i></td>
+<td>Sets the timeout for a query to <i>T</i> seconds. The default timeout is 5 seconds. An attempt to set <i>T</i> to less than 1 results in a query timeout of 1 second being applied.</td>
+</tr>
+<tr class="tcw">
+<td><b>+tries=</b><i>T</i></td>
+<td>Sets the number of times to try UDP queries to server to <i>T</i> instead of the default, 3. If <i>T</i> is less than or equal to zero, the number of tries is silently rounded up to 1.</td>
+</tr>
+<tr class="tcw">
+<td><b>+retry=</b><i>T</i></td>
+<td>Sets the number of times to retry UDP queries to server to <i>T</i> instead of the default, 2. Unlike +tries, this does not include the initial query.</td>
+</tr>
+<tr class="tcw">
+<td><b>+ndots=</b><i>D</i></td>
+<td>Set the number of dots that have to appear in name to <i>D</i> for it to be considered absolute. The default value is that defined using the <b>ndots</b> statement in <b>/etc/resolv.conf</b>, or <b>1</b> if no <b>ndots</b> statement is present. Names with fewer dots are interpreted as relative names and are searched for in the domains listed in the search or domain directive in <b>/etc/resolv.conf</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>+bufsize=</b><i>B</i></td>
+<td>Set the UDP message <a href="/jargon/b/buffer.htm">buffer</a> size advertised using EDNS0 to <i>B</i> <a href="/jargon/b/byte.htm">bytes</a>. The maximum and minimum sizes of this buffer are 65535 and 0 respectively. Values outside this range are rounded up or down appropriately. Values other than zero cause an EDNS query to be sent.</td>
+</tr>
+<tr class="tcw">
+<td><b>+edns=</b><i>#</i></td>
+<td>Specify the EDNS version to use in a query. Valid values are 0 to 255. Setting the EDNS version causes an EDNS query to be sent. <b>+noedns</b> clears the remembered EDNS version.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>multiline</b></td>
+<td>Print records like the SOA records in a verbose multi-line format with human-readable comments. The default is to print each record on a single line, to facilitate machine parsing of the dig output.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>onesoa</b></td>
+<td>Print only one (starting) SOA record when performing an AXFR. The default is to print both the starting and ending SOA records.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>fail</b></td>
+<td>Do not try the next server if you receive a SERVFAIL. The default is to not try the next server that is the reverse of normal stub resolver behavior.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>besteffort</b></td>
+<td>Attempt to display the contents of messages that are malformed. The default is to not display malformed answers.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>dnssec</b></td>
+<td>Requests DNSSEC records be sent by setting the DO (DNSSEC OK) bit in the OPT record in the additional section of the query.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>[<b>no</b>]<b>sigchase</b></td>
+<td>Chase DNSSEC signature chains. Requires dig be <a href="/jargon/c/compile.htm">compiled</a> with -DDIG_SIGCHASE.</td>
+</tr>
+<tr class="tcw">
+<td><b>+trusted-key=</b><i>####</i></td>
+<td>Specifies a file containing trusted keys to be used with <b>+sigchase</b>. Each DNSKEY record must be on its own line.<br><br>If not specified, dig looks for <b>/etc/trusted-key.key</b> then <b>trusted-key.key</b> in the current <a href="/jargon/d/director.htm">directory</a>.<br><br>Requires dig be compiled with -DDIG_SIGCHASE.</td>
+</tr>
+<tr class="tcw">
+<td><b>+[no]topdown</b></td>
+<td>When chasing DNSSEC signature chains perform a top-down validation. Requires dig be compiled with -DDIG_SIGCHASE.</td>
+</tr>
+<tr class="tcw">
+<td><b>+[no]nsid</b></td>
+<td>Include an EDNS name server ID request when sending a query.</td>
+</tr>
+</table>
+<h3 class="tab">Multiple queries</h3>
+<p class="tab">The BIND 9 implementation of <b>dig</b> supports specifying multiple queries on the command line (in addition to supporting the <b>-f</b> batch file option). Each of those queries can be supplied with its own set of flags, options, and query options.</p>
+<p class="tab">In this case, each query argument represents an individual query in the command-line syntax described above. Each consists of any of the standard options and flags, the name to be looked up, an optional query type and class and any query options that should be applied to that query.</p>
+<p class="tab">A global set of query options, which should be applied to all queries, can also be supplied. These global query options must precede the first tuple of name, class, type, options, flags, and query options supplied on the command line. Any global query options (except the <b>+</b>[<b>no</b>]<b>cmd</b> option) can be overridden by a query-specific set of query options. For example:</p>
+<p class="tabb">dig +qr www.isc.org any -x 127.0.0.1 isc.org ns +noqr</p>
+<p class="tab">shows how dig could be used from the command line to make three lookups: an <b>ANY</b> query for www.isc.org, a reverse lookup of 127.0.0.1 and a query for the NS records of isc.org. A global query option of <b>+qr</b> is applied, so that dig shows the initial query it made for each lookup. The final query has a local query option of <b>+noqr</b>, which means that dig does not print the initial query when it looks up the NS records for isc.org.</p>
+<h2 id="idn">IDN support</h2>
+<p class="tab">If dig was built with IDN (internationalized domain name) support, it can accept and display non-<a href="/jargon/a/ascii.htm">ASCII</a> domain names. dig appropriately converts character encoding of domain name before sending a request to DNS server or displaying a reply from the server. If you'd like to turn off the IDN support for some reason, defines the IDN_DISABLE <a href="/jargon/e/envivari.htm">environment variable</a>. The IDN support is disabled if the variable is set when dig runs.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">dig computerhope.com</pre>
+<p class="tab">Typing in the above command would display information similar to the following:</p>
+<pre class="tab">; &lt;&lt;&gt;&gt; DiG 9.8.3-P1 &lt;&lt;&gt;&gt; computerhope.com
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 23826
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+;; QUESTION SECTION:
+;computerhope.com.		IN	A
+;; ANSWER SECTION:
+computerhope.com.	86400	IN	A	104.20.56.118
+;; Query time: 51 msec
+;; SERVER: 192.168.1.1#53(192.168.1.1)
+;; WHEN: Sun Mar 23 11:16:37 2014
+;; MSG SIZE  rcvd: 50</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/host.htm"><b>host</b></a> &mdash; Convert a hostname to an IP address and vice versa.<br><a href="/unix/unslooku.htm"><b>nslookup</b></a> &mdash; Query a name server for information about a remote host.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82d4b8a784bc',m:'tozx.sKHkEsZg20W1oPmZne8jOFAWBYCC5kCHNgQ9UM-1661495345-0-Aejrcrmjjn6G07oRCPPYCGICUByWc8PvzBN9H1hEmCr5fEfxDvBNPCG39tD6WTkQ7QayszTJx1nFohM0EQbj08q5eEwKR9PrkjiHi53ODPUoswn0R3pM5SAAUDUFufY2CA==',s:[0xbb7d6039f9,0x86d481473c],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

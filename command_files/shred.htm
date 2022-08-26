@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux shred command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/shred.gif" width="300" height="300" alt="shred command" class="floatRight"><p class="intro">On Linux operating systems, the <b>shred</b> to <a href="/jargon/o/overwrit.htm">overwrite</a> a file to hide its contents, and optionally delete it.</p>
+<p>The <b>shred</b> program was created by the <a href="/jargon/g/gnu.htm">GNU</a> project. On non-Linux operating systems, it has the command name <b>gshred</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>shred</b> is a program that will overwrite your files in a way that makes them very difficult to recover by a third party.</p>
+<p class="tab">Normally, when you <a href="/jargon/d/delete.htm">delete</a> a file, that portion of the <a href="/jargon/d/disk.htm">disk</a> is marked as being ready for another file to be written to it, but the <a href="/jargon/d/data.htm">data</a> is still there. If a third party were to gain physical access to your disk, they could, using advanced techniques, access the data you thought you had deleted.</p>
+<p class="tab">The analogy is that of a paper shredder. If you crumple up a piece of paper and throw it in the trash can, a third party could come along, root through your trash, and find your discarded documents. If you want to destroy the document, it's best to use a paper shredder. Or burn it, I suppose, but that's not always practical in a typical office.</p>
+<p class="tab">The way that <b>shred</b> accomplishes this type of destruction digitally is to overwrite (over and over, repeatedly, as many times as you specify) the data you want to destroy, replacing it with other (usually random) data. Doing this magnetically destroys the data on the disk and makes it highly improbable that it can ever be recovered.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">shred [<i>OPTIONS</i>] <i>FILE</i> [...]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><b>-f</b>, <b>--force</b></td>
+<td>Change <a href="/jargon/p/permissi.htm">permissions</a> to allow writing if necessary.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--iterations=</b><i>N</i></td>
+<td>Overwrite <i>N</i> times instead of the default (<b>3</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--size=</b><i>N</i></td>
+<td>Shred this many <a href="/jargon/b/byte.htm">bytes</a> (suffixes like <a href="/jargon/k/kilobyte.htm">K</a>, <a href="/jargon/m/megabyte.htm">M</a>, <a href="/jargon/g/gigabyte.htm">G</a> accepted).</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--remove</b></td>
+<td><a href="/jargon/t/truncate.htm">Truncate</a> and <a href="/unix/urm.htm">remove</a> file after overwriting.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Show <a href="/jargon/v/verbose.htm">verbose</a> information about shredding progress.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b>, <b>--exact</b></td>
+<td>Do not round file sizes up to the next full <a href="/jargon/b/block.htm">block</a>; this is the default for non-regular files such as device names.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b>, <b>--zero</b></td>
+<td>Add a final overwrite with zeros to hide shredding.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>Shred standard output.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display this help and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Output version information and exit.</td>
+</tr>
+</table>
+<h2 id="notes">Notes</h2>
+<p class="tab">After destroying the FILE data, <b>shred</b> also deletes the FILE(s) if <b>--remove</b> (<b>-u</b>) is specified. The default is not to remove the files because it is common to operate on entire device files like <b>/dev/hda</b>, and those files usually should not be removed. When operating on regular files, most people use the <b>--remove</b> option.</p>
+<div class="tip tab" role="note">
+<span class="title note">Caution</span>
+<p>Take note that <b>shred</b> relies on an important assumption: that the file system overwrites data "in-place." This assumption is the traditional way to do things, but many modern <a href="/jargon/f/filesyst.htm">file systems</a> do not do things exactly this way.</p>
+</div>
+<p class="tab">The following are examples of file systems on which <b>shred</b> is not effective, or is not guaranteed to be effective in all file system modes:</p>
+<ul>
+<li><a href="/jargon/l/log.htm">log</a>-structured or <a href="/jargon/j/journal.htm">journaled</a> file systems, such as those supplied with <a href="/jargon/a/aix.htm">AIX</a> and <a href="/jargon/s/solaris.htm">Solaris</a> (and <b>JFS</b>, <b>ReiserFS</b>, <b>XFS</b>, <b>Ext3</b>, etc.)</li>
+<li>file systems that write redundant data and carry on even if some writes fail, such as <a href="/jargon/r/raid.htm">RAID</a>-based file systems</li>
+<li>file systems that make snapshots, such as Network Appliance's <a href="/jargon/n/nfs.htm">NFS</a> server</li>
+<li>file systems that cache in temporary locations, such as <b>NFS</b> version 3 clients</li>
+<li><a href="/jargon/c/compress.htm">compressed</a> file systems</li>
+</ul>
+<p class="tab">In the case of <b>ext3</b> file systems, the above disclaimer applies (and <b>shred</b> is thus of limited effectiveness) only in <b>data=journal</b> mode, which journals file data in addition to file <a href="/jargon/m/metadata.htm">metadata</a>. In both the <b>data=ordered</b> (default) and <b>data=writeback</b> modes, <b>shred</b> works as usual. <b>Ext3</b> journaling modes can be changed by adding the <b>data=</b><i>something</i> option to the <a href="/unix/umount.htm">mount</a> options for a particular file system in the <b>/etc/fstab</b> file, as documented in the <b>mount</b> manual.</p>
+<p class="tab">Also, file system backups and remote <a href="/jargon/m/mirrorin.htm">mirrors</a> may contain copies of the file that cannot be removed, and that allows a shredded file to be recovered later.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">shred file1.txt file2.jpg file3.doc</pre>
+<p class="tab">Overwrite the data of <b>file1.txt</b>, <b>file2.jpg</b>, and <b>file3.doc</b> using the default shredding methods.</p>
+<pre class="tcy tab">shred -u file1.txt file2.jpg file3.doc</pre>
+<p class="tab">Same as above, but <i>also delete</i> those three files, freeing up that space on the disk for later use.</p>
+<pre class="tcy tab">shred /dev/hda6</pre>
+<p class="tab">Overwrite all data on the <a href="/jargon/p/partition.htm">partition</a> <b>/dev/hda6</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/urm.htm"><b>rm</b></a> &mdash; Delete files.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83518fcdc429',m:'t5PsRr8TfDsfSJDJdu0NXuGCrplnyoEgshFJIqUXXXY-1661495365-0-AYKPQzILBPLQEdUB9imv+VtQTcbheXSMT6GnXJF4pf8Bbiafra/C1TiYfZfuDQR5hE5Nq+8oGbFA6NtFtGvzGaLqSWGPCkiHrSil9Vw5mH/VnQOJeRH9AqlFV1Ucuepb3Q==',s:[0x54f938c7a8,0x82c4b25ac2],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

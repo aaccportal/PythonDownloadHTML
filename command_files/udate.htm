@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux date command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/date.gif" width="300" height="300" alt="date command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>date</b> command is used to print out, or change the value of, the system's time and date information.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>date</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#date-format">Date format</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">date [<i>OPTION</i>]... [+<i>FORMAT</i>]</pre>
+<pre class="tcy tab">date [-u|--utc|--universal] [<i>MMDDhhmm</i>[[<i>CC</i>]<i>YY</i>][.<i>ss</i>]]</pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>-d</b>, <b>--date=</b><i>STRING</i></td>
+<td>Display time described by <a href="/jargon/s/string.htm">string</a> <i>STRING</i>, instead of the default, which is '<b>now</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--file=</b><i>DATEFILE</i></td>
+<td>Like <b>--date</b>, but processed once for each line of file <i>DATEFILE</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b>[<i>TIMESPEC</i>],<br> <b>--iso-8601</b>[<b>=</b><i>TIMESPEC</i>]</td>
+<td>Output date/time in <a href="/jargon/i/iso.htm">ISO</a> 8601 format. For values of <i>TIMESPEC</i>, use '<b>date</b>' for date only (the default), '<b>hours</b>', '<b>minutes</b>', '<b>seconds</b>', or '<b>ns</b>' for date and time to the indicated precision.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--reference=</b><i>FILE</i></td>
+<td>Display the last modification time of file <i>FILE</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--rfc-2822</b></td>
+<td>Output date and time in <a href="/jargon/r/rfc.htm">RFC</a> 2822 format. Example: <b>Mon, 07 Aug 2006 12:34:56 -0600</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--rfc-3339=</b><i>TIMESPEC</i></td>
+<td>Output date and time in RFC 3339 format. <i>TIMESPEC</i> can be set to '<b>date</b>', '<b>seconds</b>', or '<b>ns</b>' for date and time to the indicated precision. Date and time components are separated by a single space, for example: <b>2006-08-07 12:34:56-06:00</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--set=</b><i>STRING</i></td>
+<td>Set time described by string <i>STRING</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--utc</b>, <b>--universal</b></td>
+<td>Print or set Coordinated Universal Time.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display version information and exit.</td>
+</tr>
+</table>
+<h2 id="date-format">Date format</h2>
+<p class="tab"><i>FORMAT</i> is a sequence of characters which specifies how output appears. It comprises some combination of the following sequences:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:70px"><b>%%</b></td>
+<td>A literal <a href="/jargon/p/percent.htm">percent sign</a> ("<b>%</b>").</td>
+</tr>
+<tr class="tcw">
+<td><b>%a</b></td>
+<td>The abbreviated weekday name (e.g., <b>Sun</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%A</b></td>
+<td>The full weekday name (e.g., <b>Sunday</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%b</b></td>
+<td>The abbreviated month name (e.g., <b>Jan</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%B</b></td>
+<td>Locale's full month name (e.g., <b>January</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%c</b></td>
+<td>The date and time (e.g., <b>Thu Mar 3 23:05:25 2005</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%C</b></td>
+<td>The current century; like <b>%Y</b>, except omit last two digits (e.g., <b>20</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%d</b></td>
+<td>Day of month (e.g., <b>01</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%D</b></td>
+<td>Date; same as <b>%m/%d/%y</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%e</b></td>
+<td>Day of month, space padded; same as <b>%_d</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%F</b></td>
+<td>Full date; same as <b>%Y-%m-%d</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%g</b></td>
+<td>Last two digits of year of ISO week number (see <b>%G</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%G</b></td>
+<td>Year of ISO week number (see <b>%V</b>); normally useful only with <b>%V</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%h</b></td>
+<td>Same as <b>%b</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%H</b></td>
+<td>Hour (<b>00</b>..<b>23</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%I</b></td>
+<td>Hour (<b>01</b>..<b>12</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%j</b></td>
+<td>Day of year (<b>001</b>..<b>366</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%k</b></td>
+<td>Hour, space padded ( <b>0</b>..<b>23</b>); same as <b>%_H</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%l</b></td>
+<td>Hour, space padded ( <b>1</b>..<b>12</b>); same as <b>%_I</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%m</b></td>
+<td>Month (<b>01</b>..<b>12</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%M</b></td>
+<td>Minute (<b>00</b>..<b>59</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%n</b></td>
+<td>A <a href="/jargon/n/newline.htm">newline</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%N</b></td>
+<td><a href="/jargon/n/nanosec.htm">Nanoseconds</a> (<b>000000000</b>..<b>999999999</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%p</b></td>
+<td>Locale's equivalent of either <b>AM</b> or <b>PM</b>; blank if not known.</td>
+</tr>
+<tr class="tcw">
+<td><b>%P</b></td>
+<td>Like <b>%p</b>, but lowercase.</td>
+</tr>
+<tr class="tcw">
+<td><b>%r</b></td>
+<td>Locale's 12-hour clock time (e.g., <b>11:11:04 PM</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%R</b></td>
+<td>24-hour hour and minute; same as <b>%H:%M</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%s</b></td>
+<td>Seconds since 1970-01-01 00:00:00 UTC.</td>
+</tr>
+<tr class="tcw">
+<td><b>%S</b></td>
+<td><a href="/jargon/s/second.htm">Second</a> (<b>00</b>..<b>60</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%t</b></td>
+<td>A <a href="/jargon/t/tab.htm">tab</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%T</b></td>
+<td>Time; same as <b>%H:%M:%S</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%u</b></td>
+<td>Day of week (<b>1</b>..<b>7</b>); 1 is <b>Monday</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%U</b></td>
+<td>Week number of year, with Sunday as first day of week (<b>00</b>..<b>53</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%V</b></td>
+<td>ISO week number, with Monday as first day of week (<b>01</b>..<b>53</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%w</b></td>
+<td>Day of week (<b>0</b>..<b>6</b>); 0 is <b>Sunday</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%W</b></td>
+<td>Week number of year, with Monday as first day of week (<b>00</b>..<b>53</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%x</b></td>
+<td>Locale's date representation (e.g., <b>12/31/99</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%X</b></td>
+<td>Locale's time representation (e.g., <b>23:13:48</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%y</b></td>
+<td>Last two digits of year (<b>00</b>..<b>99</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%Y</b></td>
+<td>Year.</td>
+</tr>
+<tr class="tcw">
+<td><b>%z</b></td>
+<td>+hhmm numeric time zone (e.g., <b>-0400</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%:z</b></td>
+<td>+hh:mm numeric time zone (e.g., <b>-04:00</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%::z</b></td>
+<td>+hh:mm:ss numeric time zone (e.g., <b>-04:00:00</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%:::z</b></td>
+<td>Numeric time zone with "<b>:</b>" to necessary precision (e.g., <b>-04</b>, <b>+05:30</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%Z</b></td>
+<td>Alphabetic time zone abbreviation (e.g., EDT).</td>
+</tr>
+</table>
+<p class="tab">By default, date pads numeric fields with zeroes. The following optional flags may follow '<b>%</b>':</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>-</b></td>
+<td>(<a href="/jargon/h/hyphen.htm">Hyphen</a>) do not pad the field.</td>
+</tr>
+<tr class="tcw">
+<td><b>_</b></td>
+<td>Pad with <a href="/jargon/s/space.htm">spaces</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>0</b></td>
+<td>Pad with zeros.</td>
+</tr>
+<tr class="tcw">
+<td><b>^</b></td>
+<td>Use uppercase if possible.</td>
+</tr>
+<tr class="tcw">
+<td><b>#</b></td>
+<td>Use opposite case if possible.</td>
+</tr>
+</table>
+<p class="tab">After any flags comes an optional <a href="/jargon/f/field.htm">field</a> width, as a <a href="/jargon/d/decimal.htm">decimal</a> number; then an optional modifier, which is either <b>E</b> to use the locale's alternate representations if available, or <b>O</b> to use the locale's alternate numeric symbols if available.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">date</pre>
+<p class="tab">Running <b>date</b> with no options outputs the system date and time, as in the following output:</p>
+<pre class="tab">Thu Feb 8 16:47:32 MST 2001</pre>
+<pre class="tcy tab">date -s "11/20/2003 12:48:00"</pre>
+<p class="tab">Set the system date and time to <b>November 20, 2003, 12:48 PM</b>.</p>
+<pre class="tcy tab">date "+DATE: %m/%d/%y%nTIME: %H:%M:%S"</pre>
+<p class="tab">Outputs the date and time in the following format:</p>
+<pre class="tab">DATE: 02/08/01<br>TIME: 16:44:55</pre>
+<pre class="tcy tab">ls -al &gt; output_$(date +"%m_%d_%Y")</pre>
+<p class="tab">In <a href="/unix/ubash.htm">bash</a>, this command generates a directory listing with <a href="/unix/uls.htm">ls</a>, and <a href="/jargon/r/redirect.htm">redirect</a> the output to a file which includes the current day, month, and year in the <a href="/jargon/f/filename.htm">file name</a>. It does this using bash <a href="/unix/ubash.htm#11A4">command substitution</a>, running the <b>date</b> command in a subshell and inserting that output into the original command.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/utime.htm"><b>time</b></a> &mdash; Report how long it takes for a command to execute.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82cf6f06848c',m:'w0SakRxjceXocNNLdqDwMdZ6E6Jl5EX_JGHTzMWJRzA-1661495344-0-AfxgNs2IeiQZ//mig8MTe2h21iUvixSwuugKb7ttQa26PZatweXOKX0NpfrcqsXPU3TJLziGwbGs5rge48THMvvi/A+CBI9IzWZq03fOe+3ZdRe5vSjm1By737YUK2Dm4w==',s:[0xaa3074aba1,0xf4ff3f2e43],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

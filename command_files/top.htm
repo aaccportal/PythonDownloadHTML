@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux top command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/top.gif" width="300" height="300" alt="top command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>top</b> program provides a dynamic real-time view of a running system. It can display system summary information, and a list of <a href="/jargon/p/process.htm">processes</a> or threads currently being managed by the <a href="/jargon/k/kernel.htm">kernel</a>. The types of system summary information shown and the types, order and size of information displayed for tasks are all user-configurable.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>top</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#summary-display">Summary display</a></li>
+<li><a href="#fields-columns">Fields / columns</a></li>
+<li><a href="#interactive-commands">Interactive commands</a></li>
+<li><a href="#summarea-commands">Summary area commands</a></li>
+<li><a href="#taskarea-commands">Task area commands</a></li>
+<li><a href="#alt-display-provs">Alternate-display provisions: Microsoft Windows</a></li>
+<li><a href="#commands-windows">Commands for windows</a></li>
+<li><a href="#scrolling-window">Scrolling a window</a></li>
+<li><a href="#searching-window">Searching in a window</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#tips-tricks">Tips and tricks</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">top -hv | -bcHisS -d <i>delay</i> -n <i>limit</i> -u|U <i>user</i> | -p <i>pid</i> -w [<i>cols</i>]</pre>
+<h3 class="tab" id="options">Options</h3>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>The often mandatory switches ('<b>-</b>') and even <a href="/jargon/w/whitspac.htm">whitespace</a> are completely optional.</p>
+</div>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:190px"><b>-h | -v</b></td>
+<td><b>Help/Version</b><br><br> Show library version and the usage <a href="/jargon/p/prompt.htm">prompt</a>, then quit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td><b>Batch-mode operation</b><br><br> Starts top in 'Batch' mode, which could be useful for sending output from top to other programs or to a file. In this mode, <b>top</b> does not accept input and runs until the <a href="/jargon/i/iteration.htm">iterations</a> limit you've set with the '<b>-n</b>' command-line option, or until killed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td><b>Command-line/Program-name toggle</b><br><br> Starts top with the last remembered '<b>c</b>' state reversed. Thus, if top was displaying command lines, now that field shows program names, and visa versa. See the '<b>c</b>' interactive command for additional information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>interval</i></td>
+<td><b>Delay-time</b>, where <i>interval</i> is represented as: <b>ss.tt</b> (secs.tenths)<br><br> Specifies the delay between screen updates, and overrides the corresponding value in one's personal configuration file or the startup default. Later this can be changed with the '<b>d</b>' or '<b>s</b>' interactive commands.<br><br> Fractional seconds are honored, but a negative number is not allowed. In all cases, however, such changes are prohibited if top is running in 'Secure mode', except for <a href="/jargon/r/root.htm">root</a> (unless the '<b>s</b>' command-line option was used).</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b></td>
+<td><b>Threads-mode operation</b><br><br> Instructs top to display individual threads. Without this command-line option a summation of all threads in each process is shown. Later this can be changed with the '<b>H</b>' interactive command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td><b>Idle-process toggle</b><br><br> Starts top with the last remembered '<b>i</b>' state reversed. When this toggle is Off, tasks that have not used any CPU since the last update is not displayed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b> <i>limit</i></td>
+<td><b>Number of iterations</b><br><br> Specifies the maximum number of iterations, or frames, <b>top</b> should produce before ending.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b><i>pid</i></td>
+<td><b>Monitor-PIDs mode</b>, specified as: <b>-p</b><i>pid1</i> <b>-p</b><i>pid2</i> ... or <b>-p</b><i>pid1,pid2,pid3</i> ...<br><br> Monitor only processes with specified process IDs. This option can be given up to 20 times, or you can provide a comma delimited list with up to 20 pids. Co-mingling both forms is permitted.<br><br> A pid value of zero is treated as the process id of the top program itself (once it is running).<br><br> This command-line option only and should you want to return to normal operation, it is not necessary to quit and restart top -- issue any of these interactive commands: '<b>=</b>', '<b>u</b>' or '<b>U</b>'.<br><br> The '<b>p</b>', '<b>u</b>' and '<b>U</b>' command-line options are mutually exclusive.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td><b>Secure-mode operation</b><br><br> Starts top with secure mode forced, even for root. This mode is far better controlled through the system configuration file (see topic 6. FILES).</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b></td>
+<td><b>Cumulative-time toggle</b><br><br> Starts top with the last remembered '<b>S</b>' state reversed. When 'Cumulative time' mode is <b>On</b>, each process is listed with the cpu time that it and its dead children have used. See the '<b>S</b>' interactive command for additional information regarding this mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u|<br> -U</b> <i>user-id-or-name</i></td>
+<td><b>User-filter-mode</b><br><br> Display only processes with a <i>user id</i> or <i>username</i> matching that given. The '<b>-u</b>' option matches the effective user whereas the '<b>-U</b>' option matches on any user (real, effective, saved, or filesystem).<br><br> The '<b>p</b>', '<b>u</b>' and '<b>U</b>' command-line options are mutually exclusive.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b> <i>number</i></td>
+<td><b>Output-width-override</b><br><br> In 'Batch' mode, when used without an argument, top formats output using the COLUMNS= and LINES= environment variables, if set. Otherwise, width is fixed at the maximum 512 columns. With an argument, output width can be decreased or increased (up to 512) but the number of rows is considered unlimited.<br><br> In normal display mode, when used without an argument, top attempts to format output using the COLUMNS= and LINES= environment variables, if set. With an argument, output width can only be decreased, not increased. Whether using environment variables or an argument with -w, when not in 'Batch' mode actual terminal dimensions can never be exceeded.<br><br> Note: Without the use of this command-line option, output width is always based on the terminal at which top was invoked whether or not in 'Batch' mode.</td>
+</tr>
+</table>
+<h2 id="summary-display">Summary display</h2>
+<p class="tab">Each of the following areas are individually controlled through interactive commands.</p>
+<h3 class="tab">Uptime and Load Averages</h3>
+<p class="tab">This section consists of a single line displaying the following:</p>
+<ul>
+<li>program or window name, depending on display mode</li>
+<li>current time and length of time since last boot</li>
+<li>total number of users</li>
+<li>system <a href="/jargon/l/load.htm">load</a> avg over the last 1, 5 and 15 minutes</li>
+</ul>
+<h3 class="tab">Task and CPU States</h3>
+<p class="tab">This section consists of a minimum of two lines. In an SMP environment, additional lines can reflect individual CPU state percentages.</p>
+<ul>
+<li>Line 1 shows total tasks or threads, depending on the state of the Threads-mode toggle. That total is further classified as: <b>running</b>; <b>sleeping</b>; <b>stopped</b>; <b>zombie</b></li>
+<li>Line 2 shows CPU state percentages based on the interval since the last refresh. Where two labels are shown below, those for more recent kernel versions are shown first:<br><br><b>us, user</b> : time running un-niced user processes<br><b>sy, system</b> : time running kernel processes<br><b>ni, nice</b> : time running niced user processes<br><b>wa, IO-wait</b> : time waiting for I/O completion<br><b>hi</b> : time spent servicing hardware interrupts<br><b>si</b> : time spent servicing software interrupts<br><b>st</b> : time stolen from this vm by the hypervisor</li>
+</ul>
+<h3 class="tab">Memory Usage</h3>
+<p class="tab">This portion consists of two lines which may express values in kibibytes (KiB), mebibytes (MiB) or gibibytes (GiB) depending on the amount of <a href="/jargon/r/ram.htm">physical memory</a>.</p>
+<ul>
+<li>Line 1 reflects physical memory, classified as: <b>total</b>, <b>used</b>, <b>free</b>, <b>buffers</b></li>
+<li>Line 2 reflects virtual memory, classified as: <b>total</b>, <b>used</b>, <b>free</b>, <b>cached</b></li>
+</ul>
+<h2 id="fields-columns">Fields / columns</h2>
+<p class="tab">Listed below are top's available process fields (columns). They are shown in alphabetical order. You may customize their position and whether or not they are displayable with the '<b>f</b>' or '<b>F</b>' (Fields Management) interactive commands.</p>
+<p class="tab">Any field is selectable as the sort field, and you control whether they are sorted high-to-low or low-to-high.</p>
+<h3 class="tab">CGROUPS -- Control Groups</h3>
+<p class="tab">The names of the control group(s) that a process belongs to, or '<b>-</b>' if not applicable for that process.</p>
+<p class="tab">Control Groups provide for allocating resources (cpu, memory, network bandwidth, etc.) among installation-defined groups of processes. They enable fine-grained control over allocating, denying, prioritizing, managing and monitoring those resources.</p>
+<p class="tab">Many different hierarchies of &quot;cgroups&quot; can exist simultaneously on a system and each hierarchy is attached to one or more subsystems. A subsystem represents a single resource.</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>The 'CGROUPS' field, unlike most columns, is not fixed-width. When displayed, it and any other variable width columns are allocated all remaining screen width (up to the maximum 512 characters).</p>
+</div>
+<ol>
+<li><b>CODE</b> -- Code Size (KiB). The amount of physical memory devoted to executable code, also known as the 'text resident set' size or TRS.</li>
+<li><b>COMMAND</b> -- Command Name or Command Line. Display the command line used to start a task or the name of the associated program. You toggle between command line and name with '<b>c</b>', which is both a command-line option and an interactive command. When you've chosen to display command lines, processes without a command line (like kernel threads) are shown with only the program name in brackets (for example: &quot;<b>[ mrecoveryd ]</b>&quot;). Either form of display is subject to potential truncation if it's too long to fit in this field's current width. That width depends upon other fields selected, their order and the current screen width. This field may also be impacted by the 'forest view' display mode. See the '<b>V</b>' interactive command for additional information regarding that mode.<br><br> Note: The 'COMMAND' field, unlike most columns, is not fixed-width. When displayed, it and any other variable width columns are allocated all remaining screen width (up to the maximum 512 characters).</li>
+<li><b>%CPU</b> -- CPU Usage. The task's share of the elapsed CPU time since the last screen update, expressed as a percentage of total CPU time. In a true SMP environment, if 'IRIX mode' is Off, top operates in 'Solaris mode' where a task's cpu usage is divided by the total number of CPUs. You toggle 'IRIX/Solaris' modes with the '<b>I</b>' interactive command.</li>
+<li><b>DATA</b> -- Data + Stack Size (KiB). The amount of physical memory devoted to other than executable code, also known as the 'data resident set' size or DRS.</li>
+<li><b>Flags</b> -- Task Flags. This column represents the task's current scheduling flags that are expressed in hexadecimal notation and with zeros suppressed. These flags are officially documented in &lt;linux/sched.h&gt;.</li>
+<li><b>GID</b> -- Group Id. The effective group ID.</li>
+<li><b>GROUP</b> -- Group Name. The effective group name.</li>
+<li><b>%MEM</b> -- Memory Usage (RES). A task's currently used share of available physical memory.</li>
+<li><b>NI</b> -- Nice Value. The nice value of the task. A negative nice value means higher priority, whereas a positive nice value means lower priority. Zero in this field means priority is not adjusted in determining a task's dispatchability.</li>
+<li><b>nDRT</b> -- Dirty Pages Count. The number of pages that were modified since they were last written to auxiliary storage. Dirty pages must be written to auxiliary storage before the corresponding physical memory location can be used for some other virtual page.</li>
+<li><b>nMaj</b> -- Major Page Fault Count. The number of major page faults that have occurred for a task. A page fault occurs when a process attempts to read from or write to a virtual page that is not currently present in its address space. A major page fault is when auxiliary storage access is involved in making that page available.</li>
+<li><b>nMin</b> -- Minor Page Fault count. The number of minor page faults that have occurred for a task. A page fault occurs when a process attempts to read from or write to a virtual page that is not currently present in its address space. A minor page fault does not involve auxiliary storage access in making that page available.</li>
+<li><b>nTH</b> -- Number of Threads. The number of threads associated with a process.</li>
+<li><b>P</b> -- Last used CPU (SMP). A number representing the last used processor. In a true SMP environment, this likely changes frequently since the kernel intentionally uses weak affinity. Also, the very act of running top may break this weak affinity and cause more processes to change CPUs more often (because of the extra demand for cpu time).</li>
+<li><b>PGRP</b> -- Process Group Id. Every process is member of a unique process group that is used for distribution of signals and by terminals to arbitrate requests for their input and output. When a process is created (forked), it becomes a member of the process group of its parent. By convention, this value equals the process ID (see PID) of the first member of a process group, called the process group leader.</li>
+<li><b>PID</b> -- Process Id. The task's unique process ID, which periodically wraps, though never restarting at zero. In kernel terms, it is a dispatchable entity defined by a 'task_struct'.<br><br> This value may also be used as: a process group ID (see PGRP); a session ID for the session leader (see SID); a thread group ID for the thread group leader (see TGID); and a TTY process group ID for the process group leader (see TPGID).</li>
+<li><b>PPID</b> -- Parent Process Id. The process ID (pid) of a task's parent.</li>
+<li><b>PR</b> -- Priority. The scheduling priority of the task. If you see 'rt' in this field, it means the task is running under 'real time' scheduling priority.<br><br> Under linux, real time priority is somewhat misleading since traditionally the operating itself was not preemptable. And while the 2.6 kernel can be made mostly preemptable, it is not always so.</li>
+<li><b>RES</b> -- Resident Memory Size (KiB). The non-swapped physical memory a task has used.</li>
+<li><b>RUID</b> -- Real User Id.</li>
+<li><b>RUSER</b> -- Real Username.</li>
+<li><b>S</b> -- Process Status. The status of the task which can be one of:<br><br> '<b>D</b>' = uninterruptible sleep<br> '<b>R</b>' = running<br> '<b>S</b>' = sleeping<br> '<b>T</b>' = traced or stopped<br> '<b>Z</b>' = zombie<br><br> Tasks shown as running should be more properly thought of as 'ready to run' -- their task_struct is represented on the Linux run-queue. Even without a true SMP machine, you may see numerous tasks in this state depending on top's delay interval and nice value.</li>
+<li><b>SHR</b> -- Shared Memory Size (KiB). The amount of shared memory available to a task, that often is not all resident. It reflects memory that could be potentially shared with other processes.</li>
+<li><b>SID</b> -- Session Id. A session is a collection of process groups (see PGRP), usually established by the login shell. A newly forked process joins the session of its creator. By convention, this value equals the process ID (see PID) of the first member of the session, called the session leader, which is usually the login shell.</li>
+<li><b>SUID</b> -- Saved User Id. The saved user ID.</li>
+<li><b>SUPGIDS</b> -- Supplementary Group IDs. The IDs of any supplementary group(s) established at login or inherited from a task's parent. They are displayed in a comma delimited list.<br><br> Note: The 'SUPGIDS' field, unlike most columns, is not fixed-width. When displayed, it and any other variable width columns are allocated all remaining screen width (up to the maximum 512 characters).</li>
+<li><b>SUPGRPS</b> -- Supplementary Group Names. The names of any supplementary group(s) established at login or inherited from a task's parent. They are displayed in a comma delimited list.<br><br> Note: The 'SUPGRPS' field, unlike most columns, is not fixed-width. When displayed, it and any other variable width columns are allocated all remaining screen width (up to the maximum 512 characters).</li>
+<li><b>SUSER</b> -- Saved Username. The saved username.</li>
+<li><b>SWAP</b> -- Swapped Size (KiB). The non-resident portion of a task's address space.</li>
+<li><b>TGID</b> -- Thread Group Id. The ID of the thread group that a task belongs. It is the PID of the thread group leader. In kernel terms, it represents those tasks that share an 'mm_struct'.</li>
+<li><b>TIME</b> -- CPU Time. Total CPU time the task has used since it started. When 'Cumulative mode' is On, each process is listed with the cpu time that it and its dead children have used. You toggle 'Cumulative mode' with '<b>S</b>', which is both a command-line option and an interactive command. See the '<b>S</b>' interactive command for additional information regarding this mode.</li>
+<li><b>TIME+</b> -- CPU Time (hundredths). The same as 'TIME', but reflecting more granularity through hundredths of a second.</li>
+<li><b>TPGID</b> -- Tty Process Group Id. The process group ID of the foreground process for the connected <a href="/jargon/t/tty.htm">tty</a>, or -1 if a process is not connected to a terminal. By convention, this value equals the process ID (see PID) of the process group leader (see PGRP).</li>
+<li><b>TTY</b> -- Controlling Tty. The name of the controlling terminal. The TTY is usually the device (serial port, pty, etc.) from which the process was started, and which it uses for input or output. However, a task need not be associated with a terminal, in which case you'll see '<b>?</b>' displayed.</li>
+<li><b>UID</b> -- User Id. The effective user ID of the task's owner.</li>
+<li><b>USER</b> -- Username. The effective username of the task's owner.</li>
+<li><b>VIRT</b> -- Virtual Memory Size (KiB). The total amount of virtual memory used by the task. It includes all code, data and shared libraries plus pages that were swapped out and pages that were mapped but not used.</li>
+<li><b>WCHAN</b> -- Sleeping in Function. Depending on the availability of the kernel link map ('System.map'), this field shows the name or the address of the kernel function in which the task is currently sleeping. Running tasks displays a dash ('<b>-</b>') in this column.<br><br> By displaying this field, top's own working set could be increased by over 700 Kb, depending on the kernel version. Should that occur, your only means of reducing that overhead is to stop and restart top.<br><br> Note: The 'WCHAN' field, unlike most columns, is not fixed-width. When displayed, it and any other variable width columns are allocated all remaining screen width (up to the maximum 512 characters).</li>
+</ol>
+<h3 class="tab">Managing fields</h3>
+<p class="tab">After pressing the interactive command '<b>f</b>' or '<b>F</b>' (Fields Management), you are presented with a screen showing: 1) the current window name; 2) the designated sort field; 3) all fields in their current order with descriptions. Entries marked with an asterisk are the currently displayed fields, screen width permitting.</p>
+<ul>
+<li>As the on-screen instructions indicate, you navigate among the fields with the Up and Down arrow keys. The PgUp, PgDn, Home and End keys can also be used to quickly reach the first or last available field.</li>
+<li>The Right arrow key selects a field for repositioning and the Left arrow key or the &lt;Enter&gt; key commits that field's placement.</li>
+<li>The '<b>d</b>' key or the &lt;Space&gt; bar toggles a field's display status, and thus the presence or absence of the asterisk.</li>
+<li>The '<b>s</b>' key designates a field as the sort field. See topic 4c. TASK AREA Commands, SORTING for additional information regarding your selection of a sort field.</li>
+<li>The '<b>a</b>' and '<b>w</b>' keys can cycle through all available windows and the '<b>q</b>' or &lt;Esc&gt; keys exit Fields Management.</li>
+</ul>
+<p class="tab">The Fields Management screen can also be used to change the current window/field group in either full-screen mode or alternate-display mode. Whatever was targeted when '<b>q</b>' or &lt;Esc&gt; was pressed is made current as you return to the top display. See topic 5. ALTERNATE-DISPLAY Provisions and the '<b>g</b>' interactive command for insight into current windows and field groups.</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>Any window that was scrolled horizontally is reset if any field changes are made via the Fields Management screen. Any vertical scrolled position, however, is not affected. See topic 5c. SCROLLING a Window for additional information regarding vertical and horizontal scrolling.</p>
+</div>
+<h2 id="interactive-commands">Interactive commands</h2>
+<p class="tab">Listed below is a brief index of commands within categories. Some commands appear more than once -- their meaning or scope may vary depending on the context in which they are issued.</p>
+<h3 class="tab">Global commands</h3>
+<p class="tab">The global interactive commands are always available in both full-screen mode and alternate-display mode. However, some of these interactive commands are not available when running in 'Secure mode'.</p>
+<p class="tab">If you want to know in advance whether or not your top was secured, ask for help and view the system summary on the second line.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>&lt;Enter&gt;</b> or <b>&lt;Space&gt;</b></td>
+<td><b>Refresh-Display</b><br><br> These commands awaken top, and following receipt of any input, the entire display is repainted. They also force an update of any hotplugged cpu or physical memory changes.<br><br> Use either of these keys if you have a large delay interval and want to see current status.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b> or <b>h</b></td>
+<td><b>Help</b><br><br> There are two help levels available. The first provides a reminder of all the basic interactive commands. If top is secured, that screen is abbreviated.<br><br> Typing '<b>h</b>' or '<b>?</b>' on that help screen takes you to help for those interactive commands applicable to alternate-display mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>=</b></td>
+<td><b>Exit-Task-Limits</b><br><br> Removes restrictions on which tasks are shown. This command reverses any '<b>i</b>' (idle tasks) and '<b>n</b>' (max tasks) commands that might be active. It also provides for an 'exit' from pid monitoring and user filtering. See the '<b>-p</b>' command-line option for a discussion of PID monitoring and the '<b>U</b>' or '<b>u</b>' interactive commands regarding user filtering.<br><br> Additionally, any window that was scrolled is reset with this command.</td>
+</tr>
+<tr class="tcw">
+<td><b>A</b></td>
+<td><b>Alternate-Display-Mode toggle</b><br><br> This command switches between full-screen mode and alternate-display mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>B</b></td>
+<td><b>Bold-Disable/Enable toggle</b><br><br> This command influences use of the 'bold' terminfo capability and alters both the summary area and task area for the current window. While it is intended primarily for use with dumb terminals, it can be applied anytime.<br><br> Note: When this toggle is On and top is operating in monochrome mode, the entire display appears as normal text. Thus, unless the '<b>x</b>' or '<b>y</b>' toggles are using reverse for emphasis, when they are on, there is no visual confirmation.<br><br></td>
+</tr>
+<tr class="tcw">
+<td><b>d</b> or <b>s</b></td>
+<td>* <b>Change-Delay-Time-interval</b><br><br> You are prompted to enter the delay time, in seconds, between display updates.<br><br> Fractional seconds are honored, but a negative number is not allowed. Entering 0 causes (nearly) continuous updates, with an unsatisfactory display as the system and tty driver try to keep up with top's demands. The delay value is inversely proportional to system loading, so set it with care.<br><br> If at any time you want to know the current delay time, ask for help and view the system summary on the second line.</td>
+</tr>
+<tr class="tcw">
+<td><b>g</b></td>
+<td><b>Choose-Another-Window/Field-Group</b><br><br> You are prompted to enter a number between 1 and 4 designating the field group which should be made the current window. You soon grow comfortable with these 4 windows, especially after experimenting with alternate-display mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>H</b></td>
+<td><b>Threads-mode toggle</b><br><br> When this toggle is On, individual threads are displayed for all processes in all visible task windows. Otherwise, top displays a summation of all threads in each process.</td>
+</tr>
+<tr class="tcw">
+<td><b>I</b></td>
+<td><b>IRIX/Solaris-Mode toggle</b><br><br> When operating in 'Solaris mode' ('<b>I</b>' toggled Off), a task's cpu usage is divided by the total number of CPUs. After issuing this command, you are told the new state of this toggle.</td>
+</tr>
+<tr class="tcw">
+<td><b>k</b></td>
+<td>* <b>Kill-a-task</b><br><br> You are prompted for a PID and then the signal to send. The default signal, as reflected in the prompt, is SIGTERM. However, you can send any signal, via number or name.<br><br> If you want to abort the kill process, do one of the following depending on your progress:<br><br> 1) At the pid prompt, press <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a>.<br><br> 2) At the signal prompt, type <b>0</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>q</b></td>
+<td><b>Quit</b></td>
+</tr>
+<tr class="tcw">
+<td><b>r</b></td>
+<td>* <b>Renice-a-Task</b><br><br> You are prompted for a PID and then the value to nice. Entering a positive value causes a process to lose priority. Conversely, a negative value cause sa process to be viewed more favorably by the kernel.</td>
+</tr>
+<tr class="tcw">
+<td><b>W</b></td>
+<td><b>Write-the-Configuration-File</b><br><br> This key saves all your options and toggles, plus the current display mode and delay time. By issuing this command before quitting top, you can restart later in exactly that same state.</td>
+</tr>
+<tr class="tcw">
+<td><b>Z</b></td>
+<td><b>Change-Color-Mapping</b><br><br> This key takes you to a separate screen where you can change the colors for the current window, or for all windows. For details regarding this interactive command, see topic 4d. COLOR Mapping.</td>
+</tr>
+</table>
+<p class="tab">* The commands shown with an asterisk (*) are not available in 'Secure mode', nor are they shown on the level-1 help screen.</p>
+<h2 id="summarea-commands">Summary area commands</h2>
+<p class="tab">The summary area interactive commands are always available in both full-screen mode and alternate-display mode. They affect the beginning lines of your display and determine the position of messages and prompts.</p>
+<p class="tab">These commands always only impact the current window/field group. See topic 5. ALTERNATE-DISPLAY Provisions and the '<b>g</b>' interactive command for insight into current windows and field groups.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>l</b></td>
+<td><b>Load-Average/Uptime toggle</b><br><br> This command is also the line containing the program name (possibly an alias) when operating in full-screen mode or the current window name when operating in alternate-display mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>t</b></td>
+<td><b>Task/Cpu-States toggle</b><br><br> This command affects from 2 to many summary area lines, depending on the state of the '<b>1</b>' toggle and whether or not top is running under true SMP.<br><br> This portion of the summary area is also influenced by the '<b>H</b>' interactive command toggle, as reflected in the total label which shows either 'Tasks' or 'Threads'.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td><b>Single/Separate-Cpu-States toggle</b><br><br> This command affects how the '<b>t</b>' command's Cpu States portion is shown. Although this toggle exists primarily to serve massively-parallel SMP machines, it is not restricted to solely SMP environments.<br><br> When you see '%Cpu(s):' in the summary area, the '<b>1</b>' toggle is On and all cpu information is gathered in a single line. Otherwise, each cpu is displayed separately as '%Cpu0, %Cpu1, ...' up to available screen height.</td>
+</tr>
+<tr class="tcw">
+<td><b>m</b></td>
+<td><b>Memory/Swap-Usage toggle</b><br><br> This command affects the two summary area lines dealing with physical and virtual memory.</td>
+</tr>
+</table>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>If the entire summary area is toggled off for any window, you are left with the message line. In that way, you have maximized available task rows, but (temporarily) sacrifice the program name in full-screen mode or the current window name when in alternate-display mode.</p>
+</div>
+<h2 id="taskarea-commands">Task area commands</h2>
+<p class="tab">The task area interactive commands are always available in full-screen mode.</p>
+<p class="tab">The task area interactive commands are never available in alternate-display mode if the current window's task display is toggled Off (see topic 5. ALTERNATE-DISPLAY Provisions).</p>
+<h3 class="tab">Appearance of task window</h3>
+<p class="tab">The following commands are also influenced by the state of the global '<b>B</b>' (bold enable) toggle.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>b</b></td>
+<td><b>Bold/Reverse toggle</b><br><br> This command impacts how the '<b>x</b>' and '<b>y</b>' toggles are displayed. Further, it is only available when at least one of those toggles is On.</td>
+</tr>
+<tr class="tcw">
+<td><b>x</b></td>
+<td><b>Column-Highlight toggle</b><br><br> Changes highlighting for the current sort field. If you forget which field is being sorted, this command can serve as a quick visual reminder, providing the sort field is being displayed. The sort field might not be visible because:<br><br> 1) There is insufficient Screen Width.<br><br> 2) The '<b>f</b>' interactive command turned it Off.</td>
+</tr>
+<tr class="tcw">
+<td><b>y</b></td>
+<td><b>Row-Highlight toggle</b><br><br> Changes highlighting for "running" tasks. Use of this provision provides important insight into your system's health. The only costs are a few additional tty escape sequences.</td>
+</tr>
+<tr class="tcw">
+<td><b>z</b></td>
+<td><b>Color/Monochrome toggle</b><br><br> Switches the current window between your last used color scheme and the older form of black-on-white or white-on-black. This command alters both the summary area and task area, but does not affect the state of the '<b>x</b>', '<b>y</b>' or '<b>b</b>' toggles.</td>
+</tr>
+</table>
+<h3 class="tab">Content of task window</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:80px"><b>c</b></td>
+<td><b>Command-Line/Program-Name toggle</b><br><br> This command is honored whether or not the 'COMMAND' column is currently visible. Later, should that field come into view, the change you applied is seen.</td>
+</tr>
+<tr class="tcw">
+<td><b>f</b> or <b>F</b></td>
+<td><b>Fields-Management</b><br><br> These keys display a separate screen where you can change which fields are displayed, their order, and also designate the sort field.</td>
+</tr>
+<tr class="tcw">
+<td><b>S</b></td>
+<td><b>Cumulative-Time-Mode toggle</b><br><br> When 'Cumulative mode' is On, each process is listed with the cpu time that it and its dead <a href="/jargon/p/parechil.htm">children</a> have used.<br><br> When Off, programs that fork into many separate tasks appear less demanding. For programs like 'init' or a shell, this is appropriate, but for other programs like compilers, perhaps not. Experiment with two task windows sharing the same sort field, but with different '<b>S</b>' states and see which representation you prefer.<br><br> After issuing this command, you are informed of the new state of this toggle. If you want to know in advance whether or not 'Cumulative mode' is in effect, ask for help and view the window summary on the second line.</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b> or <b>U</b></td>
+<td><b>Show-Specific-User-Only</b><br><br> You are prompted for the uid or name of the user to display. The '<b>-u</b>' option matches on effective user whereas the '<b>-U</b>' option matches on any user (real, effective, saved, or filesystem).<br><br> Thereafter, in that task window, only matching users are shown, or possibly no processes are shown. Different task windows can filter different users.<br><br> Later, if you want to monitor all tasks again in the current window, re-issue this command, but press <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a> at the prompt.</td>
+</tr>
+<tr class="tcw">
+<td><b>V</b></td>
+<td><b>Forest-View-Mode toggle</b><br><br> In this mode, processes are reordered according to their parents and the layout of the COMMAND column resembles that of a tree. In forest view mode it is still possible to toggle between program name and command line (see the '<b>c</b>' interactive command) or between processes and threads (see the '<b>H</b>' interactive command).</td>
+</tr>
+</table>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>Typing any key affecting the sort order exits forest view mode in the current window. See topic 4c. TASK AREA Commands, SORTING for information on those keys.</p>
+</div>
+<h3 class="tab">Size of task window</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:90px"><b>i</b></td>
+<td><b>Idle-Process toggle</b><br><br> Displays all tasks or only active tasks. When this toggle is Off, tasks that have not used any CPU since the last update are not displayed. However, due to the granularity of the %CPU and TIME+ fields, some processes may still be displayed that appear to have used no CPU.<br><br> If this command is applied to the last task display when in alternate-display mode, then it does not affect the window's size, as all prior task displays were already painted.</td>
+</tr>
+<tr class="tcw">
+<td><b>n</b> or <b>#</b></td>
+<td><b>Set-Maximum-Tasks</b><br><br> You are prompted to enter the number of tasks to display. The lessor of your number and available screen rows is used.<br><br> When used in alternate-display mode, this is the command that gives you precise control over the size of each currently visible task display, except for the very last. It does not affect the last window's size, as all prior task displays are already painted.</td>
+</tr>
+</table>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>If you want to increase the size of the last visible task display when in alternate-display mode, decrease the size of the task display(s) above it.</p>
+</div>
+<h3 class="tab">Sorting of task window</h3>
+<p class="tab">For compatibility, this top supports most of the former top sort keys. Since this is primarily a service to former top users, these commands do not appear on any help screen.</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th><b>command</b></th>
+<th><b>sorted-field</b></th>
+<th><b>supported</b></th>
+</tr>
+<tr class="tcw">
+<td><b>A</b></td>
+<td>start time (non-display)</td>
+<td>No</td>
+</tr>
+<tr class="tcw">
+<td><b>M</b></td>
+<td>%MEM</td>
+<td>Yes</td>
+</tr>
+<tr class="tcw">
+<td><b>N</b></td>
+<td>PID</td>
+<td>Yes</td>
+</tr>
+<tr class="tcw">
+<td><b>P</b></td>
+<td>%CPU</td>
+<td>Yes</td>
+</tr>
+<tr class="tcw">
+<td><b>T</b></td>
+<td>TIME+</td>
+<td>Yes</td>
+</tr>
+</table>
+<p class="tab">Before using any of the following sort provisions, top suggests you temporarily turn on column highlighting using the '<b>x</b>' interactive command. That helps ensure that the actual sort environment matches your intent.</p>
+<p class="tab">The following interactive commands are only honored when the current sort field is visible. The sort field might not be visible because:</p>
+<p class="tab">1) There is insufficient Screen Width.<br> 2) The '<b>f</b>' interactive command turned it Off.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>&lt;</b></td>
+<td>Move-Sort-Field-Left<br><br> Moves the sort column to the left unless the current sort field is the first field being displayed.</td>
+</tr>
+<tr class="tcw">
+<td><b>&gt;</b></td>
+<td>Move-Sort-Field-Right<br><br> Moves the sort column to the right unless the current sort field is the last field being displayed.</td>
+</tr>
+</table>
+<p class="tab">The following interactive commands are always honored whether or not the current sort field is visible.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:80px"><b>f</b> or <b>F</b></td>
+<td><b>Fields-Management</b><br><br> These keys display a separate screen where you can change which field is used as the sort column, among other functions. This command is a convenient way to verify the current sort field, when running top with column highlighting turned Off.</td>
+</tr>
+<tr class="tcw">
+<td><b>R</b></td>
+<td>Reverse/Normal-Sort-Field toggle<br><br> Using this interactive command, you can alternate between high-to-low and low-to-high sorts.</td>
+</tr>
+</table>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>Field sorting uses internal values, not those in column display. Thus, the TTY and WCHAN fields violate strict ASCII collating sequence.</p>
+</div>
+<h2 id="alt-display-provs">Alternate-display provisions: Microsoft Windows</h2>
+<h3 class="tab">Field groups/windows</h3>
+<p class="tab">In full-screen mode, there is a single window represented by the entire screen. That single window can still be changed to display 1 of 4 different field groups (see the '<b>g</b>' interactive command, repeated below). Each of the 4 field groups has a unique separately configurable summary area and its own configurable task area.</p>
+<p class="tab">In alternate-display mode, those 4 underlying field groups can now be made visible simultaneously, or can be turned Off individually at your command.</p>
+<p class="tab">The summary area always exists, even if it's only the message line. At any given time, only one summary area can be displayed. However, depending on your commands, there could be from zero to four separate task displays currently showing on the screen.</p>
+<h3 class="tab">Current window</h3>
+<p class="tab">The current window is the window associated with the summary area and the window that task related commands are always directed. Since in alternate-display mode you can toggle the task display Off, some commands might be restricted for the current window.</p>
+<p class="tab">A further complication arises when you have toggled the first summary area line Off. With the loss of the window name (the '<b>l</b>' toggled line), you do not easily know what window is the current window.</p>
+<h2 id="commands-windows">Commands for windows</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><b>-</b> (dash) or<br> <b>_</b> (underscore)</td>
+<td><b>Show/Hide-Window(s) toggles</b><br><br> The '<b>-</b>' key turns the current window's task display On and Off. When On, that task area shows a minimum of the columns header you've established with the '<b>f</b>' interactive command. It also reflects any other task area options/toggles you applied yielding zero or more tasks.<br><br> The '<b>_</b>' key does the same for all task displays. In other words, it switches between the currently visible task display(s) and any task display(s) you had toggled Off. If all 4 task displays are currently visible, this interactive command leaves the summary area as the only display element.</td>
+</tr>
+<tr class="tcw">
+<td><b>=</b> or <b>+</b></td>
+<td>* <b>Equalize-(re-balance)-Window(s)</b><br><br> The '<b>=</b>' key forces the current window's task display to be visible. It also reverses any '<b>i</b>' (idle tasks), '<b>n</b>' (max tasks) and '<b>u</b>'/'<b>U</b>' (user filter) commands that might be active. Also, if the window had been scrolled, it is reset with this command.<br><br> The '<b>+</b>' key does the same for all windows. The four task displays reappear, evenly balanced. They also have retained any customizations you had previously applied, except for the '<b>i</b>' (idle tasks), '<b>n</b>' (max tasks), '<b>u</b>'/'<b>U</b>' (user filter) and scrolling interactive commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>A</b></td>
+<td>* <b>Alternate-Display-Mode toggle</b><br><br> This command switches between full-screen mode and alternate-display mode.<br><br> The first time you issue this command, all four task displays are shown. Thereafter when you switch modes, you see only the task display(s) you've chosen to make visible.</td>
+</tr>
+<tr class="tcw">
+<td><b>a</b>, <b>w</b></td>
+<td>* <b>Next-Window-Forward/Backward</b><br><br> This command changes the current window, which in turn changes the window where commands are directed. These keys act in a circular fashion so you can reach any desired current window using either key.<br><br> Assuming the window name is visible (you have not toggled '<b>l</b>' Off), whenever the current window name loses its emphasis/color, that's a reminder the task display is Off and many commands are restricted.</td>
+</tr>
+<tr class="tcw">
+<td><b>g</b></td>
+<td>* <b>Choose-Another-Window/Field-Group</b><br><br> You are prompted to enter a number between 1 and 4 designating the field group which should be made the current window.<br><br> In full-screen mode, this command is necessary to alter the current window. In alternate-display mode, it is a less convenient alternative to the '<b>a</b>' and '<b>w</b>' commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>G</b></td>
+<td><b>Change-Window/Field-Group-Name</b><br><br> You are prompted for a new name to be applied to the current window. It does not require that the window name be visible (the '<b>l</b>' toggle to be On).</td>
+</tr>
+</table>
+<p class="tab">* The interactive commands shown with an asterisk (*) have use beyond alternate-display mode.</p>
+<p class="tab"> '<b>=</b>', '<b>A</b>', '<b>g</b>' are always available.'</p>
+<p class="tab"> '<b>a</b>', '<b>w</b>' act the same with color mapping and fields management.</p>
+<h2 id="scrolling-window">Scrolling a window</h2>
+<p class="tab">A task window is often a partial view into a systems's total tasks/threads which shows only some of the available fields/columns. With these scrolling keys, you can move that view vertically or horizontally to reveal any desired task or column.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><b>Up</b>, <b>PgUp</b></td>
+<td><b>Scroll-Tasks</b><br><br> Move the view up toward the first task row, until the first task is displayed at the top of the current window. The Up arrow key moves a single line while PgUp scrolls the entire window.</td>
+</tr>
+<tr class="tcw">
+<td><b>Down</b>, <b>PgDn</b></td>
+<td><b>Scroll-Tasks</b><br><br> Move the view down toward the last task row, until the last task is the only task displayed at the top of the current window. The Down arrow key moves a single line while PgDn scrolls the entire window.</td>
+</tr>
+<tr class="tcw">
+<td><b>Left,</b> <b>Right</b></td>
+<td><b>Scroll-Columns</b><br><br> Move the view of displayable fields horizontally one column at a time.<br><br> Note: As a reminder, some fields/columns are not fixed-width, but allocated all remaining screen width when visible. When scrolling right or left, that feature may produce some unexpected results initially.</td>
+</tr>
+<tr class="tcw">
+<td><b>Home</b></td>
+<td><b>Jump-to-Home-Position</b><br><br> Reposition the display to the un-scrolled coordinates.</td>
+</tr>
+<tr class="tcw">
+<td><b>End</b></td>
+<td><b>Jump-to-End-Position</b><br><br> Reposition the display so the rightmost column reflects the last displayable field and the bottom task row represents the last task.<br><br> Note: From this position, it is still possible to scroll down and right using the arrow keys until a single column and a single task is left as the only display element.</td>
+</tr>
+<tr class="tcw">
+<td><b>C</b></td>
+<td><b>Show-scroll-coordinates toggle</b><br><br> Toggle an informational message that is displayed whenever the message line is not otherwise being used.<br><br> "<b>scroll coordinates: y = n/n (tasks), x = n/n (fields)</b>"<br><br> The coordinates shown as n/n are relative to the upper left corner of the current window.<br><br><b>y = n/n (tasks)</b><br><br> The first n represents the topmost visible task and is controlled by scrolling keys. The second n is updated automatically to reflect total tasks.<br><br><b>x = n/n (fields)</b><br><br> The first n represents the leftmost displayed column and is controlled by scrolling keys. The second n is the total number of displayable fields and is established with the '<b>f</b>' interactive command.</td>
+</tr>
+</table>
+<p class="tab">The interactive commands above are always available in full-screen mode, but never available in alternate-display mode if the current window's task display is toggled Off.</p>
+<h2 id="searching-window">Searching in a window</h2>
+<p class="tab">You can use these interactive commands to locate a task row containing a particular value.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>L</b></td>
+<td><b>Locate-a-string</b><br><br> You are prompted for the case-sensitive string to locate starting from the current window coordinates. There are no restrictions on search string content.<br><br> Searches are not limited to values from a single field or column. All the values displayed in a task row are allowed in a search string. You may include spaces, numbers, symbols and even forest view artwork.<br><br> Pressing <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a> with no input effectively disables the '&amp;' key until a new search string is entered.</td>
+</tr>
+<tr class="tcw">
+<td><b>&amp;</b></td>
+<td><b>Locate-next</b><br><br> Assuming a search string is established, top attempts to locate the next occurrence.<br><br> When a match is found, the current window is repositioned vertically so the task row containing that string is first. The scroll coordinates message can provide confirmation of such vertical repositioning (see the '<b>C</b>' interactive command). Horizontal scrolling, however, is never altered via searching.<br><br> The availability of a matching string is influenced by the following factors.<br><br> a. Which fields are displayable from the total available.<br><br> b. Scrolling a window vertically or horizontally.<br><br> c. The state of the command/command-line toggle.<br><br> d. The stability of the chosen sort column, for example PID is good but %CPU bad.<br><br> If a search fails, restoring the current window home (unscrolled) position, scrolling horizontally, displaying command-lines or choosing a more stable sort field could yet produce a successful '&amp;' search.</td>
+</tr>
+</table>
+<p class="tab">The interactive commands above are always available in full-screen mode, but never available in alternate-display mode if the current window's task display is toggled Off.</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>Whenever a search key is typed, top forces idle tasks On and user filtering Off to ensure that every task is encountered. See the '<b>i</b>' and 'u/U' interactive commands for additional information on how displayed tasks might be filtered.</p>
+</div>
+<h2 id="files">Files</h2>
+<h3 class="tab">System configuration file</h3>
+<p class="tab">The presence of this file influences which version of the 'help' screen is shown to an ordinary user. More importantly, it limits what ordinary users are allowed to do when top is running. They are not able to issue the following commands.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:90px"><b>k</b></td>
+<td>Kill a task</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b></td>
+<td>Renice a task</td>
+</tr>
+<tr class="tcw">
+<td><b>d</b> or <b>s</b></td>
+<td>Change delay/sleep interval</td>
+</tr>
+</table>
+<p class="tab">The system configuration file is not created by top. Rather, you create this file manually and place it in the /etc directory. Its name must be 'toprc' and must have no leading '<b>.</b>' (period). It must have only two lines.</p>
+<p class="tab">Here is an example of the contents of <b>/etc/toprc</b>:</p>
+<p class="tab">s # line 1: 'secure' mode switch 5.0 # line 2: 'delay' interval in seconds</p>
+<h3 class="tab">Personal configuration file</h3>
+<p class="tab">This file is written as '<b>$HOME/.your-name-4-top</b>' + '<b>rc</b>'. Use the '<b>W</b>' interactive command to create it or update it. Here is the general layout:</p>
+<p class="tab">global # line 1: the program name/alias notation global # line 2: id,altscr,irixps,delay,curwin per ea # line a: winname,fieldscur window # line b: winflags,sortindx,maxtasks window # line c: summclr,msgsclr,headclr,taskclr</p>
+<p class="tab">If the <b>$HOME</b> variable is not present, top tries to write the personal configuration file to the current directory, subject to permissions.</p>
+<h2 id="tips-tricks">Tips and tricks</h2>
+<p class="tab">Many of these 'tricks' work best when you give top a scheduling boost. So plan on starting it with a nice value of -10, assuming you've got the authority.</p>
+<h3 class="tab">Kernel magic</h3>
+<p class="tab">For these tricks, <b>top</b> needs full-screen mode.</p>
+<ul>
+<li>The user interface, through prompts and help, intentionally implies that the delay interval is limited to tenths of a second. However, you are free to set any desired delay. If you want to see Linux at his scheduling best, try a delay of .09 seconds or less.<br><br> For this experiment, under <a href="/jargon/x/xwin.htm">X Windows</a> open an xterm and maximize it. Then do the following:<br><br> 1. Provide a scheduling boost and tiny delay via:<b>nice -n -10 top -d.09</b>.<br> 2. Keep sorted column highlighting Off so as to minimize path length.<br> 3. Turn On reverse row highlighting for emphasis.<br> 4. Try various sort columns (TIME/MEM work well), and normal or reverse sorts to bring the most active processes into view.<br><br> What you see is a very busy Linux doing what it's always done for you, but there was no program available to illustrate this.<br><br></li>
+<li>Under an xterm using 'white-on-black' colors, on top's Color Mapping screen set the task color to black and be sure that task highlighting is set to bold, not reverse. Then set the delay interval to around .3 seconds.<br><br> After bringing the most active processes into view, what you see are the ghostly images of only the currently running tasks.<br><br></li>
+<li>Delete the existing rcfile, or create a new symlink. Start this new version then type '<b>T</b>' (a secret key, see topic 4c. Task Area Commands, SORTING) followed by '<b>W</b>' and '<b>q</b>'. Finally, restart the program with -d0 (zero delay).<br><br> Your display is refreshed at three times the rate of the former top, a 300% speed advantage. As top climbs the TIME ladder, be as patient as you can while speculating on whether or not top ever reaches the top.</li>
+</ul>
+<h3 class="tab">Bouncing windows</h3>
+<p class="tab">For these tricks, top needs alternate-display mode.</p>
+<ul>
+<li>With 3 or 4 task displays visible, pick any window other than the last and turn idle processes Off using the '<b>i</b>' command toggle. Depending on where you applied '<b>i</b>', sometimes several task displays are bouncing and sometimes it's like an accordion, as top tries his best to allocate space.</li>
+<li>Set each window's summary lines differently: one with no memory ('<b>m</b>'); another with no states ('<b>t</b>'); maybe one with nothing at all, only the message line. Then hold down '<b>a</b>' or '<b>w</b>' and watch a variation on bouncing windows -- hopping windows.</li>
+<li>Display all 4 windows and for each, in turn, set idle processes to Off using the '<b>i</b>' command toggle. You have entered the &quot;extreme bounce&quot; zone.</li>
+</ul>
+<h3 class="tab">The big bird window</h3>
+<p class="tab">This trick also requires alternate-display mode.</p>
+<ul>
+<li>Display all 4 windows and make sure that 1:Def is the current window. Then, keep increasing window size with the '<b>n</b>' interactive command until all the other task displays are &quot;pushed out of the nest.&quot; When they all are displaced, toggle between all visible/invisible windows using the '<b>_</b>' command toggle. It's a truly mind-bending experience.</li>
+</ul>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/jargon/f/free.htm"><b>free</b></a> &mdash; Display the amount of free and used memory.<br><a href="/unix/ups.htm"><b>ps</b></a> &mdash; Report the status of a process or processes.<br><a href="/unix/pstree.htm"><b>pstree</b></a> &mdash; Display processes in a tree format.<br><a href="/jargon/u/uptime.htm"><b>uptime</b></a> &mdash; Displays running time information for the system.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8364ecc284f8',m:'pQWFpOl6rqjktP8ZYvWtsTUS6L0rqpCNvs2xd0uBEnI-1661495368-0-AcIyJy3ykeaMhzv5mevk2NJD7VlYam1VHl/OXkh381maD3OIQ/6PXPOGd87mq7P5n9o5fByA2VnQWfK9kpr62AtDFlpASIWZkCsMLsCKvLs35gwzZDK1QPDcR32IxQJjyA==',s:[0x4c7ca28eee,0x303f216985],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

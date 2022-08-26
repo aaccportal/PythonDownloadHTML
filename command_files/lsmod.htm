@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux lsmod command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/lsmod.gif" width="300" height="300" alt="lsmod command" class="floatRight"><p class="intro">On Linux operating systems, the <b>lsmod</b> command lists the status of <a href="/jargon/m/module.htm">modules</a> inserted in the <a href="/jargon/k/kernel.htm">kernel</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">Linux kernel modules, or LKMs, are system-level software used directly by operating system kernel. They can be inserted into the kernel and activated without the system needing to be <a href="/jargon/r/reboot.htm">rebooted</a>.</p>
+<p class="tab"><b>lsmod</b> has no options. It formats the contents of the file <b>/proc/modules</b>, which contains information about the status of all currently-loaded LKMs.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">lsmod</pre>
+<h2 id="examples">Examples</h2>
+<p class="tab">To list all active kernel modules, run <b>lsmod</b> at the command line:</p>
+<pre class="tcy tab">lsmod</pre>
+<p class="tab">This is essentially the same as running &quot;<b><a href="/unix/ucat.htm">cat</a> /proc/modules</b>&quot;, but the information is formatted a little nicer. You see three columns of information:</p>
+<ul>
+<li><b>Module</b>: the name of the module. This is usually the name of the module file, minus the <a href="/jargon/e/extensio.htm">extension</a> (<b>.o</b> or <b>.ko</b>), but it may have a custom name, which can be specified as an option when the module is inserted with the <a href="/unix/insmod.htm"><b>insmod</b></a> command.</li>
+<li><b>Size</b>: the amount of <a href="/jargon/m/memory.htm">memory</a> used by the resident module, in <a href="/jargon/b/byte.htm">bytes</a>.</li>
+<li><b>Used by</b>: This column contains a number representing how many instances of the module are being used. If the number is zero, the module is not currently being used. Text after the number represents any available information about what uses the module: this is commonly a <a href="/jargon/d/device.htm">device</a> name, a <a href="/jargon/f/filesyst.htm">filesystem</a> identifier, or the name of another module.</li>
+</ul>
+<p class="tab">Output of <b>lsmod</b> resembles the following:</p>
+<pre class="tab">Module                  Size  Used by
+fuse                   52176  3 
+cryptd                 14125  0 
+aes_i586               16647  2 
+aes_generic            32970  1 aes_i586
+parport_pc             22036  0 
+ppdev                  12651  0 
+lp                     12797  0 
+parport                31254  3 lp,ppdev,parport_pc
+bnep                   17288  2 
+rfcomm                 28626  0 
+bluetooth             103791  10 rfcomm,bnep
+cpufreq_conservative   12987  0 
+cpufreq_stats          12762  0 
+cpufreq_powersave      12422  0 
+cpufreq_userspace      12520  0 
+loop                   17810  0 
+uvcvideo               56896  0 
+videodev               61658  1 uvcvideo
+media                  13692  2 videodev,uvcvideo
+snd_hda_codec_realtek  142267 1 
+arc4                   12418  2 
+joydev                 17010  0 
+ath9k                  58983  0 
+snd_hda_intel          21786  2 
+ath9k_common           12648  1 ath9k
+snd_hda_codec          63477  2 snd_hda_intel,snd_hda_codec_realtek
+ath9k_hw              311433  2 ath9k_common,ath9k
+i915                  321557  3 
+drm_kms_helper         22738  1 i915
+drm                   146387  4 drm_kms_helper,i915
+i2c_algo_bit           12713  1 i915
+snd_hwdep              12943  1 snd_hda_codec
+snd_pcm                53461  2 snd_hda_codec,snd_hda_intel
+snd_page_alloc         12867  2 snd_pcm,snd_hda_intel
+ath                    17114  3 ath9k_hw,ath9k_common,ath9k
+mac80211              171389  1 ath9k
+acer_wmi               21651  0 
+sparse_keymap          12680  1 acer_wmi
+iTCO_wdt               16945  0 
+acpi_cpufreq           12807  1 
+snd_seq                39512  0 
+snd_seq_device         13016  1 snd_seq
+snd_timer              22356  2 snd_seq,snd_pcm
+snd                    42761  12 snd_timer,snd_seq_device,snd_seq,snd_pcm,snd_hwdep,snd_hda_codec,snd_hda_intel,snd_hda_codec_realtek
+coretemp               12770  0 
+cfg80211              113445  3 mac80211,ath,ath9k
+rts_pstor             226667  0 
+rfkill                 18516  5 cfg80211,acer_wmi,bluetooth
+iTCO_vendor_support    12632  1 iTCO_wdt
+i2c_i801               12670  0 
+psmouse                59609  0 
+i2c_core               19116  6 i2c_i801,i2c_algo_bit,drm,drm_kms_helper,i915,videodev
+pcspkr                 12515  0 
+soundcore              12921  1 snd
+mperf                  12421  1 acpi_cpufreq
+evdev                  17225  10 
+serio_raw              12803  0 
+ac                     12552  0 
+processor              27565  1 acpi_cpufreq
+video                  17459  1 i915
+battery                12986  0 
+power_supply           13283  2 battery,ac
+wmi                    13051  1 acer_wmi
+button                 12817  1 i915
+ext4                  306996  2 
+crc16                  12327  2 ext4,bluetooth
+jbd2                   56426  1 ext4
+mbcache                12938  1 ext4
+microcode              17558  0 
+hid_logitech_dj        13049  0 
+usbhid                 31554  1 hid_logitech_dj
+hid                    64284  2 usbhid,hid_logitech_dj
+sg                     21476  0 
+sd_mod                 35425  4 
+crc_t10dif             12332  1 sd_mod
+thermal                13103  0 
+thermal_sys            17752  3 thermal,video,processor
+uhci_hcd               22337  0 
+ahci                   24917  3 
+libahci                18373  1 ahci
+libata                125014  2 libahci,ahci
+ehci_hcd               39631  0 
+usbcore               104555  5 ehci_hcd,uhci_hcd,usbhid,uvcvideo
+scsi_mod              135081  4 libata,sd_mod,sg,rts_pstor
+r8169                  41830  0 
+mii                    12595  1 r8169
+usb_common             12338  1 usbcore</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/depmod.htm"><b>depmod</b></a> &mdash; Generate a list of kernel module dependencies and associated map files.<br><a href="/unix/insmod.htm"><b>insmod</b></a> &mdash; Insert a module into the Linux kernel.<br><a href="/unix/modinfo.htm"><b>modinfo</b></a> &mdash; Show information about a Linux kernel module.<br><a href="/unix/modprobe.htm"><b>modprobe</b></a> &mdash; Add and remove modules from the Linux kernel.<br><a href="/unix/rmmod.htm"><b>rmmod</b></a> &mdash; Remove a module from the Linux kernel.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a830fbc3dc415',m:'oDr.eEwDhYUoYe8r2AiYEbSp9nQPBvFrroX.HxdsBq4-1661495354-0-ATdHO8fGH88fjyQjOSHBIbSqKsJKJ/h05sRPsPzbCFjC0/qX6QaBQ80mb3C3z0CncO0p9s2s+ObLgE1WA4v+nK+N5FxfCpR0AagpGUWqGQiz4h0thZMaqGXiDAuKI62PIg==',s:[0x59c41d87b9,0xc64317c981],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

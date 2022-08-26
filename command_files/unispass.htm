@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux nispasswd command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/nispasswd.gif" width="300" height="300" alt="nispasswd command" class="floatRight"><p class="intro">On the <a href="/jargon/s/solaris.htm">Solaris</a> operating system, the <b>nispasswd</b> command changes NIS+ password information.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#exit">Exit status</a></li>
+<li><a href="#warning">Warning</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>nispasswd</b> utility changes a password, gecos field (<b>-g</b> option), <a href="/jargon/h/homedir.htm">home directory</a> (<b>-h</b> option), or <a href="/jargon/l/login.htm">login</a> <a href="/jargon/s/shell.htm">shell</a> (<b>-s</b> option) associated with the username (by default, whoever invoked the program) in the NIS+ <a href="/unix/upasswor.htm">passwd</a> table.</p>
+<p class="tab">Additionally, the command can view or modify aging information associated with the user specified if the invoker has the right NIS+ privileges.</p>
+<p class="tab"><b>nispasswd</b> uses secure <a href="/jargon/r/rpc.htm">RPC</a> to communicate with the NIS+ server, and therefore, never sends unencrypted passwords over the communication medium.</p>
+<p class="tab"><b>nispasswd</b> does not read or modify the local password information stored in the <b>/etc/passwd</b> and <b>/etc/shadow</b> files.</p>
+<p class="tab">When used to change a password, <b>nispasswd</b> prompts non-privileged users for their old password. It then prompts for the new password twice to forestall typing mistakes. When the old password is entered, <b>nispasswd</b> checks to see if it has &quot;aged&quot; sufficiently. If &quot;aging&quot; is insufficient, <b>nispasswd</b> terminates.</p>
+<p class="tab">The old password is used to <a href="/jargon/d/decrypti.htm">decrypt</a> the username's secret key. If the password does not decrypt the secret key, <b>nispasswd</b> prompts for the old secure-RPC password. It uses this password to decrypt the secret key. If this fails, it gives the user one more chance. The old password is also used to ensure the new password differs from the old by at least three <a href="/jargon/c/charact.htm">characters</a>. Assuming aging is sufficient, a check is made to ensure the new password meets construction requirements described below. When the new password is entered a second time, the two copies of the new password are compared. If the two copies are not identical, the cycle of prompting for the new password is repeated twice. The new password is used to re-encrypt the user's secret key. Hence, it also becomes their secure-RPC password. Therefore, the secure-RPC password is no longer a different password from the user's password.</p>
+<p class="tab">Passwords must be constructed to meet the following requirements:</p>
+<ul>
+<li>Each password must have at least six characters. Only the first eight characters are significant.</li>
+<li>Each password must contain at least two alphabetic characters and at least one numeric or special character. In this case, &quot;alphabetic&quot; refers to all <a href="/jargon/u/uppercase.htm">uppercase</a> or <a href="/jargon/l/lowercas.htm">lowercase</a> letters.</li>
+<li>Each password must differ from the user's login username and any reverse or circular shift of that login username. For comparison purposes, an uppercase letter and its corresponding lowercase letter are equivalent.</li>
+<li>New passwords must differ from the old password by at least three characters. For comparison purposes, an uppercase letter and its corresponding lowercase letter are equivalent.</li>
+</ul>
+<p class="tab">Network administrators, who own the NIS+ password table, may change any password attributes if they establish their credentials (see <a href="/unix/ukeylogi.htm">keylogin</a>) before invoking <b>nispasswd</b>. Hence, <b>nispasswd</b> does not prompt these privileged-users for the old password and they are not forced to comply with password aging and password construction requirements.</p>
+<p class="tab">Any user may use the <b>-d</b> option to display password attributes for his or her own login name. The format of the display is:</p>
+<pre class="tab">username status mm/dd/yy min max warn</pre>
+<p class="tab">or, if password aging information is not present:</p>
+<pre class="tab">username status</pre>
+<p class="tab">where the following values are used:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><b>username</b></td>
+<td>The login ID of the user.</td>
+</tr>
+<tr class="tcw">
+<td><b>status</b></td>
+<td>The password status of username: &quot;PS&quot; stands for password exists or locked, &quot;LK&quot; stands for locked, and &quot;NP&quot; stands for no password.</td>
+</tr>
+<tr class="tcw">
+<td><b>mm/dd/yy</b></td>
+<td>The date password was last changed for username. (Note that all password aging dates are determined using Greenwich Mean Time (Universal Time) and, therefore, may differ by as much as a day in other time zones.)</td>
+</tr>
+<tr class="tcw">
+<td><b>min</b></td>
+<td>The minimum number of days required between password changes for username.</td>
+</tr>
+<tr class="tcw">
+<td><b>max</b></td>
+<td>The maximum number of days the password is valid for username.</td>
+</tr>
+<tr class="tcw">
+<td><b>warn</b></td>
+<td>The number of days relative to max before the password expires that the username is warned.</td>
+</tr>
+</table>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">nispasswd [-ghs] [-D <i>domainname</i>] [<i>username</i>]</pre>
+<pre class="tcy tab">nispasswd -a</pre>
+<pre class="tcy tab">nispasswd [-D <i>domainname</i>] [-d[<i>username</i>]]</pre>
+<pre class="tcy tab">nispasswd [-l] [-f] [-n <i>min</i>] [-x <i>max</i>] [-w <i>warn</i>] [-D <i>domainname</i>] <i>username</i></pre>
+<h3 class="tab">Options</h3>
+<p class="tab"><b>nispasswd</b> recognizes the following options:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>-g</b></td>
+<td>Changes the gecos (finger) information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Changes the home directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Changes the login shell. By default, only the NIS+ administrator can change the login shell. User is prompted for the new login shell.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>Shows the password attributes for all entries. This shows only the entries in the NIS+ passwd table in the local domain the invoker is authorized to &quot;read&quot;.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> [<i>username</i>]</td>
+<td>Displays password attributes for the caller or the user specified if the invoker has the right privileges.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>Locks the password entry for username. Subsequently, <a href="/jargon/l/login.htm">login</a> would disallow logins with this NIS+ password entry.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>Forces the user to change password at the next login by expiring the password for username.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b> <i>min</i></td>
+<td>Sets minimum field for <i>username</i>. The <i>min</i> field contains the minimum number of days between password changes for <i>username</i>. If <i>min</i> is greater than <i>max</i>, the user may not change the password. Always use this option with the <b>-x</b> option, unless <i>max</i> is set to <b>-1</b> (aging turned off). In that case, <i>min</i> need not be set.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b> <i>max</i></td>
+<td>Set maximum field for username. The <i>max</i> field contains the number of days the password is valid for <i>username</i>. The aging for <i>username</i> is turned off immediately if <i>max</i> is set to <b>-1</b>. If it is set to <b>0</b>, then the user is forced to change the password at the next login session and aging is turned off.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b> <i>warn</i></td>
+<td>Sets warn field for <i>username</i>. The warn field contains the number of days before the password expires that the user is warned whenever he or she attempts to log in.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b> <i>domainname</i></td>
+<td>Consults the <b>passwd.org_dir</b> table in domainname. If this option is not specified, the default domainname returned by <b>nis_local_directory()</b> is used. This domainname is the same as that returned by <b>domainname(1M)</b>.</td>
+</tr>
+</table>
+<h2 id="exit">Exit status</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>0</b></td>
+<td>Success.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>Permission denied.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>Invalid combination of options.</td>
+</tr>
+<tr class="tcw">
+<td><b>3</b></td>
+<td>Unexpected failure; NIS+ password table unchanged.</td>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td>NIS+ passwd table missing.</td>
+</tr>
+<tr class="tcw">
+<td><b>5</b></td>
+<td>NIS+ table is busy. Try again later.</td>
+</tr>
+<tr class="tcw">
+<td><b>6</b></td>
+<td>Invalid argument to option.</td>
+</tr>
+<tr class="tcw">
+<td><b>7</b></td>
+<td>Aging is disabled.</td>
+</tr>
+</table>
+<h2 id="warning">Warning</h2>
+<p class="tab">The use of <b>nispasswd</b> is STRONGLY discouraged. Even though it is a <a href="/jargon/h/hardlink.htm">hard link</a> to <a href="/unix/upasswor.htm"><b>passwd</b></a>, its operation is subtly different and not desirable in a modern NIS+ domain.</p>
+<p class="tab">In particular, <b>nispasswd</b> does not attempt to contact the <b>rpc.nispasswdd</b> <a href="/jargon/d/daemon.htm">daemon</a> running on the NIS+ master. It instead attempts to do the updates by itself via the NIS+ API. For this to work, the <a href="/jargon/p/permissi.htm">permissions</a> on the password data need to be modified from the default as set up by the <b>nisserver</b> setup <a href="/jargon/s/script.htm">script</a>.</p>
+<p class="tab">Using <a href="/unix/upasswor.htm"><b>passwd</b></a> with the <b>-r nisplus</b> option achieves the same result and is consistent across all the different name services available. This is the recommended way to change the password in NIS+.</p>
+<p class="tab">The login program, file access display programs (for example, '<b><a href="/unix/uls.htm">ls</a> -l</b>'), and network programs that require user passwords (for example, <a href="/unix/urlogin.htm"><b>rlogin</b></a>, <a href="/jargon/f/ftp.htm"><b>ftp</b></a>, and so on) use the standard <b>getpwnam</b> and <b>getspnam</b> interfaces to get password information. These programs get the NIS+ password information, that is modified by <b>nispasswd</b>, only if the "<b>passwd:</b>" entry in the <b>/etc/nsswitch.conf</b> file includes <b>nisplus</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ukeylogi.htm"><b>keylogin</b></a> &mdash; Decrypt a user's secret key on SunOS.<br><a href="/unix/ulogin.htm"><b>login</b></a> &mdash; Begin a session on a system.<br><a href="/unix/unistbla.htm"><b>nistbladm</b></a> &mdash; Administer NIS+ tables.<br><a href="/unix/upasswor.htm"><b>passwd</b></a> &mdash; Change a user's password.<br><a href="/unix/urlogin.htm"><b>rlogin</b></a> &mdash; Begin a session on a remote system.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a832508f984f8',m:'jnggFTFLaxGBdef2wpTVjB0Ts4c48wj3g2FTLYJ3rb8-1661495358-0-AZxgCCZyred7RVDh6tkN8QtRB9c5TdxvTDxZmjrayW/3e6XHaSfxQOi6WHcH7nzCldFcx2IHMljCKbxmhz52VfauEAAsoru9gUcJh5r4nuccBj/OkNPzSxEOnvPlbd49DlHhwt2Z3AFB5nTfX718qa4=',s:[0x75c5b69266,0x2841cda438],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

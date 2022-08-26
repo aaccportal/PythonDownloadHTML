@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux nc command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/nc.gif" width="300" height="300" alt="nc command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>nc</b> command runs Netcat, a utility for sending raw data over a network connection.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>nc</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#client">Client/server model</a></li>
+<li><a href="#data">Data transfer</a></li>
+<li><a href="#servers">Talking to servers</a></li>
+<li><a href="#port">Port scanning</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">Netcat is a utility that <a href="/jargon/r/read.htm">reads</a> and <a href="/jargon/w/write.htm">writes</a> <a href="/jargon/d/data.htm">data</a> across <a href="/jargon/n/network.htm">network</a> connections, using the <a href="/jargon/t/tcpip.htm">TCP</a> or <a href="/jargon/u/udp.htm">UDP</a> <a href="/jargon/p/protocol.htm">protocol</a>. It is designed to be a reliable &quot;back-end&quot; tool, used directly or driven by other programs and <a href="/jargon/s/script.htm">scripts</a>. At the same time, it is a feature-rich network <a href="/jargon/d/debug.htm">debugging</a> and exploration tool since it can create almost any kind of connection you would need and has several interesting built-in capabilities. Common uses include:</p>
+<ul>
+<li>Simple TCP <a href="/jargon/p/proxyser.htm">proxies</a></li>
+<li><a href="/jargon/s/shell.htm">Shell</a>-script based HTTP <a href="/jargon/c/client.htm">clients</a> and <a href="/jargon/s/server.htm">servers</a></li>
+<li>Network <a href="/jargon/d/daemon.htm">daemon</a> testing</li>
+<li>A <a href="/jargon/s/socks.htm">SOCKS</a> or HTTP ProxyCommand for <a href="/jargon/s/ssh.htm">ssh</a></li>
+</ul>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">nc [-46bCDdhklnrStUuvZz] [-I <i>length</i>] [-i <i>interval</i>] [-O <i>length</i>] 
+   [-P <i>proxy_username</i>] [-p <i>source_port</i>] [-q <i>seconds</i>] [-s <i>source</i>] 
+   [-T <i>toskeyword</i>] [-V <i>rtable</i>] [-w <i>timeout</i>] [-X <i>proxy_protocol</i>] 
+   [-x <i>proxy_address</i>[:<i>port</i>]] [<i>destination</i>] [<i>port</i>]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:220px"><b>-4</b></td>
+<td>Forces <b>nc</b> to use <a href="/jargon/i/ipv4.htm">IPv4</a> addresses only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-6</b></td>
+<td>Forces <b>nc</b> to use <a href="/jargon/i/ipv6.htm">IPv6</a> addresses only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>Allow broadcast.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>Send <a href="/jargon/c/cr.htm">CR</a><a href="/jargon/l/lf.htm">LF</a> as line-ending.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b></td>
+<td>Enable debugging on the socket.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Do not attempt to read from <a href="/jargon/s/stdin.htm">stdin</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Prints out nc help.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> <i>length</i></td>
+<td>Specifies the size of the TCP receive <a href="/jargon/b/buffer.htm">buffer</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b> <i>interval</i></td>
+<td>Specifies a delay time interval between lines of text sent and received. Also, causes a delay time between connections to multiple ports.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b></td>
+<td>Forces <b>nc</b> to stay listening for another connection after its current connection is completed. It is an error to use this option without the <b>-l</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>Used to specify that <b>nc</b> should listen for an incoming connection rather than initiate a connection to a remote <a href="/jargon/h/hostcomp.htm">host</a>. It is an error to use this option in conjunction with the <b>-p</b>, <b>-s</b>, or <b>-z</b> options. Additionally, any timeouts specified with the <b>-w</b> option are ignored.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Do not do any <a href="/jargon/d/dns.htm">DNS</a> or service lookups on any specified addresses, <a href="/jargon/h/hostname.htm">hostnames</a> or <a href="/jargon/p/port.htm">ports</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b> <i>length</i></td>
+<td>Specifies the size of the TCP send buffer.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b> <i>proxy_username</i></td>
+<td>Specifies a <a href="/jargon/u/username.htm">username</a> to present to a proxy server that requires <a href="/jargon/a/auth.htm">authentication</a>. If no username is specified, then authentication is not attempted. Proxy authentication is only supported for HTTP CONNECT proxies at present.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>source_port</i></td>
+<td>Specifies the source port nc should use, subject to privilege restrictions and availability.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b> <i>seconds</i></td>
+<td>After <a href="/jargon/e/eof.htm">EOF</a> on stdin, wait the specified number of seconds and then quit. If seconds is negative, wait forever.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>Specifies that source or destination ports should be chosen randomly instead of sequentially in a range or in the order the system assigns them.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b></td>
+<td>Enables the RFC 2385 TCP MD5 signature option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>source</i></td>
+<td>Specifies the <a href="/jargon/i/ip.htm">IP</a> of the interface used to send the <a href="/jargon/p/packet.htm">packets</a>. For UNIX-domain datagram sockets, specifies the local temporary socket file to create and use so that datagrams can be received. It is an error to use this option in conjunction with the <b>-l</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b> <i>toskeyword</i></td>
+<td>Change IPv4 TOS value. <i>toskeyword</i> may be one of <b>critical</b>, <b>inetcontrol</b>, <b>lowcost</b>, <b>lowdelay</b>, <b>netcontrol</b>, <b>throughput</b>, <b>reliability</b>, or one of the DiffServ Code Points: <b>ef</b>, <b>af11</b> ... <b>af43</b>, <b>cs0</b> ... <b>cs7</b>; or a number in either <a href="/jargon/h/hex.htm">hex</a> or <a href="/jargon/d/decimal.htm">decimal</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Causes <b>nc</b> to send <a href="/jargon/r/rfc.htm">RFC</a> 854 DON'T and WON'T responses to RFC 854 DO and WILL requests. This makes it possible to use nc to script <a href="/jargon/t/telnet.htm">telnet</a> sessions.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b></td>
+<td>Specifies to use UNIX-domain sockets.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>Use UDP instead of the default option of TCP. For UNIX-domain sockets, use a datagram socket instead of a stream socket. If a UNIX-domain socket is used, a temporary receiving socket is created in /tmp unless the <b>-s</b> flag is given.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b> <i>rtable</i></td>
+<td>Set the <a href="/jargon/r/route.htm">routing</a> table to be used. The default is 0.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Have <b>nc</b> give more <a href="/jargon/v/verbose.htm">verbose</a> output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b> <i>timeout</i></td>
+<td>Connections that cannot be established or are idle timeout after timeout seconds. The <b>-w</b> flag has no effect on the <b>-l</b> option, i.e., nc listens forever for a connection, with or without the <b>-w</b> flag. The default is no timeout.</td>
+</tr>
+<tr class="tcw">
+<td><b>-X</b> <i>proxy_protocol</i></td>
+<td>Requests that nc should use the specified protocol when talking to the proxy server. Supported protocols are &quot;<b>4</b>&quot; (SOCKS v.4), &quot;<b>5</b>&quot; (SOCKS v.5) and &quot;<b>connect</b>&quot; (HTTPS proxy). If the protocol is not specified, SOCKS version 5 is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b> <i>proxy_address[:port]</i></td>
+<td>Requests that <b>nc</b> should connect to destination using a proxy at <i>proxy_address</i> and <i>port</i>. If <i>port</i> is not specified, the well-known port for the proxy protocol is used (1080 for SOCKS, 3128 for HTTPS).</td>
+</tr>
+<tr class="tcw">
+<td><b>-Z</b></td>
+<td>DCCP mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b></td>
+<td>Specifies that nc should only scan for listening daemons, without sending any data to them. It is an error to use this option in conjunction with the <b>-l</b> option.</td>
+</tr>
+</table>
+<p class="tab"><i>destination</i> is a numerical IP address or a symbolic hostname (unless the <b>-n</b> option is given). In general, a destination must be specified, unless the <b>-l</b> option is given (where the <a href="/jargon/l/locahost.htm">local host</a> is used). For UNIX-domain sockets, a destination is required and is the socket path to connect to (or listen on if the <b>-l</b> option is given).</p>
+<p class="tab"><i>port</i> is a single integer or a range of ports. Ranges are in the form <b>nn-mm</b>. In general, a destination port must be specified, unless the <b>-U</b> option is given.</p>
+<h2 id="client">Client/server model</h2>
+<p class="tab">It is quite simple to build a very basic client/server model using <b>nc</b>. On one console, start <b>nc</b> listening on a specific port for a connection. For example:</p>
+<pre class="tab tcy">nc -l 1234</pre>
+<p class="tab">nc is now listening on port <b>1234</b> for a connection. On a second <a href="/jargon/c/console.htm">console</a> (or a second machine), connect to the machine and port being listened on:</p>
+<pre class="tab tcy">nc 127.0.0.1 1234</pre>
+<p class="tab">There should now be a connection between the ports. Anything typed at the second console is concatenated to the first, and vice versa. After the connection was set up, <b>nc</b> does not really care which side is used as a &lsquo;server&rsquo; and which side is used as a &lsquo;client&rsquo;. The connection may be terminated using an EOF (&lsquo;<b>^D</b>&rsquo;).</p>
+<p class="tab">There is no <b>-c</b> or <b>-e</b> option in modern netcat, but you still can execute a command after connection is established by redirecting file descriptors. Be cautious here because opening a port and letting anyone connected execute arbitrary commands on your site is DANGEROUS. If you need to do this, here is an example:</p>
+<p class="tab">On 'server' side:</p>
+<pre class="tab tcy">rm -f /tmp/f; mkfifo /tmp/f</pre>
+<pre class="tab tcy">cat /tmp/f | /bin/sh -i 2&gt;&amp;1 | nc -l 127.0.0.1 1234 &gt; /tmp/f</pre>
+<p class="tab">On 'client' side:</p>
+<pre class="tab tcy">nc host.example.com 1234</pre>
+<p class="tab tcy"><i>(shell prompt from host.example.com)</i></p>
+<p class="tab">By doing this, you create a <a href="/jargon/f/fifo.htm">fifo</a> at <b>/tmp/f</b> and make <b>nc</b> listen at port <b>1234</b> of address <b>127.0.0.1</b> on &lsquo;server&rsquo; side, when a &lsquo;client&rsquo; establishes a connection successfully to that port, <b>/bin/sh</b> gets executed on &lsquo;server&rsquo; side and the shell prompt is given to &lsquo;client&rsquo; side.</p>
+<p class="tab">When connection is terminated, <b>nc</b> also quits. Use <b>-k</b> if you want it keep listening, but if the command quits, this option won't restart it or keep <b>nc</b> running. Also, don't forget to remove the file descriptor once you don't need it anymore:</p>
+<pre class="tab tcy">rm -f /tmp/f</pre>
+<h2 id="data">Data transfer</h2>
+<p class="tab">The example in the previous section can be expanded to build a basic data transfer model. Any information input to one end of the connection is output to the other end, and input and output can be captured to emulate <a href="/jargon/f/filetran.htm">file transfer</a>.</p>
+<p class="tab">To start, use <b>nc</b> to listen on a specific port, with output captured into a file:</p>
+<pre class="tab tcy">nc -l 1234 &gt; filename.out</pre>
+<p class="tab">Using a second machine, connect to the listening <b>nc</b> process, feeding it the file that is to be transferred:</p>
+<pre class="tab tcy">nc host.example.com 1234 &lt; filename.in</pre>
+<p class="tab">After the file is transferred, the connection closes automatically.</p>
+<h2 id="servers">Talking to servers</h2>
+<p class="tab">It is sometimes useful to talk to servers &quot;by hand&quot; rather than through a user interface. It can aid in troubleshooting, when it might be necessary to verify what data a server is sending in response to commands issued by the client. For example, to retrieve the homepage of a website:</p>
+<pre class="tab tcy">printf &quot;GET / HTTP/1.0\r\n\r\n&quot; | nc host.example.com 80</pre>
+<p class="tab">Note that this also displays the headers sent by the web server. They can be filtered, using a tool like <a href="/unix/used.htm"><b>sed</b></a>, if necessary.</p>
+<p class="tab">More complicated examples can be built up when the user knows the format of requests required by the server. As another example, an <a href="/jargon/e/email.htm">e-mail</a> may be submitted to an <a href="/jargon/s/smtp.htm">SMTP</a> server using:</p>
+<pre class="tab tcy">nc [-C] localhost 25 &lt;&lt; EOF
+HELO host.example.com
+MAIL FROM:&lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b3c6c0d6c1f3dbdcc0c79dd6cbd2dec3dfd69dd0dcde">[email&#160;protected]</a>&gt;
+RCPT TO:&lt;<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="027771677030426a6d71762c677a636f726e672c616d6f">[email&#160;protected]</a>&gt;
+DATA
+Body of e-mail.
+.
+QUIT
+EOF</pre>
+<h2 id="port">Port scanning</h2>
+<p class="tab">It may be useful to know which ports are open and running services on a target machine. The <b>-z</b> flag can tell <b>nc</b> to report open ports, rather than initiate a connection. Usually, it's useful to turn on verbose output to stderr using this option with the <b>-v</b> option.</p>
+<p class="tab">For example:</p>
+<pre class="tab tcy">nc -zv host.example.com 20-30</pre>
+<pre class="tab">Connection to host.example.com 22 port [tcp/ssh] succeeded!
+Connection to host.example.com 25 port [tcp/smtp] succeeded!</pre>
+<p class="tab">The port range was specified to limit the search to ports <b>20 - 30</b>, and is scanned by increasing order.</p>
+<p class="tab">You can also specify a list of ports to scan; for example:</p>
+<pre class="tab tcy">nc -zv host.example.com 80 20 22</pre>
+<pre class="tab">nc: connect to host.example.com 80 (tcp) failed: Connection refused 
+nc: connect to host.example.com 20 (tcp) failed: Connection refused 
+Connection to host.example.com port [tcp/ssh] succeeded!</pre>
+<p class="tab">The ports are scanned by the order you given.</p>
+<p class="tab">Alternatively, it might be useful to know which server software is running, and which versions. This information is often contained in the greeting banners. To retrieve these, it is necessary to first make a connection, and then break the connection when the banner was retrieved. This can be accomplished by specifying a small <a href="/jargon/t/timeout.htm">timeout</a> with the <b>-w</b> flag, or perhaps by issuing a &quot;QUIT&quot; command to the server:</p>
+<pre class="tab tcy">echo &quot;QUIT&quot; | nc host.example.com 20-30</pre>
+<pre class="tab">SSH-1.99-OpenSSH_3.6.1p2 Protocol mismatch. 
+220 host.example.com IMS SMTP Receiver Version 0.84 Ready</pre>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">nc -p 31337 -w 5 host.example.com 42</pre>
+<p class="tab">Opens a TCP connection to port <b>42</b> of <b>host.example.com</b>, using port <b>31337</b> as the source port, with a timeout of <b>5</b> seconds.</p>
+<pre class="tcy tab">nc -u host.example.com 53</pre>
+<p class="tab">Opens a <a href="/jargon/u/udp.htm">UDP</a> connection to port <b>53</b> of <b>host.example.com</b>.</p>
+<pre class="tcy tab">nc -s 10.1.2.3 host.example.com 42</pre>
+<p class="tab">Opens a TCP connection to port <b>42</b> of <b>host.example.com</b> using <b>10.1.2.3</b> as the IP for the local end of the connection.</p>
+<pre class="tcy tab">nc -lU /var/tmp/dsocket</pre>
+<p class="tab">Creates and listens on a UNIX-domain stream socket.</p>
+<pre class="tcy tab">nc -x10.2.3.4:8080 -Xconnect host.example.com 42</pre>
+<p class="tab">Connects to port <b>42</b> of <b>host.example.com</b> via an HTTP proxy at <b>10.2.3.4</b>, port <b>8080</b>. This example could also be used by <a href="/jargon/s/ssh.htm">ssh</a>.</p>
+<pre class="tcy tab">nc -x10.2.3.4:8080 -Xconnect -Pruser host.example.com 42</pre>
+<p class="tab">The same as the example above, but this time enabling proxy authentication with username &quot;<b>ruser</b>&quot; if the proxy requires it.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uifconfi.htm"><b>ifconfig</b></a> &mdash; View or modify the configuration of network interfaces.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a831d7bfc84bc',m:'1zCEKBdAFYxvJ8jOgCmwc83luSr1XeKhoPJmerN.t7w-1661495357-0-Ad383BFjOadTo06guNuzk6yXF+cm9OfRaF9uGCZsu1eHplzRMMsykafxsW9ulBmS6+Qn9UWl02W2vBg9mGo7fxCajuCSu6fdnb9jpZdrLzsEXsvotlVaFy/dIbeDCOFcLg==',s:[0x6c6bbd2551,0x40de9b350a],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

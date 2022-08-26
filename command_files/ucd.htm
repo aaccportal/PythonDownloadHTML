@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux cd command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2020-11-30">11/30/2020</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/cd.gif" width="300" height="300" alt="cd command" class="floatRight">
+<p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>cd</b> command ("change directory") changes the <a href="/jargon/s/shell.htm">shell's</a> <a href="/jargon/c/currentd.htm">current working directory</a>.</p>
+<p>This page covers the <a href="/unix/ubash.htm">bash</a> <a href="/jargon/b/builtin.htm">built-in</a> version of <b>cd</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a>
+<ul>
+<li><a href="#options">Options</a></li>
+</ul>
+</li>
+<li><a href="#directories">Directories</a>
+<ul>
+<li><a href="#represented">How directories are represented</a></li>
+<li><a href="#root-directory">The root directory</a></li>
+<li><a href="#working-directory">The working directory</a></li>
+<li><a href="#parent-directory">The parent directory</a></li>
+<li><a href="#home-directory">Your home directory</a></li>
+<li><a href="#previous-directory">The previous working directory</a></li>
+<li><a href="#trailing-slash">Using a trailing slash</a></li>
+</ul>
+</li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>cd</b> is among the commands you use most often on the <a href="/jargon/c/commandi.htm">command line</a>. It changes your <a href="/jargon/c/currentd.htm">working directory</a>. Use it to move around in the <a href="/jargon/h/hierfile.htm">hierarchy</a> of your <a href="/jargon/f/filesyst.htm">file system</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab"><b>cd</b> [<b>-L</b> | <b>-P</b> [<b>-e</b>]] <i>directory</i></pre>
+<h2 id="options">Options</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>-L</b></td>
+<td>Force <a href="/jargon/s/symblink.htm">symbolic links</a> to be followed. In other words, if you tell <b>cd</b> to move into a "directory", which is actually a symbolic link to a directory, it moves into the directory the symbolic link points to. This option is the default behavior of <b>cd</b>; normally, it always acts as if <b>-L</b> was specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b></td>
+<td>Use the physical directory structure without following symbolic links. In other words, only change into the specified directory if it actually exists as named; symbolic links are not followed. This option is the opposite of the <b>-L</b> option, and if they are both specified, this option is ignored.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>If the <b>-P</b> option is specified, and the current working directory cannot be determined, this option tells <b>cd</b> to exit with an error. If <b>-P</b> is not specified with this option, this option has no function.</td>
+</tr>
+</table>
+<h2 id="directories">Directories</h2>
+<p class="tab">To help you organize your <a href="/jargon/f/file.htm">files</a>, your <a href="/jargon/f/filesyst.htm">file system</a> contains special files called <a href="/jargon/d/director.htm">directories</a>. Think of them like folders in a file cabinet: they have names, like files, but their function is to "contain" other files, and other directories. In this way, you can keep the files on your system separate and sorted according to their function or purpose.</p>
+<p class="tab">All files and directories on your system stem from one main directory: the <a href="#root-directory">root directory</a>. There are no directories "above" the root directory; all other directories are "below" the root directory.</p>
+<p class="tab">Any directory contained inside another directory is called a <a href="/jargon/s/subdirec.htm">subdirectory</a>. Subdirectories "branch" off the "root" of the directory "tree." Unlike a real tree, directory trees are upside-down: the root is at the top and the branches reach down. When you move into a subdirectory, you are moving "down" the tree; when you move into a directory's parent directory, you are moving "up" the tree.</p>
+<p class="tab">All directories on your file system are subdirectories of the root directory.</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>By default, when you open a <a href="/jargon/t/terminal.htm">terminal</a> and begin using the command line, you are placed in your <a href="/jargon/h/homedir.htm">home directory</a>.</p>
+</div>
+<h2 id="represented">How directories are represented</h2>
+<p class="tab">Directories are separated by a forward slash ("<b>/</b>"). For instance, the directory name "<b>documents/work/accounting</b>" means "the directory named <b>accounting</b>, which is in the directory named <b>work</b>, which is in the directory named <b>documents</b>, which is in the <a href="/jargon/c/currentd.htm">current directory</a>."</p>
+<p class="tab">To change into this directory, and make it our working directory, we would use the command:</p>
+<pre class="tab tcy">cd documents/work/accounting</pre>
+<p class="tab">If the first character of a directory name is a slash, that denotes that the directory path begins in the root directory. So, in contrast to the example above, the directory name "<b>/documents/work/accounting</b>" (note the beginning slash) means "the directory named <b>accounting</b>, which is in the directory named <b>work</b>, which is in the directory named <b>documents</b>, which is in the root directory."</p>
+<p class="tab">To change into this directory, making it our working directory, we would use the command:</p>
+<pre class="tab tcy">cd /documents/work/accounting</pre>
+<h2 id="root-directory">The root directory</h2>
+<p class="tab">The root directory is the first directory in your filesystem hierarchy. All other directories are subdirectories of the root directory.</p>
+<p class="tab">The root directory is represented by a single slash ("<b>/</b>").</p>
+<p class="tab">To change into the root directory, making it your working directory, use the command:</p>
+<pre class="tab tcy">cd /</pre>
+<div class="tip tab" role="note">
+<span class="title note">Caution</span>
+<p>You cannot make any changes to the root directory on your system unless you are logged in as <a href="/jargon/r/root.htm">root</a>, or using the <a href="/unix/sudo.htm"><b>sudo</b></a> command. Unless you are certain of what you're doing, don't make any changes here. Making a mistake could destroy your system!</p>
+</div>
+<h2 id="working-directory">The working directory</h2>
+<p class="tab">The current directory, regardless of which directory it is, is represented by a single dot ("<b>."</b>).</p>
+<p class="tab">So, running this command:</p>
+<pre class="tab tcy">cd .
+</pre>
+<p class="tab">...would change us into the current directory. In other words, it would do nothing.</p>
+<p class="tab">What's actually happening is the dot represents the "assumed" directory; it's a placeholder, and you can use the dot anywhere in a directory name. So, the command:</p>
+<pre class="tab tcy">cd documents
+</pre>
+<p class="tab">...is the same as the command:</p>
+<pre class="tab tcy">cd ./documents
+</pre>
+<p class="tab">...and also the same as:</p>
+<pre class="tab tcy">cd documents/.
+</pre>
+<p class="tab">...as well as:</p>
+<pre class="tab tcy">cd ./documents/.
+</pre>
+<p class="tab">In all of these examples, the dot represents "the directory assumed to be there". You can use it as a placeholder anywhere you want to tell the shell that a directory goes in that place, and to assume the appropriate value.</p>
+<h2 id="parent-directory">The parent directory</h2>
+<p class="tab">The parent directory of the current directory &mdash; in other words, the directory one level up from the current directory, which contains the directory we're in now &mdash; is represented by two dots ("<b>..</b>").</p>
+<p class="tab">So, If we were in the directory <b>/home/username/documents</b>, and we executed the command:</p>
+<pre class="tab tcy">cd ..</pre>
+<p class="tab">...we would be placed in the directory <b>/home/username</b>.</p>
+<p class="tab">The double-dot ("..") directory notation can be used anywhere in a directory name to represent going up one level. For instance, if we have two directories, <b>/home/username/documents</b> and <b>/home/username/downloads</b>, and we are currently in <b>/home/username/documents</b>, we could type the following:</p>
+<pre class="tab tcy">cd ../downloads</pre>
+<p class="tab">...and we would be placed in <b>/home/username/downloads</b>.</p>
+<p class="tab">Another "useless" command, but one that illustrates the way you can use the double-dot notation, is this one:</p>
+<pre class="tab tcy">cd documents/..</pre>
+<p class="tab">...which will place us in the directory one level above the subdirectory <b>documents</b> &mdash; in other words, the current directory. Note that this only work if the subdirectory <b>documents</b> already exists.</p>
+<p class="tab">Similarly, the command:</p>
+<pre class="tab tcy">cd documents/../documents</pre>
+<p class="tab">...is functionally the same as this command:</p>
+<pre class="tab tcy">cd documents</pre>
+<h2 id="home-directory">Your home directory</h2>
+<p class="tab">Your home directory is the directory you're placed in, by default, when you open a new terminal session. It's the directory that holds all your settings, your mail, your default documents and downloads folder, and other personal items. It has a special representation: a <a href="/jargon/t/tilde.htm">tilde</a> ("<b>~</b>").</p>
+<p class="tab">So, if our username is <b>username</b>, and our home directory is <b>/home/username</b>, the command:</p>
+<pre class="tab tcy">cd ~
+</pre>
+<p class="tab">...is functionally the same as the command:</p>
+<pre class="tab tcy">cd /home/username
+</pre>
+<p class="tab">...and we can always access the subdirectories of our home directory by placing the tilde as the first component of the directory name. For instance, if your documents folder is named <b>/home/username/documents</b>, you can always move into that directory using the command:</p>
+<pre class="tab tcy">cd ~/documents
+</pre>
+<h2 id="previous-directory">The previous working directory</h2>
+<p class="tab">After you change directory, you can change back to the previous working directory by representing it with a dash ("<b>-</b>"). When you do this, the shell automatically tells you the new directory name.</p>
+<p class="tab">So, for instance:</p>
+<pre class="tab tcy">cd ~</pre>
+<pre class="tab tcy">pwd</pre>
+<pre class="tab">/home/hope</pre>
+<pre class="tab tcy">cd Documents/financial</pre>
+<pre class="tab tcy">pwd</pre>
+<pre class="tab">/home/hope/Documents/financial</pre>
+<pre class="tab tcy">cd -</pre>
+<pre class="tab">/home/hope</pre>
+<pre class="tab tcy">pwd</pre>
+<pre class="tab">/home/hope</pre>
+<h2 id="trailing-slash">Using a trailing slash</h2>
+<p class="tab">Using a slash at the end of a directory name is optional. Directories are treated as files, so you don't need to put it there; but if you do put it there, the system knows for sure you're expecting that file to be a directory. For example, if there is a subdirectory in the current directory named <b>dirname</b>, the command:</p>
+<pre class="tab tcy">cd dirname
+</pre>
+<p class="tab">...is the same as the command:</p>
+<pre class="tab tcy">cd dirname/
+</pre>
+<p class="tab">The second form of the command explicitly states that <b>dirname</b> is a directory, but both commands are equivalent.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">cd hope</pre>
+<p class="tab">The above example would change the working directory to the <b>hope</b> subdirectory if it exists.</p>
+<pre class="tcy tab">cd ../computerhope</pre>
+<p class="tab">The above example would traverse up one level to the parent directory and then down into the directory <b>computerhope</b>.</p>
+<pre class="tcy tab">cd ../../</pre>
+<p class="tab">Traverse two directories up the directory tree. In other words, move into the directory which contains the directory which contains the current working directory.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/upwd.htm"><b>pwd</b></a> &mdash; Print the name of the working directory.<br><a href="/unix/uln.htm"><b>ln</b></a> &mdash; Create a link, or a symbolic link, to a file or directory.<br><a href="/unix/umkdir.htm"><b>mkdir</b></a> &mdash; Create a directory.<br><a href="/unix/urmdir.htm"><b>rmdir</b></a> &mdash; Remove a directory.</p>
+<h2 id="qandas">Related Q&amp;A</h2>
+<ul>
+<li><a href="/issues/ch000795.htm">How to change a directory or open a folder.</a></li>
+<li><a href="/issues/ch001310.htm">What is the difference between cd .. and cd\ or cd / commands?</a></li>
+</ul>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82bfda5e848c',m:'HqhvIJdnghwLdw3ufB7bZDykg3iP2ODbxi_36R2lpuE-1661495342-0-AdCM+sC6HNcyrIhqi1zBHXqcZWomQ0J1bAh/iYRvQ9m0opry0BxoF1M5zjl8qLEU3iIMay2FMwYHLB1aphS8RMHQ/sZoy8LUAkYWhIt4xzgZrdEArnYxLb32GKzDJMF5+Q==',s:[0x797bf7d1ab,0x713640ae46],u:'/cdn-cgi/challenge-platform/h/b'};var _cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/cb/invisible.js?cb=740a82bfda5e848c',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

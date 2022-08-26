@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux cfdisk command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-08-16">08/16/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/cfdisk.gif" width="300" height="300" alt="cfdisk command at Linux command prompt." class="floatRight"><p class="intro">On Linux operating systems, the <b>cfdisk</b> command manipulates or displays information about the <a href="/jargon/d/disk.htm">disk</a> <a href="/jargon/p/partition.htm">partition</a> table. It incorporates all the functionality of <a href="/unix/fdisk.htm">fdisk</a>, but with a text-based "graphical" interface.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="description">Description</h2>
+<p class="tab"><b>cfdisk</b> is a program for partitioning any hard drive. Typical values of the device argument are:</p>
+<ul>
+<li><b>/dev/hda</b> [default]</li>
+<li><b>/dev/hdb</b></li>
+<li><b>/dev/sda</b></li>
+<li><b>/dev/sdb</b></li>
+<li><b>/dev/sdc</b></li>
+<li><b>/dev/sdd</b></li>
+</ul>
+<p class="tab">To write the partition table, <b>cfdisk</b> needs something called the "geometry" of the disk: the number of "heads" and the number of "sectors per track". Linux does not use any geometry, so if the disk is not accessed by other operating systems, you can safely accept the defaults that <b>cfdisk</b> chooses for you. The geometry used by <b>cfdisk</b> is found as follows: first the partition table is examined, to see what geometry was used by the previous program that changed it. If the partition table is empty, or contains garbage, or does not point at a consistent geometry, the kernel is asked for advice. If nothing works, <b>255 heads</b> and <b>63 sectors/track</b> is assumed. The geometry can be overridden on the <a href="/jargon/c/commandi.htm">command line</a> or by use of the "<b>g</b>" command. When partitioning an empty large modern disk, picking 255 heads and 63 sectors/track is always a good idea. There is no need to set the number of cylinders since <b>cfdisk</b> knows the disk size.</p>
+<p class="tab">Next, <b>cfdisk</b> tries to read the current partition table from the disk drive. If it cannot figure out the partition table, an error is displayed and the program will exit. This might also be caused by incorrect geometry information, and can be overridden on the command line. Another way around this problem is with the <b>-z</b> option. This option ignores the partition table on the disk.</p>
+<p class="tab">The main display is composed of four sections, from top to bottom: the header, the partitions, the command line and a warning line. The header contains the program name and version number followed by the disk drive and its geometry. The partitions section always displays the current partition table. The command line is the place where commands and text are entered. The available commands are usually displayed in brackets. The warning line is usually empty except when there is important information to show. The current partition is highlighted with reverse video (or an arrow if the <b>-a</b> option is given). All partition specific commands apply to the current partition.</p>
+<p class="tab">The format of the partition table in the partitions section is, from left to right: <b>Name</b>, <b>Flags</b>, <b>Partition Type</b>, <b>Filesystem Type</b> and <b>Size</b>. The name is the partition device name. The flags can be <b>Boot</b>, which designates a bootable partition, or <b>NC</b>, which stands for "Not Compatible with DOS or OS/2". DOS, OS/2, and possibly other operating systems require the first sector of the first partition on the disk and all logical partitions to begin on the second head. This wastes the second through the last sector of the first track of the first head (the first sector is taken by the partition table itself). <b>cfdisk</b> lets you recover these "lost" sectors with the maximize command (<b>m</b>).</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p><b>fdisk</b> and some early versions of DOS create all partitions with the number of sectors already maximized. For more information, see the maximize command below. The partition type can be one of <b>Primary</b> or <b>Logical</b>. For unallocated space on the drive, the partition type can also be <b>Pri</b>/<b>Log</b>, or empty (if the space is unusable). The filesystem type section displays the name of the filesystem used on the partition, if known. If it is unknown, then <b>Unknown</b> and the <a href="/jargon/h/hex.htm">hex</a> value of the filesystem type are displayed. A special case occurs when there are sections of the disk drive that cannot be used (because all the primary partitions are used). When this is detected, the filesystem type is displayed as <b>Unusable</b>. The size field displays the size of the partition in <a href="/jargon/m/megabyte.htm">megabytes</a> (by default). It can also display the size in sectors and cylinders (see the change units command below). If an asterisk (<b>*</b>) appears after the size, this indicates the partition is not aligned on cylinder boundaries.</p>
+</div>
+<h3 class="tab">A warning about DOS 6.x</h3>
+<p class="tab">The DOS 6.x <b>FORMAT</b> command looks for some information in the first sector of the data area of the partition, and treats this information as more reliable than the information in the partition table. DOS <b>FORMAT</b> expects DOS <b>FDISK</b> to clear the first 512 bytes of the data area of a partition whenever a size change occurs. DOS <b>FORMAT</b> looks at this extra information even if the <b>/U</b> flag is given; this is considered a bug in DOS <b>FORMAT</b> and DOS <b>FDISK</b>.</p>
+<p class="tab">The bottom line is that if you use <b>cfdisk</b> or <b>fdisk</b> to change the size of a DOS partition table entry, then you must also use <a href="/unix/dd.htm"><b>dd</b></a> to zero the first 512 bytes of that partition before using DOS <b>FORMAT</b> to format the partition. For example, if you were using <b>cfdisk</b> to make a DOS partition table entry for <b>/dev/hda1</b>, then (after exiting <b>fdisk</b> or <b>cfdisk</b> and rebooting Linux so that the partition table information is valid) you would use the command</p>
+<pre class="tab tcy">dd if=/dev/zero of=/dev/hda1 bs=512 count=1
+</pre>
+<p class="tab">...to zero the first 512 bytes of the partition. Note:</p>
+<div class="tip tab" role="note">
+<span class="title note">Warning</span>
+<p>When using the <b>dd</b> command, a small typo can make all the data on your disk useless.</p>
+</div>
+<p class="tab">For best results, always use an OS-specific partition table program. For example, make DOS partitions with the DOS <b><a href="/fdiskhlp.htm">FDISK</a></b> program and Linux partitions with the Linux <b>fdisk</b> or Linux <b>cfdisk</b> program.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">cfdisk [-agvz] [-c <i>cylinders</i>] [-h <i>heads</i>] [-s <i>sectors-per-track</i>]
+       [-P <i>opt</i>] [<i>device</i>]
+</pre>
+<h3 class="tab">Commands</h3>
+<p class="tab"><b>cfdisk</b> commands can be entered by pressing the desired key (pressing <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a> after the command is not necessary). Here is a list of the available commands:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><p><b>b</b></p></td>
+<td><a href="/jargon/t/toggle.htm">Toggle</a> bootable flag of the current partition. This lets you select which primary partition is bootable on the drive.</td>
+</tr>
+<tr class="tcw">
+<td><b>d</b></td>
+<td>Delete the current partition. This command will convert the current partition into free space and merge it with any free space immediately surrounding <i>the</i> current partition. A partition already marked as free space or marked as unusable cannot be deleted.</td>
+</tr>
+<tr class="tcw">
+<td><b>g</b></td>
+<td>Change the disk geometry (cylinders, heads, or sectors-per-track).<br><br> <b><i>WARNING</i></b>: This option should only be used by people who know what they are doing. A command line option is also available to change the disk geometry. While at the change disk geometry command line, you can choose to change cylinders (<b>c</b>), heads (<b>h</b>), and sectors per track (<b>s</b>). The default value will be printed at the prompt which you can accept by pressing <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a>, or you can exit without changes by pressing <a href="/jargon/e/esc.htm"><kbd>Esc</kbd></a>. If you want to change the <a href="/jargon/d/default.htm">default</a> value, enter the desired value and press <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a>. The altered disk <a href="/jargon/p/paramete.htm">parameter</a> values do not take effect until you return to the main menu (by pressing <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a> or <a href="/jargon/e/esc.htm"><kbd>Esc</kbd></a> at the change disk geometry command line). If you change the geometry such that the disk appears larger, the extra sectors are added at the end of the disk as free space. If the disk appears smaller, the partitions that are beyond the new last sector are deleted and the last partition on the drive (or the free space at the end of the drive) is made to end at the new last sector.</td>
+</tr>
+<tr class="tcw">
+<td><b>h</b></td>
+<td>Print the help screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>m</b></td>
+<td>Maximize disk usage of the current partition. This command will recover the unused space between the partition table and the beginning of the partition, but at the cost of making the partition incompatible with DOS, OS/2, and possibly other operating systems. This option toggles between maximal disk usage and DOS, OS/2, etc. compatible disk usage. The default when creating a partition is to create DOS, OS/2, etc. compatible partitions.</td>
+</tr>
+<tr class="tcw">
+<td><b>n</b></td>
+<td>Create new partition from free space. If the partition type is <i>Primary</i> or <i>Logical</i>, a partition of that type is created, but if the partition type is <b>Pri</b>/<b>Log</b>, you'll get a prompt for the type you want to create. Be aware that:<br><br><ol> <li>There are only four slots available for primary partitions.</li> <li>Since there can be only one extended partition, which contains all the logical drives, all the logical drives must be contiguous (with no intervening primary partition).</li></ol> <b>cfdisk</b> next prompts you for the size of the partition you want to create. The default size, equal to the entire free space of the current partition, is displayed in <a href="/jargon/m/megabyte.htm">megabytes</a>. You can either press <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a> to accept the default size or enter a different size at the prompt. <b>cfdisk</b> accepts size entries in megabytes (<b>M</b>) [this is the default], kilobytes (<b>K</b>), cylinders (<b>C</b>) and sectors (<b>S</b>) by entering the number immediately followed by one of (<b>M</b>, <b>K</b>, <b>C</b> or <b>S</b>). If the partition fills the free space available, the partition is created and you are returned to the main command line. Otherwise, the partition can be created at the beginning or the end of the free space, and <b>cfdisk</b> asks you to choose where to place the partition. After the partition is created, <b>cfdisk</b> automatically adjusts the other partitions' partition types if all the primary partitions are used.</td>
+</tr>
+<tr class="tcw">
+<td><b>p</b></td>
+<td><p>Print the partition table to the screen or to a file. There are different formats for the partition that you can choose from:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>r</b></td>
+<td>Raw data format (exactly what would be written to disk).</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b></td>
+<td>Partition table in sector order format.</td>
+</tr>
+<tr class="tcw">
+<td><b>t</b></td>
+<td>Partition table in raw format.</td>
+</tr>
+</table>
+<p>The raw data format prints the sectors that would be written to disk if a write command is selected. First, the primary partition table is printed, followed by the partition tables associated with each logical partition. The data is printed in hex byte by byte with 16 bytes per line.</p>
+<p>The partition table in sector order format prints the partition table ordered by sector number. The fields, from left to right, are the number of the partition, the partition type, the first sector, the last sector, the offset from the first sector of the partition to the start of the data, the length of the partition, the filesystem type (with the <a href="/jargon/h/hex.htm">hex</a> value in parenthesis), and the flags (with the hex value in parenthesis). In addition to the primary and logical partitions, free and unusable space is printed and the extended partition is printed before the first logical partition.</p>
+<p>If a partition does not start or end on a cylinder boundary or if the partition length is not divisible by the cylinder size, an asterisk (<b>*</b>) is printed after the non-aligned sector number/count. This usually indicates that a partition was created by an operating system that either does not align partitions to cylinder boundaries or that used different disk geometry information. If you know the disk geometry of the other operating system, you could enter the geometry information with the change geometry command (<b>g</b>).</p>
+<p>For the first partition on the disk and for all logical partitions, if the offset from the beginning of the partition is not equal to the number of sectors per track (i.e., the data does not start on the first head), a number sign (<b>#</b>) is printed after the offset. For the remaining partitions, if the offset is not zero, a number sign will be printed after the offset. This corresponds to the NC flag in the partitions section of the main display.</p>
+<p>The partition table in raw format prints the partition table ordered by partition number. It will leave out all free and unusable space. The fields, from left to right, are the number of the partition, the flags (in hex), the starting head, sector, and cylinder, the filesystem ID (in hex), the ending head, sector, and cylinder, the starting sector in the partition and the number of sectors in the partition. The information in this table can be directly translated to the raw data format.</p>
+<p>The partition table entries only have 10 bits available to represent the starting and ending cylinders. Thus, when the absolute starting (ending) sector number is on a cylinder greater than 1023, the maximal values for starting (ending) head, sector, and cylinder are printed. This is the method used by OS/2, and thus fixes the problems associated with OS/2's fdisk rewriting the partition table when it is not in this format. Since Linux and OS/2 use absolute sector counts, the values in the starting and ending head, sector, and cylinder are not used.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>q</b></td>
+<td>Quit program. This command will exit the program without writing any data to disk.</td>
+</tr>
+<tr class="tcw">
+<td><b>t</b></td>
+<td>Change the filesystem type. By default, new partitions are created as Linux partitions, but since <b>cfdisk</b> can create partitions for other operating systems, change partition type lets you enter the hex value of the filesystem you desire. A list of the know filesystem types is displayed. You can type in the filesystem type at the prompt or accept the default filesystem type [<b>Linux</b>].</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b></td>
+<td>Change units of the partition size display. It will rotate through megabytes, sectors, and cylinders.</td>
+</tr>
+<tr class="tcw">
+<td><b>W</b></td>
+<td>Write partition table to disk (must enter an uppercase W). Since this might destroy data on the disk, you must either confirm or deny the write by entering "<b>yes</b>" or "<b>no</b>". If you enter "<b>yes</b>," <b>cfdisk</b> writes the partition table to disk and the tell the kernel to re-read the partition table from the disk. The re-reading of the partition table does not work in some cases, for example for device-mapper devices. In particular case you need to inform kernel about new partitions by <b>partprobe</b>, <b>kpartx</b> or <a href="/jargon/r/reboot.htm">reboot</a> the system.</td>
+</tr>
+<tr class="tcw">
+<td><b>UpArrow</b>, <b>DownArrow</b></td>
+<td>Move cursor to the previous or next partition. If there are more partitions than what can be displayed, you can display the next (previous) set of partitions by moving down (up) at the last (first) partition displayed on the screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>Ctrl-L</b></td>
+<td>Redraws the screen. In case something goes wrong and you cannot read anything, you can refresh the screen from the main command line.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>Print the help screen.</td>
+</tr>
+</table>
+<p class="tab">All the commands can be entered with either upper or lowercase letters (except for <b>Writes</b>). When in a sub-menu or at a prompt to enter a <a href="/jargon/f/filename.htm">file name</a>, you can press <a href="/jargon/e/esc.htm"><kbd>Esc</kbd></a> to return to the main command line.</p>
+<h3 class="tab">Command-line options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><b>-a</b></td>
+<td>Use an arrow cursor instead of reverse video for highlighting the current partition.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b></td>
+<td>Do not use the geometry given by the disk driver, but try to guess a geometry from the partition table.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Print the version number and Copyright.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b></td>
+<td>Start with zeroed partition table. This option is useful when you want to repartition your entire disk. Note: this option does not zero the partition table on the disk; rather, it starts the program without reading the existing partition table.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b> <i>cylinders</i>,<br><b>-h</b> <i>heads</i>,<br><b>-s</b> <i>sectors-per-track</i></td>
+<td>Override the number of cylinders, heads, and sectors per track read from the <a href="/jargon/b/bios.htm">BIOS</a>. If your BIOS or adapter does not supply this information or if it supplies incorrect information, use these options to set the disk geometry values.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">sudo cfdisk</pre>
+<p class="tab">Run <b>cfdisk</b>, using the <a href="/unix/sudo.htm"><b>sudo</b></a> command to execute the command with root privileges.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/fdisk.htm"><b>fdisk</b></a> &mdash; A disk partitioning utility.<br><a href="/unix/mkfs.htm"><b>mkfs</b></a> &mdash; Build a Linux file system, usually a hard drive partition.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82bf48f4c3ed',m:'_e3u4WF2p.T6dLiw3sYF6ey6W2Idrq4oS8UzZlof0FI-1661495341-0-AYY7E206xCGltk4ez8HK0iXeJRLqTGG8aqWlyKjL8t/iKcy9ubcG8aXSYtnWGGRCGG5RNhPi8wAO73JiLjdrNToMTwhCyyhFjWlyarG/hAq3e4c2dXUU/v/Qz+I3XAE0yA==',s:[0x1a3527190a,0x606cc563c6],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

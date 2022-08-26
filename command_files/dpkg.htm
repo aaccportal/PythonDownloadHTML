@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux dpkg command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-08-16">08/16/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/dpkg.gif" width="300" height="300" alt="dpkg command" class="floatRight"><p class="intro">On Linux operating systems that use <a href="/jargon/d/debian.htm">Debian</a> package management, the <b>dpkg</b> command queries, installs, removes, and maintains Debian <a href="/jargon/p/package.htm">software packages</a> and their dependencies.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#packages">Information about packages</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#examples">Examples</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The primary and more user-friendly front-end for <b>dpkg</b> is <b>aptitude</b>. <b>dpkg</b> itself is controlled entirely via <a href="/jargon/c/commandi.htm">command line</a> <a href="/jargon/p/paramete.htm">parameters</a>, which consist of exactly one action and zero or more options. The <i>action</i> parameter tells <b>dpkg</b> what to do and options control the behavior of the action in some way.</p>
+<p class="tab"><b>dpkg</b> can also be used as a front-end to <b>dpkg-deb</b> and <b>dpkg-query</b>. The list of supported actions is below (in the &quot;Actions&quot; section). If any such action is encountered, dpkg runs <b>dpkg-deb</b> or <b>dpkg-query</b> with the parameters given to it, but no specific options are currently passed to them. To use any such option, the back-ends need to be called directly.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">dpkg [<i>option</i>...] <i>action</i></pre>
+<h3 class="tab">Actions</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:320px"><b>-i</b>,<br> <b>--install</b> <i>package-file...</i></td>
+<td>Install the package. If <b>--recursive</b> or <b>-R</b> option is specified, <i>package-file</i> must refer to a directory instead.<br><br>Installation consists of the following steps:<br><br>1. Extract the control files of the new package.<br><br>2. If another version of the same package was installed before the new installation, execute prerm script of the old package.<br><br>3. Run preinst script, if provided by the package.<br><br>4. Unpack the new files, and at the same time back up the old files, so that if something goes wrong, they can be restored.<br><br>5. If another version of the same package was installed before the new installation, execute the postrm script of the old package. Note that this script is executed after the preinst script of the new package, because new files are written at the same time old files are removed.<br><br>6. Configure the package. See <b>--configure</b> for detailed information about how this is done.</td>
+</tr>
+<tr class="tcw">
+<td><b>--unpack</b> <i>package-file...</i></td>
+<td>Unpack the package, but don't configure it. If <b>--recursive</b> or <b>-R</b> option is specified, package-file must refer to a directory instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>--configure</b> <i>package...</i> | <b>-a</b> | <b>--pending</b></td>
+<td>Configure a package that was unpacked but not yet configured. If <b>-a</b> or <b>--pending</b> is given instead of package, all unpacked but unconfigured packages are configured.<br><br>To reconfigure a package which has already been configured, try the <b>dpkg-reconfigure</b> command instead.<br><br>Configuring consists of the following steps:<br><br>1. Unpack the conffiles, and at the same time back up the old conffiles, so that they can be restored if something goes wrong.<br><br>2. Run postinst script, if provided by the package.</td>
+</tr>
+<tr class="tcw">
+<td><b>--triggers-only</b> <i>package...</i> | <b>-a</b> | <b>--pending</b></td>
+<td>Processes only triggers. All pending triggers are processed. If package names are supplied, only those packages' triggers are processed, exactly once each where necessary. Use of this option may leave packages in the improper <i>triggers-awaited</i> and <i>triggers-pending</i> states. This can be fixed later by running: <b>dpkg --configure --pending</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--remove</b>, <b>-P</b>, <b>--purge</b> <i>package</i>... | <b>-a</b> | <b>--pending</b></td>
+<td>Remove an installed package. <b>-r</b> or <b>--remove</b> removes everything except conffiles. This may avoid having to reconfigure the package if it's reinstalled later. (Conffiles are configuration files that are listed in the DEBIAN/conffiles control file). <b>-P</b> or <b>--purge</b> removes everything, including conffiles. If <b>-a</b> or <b>--pending</b> is given instead of a package name, then all packages unpacked, but marked to be removed or purged in file <b>/var/lib/dpkg/status</b>, are removed or purged, respectively. Note: some configuration files might be unknown to dpkg because they are created and handled separately through the configuration scripts. In that case, dpkg won't remove them by itself, but the package's postrm script (which is called by dpkg), has to take care of their removal during purge. Of course, this only applies to files in system directories, not configuration files written to individual users' home directories.<br><br>Removal of a package consists of the following steps:<br><br>1. Run <b>prerm</b> script.<br><br>2. Remove the installed files.<br><br>3. Run <b>postrm</b> script.</td>
+</tr>
+<tr class="tcw">
+<td><b>--update-avail</b>,<br> <b>--merge-avail</b> <i>Packages-file</i></td>
+<td>Update <b>dpkg</b>'s and <b>dselect</b>'s information regarding which packages are available. With action <b>--merge-avail</b>, old information is combined with information from <i>Packages-file</i>. With action <b>--update-avail</b>, old information is replaced with the information in the <i>Packages-file</i>.<br><br>The Packages-file distributed with Debian are named Packages. dpkg keeps its record of available packages in <b>/var/lib/dpkg/available</b>.<br><br>A simpler command to retrieve and update the available file is <b>dselect update</b>. Note that this file is mostly useless if you don't use dselect but an APT-based frontend: APT has its own system to keep track of available packages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b>,<br> <b>--record-avail</b> <i>package-file...</i></td>
+<td>Update <b>dpkg</b> and <b>dselect</b>'s information that packages are available with information from the package <i>package-file</i>. If <b>--recursive</b> or <b>-R</b> option is specified, <i>package-file</i> must refer to a directory instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>--clear-avail</b></td>
+<td>Erase the existing information about what packages are available.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b>, <b>--audit</b></td>
+<td>Searches for packages that were installed only partially on your system. <b>dpkg</b> suggests what to do with them to get them working.</td>
+</tr>
+<tr class="tcw">
+<td><b>--get-selections</b> [<i>package-name-pattern...</i>]</td>
+<td>Get list of package selections, and write it to stdout. Without a pattern, packages not installed (i.e., those that were previously purged) are not shown.</td>
+</tr>
+<tr class="tcw">
+<td id="set-selections"><p><b>--set-selections</b></p></td>
+<td>Set package selections using file read from stdin. This file should be in the format 'package state', where state is one of <i>install</i>, <i>hold</i>, <i>deinstall</i> or <i>purge</i>. Blank lines and comment lines beginning with '#' are also permitted.</td>
+</tr>
+<tr class="tcw">
+<td><b>--clear-selections</b></td>
+<td>Set the requested state of every non-essential package to deinstall. This is intended to be used immediately before <i>--set-selections</i>, to deinstall any packages not in list given to <i>--set-selections</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--yet-to-unpack</b></td>
+<td>Searches for packages selected for installation, but which for some reason still haven't been installed.</td>
+</tr>
+<tr class="tcw">
+<td><b>--add-architecture</b> <i>architecture</i></td>
+<td>Add <a href="/jargon/a/architec.htm">architecture</a> to the list of architectures for which packages can be installed without using <i>--force-architecture</i>. The architecture <b>dpkg</b> is built for (i.e., the output of <b>--print-architecture</b>) is always part of that list.</td>
+</tr>
+<tr class="tcw">
+<td><b>--remove-architecture</b> <i>architecture</i></td>
+<td>Remove architecture from the list of architectures for which packages can be installed without using <b>--force-architecture</b>. If the architecture is currently in use in the database, then the operation is refused, except if <b>--force-architecture</b> is specified. The architecture dpkg is built for (i.e., the output of <b>--print-architecture</b>) can never be removed from that list.</td>
+</tr>
+<tr class="tcw">
+<td><b>--print-architecture</b></td>
+<td>Print architecture of packages <b>dpkg</b> installs (for example, &quot;i386&quot;).</td>
+</tr>
+<tr class="tcw">
+<td><b>--print-foreign-architectures</b></td>
+<td>Print a newline-separated list of the extra architectures <b>dpkg</b> is configured to allow packages to be installed for.</td>
+</tr>
+<tr class="tcw">
+<td><b>--compare-versions</b> <i>ver1 op ver2</i></td>
+<td>Compare version numbers, where op is a binary operator. <b>dpkg</b> returns success (zero result) if the specified condition is satisfied, and failure (nonzero result) otherwise. There are two groups of operators, which differ in how they treat an empty <i>ver1</i> or <i>ver2</i>. These treat an empty version as earlier than any version: <b>lt le eq ne ge gt</b>. These treat an empty version as later than any version: <b>lt-nl le-nl ge-nl gt-nl</b>. These are provided only for compatibility with control file syntax: <b>&lt;</b>, <b>&lt;&lt;</b>, <b>&lt;=</b>, <b>=</b>, <b>&gt;=</b>, <b>&gt;&gt;</b>, <b>&gt;</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-?</b>, <b>--help</b></td>
+<td>Display a brief help message.</td>
+</tr>
+<tr class="tcw">
+<td><b>--force-help</b></td>
+<td>Give help about the <b>--force-<i>something</i></b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Dh</b>, <b>--debug=help</b></td>
+<td>Give help about debugging options.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display <b>dpkg</b> version information.</td>
+</tr>
+</table>
+<h3 class="tab">Options</h3>
+<p class="tab">All options can be specified both on the command line and in the <b>dpkg</b> configuration file <b>/etc/dpkg/dpkg.cfg</b> or fragment files (with names matching this shell pattern <b>'[0-9a-zA-Z_-]*'</b>) on the configuration directory <b>/etc/dpkg/dpkg.cfg.d/</b>. Each line in the configuration file is either an option (exactly the same as the command line option but without leading dashes) or a comment (if it starts with a #).</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:290px"><b>--abort-after</b><i>=number</i></td>
+<td>Change after how many <a href="/jargon/e/error.htm">errors</a> <b>dpkg</b> aborts. The default is 50.</td>
+</tr>
+<tr class="tcw">
+<td><b>--abort-after</b><i>=number</i></td>
+<td>Change after how many errors <b>dpkg</b> aborts. The default is 50.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b>,<br> <b>--auto-deconfigure</b></td>
+<td>When a package is removed, there is a possibility that another installed package depended on the removed package. Specifying this option causes automatic deconfiguration of the package which depended on the removed package.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b><i>octal</i>,<br> <b>--debug</b><i>=octal</i></td>
+<td>Switch debugging on. The <a href="/jargon/o/octal.htm">octal</a> is formed by bitwise-<a href="/jargon/b/boolean.htm">OR</a> desired values together from the list below (note that these values may change in future releases). <b>-Dh</b> or <b>--debug=help</b> display these debugging values.<br>
+<table>
+<tr>
+<td>Number</td>
+<td>Description</td>
+</tr>
+<tr>
+<td style="text-align:right">1</td>
+<td>Generally helpful progress information</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td>Invocation and status of maintainer scripts</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td>Output for each file processed</td>
+</tr>
+<tr>
+<td style="text-align:right">100</td>
+<td>Lots of output for each file processed</td>
+</tr>
+<tr>
+<td style="text-align:right">20</td>
+<td>Output for each configuration file</td>
+</tr>
+<tr>
+<td style="text-align:right">200</td>
+<td>Lots of output for each configuration file</td>
+</tr>
+<tr>
+<td style="text-align:right">40</td>
+<td>Dependencies and conflicts</td>
+</tr>
+<tr>
+<td style="text-align:right">400</td>
+<td>Lots of dependencies/conflicts output</td>
+</tr>
+<tr>
+<td style="text-align:right">10000</td>
+<td>Trigger activation and processing</td>
+</tr>
+<tr>
+<td style="text-align:right">20000</td>
+<td>Lots of output regarding triggers</td>
+</tr>
+<tr>
+<td style="text-align:right">40000</td>
+<td>Silly amounts of output regarding triggers</td>
+</tr>
+<tr>
+<td style="text-align:right">1000</td>
+<td>Lots of info about e.g., the dpkg/info dir</td>
+</tr>
+<tr>
+<td style="text-align:right">2000</td>
+<td>Insane amounts of info</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>--force-</b><i>things</i>,<br> <b>--no-force-</b><i>things</i>,<br> <b>--refuse-</b><i>things</i></td>
+<td>Force or refuse (<b>no-force</b> and <b>refuse</b> mean the same thing) to do some things. The <i>things</i> is a comma separated list of things specified below. <b>--force-help</b> displays a message describing them. Things marked with (*) are forced by default.<br><br><b>Warning: These options are mostly intended to be used by experts only. Using them without fully understanding their effects may break your whole system.</b><br><br><b>all</b>: Turns on (or off) all force options.<br><br><b>downgrade</b>: Install a package, even if newer version of it is already installed.<br><br><b>Warning: At present, dpkg does not do any dependency checking on downgrades and therefore does not warn you if the downgrade breaks the dependency of some other package. This can have serious side effects, downgrading essential system components can even make your whole system unusable. Use with care.</b><br><br><b>configure-any</b>: Configure also any unpacked but unconfigured packages on which the current package depends.<br><br><b>hold</b>: Process packages even when marked &quot;hold&quot;.<br><br><b>remove-reinstreq</b>: Remove a package, even if it's broken and marked to require reinstallation. This may, for example, cause parts of the package to remain on the system, which are then forgotten by dpkg.<br><br><b>remove-essential</b>: Remove, even if the package is considered essential. Essential packages contain mostly very basic Unix commands. Removing them might cause the whole system to stop working, so use with caution.<br><br><b>depends</b>: Turn all dependency problems into warnings.<br><br><b>depends-version</b>: Don't care about versions when checking dependencies.<br><br><b>breaks</b>: Install, even if this would break another package.<br><br><b>conflicts</b>: Install, even if it conflicts with another package. This is dangerous, for it usually causes overwriting of some files.<br><br><b>confmiss</b>: If a conffile is missing and the version in the package did change, always install the missing conffile without prompting. This is dangerous since it means not preserving a change (removing) made to the file.<br><br><b>confnew</b>: If a conffile was modified and the version in the package did change, always install the new version without prompting, unless the <b>--force-confdef</b> is also specified, where the default action is preferred.<br><br><b>confold</b>: If a conffile was modified and the version in the package did change, always keep the old version without prompting, unless the <b>--force-confdef</b> is also specified, where the default action is preferred.<br><br><b>confdef</b>: If a conffile was modified and the version in the package did change, always choose the default action without prompting. If there is no default action, it stops to ask the user unless <b>--force-confnew</b> or <b>--force-confold</b> is also been given, where it uses that to decide the final action.<br><br><b>confask</b>: If a conffile was modified, always offer to replace it with the version in the package, even if the version in the package did not change. If any of <b>--force-confmiss</b>, <b>--force-confnew</b>, <b>--force-confold</b>, or <b>--force-confdef</b> is also given, it is used to decide the final action.<br><br><b>overwrite</b>: Overwrite one package's file with another's file.<br><br><b>overwrite-dir</b>: Overwrite one package's directory with another's file.<br><br><b>overwrite-diverted</b>: Overwrite a diverted file with an undiverted version.<br><br><b>unsafe-io</b>: Do not perform safe I/O operations when unpacking. Currently this implies not performing file system syncs before file renames, which is known to cause substantial performance degradation on some file systems, unfortunately the ones that require the safe I/O on the first place due to their unreliable behaviour causing zero-length files on abrupt system crashes.<br><br>Note: For ext4 filesystems, consider using instead the mount option <b>nodelalloc</b>, which fixes both the performance degradation and the data safety issues, the latter by making the file system not produce zero-length files on abrupt system crashes with any software not doing syncs before atomic renames.<br><br><b>Warning: Using this option might improve performance at the cost of losing data, use with care.</b><br><br><b>architecture</b>: Process even packages with wrong or no architecture.<br><br><b>bad-version</b>: Process even packages with wrong versions.<br><br><b>bad-path</b>: PATH is missing important programs, so problems are likely.<br><br><b>not-root</b>: Try to (de)install things even when not root.<br><br><b>bad-verify</b>: Install a package even if it fails authenticity check.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ignore-depends</b><i>=package,...</i></td>
+<td>Ignore dependency-checking for specified packages (actually, checking is performed, but only warnings about conflicts are given, nothing else).</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-act</b>,<br> <b>--dry-run</b>,<br> <b>--simulate</b></td>
+<td>Do everything that is supposed to be done, but don't write any changes. This is used to see what would happen with the specified action, without actually modifying anything.<br><br> Be sure to give <b>--no-act</b> before the action-parameter, or you might end up with undesirable results. For example, <b>dpkg --purge foo --no-act</b> first purges package foo and then try to purge package <b>--no-act</b>, even though you probably expected it to actually do nothing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--recursive</b></td>
+<td>Recursively handle all regular files matching pattern <b>*.deb</b> found at specified directories and all its subdirectories. This can be used with <b>-i</b>, <b>-A</b>, <b>--install</b>, <b>--unpack</b> and <b>--avail</b> actions.</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b></td>
+<td>Don't install a package if a newer version of the same package is already installed. This is an alias of <b>--refuse-downgrade</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--admindir</b><i>=dir</i></td>
+<td>Change default administrative directory, which contains many files that give information about status of installed or uninstalled packages, etc. (Defaults to <b>/var/lib/dpkg</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>--instdir</b><i>=dir</i></td>
+<td>Change default installation directory which refers to the directory where packages are to be installed. The instdir is also the directory passed to <a href="/unix/chroot.htm">chroot</a> before running package's installation scripts, indicating the scripts see instdir as a root directory. This defaults to <b>/</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--root</b><i>=dir</i></td>
+<td>Changing root changes instdir to dir and admindir to <b>dir/var/lib/dpkg</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b>, <b>--selected-only</b></td>
+<td>Only process the packages that are selected for installation. The actual marking is done with dselect or by <b>dpkg</b>, when it handles packages. For example, when a package is removed, it is marked selected for deinstallation.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b>, <b>--skip-same-version</b></td>
+<td>Don't install the package if the same version of the package is already installed.</td>
+</tr>
+<tr class="tcw">
+<td><b>--pre-invoke</b><i>=command</i>,<br> <b>--post-invoke</b><i>=command</i></td>
+<td>Set an invoke hook command to run via <b>sh -c</b> before or after the <b>dpkg</b> run for the <b>unpack</b>, <b>configure</b>, <b>install</b>, <b>triggers-only</b>, <b>remove</b> and <b>purge</b> actions. This option can be specified multiple times. The order the options are specified is preserved, with the ones from the configuration files taking precedence. The environment variable <b>DPKG_HOOK_ACTION</b> is set for the hooks to the current dpkg action.<br><br><i>Note: front-ends might call <b>dpkg</b> several times per invocation, which might run the hooks more times than expected.</i></td>
+</tr>
+<tr class="tcw">
+<td><b>--path-exclude</b><i>=glob-pattern</i>,<br> <b>--path-include</b><i>=glob-pattern</i></td>
+<td>Set <i>glob-pattern</i> as a path filter, either by excluding or re-including previously excluded paths matching the specified patterns during install.<br><br><b>Warning: take into account that, depending on the excluded paths, you might completely break your system, use with caution.</b><br><br>The glob patterns use the same <a href="/jargon/w/wildcard.htm">wildcards</a> used in the <a href="/jargon/s/shell.htm">shell</a>, where '<b>*</b>' matches any sequence of <a href="/jargon/c/charact.htm">characters</a>, including the empty string and also '<b>/</b>'. For example, '<b>/usr/*/READ*</b>' matches '<b>/usr/share/doc/package/README</b>'. As usual, '<b>?</b>' matches any single character (again, including '<b>/</b>'). And '<b>[</b>' starts a character class, which can contain a list of characters, ranges and complementations.<br><br><i>Note: the current implementation might re-include more directories and <a href="/jargon/s/symblink.htm">symlinks</a> than needed to be on the safe side and avoid possible unpack failures.</i><br><br> This can remove all paths except some particular ones; a typical case is:<br><br><b>--path-exclude=/usr/share/doc/*</b><br><br><b>--path-include=/usr/share/doc/*/copyright</b><br><br>to remove all documentation files except the Copyright files.<br><br>These two options can be specified multiple times, and interleave with each other. Both are processed in the given order, with the last rule that matches a file name making the decision.</td>
+</tr>
+<tr class="tcw">
+<td><b>--status-fd</b> <i>n</i></td>
+<td>Send machine-readable package status and progress information to file descriptor <i>n</i>. This option can be specified multiple times. The information is generally one record per line, in one of the following forms:<br><br><b>status: package: status</b><br><br>Package status changed; status is as in the status file.<br><br><b>status: package : error : extended-error-message</b><br><br>An error occurred. Any possible newlines in <i>extended-error-message</i> are converted to spaces before output.<br><br><b>status: file : conffile-prompt : 'real-old' 'real-new' useredited distedited</b><br><br>User is being asked a conffile question.<br><br><b>processing: stage: package</b><br><br>Sent before a processing stage starts. The stage is one of <b>upgrade</b>, <b>install</b> (both sent before unpacking), <b>configure</b>, <b>trigproc</b>, <b>disappear</b>, <b>remove</b>, <b>purge</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--status-logger</b><i>=command</i></td>
+<td>Send machine-readable package status and progress information to the shell command's standard input. This option can be specified multiple times. The output format used is the same as in <b>--status-fd.</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--log</b><i>=file name</i></td>
+<td>Log status change updates and actions to file name, instead of the default <b>/var/log/dpkg.log</b>. If this option is given multiple times, the last file name is used. Log messages are of the form &#96;<b>YYYY-MM-DD HH:MM:SS status state pkg installed-version</b>' for status change updates; &#96;<b>YYYY-MM-DD HH:MM:SS action pkg installed-version available-version</b>' for actions where action is one of <b>install</b>, <b>upgrade</b>, <b>remove</b>, <b>purge</b>; and &#96;<b>YYYY-MM-DD HH:MM:SS conffile file-name decision</b>' for conffile changes, where decision is either <b>install</b> or <b>keep</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-debsig</b></td>
+<td>Do not try to verify package signatures.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-triggers</b></td>
+<td>Do not run any triggers in this run (activations are still recorded). If used with <b>--configure package</b> or <b>--triggers-only</b> package, then the named package postinst still runs even if only a triggers run is needed. Use of this option may leave packages in the improper <b>triggers-awaited</b> and <b>triggers-pending</b> states. This can be fixed later by running: <b>dpkg --configure --pending</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--triggers</b></td>
+<td>Cancels a previous <b>--no-triggers</b>.</td>
+</tr>
+</table>
+<h2 id="packages">Information about packages</h2>
+<p class="tab"><b>dpkg</b> maintains some usable information about available packages. The information is divided in three classes: <i>states</i>, <i>selection states</i> and <i>flags</i>. These values are intended to be changed mainly with <b>dselect</b>.</p>
+<h3 class="tab">Package states</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:170px"><b>not-installed</b></td>
+<td>The package is not installed on your system.</td>
+</tr>
+<tr class="tcw">
+<td><b>config-files</b></td>
+<td>Only the configuration files of the package exist on the system.</td>
+</tr>
+<tr class="tcw">
+<td><b>half-installed</b></td>
+<td>The installation of the package was started, but not completed for some reason.</td>
+</tr>
+<tr class="tcw">
+<td><b>unpacked</b></td>
+<td>The package is unpacked, but not configured.</td>
+</tr>
+<tr class="tcw">
+<td><b>half-configured</b></td>
+<td>The package is unpacked and configuration was started, but not yet completed for some reason.</td>
+</tr>
+<tr class="tcw">
+<td><b>triggers-awaited</b></td>
+<td>The package awaits trigger processing by another package.</td>
+</tr>
+<tr class="tcw">
+<td><b>triggers-pending</b></td>
+<td>The package was triggered.</td>
+</tr>
+<tr class="tcw">
+<td><b>installed</b></td>
+<td>The package is unpacked and configured OK.</td>
+</tr>
+</table>
+<h3 class="tab">Package installation states</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:90px"><b>install</b></td>
+<td>The package is selected for installation.</td>
+</tr>
+<tr class="tcw">
+<td><b>hold</b></td>
+<td>A package marked to be on hold is not handled by dpkg, unless forced to do that with option <b>--force-hold</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>deinstall</b></td>
+<td>The package is selected for deinstallation (i.e., we want to remove all files, except configuration files).</td>
+</tr>
+<tr class="tcw">
+<td><b>purge</b></td>
+<td>The package is selected to be purged (i.e., we want to remove everything from system directories, even configuration files).</td>
+</tr>
+</table>
+<h3 class="tab">Package flags</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>reinst-required</b></td>
+<td>A package marked reinst-required is broken and requires reinstallation. These packages cannot be removed, unless forced with option <b>--force-remove-reinstreq</b>.</td>
+</tr>
+</table>
+<h3 class="tab">Files</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>/etc/dpkg/dpkg.cfg</b></td>
+<td>Configuration file with default options.</td>
+</tr>
+<tr class="tcw">
+<td><b>/var/log/dpkg.log</b></td>
+<td>Default log file (see <b>/etc/dpkg/dpkg.cfg</b> and option <b>--log</b>).</td>
+</tr>
+</table>
+<p class="tab">The other files listed below are in their default directories. See option <b>--admindir</b> to see how to change locations of these files.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px"><b>/var/lib/dpkg/available</b></td>
+<td>List of available packages.</td>
+</tr>
+<tr class="tcw">
+<td><b>/var/lib/dpkg/status</b></td>
+<td>Statuses of available packages. This file contains information about whether a package is marked for removing or not, whether it is installed or not, etc. See section INFORMATION ABOUT PACKAGES for more info.<br><br>The status file is backed up daily in <b>/var/backups</b>. It can be useful if it's lost or corrupted due to filesystems troubles.</td>
+</tr>
+</table>
+<p class="tab">Additionally, the following files are components of a binary package: <b>control</b>, <b>conffiles</b>, <b>preinst</b>, <b>postinst</b>, <b>prerm</b>, and <b>postrm</b>.</p>
+<h2 id="environment">Environment</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:320px"><b>HOME</b></td>
+<td>If set, <b>dpkg</b> uses it as the directory from which to read the user specific configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>TMPDIR</b></td>
+<td>If set, <b>dpkg</b> uses it as the directory where it creates temporary files and directories.</td>
+</tr>
+<tr class="tcw">
+<td><b>PAGER</b></td>
+<td>The program <b>dpkg</b> executes when displaying the conffiles.</td>
+</tr>
+<tr class="tcw">
+<td><b>SHELL</b></td>
+<td>The program <b>dpkg</b> executes when starting a new shell.</td>
+</tr>
+<tr class="tcw">
+<td><b>COLUMNS</b></td>
+<td>Sets the number of columns <b>dpkg</b> should use when displaying formatted text. Currently only used by <b>-l</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>DPKG_SHELL_REASON</b></td>
+<td>Defined by <b>dpkg</b> on the shell spawned on the conffile prompt to examine the situation. Current valid value: <b>conffile-prompt</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>DPKG_CONFFILE_OLD</b></td>
+<td>Defined by <b>dpkg</b> on the shell spawned on the conffile prompt to examine the situation. Contains the path to the old conffile.</td>
+</tr>
+<tr class="tcw">
+<td><b>DPKG_CONFFILE_NEW</b></td>
+<td>Defined by <b>dpkg</b> on the shell spawned on the conffile prompt to examine the situation. Contains the path to the new conffile.</td>
+</tr>
+<tr class="tcw">
+<td><b>DPKG_RUNNING_VERSION</b></td>
+<td>Defined by <b>dpkg</b> on the maintainer script environment to the version of the currently running <b>dpkg</b> instance.</td>
+</tr>
+<tr class="tcw">
+<td><b>DPKG_MAINTSCRIPT_PACKAGE</b></td>
+<td>Defined by <b>dpkg</b> on the maintainer script environment to the package name being handled.</td>
+</tr>
+<tr class="tcw">
+<td><b>DPKG_MAINTSCRIPT_ARCH</b></td>
+<td>Defined by <b>dpkg</b> on the maintainer script environment to the architecture where the package is built.</td>
+</tr>
+<tr class="tcw">
+<td><b>DPKG_MAINTSCRIPT_NAME</b></td>
+<td>Defined by <b>dpkg</b> on the maintainer script environment to the name of the script running (<b>preinst</b>, <b>postinst</b>, <b>prerm</b>, <b>postrm</b>).</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">dpkg -l '*vi*'</pre>
+<p class="tab">List installed packages related to the editor <a href="/unix/uvi.htm"><b>vi</b></a>.</p>
+<pre class="tcy tab">dpkg --print-avail elvis vim | less</pre>
+<p class="tab">View the entries of the packages <b>elvis</b> and <b>vim</b> as listed in <b>/var/lib/dpkg/available</b>.</p>
+<pre class="tcy tab">less /var/lib/dpkg/available</pre>
+<p class="tab">Manually view the list of available software packages.</p>
+<pre class="tcy tab">dpkg -r elvis</pre>
+<p class="tab">Remove the installed package <b>elvis</b>.</p>
+<pre class="tcy tab">dpkg -i vim_4.5-3.deb</pre>
+<p class="tab">Install the package contained in the file <b>vim_4.5-3.deb</b>.</p>
+<pre class="tcy tab">dpkg --get-selections &gt;myselections</pre>
+<p class="tab">Make a local copy of the package selection states.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82d7cea3c429',m:'.eq8QCFny4CK5clgVkXgc9gYVmUUvgaoi6I67fyXRAo-1661495345-0-AV70qqmMuDuBpZksyKDLgDQiWQOph1sA1sCMsFcqfpiiF05rlgb8J/PvrepAdwW1fv8hvsUlD3/GjeVyd92sL0RKdwNzuam0MIuX7dmDDWnUIZU8UMSZPiGQfD0+GQvY/g==',s:[0xb0a055cf5c,0x16f2d61be8],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

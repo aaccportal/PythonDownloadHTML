@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux arp command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/arp.gif" width="300" height="300" alt="arp command" class="floatRight"><p class="intro">On Linux operating systems, the <b>arp</b> command manipulates or displays the <a href="/jargon/k/kernel.htm">kernel</a>'s <a href="/jargon/i/ipv4.htm">IPv4</a> <a href="/jargon/n/network.htm">network</a> neighbour <a href="/jargon/c/cache.htm">cache</a>. It can add entries to the <a href="/jargon/t/table.htm">table</a>, delete one, or display the current content.</p>
+<p><a href="/jargon/a/arp.htm">ARP</a> stands for <b>Address Resolution Protocol</b>, which is used to find the address of a network neighbor for a given IPv4 address.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#install">Installing arp</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="install">Installing arp</h2>
+<p class="tab">Arp is part of the <b>net-tools</b> package. For example, on systems that use <a href="/jargon/a/apt.htm">APT</a> for package management, it can be installed with <b><a href="/unix/apt-get.htm">apt-get</a></b>:</p>
+<pre class="tab tcy">sudo apt-get update &amp;&amp; sudo apt-get install net-tools</pre>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">arp [-vn] [-H <i>type</i>] [-i <i>if</i>] -a [<i>hostname</i>]</pre>
+<pre class="tcy tab">arp [-v] [-i <i>if</i>] -d <i>hostname</i> [<i>pub</i>]</pre>
+<pre class="tcy tab">arp [-v] [-H <i>type</i>] [-i <i>if</i>] -s <i>hostname</i> <i>hw_addr</i> [temp]</pre>
+<pre class="tcy tab">arp [-v] [-H <i>type</i>] [-i <i>if</i>] -s <i>hostname</i> <i>hw_addr</i> [netmask <i>nm</i>] pub</pre>
+<pre class="tcy tab">arp [-v] [-H <i>type</i>] [-i <i>if</i>] -Ds <i>hostname</i> <i>ifa</i> [netmask <i>nm</i>] pub</pre>
+<pre class="tcy tab">arp [-vnD] [-H <i>type</i>] [-i <i>if</i>] -f [<i>filename</i>]</pre>
+<h3 class="tab">Modes</h3>
+<p class="tab"><b>arp</b> with no mode specifier prints the current content of the table. It is possible to limit the number of entries printed, by specifying a hardware address type, interface name or host address.</p>
+<p class="tab"><b>arp -d</b> <i>address</i> deletes an ARP table entry. <a href="/jargon/r/root.htm">Root</a> privilege is required to do this. The entry is found by IP address. If a hostname is given, it will be resolved before looking up the entry in the ARP table.</p>
+<p class="tab">The command:</p>
+<pre class="tab tcy">arp -s <i>address hw_addr</i>
+</pre>
+<p class="tab">is used to set up a new table entry. The format of the <i>hw_addr</i> parameter is dependent on the hardware class, but for most classes one can assume that the usual presentation can be used. For the Ethernet class, this is 6 bytes in <a href="/jargon/h/hex.htm">hexadecimal</a>, separated by colons. When adding proxy <b>arp</b> entries (that is those with the publish ("<b>pub</b>") flag set a <b>netmask</b> may be specified to proxy <b>arp</b> for entire subnets. This is not good practice, but is supported by older kernels because it can be useful. If the <b>temp</b> flag is not supplied entries will be permanent stored into the ARP cache. To simplify setting up entries for one of your network interfaces, you can use the "<b>arp -Ds</b> <i>address ifname</i>" form. In that case the hardware address is taken from the interface with the specified name.</p>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>-v</b>, <b>--verbose</b></td>
+<td>Display information <a href="/jargon/v/verbose.htm">verbosely</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--numeric</b></td>
+<td>shows numerical addresses instead of trying to determine symbolic host, port or user names.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b> <i>type</i>,<br> <b>--hw-Type</b> <i>type</i></td>
+<td>When setting or reading the ARP cache, this optional <a href="/jargon/p/paramete.htm">parameter</a> tells arp which class of entries it should check. The default value of this parameter is <b>ether</b> (i.e., hardware code 0x01 for IEEE 802.3 10 Mbps Ethernet). Other values might include network technologies such as ARCnet (<b>arcnet</b>), PROnet (<b>pronet</b>), AX.25 (<b>ax25</b>) and NET/ROM (<b>netrom</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b> <i>[hostname]</i>,<br> <b>--all</b> <i>[hostname]</i></td>
+<td>Displays the entries of the specified hosts. If the <i>hostname</i> parameter is not used, all entries display. Hostnames are displayed using alternate <a href="/jargon/b/bsd.htm">BSD</a>-style output format (with no fixed columns).</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>hostname</i>,<br> <b>--delete</b> <i>hostname</i></td>
+<td>Remove any entry for the specified host. This can be used if the indicated host is brought down, for example.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b>,<br> <b>--use-device</b></td>
+<td>Instead of a hw_addr, the given <a href="/jargon/a/argument.htm">argument</a> is the name of an <a href="/jargon/i/interfac.htm">interface</a>. <b>arp</b> uses the <a href="/jargon/m/mac.htm">MAC</a> address of that interface for the table entry. This is usually the best option to set up a proxy ARP entry to yourself.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>Shows entries in default (Linux) style.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b> <i>If</i>, <b>--device</b> <i>If</i></td>
+<td>Select an interface. When dumping the ARP cache, only entries matching the specified interface will be printed. When setting a permanent or <b>temp</b> ARP entry this interface will be associated with the entry; if this option is not used, the kernel will guess based on the routing table. For pub entries, the specified interface is the interface on which ARP requests will be answered. <b>NOTE:</b> This has to be different from the interface that the IP datagrams will be routed. <b>NOTE:</b> As of kernel 2.2.0 it is no longer possible to set an ARP entry for an entire <a href="/jargon/s/subnetma.htm">subnet</a>. Linux instead does automagic proxy arp when a <a href="/jargon/r/route.htm">route</a> exists and it is forwarding. Also, the <b>dontpub</b> option that is available for <b>delete</b> and <b>set</b> operations cannot be used with 2.4 and newer kernels.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>hostname hw_addr</i>,<br> <b>--set</b> <i>hostname</i></td>
+<td>Manually create an ARP address mapping entry for host <b>hostname</b> with hardware address set to <i>hw_addr</i> class, but for most classes one can assume that the usual presentation can be used. For the Ethernet class, this is 6 <a href="/jargon/b/byte.htm">bytes</a> in <a href="/jargon/h/hex.htm">hexadecimal</a>, separated by colons. When adding proxy arp entries (that is those with the publish flag set) a netmask may be specified to proxy arp for entire subnets. This is not good practice, but is supported by older kernels because it can be useful. If the temp flag is not supplied entries will be permanent stored into the ARP cache. <b>NOTE:</b> As of kernel 2.2.0 it is no longer possible to set an ARP entry for an entire subnet. Linux instead does automagic proxy arp when a route exists and it is forwarding.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>file name</i>,<br> <b>--file</b> <i>file name</i></td>
+<td>Similar to the <b>-s</b> option, only this time the address info is taken from file <i>file name</i> set up. The name of the data file is very often <b>/etc/ethers</b>, but this is not official. If no file name is specified <b>/etc/ethers</b> is used as default. The format of the file is simple; it only contains <a href="/jargon/a/ascii.htm">ASCII</a> text lines with a <a href="/jargon/h/hostname.htm">hostname</a>, and a hardware address separated by <a href="/jargon/w/whitspac.htm">whitespace</a>. Additionally, the <b>pub</b>, <b>temp</b> and <b>netmask</b> flags can be used.</td>
+</tr>
+</table>
+<h3 class="tab">Notes</h3>
+<p class="tab">In all places where a hostname is expected, one can also enter an <a href="/jargon/i/ip.htm">IP address</a> in dotted-decimal notation.</p>
+<p class="tab">As a special case for compatibility, the order of the hostname and the hardware address can be exchanged.</p>
+<p class="tab">Each complete entry in the ARP cache will be marked with the <b>C</b> flag. Permanent entries are marked with <b>M</b> and published entries have the <b>P</b> flag.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">arp</pre>
+<p class="tab">Display <a href="/jargon/n/nic.htm">network card</a> and <a href="/jargon/e/ethernet.htm">Ethernet</a> connectivity.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uifconfi.htm"><b>ifconfig</b></a> &mdash; View or modify the configuration of network interfaces.<br><a href="/unix/ip.htm"><b>ip</b></a> &mdash; Display and manipulate information about routing, devices, policy routing and tunnels.<br><a href="/unix/unetstat.htm"><b>netstat</b></a> &mdash; Print information about network connections, routing tables, and more.<br><a href="/unix/route.htm"><b>route</b></a> &mdash; Display and manipulate the IP routing table.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82b15de984b0',m:'77scfBVDTgFP8uK6WUcEMSI8hHLfMhwZmG84mzABtKc-1661495339-0-Ae5q+4hhNYBQo+CRULqFKt9geSJBvtQwog0EK1pkInf/ntFNkacPvXDAfnb141DfETXQy+x6N718FxMxcyd3RuJ1YelL7cWKNner9t2KLUnWkuiu/4j3iwwiiickX8rIQQ==',s:[0x90d227b231,0x0bae5b8299],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux tr command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/tr.gif" width="300" height="300" alt="tr command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>tr</b> command automatically translates (substitutes, or maps) one set of <a href="/jargon/c/charact.htm">characters</a> to another.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>tr</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#specified">How characters are specified</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#exit">Exit status</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>tr</b> utility copies the <a href="/jargon/s/stdin.htm">standard input</a> to the standard output with substitution or deletion of selected characters.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">tr [-Ccsu] <i>string1</i> <i>string2</i></pre>
+<p class="tab">In this form, the characters in the <a href="/jargon/s/string.htm">string</a> <i>string1</i> are translated into the characters in <i>string2</i> where the first character in <i>string1</i> is translated into the first character in <i>string2</i> and so on. If <i>string1</i> is longer than <i>string2</i>, the last character found in <i>string2</i> is duplicated until string1 is exhausted.</p>
+<pre class="tcy tab">tr [-Ccu] -d <i>string1</i></pre>
+<p class="tab">In this form, the characters in <i>string1</i> are deleted from the input.</p>
+<pre class="tcy tab">tr [-Ccu] -s <i>string1</i></pre>
+<p class="tab">In this form, the characters in <i>string1</i> are compressed as described for the <b>-s</b> option (see below).</p>
+<pre class="tcy tab">tr [-Ccu] -ds <i>string1</i> <i>string2</i></pre>
+<p class="tab">In the fourth form, the characters in <i>string1</i> are deleted from the input, and the characters in <i>string2</i> are compressed as described for the <b>-s</b> option.</p>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>-C</b></td>
+<td>Complement the set of characters in <i>string1</i>, that is "<b>-C ab</b>" includes every character except for '<b>a</b>' and '<b>b</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>Same as <b>-C</b> but complement the set of values in <i>string1</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Delete characters in <i>string1</i> from the input.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Squeeze multiple occurrences of the characters listed in the last operand (either <i>string1</i> or <i>string2</i>) in the input into a single instance of the character. This occurs after all deletion and translation is completed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>Guarantee that any output is unbuffered.</td>
+</tr>
+</table>
+<h2 id="specified">How characters are specified</h2>
+<p class="tab">When specifying the characters to translate with <b>tr</b>, the following conventions are used to represent sets (or "classes") of characters.</p>
+<p class="tab">Any character not described by one of the following conventions represents itself.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><b>\</b><i>octal</i></td>
+<td>A backslash followed by 1, 2 or 3 <a href="/jargon/o/octal.htm">octal</a> digits represents a character with that encoded value. To follow an octal sequence with a digit as a character, pad the octal sequence on the left with zeroes.</td>
+</tr>
+<tr class="tcw">
+<td><b>\</b><i>character</i></td>
+<td>A backslash followed by certain special characters maps to special values:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:30px"><b>\a</b></td>
+<td>The "alert" character, which issues a notification or alert to the terminal.</td>
+</tr>
+<tr class="tcw">
+<td><b>\b</b></td>
+<td>Backspace.</td>
+</tr>
+<tr class="tcw">
+<td><b>\f</b></td>
+<td><a href="/jargon/f/formfeed.htm">Form feed</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>\n</b></td>
+<td><a href="/jargon/n/newline.htm">Newline</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>\r</b></td>
+<td><a href="/jargon/c/cr.htm">Carriage return</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>\t</b></td>
+<td><a href="/jargon/t/tab.htm">Tab</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>\v</b></td>
+<td>Vertical tab.</td>
+</tr>
+</table>
+A backslash followed by any other character maps to that character.</td>
+</tr>
+<tr class="tcw">
+<td><i>c</i><b>-</b><i>c</i></td>
+<td>Character <a href="/jargon/r/range.htm">range</a>. For non-octal range endpoints represents the range of characters between the range endpoints, inclusive and in ascending order, as defined by the collation sequence. If either or both of the range endpoints are octal sequences, it represents the range of specific coded values between the range endpoints, inclusive.</td>
+</tr>
+<tr class="tcw">
+<td><b>[:</b><i>class</i><b>:]</b></td>
+<td>Represents all characters belonging to the defined character class. Class names are:<br><br>
+<table class="mtable">
+<tr class="tcw">
+<td style="width:130px"><b>alnum</b></td>
+<td><a href="/jargon/a/alphanum.htm">Alphanumeric</a> characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>alpha</b></td>
+<td>Alphabetic characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>blank</b></td>
+<td><a href="/jargon/w/whitspac.htm">White space</a> characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>cntrl</b></td>
+<td>Control characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>digit</b></td>
+<td>Numeric characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>graph</b></td>
+<td>Graphic characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>ideogram</b></td>
+<td>Ideographic characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>lower</b></td>
+<td><a href="/jargon/l/lowercas.htm">Lowercase</a> alphabetic characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>phonogram</b></td>
+<td>Phonographic characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>print</b></td>
+<td>Printable characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>punct</b></td>
+<td>Punctuation characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>rune</b></td>
+<td>Valid characters.</td>
+</tr>
+<tr class="tcw"> 
+<td><b>space</b></td>
+<td>Space characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>special</b></td>
+<td>Special characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>upper</b></td>
+<td><a href="/jargon/u/uppercase.htm">Uppercase</a> alphabetic characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>xdigit</b></td>
+<td><a href="/jargon/h/hex.htm">Hexadecimal</a> characters.</td>
+</tr>
+</table>
+When "<b>[:lower:]</b>" appears in <i>string1</i> and "<b>[:upper:]</b>" appears in the same relative position in <i>string2</i>, it represents the characters pairs from the toupper mapping in the <b>LC_CTYPE</b> category of the current locale. When "<b>[:upper:]</b>" appears in <i>string1</i> and "<b>[:lower:]</b>" appears in the same relative position in <i>string2</i>, it represents the characters pairs from the <b>tolower</b> mapping in the <b>LC_CTYPE</b> category of the current locale.<br>
+<br>
+Except for case conversion, characters in the classes are in unspecified order.<br>
+<br>
+For specific information for what <a href="/jargon/a/ascii.htm">ASCII</a> characters are included in these classes, see <b>ctype</b> and related manual pages.<br>
+<br>
+"<b>[=equiv=]</b>" Represents all characters belonging to the same equivalence class as <b>equiv</b>, ordered by their encoded values.</td>
+</tr>
+<tr class="tcw">
+<td><b>[</b><i>#</i><b>*</b><i>n</i><b>]</b></td>
+<td>Represents <i>n</i> repeated occurrences of the character represented by <i>#</i>. This expression is only valid when it occurs in <i>string2</i>. If <i>n</i> is omitted, or is zero, it is be interpreted as large enough to extend <i>string2</i> sequence to the length of <i>string1</i>. If <i>n</i> has a leading zero, it is interpreted as an octal value, otherwise, it is interpreted as a decimal value.</td>
+</tr>
+</table>
+<h2 id="environment">Environment</h2>
+<p class="tab">The <b>LANG</b>, <b>LC_ALL</b>, <b>LC_CTYPE</b> and <b>LC_COLLATE</b> <a href="/jargon/e/envivari.htm">environment variables</a> affect the execution of <b>tr</b>.</p>
+<h2 id="exit">Exit status</h2>
+<p class="tab"><b>tr</b> returns an exit status of <b>0</b> if it operated successfully, and a value greater than zero if an error occurred.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">tr -cs "[:alpha:]" "\n" &lt; file1</pre>
+<p class="tab">Create a list of the words in <b>file1</b>, one per line, where a word is taken to be a maximal string of letters.</p>
+<pre class="tcy tab">tr "[:lower:]" "[:upper:]" &lt; file1</pre>
+<p class="tab">Translate the contents of <b>file1</b> to uppercase.</p>
+<pre class="tcy tab">tr -cd "[:print:]" &lt; file1</pre>
+<p class="tab">Remove all non-printable characters from <b>file1</b>.</p>
+<pre class="tcy tab">tr "[=e=]" "e"</pre>
+<p class="tab">Remove all "diacritical" marks from accented versions of the letter <b>e</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ued.htm"><b>ed</b></a> &mdash; A simple text editor.<br><a href="/unix/used.htm"><b>sed</b></a> &mdash; A utility for filtering and transforming text.<br><a href="/unix/ush.htm"><b>sh</b></a> &mdash; The Bourne shell command interpreter.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83669bbf848c',m:'JPLsEKYDDVNpzatlOwZxAbmqxfWHTmFJ2E.cYyqTrUw-1661495368-0-AQM2g78hpYAjT4SPohnbUTaSPxtx8x2IcS+4+cDC2REf+JJJkI+EaFfZR8X0mZ0axQVgYTCpFL8LXrxxFhGBETWrQo9E0ZXHWQtNDF/fbwu+hs9FXCnrP2y1GQ58xKxGeg==',s:[0x845a62f12a,0x8d7f62876a],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux chown command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/chown.gif" width="300" height="300" alt="chown command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>chown</b> command changes <a href="/jargon/o/owner.htm">ownership</a> of files and directories in a <a href="/jargon/f/filesyst.htm">filesystem</a>.</p>
+<p>This page describes the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>chown</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#file-ownership-explained">What is file "ownership"?</a></li>
+<li><a href="#syntax">Syntax</a>
+<ul>
+<li><a href="#specifying-new-owner">Specifying the new owner</a></li>
+<li><a href="#notes-on-usage">Notes on usage</a></li>
+</ul>
+</li>
+<li><a href="#options">Options</a>
+<ul>
+<li><a href="#recursive-options">Options</a></li>
+<li><a href="#other-options">Options</a></li>
+<li><a href="#exit-status">Exit status</a></li>
+</ul>
+</li>
+<li><a href="#why-change-file-ownership">Why change a file's ownership?</a>
+<ul>
+<li><a href="#example-usage">Hypothetical scenarios</a></li>
+<li><a href="#groups-in-linux">Groups in Linux</a></li>
+<li><a href="#other-operating-systems">Other operating system groups</a></li>
+</ul>
+</li>
+<li><a href="#examples">Examples</a>
+<ul>
+<li><a href="#viewing-ownership">Viewing ownership</a></li>
+<li><a href="#changing-ownership">Changing ownership</a></li>
+</ul>
+</li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="file-ownership-explained">What is file "ownership"?</h2>
+<p class="tab"><a href="/jargon/l/linux.htm">Linux</a> is designed to support a large number of <a href="/jargon/u/user.htm">users</a>. Because of this, it needs to keep careful track of who is allowed to access a file, and how they can access it. These access rules are called <a href="/jargon/p/permissi.htm">permissions</a>.</p>
+<p class="tab">There are three major types of file permissions:</p>
+<ul>
+<li><b>User</b> permissions. These permissions apply to a single user who has special access to the file. This user is called the <b>owner</b>.</li>
+<li><b>Group</b> permissions. These apply to a single group of users who have access to the file. This group is the <b>owning group</b>.</li>
+<li><b>Other</b> permissions. These apply to every other user on the system. These users are known as <b>others</b>, or <b>the world</b>.</li>
+</ul>
+<p class="tab">When a file is created, its owner is the user who created it, and the owning group is the user's current group.</p>
+<p class="tab"><b>chown</b> can change these values to something else.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab"><b>chown</b> [<b>-c</b>|<b>--changes</b>] [<b>-v</b>|<b>--verbose</b>] [<b>-f</b>|<b>--silent</b>|<b>--quiet</b>] [<b>--dereference</b>]
+      [<b>-h</b>|<b>--no-dereference</b>] [<b>--preserve-root</b>]
+      [<b>--from=</b><i>currentowner</i><b>:</b><i>currentgroup</i>] [<b>--no-preserve-root</b>]
+      [<b>-R</b>|<b>--recursive</b>] [<b>--preserve-root</b>] [<b>-H</b>] [<b>-L</b>] [<b>-P</b>]
+      {<i>new-owner</i>|<b>--reference=</b><i>ref-file</i>} <i>file</i> ...</pre>
+<pre class="tcy tab"><b>chown --help</b></pre>
+<pre class="tcy tab"><b>chown --version</b></pre>
+<h3 class="tab" id="specifying-new-owner">Specifying the new owner</h3>
+<p class="tab">New ownership of <i>file</i> is specified by the <a href="/jargon/a/argument.htm">argument</a> <i>new-owner</i>, which takes this general form:</p>
+<pre class="tab tcy">[<i>user</i>[<b>:</b><i>group</i>]]</pre>
+<p class="tab">Specifically, there are five ways to format <i>new-owner</i>:</p>
+<table class="tab mtable3">
+<tr class="tcw">
+<th style="width:120px"><i>new-owner</i> form</th>
+<th>Description</th>
+</tr>
+<tr class="tcw">
+<td><i>user</i></td>
+<td>The name of the user to own the file. In this form, the colon ("<b>:</b>") and the <i>group</i> is omitted. The owning group is not altered.</td>
+</tr>
+<tr class="tcw">
+<td><i>user</i><b>:</b><i>group</i></td>
+<td>The <i>user</i> and <i>group</i> to own the file, separated by a colon, with no spaces between.</td>
+</tr>
+<tr class="tcw">
+<td><b>:</b><i>group</i></td>
+<td>The group to own the file. In this form, <i>user</i> is omitted, and the <i>group</i> must be preceded by a colon.</td>
+</tr>
+<tr class="tcw">
+<td><i>user</i><b>:</b></td>
+<td>If <i>group</i> is omitted, but a colon follows <i>user</i>, the owner is changed to <i>user</i>, and the owning group is changed to the login group of <i>user</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:</b></td>
+<td>Specifying a colon with no <i>user</i> or <i>group</i> is accepted, but ownership isn't changed. This form does not cause an error, but changes nothing.</td>
+</tr>
+</table>
+<h3 class="tab" id="notes-on-usage">Notes on usage</h3>
+<ul>
+<li><i>user</i> and <i>group</i> can be specified by name or by number.</li>
+<li>Only <a href="/jargon/r/root.htm">root</a> can change the owner of a file. The owner cannot transfer ownership, unless the owner is root, or uses <a href="/unix/sudo.htm"><b>sudo</b></a> to run the command.</li>
+<li>The owning group of a file can be changed by the file's owner, if the owner belongs to that group. The owning group of a file can be changed, by root, to any group. Members of the owning group other than the owner cannot change the file's owning group.</li>
+<li>The owning group can also be changed using the <a href="/unix/uchgrp.htm"><b>chgrp</b></a> command. <b>chgrp</b> and <b>chown</b> use the same <a href="/jargon/s/system-call.htm">system call</a>, and are functionally identical.</li>
+<li>Certain miscellaneous file operations can be performed only by the owner or root. For instance, only owner or root can manually change a file's "atime" or "mtime" (access time or modification time) using the <a href="/unix/utouch.htm"><b>touch</b></a> command.</li>
+<li>Because of these restrictions, run <b>chown</b> as root, or with <b>sudo</b>.</li>
+</ul>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<th style="width:330px">Option</th>
+<th>Description</th>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>,<br><b>--changes</b></td>
+<td>Similar to <b>--verbose</b> mode, but only displays information about files that are actually changed. For example:<br><br><pre>changed ownership of 'dir/dir1/file1' from hope:neil to hope:hope</pre></td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>,<br><b>--verbose</b></td>
+<td>Display <a href="/jargon/v/verbose.htm">verbose</a> information for every file processed. For example:<br><br><pre>changed ownership of 'dir/dir1/file1' from hope:neil to hope:hopeownership of 'dir/dir1' retained as hope:hope</pre></td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>,<br><b>--silent</b>,<br><b>--quiet</b></td>
+<td>Quiet mode. Do not display output.</td>
+</tr>
+<tr class="tcw">
+<td><b>--dereference</b></td>
+<td><a href="/jargon/d/dereference-operator.htm">Dereference</a> all <a href="/jargon/s/symblink.htm">symbolic links</a>. If <i>file</i> is a symlink, change the owner of the referenced file, not the symlink itself. This is the default behavior.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>,<br><b>--no-dereference</b></td>
+<td>Never dereference symbolic links. If <i>file</i> is a symlink, change the owner of the symlink rather than the referenced file.</td>
+</tr>
+<tr class="tcw">
+<td><b>--from=</b><i>currentowner</i><b>:</b><i>currentgroup</i></td>
+<td>Change the owner or group of each file only if its current owner or group match <i>currentowner</i> and/or <i>currentgroup</i>. Either may be omitted, in which case a match is not required for the other attribute.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-preserve-root</b></td>
+<td>Do not treat <b>/</b> (the root directory) in any special way. This is the default behavior. If the <b>--preserve-root</b> option is previously specified in the command, this option will cancel it.</td>
+</tr>
+<tr class="tcw">
+<td><b>--reference=</b><i>ref-file</i></td>
+<td>Use the owner and group of file <i>ref-file</i>, rather than specifying ownership with <i>new-owner</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>,<br><b>--recursive</b></td>
+<td>Operate on files and directories <a href="/jargon/r/recursive.htm">recursively</a>. Enter each matching directory, and operate on all its contents.</td>
+</tr>
+</table>
+<h3 class="tab" id="recursive-options">Options</h3>
+<p class="tab">The following options modify how a <a href="/jargon/h/hierfile.htm">hierarchy</a> is traversed when the <b>-R</b> or <b>--recursive</b> option is specified.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<th style="width:180px">Option</th>
+<th>Description</th>
+</tr>
+<tr class="tcw">
+<td><b>--preserve-root</b></td>
+<td>Never operate recursively on the root directory <b>/</b>.<br><br>If <b>--recursive</b> is not specified, this option has no effect.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b></td>
+<td>If a file specified on the command line is a symbolic link to a directory, traverse it and operate on those files and directories as well.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b></td>
+<td>Traverse all symbolic links to a directories.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b></td>
+<td>Do not traverse any symbolic links; operate on the symlinks themselves. This is the default behavior.</td>
+</tr>
+</table>
+<p class="tab">If more than one of <b>-H</b>, <b>-L</b>, or <b>-P</b> is specified, only the final option takes effect.</p>
+<h3 class="tab" id="other-options">Options</h3>
+<p class="tab">These options display information about the program, and cannot be used with other options or arguments.</p>
+<table class="tab mtable3">
+<tr class="tcw">
+<th style="width:100px">Option</th>
+<th>Description</th>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a brief help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display <a href="/jargon/v/version.htm">version</a> information and exit.</td>
+</tr>
+</table>
+<h3 class="tab" id="exit-status">Exit status</h3>
+<p class="tab"><b>chown</b> exits with a status of <b>0</b> for success. Any other number indicates failed operation.</p>
+<h2 id="why-change-file-ownership">Why change a file's ownership?</h2>
+<p class="tab">You should use <b>chown</b> when you want a file's user or group permissions to apply to a different user or group.</p>
+<h3 class="tab" id="example-usage">Hypothetical scenarios</h3>
+<p class="tab">Here are examples of when you might use <b>chown</b>:</p>
+<ul class="arrow noprint">
+<li>You create a file, <b>myfile.txt</b>, using <b>sudo</b> or while logged in as root, so the file is owned by <b>root</b>. However, you intend the file to be used by your regular user account, <b>myuser</b>.<br><br>Use <b>chown</b> to change the owner:</li>
+</ul>
+<pre class="dtab tcy">sudo chown myuser myfile.txt</pre>
+<ul class="arrow noprint">
+<li>You own <b>myfile.txt</b>, but you want to give it to another user on the system named <b>notme</b>. You also want to change the owning group to that user's group, <b>notmygroup</b>.<br><br>Use <b>chown</b> to change the owner and group:</li>
+</ul>
+<pre class="dtab tcy">sudo chown notme:notmygroup myfile.txt</pre>
+<ul class="arrow noprint">
+<li>You just transferred an entire directory of files, <b>otherfiles</b>, from another computer. All the files and directories are owned by your username on the other system, and you want your current user and group to own them all.<br><br>Change the ownership of the directory and all its contents <a href="/unix/sudo.htm">recursively</a>, with the <b>-R</b> option:</li>
+</ul>
+<pre class="dtab tcy">sudo chown -R myuser:mygroup otherfiles</pre>
+<p class="dtab">The above command changes the ownership of every file, <a href="/jargon/s/subdirec.htm">subdirectory</a>, and subdirectory contents in <b>otherfiles</b>.</p>
+<h3 class="tab" id="groups-in-linux">Groups in Linux</h3>
+<p class="tab">In Linux, a user is a member of multiple groups, but it has only one "current group". The user's current group is the user's <b>group identity</b>, or <b>GID</b>.</p>
+<p class="tab">When the user creates a new file, the file's ownership is set to the user's UID (user identity) and GID (group identity). So when user <b>carla</b> starts writing a new document, the file is owned by carla, and also by her current group. She can change the file's group ownership with <b>chown</b>, but only root can use <b>chown</b> to change the owner to someone else.</p>
+<p class="tab">Also, each user has a configurable <b>login group</b>, which can be any of the user groups. So when <b>carla</b> logs in, her login group is her current group. The login group can be changed with the <a href="/unix/usermod.htm"><b>usermod</b></a> command, using the <b>-g</b> option.</p>
+<pre class="tab tcy">sudo usermod -g newlogingroup carla</pre>
+<p class="tab">A user can change current group with the <a href="/unix/unewgrp.htm"><b>newgrp</b></a> command. The change takes place in a <a href="/unix/ubash.htm#command-execution-environment">subshell</a>, and persists until the subshell is closed. Even if <b>carla</b> changes her current group with <b>newgrp</b>, it will be reset to her login group the next time she logs in.</p>
+<p class="tab">You can check your current group using the <a href="/unix/uid.htm"><b>id</b></a> command with the <b>-g</b> option:</p>
+<pre class="tab tcy">id -g</pre>
+<pre class="tab">1001</pre>
+<p class="tab">This is your numeric GID (the number of your current group). To see the name, specify the <b>-n</b> option:</p>
+<pre class="tab tcy">id -ng</pre>
+<pre class="tab">hope</pre>
+<p class="tab">To view all of your group memberships, use a capital <b>G</b>:</p>
+<pre class="tab tcy">id -nG</pre>
+<pre class="tab">hope sudo neil libvirtd vboxusers usergroup</pre>
+<p class="tab">By default, every Linux user has a private group, with that user as the only member. So, when the user account <b>jeff</b> is created with the <a href="/unix/adduser.htm"><b>adduser</b></a> command, a group named <b>jeff</b> is also created. Group <b>jeff</b> is jeff's default login group, and has only one member (jeff).</p>
+<h3 class="tab" id="other-operating-systems">Other operating system groups</h3>
+<p class="tab">Other operating systems use <b>chown</b>, but their groups may function differently.</p>
+<p class="tab">In <a href="/jargon/m/macosx.htm">macOS X</a> and <a href="/jargon/b/bsd.htm">BSD</a>, for example, users don't have private groups. Instead, all regular users belong to a general group called <b>users</b>.</p>
+<p class="tab">In these operating systems, the options and functionality of <b>chown</b> may be similar, but different. If you're using <b>chown</b> on a non-Linux operating system, make sure to run <b>man chown</b> to learn what the differences are.</p>
+<h2 id="examples">Examples</h2>
+<h3 class="tab" id="viewing-ownership">Viewing ownership</h3>
+<p class="tab">Before you use <b>chown</b>, you may want to check the current ownership of a file. You can view a file's ownership, permissions, and other important information with the <a href="/unix/uls.htm"><b>ls</b></a> command, using the <b>-l</b> option:</p>
+<pre class="tcy tab">ls -l myscript.sh</pre>
+<pre class="tab">-rwxrw-r-- 1 hope hopeusers 12 Nov  5 13:14 myscript.sh</pre>
+<p class="tab">In the output, you see several fields of information listed, including the permissions and ownership of the file. It might not make sense at first, so let's describe it in detail.</p>
+<p class="tab">Here's what the information means:</p>
+<table class="tab mtable3">
+<tr class="tcw">
+<th style="width:130px">Data</th>
+<th style="width:150px">Field position</th>
+<th>Description</th>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>Field <b>1</b>, <a href="/jargon/c/charact.htm">character</a> <b>1</b></td>
+<td><b>File type</b>: <b>d</b> for a <a href="/jargon/d/director.htm">directory</a>, <b>l</b> (lowercase L) for a symbolic link, or <b>-</b> (a dash) for a regular file.</td>
+</tr>
+<tr class="tcw">
+<td><b>rwx</b></td>
+<td>Field <b>1</b>, characters <b>2</b>-<b>4</b></td>
+<td><b>User permissions</b>. The owner can read ("<b>r</b>"), write to ("<b>w</b>"), and <a href="/jargon/e/execute.htm">execute</a> ("<b>x</b>") this file.</td>
+</tr>
+<tr class="tcw">
+<td><b>rw-</b></td>
+<td>Field <b>1</b>, characters <b>5</b>-<b>7</b></td>
+<td><b>Group permissions</b>. The owning group can read and write to this file, but cannot execute it as a command.</td>
+</tr>
+<tr class="tcw">
+<td><b>r--</b></td>
+<td>Field <b>1</b>, characters <b>8</b>-<b>10</b></td>
+<td><b>Other permissions</b>, also known as <b>world</b> permissions. Any other user on the system is allowed to read the file only.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>Field <b>2</b></td>
+<td><b>Number of symbolic links</b> to this file. If there are no symbolic links to the file, this number is <b>1</b>, because the original file name is included in this count. If there were one symbolic link to the file, this number would be <b>2</b>, or <b>3</b> for two symbolic links, etc.</td>
+</tr>
+<tr class="tcw">
+<td><b>hope</b></td>
+<td>Field <b>3</b></td>
+<td><b>Name of owner</b>. This is the name of the user who owns the file. When this user tries to access the file, access is restricted according to the <b>user permissions</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>hopeusers</b></td>
+<td>Field <b>4</b></td>
+<td><b>Name of owning group</b>. This is the user group who owns the file. When a user who is a member of this group tries to access the file, access is restricted according to the <b>group permissions</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>12</b></td>
+<td>Field <b>5</b></td>
+<td><b>Size</b>. This file contains <b>12</b> <a href="/jargon/b/byte.htm">bytes</a> of data.</td>
+</tr>
+<tr class="tcw">
+<td><b>Nov</b></td>
+<td>Field <b>6</b></td>
+<td><b>Mtime (month)</b>. Abbreviated name of the month when the file's contents were last modified. This file was last modified in the month of November.</td>
+</tr>
+<tr class="tcw">
+<td><b>5</b></td>
+<td>Field <b>7</b></td>
+<td><b>Mtime (day of month)</b>. This file was last modified on the fifth day of November.</td>
+</tr>
+<tr class="tcw">
+<td><b>13:14</b></td>
+<td>Field <b>8</b></td>
+<td><b>Mtime (time, or year)</b>. This file was last modified at <b>13:14</b> (1:34 P.M.) on November 5 of this year. If it was modified over a year ago, this field lists the year instead, for instance <b>2015</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>myscript.sh</b></td>
+<td>Field <b>9</b></td>
+<td><a href="/jargon/f/filename.htm"><b>File name</b></a>. The name of the file.</td>
+</tr>
+</table>
+<p class="tab">So the important fields here are 1, 3 and 4. They tell us that user <b>hope</b> can read, write, or execute the file's contents, and members of the group <b>hopeusers</b> can read or write to it.</p>
+<h3 class="tab" id="changing-ownership">Changing ownership</h3>
+<pre class="tcy tab">sudo chown hope file.txt</pre>
+<p class="tab">Change the owner of <b>file.txt</b> to user <b>hope</b>.</p>
+<pre class="tcy tab">sudo chown hope file1 file2 file3</pre>
+<p class="tab">Change the owner of <b>file1</b>, <b>file2</b>, and <b>file3</b> to user <b>hope</b>.</p>
+<pre class="tcy tab">sudo chown hope file*</pre>
+<p class="tab">Here, the asterisk ("<b>*</b>") is a <a href="/jargon/w/wildcard.htm">wildcard</a> which the <a href="/jargon/s/shell.htm">shell</a> expands to a list of every file whose name begins with "<b>file</b>". If the <a href="/jargon/c/currentd.htm">current directory</a> contains four files named <b>file1</b>, <b>file2</b>, <b>file3</b>, and <b>file4</b>, all these files' names are passed to the <b>chown</b> command, and their owners changed to user <b>hope</b>.</p>
+<pre class="tcy tab">sudo chown hope myfiles</pre>
+<p class="tab">Change the owner of file or directory <b>myfiles</b> to user <b>hope</b>.</p>
+<pre class="tcy tab">sudo chown -R hope myfiles</pre>
+<p class="tab">Change the owner of <b>myfiles</b> to user <b>hope</b>. If <b>myfiles</b> is a directory, <b>chown</b> will recursively (<b>-R</b>) search that directory, and change the owner of all files, subdirectories, and subdirectory contents.</p>
+<pre class="tcy tab">sudo chown hope:admins file1 file2</pre>
+<p class="tab">Change the owners of <b>file1</b> and <b>file2</b> to user <b>hope</b>, and the owning groups to <b>admins</b>.</p>
+<pre class="tcy tab">sudo chown hope: file1</pre>
+<p class="tab">Change the owner of <b>file1</b> to user <b>hope</b>, and the owning group to hope's login group.</p>
+<pre class="tcy tab">chown :othergroup file2</pre>
+<p class="tab">Change the owning group of <b>file2</b> to group <b>othergroup</b>. Notice that this is the only command in these examples which may run without <b>sudo</b>.</p>
+<p class="tab">If user <b>hope</b> runs the previous command but does not belong to group <b>othergroup</b>, the command fails, unless it is run with <b>sudo</b>.</p>
+<pre class="tcy tab">sudo chown 1000:1001 file1</pre>
+<p class="tab">Change the ownership of <b>file1</b> to the user with numeric UID <b>1000</b>, and the group with numeric GID <b>1001</b>.</p>
+<pre class="tcy tab">sudo chown +1000:+1001 file1</pre>
+<p class="tab">Same as the previous command. If user <b>hope</b> has UID 1000, and another user is named "1000" but has UID 1002, this command form (with the "<b>+</b>" signs) unambiguously changes the owner to <b>hope</b>.</p>
+<pre class="tcy tab">sudo chown -R hope:hope Documents</pre>
+<p class="tab">Recursively change the ownership of directory <b>Documents</b>, and all files and subdirectories therein, to user <b>hope</b>, group <b>hope</b>.</p>
+<pre class="tcy tab">sudo chown -Rc --reference /home/hope/inbox ~/Documents/work</pre>
+<p class="tab">Recursively change the ownership of the directory <b>~/Documents/work</b>, and all files and subdirectories therein, to match the ownership of the file or directory <b>/home/hope/inbox</b>.</p>
+<p class="tab">In the above command, <b>~</b> (a <a href="/jargon/t/tilde.htm">tilde</a>) is an <a href="/unix/ualias.htm">alias</a> in <a href="/unix/ubash.htm">bash</a> which represents your <a href="/jargon/h/homedir.htm">home directory</a>. Your home directory can also be represented by the <a href="/jargon/e/envivari.htm">environment variable</a> <b>$HOME</b>, as in <b>$HOME/Documents/work</b>.</p>
+<p class="tab">Also, if any files change ownership (<b>-c</b> option), information will be printed to <a href="/jargon/s/stdout.htm">standard output</a>:</p>
+<pre class="tab">changed ownership of 'dir/file2' from neil:neil to hope:hope
+changed ownership of 'dir/dir1/file1' from susie:susie to hope:hope
+changed ownership of 'dir/dir1' from judy:judy to hope:hope
+changed ownership of 'dir/dir2/file2' from jeff:jeff to hope:hope
+changed ownership of 'dir/dir2' from carla:carla to hope:hope
+changed ownership of 'dir/file1' from steve:steve to hope:hope
+changed ownership of 'dir' from grace:grace to hope:hope</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uchgrp.htm"><b>chgrp</b></a> &mdash; Change the group ownership of files or directories.<br><a href="/unix/uchmod.htm"><b>chmod</b></a> &mdash; Change the permissions of files or directories.<br><a href="/unix/uls.htm"><b>ls</b></a> &mdash; List the contents of a directory or directories.<br><a href="/unix/uid.htm"><b>id</b></a> &mdash; Display group IDs.<br><a href="/unix/usermod.htm"><b>usermod</b></a> &mdash; Modify a user's account settings.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82c3df7d8498',m:'UYnp6b6_uRRHeFYBLIsBUgEVXbVM9.da5FPSv7mcBZo-1661495342-0-ASj5k7jI9KnGHMdLmWQ+srFuoVqz2XsRwxKBCmO0MivOALgCrXJJ051k87dIYaxhs/lYEP5aPurlg/syRggvPv+HEHFpkrDtwGbQsGdrsxv5yUVgQPy3ZvXhmv6umLNR+Q==',s:[0x845a62f12a,0xeed0f2e316],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux set and unset</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/set.gif" width="300" height="300" alt="set command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>set</b> command is a built-in function of the <a href="/jargon/b/bourne.htm">Bourne shell</a> (<a href="/unix/ush.htm">sh</a>), <a href="/jargon/c/c.htm">C</a> <a href="/jargon/s/shell.htm">shell</a> (<a href="/unix/ucsh.htm">csh</a>), and <a href="/jargon/k/korn.htm">Korn shell</a> (<a href="/unix/uksh.htm">ksh</a>), which is used to define and determine the values of the system <a href="/jargon/e/envivari.htm">environment</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<p class="tabb">Bourne shell (sh):</p>
+<pre class="tcy tab">set [--aefhkntuvx[<i>argument</i>]]...</pre>
+<p class="tabb">C shell (csh):</p>
+<pre class="tcy tab">set [<i>var</i>[=<i>value</i>]]</pre>
+<pre class="tcy tab">set <i>var</i> [<i>n</i>] = <i>word</i></pre>
+<p class="tabb">Korn shell (ksh):</p>
+<pre class="tcy tab">set [+-aefhkmnopstuvx] [+-o <i>option</i>]... [+-A <i>name</i>] [<i>arg</i>...]</pre>
+<h3 class="tab">Options: Bourne Shell (sh)</h3>
+<p class="tab">In <b>sh</b>, the <b>set</b> built-in command has the following options:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:40px"><b>--</b></td>
+<td>An option of a double-dash ("<b>--</b>") signifies the end of an option list. This option is primarily useful when values listed after the options start with a dash themselves.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>Mark variables that are modified or created for "export"; environment variables set in this way will be passed on to the environments of any subsequent commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>Exit immediately if a command exits with a non-zero exit status.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>Disable file name generation (<a href="/jargon/g/glob.htm">globbing</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Locate and remember function commands as functions are defined (function commands are normally located when the function is executed).</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b></td>
+<td>All keyword <a href="/jargon/a/argument.htm">arguments</a> are placed in the environment for a command, not only those that precede the command name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Read commands but do not execute them.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Exit after reading and executing one command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>Treat unset variables as an error when substituting.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Print shell input lines as they are read.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b></td>
+<td>Print commands and their arguments as they are executed.</td>
+</tr>
+</table>
+<p class="tab">Using <b>+</b> rather than <b>-</b> causes these flags to be turned off. These flags can also be used upon invocation of the shell itself. The current set of flags are found in the variable <b>$-</b>. The remaining arguments are positional parameters and are assigned, in order, to <b>$1</b>, <b>$2</b>, etc. If no arguments are given the values of all names are printed.</p>
+<p class="tab">For each name, the <b>unset</b> command removes the corresponding variable or function value. The special variables <b>PATH</b>, <b>PS1</b>, <b>PS2</b>, <b>MAILCHECK</b>, and <b>IF</b> cannot be unset.</p>
+<p class="tab">With the <b>export</b> built-in command, the given names are marked for automatic export to the environment of subsequently executed commands. If no arguments are given, variable names that are marked for export during the current shell's execution are listed. Function names are not exported.</p>
+<h3 class="tab">Options: C Shell (csh)</h3>
+<p class="tab">In <b>csh</b>, If no arguments are specified, <b>set</b> displays the values of all shell variables. Multiword values are displayed as a parenthesized list. With the <i>var</i> argument alone, <b>set</b> assigns an empty (<a href="/jargon/n/null.htm">null</a>) value to the variable <i>var</i>. With arguments of the form <i>var</i> <b>=</b> <i>value</i>, <b>set</b> assigns value to <i>var</i>, where <i>value</i> is one of:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:90px"><i>word</i></td>
+<td>A single word (or quoted <a href="/jargon/s/string.htm">string</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>(</b><i>wordlist</i><b>)</b></td>
+<td>A space-separated list of words enclosed in parentheses.</td>
+</tr>
+</table>
+<p class="tab">Values are command and file name expanded before being assigned. The form <b>set</b> <i>var</i><b>[</b><i>n</i><b>]=</b><i>word</i> replaces the <i>n</i>'th word in a multiword <i>value</i> with <i>word</i>.</p>
+<p class="tab"><b>unset</b> removes variables whose names match (using file name substitution) pattern. All variables are removed by "<b>unset *</b>"; this is a very bad idea if you don't know what you're doing, though.</p>
+<h3 class="tab">Options: K Shell (ksh)</h3>
+<p class="tab">In <b>ksh</b>, the <b>set</b> command takes the following options:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>-A</b></td>
+<td><a href="/jargon/a/array.htm">Array</a> assignment. Unset the variable name and assign values sequentially from the list arg. If <b>+A</b> is used, the variable name is not unset first.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>All subsequent variables that are defined are automatically exported.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>If a command has a non-zero exit status, execute the <b>ERR</b> <a href="/unix/utrap.htm">trap</a> (if set), and exit. This mode is disabled while reading profiles.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>Disables file name generation (globbing).</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Each command becomes a tracked alias when first encountered.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b></td>
+<td>All variable assignment arguments are placed in the environment for a command, not only those preceding the command name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b></td>
+<td>Background jobs run in a separate process group and a line prints upon completion. The exit status of background jobs is reported in a completion message. On systems with job control, this flag is turned on automatically for interactive shells.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Read commands and check them for syntax errors, but do not execute them. Ignored for interactive shells.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b> <i>option</i></td>
+<td>The <i>option</i> argument can be one of the following:
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:110px"><b>allexport</b></td>
+<td>Same as <b>-a</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>errexit</b></td>
+<td>Same as <b>-e</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>bgnice</b></td>
+<td>All background jobs are run at a lower priority, which is the default mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>emacs</b></td>
+<td>Puts you in an <a href="/unix/uemacs.htm"><b>emacs</b></a>-style in-line editor for command entry.</td>
+</tr>
+<tr class="tcw">
+<td><b>emacs</b></td>
+<td>Puts you in a <b>gmacs</b>-style in-line editor for command entry.</td>
+</tr>
+<tr class="tcw">
+<td><b>ignoreeof</b></td>
+<td>The shell will not exit on <a href="/jargon/e/eof.htm">end-of-file</a>. The command exit must be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>keyword</b></td>
+<td>Same as <b>-k</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>markdirs</b></td>
+<td>All directory names resulting from file name generation have a trailing "<b>/</b>" appended.</td>
+</tr>
+<tr class="tcw">
+<td><b>monitor</b></td>
+<td>Same as <b>-m</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>noclobber</b></td>
+<td>Prevents redirection "<b>&gt;</b>" from truncating existing files. Require "<b>&gt;|</b>" to truncate a file when turned on.</td>
+</tr>
+<tr class="tcw">
+<td><b>noexec</b></td>
+<td>Same as <b>-n</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>noglob</b></td>
+<td>Same as <b>-f</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>nolog</b></td>
+<td>Do not save function definitions in history file.</td>
+</tr>
+<tr class="tcw">
+<td><b>nounset</b></td>
+<td>Same as <b>-u</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>privileged</b></td>
+<td>Same as <b>-p</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>verbose</b></td>
+<td>Same as <b>-v</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>trackall</b></td>
+<td>Same as <b>-h</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>vi</b></td>
+<td>Puts you in insert mode of a <a href="/unix/uvi.htm">vi</a>-style in-line editor until you hit <a href="/jargon/e/esc.htm">escape</a>. This option argument puts you in control mode. A <a href="/jargon/e/enterkey.htm">return</a> sends the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>viraw</b></td>
+<td>Each character is processed as it is typed in <b>vi</b> mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>xtrace</b></td>
+<td>Same as <b>-x</b>.</td>
+</tr>
+</table>
+If no option name is supplied then the current option settings are printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Disables processing of the <b>$HOME/.profile</b> file and uses the file <b>/etc/suid_profile</b> instead of the <b>ENV</b> file. This mode is on whenever the effective uid (user ID) is not equal to the real uid, or when the effective gid (group ID) is not equal to the real gid. Turning this off causes the effective uid and gid to be set to the real uid and gid.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Sort the positional parameters lexicographically.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Exit after reading and executing one command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>Treat unset parameters as an error when substituting.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Print shell input lines as they are read.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b></td>
+<td>Print commands and their arguments as they are executed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>Turns off <b>-x</b> and <b>-v</b> flags and stops examining arguments for flags.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>Do not change any of the flags; useful in setting <b>$1</b> to a value beginning with <b>-</b>. If no arguments follow this flag, then the positional parameters are unset.</td>
+</tr>
+</table>
+<p class="tab">Using <b>+</b> rather than <b>-</b> causes these flags to be turned off. These flags can also be used upon invocation of the shell. The current set of flags are found in <b>$-</b>. Unless <b>-A</b> is specified, the remaining arguments are positional parameters and are assigned, in order, to "<b>$1 $2</b> ...". If no arguments are given, then the names and values of all variables are printed on the standard output.</p>
+<p class="tab">The variables given by the list of names are automatically unassigned: their values and attributes are erased. <a href="/jargon/r/readonly.htm">Readonly</a> variables cannot be <b>unset</b>. If the <b>-f</b> flag is set, then the names refer to function names. Unsetting <b>ERRNO</b>, <b>LINENO</b>, <b>MAILCHECK</b>, <b>OPTARG</b>, <b>OPTIND</b>, <b>RANDOM</b>, <b>SECONDS</b>, <b>TMOUT</b>, and <b>_</b> removes their special meaning even if they are subsequently assigned.</p>
+<p class="tab">When using <b>unset</b>, the variables given by the list of names are similarly unassigned: their values and attributes are erased. Readonly variables cannot be <b>unset</b>. If the <b>-f</b>, flag is set, then the names refer to function names. Unsetting <b>ERRNO</b>, <b>LINENO</b>, <b>MAILCHECK</b>, <b>OPTARG</b>, <b>OPTIND</b>, <b>RANDOM</b>, <b>SECONDS</b>, <b>TMOUT</b>, and <b>_</b> removes their special meaning even if they are subsequently assigned.</p>
+<p class="tab">With the <b>export</b> built-in command, the given names are marked for automatic export to the environment of subsequently-executed commands. <b>ksh</b> commands that are preceded by one or two "<b>*</b>" characters (asterisks) are treated specially in the following ways:</p>
+<ul>
+<li>Variable assignment lists preceding the command remain in effect when the command completes.</li>
+<li><a href="/jargon/i/io.htm">I/O</a> <a href="/jargon/r/redirect.htm">redirections</a> are processed after variable assignments.</li>
+<li>Errors cause a script containing them to abort.</li>
+<li>Words, following a command preceded by <b>**</b> that are in the format of a variable assignment, are expanded with the same rules as a variable assignment. This assignment means that <a href="/jargon/t/tilde.htm">tilde</a> substitution is performed after the <b>=</b> sign and word splitting and file name generation are not performed.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">set PATH="/bin:/usr/bin:/usr/sbin:usr/local/bin"</pre>
+<p class="tab">In <b>csh</b>, this command sets the environment variable <b>PATH</b>, such that the shell searches for files in the <b>/bin</b>, <b>/usr/bin</b>, <b>/usr/sbin</b> and <b>/usr/local/bin</b> directories, in that order.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucsh.htm"><b>csh</b></a> &mdash; The C shell command interpreter.<br><a href="/unix/uksh.htm"><b>ksh</b></a> &mdash; The Korn shell command interpreter.<br><a href="/unix/usetenv.htm"><b>setenv</b></a> &mdash; Set the value of an environment variable.<br><a href="/unix/ush.htm"><b>sh</b></a> &mdash; The Bourne shell command interpreter.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a834c189dc3e3',m:'ed18obailIqcsZDND056FhLPHrBnzLFyNGoBkNgMRGA-1661495364-0-AUZOxbqrMrM+sBGocfYEPBk02tJWMA9VE9Eqppdv331ENcuoPPC/G2iMULo2kLwIoyUYAOuHeZ5JG8OpdMQmnYAulfKiLK1nKzJ84sI0fLzcdJ/v7DtcjSmUQcsx0OYdDQ==',s:[0x5c697128cb,0x0fdf7466cc],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

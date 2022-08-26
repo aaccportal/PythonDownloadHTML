@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux startx command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/startx.gif" width="300" height="300" alt="startx command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>startx</b> command launches an <a href="/jargon/x/xwin.htm">X11</a> session.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#variables">Environment variables</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>startx</b> <a href="/jargon/s/script.htm">script</a> is a front end to <a href="/unix/xinit.htm"><b>xinit</b></a> that provides a somewhat nicer user interface for running a single session of the X Window System. It is often run with no <a href="/jargon/a/argument.htm">arguments</a>.</p>
+<p class="tab">Arguments immediately following the <b>startx</b> command are used to start a client in the same manner as <b>xinit</b>. The special argument "<b>--</b>" marks the end of client arguments and the beginning of server options. You may need to specify server options with startx to change the color depth, dots per inch, or a different server layout, as permitted by the <a href="/unix/xorg.htm"><b>Xorg</b></a> server and <a href="/unix/xorg.htm#xorg.conf">xorg.conf</a>.</p>
+<p class="tab">To determine the client to run, <b>startx</b> first looks for a file called <b>.xinitrc</b> in the user's <a href="/jargon/h/homedir.htm">home directory</a>. If that is not found, it uses the file <b>xinitrc</b> in the <b>xinit</b> <a href="/jargon/l/library.htm">library</a> directory. If <a href="/jargon/c/commandi.htm">command line</a> client options are given, they override this behavior and revert to the <b>xinit</b> behavior. To determine the server to run, <b>startx</b> first looks for a file called <b>.xserverrc</b> in the user's home directory. If that is not found, it uses the file <b>xserverrc</b> in the <b>xinit</b> library directory. If command line server options are given, they override this behavior and revert to the <b>xinit</b> behavior. Users rarely need to provide a <b>.xserverrc file</b>.</p>
+<p class="tab">The system-wide <b>xinitrc</b> and <b>xserverrc</b> files are found in the <b>/etc/X11/xinit</b> directory.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">startx [ [ <i>client</i> ] <i>options</i> ... ] [ -- [ <i>server</i> ] [ <i>display</i> ] <i>options</i> ... ]</pre>
+<h2 id="variables">Environment variables</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>DISPLAY</b></td>
+<td>This variable gets set to the name of the connected clients display. Note that this gets set, not read.</td>
+</tr>
+<tr class="tcw">
+<td><b>XAUTHORITY</b></td>
+<td>This variable, if not already defined, gets set to <b>$(HOME)/.Xauthority</b>. This variable prevents the X server, if not given the -<b>auth</b> argument, from automatically setting up insecure host-based authentication for the local host.</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:270px"><b>$(HOME)/.xinitrc</b></td>
+<td>Client to run. Typically a <a href="/jargon/s/shell.htm">shell</a> <a href="/jargon/s/script.htm">script</a> which runs many programs in the background.</td>
+</tr>
+<tr class="tcw">
+<td><b>$(HOME)/.xserverrc</b></td>
+<td>Server to run. The default is <a href="/unix/ux.htm"><b>X</b></a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/X11/xinit/xinitrc</b></td>
+<td>Client to run if the user has no <b>.xinitrc</b> file.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/X11/xinit/xserverrc</b></td>
+<td>Server to run if the user has no .xserverrc file.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">startx -- -depth 16</pre>
+<p class="tab">Start an X session at 16 bits color depth.</p>
+<pre class="tcy tab">startx -- -dpi 100</pre>
+<p class="tab">Start an X session at 100 <a href="/jargon/d/dpi.htm">dpi</a> (dots per inch) resolution.</p>
+<pre class="tcy tab">startx -- -layout Multihead</pre>
+<p class="tab">Start an X session with support for multiple displays.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/xorg.htm"><b>Xorg</b></a> &mdash; The executable of the X Window System server.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83575ec584b0',m:'1oscG64NThyWl_ii.QjAb3biljvWijwJI5PPgJp1Wfg-1661495366-0-Af25PuWVvayE6khVHjGzwRUqkYt36s6Kti7fBqMsLwlR0aKov405dfdLIGUgm1QIOLWG3hQgEKbrfKPf9TGjua8Pb1cAmlh+Exm8Hl34O8HjuGnAaw7EGz7xL4bIy7nKlA==',s:[0xa02e7b195a,0xa557247697],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

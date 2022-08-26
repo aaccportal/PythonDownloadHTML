@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux who command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/who.gif" width="300" height="300" alt="who command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>who</b> command displays users <a href="/jargon/s/signon.htm">logged in</a> to the <a href="/jargon/s/system.htm">system</a>.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>who</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>who</b> command prints information about all users who are currently logged in.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">who [ <i>OPTION</i> ]... [ <i>FILE</i> ] [ am i ]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>-a</b>, <b>--all</b></td>
+<td>Same as using the options <b>-b -d --login -p -r -t -T -u</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b>, <b>--boot</b></td>
+<td>Display the time of the last system <a href="/jargon/b/boot.htm">boot</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--dead</b></td>
+<td>Display dead <a href="/jargon/p/process.htm">processes</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b>, <b>--heading</b></td>
+<td>Print a line of column headings.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ips</b></td>
+<td>Print <a href="/jargon/i/ip.htm">IP</a> addresses instead of <a href="/jargon/h/hostname.htm">hostnames</a>. With <b>--lookup</b>, canonicalizes based on stored IP, if available, rather than stored hostname.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--login</b></td>
+<td>Print system login processes.</td>
+</tr>
+<tr class="tcw">
+<td><b>--lookup</b></td>
+<td>Attempt to canonicalize hostnames via <a href="/jargon/d/dns.htm">DNS</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b></td>
+<td>Only print information about the user and host associated with <a href="/jargon/s/stdin.htm">standard input</a> (the <a href="/jargon/t/terminal.htm">terminal</a> where the command was issued). This method adheres to the <a href="/jargon/p/posix.htm">POSIX</a> standard.</td>
+</tr>
+ <tr class="tcw">
+<td><b>-p</b>, <b>--process</b></td>
+<td>Print active processes spawned by <a href="/unix/telinit.htm"><b>init</b></a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--count</b></td>
+<td>Displays all login names, and a count of all logged-on users.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--runlevel</b></td>
+<td>Print the current <a href="/jargon/r/runlevel.htm">runlevel</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--short</b></td>
+<td>Print only name, line, and time fields, which is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--time</b></td>
+<td>Print the last time the system <a href="/jargon/c/clock.htm">clock</a> was changed, if the information is available.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>, <b>-w</b>, <b>--mesg</b></td>
+<td>Add a <a href="/jargon/c/charact.htm">character</a> which indicates the state of the terminal line: "<b>+</b>" if the terminal is writable, "<b>-</b>" if it's not, or "<b>?</b>" if a bad line is encountered.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--users</b></td>
+<td>Print the idle time for each user, and the process ID.</td>
+</tr>
+<tr class="tcw">
+<td><b>--message</b></td>
+<td>Same as <b>-T</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--writable</b></td>
+<td>Same as <b>-T</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+</table>
+<h2 id="notes">Notes</h2>
+<p class="tab">If <i>FILE</i> is specified, <b>who</b> gathers its information from this file. Otherwise, it reads from a default file location (usually <b>/var/run/utmp</b>).</p>
+<p class="tab">If the arguments "<b>am i</b>" are specified, <b>who</b> assumes the <b>-m</b> option.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">who</pre>
+<p class="tab">Displays the username, line, and time of all currently logged-in sessions. For example:</p>
+<p class="tab"><img src="/issues/pictures/linux-users-1.jpg" width="371" height="67" alt="who command and output in Linux terminal" class="resize400"></p>
+<pre class="tcy tab">who am i</pre>
+<p class="tab">Displays the same information, but only for the terminal session where the command was issued, for example:</p>
+<pre class="tab">alan     pts/3        2013-12-25 08:52 (:0.0)</pre>
+<p class="tcy tab">who -aH</p>
+<p class="tab">Displays "all" information, and headers above each column of data, for example:</p>
+<pre class="tab">NAME       LINE         TIME             IDLE          PID COMMENT  EXIT
+                        2014-01-17 07:00               154 id=si    term=0 exit=0
+           system boot  2014-01-17 07:00
+           run-level 2  2014-01-17 07:00                   last=S
+                        2014-01-17 07:01              1607 id=l2    term=0 exit=0
+LOGIN      tty6         2014-01-17 07:01              2809 id=6
+LOGIN      tty5         2014-01-17 07:01              2808 id=5
+LOGIN      tty4         2014-01-17 07:01              2807 id=4
+LOGIN      tty2         2014-01-17 07:01              2805 id=2
+LOGIN      tty1         2014-01-17 07:01              2804 id=1
+LOGIN      tty3         2014-01-17 07:01              2806 id=3
+           pts/0        2014-01-17 11:31              2811 id=ts/0  term=0 exit=0
+lucy     + pts/1        2014-01-17 22:42   .          6609 (:0.0)
+           pts/2        2014-01-18 02:14                 0 id=/2    term=0 exit=0
+           pts/3        2014-01-18 02:08                 0 id=/3    term=0 exit=0
+           pts/4        2014-01-17 21:30                 0 id=/4    term=0 exit=0
+lucy     + pts/0        2014-01-17 22:01 01:04        6330 (:0.0)</pre>
+<ul class="arrow noprint">
+<li><a href="/issues/ch001649.htm">How to view and count users on a Linux system.</a></li>
+</ul>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/udate.htm"><b>date</b></a> &mdash; Output the current date and time.<br><a href="/unix/last.htm"><b>last</b></a> &mdash; Display a listing of the most recently logged-in users.<br><a href="/unix/ulogin.htm"><b>login</b></a> &mdash; Begin a session on a system.<br><a href="/unix/umesg.htm"><b>mesg</b></a> &mdash; Control if (non-root) users can send messages to your terminal.<br><a href="/unix/usu.htm"><b>su</b></a> &mdash; Become the superuser or another user.<br><a href="/unix/w.htm"><b>w</b></a> &mdash; Show who is logged on and what they are doing.<br><a href="/unix/whoami.htm"><b>whoami</b></a> &mdash; Print your effective userid.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a837f7c2ac3f2',m:'WRPKZjJenS.Bq53XcBTAulaUbC6Q9YOIZS9nyTLODG4-1661495372-0-AVL39Q5fuVubm8CcxqFZExKoYsx+Vu7/4QxtZ1YtRGz4Mr0yCvOc3osidO+u8DcSAqyMqZo06jqfDL/f7XvmtJDknzZD6VGem9Pg+Y6+3wvqEPVEJi/cwPpgDDGJ8evpOw==',s:[0x92a6fb3b28,0x6e5db31b46],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux lsof command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-08-16">08/16/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/lsof.gif" width="300" height="300" alt="lsof command" class="floatRight"><p class="intro"><b>lsof</b> lists information about open files on the system, including which <a href="/jargon/p/process.htm">process</a> has the file open.</p>
+<p>An &quot;open file&quot; is any file on disk, named pipe, network socket, Unix socket, or device that is open by a process.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#afs">AFS</a></li>
+<li><a href="#security">Security</a></li>
+<li><a href="#output">Output</a></li>
+<li><a href="#blocks">Blocks and timeouts</a></li>
+<li><a href="#kernel">Avoiding kernel blocks</a></li>
+<li><a href="#device">Alternate device numbers</a></li>
+<li><a href="#cache">Kernel name cache</a></li>
+<li><a href="#file">Device cache file</a></li>
+<li><a href="#path">System-wide device cache path</a></li>
+<li><a href="#personal">Personal device cache path (default)</a></li>
+<li><a href="#diagnostics">Diagnostics</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#bugs">Bugs</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#faq">FAQ</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#distribution">Distribution</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">lsof [ -?abChKlnNOPRtUvVX ] [ -A A ]  [ -c c ]  [ +c c ]  [ +|-d d ] 
+     [ +|-D D ]  [ +|-e s ] [ +|-f [cfgGn] ]  [ -F [f] ]  [ -g [s] ]
+     [ -i [i] ]  [ -k k ]   [ +|-L [l] ]  [ +|-m m ]  [ +|-M ] 
+     [ -o [o] ]  [ -p s ]   [ +|-r [t[m<i>&lt;fmt&gt;</i>]] ] 
+     [ -s [p:s]]  [ -S [t] ]  [ -T [t] ]  [ -u s ]  [ +|-w ] 
+     [ -x [fl] ]  [ -z [z] ]  [ -Z [Z] ]  [ -- ]  [ <i>names</i> ]
+</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><b>-?</b> <b>-h</b></td>
+<td>These two equivalent options select a usage (help) output list. lsof displays a shortened form of this output when it detects an error in the options supplied to it, after it has displayed messages explaining each error.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>Causes list selection options to be ANDed, as described above.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b> <i>A</i></td>
+<td>Is available on systems configured for AFS whose AFS kernel code is implemented via dynamic modules. It allows the lsof user to specify <i>A</i> as an alternate name list file where the kernel addresses of the dynamic modules might be found.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>Causes lsof to avoid kernel functions that might block &mdash; namely, lstat, readlink, and <a href="/unix/stat.htm">stat</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b> <i>c</i></td>
+<td><p>Selects the listing of files for processes executing the command that begins with the characters of <i>c</i>. Multiple commands may be specified, using multiple <b>-c</b> options. They are joined in a single ORed set before participating in AND option selection.</p>
+<p>If c begins with a '<b>^</b>', then the following characters specify a command name whose processes are to be ignored (excluded).</p>
+<p>If c begins and ends with a slash ('<b>/</b>'), the characters between the slashes are interpreted as a regular expression. Shell metacharacters in the regular expression must be quoted to prevent their interpretation by the shell. The closing slash may be followed by these modifiers:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>b</b></td>
+<td>the regular expression is a basic one.</td>
+</tr>
+<tr class="tcw">
+<td><b>i</b></td>
+<td>ignore the case of letters.</td>
+</tr>
+<tr class="tcw">
+<td><b>x</b></td>
+<td>the regular expression is an extended one (default).</td>
+</tr>
+</table>
+<p>The simple command specification is tested first. If that test fails, the command regular expression is applied. If the simple command test succeeds, the command regular expression test isn't made. This may result in "no command found for regex:" messages when <b>lsof</b>'s <b>-V</b> option is specified.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>+c</b> <i>w</i></td>
+<td><p>Defines the maximum number of initial characters of the name, supplied by the UNIX dialect, of the UNIX command associated with a process to be printed in the COMMAND column. The lsof default is nine.</p>
+<p>Note that many UNIX dialects do not supply all command name characters to lsof in the files and structures from which lsof obtains command name. Often dialects limit the number of characters supplied in those sources. For example, Linux 2.4.27 and Solaris 9 both limit command name length to 16 characters.</p>
+<p>If <b>w</b> is zero ('<b>0</b>'), all command characters supplied to lsof by the UNIX dialect will be printed.</p>
+<p>If <i>w</i> is less than the length of the column title, "COMMAND", it will be raised to that length.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>Disables the reporting of any path name components from the kernel's name cache.</td>
+</tr>
+<tr class="tcw">
+<td><b>+d</b> <i>s</i></td>
+<td><p>Causes <b>lsof</b> to search for all open instances of directory <i>s</i> and the files and directories it contains at its top level. <b>+d</b> does NOT descend the directory tree, rooted at <i>s</i>. The <b>+D</b> <i>D</i> option may be used to request a full-descent directory tree search, rooted at directory <i>D</i>.</p>
+<p>Processing of the <b>+d</b> option does not follow <a href="/jargon/s/symblink.htm">symbolic links</a> within <i>s</i> unless the <b>-x</b> or <b>-x l</b> option is also specified. Nor does it search for open files on file system mount points on subdirectories of <i>s</i> unless the <b>-x</b> or <b>-x f</b> option is also specified.</p>
+<p>Note: the authority of the user of this option limits it to searching for files that the user has permission to examine with the system <a href="/unix/stat.htm">stat</a> function.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>s</i></td>
+<td><p>Specifies a list of FDs (file descriptors) to exclude from or include in the output listing. The file descriptors are specified in the comma-separated set <i>s</i> &mdash; e.g., "<b>cwd,1,3</b>", "<b>^6,^2</b>". There should be no spaces in the set.</p>
+<p>The list is an exclusion list if all entries of the set begin with '<b>^</b>'. It is an inclusion list if no entry begins with '<b>^</b>'. Mixed lists are not permitted.</p>
+<p>A file descriptor number range may be in the set as long as neither member is empty, both members are numbers, and the ending member is larger than the starting one &mdash; e.g., "<b>0-7</b>" or "<b>3-10</b>". Ranges may be specified for exclusion if they have the '<b>^</b>' prefix &mdash; e.g., "<b>^0-7</b>" excludes all file descriptors <b>0</b> through <b>7</b>.</p>
+<p>Multiple file descriptor numbers are joined in a single ORed set before participating in AND option selection.</p>
+<p>When there are exclusion and inclusion members in the set, <b>lsof</b> reports them as errors and exits with a non-zero return code.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>+D</b> <i>D</i></td>
+<td><p>Causes lsof to search for all open instances of directory <i>D</i> and all the files and directories it contains to its complete depth.</p>
+<p>Processing of the <b>+D</b> option does not follow <a href="/jargon/s/symblink.htm">symbolic links</a> within <i>D</i> unless the <b>-x</b> or <b>-x</b> <i>l</i> option is also specified. Nor does it search for open files on file system mount points on subdirectories of <i>D</i> unless the <b>-x</b> or <b>-x</b> <i>f</i> option is also specified.</p>
+<p>Note: the authority of the user of this option limits it to searching for files that the user has permission to examine with the system <a href="/unix/stat.htm">stat</a> function.</p>
+<p>Further note: <b>lsof</b> may process this option slowly and require a large amount of dynamic <a href="/jargon/m/memory.htm">memory</a> to do it. This is because it must descend the entire directory tree, rooted at <i>D</i>, calling stat for each file and <a href="/jargon/d/director.htm">directory</a>, building a list of all the files it finds, and searching that list for a match with every open file. When directory <i>D</i> is large, these steps can take a long time, so use this option prudently.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b> <i>D</i></td>
+<td><p>Directs <b>lsof</b>'s use of the device cache file. The use of this option is sometimes restricted.</p>
+<p><b>-D</b> must be followed by a function letter; the function letter may optionally be followed by a path name. <b>lsof</b> recognizes these function letters:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>?</b></td>
+<td>report device cache file paths</td>
+</tr>
+<tr class="tcw">
+<td><b>b</b></td>
+<td>build the device cache file</td>
+</tr>
+<tr class="tcw">
+<td><b>i</b></td>
+<td>ignore the device cache file</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b></td>
+<td>read the device cache file</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b></td>
+<td>read and update the device cache file</td>
+</tr>
+</table>
+<p>The <b>b</b>, <b>r</b>, and <b>u</b> functions, accompanied by a path name, are sometimes restricted. When these functions are restricted, they will not appear in the description of the <b>-D</b> option that accompanies <b>-h</b> or <b>-?</b> option output.</p>
+<p>The <b>?</b> function reports the read-only and write paths that lsof can use for the device cache file, the names of any environment variables whose values <b>lsof</b> will examine when forming the device cache file path, and the format for the personal device cache file path.</p>
+<p>When available, the <b>b</b>, <b>r</b>, and <b>u</b> functions may be followed by the device cache file's path. The standard default is <b>.lsof_hostname</b> in the home directory of the real user ID that executes lsof, but this could be changed when <b>lsof</b> was configured and compiled. The output of the <b>-h</b> and <b>-?</b> options show the current default prefix &mdash; e.g., "<b>.lsof</b>". The suffix, hostname, is the first component of the host's name returned by <b>gethostname</b>.</p>
+<p>When available, the <b>b</b> function directs <b>lsof</b> to build a new device cache file at the default or specified path.</p>
+<p>The <b>i</b> function directs lsof to ignore the default device cache file and obtain its information about devices via direct calls to the kernel.</p>
+<p>The <b>r</b> function directs <b>lsof</b> to read the device cache at the default or specified path, but prevents it from creating a new device cache file when none exists or the existing one is improperly structured. The <b>r</b> function, when specified without a path name, prevents <b>lsof</b> from updating an incorrect or outdated device cache file, or creating a new one in its place. The <b>r</b> function is always available when it is specified without a path name argument; it may be restricted by the permissions of the <b>lsof</b> process.</p>
+<p>When available, the <b>u</b> function directs <b>lsof</b> to read the device cache file at the default or specified path, if possible, and to rebuild it, if necessary. This is the default device cache file function when no <b>-D</b> option is specified.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>|<b>-e</b> <i>s</i></td>
+<td><p>Exempts the file system whose path name is s from being subjected to kernel function calls that might block. The <b>+e</b> option exempts <a href="/unix/stat.htm"><b>stat</b></a>, <b>lstat</b> and most <b>readlink</b> kernel function calls. The <b>-e</b> option exempts only <b>stat</b> and <b>lstat</b> kernel function calls. Multiple file systems may be specified with separate <b>+</b>|<b>-e</b> specifications and each may have <b>readlink</b> calls exempted or not.</p>
+<p>This option is currently implemented only for Linux.</p>
+<p>CAUTION: this option can easily be misapplied to other than the file system of interest, because it uses path name rather than the more reliable device and inode numbers. Device and inode numbers are acquired via the potentially blocking <b>stat</b> kernel call and are thus not available, but see the <b>+</b>|<b>-m</b> <i>m</i> option as a possible alternative way to supply device numbers. Use this option with great care and fully specify the path name of the file system to be exempted.</p>
+<p>When open files on exempted file systems are reported, it may not be possible to obtain all their information. Therefore, some information columns will be blank, the characters "UNKN" preface the values in the TYPE column, and the applicable exemption option is added in parentheses to the end of the NAME column. Some device number information might be made available via the <b>+</b>|<b>-m</b> <i>m</i> option.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>|<b>-f</b> [<b>cfgGn</b>]</td>
+<td><p><b>f</b> by itself clarifies how path name arguments are to be interpreted. When followed by <b>c</b>, <b>f</b>, <b>g</b>, <b>G</b>, or <b>n</b> in any combination it specifies that the listing of kernel file structure information is to be enabled ('<b>+</b>') or inhibited ('<b>-</b>').</p>
+<p>Normally a path name argument is taken to be a file system name if it matches a mounted directory name reported by <a href="/unix/umount.htm">mount</a>, or if it represents a block device, named in the mount output and associated with a mounted directory name. When <b>+f</b> is specified, all path name arguments will be taken to be file system names, and <b>lsof</b> will complain if any are not. This can be useful, for example, when the file system name (the mounted device) isn't a block device. This happens for some CD-ROM file systems.</p>
+<p>When <b>-f</b> is specified by itself, all path name arguments will be taken to be simple files. Thus, for example, the "<b>-f -- /</b>" arguments direct <b>lsof</b> to search for open files with a '<b>/</b>' path name, not all open files in the '<b>/</b>' (root) file system.</p>
+<p>Be careful to make sure <b>+f</b> and <b>-f</b> are properly terminated and aren't followed by a character (e.g., of the file or file system name) that might be taken as a parameter. For example, use "<b>--</b>" after <b>+f</b> and <b>-f</b> as in these examples.</p>
+<pre class="tcy">$ lsof +f -- /file/system/name</pre>
+<pre class="tcy">$ lsof -f -- /file/name</pre>
+<p>The listing of information from kernel file structures, requested with the <b>+f</b> [<b>cfgGn</b>] option form, is normally inhibited, and is not available in whole or part for some dialects &mdash; e.g., <b>/proc</b>-based Linux kernels below 2.6.22. When the prefix to <b>f</b> is a plus sign ('<b>+</b>'), these characters request file structure information:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>c</b></td>
+<td>file structure use count (not Linux)</td>
+</tr>
+<tr class="tcw">
+<td><b>f</b></td>
+<td>file structure address (not Linux)</td>
+</tr>
+<tr class="tcw">
+<td><b>g</b></td>
+<td>file flag abbreviations (Linux 2.6.22 and up)</td>
+</tr>
+<tr class="tcw">
+<td><b>G</b></td>
+<td>file flags in hexadecimal (Linux 2.6.22 and up)</td>
+</tr>
+<tr class="tcw">
+<td><b>n</b></td>
+<td>file structure node address (not Linux)</td>
+</tr>
+</table>
+<p>When the prefix is minus ('<b>-</b>') the same characters disable the listing of the indicated values.</p>
+<p>File structure addresses, use counts, flags, and node addresses may be used to detect more readily identical files inherited by child processes and identical files in use by different processes. <b>lsof</b> column output can be sorted by output columns holding the values and listed to identify identical file use, or lsof field output can be parsed by an <a href="/unix/uawk.htm">AWK</a> or <a href="/jargon/p/perl.htm">Perl</a> post-filter <a href="/jargon/s/script.htm">script</a>, or by a <a href="/jargon/c/c.htm">C program.</a></p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b> <i>f</i></td>
+<td><p>Specifies a character list, <i>f</i>, that selects the fields to be output for processing by another program, and the character that terminates each output field. Each field to be output is specified with a single character in <i>f</i>. The field terminator defaults to NL, but may be changed to NULL (000).</p>
+<p>When the field selection character list is empty, all standard fields are selected (except the raw device field, security context and zone field for compatibility reasons) and the NL field terminator is used.</p>
+<p>When the field selection character list contains only a zero ('0'), all fields are selected (except the raw device field for compatibility reasons) and the NULL terminator character is used.</p>
+<p>Other combinations of fields and their associated field terminator character must be set with explicit entries in <i>f</i>.</p>
+<p>When a field selection character identifies an item lsof does not normally list &mdash; e.g., PPID, selected with <b>-R</b> &mdash; specification of the field character &mdash; e.g., "<b>-FR</b>" &mdash; also selects the listing of the item.</p>
+<p>When the field selection character list contains the single character '<b>?</b>', lsof displays a help list of the field identification characters. Escape the '<b>?</b>' character as your shell requires.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b> [<i>s</i>]</td>
+<td><p>Excludes or selects the listing of files for the processes whose optional process group IDentification (PGID) numbers are in the comma-separated set <i>s</i> &mdash; e.g., "<b>123</b>" or "<b>123,^456</b>". Note There should be no spaces in the set.</p>
+<p>PGID numbers that begin with '<b>^</b>' (negation) represent exclusions.</p>
+<p>Multiple PGID numbers are joined in a single ORed set before participating in AND option selection. However, PGID exclusions are applied without ORing or ANDing and take effect before other selection criteria are applied.</p>
+<p>The <b>-g</b> option also enables the output display of PGID numbers. When specified without a PGID set that's all it does.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b> [<i>i</i>]</td>
+<td><p>Selects the listing of files any of whose Internet address matches the address specified in <i>i</i>. If no address is specified, this option selects the listing of all Internet and x.25 (HP-UX) network files.</p>
+<p>If <b>-i4</b> or <b>-i6</b> is specified with no following address, only files of the indicated IP version, IPv4 or IPv6, are displayed. An IPv6 specification may be used only if the dialects supports IPv6, as indicated by "<b>[46]</b>" and "<b>IPv[46]</b>" in <b>lsof</b>'s <b>-h</b> or <b>-?</b> output. Sequentially specifying <b>-i4</b>, followed by <b>-i6</b> is the same as specifying <b>-i</b>, and vice-versa. Specifying <b>-i4</b>, or <b>-i6</b> after <b>-i</b> is the same as specifying <b>-i4</b> or <b>-i6</b> by itself.</p>
+<p>Multiple addresses (up to a limit of 100) may be specified with multiple <b>-i</b> options. A port number or service name range is counted as one address. They are joined in a single ORed set before participating in AND option selection.</p>
+<p>An Internet address is specified in the form (Items in square brackets are optional):</p>
+<pre class="tcy">[4|6][<i>protocol</i>][@<i>hostname</i>|<i>hostaddr</i>][:<i>service</i>|<i>port</i>]</pre>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:90px"><b>46</b></td>
+<td>specifies the IP version, IPv4 or IPv6 that applies to the following address. '<b>6</b>' may be specified only if the UNIX dialect supports IPv6. If neither '<b>4</b>' nor '<b>6</b>' is specified, the following address applies to all IP versions.</td>
+</tr>
+<tr class="tcw">
+<td><i>protocol</i></td>
+<td>is a protocol name &mdash; <b>TCP</b>, <b>UDP</b></td>
+</tr>
+<tr class="tcw">
+<td><i>hostname</i></td>
+<td>is an Internet <a href="/jargon/h/hostname.htm">hostname</a>. Unless a specific IP version is specified, open network files associated with hostnames of all versions will be selected.</td>
+</tr>
+<tr class="tcw">
+<td><i>hostaddr</i></td>
+<td> is a numeric Internet IPv4 address in dot form; or an IPv6 numeric address in colon form, enclosed in brackets, if the UNIX dialect supports IPv6. When an IP version is selected, only its numeric addresses may be specified.</td>
+</tr>
+<tr class="tcw">
+<td><i>service</i></td>
+<td>is an <b>/etc/services</b> name &mdash; e.g., <b>smtp</b> &mdash; or a list of them.</td>
+</tr>
+<tr class="tcw">
+<td><i>port</i></td>
+<td>is a port number, or a list of them.</td>
+</tr>
+</table>
+<p>IPv6 options may be used only if the UNIX dialect supports IPv6. To see if the dialect supports IPv6, run <b>lsof</b> and specify the <b>-h</b> or <b>-?</b> (help) option. If the displayed description of the <b>-i</b> option contains "<b>[46]</b>" and "<b>IPv[46]</b>", IPv6 is supported.</p>
+<p>IPv4 hostnames and addresses may not be specified if network file selection is limited to IPv6 with -i 6. IPv6 hostnames and addresses may not be specified if network file selection is limited to IPv4 with -i 4. When an open IPv4 network file's address is mapped in an IPv6 address, the open file's type will be IPv6, not IPv4, and its display will be selected by '<b>6</b>', not '<b>4</b>'.</p>
+<p>At least one address component &mdash; <b>4</b>, <b>6</b>, <i>protocol</i>, <i>hostname</i>, <i>hostaddr</i>, or <i>service</i> &mdash; must be supplied. The '<b>@</b>' character, leading the host specification, is always required; as is the '<b>:</b>', leading the port specification. Specify either hostname or hostaddr. Specify either service name list or port number list. If a service name list is specified, the protocol may also need to be specified if the TCP, UDP, and UDPLITE port numbers for the service name are different. Use any case &mdash; lower or upper &mdash; for protocol.</p>
+<p>Service names and port numbers may be combined in a list whose entries are separated by commas and whose numeric range entries are separated by minus signs. There may be no embedded spaces, and all service names must belong to the specified protocol. Since service names may contain embedded minus signs, the starting entry of a range can't be a service name; it can be a port number, however.</p>
+<p>Here are some sample addresses:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:180px"><b>-i6</b></td>
+<td><b>IPv6</b> only</td>
+</tr>
+<tr class="tcw">
+<td><b>TCP:25</b></td>
+<td><b>TCP</b> and port <b>25</b></td>
+</tr>
+<tr class="tcw">
+<td><b>@1.2.3.4</b></td>
+<td>Internet <b>IPv4</b> host address <b>1.2.3.4</b></td>
+</tr>
+<tr class="tcw">
+<td><b>@</b>[<b>3ffe:1ebc::1</b>]<b>:1234</b></td>
+<td>Internet <b>IPv6</b> host address <b>3ffe:1ebc::1</b>, port <b>1234</b></td>
+</tr>
+<tr class="tcw">
+<td><b>UDP:who</b></td>
+<td><b>UDP</b> <b>who</b> service port</td>
+</tr>
+<tr class="tcw">
+<td><b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cf9b8c9f8fa3bca0a9e1a6bbaebf">[email&#160;protected]</a>:513</b></td>
+<td><b>TCP</b>, port <b>513</b> and hostname <b>lsof.itap</b></td>
+</tr>
+<tr class="tcw">
+<td><b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4d392e3d0d2b2222">[email&#160;protected]</a>:1-10,smtp,99</b></td>
+<td><b>TCP</b>, ports <b>1</b> through <b>10</b>, service name <b>smtp</b>, port <b>99</b>, hostname <b>foo</b></td>
+</tr>
+<tr class="tcw">
+<td><b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d0a4b3a090b2b1a2">[email&#160;protected]</a>:1-smtp</b></td>
+<td><b>TCP</b>, ports <b>1</b> through <b>smtp</b>, host <b>bar</b></td>
+</tr>
+<tr class="tcw">
+<td><b>:time</b></td>
+<td>either <b>TCP</b>, <b>UDP</b> or <b>UDPLITE</b> time service port</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-K</b></td>
+<td><p>Selects the listing of tasks of processes, on dialects where task reporting is supported. If help output &mdash; i.e., the output of the <b>-h</b> or <b>-?</b> options &mdash; shows this option, then task reporting is supported by the dialect.</p>
+<p>When <b>-K</b> and <b>-a</b> are both specified and the tasks of a main process are selected by other options, the main process is also listed as though it were a task, but without a task ID.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b> <i>k</i></td>
+<td>Specifies a kernel name list file, <i>k</i>, in place of <b>/vmunix</b>, <b>/mach</b>, etc. <b>-k</b> is not available under <a href="/jargon/a/aix.htm">AIX</a> on the IBM RISC/System 6000.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>Inhibits the conversion of user ID numbers to login names. It is also useful when login name lookup is working improperly or slowly.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>|<b>-L</b> [<i>l</i>]</td>
+<td><p>Enables ('<b>+</b>') or disables ('<b>-</b>') the listing of file link counts, where they are available &mdash; e.g., they aren't available for sockets, or most <a href="/jargon/f/fifo.htm">FIFOs</a> and pipes.</p>
+<p>When <b>+L</b> is specified without a following number, all link counts are listed. When <b>-L</b> is specified (the default), no link counts are listed.</p>
+<p>When <b>+L</b> is followed by a number, only files having a link count less than that number are listed (no number may follow <b>-L</b>). A specification of the form "<b>+L1</b>" selects open files that were unlinked. A specification of the form "<b>+aL1</b> <i>&lt;file_system&gt;</i>" selects unlinked open files on the specified file system.</p>
+<p>For other link count comparisons, use field output (<b>-F</b>) and a post-processing script or program.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>|<b>-m</b> <i>m</i></td>
+<td><p>Specifies an alternate kernel memory file or activates mount table supplement processing.</p>
+<p>The option form <b>-m</b> <i>m</i> specifies a kernel memory file, <i>m</i>, in place of <b>/dev/kmem</b> or <b>/dev/mem</b> &mdash; e.g., a crash dump file.</p>
+<p>The option form +m requests that a mount supplement file be written to the standard output file. All other options are silently ignored.</p>
+<p>There will be a line in the mount supplement file for each mounted file system, containing the mounted file system directory, followed by a single space, followed by the device number in <a href="/jargon/h/hex.htm">hexadecimal</a> "<b>0x</b>" format &mdash; e.g.,</p>
+<pre class="tcy">/ 0x801</pre>
+<p><b>lsof</b> can use the mount supplement file to get device numbers for file systems when it can't get them via <a href="/jargon/s/stat.htm">stat</a> or <b>lstat</b>.</p>
+<p>The option form <b>+m</b> <i>m</i> identifies <i>m</i> as a mount supplement file.</p>
+<p>Note: the <b>+m</b> and <b>+m</b> <i>m</i> options are not available for all supported dialects. Check the output of lsof's <b>-h</b> or <b>-?</b> options to see if the <b>+m</b> and <b>+m</b> <i>m</i> options are available.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>|<b>-M</b></td>
+<td><p>Enables (<b>+</b>) or disables (<b>-</b>) the reporting of portmapper registrations for local <a href="/jargon/t/tcpip.htm">TCP</a>, <a href="/jargon/u/udp.htm">UDP</a> and UDPLITE ports, where port mapping is supported.</p>
+<p>The default reporting mode is set by the lsof builder with the <b>HASPMAPENABLED</b> #define in the dialect's <b>machine.h</b> header file; <b>lsof</b> is distributed with the <b>HASPMAPENABLED</b> #define deactivated, so portmapper reporting is disabled by default and must be requested with <b>+M</b>. Specifying <b>lsof</b>'s <b>-h</b> or <b>-?</b> option will report the default mode. Disabling portmapper registration when it is already disabled or enabling it when already enabled is acceptable. When portmapper registration reporting is enabled, <b>lsof</b> displays the portmapper registration (if any) for local <b>TCP</b>, <b>UDP</b> or <b>UDPLITE</b> ports in square brackets immediately following the port numbers or service names &mdash; e.g., "<b>:1234[name]</b>" or "<b>:name[100083]</b>". The registration information may be a name or number, depending on what the registering program supplied to the portmapper when it registered the port.</p>
+<p>When portmapper registration reporting is enabled, lsof may run a little more slowly or even become blocked when access to the portmapper becomes congested or stopped. Reverse the reporting mode to determine if portmapper registration reporting is slowing or blocking <b>lsof</b>.</p>
+<p>For purposes of portmapper registration reporting <b>lsof</b> considers a TCP, UDP or UDPLITE port local if it's found in the local part of its containing kernel structure; or if it's located in the foreign part of its containing kernel structure and the local and foreign Internet addresses are the same; or if it's located in the foreign part of its containing kernel structure and the foreign Internet address is <b>INADDR_LOOPBACK</b> (<b>127.0.0.1</b>). This rule may make lsof ignore some foreign ports on machines with multiple interfaces when the foreign Internet address is on a different interface from the local one.</p>
+<p>Portmapper registration reporting is supported only on dialects that have RPC header files. Some Linux distributions with GlibC 2.14 do not have them. When portmapper registration reporting is supported, the <b>-h</b> or <b>-?</b> help output shows the <b>+</b>|<b>-M</b> option.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Inhibits the conversion of network numbers to hostnames for network files. Inhibiting conversion may make <b>lsof</b> run faster. It is also useful when hostname lookup is not working properly.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b></td>
+<td>Selects the listing of NFS files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b></td>
+<td><p>Directs <b>lsof</b> to display file offset at all times. It causes the SIZE/OFF output column title to be changed to OFFSET. Note: on some UNIX dialects <b>lsof</b> can't obtain accurate or consistent file offset information from its kernel data sources, sometimes for particular kinds of files (e.g., socket files).</p>
+<p>The <b>-o</b> and <b>-s</b> options are mutually exclusive; they can't both be specified. When neither is specified, <b>lsof</b> displays whatever value (size or offset) is appropriate and available for the type of the file.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b> <i>o</i></td>
+<td><p>Defines the number of decimal digits (<i>o</i>) to be printed after the "<b>0t</b>" for a file offset before the form is switched to "<b>0x...</b>". An <b>o</b> value of zero (unlimited) directs <b>lsof</b> to use the "<b>0t</b>" form for all offset output.</p>
+<p>This option does NOT direct lsof to display offset at all times; specify <b>-o</b> (without a trailing number) to do that. <b>-o</b> <i>o</i> only specifies the number of digits after "<b>0t</b>" in either mixed size and offset or offset-only output. Thus, for example, to direct <b>lsof</b> to display offset at all times with a decimal digit count of 10, use:</p>
+<pre class="tcy">-o -o 10</pre>
+<p>or</p>
+<pre class="tcy">-oo10</pre>
+<p>The default number of digits allowed after "<b>0t</b>" is normally <b>8</b>, but may be changed by the <b>lsof</b> builder. Consult the description of the <b>-o</b> <i>o</i> option in the output of the <b>-h</b> or <b>-?</b> option to determine the default that is in effect.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b></td>
+<td><p>Directs <b>lsof</b> to bypass the strategy it uses to avoid being blocked by some kernel operations &mdash; i.e., doing them in forked child processes.</p>
+<p>While use of this option reduces lsof startup overhead, it may also cause lsof to hang when the kernel doesn't respond to a function. Use this option cautiously.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>s</i></td>
+<td><p>Excludes or selects the listing of files for the processes whose optional process IDentification (PID) numbers are in the comma-separated set <i>s</i> &mdash; e.g., "<b>123</b>" or "<b>123,^456</b>". There should be no spaces in the set.</p>
+<p>PID numbers that begin with '<b>^</b>' (negation) represent exclusions.</p>
+<p>Multiple process ID numbers are joined in a single ORed set before participating in AND option selection. However, PID exclusions are applied without ORing or ANDing and take effect before other selection criteria are applied.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b></td>
+<td>Inhibits the conversion of port numbers to port names for network files. Inhibiting the conversion may make <b>lsof</b> run a little faster. It is also useful when port name lookup is not working properly.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>|<b>-r</b> [<b>t</b>[<b>m</b><i>&lt;fmt&gt;</i>]]</td>
+<td><p>Puts <b>lsof</b> in repeat mode. There <b>lsof</b> lists open files as selected by other options, delays <b>t</b> seconds (default fifteen), then repeats the listing, delaying and listing repetitively until stopped by a condition defined by the prefix to the option.</p>
+<p>If the prefix is a '<b>-</b>', repeat mode is endless. <b>Lsof</b> must be terminated with an interrupt or quit signal.</p>
+<p>If the prefix is '<b>+</b>', repeat mode will end the first cycle no open files are listed &mdash; and of course when <b>lsof</b> is stopped with an interrupt or quit <a href="/jargon/h/hex.htm">signal</a>. When repeat mode ends because no files are listed, the process exit code will be zero if any open files were ever listed; one, if none were ever listed.</p>
+<p><b>lsof</b> marks the end of each listing: if field output is in progress (the <b>-F</b>, option is specified), the default marker is '<b>m</b>'; otherwise the default marker is "<b>========</b>". The marker is followed by an NL character.</p>
+<p>The optional "<i>m&lt;fmt&gt;</i>" argument specifies a format for the marker line. The <i>&lt;fmt&gt;</i> characters following '<b>m</b>' are interpreted as a format specification to the <a href="/unix/strftime.htm">strftime</a> function, when both it and the <b>localtime</b> function are available in the dialect's C library. Consult the <b>strftime</b> documentation for what may appear in its format specification. Note that when field output is requested with the <b>-F</b> option, <i>&lt;fmt&gt;</i> cannot contain the NL format, "<b>%n</b>". Note also that when <i>&lt;fmt&gt;</i> contains spaces or other characters that affect the shell's interpretation of arguments, <i>&lt;fmt&gt;</i> must be quoted appropriately.</p>
+<p>Repeat mode reduces <b>lsof</b> startup overhead, so it is more efficient to use this mode than to call <b>lsof</b> repetitively from a shell script, for example.</p>
+<p>To use repeat mode most efficiently, accompany <b>+</b>|<b>-r</b> with specification of other lsof selection options, so the amount of kernel memory access lsof does will be kept to a minimum. Options that filter at the process level &mdash; e.g., <b>-c</b>, <b>-g</b>, <b>-p</b>, <b>-u</b> &mdash; are the most efficient selectors.</p>
+<p>Repeat mode is useful when coupled with field output (see the <b>-F</b>, option description) and a supervising <a href="/unix/uawk.htm">awk</a> or <a href="/jargon/p/perl.htm">Perl</a> script, or a <a href="/jargon/c/c.htm">C program</a>.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b></td>
+<td>Directs <b>lsof</b> to list the Parent Process IDentification number in the PPID column.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> [<i>p</i><b>:</b><i>s</i>]</td>
+<td><p><i>s</i> alone directs <b>lsof</b> to display file size at all times. It causes the SIZE/OFF output column title to be changed to SIZE. If the file does not have a size, nothing is displayed.</p>
+<p>When followed by a protocol name (<i>p</i>), either <b>TCP</b> or <b>UDP</b>, a colon ('<b>:</b>') and a comma-separated protocol state name list, the option causes open TCP and UDP files to be excluded if their state name(s) are in the list (<i>s</i>) preceded by a '<b>^</b>'; or included if their name(s) are not preceded by a '<b>^</b>'.</p>
+<p>When an inclusion list is defined, only network files with state names in the list will be present in the lsof output. Thus, specifying one state name means that only network files with that lone state name are listed.</p>
+<p>Case is unimportant in the protocol or state names, but there may be no spaces and the colon ('<b>:</b>') separating the protocol name (<i>p</i>) and the state name list (<i>s</i>) is required.</p>
+<p>If only TCP and UDP files are to be listed, as controlled by the specified exclusions and inclusions, the <i>-i</i> option must be specified, too. If only a single protocol's files are to be listed, add its name as an argument to the <i>-i</i> option.</p>
+<p>For example, to list only network files with TCP state LISTEN, use:</p>
+<pre class="tcy">-iTCP -sTCP:LISTEN</pre>
+<p>Or, for example, to list network files with all UDP states except Idle, use:</p>
+<pre class="tcy">-iUDP -sUDP:Idle</pre>
+<p>State names vary with UNIX dialects, so it's not possible to provide a complete list. Some common TCP state names are: CLOSED, IDLE, BOUND, LISTEN, ESTABLISHED, SYN_SENT, SYN_RCDV, ESTABLISHED, CLOSE_WAIT, FIN_WAIT1, CLOSING, LAST_ACK, FIN_WAIT_2, and TIME_WAIT. Two common UDP state names are Unbound and Idle.</p>
+<p>The <i>-o</i> (without a following decimal digit count) and <i>-s</i> option (without a following protocol and state name list) are mutually exclusive; they can't both be specified. When neither is specified, lsof displays whatever value &mdash; size or offset &mdash; is appropriate and available for the type of file. Since some types of files don't have true sizes (sockets, <a href="/jargon/f/fifo.htm">FIFO</a>s, <a href="/jargon/p/pipe.htm">pipes</a>, etc.) <b>lsof</b> displays for their sizes the content amounts in their associated kernel buffers, if possible.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b> [<i>t</i>]</td>
+<td>Specifies an optional time-out seconds value for kernel functions (lstat, readlink, and stat) &mdash; that might otherwise deadlock. The minimum for <i>t</i> is two; the default, fifteen; when no value is specified, the default is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b> [<i>t</i>]</td>
+<td><p>Controls the reporting of some TCP/TPI information, also reported by <a href="/jargon/n/netstat.htm">netstat</a>, following the network addresses. In normal output the information appears in parentheses, each item except TCP or TPI state name identified by a keyword, followed by '<b>=</b>', separated from others by a single space:</p><pre class="tcy"><i>&lt;TCP or TPI state name&gt;</i></pre><pre class="tcy">QR=<i>&lt;read queue length&gt;</i></pre><pre class="tcy">QS=<i>&lt;send queue length&gt;</i></pre><pre class="tcy">SO=<i>&lt;socket options and values&gt;</i></pre><pre class="tcy">SS=<i>&lt;socket states&gt;</i></pre><pre class="tcy">TF=<i>&lt;TCP flags and values&gt;</i></pre><pre class="tcy">WR=<i>&lt;window read length&gt;</i></pre><pre class="tcy">WW=<i>&lt;window write length&gt;</i></pre>
+<p>Not all values are reported for all UNIX dialects. Items values (when available) are reported after the item name and '<b>=</b>'.</p>
+<p>When the field output mode is in effect (See OUTPUT FOR OTHER PROGRAMS) each item appears as a field with a '<b>T</b>' leading character.</p>
+<p><b>-T</b> with no following key characters disables TCP/TPI information reporting.</p>
+<p><b>-T</b> with following characters selects the reporting of specific TCP/TPI information:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>f</b></td>
+<td>Selects reporting of socket options, states and values, and TCP flags and values.</td>
+</tr>
+<tr class="tcw">
+<td><b>q</b></td>
+<td>Selects queue length reporting.</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b></td>
+<td>Selects connection state reporting.</td>
+</tr>
+<tr class="tcw">
+<td><b>w</b></td>
+<td>Selects window size reporting.</td>
+</tr>
+</table>
+<p>Not all selections are enabled for some UNIX dialects. State may be selected for all dialects and is reported by default. The -h or -? help output for the <b>-T</b> option shows what selections may be used with the UNIX dialect.</p>
+<p>When <b>-T</b> is used to select information (i.e., it is followed by one or more selection characters) the displaying of state is disabled by default, and it must be explicitly selected again in the characters following <b>-T</b>. In effect, then, the default is equivalent to <b>-Ts</b>. For example, if queue lengths and state are desired, use <b>-Tqs</b>.</p>
+<p>Socket options, socket states, some socket values, TCP flags and one TCP value may be reported (when available in the UNIX dialect) in the form of the names that commonly appear after <b>SO_</b>, <b>so_</b>, <b>SS_</b>, <b>TCP_</b> and <b>TF_</b> in the dialect's header files &mdash; most often <b>&lt;sys/socket.h&gt;</b>, <b>&lt;sys/socketvar.h&gt;</b> and <b>&lt;netinet/tcp_var.h&gt;</b>. Consult those header files for the meaning of the flags, options, states, and values.</p>
+<p>"<b>SO=</b>" precedes socket options and values; "<b>SS=</b>", socket states; and "<b>TF=</b>", TCP flags and values.</p>
+<p>If a flag or option has a value, the value follows an '<b>=</b>' and the name -- e.g., "<b>SO=LINGER=5</b>", "<b>SO=QLIM=5</b>", "<b>TF=MSS=512</b>". The following seven values may be reported:</p>
+<table class="mtable3">
+<tr class="tcy">
+<th style="width:180px">name reported</th>
+<th>description (common symbol)</th>
+</tr>
+<tr class="tcw">
+<td><b>KEEPALIVE</b></td>
+<td>Keep alive time (<b>SO_KEEPALIVE</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>LINGER</b></td>
+<td>Linger time (<b>(SO_LINGER)</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>MSS</b></td>
+<td>Maximum segment size (<b>(TCP_MAXSEG)</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>PQLEN</b></td>
+<td>Partial listen queue connections</td>
+</tr>
+<tr class="tcw">
+<td><b>QLEN</b></td>
+<td>Established listen queue connections</td>
+</tr>
+<tr class="tcw">
+<td><b>QLIM</b></td>
+<td>Established listen queue limit</td>
+</tr>
+<tr class="tcw">
+<td><b>RCVBUF</b></td>
+<td>Receive buffer length (<b>(SO_RCVBUF)</b>)</td>
+</tr>
+<tr class="tcw">
+ <td><b>SNDBUF</b></td>
+<td>Send buffer length (<b>(SO_SNDBUF)</b>)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Specifies that <b>lsof</b> should produce terse output with process identifiers only and no header; e.g., so that the output may be <a href="/jargon/p/pipe.htm">piped</a> to <a href="/jargon/k/kill.htm">kill.</a> <b>-t</b> selects the <b>-w</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b> <i>s</i></td>
+<td><p>Selects the listing of files for the user whose login names or user ID numbers are in the comma-separated set <i>s</i>; e.g., "<b>abe</b>", or "<b>548,root</b>". There should be no spaces in the set.</p>
+<p>Multiple login names or user ID numbers are joined in a single ORed set before participating in AND option selection.</p>
+<p>If a login name or user ID is preceded by a '<b>^</b>', it becomes a negation &mdash; i.e., files of processes owned by the login name or user ID are never listed. A negated login name or user ID selection is neither ANDed nor ORed with other selections; it is applied before all other selections and absolutely excludes the listing of the files of the process. For example, to direct <b>lsof</b> to exclude the listing of files belonging to root processes, specify "<b>-u^root</b>" or "<b>-u^0</b>".</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b></td>
+<td>Selects the listing of UNIX domain socket files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Selects the listing of <b>lsof</b> version information, including: revision number; when the <b>lsof</b> binary was constructed; who constructed the binary and where; the name of the compiler used to construct the <b>lsof</b> binary; the version number of the compiler when readily available; the compiler and loader flags used to construct the <b>lsof</b> binary; and system information, often the output of <a href="/unix/uuname.htm">uname</a>'s <b>-a</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b></td>
+<td><p>Directs <b>lsof</b> to indicate the items it was asked to list and failed to find &mdash; command names, file names, Internet addresses or files, login names, NFS files, PIDs, PGIDs, and UIDs.</p>
+<p>When other options are ANDed to search options, or compile-time options restrict the listing of some files, <b>lsof</b> may not report that it failed to find a search item when an ANDed option or compile-time option prevents the listing of the open file containing the located search item.</p>
+<p>For example, "<b>lsof -V <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="05286c51465545636a6a676477">[email&#160;protected]</a> -a -d 999</b>" may not report a failure to locate open files at "<b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5f1e6f5e5c3cacac7c4d7">[email&#160;protected]</a></b>" and may not list any, if none have a file descriptor number of 999. A similar situation arises when <b>HASSECURITY</b> and <b>HASNOSOCKSECURITY</b> are defined at compile time and they prevent the listing of open files.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b>|<b>-w</b></td>
+<td><p>Enables (<b>+</b>) or disables (<b>-</b>) the suppression of warning messages.</p>
+<p>The <b>lsof</b> builder may choose to have warning messages disabled or enabled by default. The default warning message state is indicated in the output of the <b>-h</b> or <b>-?</b> option. Disabling warning messages when they are already disabled or enabling them when already enabled is acceptable.</p>
+<p>The <b>-t</b> option selects the <b>-w</b> option.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b> [<i>fl</i>]</td>
+<td><p>May accompany the <b>+d</b> and <b>+D</b> options to direct their processing to cross over <a href="/jargon/s/symblink.htm">symbolic links</a> and|or file system mount points encountered when scanning the directory (<b>+d</b>) or directory tree (<b>+D</b>).</p>
+<p>If <b>-x</b> is specified by itself without a following parameter, crossover processing of both symbolic links and file system mount points is enabled. Note that when <b>-x</b> is specified without a parameter, the next argument must begin with '<b>-</b>' or '<b>+</b>'.</p>
+<p>The optional '<b>f</b>' parameter enables file system mount point crossover processing; '<b>l</b>', symbolic link crossover processing.</p>
+<p>The <b>-x</b> option may not be supplied without also supplying a <b>+d</b> or <b>+D</b> option.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-X</b></td>
+<td><p>This is a dialect-specific option.</p>
+<p><b>AIX:</b></p>
+<p>This IBM AIX RISC/System 6000 option requests the reporting of executed text file and shared library references.</p>
+<p>WARNING: because this option uses the kernel <b>readx()</b> function, its use on a busy AIX system might cause an application process to hang so completely that it can neither be killed nor stopped.</p>
+<p>By default, use of <b>readx()</b> is disabled. On AIX 5L and above, <b>lsof</b> may need setuid-root permission to perform the actions this option requests.</p>
+<p>The <b>lsof</b> builder may specify that the <b>-X</b> option be restricted to processes whose real UID is root. If that was done, the <b>-X</b> option does not appear in the <b>-h</b> or <b>-?</b> help output unless the real UID of the lsof process is root. The default <b>lsof</b> distribution allows any UID to specify <b>-X</b>, so by default it appears in the help output.</p>
+<p>When AIX <b>readx()</b> use is disabled, <b>lsof</b> may not be able to report information for all text and loader file references, but it may also avoid exacerbating an AIX kernel directory search kernel error, known as the Stale Segment ID bug.</p>
+<p>The <b>readx()</b> function, used by <b>lsof</b> or any other program to access some sections of kernel virtual memory, can trigger the Stale Segment ID bug. It can cause the kernel's <b>dir_search()</b> function to believe erroneously that part of an in-memory copy of a file system directory was zeroed. Another application process, distinct from <b>lsof</b>, asking the kernel to search the directory &mdash; e.g., using <b>open</b> &mdash; can cause <b>dir_search()</b> to loop forever, thus hanging the application process.</p>
+<p><b>Linux:</b></p>
+<p>This Linux option requests that <b>lsof</b> skip the reporting of information on all open TCP, UDP and UDPLITE IPv4 and IPv6 files.</p>
+<p>This Linux option is most useful when the system has an extremely large number of open TCP, UDP and UDPLITE files, the processing of whose information in the <b>/proc/net/tcp*</b> and <b>/proc/net/udp*</b> files would take <b>lsof</b> a long time, and whose reporting is not of interest.</p>
+<p>Use this option with care and only when you are sure that the information you want <b>lsof</b> to display isn't associated with open TCP, UDP or UDPLITE socket files.</p>
+<p><b>Solaris 10 and above:</b></p>
+<p>This Solaris 10 and above option requests the reporting of cached paths for files that were deleted &mdash; i.e., removed with <a href="/unix/urm.htm"><b>rm</b></a> or <a href="/unix/unlink.htm"><b>unlink</b></a>.</p>
+<p>The cached path is followed by the string "<b>(deleted)</b>" to indicate that the path by which the file was opened was deleted.</p>
+<p>Because intervening changes made to the path &mdash; i.e., renames with <a href="/unix/umv.htm"><b>mv</b></a> or <a href="/unix/rename.htm"><b>rename</b></a> &mdash; are not recorded in the cached path, what <b>lsof</b> reports is only the path by which the file was opened, not its possibly different final path.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b> [<i>z</i>]</td>
+<td><p>Specifies how Solaris 10 and higher zone information is to be handled.</p>
+<p>Without a following argument &mdash; e.g., no <i>z</i> &mdash; the option specifies that zone names are to be listed in the ZONE output column.</p>
+<p>The <b>-z</b> option may be followed by a zone name, <i>z</i>. That causes <b>lsof</b> to list only open files for processes in that zone. Multiple <b>-z</b> <i>z</i> option and argument pairs may be specified to form a list of named zones. Any open file of any process in any of the zones are listed, subject to other conditions specified by other options and arguments.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-Z</b> [<i>Z</i>]</td>
+<td><p>Specifies how SELinux security contexts are to be handled. It and '<i>Z</i>' field output character support are inhibited when SELinux is disabled in the running Linux kernel.</p>
+<p>Without a following argument &mdash; e.g., no <i>Z</i> &mdash; the option specifies that security contexts are to be listed in the SECURITY-CONTEXT output column.</p>
+<p>The <b>-Z</b> option may be followed by a wildcard security context name, <i>Z</i>. That causes <b>lsof</b> to list only open files for processes in that security context. Multiple <b>-Z</b> <i>Z</i> option and argument pairs may be specified to form a list of security contexts. Any open file of any process in any of the security contexts are listed, subject to other conditions specified by other options and arguments. Note that <i>Z</i> can be <b>A:B:C</b> or <b>*:B:C</b> or <b>A:B:*</b> or <b>*:*:C</b> to match against the <b>A:B:C</b> context.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>--</b></td>
+<td>The double minus sign option is a marker that signals the end of the keyed options. It may be used, for example, when the first file name begins with a minus sign. It may also be used when the absence of a value for the last keyed option must be signified by the presence of a minus sign in the following option and before the start of the file names.</td>
+</tr>
+<tr class="tcw">
+<td><i>names</i></td>
+<td><p>These are path names of specific files to list. <a href="/jargon/s/symblink.htm">Symbolic links</a> are resolved before use. The first name may be separated from the preceding options with the "<b>--</b>" option.</p>
+<p>If a name is the mounted-on directory of a file system or the device of the file system, <b>lsof</b> lists all the files open on the file system. To be considered a file system, the name must match a mounted-on directory name in <a href="/unix/umount.htm">mount</a> output, or match the name of a block device associated with a mounted-on directory name. The <b>+</b>|<b>-f</b> option may be used to force <b>lsof</b> to consider a name a file system identifier (<b>+f</b>) or a simple file (<b>-f</b>).</p>
+<p>If <i>name</i> is a path to a directory that is not the mounted-on directory name of a file system, it is treated as a regular file is treated &mdash; i.e., its listing is restricted to processes that have it open as a file or as a process-specific directory, such as the root or current working directory. To request that lsof look for open files inside a directory name, use the <b>+d</b> <i>s</i> and <b>+D</b> <i>D</i> options.</p>
+<p>If a name is the base name of a family of multiplexed files &mdash; e. g, AIX's <b>/dev/pt</b>[<b>cs</b>] &mdash; <b>lsof</b> lists all the associated multiplexed files on the device that are open &mdash; e.g., <b>/dev/pt</b>[<b>cs</b>]<b>/1</b>, <b>/dev/pt</b>[<b>cs</b>]<b>/2</b>, etc.</p>
+<p>If a name is a UNIX domain socket name, <b>lsof</b> will usually search for it by the characters of the name alone &mdash; exactly as it is specified and is recorded in the kernel socket structure. See the next paragraph for an exception to that rule for Linux. Specifying a relative path &mdash; e.g., <b>./file</b> &mdash; in place of the file's absolute path &mdash; e.g., <b>/tmp/file</b> &mdash; won't work because lsof must match the characters you specify with what it finds in the kernel UNIX domain socket structures.</p>
+<p>If a name is a Linux UNIX domain socket name, in one case lsof can search for it by its device and inode number, allowing name to be a relative path. The case requires that the absolute path -- i.e., one beginning with a slash ('<b>/</b>') be used by the process that created the socket, and hence be stored in the <b>/proc/net/unix</b> file; and it requires that <b>lsof</b> be able to obtain the device and node numbers of both the absolute path in <b>/proc/net/unix</b> and name via successful <a href="/unix/stat.htm">stat</a> system calls. When those conditions are met, <b>lsof</b> can search for the UNIX domain socket when some path to it is specified in name. Thus, for example, if the path is <b>/dev/log</b>, and an <b>lsof</b> search is initiated when the working directory is <b>/dev</b>, then name could be <b>./log</b>.</p>
+<p>If a name is none of the above, <b>lsof</b> lists any open files whose device and inode match that of the specified path name.</p>
+<p>If you have also specified the <b>-b</b> option, the only names you may safely specify are file systems for which your mount table supplies alternate device numbers.</p>
+<p>Multiple file names are joined in a single ORed set before participating in AND option selection.</p>
+</td>
+</tr>
+</table>
+<h2 id="afs">AFS</h2>
+<p class="tab">AFS (the Andrew File System, a distributed, networked filesystem) is supported by <b>lsof</b> for these dialects (and AFS versions):</p>
+<ul>
+<li>AIX 4.1.4 (AFS 3.4a)</li>
+<li>HP-UX 9.0.5 (AFS 3.4a)</li>
+<li>Linux 1.2.13 (AFS 3.3)</li>
+<li>Solaris 2.[56] (AFS 3.4a)</li>
+</ul>
+<p class="tab">It may recognize AFS files on other versions of these dialects, but has not been tested there. Depending on how AFS is implemented, <b>lsof</b> may recognize AFS files in other dialects, or may have difficulties recognizing AFS files in the supported dialects.</p>
+<p class="tab"><b>lsof</b> may have trouble identifying all aspects of AFS files in supported dialects when AFS kernel support is implemented via dynamic modules whose addresses do not appear in the kernel's variable name list. In that case, <b>lsof</b> may have to guess at the identity of AFS files, and might not be able to obtain volume information from the kernel that is needed for calculating AFS volume node numbers. When <b>lsof</b> can't compute volume node numbers, it reports blank in the NODE column.</p>
+<p class="tab">The <b>-A</b> <i>A</i> option is available in some dialect implementations of lsof for specifying the name list file where dynamic module kernel addresses may be found. When this option is available, it's listed in the <b>lsof</b> help output, presented in response to the <b>-h</b> or <b>-?</b></p>
+<p class="tab">Because AFS path lookups don't seem to participate in the kernel's name cache operations, <b>lsof</b> can't identify path name components for AFS files.</p>
+<h2 id="security">Security</h2>
+<p class="tab"><b>lsof</b> has three features that may cause security concerns. First, its default compilation mode allows anyone to list all open files with it. Second, by default it creates a user-readable and user-writable device cache file in the home directory of the real user ID that executes <b>lsof</b>. The <b>list-all-open-files</b> and device cache features may be disabled when lsof is compiled. Third, its <b>-k</b> and <b>-m</b> options name alternate kernel name list or memory files.</p>
+<p class="tab">Restricting the listing of all open files is controlled by the compile-time <b>HASSECURITY</b> and <b>HASNOSOCKSECURITY</b> options. When <b>HASSECURITY</b> is defined, <b>lsof</b> allows only the root user to list all open files. The non-root user may list only open files of processes with the same user IDentification number as the real user ID number of the <b>lsof</b> process (the one that its user logged on with).</p>
+<p class="tab">However, if <b>HASSECURITY</b> and <b>HASNOSOCKSECURITY</b> are both defined, anyone may list open socket files, provided they are selected with the <b>-i</b> option.</p>
+<p class="tab">When <b>HASSECURITY</b> is not defined, anyone may list all open files.</p>
+<p class="tab">Help output, presented in response to the <b>-h</b> or <b>-?</b> option, gives the status of the <b>HASSECURITY</b> and <b>HASNOSOCKSECURITY</b> definitions.</p>
+<p class="tab">Creation and use of a user-readable and user-writable device cache file is controlled by the compile-time <b>HASDCACHE</b> option. For security considerations it is important to note that in the default <b>lsof</b> distribution, if the real user ID under which lsof is executed is root, the device cache file will be written in root's home directory &mdash; e.g., <b>/</b> or <b>/root</b>. When <b>HASDCACHE</b> is not defined, lsof does not write or attempt to read a device cache file.</p>
+<p class="tab">When <b>HASDCACHE</b> is defined, the <b>lsof</b> help output, presented in response to the <b>-h</b>, <b>-D?</b>, or <b>-?</b> options, providing device cache file handling information. When <b>HASDCACHE</b> is not defined, the <b>-h</b> or <b>-?</b> output has no <b>-D</b> option description.</p>
+<p class="tab">Before you decide to disable the device cache file feature &mdash; enabling it improves the performance of <b>lsof</b> by reducing the startup overhead of examining all the nodes in <b>/dev</b> (or <b>/devices</b>) &mdash; read the discussion of it in the <b>DCACHE</b> file of the <b>lsof</b> distribution and the <b>lsof</b> FAQ.</p>
+<p class="tab"><i>WHEN IN DOUBT, YOU CAN TEMPORARILY DISABLE THE USE OF THE DEVICE CACHE FILE WITH THE </i><b>-Di</b><i> OPTION.</i></p>
+<p class="tab">When <b>lsof</b> user declares alternate kernel name list or memory files with the <b>-k</b> and <b>-m</b> options, <b>lsof</b> checks the user's authority to read them with access. This is intended to prevent whatever special power lsof's modes might confer on it from letting it read files not normally accessible via the authority of the real user ID.</p>
+<h2 id="output">Output</h2>
+<p class="tab">This section describes the information lsof lists for each open file.</p>
+<p class="tab"><b>lsof</b> only outputs printable (declared so by <b>isprint</b>) 8 bit <a href="/jargon/c/charact.htm">characters</a>. Non-printable characters are printed in one of three forms: the C "<b>\[bfrnt]</b>" form; the control character '<b>^</b>' form (e.g., "<b>^@</b>"); or hexadecimal leading "<b>\x</b>" form (e.g., "<b>\xab</b>"). Space is non-printable in the COMMAND column ("<b>\x20</b>") and printable elsewhere.</p>
+<p class="tab">For some dialects &mdash; if <b>HASSETLOCALE</b> is defined in the dialect's <b>machine.h</b> header file &mdash; <b>lsof</b> prints the extended 8 bit characters of a language locale. The <b>lsof</b> process must be supplied a language locale environment variable (e.g., <b>LANG</b>) whose value represents a known language locale where the extended characters are considered printable by <b>isprint</b>. Otherwise, <b>lsof</b> considers the extended characters non-printable and prints them according to its rules for non-printable characters, stated above. Consult your dialect's <b>setlocale</b> man page for the names of other environment variables used in place of <b>LANG</b> &mdash; e.g., <b>LC_ALL</b>, <b>LC_CTYPE</b>, etc.</p>
+<p class="tab"><b>lsof</b>'s language locale support for a dialect also covers wide characters &mdash; e.g., UTF-8 &mdash; when <b>HASSETLOCALE</b> and <b>HASWIDECHAR</b> are defined in the dialect's <b>machine.h</b> header file, and when a suitable language locale is defined in the appropriate environment variable for the <b>lsof</b> process. Wide characters are printable under those conditions if <b>iswprint</b> reports them to be. If <b>HASSETLOCALE</b>, <b>HASWIDECHAR</b> and a suitable language locale aren't defined, or if <b>iswprint</b> reports wide characters that aren't printable, <b>lsof</b> considers the wide characters non-printable and prints each of their 8 bits according to its rules for non-printable characters, stated above.</p>
+<p class="tab">Consult the answers to the "Language locale support" questions in the lsof FAQ. The FAQ section gives its location for more information.</p>
+<p class="tab"><b>lsof</b> dynamically sizes the output columns each time it runs, guaranteeing that each column is a minimum size. It also guarantees that each column is separated from its predecessor by at least one space.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><i>COMMAND</i></td>
+<td><p>contains the first nine characters of the name of the UNIX command associated with the process. If a non-zero <b>w</b> value is specified to the <b>+c w</b> option, the column contains the first <b>w</b> characters of the name of the UNIX command associated with the process up to the limit of characters supplied to <b>lsof</b> by the UNIX dialect.</p>
+<p>If <b>w</b> is less than the length of the column title, "<i>COMMAND</i>", it will be raised to that length.</p>
+<p>If a zero <b>w</b> value is specified to the <b>+c w</b> option, the column contains all the characters of the name of the UNIX command associated with the process.</p>
+<p>All command name characters maintained by the kernel in its structures are displayed in field output when the command name descriptor ('<b>c</b>') is specified.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>PID</b></td>
+<td>is the Process IDentification number of the process.</td>
+</tr>
+<tr class="tcw">
+<td><b>TID</b></td>
+<td><p>is the task IDentification number, if a task reporting is supported by the dialect and a task is being listed. If help output &mdash; i.e., the output of the <b>-h</b> or <b>-?</b> options &mdash; shows this option, then task reporting is supported by the dialect.</p>
+<p>A blank TID column indicates a process &mdash; i.e., a non-task.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>ZONE</b></td>
+<td>is the Solaris 10 and higher zone name. This column must be selected with the <b>-z</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>SECURITY-CONTEXT</b></td>
+<td>is the SELinux security context. This column must be selected with the <b>-Z</b> option. Note that the <b>-Z</b> option is inhibited when SELinux is disabled in the running Linux kernel.</td>
+</tr>
+<tr class="tcw">
+<td><b>PPID</b></td>
+<td>is the Parent Process IDentification number of the process. It is only displayed when the <b>-R</b> option is specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>PGID</b></td>
+<td>is the process group IDentification number associated with the process. It is only displayed when the <b>-g</b> option is specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>USER</b></td>
+<td>is the user ID number or login name of the user to whom the process belongs, usually the same as reported by <a href="/unix/ups.htm"><b>ps</b></a>. However, on Linux USER is the user ID number or login that owns the directory in <b>/proc</b> where <b>lsof</b> finds information about the process. Usually, that's the same value reported by <b>ps</b>, but may differ when the process has changed its effective user ID.</td>
+</tr>
+<tr class="tcw">
+<td><b>FD</b></td>
+<td><p>is the File Descriptor number of the file or:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>cwd</b></td>
+<td>current working directory;</td>
+</tr>
+<tr class="tcw">
+<td><b>L</b><i>nn</i></td>
+<td>library references (AIX);</td>
+</tr>
+<tr class="tcw">
+<td><b>err</b></td>
+<td>FD information error (see NAME column);</td>
+</tr>
+<tr class="tcw">
+<td>jld</td>
+<td>jail directory (FreeBSD);</td>
+</tr>
+<tr class="tcw">
+<td><b>ltx</b></td>
+<td>shared library text (code and data);</td>
+</tr>
+<tr class="tcw">
+<td><b>M</b><i>xx</i></td>
+<td>hex memory-mapped type number xx.</td>
+</tr>
+<tr class="tcw">
+<td><b>m86</b></td>
+<td>DOS Merge mapped file;</td>
+</tr>
+<tr class="tcw">
+<td><b>mem</b></td>
+<td>memory-mapped file;</td>
+</tr>
+<tr class="tcw">
+<td><b>mmap</b></td>
+<td>memory-mapped device;</td>
+</tr>
+<tr class="tcw">
+<td><b>pd</b></td>
+<td>parent directory;</td>
+</tr>
+<tr class="tcw">
+<td><b>rtd</b></td>
+<td>root directory;</td>
+</tr>
+<tr class="tcw">
+<td><b>tr</b></td>
+<td>kernel trace file (OpenBSD);</td>
+</tr>
+<tr class="tcw">
+<td><b>txt</b></td>
+<td>program text (code and data);</td>
+</tr>
+<tr class="tcw">
+<td><b>v86</b></td>
+<td>VP/ix mapped file;</td>
+</tr>
+</table>
+<p><b>FD</b> is followed by one of these characters, describing the mode under which the file is open:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>r</b></td>
+<td>for read access;</td>
+</tr>
+<tr class="tcw">
+<td><b>w</b></td>
+<td>for write access;</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b></td>
+<td>for read and write access;</td>
+</tr>
+<tr class="tcw">
+<td><b>space</b></td>
+<td>if mode unknown and no lock character follows;</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>if mode unknown and lock character follows.</td>
+</tr>
+</table>
+<p>The mode character is followed by one of these lock characters, describing the type of lock applied to the file:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>N</b></td>
+<td>for a Solaris NFS lock of unknown type;</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b></td>
+<td>for read lock on part of the file;</td>
+</tr>
+<tr class="tcw">
+<td><b>R</b></td>
+<td>for a read lock on the entire file;</td>
+</tr>
+<tr class="tcw">
+<td><b>w</b></td>
+<td>for a write lock on part of the file;</td>
+</tr>
+<tr class="tcw">
+<td><b>W</b></td>
+<td>for a write lock on the entire file;</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b></td>
+<td>for a read and write lock of any length;</td>
+</tr>
+<tr class="tcw">
+<td><b>U</b></td>
+<td>for a lock of unknown type;</td>
+</tr>
+<tr class="tcw">
+<td><b>x</b></td>
+<td>for an SCO OpenServer Xenix lock on part of the file;</td>
+</tr>
+<tr class="tcw">
+<td><b>X</b></td>
+<td>for an SCO OpenServer Xenix lock on the entire file;</td>
+</tr>
+<tr class="tcw">
+<td>space</td>
+<td>if there is no lock.</td>
+</tr>
+</table>
+<p>The <b>FD</b> column contents constitutes a single field for parsing in post-processing scripts.</p>
+<p class="nb">TYPE</p>
+<p>is the type of the node associated with the file &mdash; e.g.,<b>GDIR</b>, <b>GREG</b>, <b>VDIR</b>, <b>VREG</b>, etc.</p>
+<p>or "<b>IPv4</b>" for an IPv4 socket;</p>
+<p>or "<b>IPv6</b>" for an open IPv6 network file &mdash; even if its address is IPv4, mapped in an IPv6 address;</p>
+<p>or "<b>ax25</b>" for a Linux AX.25 socket;</p>
+<p>or "<b>inet</b>" for an Internet domain socket;</p>
+<p>or "<b>lla</b>" for a HP-UX link level access file;</p>
+<p>or "<b>rte</b>" for an AF_ROUTE socket;</p>
+<p>or "<b>sock</b>" for a socket of unknown domain;</p>
+<p>or "<b>unix</b>" for a UNIX domain socket;</p>
+<p>or "<b>x.25</b>" for an HP-UX x.25 socket;</p>
+<p>or "<b>BLK</b>" for a block special file;</p>
+<p>or "<b>CHR</b>" for a character special file;</p>
+<p>or "<b>DEL</b>" for a Linux map file that was deleted;</p>
+<p>or "<b>DIR</b>" for a directory;</p>
+<p>or "<b>DOOR</b>" for a VDOOR file;</p>
+<p>or "<b>FIFO</b>" for a FIFO special file;</p>
+<p>or "<b>KQUEUE</b>" for a BSD style kernel event queue file;</p>
+<p>or "<b>LINK</b>" for a symbolic link file;</p>
+<p>or "<b>MPB</b>" for a multiplexed block file;</p>
+<p>or "<b>MPC</b>" for a multiplexed character file;</p>
+<p>or "<b>NOFD</b>" for a Linux <b>/proc/&lt;PID&gt;/fd</b> directory that can't be opened -- the directory path appears in the NAME column, followed by an error message.</p>
+<p>or "<b>PAS</b>" for a <b>/proc/as</b> file;</p>
+<p>or "<b>PAXV</b>" for a <b>/proc/auxv</b> file;</p>
+<p>or "<b>PCRE</b>" for a <b>/proc/cred</b> file;</p>
+<p>or "<b>PCTL</b>" for a <b>/proc</b> control file;</p>
+<p>or "<b>PCUR</b>" for the current <b>/proc</b> process;</p>
+<p>or "<b>PCWD</b>" for a <b>/proc</b> current working directory;</p>
+<p>or "<b>PDIR</b>" for a <b>/proc</b> directory;</p>
+<p>or "<b>PETY</b>" for a <b>/proc</b> executable type (etype);</p>
+<p>or "<b>PFD</b>" for a <b>/proc</b> file descriptor;</p>
+<p>or "<b>PFDR</b>" for a <b>/proc</b> file descriptor directory;</p>
+<p>or "<b>PFIL</b>" for an executable <b>/proc</b> file;</p>
+<p>or "<b>PFPR</b>" for a <b>/proc</b> FP register set;</p>
+<p>or "<b>PGD</b>" for a <b>/proc/pagedata</b> file;</p>
+<p>or "<b>PGID</b>" for a <b>/proc</b> group notifier file;</p>
+<p>or "<b>PIPE</b>" for pipes;</p>
+<p>or "<b>PLC</b>" for a <b>/proc/lwpctl</b> file;</p>
+<p>or "<b>PLDR</b>" for a <b>/proc/lpw</b> directory;</p>
+<p>or "<b>PLDT</b>" for a <b>/proc/ldt</b> file;</p>
+<p>or "<b>PLPI</b>" for a <b>/proc/lpsinfo</b> file;</p>
+<p>or "<b>PLST</b>" for a <b>/proc/lstatus</b> file;</p>
+<p>or "<b>PLU</b>" for a <b>/proc/lusage</b> file;</p>
+<p>or "<b>PLWG</b>" for a <b>/proc/gwindows</b> file;</p>
+<p>or "<b>PLWI</b>" for a <b>/proc/lwpsinfo</b> file;</p>
+<p>or "<b>PLWS</b>" for a <b>/proc/lwpstatus</b> file;</p>
+<p>or "<b>PLWU</b>" for a <b>/proc/lwpusage</b> file;</p>
+<p>or "<b>PLWX</b>" for a <b>/proc/xregs</b> file'</p>
+<p>or "<b>PMAP</b>" for a <b>/proc</b> map file (map);</p>
+<p>or "<b>PMEM</b>" for a <b>/proc</b> memory image file;</p>
+<p>or "<b>PNTF</b>" for a <b>/proc</b> process notifier file;</p>
+<p>or "<b>POBJ</b>" for a <b>/proc/object</b> file;</p>
+<p>or "<b>PODR</b>" for a <b>/proc/object</b> directory;</p>
+<p>or "<b>POLP</b>" for an old format <b>/proc</b> light weight process file;</p>
+<p>or "<b>POPF</b>" for an old format <b>/proc</b> PID file;</p>
+<p>or "<b>POPG</b>" for an old format <b>/proc</b> page data file;</p>
+<p>or "<b>PORT</b>" for a SYSV named pipe;</p>
+<p>or "<b>PREG</b>" for a <b>/proc</b> register file;</p>
+<p>or "<b>PRMP</b>" for a <b>/proc/rmap</b> file;</p>
+<p>or "<b>PRTD</b>" for a <b>/proc</b> root directory;</p>
+<p>or "<b>PSGA</b>" for a <b>/proc/sigact</b> file;</p>
+<p>or "<b>PSIN</b>" for a <b>/proc/psinfo</b> file;</p>
+<p>or "<b>PSTA</b>" for a <b>/proc</b> status file;</p>
+<p>or "<b>PSXSEM</b>" for a <a href="/jargon/p/posix.htm">POSIX</a> semaphore file;</p>
+<p>or "<b>PSXSHM</b>" for a POSIX shared memory file;</p>
+<p>or "<b>PUSG</b>" for a <b>/proc/usage</b> file;</p>
+<p>or "<b>PW</b>" for a <b>/proc/watch</b> file;</p>
+<p>or "<b>PXMP</b>" for a <b>/proc/xmap</b> file;</p>
+<p>or "<b>REG</b>" for a regular file;</p>
+<p>or "<b>SMT</b>" for a shared memory transport file;</p>
+<p>or "<b>STSO</b>" for a stream socket;</p>
+<p>or "<b>UNNM</b>" for an unnamed type file;</p>
+<p>or "<b>XNAM</b>" for an OpenServer Xenix special file of unknown type;</p>
+<p>or "<b>XSEM</b>" for an OpenServer Xenix semaphore file;</p>
+<p>or "<b>XSD</b>" for an OpenServer Xenix shared data file;</p>
+<p>or the four type number octets if the corresponding name isn't known.</p>
+<p class="nb">FILE-ADDR</p>
+<p>contains the kernel file structure address when <b>f</b> is specified to <b>+f</b>;</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>FCT</b></td>
+<td>contains the file reference count from the kernel file structure when <b>c</b> is specified to <b>f</b>;</td>
+</tr>
+<tr class="tcw">
+<td><b>FILE-FLAG</b></td>
+<td><p>when <b>g</b> or <b>G</b> is specified to <b>+f</b>, this field contains the contents of the <b>f_flag</b>[s] member of the kernel file structure and the kernel's per-process open file flags (if available); '<b>G</b>' causes them to be displayed in hexadecimal; '<b>g</b>', as shorthand names; two lists may be displayed with entries separated by commas, the lists separated by a semicolon ('<b>;</b>'); the first list may contain shorthand names for <b>f_flag</b>[s] values from the following table:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:80px"><b>AIO</b></td>
+<td>asynchronous I/O (e.g., FAIO)</td>
+</tr>
+<tr class="tcw">
+<td><b>AP</b></td>
+<td>append</td>
+</tr>
+<tr class="tcw">
+<td><b>ASYN</b></td>
+<td>asynchronous I/O (e.g., <b>FASYNC</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>BAS</b></td>
+<td>block, test, and set in use</td>
+</tr>
+<tr class="tcw">
+<td><b>BKIU</b></td>
+<td>block if in use</td>
+</tr>
+<tr class="tcw">
+<td><b>BL</b></td>
+<td>use block offsets</td>
+</tr>
+<tr class="tcw">
+<td><b>BSK</b></td>
+<td>block seek</td>
+</tr>
+<tr class="tcw">
+<td><b>CA</b></td>
+<td>copy avoid</td>
+</tr>
+<tr class="tcw">
+<td><b>CIO</b></td>
+<td>concurrent I/O</td>
+</tr>
+<tr class="tcw">
+<td><b>CLON</b></td>
+<td>clone</td>
+</tr>
+<tr class="tcw">
+<td><b>CLRD</b></td>
+<td>CL read</td>
+</tr>
+<tr class="tcw">
+<td><b>CR</b></td>
+<td>create</td>
+</tr>
+<tr class="tcw">
+<td><b>DF</b></td>
+<td>defer</td>
+</tr>
+<tr class="tcw">
+<td><b>DFI</b></td>
+<td>defer IND</td>
+</tr>
+<tr class="tcw">
+<td><b>DFLU</b></td>
+<td>data flush</td>
+</tr>
+<tr class="tcw">
+<td><b>DIR</b></td>
+<td>direct</td>
+</tr>
+<tr class="tcw">
+<td><b>DLY</b></td>
+<td>delay</td>
+</tr>
+<tr class="tcw">
+<td><b>DOCL</b></td>
+<td>do clone</td>
+</tr>
+<tr class="tcw">
+<td><b>DSYN</b></td>
+<td>data-only integrity</td>
+</tr>
+<tr class="tcw">
+<td><b>DTY</b></td>
+<td>must be a directory</td>
+</tr>
+<tr class="tcw">
+<td><b>EVO</b></td>
+<td>event only</td>
+</tr>
+<tr class="tcw">
+<td><b>EX</b></td>
+<td>open for exec</td>
+</tr>
+<tr class="tcw">
+<td><b>EXCL</b></td>
+<td>exclusive open</td>
+</tr>
+<tr class="tcw">
+<td><b>FSYN</b></td>
+<td>synchronous writes</td>
+</tr>
+<tr class="tcw">
+<td><b>GCDF</b></td>
+<td>defer during <b>unp_gc()</b> (AIX)</td>
+</tr>
+<tr class="tcw">
+<td><b>GCMK</b></td>
+<td>mark during <b>unp_gc()</b> (AIX)</td>
+</tr>
+<tr class="tcw">
+<td><b>GTTY</b></td>
+<td>accessed via <b>/dev/tty</b></td>
+</tr>
+<tr class="tcw">
+<td><b>HUP</b></td>
+<td><b>HUP</b> in progress</td>
+</tr>
+<tr class="tcw">
+<td><b>KERN</b></td>
+<td>kernel</td>
+</tr>
+<tr class="tcw">
+<td><b>KIOC</b></td>
+<td>kernel-issued ioctl</td>
+</tr>
+<tr class="tcw">
+<td><b>LCK</b></td>
+<td>has lock</td>
+</tr>
+<tr class="tcw">
+<td><b>LG</b></td>
+<td>large file</td>
+</tr>
+<tr class="tcw">
+<td><b>MBLK</b></td>
+<td>stream message block</td>
+</tr>
+<tr class="tcw">
+<td><b>MK</b></td>
+<td>mark</td>
+</tr>
+<tr class="tcw">
+<td><b>MNT</b></td>
+<td>mount</td>
+</tr>
+<tr class="tcw">
+<td><b>MSYN</b></td>
+<td>multiplex synchronization</td>
+</tr>
+<tr class="tcw">
+<td><b>NATM</b></td>
+<td>don't update atime</td>
+</tr>
+<tr class="tcw">
+<td><b>NB</b></td>
+<td>non-blocking I/O</td>
+</tr>
+<tr class="tcw">
+<td><b>NBDR</b></td>
+<td>no BDRM check</td>
+</tr>
+<tr class="tcw">
+<td><b>NBIO</b></td>
+<td>SYSV non-blocking I/O</td>
+</tr>
+<tr class="tcw">
+<td><b>NBF</b></td>
+<td>n-buffering in effect</td>
+</tr>
+<tr class="tcw">
+<td><b>NC</b></td>
+<td>no cache</td>
+</tr>
+<tr class="tcw">
+<td><b>ND</b></td>
+<td>no delay</td>
+</tr>
+<tr class="tcw">
+<td><b>NDSY</b></td>
+<td>no data synchronization</td>
+</tr>
+<tr class="tcw">
+<td><b>NET</b></td>
+ <td>network</td>
+</tr>
+<tr class="tcw">
+<td><b>NFLK</b></td>
+<td>don't follow links</td>
+</tr>
+<tr class="tcw">
+<td><b>NMFS</b></td>
+<td>NM file system</td>
+</tr>
+<tr class="tcw">
+<td><b>NOTO</b></td>
+<td>disable background stop</td>
+</tr>
+<tr class="tcw">
+<td><b>NSH</b></td>
+<td>no share</td>
+</tr>
+<tr class="tcw">
+<td><b>NTTY</b></td>
+<td>no controlling TTY</td>
+</tr>
+<tr class="tcw">
+<td><b>OLRM</b></td>
+<td>OLR mirror</td>
+</tr>
+<tr class="tcw">
+<td><b>PAIO</b></td>
+<td>POSIX asynchronous I/O</td>
+</tr>
+<tr class="tcw">
+<td><b>PP</b></td>
+<td>POSIX <a href="/jargon/p/pipe.htm">pipe</a></td>
+</tr>
+<tr class="tcw">
+<td><b>R</b></td>
+<td>read</td>
+</tr>
+<tr class="tcw">
+<td><b>RC</b></td>
+<td>file and record locking cache</td>
+</tr>
+<tr class="tcw">
+<td><b>REV</b></td>
+<td>revoked</td>
+</tr>
+<tr class="tcw">
+<td><b>RSH</b></td>
+<td>shared read</td>
+</tr>
+<tr class="tcw">
+<td><b>RSYN</b></td>
+<td>read synchronization</td>
+</tr>
+<tr class="tcw">
+<td><b>RW</b></td>
+<td>read and write access</td>
+</tr>
+<tr class="tcw">
+<td><b>SL</b></td>
+<td>shared lock</td>
+</tr>
+<tr class="tcw">
+<td><b>SNAP</b></td>
+<td>cooked snapshot</td>
+</tr>
+<tr class="tcw">
+<td><b>SOCK</b></td>
+<td>socket</td>
+</tr>
+<tr class="tcw">
+<td><b>SQSH</b></td>
+<td>Sequent shared set on open</td>
+</tr>
+<tr class="tcw">
+<td><b>SQSV</b></td>
+<td>Sequent SVM set on open</td>
+</tr>
+<tr class="tcw">
+<td><b>SQR</b></td>
+<td>Sequent set repair on open</td>
+</tr>
+<tr class="tcw">
+<td><b>SQS1</b></td>
+<td>Sequent full shared open</td>
+</tr>
+<tr class="tcw">
+<td><b>SQS2</b></td>
+<td>Sequent partial shared open</td>
+</tr>
+<tr class="tcw">
+<td><b>STPI</b></td>
+<td>stop I/O</td>
+</tr>
+<tr class="tcw">
+<td><b>SWR</b></td>
+<td>synchronous read</td>
+</tr>
+<tr class="tcw">
+<td><b>SYN</b></td>
+<td>file integrity while writing</td>
+</tr>
+<tr class="tcw">
+<td><b>TCPM</b></td>
+<td>avoid TCP collision</td>
+</tr>
+<tr class="tcw">
+<td><b>TR</b></td>
+<td>truncate</td>
+</tr>
+<tr class="tcw">
+<td><b>W</b></td>
+<td>write</td>
+</tr>
+<tr class="tcw">
+<td><b>WKUP</b></td>
+<td>parallel I/O synchronization</td>
+</tr>
+<tr class="tcw">
+<td><b>WTG</b></td>
+<td>parallel I/O synchronization</td>
+</tr>
+<tr class="tcw">
+<td><b>VH</b></td>
+<td>vhangup pending</td>
+</tr>
+<tr class="tcw">
+<td><b>VTXT</b></td>
+<td>virtual text</td>
+</tr>
+<tr class="tcw">
+<td><b>XL</b></td>
+<td>exclusive lock</td>
+</tr>
+</table>
+<p>this list of names was derived from <b>F* #define</b>'s in dialect header files <b>&lt;fcntl.h&gt;</b>, <b>&lt;linux/fs.h&gt;</b>, <b>&lt;sys/fcntl.c&gt;</b>, <b>&lt;sys/fcntlcom.h&gt;</b>, and <b>&lt;sys/file.h&gt;</b>; see the <b>lsof.h</b> header file for a list showing the correspondence between the above shorthand names and the header file definitions;</p>
+<p>the second list (after the semicolon) may contain shorthand names for kernel per-process open file flags from this table:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:75px"><b>ALLC</b></td>
+<td>allocated</td>
+</tr>
+<tr class="tcw">
+<td><b>BR</b></td>
+<td>the file was read</td>
+</tr>
+<tr class="tcw">
+<td><b>BHUP</b></td>
+<td>activity stopped by SIGHUP</td>
+</tr>
+<tr class="tcw">
+<td><b>BW</b></td>
+<td>the file was written</td>
+</tr>
+<tr class="tcw">
+<td><b>CLSG</b></td>
+<td>closing</td>
+</tr>
+<tr class="tcw">
+<td><b>CX</b></td>
+<td>close-on-exec (see fcntl(F_SETFD))</td>
+</tr>
+<tr class="tcw">
+<td><b>LCK</b></td>
+<td>lock was applied</td>
+</tr>
+<tr class="tcw">
+<td><b>MP</b></td>
+<td>memory-mapped</td>
+</tr>
+<tr class="tcw">
+<td><b>OPIP</b></td>
+<td>open pending &mdash; in progress</td>
+</tr>
+<tr class="tcw">
+<td><b>RSVW</b></td>
+<td>reserved wait</td>
+</tr>
+<tr class="tcw">
+<td><b>SHMT</b></td>
+<td>UF_FSHMAT set (AIX)</td>
+</tr>
+<tr class="tcw">
+<td><b>USE</b></td>
+<td>in use (multi-threaded)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td style="width:180px"><b>NODE-ID</b></td>
+<td>(or <b>INODE-ADDR</b> for some dialects) contains a unique identifier for the file node (usually the kernel vnode or inode address, but also occasionally a concatenation of device and node number) when n is specified to +f;</td>
+</tr>
+<tr class="tcw">
+<td><b>DEVICE</b></td>
+<td><p>contains the device numbers, separated by commas, for a character special, block special, regular, directory or NFS file;</p>
+<p>or "memory" for a memory file system node under Tru64 UNIX;</p>
+<p>or the address of the private data area of a Solaris socket stream;</p>
+<p>or a kernel reference address that identifies the file (The kernel reference address may be used for FIFO's, for example.);</p>
+<p>or the base address or device name of a Linux AX.25 socket device.</p>
+<p>Usually, only the lower thirty two bits of Tru64 UNIX kernel addresses are displayed.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>SIZE</b>, <b>SIZE/OFF</b>, or <b>OFFSET</b></td>
+<td><p>is the size of the file or the file offset in bytes. A value is displayed in this column only if it's available. Lsof displays whatever value &mdash; size or offset &mdash; is appropriate for the type of the file and the version of lsof.</p>
+<p>On some UNIX dialects lsof can't obtain accurate or consistent file offset information from its kernel data sources, sometimes for particular kinds of files (e.g., socket files). In other cases, files don't have true sizes &mdash; e.g., sockets, FIFOs, pipes &mdash; so lsof displays for their sizes the content amounts it finds in their kernel buffer descriptors (e.g., socket buffer size counts or TCP/IP window sizes). Consult the lsof FAQ (The FAQ section gives its location) for more information.</p>
+<p>The file size is displayed in decimal; the offset is normally displayed in decimal with a leading "0t" if it contains 8 digits or less; in hexadecimal with a leading "0x" if it's longer than 8 digits. Consult the -o o option description for information on when 8 might default to some other value.</p>
+<p>Thus the leading "<b>0t</b>" and "<b>0x</b>" identify an offset when the column may contain both a size and an offset (i.e., its title is SIZE/OFF).</p>
+<p>If the <b>-o</b> option is specified, lsof always displays the file offset (or nothing if no offset is available) and labels the column OFFSET. The offset always begins with "<b>0t</b>" or "<b>0x</b>" as described above.</p>
+<p><b>lsof</b> user can control the switch from "<b>0t</b>" to "<b>0x</b>" with the <b>-o</b> <i>o</i> option. Consult its description for more information.</p>
+<p>If the <b>-s</b> option is specified, lsof always displays the file size (or nothing if no size is available) and labels the column SIZE. The <b>-o</b> and <b>-s</b> options are mutually exclusive; they can't both be specified.</p>
+<p>For files that don't have a fixed size &mdash; e.g., don't reside on a disk device &mdash; lsof displays appropriate information about the current size or position of the file if it's available in the kernel structures that define the file.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>NLINK</b></td>
+<td>contains the file link count when <b>+L</b> is specified;</td>
+</tr>
+<tr class="tcw">
+<td><b>NODE</b></td>
+<td><p>is the node number of a local file;</p>
+<p>or the inode number of an NFS file in the server host;</p>
+<p>or the Internet protocol type &mdash; e. g, "<b>TCP</b>";</p>
+<p>or "<b>STR</b>" for a vstream;</p>
+<p>or "<b>CCITT</b>" for an HP-UX x.25 socket;</p>
+<p>or the IRQ or inode number of a Linux AX.25 socket device.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>NAME</b></td>
+<td><p>is the name of the mount point and file system on which the file resides;</p>
+<p>or the name of a file specified in the names option (after any symbolic links are resolved);</p>
+<p>or the name of a character special or block special device;</p>
+<p>or the local and remote Internet addresses of a network file; the local hostname or IP number is followed by a colon ('<b>:</b>'), the port, "<b>-&gt;</b>", and the two-part remote address; IP addresses may be reported as numbers or names, depending on the <b>+</b>|<b>-M</b>, <b>-n</b>, and <b>-P</b> options; colon-separated IPv6 numbers are enclosed in square brackets; IPv4 <b>INADDR_ANY</b> and IPv6 <b>IN6_IS_ADDR_UNSPECIFIED</b> addresses, and zero port numbers are represented by an asterisk ('<b>*</b>'); a UDP destination address may be followed by the amount of time elapsed since the last packet was sent to the destination; TCP, UDP and UDPLITE remote addresses may be followed by TCP/TPI information in parentheses &mdash; state (e.g., "<b>(ESTABLISHED)</b>", "<b>(Unbound)</b>"), queue sizes, and window sizes (not all dialects) &mdash; in a fashion similar to what netstat(1) reports; see the -T option description or the description of the TCP/TPI field in OUTPUT FOR OTHER PROGRAMS for more information on state, queue size, and window size;</p>
+<p>or the address or name of a UNIX domain socket, possibly including a stream clone device name, a file system object's path name, local and foreign kernel addresses, socket pair information, and a bound vnode address;</p>
+<p>or the local and remote mount point names of an NFS file;</p>
+<p>or "<b>STR</b>", followed by the stream name;</p>
+<p>or a stream character device name, followed by "<b>-&gt;</b>" and the stream name or a list of stream module names, separated by "<b>-&gt;</b>";</p>
+<p>or "<b>STR:</b>" followed by the SCO OpenServer stream device and module names, separated by "<b>-&gt;</b>";</p>
+<p>or system directory name, "<b>--</b> ", and as many components of the path name as lsof can find in the kernel's name cache for selected dialects;</p>
+<p>or "<b>PIPE-&gt;</b>", followed by a Solaris kernel pipe destination address;</p>
+<p>or "<b>COMMON:</b>", followed by the vnode device information structure's device name, for a Solaris common vnode;</p>
+<p>or the address family, followed by a slash ('/'), followed by fourteen comma-separated bytes of a non-Internet raw socket address;</p>
+<p>or the HP-UX x.25 local address, followed by the virtual connection number (if any), followed by the remote address (if any);</p>
+<p>or "<b>(dead)</b>" for disassociated Tru64 UNIX files &mdash; terminal files that are flagged with the TIOCNOTTY ioctl and closed by daemons;</p>
+<p>or "<b>rd=&lt;offset&gt;</b>" and "<b>wr=&lt;offset&gt;</b>" for the values of the read and write offsets of a FIFO;</p>
+<p>or "<b>clone n:/dev/event</b>" for SCO OpenServer file clones of the /dev/event device, where n is the minor device number of the file;</p>
+<p>or "<b>(socketpair: n)</b>" for a Solaris 2.6, 8, 9 or 10 UNIX domain socket, created by the socketpair(3N) network function;</p>
+<p>or "<b>no PCB</b>" for socket files that do not have a protocol block associated with them, optionally followed by "<b>, CANTSENDMORE</b>" if sending on the socket was disabled, or "<b>, CANTRCVMORE</b>" if receiving on the socket was disabled (e.g., by the shutdown(2) function);</p>
+<p>or the local and remote addresses of a Linux IPX socket file in the form &lt;net&gt;:[&lt;node&gt;:]&lt;port&gt;, followed in parentheses by the transmit and receive queue sizes, and the connection state;</p>
+<p>or "<b>dgram</b>" or "<b>stream</b>" for the type UnixWare 7.1.1 and above in-kernel UNIX domain sockets, followed by a colon (':') and the local path name when available, followed by "<b>-&gt;</b>" and the remote path name or kernel socket address in hexadecimal when available;</p>
+<p>or the association value, association index, endpoint value, local address, local port, remote address and remote port for Linux SCTP sockets.</p>
+</td>
+</tr>
+</table>
+<p>For dialects that support a "<b>namefs</b>" file system, allowing one file to be attached to another with <b>fattach</b>, <b>lsof</b> adds "<b>(FA:</b><i>&lt;address1&gt;&lt;direction&gt;&lt;address2&gt;</i><b>)</b>" to the NAME column. <i>&lt;address1&gt;</i> and <i>&lt;address2&gt;</i> are hexadecimal vnode addresses. <i>&lt;direction&gt;</i> will be "<b>&lt;</b>-" if <i>&lt;address2&gt;</i> was <b>fattach</b>'ed to this vnode whose address is <i>&lt;address1&gt;</i>; and "<b>-&gt;</b>" if <i>&lt;address1&gt;</i>, the vnode address of this vnode was <b>fattach</b>'ed to <i>&lt;address2&gt;</i>. <i>&lt;address1&gt;</i> may be omitted if it already appears in the DEVICE column.</p>
+<p><b>lsof</b> may add two parenthetical notes to the NAME column for open Solaris 10 files: "<b>(?)</b>" if <b>lsof</b> considers the path name of questionable accuracy; and "<b>(deleted)</b>" if the <b>-X</b> option was specified and <b>lsof</b> detects the open file's path name was deleted.</p>
+<p class="nb">LOCKS</p>
+<p><b>lsof</b> can't adequately report the wide variety of UNIX dialect file locks in a single character. What it reports in a single character is a compromise between the information it finds in the kernel and the limitations of the reporting format.</p>
+<p>Moreover, when a process holds several byte level locks on a file, <b>lsof</b> only reports the status of the first lock it encounters. If it is a byte level lock, then the lock character will be reported in lowercase &mdash; i.e., '<b>r</b>', '<b>w</b>', or '<b>x</b>' &mdash; rather than the uppercase equivalent reported for a full file lock.</p>
+<p>Generally <b>lsof</b> can only report on locks held by local processes on local files. When a local process sets a lock on a remotely mounted (e.g., <a href="/jargon/n/nfs.htm">NFS</a>) file, the remote server host usually records the lock state. One exception is Solaris &mdash; at some patch levels of 2.3, and in all versions above 2.4, the Solaris kernel records information on remote locks in local structures.</p>
+<p><b>lsof</b> has trouble reporting locks for some UNIX dialects. Consult the BUGS section of this manual page or the lsof FAQ (The FAQ section gives its location) for more information.</p>
+<p class="nb">OUTPUT FOR OTHER PROGRAMS</p>
+<p>When the <b>-F</b> option is specified, <b>lsof</b> produces output that is suitable for processing by another program &mdash; e.g, an awk or Perl script, or a C program.</p>
+<p>Each unit of information is output in a field that is identified with a leading character and terminated by an NL (<b>012</b>) (or a NULL (<b>000</b>) if the <b>0</b> (zero) field identifier character is specified). The data of the field follows immediately after the field identification character and extends to the field terminator.</p>
+<p>It is possible to think of field output as process and file sets. A process set begins with a field whose identifier is 'p' (for process IDentifier (PID)). It extends to the beginning of the next PID field or the beginning of the first file set of the process, whichever comes first. Included in the process set are fields that identify the command, the process group IDentification (PGID) number, the task number and the user ID (UID) number or login name.</p>
+<p>A file set begins with a field whose identifier is '<b>f</b>' (for file descriptor). It is followed by lines that describe the file's access mode, lock state, type, device, size, offset, inode, protocol, name and stream module names. It extends to the beginning of the next file or process set, whichever comes first.</p>
+<p>When the NULL (<b>000</b>) field terminator is selected with the <b>0</b> (zero) field identifier character, lsof ends each process and file set with an NL (<b>012</b>) character.</p>
+<p><b>lsof</b> always produces one field, the PID ('<b>p</b>') field. All other fields may be declared optionally in the field identifier character list that follows the <b>-F</b> option. When a field selection character identifies an item lsof does not normally list &mdash; e.g., PPID, selected with <b>-R</b> &mdash; specification of the field character &mdash; e.g., "<b>-FR</b>" &mdash; also selects the listing of the item.</p>
+<p>It is entirely possible to select a set of fields that cannot easily be parsed &mdash; e.g., if the field descriptor field is not selected, it may be difficult to identify file sets. To help you avoid this difficulty, <b>lsof</b> supports the <b>-F</b> option; it selects the output of all fields with <a href="/jargon/n/newline.htm">NL</a> terminators (the <b>-F0</b> option pair selects the output of all fields with NULL terminators). For compatibility reasons neither <b>-F</b> nor <b>-F0</b> select the raw device field.</p>
+<p>These are the fields that lsof produces. The single character listed first is the field identifier.</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>a</b></td>
+<td>file access mode</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td>process command name (all characters from proc or user structure)</td>
+</tr>
+<tr class="tcw">
+<td><b>C</b></td>
+<td>file structure share count</td>
+</tr>
+<tr class="tcw">
+<td><b>d</b></td>
+<td>file's device character code</td>
+</tr>
+<tr class="tcw">
+<td><b>D</b></td>
+<td>file's major/minor device number (0x&lt;hexadecimal&gt;)</td>
+</tr>
+<tr class="tcw">
+<td><b>f</b></td>
+<td>file descriptor</td>
+</tr>
+<tr class="tcw">
+<td><b>F</b></td>
+<td>file structure address (0x&lt;hexadecimal&gt;)</td>
+</tr>
+<tr class="tcw">
+<td><b>G</b></td>
+<td>file flaGs (0x&lt;hexadecimal&gt; names if +fg follows)</td>
+</tr>
+<tr class="tcw">
+<td><b>g</b></td>
+<td>process group ID</td>
+</tr>
+<tr class="tcw">
+<td><b>i</b></td>
+<td>file's <a href="/jargon/i/inode.htm">inode</a> number</td>
+</tr>
+<tr class="tcw">
+<td><b>K</b></td>
+<td>tasK ID</td>
+</tr>
+<tr class="tcw">
+<td><b>k</b></td>
+<td>link count</td>
+</tr>
+<tr class="tcw">
+<td><b>l</b></td>
+<td>file's lock status</td>
+</tr>
+<tr class="tcw">
+<td><b>L</b></td>
+<td>process login name</td>
+</tr>
+<tr class="tcw">
+<td><b>m</b></td>
+<td>marker between repeated output</td>
+</tr>
+<tr class="tcw">
+<td><b>n</b></td>
+<td>file name, comment, Internet address</td>
+</tr>
+<tr class="tcw">
+<td><b>N</b></td>
+<td>node identifier (ox&lt;hexadecimal&gt;)</td>
+</tr>
+<tr class="tcw">
+<td><b>o</b></td>
+<td>file's offset (decimal)</td>
+</tr>
+<tr class="tcw">
+<td><b>p</b></td>
+<td>process ID (always selected)</td>
+</tr>
+<tr class="tcw">
+<td><b>P</b></td>
+<td>protocol name</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b></td>
+<td>raw device number (0x&lt;hexadecimal&gt;)</td>
+</tr>
+<tr class="tcw">
+<td><b>R</b></td>
+<td>parent process ID</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b></td>
+<td>file's size (decimal)</td>
+</tr>
+<tr class="tcw">
+<td><b>S</b></td>
+<td>file's stream identification</td>
+</tr>
+<tr class="tcw">
+<td><b>t</b></td>
+<td>file's type</td>
+</tr>
+<tr class="tcw">
+<td><b>T</b></td>
+<td><p>TCP/TPI information, identified by prefixes (the '<b>=</b>' is part of the prefix):</p><pre><b>QR</b><i>&lt;read queue size&gt;</i><b>QS</b><i>&lt;send queue size&gt;</i><b>SO</b><i>&lt;socket options and values&gt;</i> (not all dialects)<b>SS</b><i>&lt;socket states&gt;</i> (not all dialects)<b>ST</b><i>&lt;connection state&gt;</i><b>TF</b><i>&lt;TCP flags and values&gt;</i> (not all dialects)<b>WR</b><i>&lt;window read size&gt;</i> (not all dialects)<b>WW</b><i>&lt;window write size&gt;</i> (not all dialects)</pre></td>
+</tr>
+</table>
+<p>TCP/TPI information isn't reported for all supported UNIX dialects. The -h or -? help output for the -T option shows what TCP/TPI reporting can be requested.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b></td>
+<td>process user ID</td>
+</tr>
+<tr class="tcw">
+<td><b>z</b></td>
+<td>Solaris 10 and higher zone name</td>
+</tr>
+<tr class="tcw">
+<td><b>Z</b></td>
+<td>SELinux security context (inhibited when SELinux is disabled)</td>
+</tr>
+<tr class="tcw">
+<td><b>0</b></td>
+<td>Use NULL field terminator character in place of NL</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b>-<b>9</b></td>
+<td>Dialect-specific field identifiers. The output of -F? identifies the information to be found in dialect-specific fields.</td>
+</tr>
+</table>
+<p class="tab">You can get online help information on these characters and their descriptions by specifying the <b>-F?</b> option pair. Escape the '<b>?</b>' character as your shell requires.</p>
+<p class="tab">For example, "<b>-F</b> <i>pcfn</i>" selects the process ID ('<b>p</b>'), command name ('<b>c</b>'), file descriptor ('<b>f</b>') and file name ('<b>n</b>') fields with an NL field terminator character; "<b>-F</b> <i>pcfn0</i>" selects the same output with a NULL (000) field terminator character.</p>
+<p class="tab"><b>lsof</b> doesn't produce all fields for every process or file set, only those that are available. Some fields are mutually exclusive: file device characters and file major/minor device numbers; file inode number and protocol name; file name and stream identification; file size and offset. One or the other member of these mutually exclusive sets appears in field output, but not both.</p>
+<p class="tab">Normally <b>lsof</b> ends each field with an NL (<b>012</b>) character. The <b>0</b> (zero) field identifier character may be specified to change the field terminator character to a NULL (<b>000</b>). A NULL terminator may be easier to process with <a href="/unix/xargs.htm"><b>xargs</b></a>, for example, or with programs whose quoting mechanisms may not easily cope with the range of characters in the field output. When the NULL field terminator is in use, <b>lsof</b> ends each process and file set with an NL (<b>012</b>).</p>
+<p class="tab">Three aids to producing programs that process lsof field output are included in the lsof distribution. The first is a C header file, <b>lsof_fields.h</b>, which contains symbols for the field identification characters, indexes for storing them in a table, and explanation strings compiled into programs. <b>lsof</b> uses this header file.</p>
+<p class="tab">The second aid is a set of sample scripts that process field output, written in awk, Perl 4, and Perl 5. They're located in the scripts subdirectory of the <b>lsof</b> distribution.</p>
+<p class="tab">The third aid is the C library used for the lsof test suite. The test suite is written in C and uses field output to validate the correct operation of <b>lsof</b>. The library is found in the <b>tests/LTlib.c</b> file of the <b>lsof</b> distribution. The library uses the first aid, the <b>lsof_fields.h</b> header file.</p>
+<h2 id="blocks">Blocks and timeouts</h2>
+<p class="tab"><b>lsof</b> can be blocked by some kernel functions that it uses &mdash; <b>lstat</b>, <a href="/unix/readlink.htm"><b>readlink</b></a>, and <a href="/unix/stat.htm">stat</a>. These functions are stalled in the kernel, for example, when the hosts where mounted NFS file systems reside become inaccessible.</p>
+<p class="tab"><b>lsof</b> attempts to break these blocks with timers and child processes, but the techniques are not wholly reliable. When <b>lsof</b> does manage to break a block, it will report the break with an error message. The messages may be suppressed with the <b>-t</b> and <b>-w</b> options.</p>
+<p class="tab">The default timeout value may be displayed with the <b>-h</b> or <b>-?</b> option, and it may be changed with the <b>-S</b> [<i>t</i>] option. The minimum for <i>t</i> is two seconds, avoid small values since slow system responsiveness can cause short timeouts to expire unexpectedly and perhaps stop <b>lsof</b> before it can produce any output.</p>
+<p class="tab">When <b>lsof</b> has to break a block during its access of mounted file system information, it normally continues, although with less information available to display about open files.</p>
+<p class="tab"><b>lsof</b> can also be directed to avoid the protection of timers and child processes when using the kernel functions that might block by specifying the <b>-O</b> option. While this allows <b>lsof</b> to start up with less overhead, it exposes <b>lsof</b> completely to the kernel situations that might block it. Use this option cautiously.</p>
+<h2 id="kernel">Avoiding kernel blocks</h2>
+<p class="tab">You can use the <b>-b</b> option to tell lsof to avoid using kernel functions that would block. Some cautions apply.</p>
+<p class="tab">First, using this option usually requires your system supply alternate device numbers in place of the device numbers that <b>lsof</b> would normally obtain with the <b>lstat</b> and <b>stat</b> kernel functions.</p>
+<p class="tab">Second, you can't specify names for lsof to locate unless they're file system names. This is because <b>lsof</b> needs to know the device and inode numbers of files listed with names in the <b>lsof</b> options, and the <b>-b</b> option prevents <b>lsof</b> from obtaining them. Moreover, since <b>lsof</b> only has device numbers for the file systems that have alternates, its ability to locate files on file systems depends completely on the availability and accuracy of the alternates. If no alternates are available, or if they're incorrect, <b>lsof</b> won't be able to locate files on the named file systems.</p>
+<p class="tab">Third, if the names of your file system directories that <b>lsof</b> obtains from your system's mount table are symbolic links, lsof won't be able to resolve the links. This is because the <b>-b</b> option causes <b>lsof</b> to avoid the kernel <a href="/unix/readlink.htm"><b>readlink</b></a> function it uses to resolve symbolic links.</p>
+<p class="tab">Finally, using the <b>-b</b> option causes <b>lsof</b> to issue warning messages when it needs to use the kernel functions that the <b>-b</b> option directs it to avoid. You can suppress these messages by specifying the <b>-w</b> option, but if you do, you won't see the alternate device numbers reported in the warning messages.</p>
+<h2 id="device">Alternate device numbers</h2>
+<p class="tab">On some dialects, when <b>lsof</b> has to break a block because it can't get information about a mounted file system via the <b>lstat</b> and <b>stat</b> kernel functions, or because you specified the <b>-b</b> option, <b>lsof</b> can obtain some of the information it needs &mdash; the device number and possibly the file system type &mdash; from the system mount table. When that is possible, <b>lsof</b> will report the device number it obtained. You can suppress the report by specifying the <b>-w</b> option.</p>
+<p class="tab">You can assist this process if your mount table is supported with an <b>/etc/mtab</b> or <b>/etc/mnttab</b> file containing an options field by adding a "<b>dev=</b><i>xxxx</i>" field for mount points that do not have one in their options strings. Note: you must be able to edit the file &mdash; i.e., some mount tables like recent Solaris <b>/etc/mnttab</b> or Linux <b>/proc/mounts</b> are read-only and can't be modified.</p>
+<p class="tab">You may also be able to supply device numbers using the <b>+m</b> and <b>+m</b> <i>m</i> options, provided they are supported by your dialect. Check the output of <b>lsof</b>'s <b>-h</b> or <b>-?</b> options to see if the <b>+m</b> and <b>+m</b> <i>m</i> options are available.</p>
+<p class="tab">The "<i>xxxx</i>" portion of the field is the hexadecimal value of the file system's device number. Consult the <b>st_dev</b> field of the output of the <b>lstat</b> and <b>stat</b> functions for the appropriate values for your file systems. Here's an example from a Sun Solaris 2.6 <b>/etc/mnttab</b> for a file system remotely mounted via NFS:</p>
+<pre class="tab tcy">nfs ignore,noquota,dev=2a40001</pre>
+<p class="tab">There's an advantage to having "<b>dev=</b><i>xxxx</i>" entries in your mount table file, especially for file systems that are mounted from remote NFS servers. When a remote server crashes and you want to identify its users by running <b>lsof</b> on one of its clients, <b>lsof</b> probably won't be able to get output from the <b>lstat</b> and <b>stat</b> functions for the file system. If it can obtain the file system's device number from the mount table, it can display the files open on the crashed NFS server.</p>
+<p class="tab">Some dialects that do not use an <a href="/jargon/a/ascii.htm">ASCII</a> <b>/etc/mtab</b> or <b>/etc/mnttab</b> file for the mount table may still provide an alternative device number in their internal mount tables. This includes AIX, Apple Darwin, FreeBSD, NetBSD, OpenBSD, and Tru64 UNIX. Lsof knows how to obtain the alternative device number for these dialects and uses it when its attempt to <b>lstat</b> or <b>stat</b> the file system is blocked.</p>
+<p class="tab">If you're not sure your dialect supplies alternate device numbers for file systems from its mount table, use this lsof incantation to see if it reports any alternate device numbers:</p>
+<pre class="tab">lsof -b</pre>
+<p class="tab">Look for standard error file warning messages that begin "<b>assuming "dev=</b><i>xxxx</i>" <b>from ...</b>".</p>
+<h2 id="cache">Kernel name cache</h2>
+<p class="tab"><b>lsof</b> can examine the kernel's name cache or use other kernel facilities (e.g., the ADVFS 4.x <b>tag_to_path()</b> function under Tru64 UNIX) on some dialects for most file system types, excluding AFS, and extract recently used path name components from it. AFS file system path lookups don't use the kernel's name cache; some Solaris VxFS file system operations apparently don't use it, either.</p>
+<p class="tab"><b>lsof</b> reports the complete paths it finds in the NAME column. If <b>lsof</b> can't report all components in a path, it reports in the NAME column the file system name, followed by a space, two '<b>-</b>' characters, another space, and the name components it has located, separated by the '<b>/</b>' character.</p>
+<p class="tab">When lsof is run in repeat mode &mdash; i.e., with the <b>-r</b> option specified &mdash; the extent it can report path name components for the same file may vary from cycle to cycle. That's because other running processes can cause the kernel to remove entries from its name cache and replace them with others.</p>
+<p class="tab">Lsof's use of the kernel name cache to identify the paths of files can lead it to report incorrect components under some circumstances. This can happen when the kernel name cache uses device and node number as a key (e.g., <a href="/comp/sco.htm">SCO</a> OpenServer) and a key on a rapidly changing file system is reused. If the UNIX dialect's kernel doesn't purge the name cache entry for a file when it is unlinked, lsof may find a reference to the wrong entry in the cache.</p>
+<p class="tab"><b>lsof</b> can report path name components for these dialects:</p>
+<ul>
+<li>FreeBSD</li>
+<li>HP-UX</li>
+<li>Linux</li>
+<li>NetBSD</li>
+<li>NEXTSTEP</li>
+<li>OpenBSD</li>
+<li>OPENSTEP</li>
+<li>SCO OpenServer</li>
+<li>SCO|Caldera UnixWare</li>
+<li>Solaris</li>
+<li>Tru64 UNIX</li>
+</ul>
+<p class="tab"><b>lsof</b> can't report path name components for these dialects:</p>
+<ul>
+<li>AIX</li>
+</ul>
+<h2 id="file">Device cache file</h2>
+<p class="tab">Examining all members of the <b>/dev</b> (or <b>/devices</b>) node tree with <b>stat</b> functions can be time consuming. What's more, the information that <b>lsof</b> needs &mdash; device number, inode number, and path &mdash; rarely changes.</p>
+<p class="tab">Consequently, <b>lsof</b> normally maintains an ASCII text file of cached <b>/dev</b> (or <b>/devices</b>) information (exception: the <b>/proc-based</b> Linux <b>lsof</b> where it's not needed). The local system administrator who builds lsof can control the way the device cache file path is formed, selecting from these options:</p>
+<ul>
+<li>Path from the <b>-D</b> option;</li>
+<li>Path from an environment variable;</li>
+<li>System-wide path;</li>
+<li>Personal path (the default);</li>
+<li>Personal path, modified by an environment variable.</li>
+</ul>
+<p class="tab">Consult the output of the <b>-h</b>, <b>-D?</b> , or <b>-?</b> help options for the current state of device cache support. The help output lists the default read-mode device cache file path that is in effect for the current invocation of <b>lsof</b>. The <b>-D?</b> option output lists the read-only and write device cache file paths, the names of any applicable environment variables, and the personal device cache path format.</p>
+<p class="tab"><b>lsof</b> can detect that the current device cache file was accidentally or maliciously modified by integrity checks, including the computation and verification of a sixteen bit Cyclic Redundancy Check (CRC) sum on the file's contents. When <b>lsof</b> senses something wrong with the file, it issues a warning and attempts to remove the current cache file and create a new copy, but only to a path that the process can legitimately write.</p>
+<p class="tab">The path from which a lsof process may attempt to read a device cache file may not be the same as the path it can legitimately write. Thus when lsof senses that it needs to update the device cache file, it may choose a different path for writing it from the path from which it read an incorrect or outdated version.</p>
+<p class="tab">If available, the <b>-Dr</b> option will inhibit the writing of a new device cache file. It's always available when specified without a path name argument.</p>
+<p class="tab">When a new device is added to the system, the device cache file may need to be recreated. Since lsof compares the mtime of the device cache file with the mtime and ctime of the <b>/dev</b> (or <b>/devices</b>) directory, it usually detects that a new device was added; in that case lsof issues a warning message and attempts to rebuild the device cache file.</p>
+<p class="tab">Whenever <b>lsof</b> writes a device cache file, it sets its ownership to the real UID of the executing process, and its permission modes to 0600, this restricting its reading and writing to the file's owner.</p>
+<h3 class="tab">lsof permissions that affect device cache file access</h3>
+<p class="tab">Two permissions of the <b>lsof</b> executable affect its ability to access device cache files. The permissions are set by the local system administrator when <b>lsof</b> is installed.</p>
+<p class="tab">The first and rarer permission is setuid-root. It comes into effect when lsof is executed; its effective UID is then root, while its real (i.e., that of the logged-on user) UID is not. The lsof distribution recommends that versions for these dialects run setuid-root:</p>
+<ul>
+<li>HP-UX 11.11 and 11.23</li>
+<li>Linux</li>
+</ul>
+<p class="tab">The second and more common permission is setgid. It comes into effect when the effective group IDentification number (GID) of the <b>lsof</b> process is set to one that can access kernel memory devices &mdash; e.g., "<b>kmem</b>", "<b>sys</b>", or "<b>system</b>".</p>
+<p class="tab">An <b>lsof</b> process with setgid permission usually surrenders the permission after it has accessed the kernel memory devices. When it does that, <b>lsof</b> can allow more liberal device cache path formations. The <b>lsof</b> distribution recommends that versions for these dialects run setgid and be allowed to surrender setgid permission.</p>
+<ul>
+<li>AIX 5.[12] and 5.3-ML1</li>
+<li>Apple Darwin 7.x Power Macintosh systems</li>
+<li>FreeBSD 4.x, 4.1x, 5.x and [6789].x for x86-based systems FreeBSD 5.x and [6789].x for Alpha, AMD64 and Sparc64-based systems</li>
+<li>HP-UX 11.00</li>
+<li>NetBSD 1.[456], 2.x and 3.x for Alpha, x86, and SPARC-based systems</li>
+<li>NEXTSTEP 3.[13] for NEXTSTEP architectures</li>
+<li>OpenBSD 2.[89] and 3.[0-9] for x86-based systems</li>
+<li>OPENSTEP 4.x</li>
+<li>SCO OpenServer Release 5.0.6 for x86-based systems</li>
+<li>SCO|Caldera UnixWare 7.1.4 for x86-based systems</li>
+<li>Solaris 2.6, 8, 9 and 10</li>
+<li>Tru64 UNIX 5.1</li>
+</ul>
+<p class="tab">Note: <b>lsof</b> for AIX 5L and above needs setuid-root permission if its <b>-X</b> option is used.</p>
+<p class="tab"><b>lsof</b> for these dialects does not support a device cache, so the permissions given to the executable don't apply to the device cache file:</p>
+<ul>
+<li>Linux</li>
+</ul>
+<h3 class="tab">Device cache file path from the -D option</h3>
+<p class="tab">The <b>-D</b> option provides limited means for specifying the device cache file path. Its <b>?</b> function reports the read-only and write device cache file paths that <b>lsof</b> use.</p>
+<p class="tab">When the <b>-D</b> <b>b</b>, <b>r</b>, and <b>u</b> functions are available, you can use them to request that the cache file be built in a specific location (b[path]); read but not rebuilt (r[path]); or read and rebuilt (u[path]). The <b>b</b>, <b>r</b>, and <b>u</b> functions are restricted under some conditions. They are restricted when the <b>lsof</b> process is setuid-root. The path specified with the <b>r</b> function is always read-only, even when it is available.</p>
+<p class="tab">The <b>b</b>, <b>r</b>, and <b>u</b> functions are also restricted when the lsof process runs setgid and <b>lsof</b> doesn't surrender the setgid permission.</p>
+<p class="tab">A further <b>-D</b> function, <b>i</b> (for ignore), is always available.</p>
+<p class="tab">When available, the <b>b</b> function tells lsof to read device information from the kernel with the <b>stat</b> function and build a device cache file at the indicated path.</p>
+<p class="tab">When available, the <b>r</b> function tells <b>lsof</b> to read the device cache file, but not update it. When a path argument accompanies <b>-Dr</b>, it names the device cache file path. The <b>r</b> function is always available when it is specified without a path name argument. If <b>lsof</b> is not running setuid-root and surrenders its setgid permission, a path name argument may accompany the <b>r</b> function.</p>
+<p class="tab">When available, the <b>u</b> function tells <b>lsof</b> to attempt to read and use the device cache file. If it can't read the file, or if it finds the contents of the file incorrect or outdated, it reads information from the kernel, and attempt to write an updated version of the device cache file, but only to a path it considers legitimate for the lsof process effective and real UIDs.</p>
+<h3 class="tab">Device cache path from an environment variable</h3>
+<p class="tab"><b>lsof</b>'s second choice for the device cache file is the contents of the <b>LSOFDEVCACHE</b> environment variable. It avoids this choice if the <b>lsof</b> process is setuid-root, or the real UID of the process is root.</p>
+<p class="tab">A further restriction applies to a device cache file path taken from the <b>LSOFDEVCACHE</b> environment variable: <b>lsof</b> will not write a device cache file to the path if the <b>lsof</b> process doesn't surrender its setgid permission.</p>
+<p class="tab">The local system administrator can disable the use of the <b>LSOFDEVCACHE</b> environment variable or change its name when building <b>lsof</b>. Consult the output of <b>-D?</b> for the environment variable's name.</p>
+<h2 id="path">System-wide device cache path</h2>
+<p class="tab">The local system administrator may choose to have a system-wide device cache file when building <b>lsof</b>. That file will generally be constructed by a special system administration procedure when the system is booted or when the contents of <b>/dev</b> or <b>/devices</b>) changes. If defined, it is <b>lsof</b>'s third device cache file path choice.</p>
+<p class="tab">You can tell that a system-wide device cache file is in effect for your local installation by examining the lsof help option output &mdash; i.e., the output from the <b>-h</b> or <b>-?</b> option.</p>
+<p class="tab"><b>lsof</b> never writes to the system-wide device cache file path by default. It must be explicitly named with a <b>-D</b> function in a root-owned procedure. Once the file is written, the procedure must change its permission modes to <b>0644</b> (owner-read and owner-write, group-read, and other-read).</p>
+<h2 id="personal">Personal device cache path (default)</h2>
+<p class="tab">The default device cache file path of the <b>lsof</b> distribution is one recorded in the home directory of the real UID that executes <b>lsof.</b> Added to the home directory is a second path component of the form <b>.lsof_hostname</b>.</p>
+<p class="tab">This is <b>lsof</b>'s fourth device cache file path choice, and is usually the default. If a system-wide device cache file path was defined when <b>lsof</b> was built, this fourth choice will be applied when <b>lsof</b> can't find the system-wide device cache file. This is the only time <b>lsof</b> uses two paths when reading the device cache file.</p>
+<p class="tab">The hostname part of the second component is the base name of the executing host, as returned by <b>gethostname</b>. The base name is defined to be the characters preceding the first '<b>.</b>' in the <b>gethostname</b> output, or all the <b>gethostname</b> output if it contains no '<b>.</b>'.</p>
+<p class="tab">The device cache file belongs to the user ID and is readable and writable by the user ID alone &mdash; i.e., its modes are <b>0600</b>. Each distinct real user ID on a given host that executes <b>lsof</b> has a distinct device cache file. The hostname part of the path distinguishes device cache files in an NFS-mounted home directory into which device cache files are written from different hosts.</p>
+<p class="tab">The personal device cache file path formed by this method represents a device cache file that <b>lsof</b> attempts to read, and attempts to write should it not exist or should its contents be incorrect or outdated.</p>
+<p class="tab">The <b>-Dr</b> option without a path name argument will inhibit the writing of a new device cache file.</p>
+<p class="tab">The <b>-D?</b> option lists the format specification for constructing the personal device cache file. The conversions used in the format specification are described in the 00DCACHE file of the <b>lsof</b> distribution.</p>
+<h3 class="tab">Modified personal device cache path</h3>
+<p class="tab">If this option is defined by the local system administrator when <b>lsof</b> is built, the <b>LSOFPERSDCPATH</b> environment variable contents may be used to add a component of the personal device cache file path.</p>
+<p class="tab">The <b>LSOFPERSDCPATH</b> variable contents are inserted in the path at the place marked by the local system administrator with the "<b>%p</b>" conversion in the <b>HASPERSDC</b> format specification of the dialect's <b>machine.h</b> header file. It's placed right after the home directory in the default lsof distribution.</p>
+<p class="tab">Thus, for example, if <b>LSOFPERSDCPATH</b> contains "<b>LSOF</b>", the home directory is "<b>/Homes/abe</b>", the hostname is "<b>lsof.itap.purdue.edu</b>", and the <b>HASPERSDC</b> format is the default ("<b>%h/%p.lsof_%L</b>"), the modified personal device cache file path is:</p>
+<p class="tabb">/Homes/abe/LSOF/.lsof_vic</p>
+<p class="tab">The <b>LSOFPERSDCPATH</b> environment variable is ignored when the <b>lsof</b> process is setuid-root or when the real UID of the process is root.</p>
+<p class="tab"><b>lsof</b> does not write to a modified personal device cache file path if the lsof process doesn't surrender setgid permission.</p>
+<p class="tab">If, for example, you want to create a subdirectory of personal device cache file paths using the <b>LSOFPERSDCPATH</b> environment variable to name it, and <b>lsof</b> doesn't surrender its setgid permission, you have to allow lsof to create device cache files at the standard personal path and move them to your subdirectory with shell commands.</p>
+<p class="tab">The local system administrator may: disable this option when <b>lsof</b> is built; change the name of the environment variable from <b>LSOFPERSDCPATH</b> to something else; change the <b>HASPERSDC</b> format to include the personal path component in another place; or exclude the personal path component entirely. Consult the output of the <b>-D?</b> option for the environment variable's name and the <b>HASPERSDC</b> format specification.</p>
+<h2 id="diagnostics">Diagnostics</h2>
+<p class="tab">Errors are identified with messages on the standard error file.</p>
+<p class="tab">Lsof returns a one (<b>1</b>) if any error was detected, including the failure to locate command names, file names, Internet addresses or files, login names, <a href="/jargon/n/nfs.htm">NFS</a> files, PIDs, PGIDs, or UIDs it was asked to list. If the <b>-V</b> option is specified, <b>lsof</b> indicates the search items it failed to list.</p>
+<p class="tab">It returns a zero (<b>0</b>) if no errors were detected and if it was able to list some information about all the specified search arguments.</p>
+<p class="tab">When <b>lsof</b> cannot open access to <b>/dev</b> (or <b>/devices</b>) or one of its subdirectories, or get information on a file in them with <b>stat</b>, it issues a warning message and continues. That <b>lsof</b> issues warning messages about inaccessible files in <b>/dev</b> (or <b>/devices</b>) is indicated in its help output &mdash; requested with the <b>-h</b> or <b>&gt;B -?</b> options &mdash; with the message:</p>
+<pre class="tab">Inaccessible <b>/dev</b> warnings are enabled.</pre>
+<p class="tab">The warning message may be suppressed with the <b>-w</b> option. It may also be suppressed by the system administrator when <b>lsof</b> was compiled by the setting of the <b>WARNDEVACCESS</b> definition. In this case, the output from the help options includes the message:</p>
+<p class="tab">Inaccessible <b>/dev</b> warnings are disabled.</p>
+<p class="tab">Inaccessible device warning messages usually disappear after <b>lsof</b> has created a working device cache file.</p>
+<h2 id="examples">Examples</h2>
+<p class="tab">For a more extensive set of examples, documented more fully, see the QUICKSTART file of the lsof distribution.</p>
+<p class="tab">To list all open files, use:</p>
+<pre class="tcy tab">lsof</pre>
+<p class="tab">To list all open Internet, x.25 (HP-UX), and UNIX domain files, use:</p>
+<pre class="tcy tab">lsof -i -U</pre>
+<p class="tab">To list all open IPv4 network files in use by the process whose PID is 1234, use:</p>
+<pre class="tcy tab">lsof -i 4 -a -p 1234</pre>
+<p class="tab">Presuming the UNIX dialect supports IPv6, to list only open IPv6 network files, use:</p>
+<pre class="tcy tab">lsof -i 6</pre>
+<p class="tab">To list all files using any protocol on ports 513, 514, or 515 of host wonderland.cc.purdue.edu, use:</p>
+<pre class="tcy tab">lsof -i @wonderland.cc.purdue.edu:513-515</pre>
+<p class="tab">To list all files using any protocol on any port of mace.cc.purdue.edu (cc.purdue.edu is the default domain), use:</p>
+<pre class="tcy tab">lsof -i @mace</pre>
+<p class="tab">To list all open files for login name "abe", or user ID 1234, or process 456, or process 123, or process 789, use:</p>
+<pre class="tcy tab">lsof -p 456,123,789 -u 1234,abe</pre>
+<p class="tab">To list all open files on device /dev/hd4, use:</p>
+<pre class="tcy tab">lsof /dev/hd4</pre>
+<p class="tab">To find the process with /u/abe/foo open, use:</p>
+<pre class="tcy tab">lsof /u/abe/foo</pre>
+<p class="tab">To send a SIGHUP to the processes that have /u/abe/bar open, use:</p>
+<pre class="tcy tab">kill -HUP 'lsof -t /u/abe/bar'</pre>
+<p class="tab">To find any open file, including an open UNIX domain socket file, with the name /dev/log, use:</p>
+<pre class="tcy tab">lsof /dev/log</pre>
+<p class="tab">To find processes with open files on the NFS file system named /nfs/mount/point whose server is inaccessible, and presuming your mount table supplies the device number for /nfs/mount/point, use:</p>
+<pre class="tcy tab">lsof -b /nfs/mount/point</pre>
+<p class="tab">To do the preceding search with warning messages suppressed, use:</p>
+<pre class="tcy tab">lsof -bw /nfs/mount/point</pre>
+<p class="tab">To ignore the device cache file, use:</p>
+<pre class="tcy tab">lsof -Di</pre>
+<p class="tab">To obtain PID and command name field output for each process, file descriptor, file device number, and file inode number for each file of each process, use:</p>
+<pre class="tcy tab">lsof -FpcfDi</pre>
+<p class="tab">To list the files at descriptors 1 and 3 of every process running the lsof command for login ID "abe" every 10 seconds, use:</p>
+<pre class="tcy tab">lsof -c lsof -a -d 1 -d 3 -u abe -r10</pre>
+<p class="tab">To list the current working directory of processes running a command that is exactly four characters long and has an 'o' or 'O' in character three, use this regular expression form of the -c c option:</p>
+<pre class="tcy tab">lsof -c /^..o.$/i -a -d cwd</pre>
+<p class="tab">To find an IP version 4 socket file by its associated numeric dot-form address, use:</p>
+<pre class="tcy tab">lsof <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="705d19304142485e4241405e41455e4147">[email&#160;protected]</a></pre>
+<p class="tab">To find an IP version 6 socket file (when the UNIX dialect supports IPv6) by its associated numeric colon-form address, use:</p>
+<pre class="tcy tab">lsof <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a68bcfe6">[email&#160;protected]</a>[0:1:2:3:4:5:6:7]</pre>
+<p class="tab">To find an IP version 6 socket file (when the UNIX dialect supports IPv6) by an associated numeric colon-form address with a run of zeroes in it &mdash; e.g., the loopback address &mdash; use:</p>
+<pre class="tcy tab">lsof <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fcd195bc">[email&#160;protected]</a>[::1]</pre>
+<p class="tab">To obtain a repeat mode marker line containing the current time, use:</p>
+<pre class="tcy tab">lsof -rm====%T====</pre>
+<p class="tab">To add spaces to the previous marker line, use:</p>
+<pre class="tcy tab">lsof -r "m==== %T ===="</pre>
+<h2 id="bugs">Bugs</h2>
+<p class="tab">Since <b>lsof</b> reads kernel memory in its search for open files, rapid changes in kernel memory may produce unpredictable results.</p>
+<p class="tab">When a file has multiple record locks, the lock status character (following the file descriptor) is derived from a test of the first lock structure, not from any combination of the individual record locks that might be described by multiple lock structures.</p>
+<p class="tab"><b>lsof</b> can't search for files with restrictive access permissions by name unless it is installed with root set-UID permission. Otherwise, it is limited to searching for files its user or its set-GID group (if any) has access permission.</p>
+<p class="tab">The display of the destination address of a raw socket (e.g., for <a href="/jargon/p/ping.htm">ping</a>) depends on the UNIX operating system. Some dialects store the destination address in the raw socket's protocol control block, some do not.</p>
+<p class="tab"><b>lsof</b> can't always represent Solaris device numbers in the same way that <a href="/unix/uls.htm">ls</a> does. For example, the major and minor device numbers that the <b>lstat</b> and <a href="/unix/stat.htm">stat</a> functions report for the directory on which CD-ROM files are mounted (e.g., <b>/cdrom</b>) are not the same as the ones that it reports for the device on which CD-ROM files are mounted (e.g., <b>/dev/sr0</b>). <b>lsof</b> reports the directory numbers.</p>
+<p class="tab">The support for <b>/proc</b> file systems is available only for BSD and Tru64 UNIX dialects, Linux, and dialects derived from SYSV R4 &mdash; e.g., FreeBSD, NetBSD, OpenBSD, Solaris, UnixWare.</p>
+<p class="tab">Some <b>/proc</b> file items &mdash; device number, inode number, and file size &mdash; are unavailable in some dialects. Searching for files in a <b>/proc</b> file system may require that the full path name be specified.</p>
+<p class="tab">No text (txt) file descriptors are displayed for Linux processes. All entries for files other than the current working directory, the root directory, and numerical file descriptors are labeled mem descriptors.</p>
+<p class="tab"><b>lsof</b> can't search for Tru64 UNIX named pipes by name, because their kernel implementation of <b>lstat</b> returns an improper device number for a named pipe.</p>
+<p class="tab"><b>lsof</b> can't report fully or correctly on HP-UX 9.01, 10.20, and 11.00 locks because of insufficient access to kernel data or errors in the kernel data.</p>
+<p class="tab">The AIX SMT file type is a fabrication. It's made up for file structures whose type (<b>15</b>) isn't defined in the AIX <b>/usr/include/sys/file.h</b> header file. One way to create such file structures is to run <a href="/jargon/x/xwin.htm">X clients</a> with the <b>DISPLAY</b> variable set to "<b>:0.0</b>".</p>
+<p class="tab">The <b>+</b>|<b>-f</b>[<b>cfgGn</b>] option is not supported under <b>/proc</b>-based Linux <b>lsof</b>, because it doesn't read kernel structures from kernel memory.</p>
+<h2 id="environment">Environment</h2>
+<p class="tab"><b>lsof</b> may access these environment variables.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:190px"><b>LANG</b></td>
+<td>defines a language locale. See <b>setlocale</b> for the names of other variables to use in place of <b>LANG</b> &mdash; e.g., <b>LC_ALL</b>, <b>LC_TYPE</b>, etc.</td>
+</tr>
+<tr class="tcw">
+<td><b>LSOFDEVCACHE</b></td>
+<td>defines the path to a device cache file.</td>
+</tr>
+<tr class="tcw">
+<td><b>LSOFPERSDCPATH</b></td>
+<td>defines the middle component of a modified personal device cache file path.</td>
+</tr>
+</table>
+<h2 id="faq">FAQ</h2>
+<p class="tab">Frequently asked questions and their answers (an FAQ) are available in the FAQ file of the <b>lsof</b> distribution.</p>
+<p class="tab">That file is also available at the <a href="http://ftp.uni-bayreuth.de/packages/tools/lsof/FAQ" class="external">LSOF FAQ online</a>.</p>
+<h2 id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>/dev/kmem</b></td>
+<td>kernel virtual memory device</td>
+</tr>
+<tr class="tcw">
+<td><b>/dev/mem</b></td>
+<td>physical memory device</td>
+</tr>
+<tr class="tcw">
+<td><b>/dev/swap</b></td>
+<td>system paging device</td>
+</tr>
+<tr class="tcw">
+<td><b>.lsof_</b><i>hostname</i></td>
+<td><b>lsof</b>'s device cache file. The suffix, <i>hostname</i>, is the first component of the host's name returned by <b>gethostname</b>.</td>
+</tr>
+</table>
+<h2 id="distribution">Distribution</h2>
+<p class="tab">The latest distribution of <b>lsof</b> is available via anonymous FTP. You can find the lsof distribution at the <a href="http://ftp.cerias.purdue.edu/pub/tools/unix/sysutils/lsof/" class="external">Perdue University sysutils repository</a>.</p>
+<p class="tab">Some pre-compiled <b>lsof</b> executables are available, but their use is discouraged &mdash; it's better to build your own from the sources. If you feel you must use a pre-compiled executable, please read the cautions that appear in the README files of the source repository, and in the 00* files of the distribution.</p>
+<p class="tab">More information on the lsof distribution is in its <b>README.lsof_</b><i>&lt;version&gt;</i> file. If you intend to get the <b>lsof</b> distribution and build it, please read <b>README.lsof_</b><i>&lt;version&gt;</i> and the other 00* files of the distribution before sending questions to the author.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uawk.htm"><b>awk</b></a> &mdash; Interpreter for the AWK text processing programming language.<br><a href="/jargon/k/kill.htm"><b>kill</b></a> &mdash; Send a signal to a process, affecting its behavior or killing it.<br><a href="/unix/umount.htm"><b>mount</b></a> &mdash; Mount a file system so that its data may be accessed.<br><a href="/unix/unetstat.htm"><b>netstat</b></a> &mdash; Print information about network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.<br><a href="/jargon/p/perl.htm"><b>perl</b></a> &mdash; Interpreter for the Perl programming language.<br><a href="/unix/ups.htm"><b>ps</b></a> &mdash; Report the status of a process or processes.<br><a href="/jargon/s/stat.htm"><b>stat</b></a> &mdash; Display the status of a file or filesystem.<br><a href="/unix/utime.htm"><b>time</b></a> &mdash; Report how long it takes for a command to execute.<br><a href="/unix/uuname.htm"><b>uname</b></a> &mdash; Print information about the current system.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a830f1bafc415',m:'45vV_7NqS1NO54WcC8.Wl9fey5.j03DGBCLc6DPsBs4-1661495354-0-Aam2GwXTxSiXeia87qGQ/G0MISctf3WqWZ+jwDWB6DMi4so8I3CE5YZrltG8CtbzHKEw5Ri7NrSGZeLDywt0hSV4/BNo278EvWiAjaZHoQuXJ7Ny5G6doFeTTxdzgSYfVA==',s:[0x676f3aa3b4,0x87a02fb4ab],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux man command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/man.gif" width="300" height="300" alt="man command" class="floatRight"><p class="intro">On Linux and other <a href="/jargon/u/unix.htm">Unix</a>-like <a href="/jargon/o/os.htm">operating systems</a>, <b>man</b> is the interface used to view the system's reference manuals.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#section">Section numbers</a></li>
+<li><a href="#exit">Exit status</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="description">Description</h2>
+<p class="tab"><b>man</b> is the system's manual viewer; it can be used to display manual pages, scroll up and down, search for occurrences of specific text, and other useful functions.</p>
+<p class="tab">Each <a href="/jargon/a/argument.htm">argument</a> given to <b>man</b> is normally the name of a <a href="/jargon/p/program.htm">program</a>, <a href="/jargon/u/utility.htm">utility</a> or <a href="/jargon/f/function.htm">function</a>. The manual page associated with each of these arguments is then found and displayed. A section number, if provided, will direct <b>man</b> to look only in that section of the manual. The default action is to search in all of the available sections, following a pre-defined order and to show only the first page found, even if page exists in several sections.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">man [-C <i>file</i>] [-d] [-D] [--warnings[=<i>warnings</i>]] [-R <i>encoding</i>] [-L <i>locale</i>] 
+    [-m <i>system</i>[,...]] [-M <i>path</i>] [-S <i>list</i>] [-e <i>extension</i>] [-i|-I] 
+    [--regex|--wildcard] [--names-only] [-a] [-u] [--no-subpages] [-P <i>pager</i>] 
+    [-r <i>prompt</i>] [-7] [-E <i>encoding</i>] [--no-hyphenation] [--no-justification] 
+    [-p <i>string</i>] [-t] [-T[<i>device</i>]] [-H[<i>browser</i>]] [-X[<i>dpi</i>]] [-Z] 
+    [[<i>section</i>] <i>page</i> ...] ...</pre>
+<pre class="tcy tab">man -k [<i>apropos options</i>] <i>regexp</i> ...</pre>
+<pre class="tcy tab">man -K [-w|-W] [-S <i>list</i>] [-i|-I] [--regex] [<i>section</i>] <i>term</i> ...</pre>
+<pre class="tcy tab">man -f [<i>whatis options</i>] page ...</pre>
+<pre class="tcy tab">man -l [-C <i>file</i>] [-d] [-D] [--warnings[=warnings]] [-R encoding] 
+    [-L <i>locale</i>] [-P <i>pager</i>] [-r <i>prompt</i>] [-7] [-E <i>encoding</i>] [-p <i>string</i>] [-t] 
+    [-T[<i>device</i>]] [-H[<i>browser</i>]] [-X[<i>dpi</i>]] [-Z] <i>file</i> ...</pre>
+<pre class="tcy tab">man -w|-W [-C <i>file</i>] [-d] [-D] <i>page</i> ...</pre>
+<pre class="tcy tab">man -c [-C <i>file</i>] [-d] [-D] <i>page</i> ...</pre>
+<pre class="tcy tab">man [-hV]</pre>
+<h3 class="tab">General options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>-h</b>, <b>--help</b></td>
+<td>Print a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Display version information and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b> <i>file</i>,<br><b>--config-file=</b><i>file</i></td>
+<td>Use configuration file <i>file</i> rather than the default of <b>~/.manpath</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--debug</b></td>
+<td>Print <a href="/jargon/d/debug.htm">debugging</a> information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b>, <b>--default</b></td>
+<td>This option, when used, is normally specified as the first option; it resets <b>man</b>'s behaviour to its default. Its use is to reset those options that may have been set in <b>$MANOPT</b>. Any options that follow <b>-D</b> will have their usual effect.</td>
+</tr>
+<tr class="tcw">
+<td><b>--warnings</b>[<b>=</b><i>warnings</i>]</td>
+<td>Enable warnings from the <b>groff</b> text formatter. This may be used to perform sanity checks on the source text of manual pages. The <i>warnings</i> is a comma-separated list of warning names; if it is not supplied, the default is "<b>mac</b>". See the "<b>Warnings</b>" node in the <b>groff</b> <a href="/unix/info.htm">info</a> page for a list of available warning names.</td>
+</tr>
+</table>
+<h3 class="tab">Options: Main modes of operation</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-f</b>, <b>--whatis</b></td>
+<td>Equivalent to the <a href="/unix/whatis.htm">whatis</a> command; displays a short description from the manual page, if available.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b>, <b>--apropos</b></td>
+<td>Equivalent to the <a href="/unix/apropos.htm">apropos</a> command; Search the short manual page descriptions for keywords and display any matches.</td>
+</tr>
+<tr class="tcw">
+<td><b>-K</b>,<br><b>--global-apropos</b></td>
+<td>Search for text in all manual pages. This option is a brute-force search, and is likely to take some time; if you can, you should specify a section to reduce the number of pages that need to be searched. Search terms may be simple <a href="/jargon/s/string.htm">strings</a> (the default), or <a href="/jargon/r/regex.htm">regular expressions</a> if the <b>--regex</b> option is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--local-file</b></td>
+<td>Activate 'local' mode. Format and display local manual files instead of searching through the system's manual collection. Each manual page argument will be interpreted as an <a href="/unix/unroff.htm">nroff</a> source file in the correct format. No <a href="/unix/ucat.htm">cat</a> file is produced. If a dash ('<b>-</b>') is listed as one of the arguments, input will be taken from <a href="/jargon/s/stdin.htm">stdin</a>. When this option is not used, and <b>man</b> fails to find the page required, before displaying the error message it attempts to act as if this option was supplied, using the name as a file name and looking for an exact match.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>, <b>--where</b>,<br><b>--location</b></td>
+<td>Don't actually display the manual pages; instead print the location(s) of the source <b>nroff</b> files that would be formatted.</td>
+</tr>
+<tr class="tcw">
+<td><b>-W</b>, <b>--where-cat</b>,<br><b>--location-cat</b></td>
+<td>Don't actually display the manual pages, but do print the location(s) of the <b>cat</b> files that would be displayed. If <b>-w</b> and <b>-W</b> are both specified, print both, separated by a space.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--catman</b></td>
+<td>This option is not for general use and should only be used by the <b>catman</b> program.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b> <i>encoding</i>,<br><b>--recode=</b><i>encoding</i></td>
+<td>Instead of formatting the manual page in the usual way, output its source converted to the specified encoding. If you already know the encoding of the source file, you can also use <b>manconv</b> directly. However, this option allows you to convert several manual pages to a single encoding without having to explicitly state the encoding of each, provided that they were already installed in a structure similar to a manual page hierarchy.</td>
+</tr>
+</table>
+<h3 class="tab">Options: finding manual pages</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:270px"><b>-L</b> <i>locale</i>, <b>--locale=</b><i>locale</i></td>
+<td><b>man</b> will normally determine your current locale by a call to the C function <b>setlocale</b> which checks the values of various <a href="/jargon/e/envivari.htm">environment variables</a>, possibly including <b>$LC_MESSAGES</b> and <b>$LANG</b>. To temporarily override the determined value, use this option to supply a locale string directly to <b>man</b>. Note that it will not take effect until the search for pages actually begins. Output such as the help message will always be displayed in the initially determined locale.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b> <i>system</i>[<b>,</b>...],<br><b>--systems=</b><i>system</i>[<b>,</b>...]</td>
+<td>If this system has access to other operating system's manual pages, they can be accessed using this option. To search for a manual page from (for example) the "NewOS" manual page collection, use the option <b>-m NewOS</b>.<br><br> The system specified can be a combination of comma delimited operating system names. To include a search of the native operating system's manual pages, include the system name <b>man</b> in the argument string. This option will override the <b>$SYSTEM</b> environment variable.</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b> <i>path</i>, <b>--manpath=</b><i>path</i></td>
+<td>Specify an alternate manpath to use. This option overrides the <b>$MANPATH</b> environment variable and causes option <b>-m</b> to be ignored.<br><br> A path specified as a manpath must be the root of a manual page hierarchy structured into sections as described in the <a href="http://man-db.nongnu.org/" class="external">man-db manual</a> (under "The manual page system"). To view manual pages outside such hierarchies, see the <b>-l</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b> <i>list</i>, <b>-s</b> <i>list</i>, <b>--sections=</b><i>list</i></td>
+<td>The <i>list</i> is a colon- or comma-separated list of &#96;order specific' manual sections to search. This option overrides the <b>$MANSECT</b> environment variable. (The <b>-s</b> spelling is for compatibility with <a href="/jargon/s/system-v.htm">System V</a>.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b> <i>sub-extension</i>,<br><b>--extension=</b><i>sub-extension</i></td>
+<td>Some systems incorporate large packages of manual pages, such as those that accompany the <a href="/jargon/t/tcl.htm">Tcl</a> package, into the main manual page hierarchy. To get around the problem of having two manual pages with the same name such as <a href="/unix/uexit.htm">exit</a>, the <b>Tcl</b> pages were usually all assigned to section <b>l</b> (lowercase L). However, it is now possible to put the pages in the correct section, and to assign a specific "extension" to them, in this case, <b>exit(3tcl)</b>. Under normal operation, <b>man</b> displays <b>exit</b> in preference to <b>exit(3tcl)</b>. To negotiate this situation and to avoid having to know which section the page you require resides in, it is now possible to give <b>man</b> a sub-extension string indicating the package of the page. Using the above example, supplying the option <b>-e tcl</b> to <b>man</b> will restrict the search to pages having an extension of <b>*tcl</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--ignore-case</b></td>
+<td>Ignore <a href="/jargon/c/case.htm">case</a> when searching for manual pages. This option is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b>, <b>--match-case</b></td>
+<td>Search for manual pages <a href="/jargon/c/casesens.htm">case-sensitively</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--regex</b></td>
+<td>Show all pages with any part of either their names or their descriptions matching each page argument as a regular expression, as with <b>apropos</b>. Since there is usually no reasonable way to pick a "best" page when searching for a regular expression, this option implies <b>-a</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--wildcard</b></td>
+<td>Show all pages with any part of either their names or their descriptions matching each page argument using <a href="/jargon/s/shell.htm">shell</a>-style <a href="/jargon/w/wildcard.htm">wildcards</a>, as with <b>apropos --wildcard</b>. The page argument must match the entire name or description, or match on word boundaries in the description. Since there is usually no reasonable way to pick a "best" page when searching for a wildcard, this option implies <b>-a</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--names-only</b></td>
+<td>If the <b>--regex</b> or <b>--wildcard</b> option is used, match only page names, not page descriptions, as with <a href="/unix/whatis.htm">whatis</a>. Otherwise, this option has no effect.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b>, <b>--all</b></td>
+<td>By default, <b>man</b> will exit after displaying the most suitable manual page it finds. Using this option forces <b>man</b> to display all the manual pages with names that match the search criteria.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--update</b></td>
+<td>This option causes <b>man</b> to perform an <a href="/jargon/i/inode.htm">inode</a>-level consistency check on its <a href="/jargon/d/database.htm">database</a> caches to ensure that they are an accurate representation of the <a href="/jargon/f/filesyst.htm">filesystem</a>. It will only have a useful effect if <b>man</b> is installed with the <a href="/jargon/s/suid.htm">setuid</a> <a href="/jargon/b/bit.htm">bit</a> set.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-subpages</b></td>
+<td>By default, <b>man</b> will try to interpret pairs of manual page names given on the <a href="/jargon/c/commandi.htm">command line</a> as equivalent to a single manual page name containing a hyphen or an underscore. This supports the common pattern of programs that implement a number of subcommands, allowing them to provide manual pages for each that can be accessed using similar syntax as would be used to invoke the subcommands themselves. For example, the command:<br><br><pre class="tcy">man -aw git diff</pre> displays the manual page:<br><br><pre class="tcy">/usr/share/man/man1/git-diff.1.gz</pre> To disable this behaviour, use the <b>--no-subpages</b> option.<br><br> For example:<br><br><pre class="tcy">man -aw --no-subpages git diff</pre> will instead show the manual pages for both <b>git</b> and <b>diff</b>:<br><br><pre class="tcy">/usr/share/man/man1/git.1.gz /usr/share/man/man3/Git.3pm.gz /usr/share/man/man1/diff.1.gz</pre></td>
+</tr>
+</table>
+<h3 class="tab">Options: Controlling formatted output</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>-P</b> <i>pager</i>, <b>--pager=</b><i>pager</i></td>
+<td>Specify which output pager to use. By default, <b>man</b> uses <b>pager -s</b>. This option overrides the <b>$MANPAGER</b> environment variable, which in turn overrides the <b>$PAGER</b> environment variable. It is not used in conjunction with <b>-f</b> or <b>-k</b>.<br><br> The value may be a simple command name or a command with arguments, and may use shell quoting (backslashes, single quotes, or double quotes). It may not use <a href="/jargon/p/pipe.htm">pipes</a> to connect multiple commands; if you need that, use a wrapper script, which may take the file to display either as an argument or on <a href="/jargon/s/stdin.htm">standard input</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b> <i>prompt</i>,<br><b>--prompt=</b><i>prompt</i></td>
+<td>If a recent version of <a href="/unix/uless.htm">less</a> is used as the pager, <b>man</b> attempts to set its prompt and some sensible options. The default prompt looks like: <pre class="tcy">Manual page name(sec) line x</pre> ...where <b>name</b> denotes the manual page name, <b>sec</b> denotes the section it was found under and <b>x</b> the current line number. This is achieved using the <b>$LESS</b> environment variable.<br><br> Supplying <b>-r</b> with a string overrides this default. The <a href="/jargon/s/string.htm">string</a> may contain the text <b>$MAN_PN</b> which is expanded to the name of the current manual page and its section name surrounded by &quot;<b>(</b>&quot; and &quot;<b>)</b>&quot;. The string used to produce the default could be expressed as<br><br><pre class="tcy">\ Manual\ page\ \$MAN_PN\ ?ltline\ %lt?L/%L.:byte\ %bB?s/%s..?\ (END):?pB\ %pB\\%..(press h for help or q to quit)</pre> It is broken into three lines here for the sake of readability only. For its meaning see the manual for <a href="/unix/uless.htm">less</a>.<br><br> The prompt string is first evaluated by the shell. All double quotes, back-quotes and backslashes in the prompt must be escaped by a preceding backslash. The prompt string may end in an escaped <b>$</b> which may be followed by further options for <b>less</b>. By default, <b>man</b> sets the <b>-ix8</b> options.<br><br> If you want to override <b>man</b>'s prompt string processing completely, use the <b>$MANLESS</b> environment variable described below. </td>
+</tr>
+<tr class="tcw">
+<td><b>-7</b>, <b>--ascii</b></td>
+<td><p>When viewing a pure <a href="/jargon/a/ascii.htm">ASCII</a> manual page on a 7-bit <a href="/jargon/t/terminal.htm">terminal</a> or terminal <a href="/jargon/e/emulator.htm">emulator</a>, some <a href="/jargon/c/charact.htm">characters</a> may not display correctly when using the <b>latin1</b> device description with <a href="/jargon/g/gnu.htm">GNU</a> <a href="/unix/unroff.htm">nroff</a>. This option allows pure ASCII manual pages to be displayed in ASCII with the <b>latin1</b> device. It will not translate any <b>latin1</b> text. The following table shows the translations performed: some parts of it may only be displayed properly when using GNU <b>nroff</b>'s <b>latin1</b> device.</p>
+<table class="mtable3">
+<tr class="tcy">
+<th><b>description</b></th>
+<th><b>octal</b></th>
+<th><b>latin1</b></th>
+<th><b>ASCII</b></th>
+</tr>
+<tr class="tcw">
+<td>continuation hyphen</td>
+<td>255</td>
+<td>&#8208;</td>
+<td>-</td>
+</tr>
+<tr class="tcw">
+<td>bullet (middle dot)</td>
+<td>267</td>
+<td>&middot;</td>
+<td>o</td>
+</tr>
+<tr class="tcw">
+<td>acute accent</td>
+<td>264</td>
+<td>&acute;</td>
+<td>'</td>
+</tr>
+<tr class="tcw">
+<td>multiplication sign</td>
+<td>327</td>
+<td>&times;</td>
+<td>x</td>
+</tr>
+</table>
+This table is included in the <b>man</b> manpage. If these characters are viewed inside your terminal and the <b>latin1</b> column displays correctly, your terminal may be set up for <b>latin1</b> characters and this option is not necessary. If the <b>latin1</b> and <b>ASCII</b> columns are identical, then either you are viewing the <b>man</b> manual page using this option or <b>man</b> did not format this page using the <b>latin1</b> device description for some reason. If the <b>latin1</b> column is missing or corrupt, you may need to view manual pages with this option specified.<br>
+<br>
+This option is ignored when using options <b>-t</b>, <b>-H</b>, <b>-T</b>, or <b>-Z</b> and may be useless for versions of <b>nroff</b> other than GNU's.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b> <i>encoding</i>,<br><b>--encoding=</b><i>encoding</i></td>
+<td>Generate output for a character encoding other than the default. For backward compatibility, encoding may be an <b>nroff</b> device such as <b>ascii</b>, <b>latin1</b>, or <b>utf8</b> as well as a true character encoding such as <b>UTF-8</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-hyphenation</b>,<br><b>--nh</b></td>
+<td>Normally, <b>nroff</b> will automatically hyphenate text at line breaks even in words that do not contain hyphens, if it is necessary to do so to lay out words on a line without excessive spacing. This option disables automatic hyphenation, so words will only be hyphenated if they already contain hyphens.<br><br> If you are writing a manual page and want to prevent <b>nroff</b> from hyphenating a word at an inappropriate point, do not use this option, but consult the <b>nroff</b> documentation instead; for instance, you can put "<b>\%</b>" inside a word to indicate that it may be hyphenated at that point, or put "<b>\%</b>" at the start of a word to prevent it from being hyphenated.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-justification</b>, <b>--nj</b></td>
+<td>Normally, <b>nroff</b> will automatically justify text to both margins. This option disables full justification, leaving justified only to the left margin, sometimes called "ragged-right" text.<br><br> If you are writing a manual page and want to prevent <b>nroff</b> from justifying certain paragraphs, do not use this option, but consult the <b>nroff</b> documentation instead; for instance, you can use the "<b>.na</b>", "<b>.nf</b>", "<b>.fi</b>", and "<b>.ad</b>" requests to temporarily disable adjusting and filling.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>string</i>,<br><b>--preprocessor=</b><i>string</i></td>
+<td>Specify the sequence of preprocessors to run before <b>nroff</b> or <b>troff</b>/<b>groff</b>. Not all installations will have a full set of preprocessors. Some of the preprocessors and the letters used to designate them are: <a href="/unix/ueqn.htm">eqn</a> (<b>e</b>), grap (<b>g</b>), pic (<b>p</b>), tbl (<b>t</b>), vgrind (<b>v</b>), refer (<b>r</b>). This option overrides the <b>$MANROFFSEQ</b> environment variable. <b>zsoelim</b> is always run as the very first preprocessor.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--troff</b></td>
+<td>Use <b>groff -mandoc</b> to format the manual page to standard output. This option is not required in conjunction with <b>-H</b>, <b>-T</b>, or <b>-Z</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>[<i>device</i>],<br><b>--troff-device</b>[<b>=</b><i>device</i>]</td>
+<td>This option is used to change <b>groff</b> (or possibly <b>troff</b>'s) output to be suitable for a device other than the default. It implies <b>-t</b>. Examples include <b>dvi</b>, <b>latin1</b>, <b>ps</b>, <b>utf8</b>, <b>X75</b> and <b>X100</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b>[<i>browser</i>],<br><b>--html</b>[<b>=</b><i>browser</i>]</td>
+<td>This option will cause <b>groff</b> to produce <a href="/jargon/h/html.htm">HTML</a> output, and will display that output in a <a href="/jargon/b/browser.htm">web browser</a>. The choice of browser is determined by the optional browser argument if one is provided, by the <b>$BROWSER</b> environment variable, or by a compile-time default if that is unset (usually <a href="/jargon/l/lynx.htm">lynx</a>). This option implies <b>-t</b>, and will only work with GNU <b>troff</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-X</b>[<i>dpi</i>],<br><b>--gxditview</b>[<b>=</b><i>dpi</i>]</td>
+<td>This option displays the output of <b>groff</b> in a graphical window using the <b>gxditview</b> program. The <i>dpi</i> (<a href="/jargon/d/dpi.htm">dots per inch</a>) may be <b>75</b>, <b>75-12</b>, <b>100</b>, or <b>100-12</b>, defaulting to <b>75</b>; the <b>-12</b> variants use a 12-point base <a href="/jargon/f/font.htm">font</a>. This option implies <b>-T</b> with the X75, X75-12, X100, or X100-12 device, respectively.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Z</b>, <b>--ditroff</b></td>
+<td><b>groff</b> will run <b>troff</b> and then use an appropriate post-processor to produce output suitable for the chosen device. If <b>groff -mandoc</b> is <b>groff</b>, this option is passed to <b>groff</b> and will suppress the use of a post-processor. It implies <b>-t</b>.</td>
+</tr>
+</table>
+<h2 id="section">Section numbers</h2>
+<p class="tab">The section numbers of the manual are listed below. While reading documentation, if you see a command name followed by a number in parentheses, the number refers to one of these sections. For example, <b>man</b> is the documentation of <b>man</b> found in section number <b>1</b>. Some commands may have documentation in more than one section, so the numbers after the command name may direct you to the correct section to find a specific type of information.</p>
+<p class="tab">The section numbers, and the topics they cover, are as follows:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th><b>section #</b></th>
+<th><b>topic</b></th>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td><a href="/jargon/e/execfile.htm">Executable</a> programs or <a href="/jargon/s/shell.htm">shell</a> <a href="/jargon/c/command.htm">commands</a></td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>System calls (<a href="/jargon/f/function.htm">functions</a> provided by the <a href="/jargon/k/kernel.htm">kernel</a>)</td>
+</tr>
+<tr class="tcw">
+<td><b>3</b></td>
+<td><a href="/jargon/l/library.htm">Library</a> calls (functions within program libraries)</td>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td>Special files (usually found in <b>/dev</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>5</b></td>
+<td>File <a href="/jargon/f/format.htm">formats</a> and conventions eg <b>/etc/passwd</b></td>
+</tr>
+<tr class="tcw">
+<td><b>6</b></td>
+<td>Games</td>
+</tr>
+<tr class="tcw">
+<td><b>7</b></td>
+<td>Miscellaneous (including <a href="/jargon/m/macro.htm">macro</a> packages and conventions), e.g., <b>man</b>, <b>groff</b></td>
+</tr>
+<tr class="tcw">
+<td><b>8</b></td>
+<td>System administration commands (usually only for <a href="/jargon/r/root.htm">root</a>)</td>
+</tr>
+<tr class="tcw">
+<td><b>9</b></td>
+<td>Kernel <a href="/jargon/r/routine.htm">routines</a> [Non standard]</td>
+</tr>
+</table>
+<h2 id="exit">Exit status</h2>
+<p class="tab">When it terminates, <b>man</b> will return one of the following exit status:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>0</b></td>
+<td>Returned upon successful program execution.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>Returned if there was a usage, syntax, or configuration file error.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>Returned if there was an operational error.</td>
+</tr>
+<tr class="tcw">
+<td><b>3</b></td>
+<td>Returned if a <a href="/jargon/p/parechil.htm">child</a> process returned a non-zero exit status.</td>
+</tr>
+<tr class="tcw">
+<td><b>16</b></td>
+<td>Returned if one or more of the pages, files, or keywords searched for did not exist or was not matched.</td>
+</tr>
+</table>
+<h2 id="environment">Environment</h2>
+<p class="tab"><b>man</b> makes use of the following <a href="/jargon/e/envivari.htm">environment variables</a>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:260px"><b>MANPATH</b></td>
+<td>If <b>$MANPATH</b> is set, its value is used as the path to search for manual pages.</td>
+</tr>
+<tr class="tcw">
+<td><b>MANROFFOPT</b></td>
+<td>The contents of <b>$MANROFFOPT</b> are added to the command line every time <b>man</b> invokes the formatter (<a href="/unix/unroff.htm">nroff</a>, <a href="/unix/utroff.htm">troff</a>, or <b>groff</b>).</td>
+ </tr>
+<tr class="tcw">
+<td><b>MANROFFSEQ</b></td>
+<td>If <b>$MANROFFSEQ</b> is set, its value is used to determine the set of preprocessors to pass through each manual page. The default preprocessor list is system-dependent.</td>
+</tr>
+<tr class="tcw">
+<td><b>MANSECT</b></td>
+<td>If <b>$MANSECT</b> is set, its value is a colon-delimited list of sections and it is used to determine which manual sections to search and in what order.</td>
+</tr>
+<tr class="tcw">
+<td><b>MANPAGER</b>, <b>PAGER</b></td>
+<td>If <b>$MANPAGER</b> or <b>$PAGER</b> is set (<b>$MANPAGER</b> is used in preference), its value is used as the name of the program used to display the manual page. By default, <b>pager -s</b> is used.<br><br> The value may be a simple command name or a command with arguments, and may use shell quoting (backslashes, single quotes, or double quotes). It may not use pipes to connect multiple commands; if you need that, use a wrapper script, which may take the file to display either as an argument or on <a href="/jargon/s/stdin.htm">standard input</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>MANLESS</b></td>
+<td>If <b>$MANLESS</b> is set, man will not perform any of its usual processing to set up a prompt string for the <a href="/unix/uless.htm">less</a> pager. Instead, the value of <b>$MANLESS</b> will be copied verbatim into <b>$LESS</b>. For example, if you want to set the prompt string unconditionally to "my prompt string", set <b>$MANLESS</b> to &lsquo;<b>-Psmy prompt string</b>&rsquo;.</td>
+</tr>
+<tr class="tcw">
+<td><b>BROWSER</b></td>
+<td>If <b>$BROWSER</b> is set, its value is a colon-delimited list of commands, each of which in turn is used to try to start a web browser for <b>man --html</b>. In each command, <b>%s</b> is replaced by a file name containing the HTML output from <b>groff</b>, <b>%%</b> is replaced by a single percent sign (<b>%</b>), and <b>%c</b> is replaced by a colon (<b>:</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>SYSTEM</b></td>
+<td>If <b>$SYSTEM</b> is set, it will have the same effect as if it had been specified as the argument to the <b>-m</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>MANOPT</b></td>
+<td>If <b>$MANOPT</b> is set, it will be parsed prior to <b>man</b>'s command line and is expected to be in a similar format. As all of the other man specific environment variables can be expressed as command line options, and are thus candidates for being included in <b>$MANOPT</b> it is expected that they will become obsolete. Note: all spaces that should be interpreted as part of an option's argument must be escaped (preceded with a backslash).</td>
+</tr>
+<tr class="tcw">
+<td><b>MANWIDTH</b></td>
+<td>If <b>$MANWIDTH</b> is set, its value is used as the line length for which manual pages should be formatted. If it is not set, manual pages will be formatted with a line length appropriate to the current terminal (using an <b>ioctl</b> if available, the value of <b>$COLUMNS</b>, or falling back to 80 characters if neither is available). <b>cat</b> pages will only be saved when the default formatting can be used, that is when the terminal line length is between 66 and 80 characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>MAN_KEEP_FORMATTING</b></td>
+<td>Normally, when output is not being directed to a terminal (such as to a file or a pipe), formatting characters are discarded to make it easier to read the result without special tools. However, if <b>$MAN_KEEP_FORMATTING</b> is set to any non-empty value, these formatting characters are retained. This may be useful for wrappers around <b>man</b> that can interpret formatting characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>MAN_KEEP_STDERR</b></td>
+<td>Normally, when output is being directed to a terminal (usually to a pager), any error output from the command used to produce formatted versions of manual pages is discarded to avoid interfering with the pager's display. Programs such as <b>groff</b> often produce relatively minor error messages about typographical problems such as poor alignment, which are unsightly and generally confusing when displayed along with the manual page. However, you might want to see them anyway, so if <b>$MAN_KEEP_STDERR</b> is set to any non-empty value, error output will be displayed as usual.</td>
+</tr>
+<tr class="tcw">
+<td><b>LANG</b>, <b>LC_MESSAGES</b></td>
+<td>Depending on system and implementation, either or both of <b>$LANG</b> and <b>$LC_MESSAGES</b> will be interrogated for the current message locale. <b>man</b> will display its messages in that locale (if available).</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<p class="tab">The following files are used by <b>man</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:400px"><b>/etc/manpath.config</b></td>
+<td>The <b>man-db</b> configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/share/man</b></td>
+<td>A global manual page hierarchy.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/share/man/index.</b>(<b>bt</b>|<b>db</b>|<b>dir</b>|<b>pag</b>)</td>
+<td>A traditional global index database cache.</td>
+</tr>
+<tr class="tcw">
+<td><b>/var/cache/man/index.</b>(<b>bt</b>|<b>db</b>|<b>dir</b>|<b>pag</b>)</td>
+<td>An FHS compliant global index database cache.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">man man</pre>
+<p class="tab">View the manual page for the <b>man</b> command.</p>
+<pre class="tcy tab">man --nh --nj man</pre>
+<p class="tab">View the manual page for <b>man</b>, with no hyphenated words or justified lines.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/apropos.htm"><b>apropos</b></a> &mdash; Search the manual pages for a keyword or regular expression.<br><a href="/unix/info.htm"><b>info</b></a> &mdash; Read Info documents.<br><a href="/unix/whatis.htm"><b>whatis</b></a> &mdash; Display short manual page descriptions.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83143ec1c3f2',m:'C0mKKkkzRUmYyKlAd7JlUwDXV9KMCulD8wTxwS2k.kE-1661495355-0-AQ7Pn4s3p2PtHg1Uwmj2c8PSc1UMtYiil2qy6/eiUOhX6mHpJ6E0XeAFYbhb5fEVQoQjANmTsQOlLXVdlfv6ZjSyl9QmGi09BVUvgiLwnUot8FGD10sMpCYTAEMQ5QztPA==',s:[0x6c71a8c3b7,0x5db8cda223],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

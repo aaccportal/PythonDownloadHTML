@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux pine command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/pine.gif" width="300" height="300" alt="pine command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>pine</b> is a program for accessing <a href="/jargon/e/email.htm">email</a> and <a href="/jargon/n/newsgrou.htm">newsgroups</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>pine</b> is a screen-oriented message-handling tool. In its default configuration, <b>pine</b> offers an intentionally limited set of functions geared toward the novice user, but it also has a growing list of optional power-user and personal-preference features. <b>pine</b>'s basic feature set includes:</p>
+<ul>
+<li>View, Save, Export, Delete, Print, Reply and Forward messages.</li>
+<li>Compose messages in a simple editor (<a href="/unix/upico.htm">pico</a>) with word-wrap and a spelling checker. Messages may be postponed for later completion.</li>
+<li>Full-screen selection and management of message folders.</li>
+<li>Address book to keep a list of long or frequently-used addresses. Personal distribution lists may be defined. Addresses may be taken into the address book from incoming mail without retyping them.</li>
+<li>New mail checking and notification occurs automatically.</li>
+<li>Context-sensitive help screens.</li>
+</ul>
+<p class="tab"><b>pine</b> supports <a href="/jargon/m/mime.htm">MIME</a> (Multipurpose Internet Mail Extensions), an Internet Standard for representing multipart and multimedia data in e-mail. <b>pine</b> allows you to save MIME objects to files, and in some cases, can also initiate the correct program for viewing the object. It uses the system's mailcap configuration file to determine what program can process a particular MIME object type. <b>pine</b>'s message composer does not have multimedia capability itself, but any data file (including multimedia) can be attached to a text message and sent using MIME's encoding rules. This allows any group of individuals with MIME-capable mail software to exchange formatted documents, spread-sheets, image files, etc., via Internet e-mail.</p>
+<p class="tab"><b>pine</b> uses the "c-client" messaging <a href="/jargon/a/api.htm">API</a> to access local and remote mail folders. This library provides a variety of low-level message-handling functions, including drivers for a variety of different mail file formats, and routines to access remote mail and news servers, using <a href="/jargon/i/imap.htm">IMAP</a> (Internet Message Access Protocol) and <a href="/jargon/n/nntp.htm">NNTP</a> (Network News Transport Protocol). Outgoing mail is usually handed off to the <a href="/unix/usendmai.htm">sendmail</a> program but it can optionally be posted directly via <a href="/jargon/s/smtp.htm">SMTP</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">pine [<i>options</i>] [<i>address</i>, <i>address</i>]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:310px"><i>address</i></td>
+<td>Send mail to <i>address</i>. This causes <b>pine</b> to go directly into the message composer.</td>
+</tr>
+<tr class="tcw">
+<td><b>-attach</b> <i>file</i></td>
+<td>Send mail with the listed <i>file</i> as an attachment.</td>
+</tr>
+<tr class="tcw">
+<td><b>-attachlist</b> <i>file-list</i></td>
+<td>Send mail with the listed <i>file-list</i> as an attachments.</td>
+</tr>
+<tr class="tcw">
+<td><b>-attach_and_delete</b> <i>file</i></td>
+<td>Send mail with the listed <i>file</i> as an attachment, and remove the file after the message is sent.</td>
+</tr>
+<tr class="tcw">
+<td><b>-aux</b> <i>local_directory</i></td>
+<td>When using a remote configuration (<b>-p</b> <i>&lt;remote_config&gt;</i>) this tells <b>pine</b> the local directory to use for storing auxiliary files, like <a href="/jargon/d/debug.htm">debug</a> files, address books, and <a href="/jargon/s/signatur.htm">signature</a> files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-bail</b></td>
+<td>Exit if the <b>pinerc</b> file (<b>pine</b>'s <a href="/jargon/c/configur.htm">configuration</a> file) does not exist. This option might be useful if the config file is accessed using some remote filesystem protocol. If the remote mount is missing this causes <b>pine</b> to quit instead of creating a new <b>pinerc</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b> <i>context-number</i></td>
+<td><i>context-number</i> is the number corresponding to the <i>folder-collection</i> that the <b>-f</b> <a href="/jargon/c/commandi.htm">command line</a> <a href="/jargon/a/argument.htm">argument</a> should be applied. By default, the <b>-f</b> argument is applied to the first defined <i>folder-collection</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-conf</b></td>
+<td>Produce a sample/fresh copy of the system-wide configuration file, <b>pine.conf</b>, on the standard output. This option is distinct from the per-user <b>.pinerc</b> file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-convert_sigs -p</b> <i>pinerc</i></td>
+<td>Convert signature files into literal signatures. The <i>pinerc</i> is the location of your pine configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-copy_abook</b> <i>&lt;local_abook&gt; &lt;remote_abook&gt;</i></td>
+<td>Copy the local address book file to a remote address book folder.</td>
+</tr>
+<tr class="tcw">
+<td><b>-copy_pinerc</b> <i>&lt;local_pinerc&gt; &lt;remote_pinerc&gt;</i></td>
+<td>Copy the local <b>pinerc</b> file to a remote <b>pinerc</b> folder.</td>
+</tr>
+<tr class="tcw">
+<td><b>-create_lu</b> <i>addrbook sort-order</i></td>
+<td>Creates auxiliary index (look-up) file for <i>addrbook</i> and sorts <i>addrbook</i> in <i>sort-order</i>, which may be <b>dont-sort</b>, <b>nickname</b>, <b>fullname</b>, <b>nickname-with-lists-last</b>, or <b>fullname-with-lists-last</b>. Useful when creating global or shared address books. After creating the index file in this way, the file should be moved or copied in a way which preserves the modification time (mtime) of the address book file. The mtime of the address book file at the time the index file was built is stored inside the index file and a comparison between that stored value and the current mtime of the address book file is done when somebody runs <b>pine</b>. If the mtime has changed since the index file was made, then <b>pine</b> wants to rebuild the index file. In other words, don't build the index file with this option and then copy the address book to its final destination in a way which changes the file's mtime.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>debug-level</i></td>
+<td>Output diagnostic info at <i>debug-level</i> (a number from <b>0</b>-<b>9</b>) to the current <b>.pine-debug</b>[<b>1</b>-<b>4</b>] file. A value of <b>0</b> turns debugging off and suppresses the <b>.pine-debug</b> file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>key</i>[<b>=</b><i>val</i>]</td>
+<td>Fine tuned output of diagnostic messages where "<b>flush</b>" causes debug file writing without buffering, "<b>timestamp</b>" appends each message with a timestamp, "<b>imap=</b><i>n</i>" where <i>n</i> is between <b>0</b> and <b>4</b> representing none to <a href="/jargon/v/verbose.htm">verbose</a> IMAP telemetry reporting, "<b>numfiles=</b><i>n</i>" where <i>n</i> is between <b>0</b> and <b>31</b> corresponding to the number of debug files to maintain, and "<b>verbose=</b><i>n</i>" where <i>n</i> is between <b>0</b> and <b>9</b> indicating an inverse threshold for message output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>folder</i></td>
+<td>Open folder (in first defined folder collection, use <b>-c</b> <i>n</i> to specify another collection) instead of INBOX.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b> <i>file</i></td>
+<td>Open named text file and view with <b>pine</b>'s browser.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Display a list of valid command-line options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td>Start up in the FOLDER INDEX screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> <i>keystrokes</i></td>
+<td>Initial (comma separated list of) keystrokes which <b>pine</b> should execute on startup.</td>
+</tr>
+<tr class="tcw">
+<td><b>-install</b></td>
+<td>This option causes <b>pine</b> to prompt for some basic setup information, then exits.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b></td>
+<td>Use <a href="/jargon/f/funckeys.htm">function keys</a> for commands. This option is the same as running the command "<b>pinef</b>" instead of "<b>pine</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b> <i>number</i></td>
+<td>Start up with current message-number set to <i>number</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b></td>
+<td>Open first folder read-only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>config-file</i></td>
+<td>Use <i>config-file</i> as the personal configuration file instead of the default <b>.pinerc</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b> <i>config-file</i></td>
+<td>Use <i>config-file</i> as the configuration file instead of default system-wide configuration file <b>pine.conf</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-pinerc</b> <i>file</i></td>
+<td>Output fresh <b>pinerc</b> configuration to file, preserving the settings of variables that the user has made. Use file set to "<b>-</b>" to make output go to standard out.</td>
+</tr>
+<tr class="tcw">
+<td><b>-registry</b> <i>cmd</i></td>
+<td>This option affects the values of <b>pine</b>'s Registry entries. Possible values for <i>cmd</i> are <b>set</b>, <b>clear</b>, and <b>dump</b>. The <b>set</b> always resets <b>pine</b>'s Registry entries according to its current settings. <b>clear</b> clears the Registry values. <b>clearsilent</b> silently clears the Registry values. <b>dump</b> displays the values of current Registry settings. Note that the <b>dump</b> command is currently disabled. Without the <b>-registry</b> option, <b>pine</b> writes values into the Registry only if there currently aren't any values set.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>Use restricted/demo mode. <b>pine</b> only sends mail to itself and functions like save and export are restricted.</td>
+</tr>
+<tr class="tcw">
+<td><b>-sort</b> <i>order</i></td>
+<td>Sort the FOLDER INDEX display in one of the following orders: <b>arrival</b>, <b>date</b>, <b>subject</b>, <b>orderedsubj</b>, <b>thread</b>, <b>from</b>, <b>size</b>, <b>score</b>, <b>to</b>, <b>cc</b>, or <b>reverse</b>. Arrival order is the default. The <b>OrderedSubj</b> choice simulates a threaded sort. Any sort may be reversed by adding <b>/reverse</b> to it. Reverse by itself is the same as <b>arrival/reverse</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-supported</b></td>
+<td>Some options may or may not be supported depending on how <b>pine</b> was compiled. This option is a way to determine which options are supported in the particular copy of <b>pine</b> you are using.</td>
+</tr>
+<tr class="tcw">
+<td><b>-url</b> <i>url</i></td>
+<td>Open the given <i>url</i>. Cannot be used with <b>-f</b> or <b>-F</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Print version information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-version</b></td>
+<td>Same as <b>-v</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b> <i>config</i></td>
+<td>Use configuration exceptions in <i>config</i>. Exceptions are used to override your default pinerc settings for a particular platform, is a local file or a remote folder.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b></td>
+<td>Enable <b>^Z</b> and the <b>SIGTSTP</b> <a href="/unix/signals.htm">signal</a> so <b>pine</b> may be suspended.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b><i>option</i><b>=</b><i>value</i></td>
+<td>Assign value to the config option option e.g., <b>-signature-file=sig1</b> or <b>-feature-list=signature-at-bottom</b> (Note: <i>feature-list</i> values are additive)</td>
+</tr>
+</table>
+<h2 id="configuration">Configuration</h2>
+<p class="tab">There are several levels of <b>pine</b> configuration. Configuration values at a given level over-ride corresponding values at lower levels. In order of increasing precedence:</p>
+<ul>
+<li>built-in defaults</li>
+<li>system-wide <b>pine.conf</b> file.</li>
+<li>personal <b>.pinerc</b> file (may be set via built-in Setup/Config menu.)</li>
+<li>command-line options.</li>
+<li>system-wide <b>pine.conf.fixed</b> file.</li>
+</ul>
+<p class="tab">There is one exception to the rule that configuration values are replaced by the value of the same option in a higher-precedence file: the feature-list variable has values that are additive, but can be negated by prepending "<b>no-</b>" in front of an individual feature name. Unix <b>pine</b> also uses the following <a href="/jargon/e/envivari.htm">environment variables</a>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>TERM</b></td>
+<td>Current terminal specification.</td>
+</tr>
+<tr class="tcw">
+<td><b>DISPLAY</b></td>
+<td>(determines if <b>pine</b> can display IMAGE attachments.)</td>
+</tr>
+<tr class="tcw">
+<td><b>SHELL</b></td>
+<td>The current <a href="/jargon/s/shell.htm">shell</a>. (if not set, default is <b><a href="/unix/ush.htm">/bin/sh</a></b>.)</td>
+</tr>
+<tr class="tcw">
+<td><b>MAILCAPS</b></td>
+<td>(semicolon-<a href="/jargon/d/delimite.htm">delimited</a> list of path names to mailcap files)</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:300px"><b>/usr/spool/mail/</b><i>xxxx</i></td>
+<td>Default folder for incoming mail.</td>
+</tr>
+<tr class="tcw">
+<td><b>~/mail</b></td>
+<td>Default directory for mail folders.</td>
+</tr>
+<tr class="tcw">
+<td><b>~/.addressbook</b></td>
+<td>Default address book file.</td>
+</tr>
+<tr class="tcw">
+<td><b>~/.addressbook.lu</b></td>
+<td>Default address book index file.</td>
+</tr>
+<tr class="tcw">
+<td><b>~/.pine-debug</b>[<b>1</b>-<b>4</b>]</td>
+<td>Diagnostic log for debugging.</td>
+</tr>
+<tr class="tcw">
+<td><b>~/.pinerc</b></td>
+<td>Personal <b>pine</b> config file.</td>
+</tr>
+<tr class="tcw">
+<td><b>~/.newsrc</b></td>
+<td>News subscription/state file.</td>
+</tr>
+<tr class="tcw">
+<td><b>~/.signature</b></td>
+<td>Default signature file.</td>
+</tr>
+<tr class="tcw">
+<td><b>~/.mailcap</b></td>
+<td>Personal mail capabilities file.</td>
+</tr>
+<tr class="tcw">
+<td><b>~/.mime.types</b></td>
+<td>Personal file extension to MIME type mapping.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/mailcap</b></td>
+<td>System-wide mail capabilities file.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/mime.types</b></td>
+<td>System-wide file ext. to MIME type mapping.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/local/lib/pine.info</b></td>
+<td>Local pointer to system administrator.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/local/lib/pine.conf</b></td>
+<td>System-wide configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/local/lib/pine.conf.fixed</b></td>
+<td>Non-overridable configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>~/.pine-interrupted-mail</b></td>
+<td>Message which was interrupted.</td>
+</tr>
+<tr class="tcw">
+<td><b>~/mail/postponed-msgs</b></td>
+<td>For postponed messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>~/mail/sent-mail</b></td>
+<td>FCC (Outgoing message archive).</td>
+</tr>
+<tr class="tcw">
+<td><b>~/mail/saved-messages</b></td>
+<td>Default destination for Saving messages.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">pine</pre>
+<p class="tab">Launch <b>pine</b>.</p>
+<pre class="tcy tab">pine <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="355451514750464675504d54584559501b565a58">[email&#160;protected]</a></pre>
+<p class="tab">Launch <b>pine</b>, and immediately begin composing an e-mail addressed to <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="177673736572646457726f767a677b723974787a">[email&#160;protected]</a></b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/umail.htm"><b>mail</b></a> &mdash; Read, compose, and manage mail.<br><a href="/unix/upico.htm"><b>pico</b></a> &mdash; A simple text editor.<br><a href="/unix/usendmai.htm"><b>sendmail</b></a> &mdash; Send mail.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83319a2cc410',m:'rjiEgw395OJYGHDsyYzx9x_B0T1qFbPUZp0Bq.zt.Sc-1661495360-0-AQ5e8MO9+g16tmAbnUCOCNENWfjixF5tRDzFbK5kKlJ1VQjrb2wV5Sf7XBPRJpZnevoxfzbevcolhFnXO+EXegMP6d06M4TCAVprvFxp5axFDEPgPw135Ale10oLZJTxbg==',s:[0x63d01fedd1,0x712e725c4a],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

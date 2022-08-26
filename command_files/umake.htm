@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux make command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/make.gif" width="300" height="300" alt="make command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>make</b> is a <a href="/jargon/u/utility.htm">utility</a> for building and maintaining groups of <a href="/jargon/p/program.htm">programs</a> (and other types of files) from source code.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>make</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The purpose of the <b>make</b> utility is to determine automatically which pieces of a large program need to be re-<a href="/jargon/c/compile.htm">compiled</a>, and issue the commands necessary to recompile them. This documentation describes the GNU implementation of <b>make</b>, which was written by <a href="/people/richard_stallman.htm">Richard Stallman</a> and Roland McGrath, and is currently maintained by Paul Smith. Many of the examples listed below show <a href="/jargon/c/c.htm">C</a> programs, since they are most common, but you can use <b>make</b> with any programming language whose compiler can be run with a <a href="/jargon/s/shell.htm">shell</a> command. In fact, <b>make</b> is not limited to programs. You can use it to describe any task where some files must be updated automatically from others whenever the others change.</p>
+<p class="tab">To prepare to use <b>make</b>, you must write a file called the <i>makefile</i> that describes the relationships among files in your program, and the states the commands for updating each file. In a program, typically the executable file is updated from <a href="/jargon/o/objefile.htm">object files</a>, which are in turn made by compiling <a href="/jargon/s/source.htm">source</a> files.</p>
+<p class="tab">Once a suitable makefile exists, each time you change some source files, this simple shell command:</p>
+<pre class="tab tcy">make</pre>
+<p class="tab">suffices to perform all necessary recompilations. The <b>make</b> program uses the makefile data base and the last-modification times of the files to decide which of the files need to be updated. For each of those files, it issues the commands recorded in the database.</p>
+<p class="tab"><b>make</b> executes commands in the makefile to update one or more target names, where <i>name</i> is typically a program. If no <b>-f</b> option is present, <b>make</b> will look for the makefiles <b>GNUmakefile</b>, <b>makefile</b>, and <b>Makefile</b>, in that order.</p>
+<p class="tab">Normally you should call your makefile either <b>makefile</b> or <b>Makefile</b>. (The officially recommended name is <b>Makefile</b> because it appears prominently near the beginning of a <a href="/jargon/d/director.htm">directory</a> listing, right near other important files such as <b>README</b>.) The first name checked, <b>GNUmakefile</b>, is not recommended for most <b>makefiles</b>. You should use this name if you have a makefile that is specific to GNU <b>make</b>, and will not be understood by other versions of <b>make</b>. If makefile is a dash ("<b>-</b>"), the <a href="/jargon/s/stdin.htm">standard input</a> is read.</p>
+<p class="tab"><b>make</b> updates a target if it depends on prerequisite files that have been modified since the target was last modified, or if the target does not exist.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">make [ -f <i>makefile</i> ] [ <i>options</i> ] ... [ <i>targets</i> ] ...</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:280px"><b>-b</b>, <b>-m</b></td>
+<td>These options are ignored, but included for compatibility with other versions of <b>make</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b>, <b>--always-make</b></td>
+<td>Unconditionally make all targets.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b> <i>dir</i>, <b>--directory=</b><i>dir</i></td>
+<td>Change to directory <i>dir</i> before reading the makefiles or doing anything else. If multiple <b>-C</b> options are specified, each is interpreted relative to the previous one: <b>-C / -C etc</b> is equivalent to <b>-C /etc</b>. This is typically used with <a href="/jargon/r/recursive.htm">recursive</a> invocations of <b>make</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Print <a href="/jargon/d/debug.htm">debugging</a> information in addition to normal processing. The debugging information says which files are being considered for remaking, which file-times are being compared and with what results, which files actually need to be remade, which implicit rules are considered and that are applied; everything interesting about how <b>make</b> decides what to do.</td>
+</tr>
+<tr class="tcw">
+<td><b>--debug</b>[<b>=</b>FLAGS]</td>
+<td>Print debugging information in addition to normal processing. If the FLAGS are omitted, then the behavior is the same as if <b>-d</b> was specified. FLAGS may be <b>a</b> for all debugging output (same as using <b>-d</b>), <b>b</b> for basic debugging, <b>v</b> for more verbose basic debugging, <b>i</b> for showing implicit rules, <b>j</b> for details on invocation of commands, and <b>m</b> for debugging while remaking makefiles.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>,<br><b>--environment-overrides</b></td>
+<td>Give variables taken from the <a href="/jargon/e/envivari.htm">environment</a> precedence over variables from makefiles.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>file</i>, <b>--file=</b><i>file</i>,<br><b>--makefile=</b><i>file</i></td>
+<td>Use <i>file</i> as a makefile.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--ignore-errors</b></td>
+<td>Ignore all errors in commands executed to remake files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> <i>dir</i>, <b>--include-dir=</b><i>dir</i></td>
+<td>Specifies a directory <i>dir</i> to search for included makefiles. If several <b>-I</b> options are used to specify several directories, the directories are searched in the order specified. Unlike the <a href="/jargon/a/argument.htm">arguments</a> to other flags of <b>make</b>, directories given with <b>-I</b> flags may come directly after the flag: <b>-I</b><i>dir</i> is allowed, as well as <b>-I</b> <i>dir</i>. This syntax is allowed for compatibility with the C preprocessor's <b>-I</b> flag.</td>
+</tr>
+<tr class="tcw">
+ <td><b>-j</b> [<i>jobs</i>], <b>--jobs</b>[<b>=</b><i>jobs</i>]</td>
+<td>Specifies the number of <i>jobs</i> (commands) to run simultaneously. If there is more than one <b>-j</b> option, the last one is effective. If the <b>-j</b> option is given without an argument, <b>make</b> will not limit the number of jobs that can run simultaneously.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b>, <b>--keep-going</b></td>
+<td>Continue as much as possible after an error. While the target that failed (and those that depend on it) cannot be remade, the other dependencies of these targets can be processed all the same.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b> [<i>load</i>],<br><b>--load-average</b>[<b>=</b><i>load</i>]</td>
+<td>Specifies that no new jobs (commands) should be started if there are others jobs running and the load average is at least <i>load</i> (a <a href="/jargon/f/floapoin.htm">floating-point</a> number). With no argument, removes a previous load limit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>,<br><b>--check-symlink-times</b></td>
+<td>Use whichever is the latest modification time between <a href="/jargon/s/symblink.htm">symlinks</a> and target.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--just-print</b>,<br><b>--dry-run</b>, <b>--recon</b></td>
+<td>Print the commands that would be executed, but do not execute them.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b> <i>file</i>, <b>--old-file=</b><i>file</i>,<br><b>--assume-old=</b><i>file</i></td>
+<td>Do not remake the file <i>file</i> even if it is older than its dependencies, and do not remake anything on account of changes in file. Essentially the file is treated as very old and its rules are ignored.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--print-data-base</b></td>
+<td>Print the database (rules and variable values) that results from reading the makefiles; then execute as usual or as otherwise specified. This also prints the version information given by the <b>-v</b> switch (see below). To print the database without trying to remake any files, use <b>make -p -f/dev/null</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--question</b></td>
+<td>"Question mode." Do not run any commands, or print anything; just return an exit status that is zero if the specified targets are already up to date, nonzero otherwise.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--no-builtin-rules</b></td>
+<td>Eliminate use of the built-in implicit rules. Also, clear out the default list of suffixes for suffix rules.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--no-builtin-variables</b></td>
+<td>Don't define any built-in variables.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--silent</b>, <b>--quiet</b></td>
+<td>Silent operation; do not print the commands as they are executed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b>, <b>--no-keep-going</b>,<br><b>--stop</b></td>
+<td>Cancel the effect of the <b>-k</b> option. This is never necessary except in a recursive make where <b>-k</b> might be inherited from the top-level make via MAKEFLAGS or if you set <b>-k</b> in MAKEFLAGS in your environment.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--touch</b></td>
+<td>Touch files (mark them up to date without really changing them) instead of running their commands. This is used to pretend that the commands were done, to fool future invocations of <b>make</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--version</b></td>
+<td>Print the version of <b>make</b>; also a Copyright, a list of authors and a notice that there is no warranty.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>, <b>--print-directory</b></td>
+<td>Print a message containing the working directory before and after other processing. This may be useful for tracking down errors from complicated nests of recursive <b>make</b> commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-print-directory</b></td>
+<td>Turn off <b>-w</b>, even if it was turned on implicitly.</td>
+</tr>
+<tr class="tcw">
+<td><b>-W</b> <i>file</i>, <b>--what-if=</b><i>file</i>,<br><b>--new-file=</b><i>file</i>,<br><b>--assume-new=</b><i>file</i></td>
+<td>Pretend that the target file has just been modified. When used with the <b>-n</b> flag, this shows you what would happen if you were to modify that file. Without <b>-n</b>, it is almost the same as running a <a href="/unix/utouch.htm">touch</a> command on the given file before running <b>make</b>, except that the modification time is changed only internally within <b>make</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--warn-undefined-variables</b></td>
+<td>Warn when an undefined variable is referenced.</td>
+</tr>
+</table>
+<h2>Typical Use</h2>
+<p class="tab"><b>make</b> is typically used to build <a href="/jargon/e/execfile.htm">executable</a> programs and <a href="/jargon/l/library.htm">libraries</a> from source code. Generally speaking, <b>make</b> is applicable to any process that involves executing arbitrary commands to transform a source file to a target result. For example, <b>make</b> could be used to detect a change made to an image file (the source) and the transformation actions might be to convert the file to some specific format, copy the result into a <a href="/jargon/c/cms.htm">content management system</a>, and then send e-mail to a predefined set of users that the above actions were performed.</p>
+<p class="tab"><b>make</b> is invoked with a list of target file names to build as <a href="/jargon/c/commandi.htm">command-line</a> <a href="/jargon/a/argument.htm">arguments</a>:</p>
+<pre class="tab tcy">make [<i>TARGET</i> ...]</pre>
+<p class="tab">Without arguments, <b>make</b> builds the first target that appears in its makefile, which is traditionally a target named <b>all</b>.</p>
+<p class="tab"><b>make</b> decides whether a target needs to be regenerated by comparing file <a href="/issues/ch001469.htm">modification times</a>. This solves the problem of avoiding the building of files that are already up to date, but it fails when a file changes but its modification time stays in the past. Such changes could be caused by restoring an older version of a source file, or when a <a href="/jargon/n/network.htm">network</a> <a href="/jargon/f/filesyst.htm">filesystem</a> is a source of files and its clock or timezone is not synchronized with the machine running <b>make</b>. The user must handle this situation by forcing a complete build. Conversely, if a source file's modification time is in the future, it may trigger unnecessary rebuilding.</p>
+<h2>Makefiles</h2>
+<p class="tab"><b>make</b> searches the current directory for the makefile to use. GNU <b>make</b> searches files for a file named one of <b>GNUmakefile</b>, <b>makefile</b>, and then <b>Makefile</b>, and runs the specified target(s) from that file.</p>
+<p class="tab">The <b>makefile</b> language is similar to declarative programming, in which necessary end conditions are described but the order in which actions are to be taken is not important. This may be confusing to programmers used to imperative programming, which explicitly describes how the end result will be reached.</p>
+<p class="tab">One problem in build automation is the tailoring of a build process to a given <a href="/jargon/p/platform.htm">platform</a>. For instance, the <a href="/jargon/c/compile.htm">compiler</a> used on one platform might not accept the same options as the one used on another. This is not well handled by <b>make</b> on its own. This problem is typically handled by generating separate platform-specific build instructions, which in turn may be processed by <b>make</b>. Common tools for this process are <b>autoconf</b> and <b>cmake</b>.</p>
+<h2>Rules</h2>
+<p class="tab">A makefile essentially consists of <i>rules</i>. Each rule begins with a dependency line which defines a target followed by a colon ("<b>:</b>") and optionally an enumeration of components (files or other targets) on which the target depends. The dependency line is arranged so that the target (left hand of the colon) depends on components (right hand of the colon). It is common to refer to components as prerequisites of the target.</p>
+<pre class="tab tcy">target [<i>target</i> ...]: [<i>component</i> ...] [<i>&lt;TAB&gt; command 1</i>] . . . 
+       [<i>&lt;TAB&gt; command n</i>]</pre>
+<p class="tab">Here, <b>&lt;TAB&gt;</b> is the tab <a href="/jargon/c/charact.htm">character</a>. Usually each rule has a single unique target, rather than multiple targets.</p>
+<p class="tab">For example, a C <b>.o</b> object file is created from <b>.c</b> files, so <b>.c</b> files come first (i.e., specific object file target depends on a C source file and header files). Because <b>make</b> itself does not understand, recognize or distinguish different kinds of files, this opens up the possibility for human error. A forgotten or an extra dependency may not be immediately obvious and may result in subtle <a href="/jargon/b/bug.htm">bugs</a> in the generated software. It is possible to write makefiles which generate these dependencies by calling third-party tools, and some makefile generators, such as the GNU <b>automake</b> toolchain, can do so automatically.</p>
+<p class="tab">After each dependency line, a series of command lines may follow which define how to transform the components (usually source files) into the target (usually the "output"). If any of the components have been modified, the command lines are run.</p>
+<p class="tab">With GNU <b>make</b>, the first command may appear on the same line after the prerequisites, separated by a semicolon:</p>
+<pre class="tab tcy"><i>targets</i> : <i>prerequisites</i> ; <i>command</i></pre>
+<p class="tab">for example:</p>
+<pre class="tab tcy">hello: ; @echo "hello"</pre>
+<p class="tab">Each command line must begin with a tab character to be recognized as a command. The tab is a <a href="/jargon/w/whitspac.htm">whitespace</a> character, but the space character does not have the same special meaning. This is problematic, since there may be no visual difference between a tab and a series of space characters. This aspect of the syntax of makefiles is often subject to criticism, and is important to take note.</p>
+<p class="tab">However, GNU <b>make</b> (since version 3.82) allows the user to choose any symbol (one character) as the recipe prefix using the <b>.RECIPEPREFIX</b> special variable, for example:</p>
+<pre class="tab tcy">.RECIPEPREFIX := : all: :@echo "recipe prefix symbol is set to '$(.RECIPEPREFIX)'"</pre>
+<p class="tab">Each command is executed by a separate shell or command-line interpreter instance. Since operating systems use different command-line interpreters this can lead to unportable makefiles. For instance, GNU <b>make</b> by default executes commands with <a href="/unix/ush.htm">/bin/sh</a>, which is the shell where <a href="/jargon/u/unix.htm">Unix</a> commands like <a href="/unix/ucp.htm">cp</a> are normally used.</p>
+<p class="tab">A rule may have no command lines defined. The dependency line can consist solely of components that refer to targets, for example:</p>
+<pre class="tab">realclean: clean distclean</pre>
+<p class="tab">The command lines of a rule are usually arranged so that they generate the target. An example: if "<b>file.html</b>" is newer, it is converted to text. The contents of the makefile:</p>
+<pre class="tab tcy">file.txt: file.html lynx -dump file.html &gt; file.txt</pre>
+<p class="tab">The above rule would be triggered when <b>make</b> updates "<b>file.txt</b>".</p>
+<p class="tab">In the following invocation, <b>make</b> would typically use this rule to update the "<b>file.txt</b>" target if "<b>file.html</b>" were newer:</p>
+<pre class="tab tcy">make file.txt</pre>
+<p class="tab">Command lines can have one or more of the following three prefixes:</p>
+<ul>
+<li>a hyphen-minus (<b>-</b>), specifying that errors are ignored</li>
+<li>an at sign (<b>@</b>), specifying that the command is not printed to standard output before it is executed</li>
+<li>a plus sign (<b>+</b>), the command is executed even if <b>make</b> is invoked in a "do not execute" mode</li>
+</ul>
+<p class="tab">Ignoring errors and silencing all <a href="/unix/uecho.htm">echo</a> output can also be obtained via the special targets "<b>.IGNORE</b>" and "<b>.SILENT</b>", respectively.</p>
+<h2>Macros</h2>
+<p class="tab">A makefile can contain definitions of <a href="/jargon/m/macro.htm">macros</a>. Macros are usually referred to as variables when they hold simple string definitions, like "<b>CC=clang</b>", which would specify <b>clang</b> as the C compiler. Macros in makefiles may be overridden in the command-line arguments passed to the <b>make</b> utility. <a href="/jargon/e/envivari.htm">environment variables</a> are also available as macros.</p>
+<p class="tab">Macros allow users to specify the programs invoked and other custom behavior during the build process. For example, as just shown, the macro "<b>CC</b>" is frequently used in makefiles to refer to the location of a C compiler.</p>
+<p class="tab">New macros are traditionally defined using capital letters:</p>
+<pre class="tab tcy"><i>MACRO</i> = <i>definition</i></pre>
+<p class="tab">A macro is used by expanding it. Traditionally this is done by enclosing its name inside <b>$()</b>. An equivalent form uses curly braces rather than parenthesis, i.e., <b>${}</b>, which is the style used in <a href="/jargon/b/bsd.htm">BSD</a> operating systems.</p>
+<pre class="tab tcy"><i>NEW_MACRO</i> = $(<i>MACRO</i>)-$(<i>MACRO2</i>)</pre>
+<p class="tab">Macros can be composed of shell commands using the command substitution operator, denoted by backticks (&quot;<b>&#96; &#96;</b>&quot;).</p>
+<pre class="tab tcy"><i>YYYYMMDD</i> = &#96; <i>date</i> &#96;</pre>
+<p class="tab">The content of the definition is stored "as is". Lazy evaluation is used, meaning that macros are normally expanded only when their expansions are actually required, such as when used in the command lines of a rule. For example:</p>
+<pre class="tab">PACKAGE   = package
+VERSION   = &#96; date +&quot;%Y.%m%d&quot; &#96;
+ARCHIVE   = $(PACKAGE)-$(VERSION)
+dist:
+     #  Notice that only now macros are expanded for shell to interpret:
+     #      tar -cf package-&#96;date +"%Y%m%d"&#96;.tar
+tar -zcf $(ARCHIVE).tar .</pre>
+<p class="tab">The generic syntax for overriding macros on the command line is:</p>
+<pre class="tab tcy">make <i>MACRO</i>="<i>value</i>" [<i>MACRO</i>="<i>value</i>" ...] <i>TARGET</i> [<i>TARGET</i> ...]</pre>
+<p class="tab">Makefiles can access any of a number of predefined internal macros, with "<b>?</b>" and "<b>@</b>" being the most common.</p>
+<pre class="tab">target: component1 component2
+     echo $? contains those components, which need attention 
+             (i.e., they ARE YOUNGER than current TARGET).
+     echo <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fdd9bd">[email&#160;protected]</a> evaluates to current TARGET name from among those left of the colon.</pre>
+<h2>Suffix Rules</h2>
+<p class="tab">Suffix rules have "targets" with names in the form <b>.FROM.TO</b> and are used to launch actions based on <a href="/jargon/f/fileext.htm">file extension</a>. In the command lines of suffix rules, <a href="/jargon/p/posix.htm">POSIX</a> specifies that the internal macro "<b>$&lt;</b>" refers to the first prerequisite and "<b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b6f0b">[email&#160;protected]</a></b>" refers to the target. In this example, which converts any <a href="/jargon/h/html.htm">HTML</a> file into text, the shell <a href="/jargon/r/redirect.htm">redirection</a> token "<b>&gt;</b>" is part of the command line whereas "<b>$&lt;</b>" is a macro referring to the HTML file:</p>
+<pre class="tab tcy">.SUFFIXES: .txt .html
+# From .html to .txt
+.html.txt:
+        lynx -dump $&lt;   &gt;   <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="183c58">[email&#160;protected]</a>
+</pre>
+<p class="tab">When called from the command line, the above example expands the command:</p>
+<pre class="tab tcy">make -n file.txt</pre>
+<p class="tab">into:</p>
+<pre class="tab tcy">lynx -dump file.html &gt; file.txt</pre>
+<h2>Other Elements</h2>
+<ul>
+<li>Single-line <a href="/jargon/c/comment.htm">comments</a> are started with the hash symbol ("<b>#</b>").</li>
+<li>Some directives in makefiles can include other makefiles.</li>
+<li>Line continuation is indicated with a backslash ("<b>\</b>") character at the end of a line, as in the following:</li>
+</ul>
+<pre class="tab">   target: component \
+              component
+      &lt;TAB&gt;command ; \
+      &lt;TAB&gt;command | \
+      &lt;TAB&gt;piped-command
+</pre>
+<h2>Exit Status</h2>
+<p class="tab">GNU <b>make</b> exits with a status of:</p>
+<ul>
+<li><b>0</b> if all makefiles were successfully parsed and no targets that were built failed;</li>
+<li><b>1</b> if the <b>-q</b> flag was used and <b>make</b> determines that a target needs to be rebuilt; and</li>
+<li><b>2</b> if any errors were encountered.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<p class="tab">Makefiles are traditionally used for compiling code (<b>*.c</b>, <b>*.cc</b>, <b>*.C</b>, etc.), but they can also be used for providing commands to automate common tasks.</p>
+<p class="tab">Here's an example of three ways to run <b>make</b> given a certain makefile. The <b>make</b> commands are listed first, and then the makefile:</p>
+<pre class="tcy">make</pre>
+<p class="tab">Without any argument, <b>make</b> will run the first target;</p>
+<pre class="tcy">make help</pre>
+<p class="tab">When given the <b>help</b> argument, <b>make</b> will show available targets;</p>
+<pre class="tcy">make dist</pre>
+<p class="tab">When given the argument <b>dist</b>, <b>make</b> will create a release archive from the current directory.</p>
+<p class="tab">Here is the makefile for the above <b>make</b> commands:</p>
+<pre class="tab">PACKAGE      = package
+VERSION      = &#96; date "+%Y.%m%d%" &#96;
+RELEASE_DIR  = ..
+RELEASE_FILE = $(PACKAGE)-$(VERSION)
+# Notice that the variable LOGNAME comes from the environment in
+# POSIX shells.
+#
+# target: all - Default target. Does nothing.
+all:
+        echo "Hello $(LOGNAME), nothing to do by default"
+        # sometimes: echo "Hello ${LOGNAME}, nothing to do by default"
+        echo "Try 'make help'"
+# target: help - Display callable targets.
+help:
+        egrep "^# target:" [Mm]akefile
+# target: list - List source files
+list:
+        # Won't work. Each command is in separate shell
+        cd src
+        ls
+        # Correct, continuation of the same shell
+        cd src; \
+        ls
+# target: dist - Make a release.
+dist:
+        tar -cf  $(RELEASE_DIR)/$(RELEASE_FILE) &amp;&amp; \
+        gzip -9  $(RELEASE_DIR)/$(RELEASE_FILE).tar</pre>
+<p class="tab">Next, here is a very simple makefile that by default (the "<b>all</b>" rule, which is listed first) compiles a source file called "<b>helloworld.c</b>" using the system's C compiler, and also provides a "<b>clean</b>" target to remove the generated files if the user wants to start over. The <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e0c4a0">[email&#160;protected]</a></b> and <b>$&lt;</b> are two internal macros (also known as automatic variables) that stand for the target name and implicit source, respectively. In the example below, <b>$^</b> expands to a space-<a href="/jargon/d/delimite.htm">delimited</a> list of the prerequisites.</p>
+<p class="tab">Here's the makefile:</p>
+<pre class="tab">CFLAGS ?= -g
+all: helloworld
+helloworld: helloworld.o
+        # Commands start with TAB not spaces
+        $(CC) $(LDFLAGS) -o <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a88ce8">[email&#160;protected]</a> $^
+helloworld.o: helloworld.c
+        $(CC) $(CFLAGS) -c -o <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="755135">[email&#160;protected]</a> $&lt;
+clean: FRC
+        rm -f helloworld helloworld.o
+# This pseudo target causes all targets that depend on FRC
+# to be remade even in case a file with the name of the target exists.
+# This works with any make implementation under the assumption that
+# there is no file FRC in the current directory.
+FRC:</pre>
+<p class="tab">Many systems come with predefined <b>make</b> rules and macros to specify common tasks such as compilation based on file suffix. This allows user to omit the actual (often unportable) instructions of how to generate the target from the source(s). On such a system the above makefile could be modified as follows:</p>
+<pre class="tab">all: helloworld
+helloworld: helloworld.o
+    $(CC) $(CFLAGS) $(LDFLAGS) -o <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7d593d">[email&#160;protected]</a> $^
+clean: FRC
+    rm -f helloworld helloworld.o
+# This is an explicit suffix rule. It may be omitted on systems
+# that handle simple rules like this automatically.
+.c.o:
+    $(CC) $(CFLAGS) -c $&lt;
+FRC:
+.SUFFIXES: .c</pre>
+<p class="tab">Using this makefile, the fact that "<b>helloworld.o</b>" depends on "<b>helloworld.c</b>" is now automatically handled by <b>make</b>. In this simple example this hardly matters, but the real power of suffix rules becomes evident when the number of source files in a software project starts to grow. One only has to write a rule for the linking step and declare the object files as prerequisites. <b>make</b> will then implicitly determine how to make all the object files and look for changes in all the source files.</p>
+<p class="tab">Simple suffix rules work well as long as the source files do not depend on each other and on other files such as header files. Another route to simplify the build process is to use pattern matching rules that can be combined with compiler-assisted dependency generation.</p>
+<p class="tab">The next example requires the <a href="/jargon/g/gcc.htm">gcc</a> compiler. It is a generic makefile that compiles all C files in a folder to the corresponding object files and then links them to the final executable. Before compilation takes place, dependencies are gathered in makefile-friendly format into a hidden file "<b>.depend</b>" that is then included to the makefile.</p>
+<pre class="tab"># Generic GNUMakefile
+# Just a snippet to stop executing under other make(1) commands
+# that won't understand these lines
+ifneq (,)
+This makefile requires GNU Make.
+endif
+PROGRAM = foo
+C_FILES := $(wildcard *.c)
+OBJS := $(patsubst %.c, %.o, $(C_FILES))
+CC = cc
+CFLAGS = -Wall -pedantic
+LDFLAGS =
+all: $(PROGRAM)
+$(PROGRAM): .depend $(OBJS)
+    $(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) -o $(PROGRAM)
+depend: .depend
+.depend: cmd = gcc -MM -MF depend $(var); cat depend &gt;&gt; .depend;
+.depend:
+    @echo "Generating dependencies..."
+    @$(foreach var, $(C_FILES), $(cmd))
+    @rm -f depend
+-include .depend
+# These are the pattern matching rules. In addition to the automatic
+# variables used here, the variable $* that matches whatever % stands for
+# can be useful in special cases.
+%.o: %.c
+    $(CC) $(CFLAGS) -c $&lt; -o <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6b4f2b">[email&#160;protected]</a>
+%: %.c
+    $(CC) $(CFLAGS) -o <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="624622">[email&#160;protected]</a> $&lt;
+clean:
+    rm -f .depend *.o
+.PHONY: clean depend</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucd.htm"><b>cd</b></a> &mdash; Change the working directory.<br><a href="/unix/ush.htm"><b>sh</b></a> &mdash; The Bourne shell command interpreter.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a831399598498',m:'L8g2BNqntL4MHl49tZ_YIEppa_BeW8qouxpOXgsfhzs-1661495355-0-AW2Yz3HF+iFN+nx5fYU8aIqe3ZnzgnE5OjBcx7mGLxHKe/g6uAgmrFFv6pdEizcUCILauPYCwWDuItIdsdMHO43DusJf761IIt3YyrC16HUV1YMpIzV254CQGMNNTomPRg==',s:[0xae58c1bacc,0xeed0f2e316],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

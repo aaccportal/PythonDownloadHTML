@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux useradd command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/useradd.gif" width="300" height="300" alt="useradd command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>useradd</b> command creates a new <a href="/jargon/u/user.htm">user</a> or sets the default information for new users.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>useradd</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#change">Changing new user default values</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#caveats">Caveats</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#exit">Exit status</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>useradd</b> is a low-level <a href="/jargon/u/utility.htm">utility</a> for adding users to a system. In general, the more friendly <b>adduser</b> should be used instead.</p>
+<p class="tab">Your <a href="/jargon/o/os.htm">operating system</a> may come with a slightly different version of <b>useradd</b>; check your documentation before using it to create new accounts. This documentation refers to some options frequently used on <a href="/jargon/d/debian.htm">Debian</a>-based <a href="/jargon/v/variant.htm">variants</a> of <a href="/jargon/l/linux.htm">Linux</a>, but is representative of <b>useradd</b>'s general use.</p>
+<p class="tab">When invoked without the <b>-D</b> option, the <b>useradd</b> command creates a new user account using the values specified on the <a href="/jargon/c/commandi.htm">command line</a> plus the default values from the system. Depending on command line options, the <b>useradd</b> command updates system files and may also create the new user's <a href="/jargon/h/homedir.htm">home directory</a> and copy initial files.</p>
+<p class="tab">By default, a <a href="/jargon/g/group.htm">group</a> is also created for the new user (see the <b>-g</b>, <b>-N</b>, <b>-U</b> options, and the <b>USERGROUPS_ENAB</b> variable, below).</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">useradd [<i>options</i>] <i>LOGIN</i></pre>
+<pre class="tcy tab">useradd -D</pre>
+<pre class="tcy tab">useradd -D [<i>options</i>]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:300px"><b>-c</b>, <b>--comment</b> <i>COMMENT</i></td>
+<td><i>COMMENT</i> can be any text <a href="/jargon/s/string.htm">string</a>. It is generally a short description of the <a href="/jargon/l/login.htm">login</a>, and is currently used as the field for the user's full name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--home</b> <i>HOME_DIR</i></td>
+<td>The new user is created using <i>HOME_DIR</i> as the value for the user's login directory. The default is to append the LOGIN name to <i>BASE_DIR</i> and use that as the login directory name. The directory <i>HOME_DIR</i> does not have to exist but is not created if it's missing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b>, <b>--defaults</b></td>
+<td>Set new default values. See the section on <a href="#change">changing new user default values</a>, below.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>, <b>--expiredate</b> <i>EXPIRE_DATE</i></td>
+<td>The date on which the user account will be disabled. The date is specified in the format <b>YYYY-MM-DD</b>.<br><br> If not specified, <b>useradd</b> uses the default expiry date specified by the <b>EXPIRE</b> variable in <b>/etc/default/useradd</b>, or an empty string (no expiry) by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--inactive</b> <i>INACTIVE</i></td>
+<td>The number of days after a <a href="/jargon/p/password.htm">password</a> expires until the account is permanently disabled. A value of <b>0</b> disables the account as soon as the password has expired, and a value of <b>-1</b> disables the feature.<br><br> If not specified, <b>useradd</b> uses the default inactivity period specified by the <b>INACTIVE</b> variable in <b>/etc/default/useradd</b>, or <b>-1</b> by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>, <b>--gid</b> <i>GROUP</i></td>
+<td>The group name or number of the user's initial login group. The group name must exist. A group number must refer to an already existing group.<br><br> If not specified, the behavior of <b>useradd</b> will depend on the <b>USERGROUPS_ENAB</b> variable in <b>/etc/login.defs</b>. If this variable is set to yes (or <b>-U</b>/<b>--user-group</b> is specified on the command line), a group is created for the user, with the same name as her loginname. If the variable is set to <b>no</b> (or <b>-N</b>/<b>--no-user-group</b> is specified on the command line), <b>useradd</b> sets the primary group of the new user to the value specified by the <b>GROUP</b> variable in <b>/etc/default/useradd</b>, or <b>100</b> by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b>,<br><b>--groups</b> <i>GROUP1</i>[,<i>GROUP2</i>,...[,<i>GROUPN</i>]]]</td>
+<td>A list of groups containing the user as a member. Each group is separated from the next by a comma, with no intervening <a href="/jargon/w/whitspac.htm">whitespace</a>. The groups are subject to the same restrictions as the group given with the <b>-g</b> option. The default is for the user to belong only to the initial group.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b>, <b>--skel</b> <i>SKEL_DIR</i></td>
+<td><i>SKEL_DIR</i> is the skeleton directory, which contains files and directories to be copied in the user's home directory, when the home directory is created by <b>useradd</b>.<br><br> This option is only valid if the <b>-m</b> (or <b>--create-home</b>) option is specified.<br><br> If this option is not set, the skeleton directory is defined by the <b>SKEL</b> variable in <b>/etc/default/useradd</b> or, by default, <b>/etc/skel</b>.<br><br> If possible, the <a href="/jargon/a/acl.htm">ACL</a> and extended attributes are copied.</td>
+</tr>
+<tr class="tcw">
+<td><b>-K</b>, <b>--key</b> <i>KEY</i><b>=</b><i>VALUE</i></td>
+<td>Overrides <b>/etc/login.defs</b> defaults (<b>UID_MIN</b>, <b>UID_MAX</b>, <b>UMASK</b>, <b>PASS_MAX_DAYS</b> and others).<br><br> Example: <b>-K</b> <b>PASS_MAX_DAYS=-1</b> can be used when creating system account to turn off password aging, even though system account has no password at all. Multiple <b>-K</b> options can be specified, for example: <b>-K UID_MIN=100 -K UID_MAX=499</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--no-log-init</b></td>
+<td>Do not add the user to the <b>lastlog</b> and <b>faillog</b> databases.<br><br> By default, the user's entries in the <b>lastlog</b> and <b>faillog</b> databases are resetted to avoid reusing the entry from a previously deleted user.<br><br> For the compatibility with previous versions of <b>useradd</b>, the <b>-O</b> option is also supported for this purpose.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b>, <b>--create-home</b></td>
+<td>Create the user's home directory if it does not exist. The files and directories contained in the skeleton directory (which can be defined with the <b>-k</b> option) is copied to the home directory.<br><br> By default, if this option is not specified and <b>CREATE_HOME</b> is not enabled, no home directories are created.</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b></td>
+<td>Do no create the user's home directory, even if the system wide setting from <b>/etc/login.defs</b> (<b>CREATE_HOME</b>) is set to <b>yes</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b>, <b>--no-user-group</b></td>
+<td>Do not create a group with the same name as the user, but add the user to the group specified by the <b>-g</b> option or by the <b>GROUP</b> variable in <b>/etc/default/useradd</b>.<br><br> The default behavior (if the <b>-g</b>, <b>-N</b>, and <b>-U</b> options are not specified) is defined by the <b>USERGROUPS_ENAB</b> variable in <b>/etc/login.defs</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--non-unique</b></td>
+<td>Allow the creation of a user account with a duplicate (non-unique) <a href="/jargon/u/username.htm">UID</a>.<br><br> This option is only valid in combination with the <b>-u</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--password</b> <i>PASSWORD</i></td>
+<td>The <a href="/jargon/e/encrypt.htm">encrypted</a> password, as returned by crypt. The default is to disable the password.<br><br> Note: This option is not recommended because the password (or encrypted password) will be visible by users listing the processes (for example, with the <a href="/unix/ups.htm"><b>ps</b></a> command).<br><br> You should make sure the password respects the system's password policy.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--system</b></td>
+<td>Create a system account.<br><br> System users are created with no aging information in <b>/etc/shadow</b>, and their numeric identifiers are chosen in the <b>SYS_UID_MIN-SYS_UID_MAX</b> range, defined in <b>/etc/login.defs</b>, instead of <b>UID_MIN-UID_MAX</b> (and their GID counterparts for the creation of groups).<br><br> Note that <b>useradd</b> will not create a home directory for such an user, regardless of the default setting in <b>/etc/login.defs</b> (<b>CREATE_HOME</b>). You have to specify the <b>-m</b> options if you want a home directory for a system account to be created.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--root</b> <i>CHROOT_DIR</i></td>
+<td>Apply changes in the <i>CHROOT_DIR</i> directory and use the configuration files from the <i>CHROOT_DIR</i> directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--shell</b> <i>SHELL</i></td>
+<td>The name of the user's login <a href="/jargon/s/shell.htm">shell</a>. The default is to leave this field blank, which causes the system to select the default login shell specified by the <b>SHELL</b> variable in <b>/etc/default/useradd</b>, or an empty string by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--uid</b> <i>UID</i></td>
+<td>The numerical value of the user's ID. This value must be unique, unless the <b>-o</b> option is used. The value must be non-negative. The default is to use the smallest ID value greater than or equal to <b>UID_MIN</b> and greater than every other user.<br><br> See also the <b>-r</b> option and the <b>UID_MAX</b> description.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b>, <b>--user-group</b></td>
+<td>Create a group with the same name as the user, and add the user to this group.<br><br> The default behavior (if the <b>-g</b>, <b>-N</b>, and <b>-U</b> options are not specified) is defined by the <b>USERGROUPS_ENAB</b> variable in <b>/etc/login.defs</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Z</b>, <b>--selinux-user</b> <i>SEUSER</i></td>
+<td>The SELinux user for the user's login. The default is to leave this field blank, which causes the system to select the default SELinux user.</td>
+</tr>
+</table>
+<h2 id="change">Changing new user default values</h2>
+<p class="tab">When invoked with only the <b>-D</b> option, <b>useradd</b> displays the current default values. When invoked with <b>-D</b> plus other options, <b>useradd</b> updates the default values for the specified options.</p>
+<p class="tab">Valid default-changing options are:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:260px"><b>-b</b>, <b>--base-dir</b> <i>BASE_DIR</i></td>
+<td>The <a href="/jargon/p/path.htm">path</a> <a href="/jargon/p/prefix.htm">prefix</a> for a new user's home directory. The user's name will be affixed to the end of <i>BASE_DIR</i> to form the new user's home directory name, if the <b>-d</b> option is not used when creating a new account.<br><br> This option sets the <b>HOME</b> variable in <b>/etc/default/useradd</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>,<br><b>--expiredate</b> <i>EXPIRE_DATE</i></td>
+<td>The date on which the user account is disabled.<br><br> This option sets the <b>EXPIRE</b> variable in <b>/etc/default/useradd</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--inactive</b> <i>INACTIVE</i></td>
+<td>The number of days after a password has expired before the account will be disabled.<br><br> This option sets the <b>INACTIVE</b> variable in <b>/etc/default/useradd</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>, <b>--gid</b> <i>GROUP</i></td>
+<td>The group name or ID for a new user's initial group (when the <b>-N</b>/<b>--no-user-group</b> is used or when the <b>USERGROUPS_ENAB</b> variable is set to no in <b>/etc/login.defs</b>). The named group must exist, and a numerical group ID must have an existing entry.<br><br> This option sets the <b>GROUP</b> variable in <b>/etc/default/useradd</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--shell</b> <i>SHELL</i></td>
+<td>The name of a new user's login shell.<br><br> This option sets the <b>SHELL</b> variable in <b>/etc/default/useradd</b>.</td>
+</tr>
+</table>
+<h2 id="notes">Notes</h2>
+<p class="tab">The system administrator is responsible for placing the default user files in the <b>/etc/skel/</b> directory (or any other skeleton directory specified in <b>/etc/default/useradd</b> or on the command line).</p>
+<h2 id="caveats">Caveats</h2>
+<p class="tab">You may not add a user to a NIS or <a href="/jargon/l/ldap.htm">LDAP</a> group. This must be performed on the corresponding server.</p>
+<p class="tab">Similarly, if the username already exists in an external user database such as NIS or LDAP, <b>useradd</b> will deny the user account creation request.</p>
+<p class="tab">It is usually recommended to only use usernames that begin with a <a href="/jargon/l/lowercas.htm">lowercase</a> letter or an underscore, followed by lowercase letters, digits, underscores, or dashes. They can end with a dollar sign. The <a href="/jargon/r/regex.htm">regular expression</a> describes a valid username is:</p>
+<p class="tabb">[a-z_][a-z0-9_-]*[$]?</p>
+<p class="tab">The only constraints are that usernames must neither start with a dash ('<b>-</b>') nor plus ('<b>+</b>') nor tilde ('<b>~</b>') nor contain a colon ('<b>:</b>'), a comma ('<b>,</b>'), or a whitespace (space: ' ', end of line: '<b>\n</b>', tab: '<b>\t</b>', etc.). Note that using a slash ('<b>/</b>') may break the default <a href="/jargon/a/algorith.htm">algorithm</a> for the definition of the user's home directory.</p>
+<p class="tab">Usernames may only be up to 32 <a href="/jargon/c/charact.htm">characters</a> long.</p>
+<h2 id="configuration">Configuration</h2>
+<p class="tab">The following configuration variables in <b>/etc/login.defs</b> change the behavior of this tool:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th style="width:160px"><b>name</b></th>
+<th style="width:80px"><b>type</b></th>
+<th><b>description</b></th>
+</tr>
+<tr class="tcw">
+<td><b>CREATE_HOME</b></td>
+<td><a href="/jargon/b/boolean.htm">boolean</a></td>
+<td>Indicate if a home directory should be created by default for new users.<br><br> This setting does not apply to system users, and can be overridden on the command line.</td>
+</tr>
+<tr class="tcw">
+<td><b>GID_MAX</b>, <b>GID_MIN</b></td>
+<td>number</td>
+<td>Range of group IDs used for the creation of regular groups by <b>useradd</b>, <a href="/unix/groupadd.htm">groupadd</a>, or <b>newusers</b>.<br><br> The default value for <b>GID_MIN</b> is <b>1000</b>; the default for <b>GID_MAX</b> is <b>60000</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>MAIL_DIR</b></td>
+<td>string</td>
+<td>The mail <a href="/jargon/s/spool.htm">spool</a> directory. This is needed to manipulate the mailbox when its corresponding user account is modified or deleted. If not specified, a <a href="/jargon/c/compile.htm">compile</a>-time default is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>MAIL_FILE</b></td>
+<td>string</td>
+<td>Defines the location of the users mail spool files relatively to their home directory.</td>
+</tr>
+</table>
+<p class="tab">The <b>MAIL_DIR</b> and <b>MAIL_FILE</b> variables are used by <b>useradd</b>, <a href="/unix/usermod.htm"><b>usermod</b></a>, and <a href="/unix/userdel.htm"><b>userdel</b></a> to create, move, or delete the user's mail spool.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:290px"><b>MAX_MEMBERS_PER_GROUP</b></td>
+<td style="width:80px">number</td>
+<td>Maximum members per group entry. When the maximum is reached, a new group entry (line) is started in <b>/etc/group</b> (with the same name, same password, and same group ID).<br><br> The default value is <b>0</b>, meaning that there are no limits in the number of members in a group.<br><br> This feature (split group) helps to limit the length of lines in the group file. This is useful to make sure that lines for NIS groups are not larger than 1024 characters.<br><br> If you need to enforce such limit, you can use <b>25</b>.<br><br> Note: split groups may not be supported by all tools, even advanced tools like the Shadow toolsuite. You should not use this variable unless it's needed.</td>
+</tr>
+<tr class="tcw">
+<td><b>PASS_MAX_DAYS</b></td>
+<td>number</td>
+<td>The maximum number of days a password may be used. If the password is older than this, a password change will be forced. If not specified, <b>-1</b> will be assumed (which disables the restriction).</td>
+</tr>
+<tr class="tcw">
+<td><b>PASS_MIN_DAYS</b></td>
+<td>number</td>
+<td>The minimum number of days allowed between password changes. Any password changes attempted sooner than this will be rejected. If not specified, <b>-1</b> will be assumed (which disables the restriction).</td>
+</tr>
+<tr class="tcw">
+<td><b>PASS_WARN_AGE</b></td>
+<td>number</td>
+<td>The number of days warning given before a password expires. A zero means warning is given only upon the day of expiration, a negative value means no warning is given. If not specified, no warning is provided.</td>
+</tr>
+<tr class="tcw">
+<td><b>SYS_GID_MAX</b>, <b>SYS_GID_MIN</b></td>
+<td>number</td>
+<td>Range of group IDs used for the creation of system groups by <b>useradd</b>, <b>groupadd</b>, or <b>newusers</b>.<br><br> The default value for <b>SYS_GID_MIN</b> is <b>101</b>; the default value for <b>SYS_GID_MAX</b> is <b>GID_MIN</b> minus 1.</td>
+</tr>
+<tr class="tcw">
+<td><b>SYS_UID_MAX</b>, <b>SYS_UID_MIN</b></td>
+<td>number</td>
+<td>Range of user IDs used for the creation of system users by <b>useradd</b> or <b>newusers</b>.<br><br> The default value for <b>SYS_UID_MIN</b> is <b>101</b>; the default value of <b>SYS_UID_MAX</b> is <b>UID_MIN</b> minus 1.</td>
+</tr>
+<tr class="tcw">
+<td><b>UID_MAX</b>, <b>UID_MIN</b></td>
+<td>number</td>
+<td>Range of user IDs used for the creation of regular users by <b>useradd</b> or <b>newusers</b>.<br><br> The default value for <b>UID_MIN</b> (resp. <b>UID_MAX</b>) is <b>1000</b> (resp. <b>60000</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>UMASK</b></td>
+<td>number</td>
+<td>The <a href="/unix/uumask.htm">file mode creation mask</a> is initialized to this value. If not specified, the mask will be initialized to <b>022</b>. <b>useradd</b> and <b>newusers</b> use this mask to set the mode of the home directory they create. It is also used by <b>pam_umask</b> as the default umask value.</td>
+</tr>
+<tr class="tcw">
+<td><b>USERGROUPS_ENAB</b></td>
+<td>boolean</td>
+<td>If set to <b>yes</b>, <b>userdel</b> removes the user's group if it contains no more members, and <b>useradd</b> creates a group with the name of the user by default.</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>/etc/passwd</b></td>
+<td>User account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/shadow</b></td>
+<td>Secure user account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/group</b></td>
+<td>Group account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/gshadow</b></td>
+<td>Secure group account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/default/useradd</b></td>
+<td>Default values for account creation.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/skel/</b></td>
+<td>Directory containing default files.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/login.defs</b></td>
+<td>Shadow password suite configuration.</td>
+</tr>
+</table>
+<h2 id="exit">Exit status</h2>
+<p class="tab"><b>useradd</b> exits with the following status, depending on what occurred:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>0</b></td>
+<td>Everything was completed successfully.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>Couldn't update the password file.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>The <a href="/jargon/s/syntax.htm">syntax</a> of the command was invalid.</td>
+</tr>
+<tr class="tcw">
+<td><b>3</b></td>
+<td>One or more options were given an invalid <a href="/jargon/a/argument.htm">argument</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td>User ID is already in use, and <b>-o</b> was not specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>6</b></td>
+<td>Specified group doesn't exist.</td>
+</tr>
+<tr class="tcw">
+<td><b>9</b></td>
+<td>Username already in use.</td>
+</tr>
+<tr class="tcw">
+<td><b>10</b></td>
+<td>Couldn't update the group file.</td>
+</tr>
+<tr class="tcw">
+<td><b>12</b></td>
+<td>Couldn't create the home directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>14</b></td>
+<td>Couldn't update SE Linux user mapping.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>For these commands to work you must have <a href="/jargon/r/root.htm">root</a> privileges.</p>
+</div>
+<pre class="tcy tab">useradd -D</pre>
+<p class="tab">Displays the defaults for new users. Output resembles the following:</p>
+<pre class="tab">GROUP=1001
+HOME=/home
+INACTIVE=-1
+EXPIRE=
+SHELL=/bin/bash
+SKEL=/etc/skel
+CREATE_MAIL_SPOOL=no</pre>
+<pre class="tcy tab">useradd newperson</pre>
+<p class="tab">Creates <b>newperson</b> as a new user. Once the new user is added, you would need to use the <a href="/unix/upasswor.htm"><b>passwd</b></a> command to assign a password to the account.</p>
+<p class="tab">Once a user is created, you can modify any of the user settings, such as the user's home directory, using the <a href="/unix/usermod.htm"><b>usermod</b></a> command.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/groupadd.htm"><b>groupadd</b></a> &mdash; Add a group to the system.<br><a href="/unix/upasswor.htm"><b>passwd</b></a> &mdash; Change a user's password.<br><a href="/unix/userdel.htm"><b>userdel</b></a> &mdash; Remove a user from the system.<br><a href="/unix/usermod.htm"><b>usermod</b></a> &mdash; Modify a user's account.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83726deb8498',m:'SvTXHzrSUjPmDUtM1aeWMA7snDdAIHhjvKJTZnQ.sHw-1661495370-0-AYbQES2KXH5xRmnNqWZjXEE0pGIoUqGeUHYWCmq6GYs11oN53UU88Tq91hBRWzd878sWOrspoiDlaOXO8ARlDIjq5NZ59cE3ijPdmcLthsRZKlabX7+K0Higq11sry3JLGp/AlN3J+azgJGKEmqI+To=',s:[0x59c41d87b9,0x4c5a29208c],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

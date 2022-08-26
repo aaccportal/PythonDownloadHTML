@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux visudo command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/visudo.gif" width="300" height="300" alt="visudo command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>visudo</b> command edits the <b>sudoers</b> file, which is used by the <a href="/unix/sudo.htm"><b>sudo</b></a> command. To change what users and groups are allowed to run <b>sudo</b>, run <b>visudo</b>.</p>
+<p>If the user running <b>sudo</b> does not meet the authentication configuration in <b>sudoers</b>, they are denied permission to run a command with escalated privileges.</p>
+<p>You should not edit <b>sudoers</b> directly, by opening it in a text editor. Instead, edit it with <b>visudo</b>, which will verify its validity before saving the changes to disk.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a>
+<ul>
+<li><a href="#options">Options</a></li>
+<li><a href="#sudoers-file">The sudoers file</a></li>
+</ul>
+</li>
+<li><a href="#files">Important files</a></li>
+<li><a href="#examples">Examples</a>
+<ul>
+<li><a href="#sudoer-directives">Sudoer directives</a></li>
+</ul>
+</li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>visudo</b> edits the <b>sudoers</b> file, which defines the users and groups with administrator rights.</p>
+<p class="tab">Visudo edits the sudoers file in a safe fashion, similar to the way that <a href="/unix/vipw.htm"><b>vipw</b></a> safely edits the <b>passwd</b> file. Visudo locks the sudoers file against multiple simultaneous edits, provides basic sanity checks, and checks for parse errors. If the sudoers file is currently being edited by someone else, or by you in another session, you will receive a message to try again later.</p>
+<p class="tab">There is a hard-coded list of one or more editors that <b>visudo</b> uses, set at <a href="/jargon/c/compile.htm">compile</a>-time. The default is <a href="/unix/uvi.htm"><b>vi</b></a>.</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>By default, visudo doesn't honor the <b>VISUAL</b> or <b>EDITOR</b> <a href="/jargon/e/envivari.htm">environment variables</a>, used by many programs to determine the default text editor. However, if visudo is configured with the <b>--with-env-editor</b> option or the <b>env_editor Default</b> variable is set in the sudoers file, <b>visudo</b> uses any of the editors defined by <b>VISUAL</b> or <b>EDITOR</b>. Doing so can make your system vulnerable to a security breech, however, because it allows the user to execute any program they want by setting <b>VISUAL</b> or <b>EDITOR</b>.</p>
+</div>
+<p class="tab">Visudo parses the sudoers file after the edit, and will not save the changes if there is a <a href="/jargon/s/syntax.htm">syntax</a> error. Upon finding an error, visudo prints a message stating the line number(s) where the error occurred and the user will receive the "What now?" <a href="/jargon/p/prompt.htm">prompt</a>. At the prompt, type <b>e</b> to re-edit the sudoers file, <b>x</b> to exit without saving the changes, or <b>Q</b> to quit and save changes. The "Q" option should be used with extreme care, because if visudo finds a <a href="/jargon/p/parse.htm">parse</a> error, so will <b>sudo</b>, and no one can run <b>sudo</b> again until the error is fixed. If "e" is typed to edit the sudoers file after a parse error is detected, the cursor will be placed on the line where the error occurred, if the editor supports this feature.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab"><b>visudo</b> [<b>-c</b>] [<b>-h</b>] [<b>-q</b>] [<b>-s</b>] [<b>-V</b>] [<b>-f</b> <i>sudoers</i>]</pre>
+<h2 id="options">Options</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>-c</b></td>
+<td>Enable check-only mode. The existing <b>sudoers</b> file will be checked for <a href="/jargon/s/syntax.htm">syntax</a> errors, <a href="/jargon/o/owner.htm">owner</a> and <a href="/unix/uchmod.htm">mode</a>. A message will be printed to the standard output describing the status of <b>sudoers</b> unless the <b>-q</b> option was specified. If the check completes successfully, <b>visudo</b> will exit with a value of <b>0</b>. If an error is encountered, <b>visudo</b> will exit with a value of <b>1</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>sudoers</i></td>
+<td>Specify an alternate <b>sudoers</b> file location. With this option, <b>visudo</b> will edit (or check) the <b>sudoers</b> file of your choice, instead of the default, <b>/etc/sudoers</b>. The lock file used is the specified <b>sudoers</b> file with ".tmp" appended to it. In check-only mode only, the argument to <b>-f</b> may be <b>-</b>, indicating that <b>sudoers</b> will be read from the <a href="/jargon/s/stdin.htm">standard input</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>The <b>-h</b> (help) option causes <b>visudo</b> to print a short help message to the standard output and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b></td>
+<td>Enable quiet mode. In this mode details about syntax errors are not printed. This option is only useful when combined with the <b>-c</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Enable strict checking of the <b>sudoers</b> file. If an alias is used before it is defined, <b>visudo</b> will consider this a parse error. Note that it is not possible to differentiate between an alias and a hostname or username that consists solely of uppercase letters, digits, and the underscore (&lsquo;<b>_</b>&rsquo;) character.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b></td>
+<td>The <b>-V</b> (version) option causes <b>visudo</b> to print its version number and exit.</td>
+</tr>
+</table>
+<h2 id="sudoers-file">The sudoers file</h2>
+<p class="tab">A typical sudoers file looks like this:</p>
+<pre class="tab">#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# Please consider adding local content in /etc/sudoers.d/ instead of
+# directly modifying this file.
+#
+# See the man page for details on how to write a sudoers file.
+#
+Defaults  env_reset
+Defaults  mail_badpass
+Defaults  secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+# Host alias specification
+# User alias specification
+# Cmnd alias specification
+# User privilege specification
+root  ALL=(ALL:ALL) ALL
+# Members of the admin group may gain root privileges
+%admin ALL=(ALL) ALL
+# Allow members of group sudo to execute any command
+%sudo ALL=(ALL:ALL) ALL
+# See sudoers(5) for more information on "#include" directives:
+#includedir /etc/sudoers.d
+</pre>
+<p class="tab">Here, "<b>root ALL=(ALL:ALL) ALL</b>" states that the user <b>root</b>, logged in to any <a href="/jargon/h/hostname.htm">hostname</a>, may run, as any user or group, any command. The general form of this directive is:</p>
+<pre class="tab tcy"><i>user</i> <i>hostname</i><b>=(</b><i>runas-user</i><b>:</b><i>runas-group</i><b>)</b> <i>command</i></pre>
+<p class="tab">The special word <b>ALL</b> may be used for any of these values, and means that any are allowed.</p>
+<p class="tab">If <i>user</i> begins with a <b>%</b>, it's interpreted as the name of a group, and the directive applies to all users in that group. So the line "<b>%admin ALL=(ALL) ALL</b>" allows any user belonging to the group <b>admin</b> to run any command as any user or group. The same permissions are defined for members of group <b>sudo</b>, three lines later.</p>
+<p class="tab">So, with this configuration, if you want a user to have <b>sudo</b> rights, you can add them to the <b>admin</b> or <b>sudo</b> group, and don't need to edit <b>sudoers</b> at all. In this case, the command:</p>
+<pre class="tab tcy">usermod -aG sudo hope</pre>
+<p class="tab">Would grant sudo rights to the user <b>hope</b> next time they log in. For more information about how to use <b>usermod</b> to change a user's group membership, see the <a href="/unix/usermod.htm"><b>usermod</b> command</a>.</p>
+<p class="tab">If you don't want to have a dedicated <b>sudo</b> group, you can define sudo rights for a user directly in sudoers, by adding a line anywhere in the file. To give user <b>hope</b> full sudo access, for instance, add:</p>
+<pre class="tab tcy">hope ALL=(ALL:ALL) ALL</pre>
+<p class="tab">Then save the file and exit the text editor launched by visudo.</p>
+<h2 id="files">Important files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><b>/etc/sudoers</b></td>
+<td>Permissions configuration for the <b>sudo</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/sudoers.tmp</b></td>
+<td>The lock file, which prevents multiple simultaneous edits to <b>sudoers</b>.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<p class="tab">To edit the <b>sudoers</b> file, run <b>visudo</b> as root. Switch user to root with <a href="/unix/usu.htm"><b>su</b></a> (requires the <a href="/jargon/r/root.htm">root</a> password, which is different than your user password):</p>
+<pre class="tab tcy">su</pre>
+<pre class="tab">Password:</pre>
+<p class="tab">Then run <b>visudo</b>:</p>
+<pre class="tab tcy">visudo</pre>
+<p class="tab">Or if you already have sudo rights, run <b>visudo</b> with <b>sudo</b>:</p>
+<pre class="tcy tab">sudo visudo</pre>
+<pre class="tab">[sudo] password for user:</pre>
+<h3 class="tab" id="sudoer-directives">Sudoer directives</h3>
+<p class="tab">The following are examples of lines added to <b>sudoers</b> when you run <b>visudo</b>:</p>
+<pre class="tab tcy">hope ALL=(ALL:ALL) ALL</pre>
+<p class="tab">User <b>hope</b> can run all commands as any user or group, logged in to any host that this configuration applies.</p>
+<pre class="tab tcy">%hope ALL=(ALL:ALL) ALL</pre>
+<p class="tab">Same as above, except the permission apply to any member of the group <b>hope</b> (which may or may not include user <b>hope</b>).</p>
+<pre class="tab tcy">hope myhost=(mysqluser:mysqlusers) mysqldump</pre>
+<p class="tab">User <b>hope</b>, when logged in to host <b>myhost</b>, may run the command <b>mysqldump</b> as user <b>mysqluser</b> or a member of group <b>mysqlusers</b>. For example, this directive would allow user <b>hope</b> to run this command:</p>
+<pre class="tab tcy">sudo -u mysqluser -g mysqlusers mysqldump</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/usu.htm"><b>su</b></a> &mdash; Become the superuser or another user.<br><a href="/unix/sudo.htm"><b>sudo</b></a> &mdash; Execute a command as the superuser.<br><a href="/unix/uvi.htm"><b>vi</b></a> &mdash; Text editor based on the visual mode of <b>ex</b>.<br><a href="/unix/vipw.htm"><b>vipw</b></a> &mdash; Safely edit the password file.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83799b4684b0',m:'jLwXMKIy1h2KpLO4wAZH2IxJLns1b.5gsiCVWFIsSSY-1661495371-0-Af1/bMKakFNGBMrOtjqSVAJ19Sp8EJxoZJ0dMXyuhJ3YNEVwJSc/ONj4C54QXlPgz0K9xQAegWkYIdoHt4FkOrRu0N+KuwubT72UUjL4GGXPc7+B3cNMGWHdWPrtJr/b9w==',s:[0x256cf84b24,0xeed0f2e316],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

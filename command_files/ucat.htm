@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux cat command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/cat.gif" width="300" height="300" alt="cat command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>cat</b> command reads <a href="/jargon/d/data.htm">data</a> from <a href="/jargon/f/file.htm">files</a>, and outputs their contents. It is the simplest way to display the contents of a file at the <a href="/jargon/c/commandi.htm">command line</a>.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>cat</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>cat</b> stands for "<a href="/jargon/c/concaten.htm">catenate</a>." It is one of the most commonly-used commands in Unix-like operating systems. It can be used to:</p>
+<ul>
+<li>Display text files</li>
+<li>Copy text files into a new document</li>
+<li>Append the contents of a text file to the end of another text file, combining them</li>
+</ul>
+<h3 class="tab">Displaying text files</h3>
+<p class="tab">The simplest way to use <b>cat</b> is to give it the name of a text file. It displays the contents of the text file on the screen. For instance:</p>
+<pre class="tab tcy">cat mytext.txt</pre>
+<p class="tab">...reads the contents of <b>mytext.txt</b> and send them to standard output (your <a href="/jargon/t/terminal.htm">terminal</a> screen). If <b>mytext.txt</b> is very long, they will zoom past and you only see the last screen's worth of your document.</p>
+<p class="tab">If you want to view the document page-by-page or scroll back and forth through the document, you can use a pager or viewer such as <a href="/unix/upg.htm"><b>pg</b></a>, <a href="/jargon/m/more.htm"><b>more</b></a>, or <a href="/unix/uless.htm"><b>less</b></a>.</p>
+<p class="tab">If you specify more than one file name, <b>cat</b> displays those files one after the other, <i>catenating</i> their contents to standard output. So this command:</p>
+<pre class="tab tcy">cat mytext.txt mytext2.txt</pre>
+<p class="tab">Prints the contents of those two text files as if they were a single file.</p>
+<h3 class="tab">Copy a text file</h3>
+<p class="tab">Normally you would copy a file with the <a href="/unix/ucp.htm"><b>cp</b></a> command. You can use <b>cat</b> to make copies of text files in much the same way.</p>
+<p class="tab"><b>cat</b> sends its output to stdout (standard output), which is usually the terminal screen. However, you can <a href="/jargon/r/redirect.htm">redirect</a> this output to a file using the <a href="/jargon/s/shell.htm">shell</a> redirection symbol "<b>&gt;</b>".</p>
+<p class="tab">For instance, this command:</p>
+<pre class="tab tcy">cat mytext.txt &gt; newfile.txt</pre>
+<p class="tab">...reads the contents of <b>mytext.txt</b> and send them to standard output; instead of displaying the text, however, the shell redirects the output to the file <b>newfile.txt</b>. If <b>newfile.txt</b> does not exist, it is created. If <b>newfile.txt</b> already exists, it is overwritten and its previous contents are lost, so be careful.</p>
+<p class="tab">Similarly, you can catenate several files into your destination file. For instance:</p>
+<pre class="tab tcy">cat mytext.txt mytext2.txt &gt; newfile.txt</pre>
+<p class="tab">...reads the contents of <b>mytext.txt</b> and <b>mytext2.txt</b> and write the combined text to the file <b>newfile.txt</b>. Again, if <b>newfile.txt</b> does not already exist, it is created; if it already exists, it is overwritten.</p>
+<h3 class="tab">Append a text file's contents to another text file</h3>
+<p class="tab">Instead of overwriting another file, you can also <a href="/jargon/a/append.htm">append</a> a source text file to another using the redirection operator "<b>&gt;&gt;</b>".</p>
+<p class="tab">For instance:</p>
+<pre class="tab tcy">cat mytext.txt &gt;&gt; another-text-file.txt</pre>
+<p class="tab">...reads the contents of <b>mytext.txt</b>, and write them at the end of <b>another-text-file.txt</b>. If <b>another-text-file.txt</b> does not already exist, it is created and the contents of <b>mytext.txt</b> will be written to the new file.</p>
+<p class="tab">The cat command also works for multiple text files as well:</p>
+<pre class="tab tcy">cat mytext.txt mytext2.txt &gt;&gt; another-text-file.txt</pre>
+<p class="tab">...writes the combined contents of <b>mytext.txt</b> and <b>mytext2.txt</b> to the end of <b>another-text-file.txt</b>.</p>
+<h3 class="tab">Incorporating standard input into cat output</h3>
+<p class="tab"><b>cat</b> reads from standard input if you specify a hyphen ("<b>-</b>") as a file name. For example, if you have a file, <b>list.txt</b>, which contains the following text:</p>
+<pre class="tab">apples
+oranges
+butter
+bread
+</pre>
+<p class="tab">...you could use the <b>echo</b> command to output text, <a href="/jargon/p/pipe.htm"><b>pipe</b></a> that output to <b>cat</b>, and instruct <b>cat</b> to catenate it with the file's contents, like this:</p>
+<pre class="tab tcy">echo "My Shopping List" | cat - list.txt</pre>
+<p class="tab">...which would output the following text:</p>
+<pre class="tab">My Shopping List
+apples
+oranges
+butter
+bread</pre>
+<p class="tab">In short, <b>cat</b> is a simple but very useful tool for working with the data in text files, system <a href="/jargon/l/log.htm">logs</a>, <a href="/jargon/c/configur.htm">configuration</a> files, and any other human-readable data stored in a file.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">cat [<i>OPTION</i>]... [<i>FILE</i>]...</pre>
+<h2 id="options">Options</h2>
+<p class="tab">These options are available on <a href="/jargon/g/gnu.htm">GNU</a> <b>cat</b>, which is standard on most Linux <a href="/jargon/v/variant.htm">distributions</a>. If you are using a different Unix-like operating system (<a href="/jargon/b/bsd.htm">BSD</a>, for example), some of these options may not be available; check your specific documentation for details.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>-A</b>, <b>--show-all</b></td>
+<td>Equivalent to <b>-vET</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b>, <b>--number-nonblank</b></td>
+<td>Number non-empty output lines. This option overrides <b>-n</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>Equivalent to <b>-vE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b>, <b>--show-ends</b></td>
+<td>Display "<b>$</b>" at end of each line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--number</b></td>
+<td>Number all output lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--squeeze-blank</b></td>
+<td>Suppress repeated empty output lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Equivalent to <b>-vT</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>, <b>--show-tabs</b></td>
+<td>Display <a href="/jargon/t/tab.htm">TAB</a> characters as <b>^I</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--show-nonprinting</b></td>
+<td>Use <b>^</b> and <b>M-</b> notation, except for <b>LFD</b> and <b>TAB</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Output <a href="/jargon/v/version.htm">version</a> information, and exit.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">cat file.txt</pre>
+<p class="tab">Read the contents of <b>file.txt</b> and display them on the screen.</p>
+<pre class="tcy tab">cat file1.txt file2.txt</pre>
+<p class="tab">Reads the contents of <b>file1.txt</b> and <b>file2.txt</b>, and displays them in order on the terminal screen.</p>
+<pre class="tcy tab">cat file.txt &gt; newfile.txt</pre>
+<p class="tab">Read the contents of <b>file.txt</b> and write them to <b>newfile.txt</b>, overwriting anything <b>newfile.txt</b> previously contained. If <b>newfile.txt</b> does not exist, it is created.</p>
+<pre class="tcy tab">cat file.txt &gt;&gt; another-file.txt</pre>
+<p class="tab">Read the contents of <b>file.txt</b> and append them to the end of <b>another-file.txt</b>. If <b>another-file.txt</b> does not exist, it is created.</p>
+<pre class="tcy tab">cat -s file.txt</pre>
+<p class="tab">Display the contents of <b>file.txt</b>, omitting any repeated blank lines.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucp.htm"><b>cp</b></a> &mdash; Copy files and directories.<br><a href="/unix/ued.htm"><b>ed</b></a> &mdash; A simple text editor.<br><a href="/unix/uless.htm"><b>less</b></a> &mdash; Scrolling text viewer.<br><a href="/unix/umore.htm"><b>more</b></a> &mdash; Display text one screen at a time.<br><a href="/unix/upico.htm"><b>pico</b></a> &mdash; A simple text editor.<br><a href="/unix/upg.htm"><b>pg</b></a> &mdash; Browse page by page through text files.<br><a href="/unix/tac.htm"><b>tac</b></a> &mdash; Output the contents of files in reverse order.<br><a href="/unix/utee.htm"><b>tee</b></a> &mdash; Route a file's contents to multiple outputs.<br><a href="/unix/utouch.htm"><b>touch</b></a> &mdash; Update the timestamp of a file or directory.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82bd98f0c3e3',m:'CBaPt9D3I0i1HKqsLDjvW.6jbh6j8gCm6IFDR9zWYnY-1661495341-0-Ae+E5IBkU96GKeUvN8H7NmRDhrV7iWEtyt+Pnw82gwpECIpTzcLZl0oJpfW8+uo+gP/uUHw3dRuV/Qdm0cfHmotBGLf7F1h0fmBMmFg/jRoeMy0c8gp/rIcuuBoWf0zmDQ==',s:[0x827a3a04e7,0x1b2bcd7f79],u:'/cdn-cgi/challenge-platform/h/b'};var _cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/cb/invisible.js?cb=740a82bd98f0c3e3',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

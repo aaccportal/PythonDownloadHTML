@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux agrep command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-08-16">08/16/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/agrep.gif" width="300" height="300" alt="agrep command" class="floatRight">
+<p class="intro"><b>agrep</b> is a version of the <a href="/unix/ugrep.htm">grep</a> utility that also matches <i>approximate</i> patterns.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#patterns">Patterns</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>agrep</b> searches the input <a href="/jargon/f/filename.htm">file names</a> (<a href="/jargon/s/stdin.htm">standard input</a> is the default) for records containing <a href="/jargon/s/string.htm">strings</a> which either exactly or approximately match a <a href="/jargon/p/pattreco.htm">pattern</a>.</p>
+<p class="tab">A <i>record</i> is by default a single line, but it can be defined differently using the <b>-d</b> option (see below). Normally, each record found is copied to the standard output. <i>Approximate matching</i> allows finding records that contain the pattern with several errors including <i>substitutions</i>, <i>insertions</i>, and <i>deletions</i>.</p>
+<p class="tab">For example, "Massechusets" matches "Massachusetts" with two errors (one <i>substitution</i> and one <i>insertion</i>). Running <b>agrep -2 Massechusets foo</b> outputs all lines in the file <i>foo</i> containing any string with (at most) 2 errors from "Massechusets".</p>
+<p class="tab"><b>agrep</b> supports many kinds of <a href="/jargon/q/query.htm">queries</a> including arbitrary <a href="/jargon/w/wildcard.htm">wildcards</a>, <i>sets</i> of patterns, and in general, all <a href="/jargon/r/regex.htm">regular expressions</a>. It supports most of the options supported by the <b>grep</b> family plus several more (but it is not 100% compatible with <b>grep</b>).</p>
+<p class="tab">As with the rest of the <b>grep</b> family, the <a href="/jargon/c/charact.htm">characters</a> <b>$</b>, <b>^</b>, <b>*</b>, <b>[</b>, <b>]</b>, <b>^</b>, <b>|</b>, <b>(</b>, <b>)</b>, <b>!</b>, and <b>\</b> can cause unexpected results when included in the pattern, as these special characters are also meaningful to the <a href="/jargon/s/shell.htm">shell</a>. To avoid these problems, one should always enclose the entire pattern argument in single quotes, i.e., <b>'pattern'</b>. Do not use double quotes (<b>"</b>).</p>
+<p class="tab">When <b>agrep</b> is applied to more than one input file, the name of the file is displayed at the beginning of each line which matches the pattern. (The file name is not displayed when processing a single file, but in that case if the user wants the file name to appear, they should use <b>/dev/null</b> as a second file in the list, and then the file name will be displayed).</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">agrep [ -#cdehiklnpstvwxBDGIS ] <i>pattern</i> [ -f <i>patternfile</i> ] [ <i>filename</i>... ]
+</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>-<i>#</i></b></td>
+<td><b><i>#</i></b> is a non-negative <a href="/jargon/i/integer.htm">integer</a> (at most 8) specifying the maximum number of errors permitted in finding the approximate matches. It defaults to <b>zero</b>. Generally, each insertion, deletion, or substitution counts as one error. It is possible to adjust the relative cost of insertions, deletions, and substitutions; see <b>-I</b> <b>-D</b> and <b>-S</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>Display only the <b>count</b> (number of occurrences) of matching records.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>'delim'</i></td>
+<td>Define <i>delim</i> to be the separator between two records. The default value is '<b>$</b>', which matches the end of a line; therefore, by default, a record is a single line. The <i>delim</i> is a string of up to eight characters (with possible use of <b>^</b> and <b>$</b>).<br><br>Text between two <i>delim</i>'s, before the first <i>delim</i>, and after the last <i>delim</i> is considered as one record.<br><br>For example, <b>-d '$$'</b> defines paragraphs as records (if a paragraph is represented by two newlines) and <b>-d '^From '</b> defines mail messages as records. <b>agrep</b> matches each record separately.<br><br>This option does work with regular expressions, but <i>delim</i> itself cannot be a regular expression.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b> <i>pattern</i></td>
+<td>Same as providing a simple pattern <a href="/jargon/a/argument.htm">argument</a>, but using <b>-e</b> is useful when the pattern begins with a '<b>-</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>patternfile</i></td>
+<td>Match the patterns in <i>patternfile</i>. The output is all lines that match at least one of the patterns in <i>patternfile</i>.<br><br> Currently, the <b>-f</b> option works only for exact match and for <i>simple</i> patterns (any meta symbol is interpreted as a regular character).<br><br> It is compatible only with <b>-c</b>, <b>-h</b>, <b>-i</b>, <b>-l</b>, <b>-s</b>, <b>-v</b>, <b>-w</b>, and <b>-x</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Do not display file names.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td>Case-insensitive search; e.g., "<b>A</b>" and "<b>a</b>" are considered equivalent.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b></td>
+<td>Use simple pattern matching, i.e., treat no symbols in the pattern as a meta character.<br><br> For example, <b>agrep -k 'a(b|c)*d' foo</b> finds the occurrences of the literal string "a(b|c)*d" in <i>foo</i>, whereas <b>agrep 'a(b|c)*d' foo</b> finds substrings in <i>foo</i> that match the regular expression <i>'a(b|c)*d'</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>List only the names of the files that contain a match. For example, <b>agrep -l 'wonderful' *</b> lists the names of those files in current <a href="/jargon/d/director.htm">directory</a> that contain the word <i>wonderful</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Each line that is printed is prefixed by its record number in the file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Find records in the text that contain a supersequence of the pattern. For example, <b>agrep -p DCS foo</b> will match "<i>Department of Computer Science</i>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Work silently; that is, display nothing except error messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Output the record starting from the end of <i>delim</i> to (and including) the next <i>delim</i>. This is useful for cases where <i>delim</i> should come at the end of the record.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Inverse mode &mdash; display only those records that do not contain the pattern.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b></td>
+<td>Search for the pattern as a word only &mdash; i.e., only match patterns if they are surrounded by non-<a href="/jargon/a/alphanum.htm">alphanumeric</a> characters, such as a space or a dash. The non-alphanumeric must surround the match; they cannot be counted as errors. For example, <b>agrep -w -1 car</b> will match "<i>cars</i>", but not "<i>characters</i>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b></td>
+<td>The pattern must match the whole line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b></td>
+<td>Used with <b>-B</b> option. When <b>-y</b> is on, <b>agrep</b> always outputs the best matches without giving a prompt.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b></td>
+<td>Best match mode. When <b>-B</b> is specified and no exact matches are found, <b>agrep</b> continues to search until the closest matches (i.e., the ones with minimum number of errors) are found, at which point the following message will be shown: "<b>the best match contains x errors, there are y matches, output them? (y/n)</b>".<br><br> The best match mode is not supported for standard input, e.g., <a href="/jargon/p/pipe.htm">pipeline</a> input. When the <b>-<i>#</i></b>, <b>-c</b>, or <b>-l</b> options are specified, the <b>-B</b> option is ignored. In general, <b>-B</b> may be slower than <b>-#</b>, but not by very much.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b><i>k</i></td>
+<td>Set the cost of a deletion to <i>k</i> (<i>k</i> is a positive integer). This option does not currently work with regular expressions.</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b></td>
+<td>Output the files that contain a match.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b><i>k</i></td>
+<td>Set the cost of an insertion to <i>k</i> (<i>k</i> is a positive integer). This option does not currently work with regular expressions.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b><i>k</i></td>
+<td>Set the cost of a substitution to <i>k</i> (<i>k</i> is a positive integer). This option does not currently work with regular expressions.</td>
+</tr>
+</table>
+<h2 id="patterns">Patterns</h2>
+<p class="tab"><b>agrep</b> supports a large variety of patterns, including simple strings, strings with classes of characters, sets of strings, wildcards, and regular expressions.</p>
+<h3 class="tab">Strings</h3>
+<p class="tab">A <b><a href="/jargon/s/string.htm">string</a></b> is any sequence of characters, including the special symbols <b>^</b> for beginning of line and <b>$</b> for end of line. The special characters listed above ( <b>$</b>, <b>^</b>, <b>*</b>, <b>[</b>, <b>^</b>, <b>|</b>, <b>(</b>, <b>)</b>, <b>!</b>, and <b>\</b> ) should be preceded by <b>\</b> if they are to be matched as regular characters. For example, <b>\^abc\\</b> corresponds to the string "^abc\", whereas <b>^abc</b> corresponds to the string "abc" at the beginning of a line.</p>
+<h3 class="tab">Character classes</h3>
+<p class="tab">A <b>class</b> of characters is a list of characters inside "<b>[]</b>" (in order) corresponds to any character from the list, where a dash represents the range between two characters. For example, <b>[a-ho-z]</b> is any character between <b>a</b> and <b>h</b> or between <b>o</b> and <b>z</b>. The symbol <b>^</b> inside <b>[]</b> denotes which characters not to match ("complements" the list). For example, <b>[^i-n]</b> denotes any character except characters <b>i</b> through <b>n</b>. The symbol <b>^</b> thus has two meanings, but this is consistent with egrep. The symbol <b>.</b> stands for any character except for the newline character.</p>
+<p class="tab"><b>Boolean operations</b></p>
+<p class="tab"><b>agrep</b> supports an <b>AND</b> <a href="/jargon/l/logioper.htm">operation</a> '<b>;</b>' and an <b>OR</b> operation '<b>,</b>', but not a combination of both. For example, <b>fast;network</b> searches for all records containing both "fast" and "network".</p>
+<p class="tab"><b>Wildcards</b></p>
+<p class="tab">The symbol '<b>#</b>' is used to denote a wildcard. <b>#</b> matches zero, <i>or any number of,</i> arbitrary characters. For example, <b>ex#e</b> matches "example". The symbol <b>#</b> is equivalent to <b>.*</b> in egrep. In fact, <b>.*</b> works too, because it is a valid regular expression, but unless this is part of an actual regular expression, <b>#</b> works faster.</p>
+<p class="tab"><b>Combination of Exact and Approximate Matching</b></p>
+<p class="tab">Any pattern inside angle brackets <b>&lt;&gt;</b> must match the text exactly even if the match is with errors. For example, <b>&lt;mathemat&gt;ics</b> matches <i>mathematical</i> with one error (replacing the last <b>s</b> with an <b>a</b>), but <b>mathe&lt;matics&gt;</b> does not match <i>mathematical</i> no matter how many errors we allow.</p>
+<p class="tab"><b>Regular Expressions</b></p>
+<p class="tab">The syntax of regular expressions in <b>agrep</b> is in general the same as that for <b>egrep</b>. The union operation '<b>|</b>', Kleene closure '<b>*</b>', and parentheses <b>()</b> are all supported. Currently '<b>+</b>' is not supported. Regular expressions are currently limited to approximately 30 characters (excluding meta characters). Some options (<b>-d</b>, <b>-w</b>, <b>-f</b>, <b>-t</b>, <b>-x</b>, <b>-D</b>, <b>-I</b>, <b>-S</b>) do not currently work with regular expressions. The maximal number of errors for regular expressions that use '<b>*</b>' or '<b>|</b>' is 4.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">agrep -2 -c ABCDEFG foo</pre>
+<p class="tab">Gives the number of lines in file foo that contain "<b>ABCDEFG</b>" within two errors.</p>
+<pre class="tcy tab">agrep -1 -D2 -S2 'ABCD#YZ' foo</pre>
+<p class="tab">Outputs the lines containing "<b>ABCD</b>" followed within arbitrary distance by "<b>YZ</b>", with up to one additional insertion (<b>-D2</b> and <b>-S2</b> make deletions and substitutions too "expensive").</p>
+<pre class="tcy tab">agrep -5 -p abcdefghij /path/to/dictionary/words</pre>
+<p class="tab">Outputs the list of all words in the dictionary located at <b>/path/to/dictionary/words</b> containing at least 5 of the first 10 letters of the alphabet in order.</p>
+<pre class="tcy tab">agrep -1 'abc[0-9](de|fg)*[x-z]' foo</pre>
+<p class="tab">Outputs the lines containing, within up to one error, the string that starts with "<b>abc</b>" followed by one digit, followed by zero or more repetitions of either "<b>de</b>" or "<b>fg</b>", followed by either "<b>x</b>", "<b>y</b>", or "<b>z</b>".</p>
+<pre class="tcy tab">agrep -d '^From ' 'breakdown;internet' mbox</pre>
+<p class="tab">Outputs all mail messages (the pattern "<b>^From</b> " separates mail messages in a mail file) that contain keywords "<b>breakdown</b>" and "<b>internet</b>".</p>
+<pre class="tcy tab">agrep -d '$$' -1 '&lt;word1&gt; &lt;word2&gt;' foo</pre>
+<p class="tab">Finds all paragraphs that contain <b>word1</b> followed by <b>word2</b> with one error in place of the blank. In particular, if <b>word1</b> is the last word in a line and <b>word2</b> is the first word in the next line, then the space will be substituted by a newline symbol and it will match. Thus, this is a way to overcome separation by a newline. Note that <b>-d '$$'</b> (or another <i>delim</i> which spans more than one line) is necessary, because otherwise <b>agrep</b> searches only one line at a time.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ugrep.htm"><b>grep</b></a> &mdash; Filter text which matches a regular expression.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82ad6ec584c8',m:'VXsE6ZmGyxw9h2nGqMNSWG9G5CW08Y9SMvZDN1o9ImE-1661495339-0-AT8qoJMHFAMiRCbYfdqgSP1EL+h/AtQlmLr0GlBom+foVlj/abzYMuqzsQijiq1x6GtsSkVHu3Uc0Uf9nD6RzAjJ5WDD+c9Iu5saWwPhcPoHRRrdeeQWgXvOeJusbY9Ssg==',s:[0xc3cdc3aa0e,0x4c5a29208c],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

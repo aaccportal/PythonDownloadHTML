@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux cpio command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/cpio.gif" width="300" height="300" alt="cpio command" class="floatRight"><p class="intro"><b>cpio</b> copies files to and from archives.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="description">Description</h2>
+<p class="tab"><a href="/jargon/g/gnu.htm">GNU</a> <b>cpio</b> is a tool for creating and extracting archives, or copying files from one place to another. It handles many cpio formats and reading and writing <a href="/unix/utar.htm">tar</a> files.</p>
+<p class="tab">The following archive formats are supported: <a href="/jargon/b/binary.htm">binary</a>, old <a href="/jargon/a/ascii.htm">ASCII</a>, new ASCII, <a href="/jargon/c/crc.htm">CRC</a>, <a href="/jargon/h/hp-ux.htm">HP-UX</a> binary, HP-UX old ASCII, old tar, and <a href="/jargon/p/posix.htm">POSIX</a>.1 tar. The tar format is provided for compatibility with the <b>tar</b> program. By default, <b>cpio</b> creates binary format archives, for compatibility with older cpio programs. When extracting from archives, cpio automatically recognizes which kind of archive it is reading and can read archives created on machines with a different byte-order.</p>
+<h2 id="syntax">Syntax</h2>
+<p class="tabb" id="Copy-Out-Mode">Copy-out mode syntax:</p>
+<p class="tab">In copy-out mode, <b>cpio</b> copies files into an archive. It reads a list of <a href="/jargon/f/filename.htm">file names</a>, one per line, on the <a href="/jargon/s/stdin.htm">standard input</a> and writes the archive onto the standard output. A typical way to generate the list of file names is with the <a href="/unix/ufind.htm">find</a> command; give <b>find</b> the <b>-depth</b> option to minimize problems with <a href="/jargon/p/permissi.htm">permissions</a> on <a href="/jargon/d/director.htm">directories</a> that are unreadable. Copy-Out mode syntax:</p>
+<pre class="tcy tab">cpio {-o|--create} [-0acvABLV] [-C <i>bytes</i>] [-H <i>format</i>] [-M <i>message</i>] 
+     [-O [[<i>user</i>@]<i>host</i>:]<i>archive</i>] [-F [[<i>user</i>@]<i>host</i>:]<i>archive</i>] 
+     [--<i>file</i>=[[<i>user</i>@]<i>host</i>:]<i>archive</i>] [--format=<i>format</i>] 
+     [--message=<i>message</i>][--null] [--reset-access-time] [--verbose] [--dot] 
+     [--append] [--block-size=<i>blocks</i>] [--dereference] [--io-size=<i>bytes</i>] 
+     [--rsh-command=<i>command</i>] [--help] [--version] &lt; <i>name-list</i> [&gt; <i>archive</i>]</pre>
+<p class="tabb" id="Copy-In-Mode">Copy-in mode syntax:</p>
+<p class="tab">In copy-in mode, <b>cpio</b> copies files out of an archive or lists the archive contents. It reads the archive from the standard input. Any non-option <a href="/jargon/c/commandi.htm">command line</a> <a href="/jargon/a/argument.htm">arguments</a> are <a href="/jargon/s/shell.htm">shell</a> <a href="/jargon/g/glob.htm">globbing</a> patterns; only files in the archive whose names match one or more of those patterns are copied from the archive. Unlike in the shell, an initial '<b>.</b>' in a file name does match a <a href="/jargon/w/wildcard.htm">wildcard</a> at the start of a pattern, and a '<b>/</b>' in a file name can match wildcards. If no patterns are given, all files are extracted. Copy-in mode syntax:</p>
+<pre class="tcy tab">cpio {-i|--extract} [-bcdfmnrtsuvBSV] [-C <i>bytes</i>] [-E <i>file</i>] [-H <i>format</i>] 
+     [-M <i>message</i>] [-R [<i>user</i>][:.][<i>group</i>]] 
+     [-I [[<i>user</i>@]<i>host</i>:]<i>archive</i>] [-F [[<i>user</i>@]<i>host</i>:]<i>archive</i>] 
+     [--file=[[<i>user</i>@]<i>host</i>:]<i>archive</i>] [--make-directories] [--nonmatching] 
+     [--preserve-modification-time] [--numeric-uid-gid] [--rename] [-t|--list] 
+     [--swap-bytes] [--swap] [--dot] [--unconditional] [--verbose] 
+     [--block-size=<i>blocks</i>] [--swap-halfwords] [--io-size=<i>bytes</i>] 
+     [--pattern-file=<i>file</i>] [--format=<i>format</i>] [--owner=[<i>user</i>][:.][<i>group</i>]] 
+     [--no-preserve-owner] [--message=<i>message</i>] [--force-local] 
+     [--no-absolute-file names] [--absolute-file names] [--sparse] 
+     [--only-verify-crc] [--to-stdout] [--quiet] [--rsh-command=<i>command</i>] 
+     [--help] [--version] [<i>pattern</i>...] [&lt; <i>archive</i>]</pre>
+<p class="tabb" id="Copy-Pass-Mode">Copy-pass mode syntax:</p>
+<p class="tab">In copy-pass mode, <b>cpio</b> copies files from one directory tree to another, combining the copy-out and copy-in steps without actually using an archive. It reads the list of files to copy from the standard input; the directory into which it copies them is given as a non-option argument. Copy-pass mode syntax:</p>
+<pre class="tcy tab">cpio {-p|--pass-through} [-0adlmuvLV] [-R [<i>user</i>][:.][<i>group</i>]] [--null] 
+     [--reset-access-time] [--make-directories] [--link] [--quiet] 
+     [--preserve-modification-time] [--unconditional] [--verbose] [--dot] 
+     [--dereference] [--owner=[<i>user</i>][:.][<i>group</i>]] [--no-preserve-owner] 
+     [--sparse] [--help] [--version] <i>destination-directory</i> &lt; <i>name-list</i></pre>
+<h3 class="tab" id="options">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>-0</b>, <b>--null</b></td>
+<td>Read a list of file names terminated by a <a href="/jargon/n/null.htm">null</a> character, instead of a <a href="/jargon/n/newline.htm">newline</a>, so that files whose names contain newlines can be archived. GNU <b>find</b> is one way to produce a list of null-terminated file names. This option may be used in copy-out and copy-pass modes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b>, <b>--reset-access-time</b></td>
+<td>Reset the access times of files after reading them, so that it does not look like they were read.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b>, <b>--append</b></td>
+<td>Append to an existing archive. Only works in copy-out mode. The archive must be a disk file specified with the <b>-O</b> or <b>-F</b> (<b>-file</b>) option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b>, <b>--swap</b></td>
+<td>Swap both halfwords of words and <a href="/jargon/b/byte.htm">bytes</a> of halfwords in the data. Equivalent to <b>-sS</b>. This option may be used in copy-in mode. Use this option to convert <a href="/jargon/num/32bit.htm">32-bit</a> <a href="/jargon/i/integer.htm">integers</a> between big-<a href="/jargon/e/endian.htm">endian</a> and little-endian machines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b></td>
+<td>Set the <a href="/jargon/i/io.htm">I/O</a> <a href="/jargon/b/block.htm">block</a> size to 5120 bytes. Initially the block size is 512 bytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>--block-size=</b><i>BLOCK-SIZE</i></td>
+<td>Set the I/O block size to <b>BLOCK-SIZE * 512</b> bytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>Identical to '<b>-H newc</b>'; uses the new (SVR4) portable format. If you want the old portable (ASCII) archive format, use '<b>-H odc</b>' instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b> <i>IO-SIZE</i>, <b>--io-size=</b><i>IO-SIZE</i></td>
+<td>Set the I/O block size to <i>IO-SIZE</i> bytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--make-directories</b></td>
+<td>Create leading directories where needed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b> <i>FILE</i>, <b>--pattern-file=</b><i>FILE</i></td>
+<td>Read additional patterns specifying file names to extract or list from <i>FILE</i>. The lines of <i>FILE</i> are treated as if they had been non-option arguments to <b>cpio</b>. This option is used in copy-in mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--nonmatching</b></td>
+<td>Only copy files that do not match any of the given patterns.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b>, <b>--file=</b><i>archive</i></td>
+<td>Archive file name to use instead of standard input or output. To use a tape drive on another machine as the archive, use a file name that starts with '<b>HOSTNAME:</b>'. The <a href="/jargon/h/hostname.htm">hostname</a> can be preceded by a <a href="/jargon/u/username.htm">username</a> and an '<b>@</b>' to access the remote tape drive as that user, if you have <a href="/jargon/p/permissi.htm">permission</a> to do so (an entry in that user's '<b>~/.rhosts</b>' file).</td>
+</tr>
+<tr class="tcw">
+<td><b>--force-local</b></td>
+<td>With <b>-F</b>, <b>-I</b>, or <b>-O</b>, take the archive file name to be a local file even if it contains a colon, which would ordinarily indicate a remote hostname.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b> <i>FORMAT</i>, <b>--format=</b><i>FORMAT</i></td>
+<td>Use archive format <i>FORMAT</i>. The valid formats are listed below; the same names are also recognized in all <a href="/jargon/u/uppercase.htm">caps</a>. The default in copy-in mode is to automatically detect the archive format, and in copy-out mode is '<b>bin</b>'.<br><br><b>bin</b>: The obsolete binary format.<br><br><b>odc</b>: The old (POSIX .1) portable format.<br><br><b>newc</b>: The new (SVR4) portable format, which supports file systems having more than 65536 <a href="/jargon/i/inode.htm">inodes</a>.<br><br><b>crc</b>: The new (SVR4) portable format with a <a href="/jargon/c/checksum.htm">checksum</a> added.<br><br><b>tar</b>: The old tar format.<br><br><b>ustar</b>: The POSIX .1 tar format. Also, recognizes GNU tar archives, which are similar but not identical.<br><br><b>hpbin</b>: The obsolete binary format used by HP-UX's cpio (which stores device files differently).<br><br><b>hpodc</b>: The portable format used by HP-UX's cpio (which stores device files differently).</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--extract</b></td>
+<td>Run in copy-in mode. (see '<a href="#Copy-In-Mode">Copy-in mode</a>').</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> <i>archive</i></td>
+<td>Archive file name to use instead of standard input. To use a tape drive on another machine as the archive, use a file name that starts with '<b>HOSTNAME:</b>'. The hostname can be preceded by a username and an '<b>@</b>' to access the remote tape drive as that user, if you have permission to do so (an entry in that user's '<b>~/.rhosts</b>' file).</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b></td>
+<td>Ignored; for compatibility with other versions of cpio.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--link</b></td>
+<td>Link files instead of copying them, when possible.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--dereference</b></td>
+<td>Copy the file that a symbolic link points to, rather than the symbolic link itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b>, <b>--preserve-modification-time</b></td>
+<td>Retain previous file modification times when creating files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b> <i>MESSAGE</i>, <b>--message=</b><i>MESSAGE</i></td>
+<td>Print <i>MESSAGE</i> when the end of a volume of the backup media (such as a tape or a <a href="/jargon/f/floppydi.htm">floppy disk</a>) is reached, to prompt the user to insert a new volume. If <i>MESSAGE</i> contains the string '<b>%d</b>', it is replaced by the current volume number (starting at 1).</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--numeric-uid-gid</b></td>
+<td>Show numeric UID and GID instead of translating them into names when using the '<b>--verbose</b>' option.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-absolute-file names</b></td>
+<td>Create all files relative to the current directory in copy-in mode, even if they have an absolute file name in the archive.</td>
+</tr>
+<tr class="tcw">
+<td><b>--absolute-file names</b></td>
+<td>This is the default: tell <b>cpio</b> not to strip leading file name components that contain '<b>..</b>' and leading slashes from file names in copy-in mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-preserve-owner</b></td>
+<td>Do not change the ownership of the files; leave them owned by the user extracting them. This is the default for non-root users, so that users on <a href="/jargon/s/system-v.htm">System V</a> don't inadvertently give away files. This option can be used in copy-in mode and copy-pass mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--create</b></td>
+<td>Run in copy-out mode. (see '<a href="#Copy-Out-Mode">copy-out mode</a>').</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b> <i>archive</i></td>
+<td>Archive file name to use instead of standard output. To use a tape drive on another machine as the archive, use a file name that starts with '<b>HOSTNAME:</b>'. The hostname can be preceded by a username and an '<b>@</b>' to access the remote tape drive as that user, if you have permission to do so (an entry in that user's '<b>~/.rhosts</b>' file).</td>
+</tr>
+<tr class="tcw">
+<td><b>--only-verify-crc</b></td>
+<td>Verify the CRC of each file in the archive, when reading a CRC format archive. Do not actually extract the files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--pass-through</b></td>
+<td>Run in copy-pass mode. (see '<a href="#Copy-Pass-Mode">copy-pass mode</a>').</td>
+</tr>
+<tr class="tcw">
+<td><b>--quiet</b></td>
+<td>Do not print the number of blocks copied.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--rename</b></td>
+<td>Interactively rename files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b> [<i>user</i>][<b>:.</b>][<i>group</i>], <b>--owner</b> [<i>user</i>][<b>:.</b>][<i>group</i>]</td>
+<td>Set the ownership of all files created to the specified user and/or group in copy-out and copy-pass modes. Either the user, the group, or both, must be present. If the group is omitted but the '<b>:</b>' or '<b>.</b>' separator is given, use the given user's login group. Only the <a href="/jargon/r/root.htm">super-user</a> can change files' ownership.</td>
+</tr>
+<tr class="tcw">
+<td><b>--rsh-command=</b><i>COMMAND</i></td>
+<td>Notifies <b>cpio</b> that is should use <i>COMMAND</i> to communicate with remote devices.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--swap-bytes</b></td>
+<td>Swap the bytes of each halfword (pair of bytes) in the files. This option can be used in copy-in mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b>, <b>--swap-halfwords</b></td>
+<td>Swap the halfwords of each word (4 bytes) in the files. This option may be used in copy-in mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>--sparse</b></td>
+<td>Write files with large blocks of zeros as sparse files. This option is used in copy-in and copy-pass modes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--list</b></td>
+<td>Print a table of contents of the input.</td>
+</tr>
+<tr class="tcw">
+<td><b>--to-stdout</b></td>
+<td>Extract files to standard output. This option may be used in copy-in mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--unconditional</b></td>
+<td>Replace all files, without asking whether to replace existing newer files with older files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>List the files processed, or with '<b>-t</b>', give an '<b>ls -l</b>' style table of contents listing. In a verbose table of contents of a <b>ustar</b> archive, user and group names in the archive that do not exist on the local system are replaced by the names that correspond locally to the numeric UID and GID stored in the archive.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--dot</b></td>
+<td>Print a '<b>.</b>' for each file processed.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Print the cpio program version number and exit.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<p class="tab">When creating an archive, <b>cpio</b> takes the list of files to be processed from the standard input, and then sends the archive to the standard output, or to the device defined by the '<b>-F</b>' option. Usually <b>find</b> or <a href="/jargon/l/ls.htm"><b>ls</b></a> is used to provide this list to the standard input. In the following example you can see the possibilities for archiving the contents of a single directory:</p>
+<pre class="tcy tab">% ls | cpio -ov &gt; directory.cpio</pre>
+<p class="tab">The '<b>-o</b>' option creates the archive, and the '<b>-v</b>' option prints the names of the files archived as they are added. Notice that the options can be put together after a single '<b>-</b>' or can be placed separately on the command line. The '<b>&gt;</b>' redirects the <b>cpio</b> output to the file '<b>directory.cpio</b>'.</p>
+<p class="tab">If you wanted to archive an entire directory tree, the <b>find</b> command can provide the file list to <b>cpio</b>:</p>
+<pre class="tcy tab">% find . -print -depth | cpio -ov &gt; tree.cpio</pre>
+<p class="tab">This takes all the files in the current directory, the directories below and place them in the archive <b>tree.cpio</b>. Again the '<b>-o</b>' creates an archive, and the '<b>-v</b>' option shows you the name of the files as they are archived (see '<a href="#Copy-Out-Mode">copy-out mode</a>'). Using the '<b>.</b>' in the find statement gives you more flexibility when doing restores, as it saves file names with a relative path via a hardwired, <a href="/jargon/a/absopath.htm">absolute path</a>. The '<b>-depth</b>' option forces '<b>find</b>' to print of the entries in a directory before printing the directory itself. This limits restrictive directory permissions by printing the directory entries in a directory before the directory name itself.</p>
+<p class="tab">Extracting an archive requires a bit more thought because <b>cpio</b> does not create directories by default. Another characteristic is it does not overwrite existing files unless specified.</p>
+<pre class="tcy tab">% cpio -iv &lt; directory.cpio</pre>
+<p class="tab">This retrieves the files archived in the file <b>directory.cpio</b> and place them in the present directory. The '<b>-i</b>' option extracts the archive and the '<b>-v</b>' shows the file names as they are extracted. If you are dealing with an archived directory tree, you need to use the '<b>-d</b>' option to create directories as necessary, something like:</p>
+<pre class="tcy tab">% cpio -idv &lt; tree.cpio</pre>
+<p class="tab">This takes the contents of the archive <b>tree.cpio</b> and extract it to the current directory. If you try to extract the files on top of files of the same name that already exist (and have the same or later modification time), <b>cpio</b> does not extract the file unless told to do so by the <b>-u</b> option (see '<a href="#Copy-In-Mode">copy-in mode</a>').</p>
+<p class="tab">In copy-pass mode, <b>cpio</b> copies files from one directory tree to another, combining the copy-out and copy-in steps without actually using an archive. It reads the list of files to copy from the standard input; the directory into which it copies them is given as a non-option argument (see '<a href="#Copy-Pass-Mode">copy-pass mode</a>').</p>
+<pre class="tcy tab">% find . -depth -print0 | cpio --null -pvd new-dir</pre>
+<p class="tab">The example shows copying the files of the present directory, and sub-directories to a new directory called <b>new-dir</b>. Some new options are the '<b>-print0</b>' available with GNU find, combined with the '<b>--null</b>' option of <b>cpio</b>. These two options act together to send file names between <b>find</b> and <b>cpio</b>, even if special characters are embedded in the file names. Another is '<b>-p</b>', which tells <b>cpio</b> to pass the files it finds to the directory '<b>new-dir</b>'.</p>
+<pre class="tcy tab">find . -print | cpio -ocv &gt; /dev/fd0</pre>
+<p class="tab">Above, using the <b>find</b> command lists all files and directories and using the <b>cpio</b> command copy those files listed to the floppy drive.</p>
+<pre class="tcy tab">find . -print | cpio -dumpv /home/users/hope</pre>
+<p class="tab">In the above example, the <b>find</b> command lists all files and subdirectories of the current directory, and <a href="/jargon/p/pipe.htm">pipe</a> them to the <b>cpio</b> command, which copies those files to the <b>hope</b> user account.</p>
+<pre class="tcy tab">cpio -icuvd &lt; /dev/fd0</pre>
+<p class="tab">The above command would restore the files back from the floppy.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uar.htm"><b>ar</b></a> &mdash; Create, modify, and extract files from archives.<br><a href="/unix/ucat.htm"><b>cat</b></a> &mdash; Output the contents of a file.<br><a href="/unix/uecho.htm"><b>echo</b></a> &mdash; Output text.<br><a href="/unix/gzip.htm"><b>gzip</b></a> &mdash; Create, view the contents of, and extract files from GNU zip archives.<br><a href="/unix/uls.htm"><b>ls</b></a> &mdash; List the contents of a directory or directories.<br><a href="/unix/usetfacl.htm"><b>setfacl</b></a> &mdash; Modify the access control list of a file or files.<br><a href="/unix/utar.htm"><b>tar</b></a> &mdash; Create, modify, list the contents of, and extract files from tar archives.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82cae93384b0',m:'q99QlFHTZHPNg5NsjbDl230DEjg3ogafoh_Hx71zU7M-1661495343-0-AcXyBt7qYQ4VwzWj/aWwqrnoJqEpWYkBt1gEZxrL/W/yJ0/lvfRvNmNM79uH0sB8b3Oimyg9CBDEnC1ghd27P7/sFp1BDLMffn+ZartfA6Z5qhpSXdfSdI6GwvEXHqIMHg==',s:[0xe3761dcee1,0xb40f2bb65e],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

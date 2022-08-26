@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux ar command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/ar.gif" width="300" height="300" alt="ar command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>ar</b> command creates, modifies, and extracts files from archives.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>arch</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>ar</b> program creates, modifies, and extracts from <a href="/jargon/a/archive.htm">archives</a>. An archive is a single file holding a collection of other files in a structure that makes it possible to retrieve the original individual files (called <i>members</i> of the archive).</p>
+<p class="tab">The original files' contents, mode (<a href="/jargon/p/permissi.htm">permissions</a>), <a href="/jargon/t/timestam.htm">timestamp</a>, <a href="/jargon/o/owner.htm">owner</a>, and <a href="/jargon/g/group.htm">group</a> are preserved in the archive, and can be restored on extraction.</p>
+<p class="tab">GNU <b>ar</b> can maintain archives whose members have names of any length; however, depending on how <b>ar</b> is configured on your system, a limit on file name length may be imposed for compatibility with archive formats used by other tools. If it exists, the limit is often 15 or 16 <a href="/jargon/c/charact.htm">characters</a>.</p>
+<p class="tab"><b>ar</b> is considered a <a href="/jargon/b/binary.htm">binary</a> utility because archives of this sort are most often used as libraries holding commonly needed <a href="/jargon/r/routine.htm">subroutines</a>.</p>
+<p class="tab"><b>ar</b> creates an <a href="/jargon/i/index.htm">index</a> to the symbols defined in relocatable object modules in the archive when you specify the modifier <b>s</b>. Once created, this index is updated in the archive whenever ar makes a change to its contents (save for the <b>q</b> update operation). An archive with such index speeds up linking to the library, and allows routines in the library to call each other without regard to their placement in the archive.</p>
+<p class="tab">You may use <b>nm -s</b> or <b>nm --print-armap</b> to list this index table. If an archive lacks the table, another form of <b>ar</b> called <b>ranlib</b> can add the table.</p>
+<p class="tab">GNU <b>ar</b> can optionally create a thin archive, which contains a symbol index and references to the original copies of the member files of the archives. Such an archive is useful for building libraries for use within a local build, where the relocatable objects are expected to remain available, and copying the contents of each object would only waste time and space. Thin archives are also flattened, so that adding one or more archives to a thin archive adds the elements of the nested archive individually. The <a href="/jargon/p/path.htm">paths</a> to the elements of the archive are stored relative to the archive itself.</p>
+<p class="tab">GNU <b>ar</b> is designed to be compatible with two different facilities. You can control its activity using <a href="/jargon/c/commandi.htm">command-line</a> options, like the different varieties of <b>ar</b> on <a href="/jargon/u/unix.htm">Unix</a> systems; or, if you specify the single command-line option <b>-M</b>, you can control it with a <a href="/jargon/s/script.htm">script</a> supplied via <a href="/jargon/s/stdin.htm">standard input</a>, like the MRI "librarian" program.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">ar [--plugin <i>name</i>] [-X32_64] [-]p[<i>mod</i> [<i>relpos</i>] [<i>count</i>]]
+   [--target <i>bfdname</i>] <i>archive</i> [<i>member</i>...]</pre>
+<h2 id="options">Options</h2>
+<p class="tab">GNU <b>ar</b> lets you mix the operation code <b>p</b> and modifier flags in any order, in the first command-line argument.</p>
+<p class="tab">If you want, you can begin the first command-line argument with a dash.</p>
+<p class="tab">The <b>p</b> keyletter specifies what operation to execute; it may be any of the following, but you must specify only one of them:</p>
+<p class="tabb">Operations:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>d</b></td>
+<td><a href="/jargon/d/delete.htm">Delete</a> modules from the archive. Specify the names of modules to be deleted as "<i>member...</i>"; the archive is untouched if you specify no files to delete. If you specify the <b>v</b> modifier, ar lists each module as it is deleted.</td>
+</tr>
+<tr class="tcw">
+<td><b>m</b></td>
+<td>Use this operation to move members in an archive. The ordering of members in an archive can make a difference in how programs are linked using the library, if a symbol is defined in more than one member.If no modifiers are used with "<b>m</b>", any members you name in the member arguments are moved to the end of the archive; you can use the <b>a</b>, <b>b</b>, or <b>i</b> modifiers to move them to a specified place instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>p</b></td>
+<td>Print the specified members of the archive, to the standard output file. If the <b>v</b> modifier is specified, show the member name before copying its contents to standard output. If you specify no member arguments, all the files in the archive are printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>q</b></td>
+<td>Quick append; Historically, add the files "<i>member...</i>" to the end of archive, without checking for replacement. The modifiers <b>a</b>, <b>b</b>, and <b>i</b> do not affect this operation; new members are always placed at the end of the archive.The modifier <b>v</b> makes <b>ar</b> list each file as it is appended. Since the point of this operation is speed, the archive's symbol table index is not updated, even if it already existed; you can use <b>ar s</b> or <b>ranlib</b> explicitly to update the symbol table index. However, too many different systems assume quick append rebuilds the index, so GNU <b>ar</b> implements <b>q</b> as a synonym for <b>r</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b></td>
+<td>Insert the files "<i>member...</i>" into archive (with replacement). This operation differs from <b>q</b> in that any previously existing members are deleted if their names match those being added. If one of the files named in "<i>member...</i>" does not exist, <b>ar</b> displays an error message, and leaves undisturbed any existing members of the archive matching that name. By default, new members are added at the end of the file; but you may use one of the modifiers <b>a</b>, <b>b</b>, or <b>i</b> to request placement relative to some existing member. The modifier <b>v</b> used with this operation elicits a line of output for each file inserted, along with one of the letters <b>a</b> or <b>r</b> to indicate whether the file was appended (no old member deleted) or replaced.</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b></td>
+<td>Add an index to the archive, or update it if it already exists. Note this command is an exception to the rule that there can only be one command letter, as it is possible to use it as either a command or a modifier. In either case it does the same thing.</td>
+</tr>
+<tr class="tcw">
+<td><b>t</b></td>
+<td>Display a table listing the contents of archive, or those of the files listed in <i>member...</i> that are present in the archive. Normally only the member name is shown; if you also want to see the modes (permissions), timestamp, owner, group, and size, you can request that by also specifying the <b>v</b> modifier. If you do not specify a member, all files in the archive are listed.</td>
+</tr>
+<tr class="tcw">
+<td><b>x</b></td>
+<td>Extract members (named <i>member</i>) from the archive. You can use the <b>v</b> modifier with this operation, to request that <b>ar</b> list each name as it extracts it. If you do not specify a <i>member</i>, all files in the archive are extracted. Files cannot be extracted from a thin archive.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Displays the list of command line options supported by <b>ar</b> and then exits.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Displays the <a href="/jargon/v/version.htm">version</a> information of <b>ar</b> and then exits.</td>
+</tr>
+</table>
+<p class="tab">A number of modifiers may immediately follow the <b>p</b> keyletter, to specify variations on an operation's behavior:</p>
+<p><b>Modifiers:</b></p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>a</b></td>
+<td>Add new files after an existing member of the archive. If you use the modifier <b>a</b>, the name of an existing archive member must be present as the <b>relpos</b> argument, before the archive specification.</td>
+</tr>
+<tr class="tcw">
+<td><b>b</b></td>
+<td>Add new files before an existing member of the archive. If you use the modifier <b>b</b>, the name of an existing archive member must be present as the <b>relpos</b> argument, before the archive specification. (same as <b>i</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td>Create the archive. The specified archive is always created if it did not exist, when you request an update. But a warning is issued unless you specify in advance you expect to create it, with this modifier.</td>
+</tr>
+<tr class="tcw">
+<td><b>D</b></td>
+<td>Operate in deterministic mode. When adding files and the archive index use zero for UIDs, GIDs, timestamps, and use consistent file modes for all files. When this option is used, if <b>ar</b> is used with identical options and identical input files, multiple runs create identical output files regardless of the input files' owners, groups, file modes, or modification times.If binutils was configured with <b>--enable-deterministic-archives</b>, then this mode is on by default. It can be disabled with the <b>U</b> modifier, below.</td>
+</tr>
+<tr class="tcw">
+<td><b>f</b></td>
+<td><a href="/jargon/t/truncate.htm">Truncate</a> names in the archive. GNU ar normally permits file names of any length. This causes it to create archives that are not compatible with the native ar program on some systems. If this is a concern, the <b>f</b> modifier may be used to truncate file names when putting them in the archive.</td>
+</tr>
+<tr class="tcw">
+<td><b>i</b></td>
+<td>Insert new files before an existing member of the archive. If you use the modifier <b>i</b>, the name of an existing archive member must be present as the <b>relpos</b> argument, before the archive specification. (same as <b>b</b>).</td>
+</tr> 
+<tr class="tcw">
+<td><b>l</b></td>
+<td>This modifier is accepted but not used.</td>
+</tr>
+<tr class="tcw">
+<td><b>N</b></td>
+<td>Uses the count parameter. This is used if there are multiple entries in the archive with the same name. Extract or delete instance count of the given name from the archive.</td>
+</tr>
+<tr class="tcw">
+<td><b>o</b></td>
+<td>Preserve the original dates of members when extracting them. If you do not specify this modifier, files extracted from the archive are stamped with the time of extraction.</td>
+</tr>
+<tr class="tcw">
+<td><b>P</b></td>
+<td>Use the full path name when matching names in the archive. GNU <b>ar</b> cannot create an archive with a full path name (such archives are not POSIX complaint), but other archive creators can. This option causes GNU <b>ar</b> to match file names using a complete path name, which can be convenient when extracting a single file from an archive created by another tool.</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b></td>
+<td>Write an object-file index into the archive, or update an existing one, even if no other change is made to the archive. You may use this modifier flag either with any operation, or alone. Running <b>ar s</b> on an archive is equivalent to running <b>ranlib</b> on it.</td>
+</tr>
+<tr class="tcw">
+<td><b>S</b></td>
+<td>Do not generate an archive symbol table. This can speed up building a large library in several steps. The resulting archive cannot be used with the linker. To build a symbol table, you must omit the <b>S</b> modifier on the last execution of <b>ar</b>, or you must run <b>ranlib</b> on the archive.</td>
+</tr>
+<tr class="tcw">
+<td><b>T</b></td>
+<td>Make the specified archive a thin archive. If it already exists and is a regular archive, the existing members must be present in the same directory as archive.</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b></td>
+<td>Normally, ar <b>r...</b> inserts all files listed into the archive. If you would like to insert only those of the files you list that are newer than existing members of the same names, use this modifier. The <b>u</b> modifier is allowed only for the operation <b>r</b> (&quot;replace&quot;). In particular, the combination <b>qu</b> is not allowed since checking the timestamps would lose any speed advantage from the operation <b>q</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>U</b></td>
+<td>Do not operate in deterministic mode. This is the inverse of the <b>D</b> modifier above: added files and the archive index get their actual UID, GID, timestamp, and file mode values. This is the default unless binutils was configured with <b>--enable-deterministic-archives</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>v</b></td>
+<td>This modifier requests the verbose version of an operation. Many operations display additional information, such as file names processed, when the modifier <b>v</b> is appended.</td>
+</tr>
+<tr class="tcw">
+<td><b>V</b></td>
+<td>This modifier shows the version number of <b>ar</b>.</td>
+</tr>
+</table>
+<p><b>Other:</b></p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:80px"><b>@</b><i>file</i></td>
+<td>Read command-line options from <i>file</i>. The options read are inserted in place of the original <b>@</b><i>file</i> option. If file does not exist, or cannot be read, then the option is treated literally, and not removed. Options in file are separated by <a href="/jargon/w/whitspac.htm">whitespace</a>. A whitespace character may be included in an option by surrounding the entire option in either single or double quotes. Any character (including a backslash) may be included by prefixing the character to be included with a backslash. The file may itself contain additional <b>@</b><i>file</i> options; any such options are processed recursively.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">ar r myfile.a 'ls *.o'</pre>
+<p class="tab">Replace <b>myfile.a</b> with object files in the current directory.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ubasenam.htm"><b>basename</b></a> &mdash; Strip directory information and suffixes from file names.<br><a href="/unix/ucpio.htm"><b>cpio</b></a> &mdash; Copy files to or from archives.<br><a href="/unix/uld.htm"><b>ld</b></a> &mdash; Link editor for object files.<br><a href="/unix/umake.htm"><b>make</b></a> &mdash; Automatically build executable programs and libraries from source code.<br><a href="/unix/utar.htm"><b>tar</b></a> &mdash; Create, modify, list the contents of, and extract files from tar archives.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82b04a02c424',m:'SwCyBLNDgxPdKVBtzG9trTkZ2H17F0OTfM7SNY9TEgE-1661495339-0-AUxcxxvZfJIQ6S0wgTnpZB5XN3bpI5aOIz/qjnHSsUSXhpFEBm4u8XsrgSNBD9xczzyK5IEmsjwKxR6wF0jfICMjQgBE0vEgeuzUay8g1yQ5Z2tJ5AES0JrcfP5I8INFUw==',s:[0x1e0f4e3ce7,0xf215320e62],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux touch command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/touch.gif" width="300" height="300" alt="touch command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>touch</b> command modifies file <a href="/jargon/t/timestam.htm">timestamps</a>. If the file doesn't exist, an empty file with that name is created.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>touch</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a>
+<ul>
+<li><a href="#time-zones">Time zones</a></li>
+<li><a href="#exit-status">Exit status</a></li>
+</ul>
+</li>
+<li><a href="#examples">Examples</a>
+<ul>
+<li><a href="#examples-date-string">Examples</a></li>
+<li><a href="#examples-timestamp">Examples</a></li>
+<li><a href="#checking-file">Checking file times with <b>stat</b></a></li>
+</ul>
+</li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">A timestamp is information associated with a file that identifies an important time in the file's history. A file can have multiple timestamps, and some of them can be "forged" by setting them manually. Internally, the <a href="/jargon/o/os.htm">operating system</a> stores these times as time elapsed since an arbitrary date called the <a href="/jargon/e/epoch.htm">epoch</a>. For <a href="/jargon/u/unix.htm">Unix</a> like operating systems, the epoch is 00:00:00 <a href="/jargon/u/ut.htm">UTC</a> (Coordinated Universal Time), Thursday, 1 January 1970.</p>
+<p class="tab">In <a href="/jargon/l/linux.htm">Linux</a>, there are three timestamps associated with a file:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<th style="width:200px">Timestamp type</th>
+<th>Description</th>
+<th>Abbreviation</th>
+</tr>
+<tr class="tcw">
+<td>Access time</td>
+<td>The last time the file was read.</td>
+<td><b>atime</b></td>
+</tr>
+<tr class="tcw">
+<td>Modification time</td>
+<td>The last time the contents of the file were modified.</td>
+<td><b>mtime</b></td>
+</tr>
+<tr class="tcw">
+<td>Change time</td>
+<td>The last time the file's <a href="/jargon/m/metadata.htm">metadata</a>, called the Status, was changed. Status information includes a file's <a href="/jargon/p/permissi.htm">permissions</a> and its timestamps.<br><br>Every time anything happens to a file, at least one element of its status changes, and its ctime is set to the current system time.</td>
+<td><b>ctime</b></td>
+</tr>
+</table>
+<p class="tab">The atime and mtime are part of a file's status metadata. Therefore, when you change the atime (<b>-a</b>) or mtime (<b>-m</b>) of a file, its ctime is automatically set to the current time.</p>
+<p class="tab">There is no way to manually set the ctime.</p>
+<p class="tab">A file's atime or mtime can be set to the future or the past if the user owns the file.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab"><b>touch</b> [[<b>-a</b>] [<b>-m</b>] | [<b>--time=</b><i>timetype</i>] [...]] [[<b>-d</b> <i>datestring</i>] | [<b>-t</b> <i>timestamp</i>]]
+      [<b>-c</b>] [<b>-f</b>] [<b>-h</b>] [<b>-r</b> <i>reffile</i>] <i>file</i> [<i>file</i> ...]</pre>
+<pre class="tcy tab"><b>touch --version</b></pre>
+<pre class="tcy tab"><b>touch --help</b></pre>
+<p class="tab">The only required <a href="/jargon/a/argument.htm">argument</a> to <b>touch</b> is a <a href="/jargon/f/filename.htm">file name</a>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><i>file</i></td>
+<td>A file whose times should be changed. If <i>file</i> does not exist, it is created, unless the <b>-c</b> or <b>-h</b> options are used.<br><br>Multiple files may be specified as <i>file0</i> <i>file1</i> <i>file2</i>... etc.<br><br>(If <i>file</i> is a dash "<b>-</b>", <b>touch</b> modifies the special file descriptor <a href="/jargon/s/stdout.htm">standard output</a>. See <a href="#examples-standard-output">examples</a>.)</td>
+</tr>
+</table>
+<p class="tab">With no options, <b>touch</b> changes the atime, mtime, and ctime of <i>file</i> to the current system time.</p>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<th style="width:200px">Option</th>
+<th>Description</th>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>Set the access time only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>,<br><b>--no-create</b></td>
+<td>Do not create files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>datestring</i>,<br><b>--date=</b><i>datestring</i></td>
+<td><a href="/jargon/p/parse.htm">Parse</a> the date <a href="/jargon/s/string.htm">string</a> <i>datestring</i>, and use it instead of current time. Strings valid to the <a href="/unix/udate.htm"><b>date</b></a> command are accepted by the <b>-d</b> option.<br><br> See <a href="#examples-date-string">examples</a>.<br><br>In addition to having write access, the user must also own a file to set its times to the past or future.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>This option does nothing, but is accepted to provide compatibility with <a href="/jargon/b/bsd.htm">BSD</a> versions of touch.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>,<br><b>--no-dereference</b></td>
+<td>If <i>file</i> is a <a href="/jargon/s/symblink.htm">symbolic link</a> and this option is specified, <b>touch</b> modifies the timestamp of the symlink, rather than its referenced file. If this option is not specified, <b>touch</b> will <a href="/jargon/d/dereference-operator.htm">dereference</a> symlinks before making modifications.<br><br>This option implies <b>-c</b>: nothing is created if <i>file</i> does not exist.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b></td>
+<td>Set modification time only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r=</b><i>reffile</i>,<br><b>--reference=</b><i>reffile</i></td>
+<td>Set the times of <i>file</i> to the times of file <i>reffile</i> instead of the current time.<br><br>In addition to having write access, the user must also own a file to set its times to the past or future.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>timestamp</i></td>
+<td>Use the numeric <i>timestamp</i> instead of the current time. The format of <i>timestamp</i> is [[<b>CC</b>]<b>YY</b>]<b>MMDDhhmm</b>[<b>.ss</b>].<br><br>See <a href="#examples-timestamp">examples</a>.<br><br>In addition to having write access, the user must also own a file to set its times to the past or future.</td>
+</tr>
+<tr class="tcw">
+<td><b>--time=</b><i>timetype</i></td>
+<td>An alternate way to specify what type of time to set (as with <b>-a</b> and <b>-m</b>).<br><br>The value of <i>timetype</i> must be one of the following:<br><br><table class="mtable3"><tr class="tcw"><td style="width:120px"><b>atime</b>,<br><b>access</b>,<br><b>use</b></td>
+<td>Set access time. Equivalent to <b>-a</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>mtime</b>,<br><b>modify</b></td>
+<td>Set modification time. Equivalent to <b>-m</b>.</td>
+</tr>
+</table>
+This option can be specified twice nondestructively. For example, <b>--time=atime --time=mtime</b> is the same as <b>-am</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+</table>
+<h3 class="tab">Notes</h3>
+<p class="tab">The <b>-d</b> option takes a human-readable date string. For example, <b>"July 4"</b>, <b>"4 Jul"</b>, <b>"0:00"</b>, or <b>"Jul 4 2017 00:00:00"</b>. If year, month, or day are omitted, the current system time values are used. If the time is omitted, midnight is used. The day may be specified before or after the month in the string. Single digit numbers may be prefixed with a zero, or not, according to preference. If seconds are specified, they are to be preceded in the time by a colon ( <b>:</b> ).</p>
+<p class="tab"><b>-t</b> takes a numeric timestamp, which expresses the month, date, hour, and minute as <i>MMDDHHMM</i>. For example, <b>07040000</b> would be midnight on the fourth of July. Century, years, and seconds are optional, and may be specified as <b>CCYYMMDDHHMM.SS</b>. If seconds are specified, they are to be preceded with a period ( <b>.</b> ).</p>
+<p class="tab">Specifying times in the future is okay. For example, <b>-d "Jan 1 2029"</b>. In addition to having write access, the user must also <a href="/unix/uchown.htm">own a file</a> to set its times to the past or future.</p>
+<p class="tab">Because there is no way to manually set ctimes, the <b>-r</b>, <b>-d</b>, and <b>-t</b> options can modify only atimes and mtimes. When a file is touched, the ctime is always set to the current system time.</p>
+<h2 id="time-zones">Time zones</h2>
+<p class="tab">If the value of <a href="/jargon/e/envivari.htm">environment variable</a> <b>TZ</b> is set, all operations use that time zone. Otherwise, the system default time zone is used.</p>
+<p class="tab">To set the <b>TZ</b> environment variable, use the command <b>tzselect</b>.</p>
+<h2 id="exit-status">Exit status</h2>
+<p class="tab">The exit status of <b>touch</b> is zero if all operations were successful. Any nonzero value indicates failure.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">touch file.txt</pre>
+<p class="tab">If <b>file.txt</b> exists, set its access, modification, and change times (atime, mtime, and ctime) to the current system time. If <b>file.txt</b> doesn't exist, create an empty file with that name.</p>
+<pre class="tcy tab">touch -c file.txt</pre>
+<p class="tab">If <b>file.txt</b> exists, set its times to the current system time. If it does not exist, do nothing.</p>
+<pre class="tcy tab">touch -a file.txt</pre>
+<p class="tab">Change the atime of <b>file.txt</b>. The mtime is not changed. The ctime is set to the current system time. If <b>file.txt</b> does not exist, it is created.</p>
+<pre class="tcy tab">touch -h mysym</pre>
+<p class="tab">Change the times of file <b>mysym</b>. If it's a symbolic link, change the times of the symlink, not the times of the referenced file.</p>
+<pre class="tcy tab">touch -cr a.txt b.txt</pre>
+<p class="tab">Change the access and modification times of <b>b.txt</b> to match the times of <b>a.txt</b>. The ctime will be set to the current system time. If <b>file.txt</b> does not exist, it is not created.</p>
+<pre class="tcy tab">touch -ahmcr a.txt b.txt</pre>
+<p class="tab">Change the atime and mtime of <b>b.txt</b> to match the atime and mtime of <b>a.txt</b>. If <b>file1.txt</b> doesn't exist, do nothing. If <b>b.txt</b> is a symlink, set the times of the symlink. Do not touch the referenced file.</p>
+<pre class="tab tcy">touch --time=atime --no-dereference --time=mtime --no-create --reference=a.txt b.txt</pre>
+<p class="tab">Same as the previous command.</p>
+<pre class="tab tcy" id="examples-standard-output">touch -d "October 31" - &gt; boo.txt</pre>
+<p class="tab">Set the atime and mtime of standard output to midnight, October 31 of the current year. Redirect (<b>&gt;</b>) standard output to <b>boo.txt</b>.</p>
+<p class="tab"><b>touch</b> cannot overwrite the contents of an existing file, but the redirect will. If <b>boot.txt</b> does not exist, it is created. If <b>boot.txt</b> exists, it will be <a href="/jargon/o/overwrit.htm">overwritten</a>.</p>
+<pre class="tab tcy">touch -t "10310000" - &gt; boo.txt</pre>
+<p class="tab">Same as the previous command.</p>
+<h3 class="tab" id="examples-date-string">Examples</h3>
+<pre class="tcy tab">touch -d "1 Feb" file1.txt</pre>
+<p class="tab">Set the atime and mtime of <b>file1.txt</b> to February 1st of the current year. The ctime is set to the current system time.</p>
+<pre class="tcy tab">touch -d "February 1" file1.txt</pre>
+<p class="tab">Same as the previous command.</p>
+<pre class="tcy tab">touch --date="1 February" file1.txt</pre>
+<p class="tab">Same as the previous command.</p>
+<pre class="tcy tab">touch -d "01:02" file1.txt</pre>
+<p class="tab">Set the atime and mtime of <b>file1.txt</b> to 1:02 AM, today.</p>
+<pre class="tcy tab">touch -d "1:2" file1.txt</pre>
+<p class="tab">Same as the previous command.</p>
+<pre class="tcy tab">touch -md "Sep 1 1927 23:58:59" file1.txt</pre>
+<p class="tab">Set the mtime of <b>file1.txt</b> to September 1, 1927, 11:58 PM and 59 seconds. The ctime is set to the current system time. The atime is not changed.</p>
+<h3 class="tab" id="examples-timestamp">Examples</h3>
+<pre class="tcy tab">touch --time=01020304 file1.txt</pre>
+<p class="tab">Set the atime and mtime of <b>file1.txt</b> to January 2, 3:04 AM of the current year. The ctime is set to the current system time.</p>
+<pre class="tcy tab">touch -t 01020304 file1.txt</pre>
+<p class="tab">Same as the previous command.</p>
+<pre class="tcy tab">touch -t 5006070405 file1.txt</pre>
+<p class="tab">Set the atime and mtime of <b>file1.txt</b> to June 7, 2050, 4:05 AM. The ctime is set to the current system time.</p>
+<pre class="tcy tab">touch -t 205007080405 file1.txt</pre>
+<p class="tab">Same as the previous command, but explicitly specifying the century (<b>20</b>).</p>
+<pre class="tcy tab">touch -at 195003040506.59 file1.txt</pre>
+<p class="tab">Set the atime of <b>file1.txt</b> to March 4, 1950, 5:06 AM and 59 seconds. The ctime is set to the current system time. The mtime is not changed.</p>
+<h3 class="tab" id="checking-file">Checking file times with stat</h3>
+<p class="tab">You can check the times of a file using the <a href="/unix/stat.htm"><b>stat</b></a> command:</p>
+<pre class="tab tcy">stat file.txt</pre>
+<pre class="tab">stat: cannot stat 'file.txt': No such file or directory</pre>
+<pre class="tab tcy">touch file.txt; stat file.txt</pre>
+<pre class="tab">  File: 'file.txt'
+  Size: 0           Blocks: 0          IO Block: 4096   regular empty file
+Device: 802h/2050d  Inode: 668116      Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1001/    hope)   Gid: ( 1002/    hope)
+Access: 2017-10-25 21:35:17.368254343 -0400
+Modify: 2017-10-25 21:35:17.368254343 -0400
+Change: 2017-10-25 21:35:17.368254343 -0400
+ Birth: -</pre>
+<pre class="tab tcy">touch -ad "July 12 1895" file.txt; stat file.txt</pre>
+<pre class="tab">  File: 'file.txt'
+  Size: 0           Blocks: 0          IO Block: 4096   regular empty file
+Device: 802h/2050d  Inode: 668116      Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1001/    hope)   Gid: ( 1002/    hope)
+Access: 1895-07-12 00:00:00.000000000 -0500
+Modify: 2017-10-25 21:35:17.368254343 -0400
+Change: 2017-10-25 21:35:55.487636366 -0400
+ Birth: -</pre>
+<pre class="tab tcy">touch -mt 198307010000 file.txt; stat file.txt</pre>
+<pre class="tab">  File: 'file.txt'
+  Size: 0           Blocks: 0          IO Block: 4096   regular empty file
+Device: 802h/2050d  Inode: 668116      Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1001/    hope)   Gid: ( 1002/    hope)
+Access: 1895-07-12 00:00:00.000000000 -0500
+Modify: 1983-07-01 00:00:00.000000000 -0400
+Change: 2017-10-25 21:36:59.654589018 -0400
+ Birth: -</pre>
+<pre class="tab tcy">for formatspec in 'file name:\t%n' 'accessed:\t%x' 'modified:\t%y' 'changed:\t%z'; do stat --printf="$formatspec\n" file.txt; done</pre>
+<pre class="tab">file name:  file.txt
+accessed:   1895-07-12 00:00:00.000000000 -0500
+modified:   1983-07-01 00:00:00.000000000 -0400
+changed:    2017-10-25 21:36:59.654589018 -0400</pre>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>You may notice in this set of examples that when the atime was changed to July 12, 1895, the time zone changed. That's because DST (<a href="/jargon/t/time.htm#dst">Daylight Savings Time</a>) was not enacted in North America until April 1, 1918.</p>
+</div>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/udate.htm"><b>date</b></a> &mdash; View or set the current date and time.<br><a href="/unix/stat.htm"><b>stat</b></a> &mdash; Display the status of a file or filesystem.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8365785a84e0',m:'55y1RAAehLrb2dO1oSWdtyAEeH9nRkk4C1FilamHf3c-1661495368-0-AfY3Jrz4tygnD1CFfXhE+oiVQiYXjUxKh+waaSWyr9dV0x0+5Zm8AfbadM/WV23dCCmH3cP+7AhHB/W0cA0XWmjiWKABpoWTmrFugEDCD92k2UoLgf70nAVlROrDU8mUIw==',s:[0xe6d0a0798c,0x5965bc2235],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

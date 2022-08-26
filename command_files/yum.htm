@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux yum command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/yum.gif" width="300" height="300" alt="yum command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>yum</b> command is an interactive, <a href="/jargon/r/rpm.htm">rpm</a>-based package manager.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#descriptions">Command descriptions</a></li>
+<li><a href="#general">General options</a></li>
+<li><a href="#list">List options</a></li>
+<li><a href="#plugins">Plugins</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>yum</b> stands for "Yellowdog Updater Modified". It can automatically perform system updates, including dependency analysis and obsolete processing based on "<a href="/jargon/r/reposito.htm">repository</a>" <a href="/jargon/m/metadata.htm">metadata</a>. It can also perform installation of new packages, removal of old packages and perform queries on the installed or available packages among other commands/services (see below). The yum command is similar to other high level package managers like <a href="/unix/apt-get.htm"><b>apt-get</b></a> and <b>smart</b>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">yum [<i>options</i>] [<i>command</i>] [<i>package</i> ...]</pre>
+<p class="tab"><i>command</i> may be one of:</p>
+<pre class="tcy tab">install <i>package1</i> [<i>package2</i>] [...]</pre>
+<pre class="tcy tab">update [<i>package1</i>] [<i>package2</i>] [...]</pre>
+<pre class="tcy tab">update-to [<i>package1</i>] [<i>package2</i>] [...]</pre>
+<pre class="tcy tab">check-update</pre>
+<pre class="tcy tab">upgrade [<i>package1</i>] [<i>package2</i>] [...]</pre>
+<pre class="tcy tab">upgrade-to [<i>package1</i>] [<i>package2</i>] [...]</pre>
+<pre class="tcy tab">distribution-synchronization [<i>package1</i>] [<i>package2</i>] [...]</pre>
+<pre class="tcy tab">remove | erase <i>package1</i> [<i>package2</i>] [...]</pre>
+<pre class="tcy tab">list [...]</pre>
+<pre class="tcy tab">info [...]</pre>
+<pre class="tcy tab">provides | whatprovides <i>feature1</i> [<i>feature2</i>] [...]</pre>
+<pre class="tcy tab">clean [ packages | metadata | expire-cache | rpmdb | plugins | all ]</pre>
+<pre class="tcy tab">makecache</pre>
+<pre class="tcy tab">groups [...]</pre>
+<pre class="tcy tab">search <i>string1</i> [<i>string2</i>] [...]</pre>
+<pre class="tcy tab">shell [<i>file name</i>]</pre>
+<pre class="tcy tab">resolvedep <i>dep1</i> [<i>dep2</i>] [...]</pre>
+<pre class="tcy tab">reinstall <i>package1</i> [<i>package2</i>] [...]</pre>
+<pre class="tcy tab">downgrade <i>package1</i> [<i>package2</i>] [...]</pre>
+<pre class="tcy tab">deplist <i>package1</i> [<i>package2</i>] [...]</pre>
+<pre class="tcy tab">repolist [all|enabled|disabled]</pre>
+<pre class="tcy tab">version [all|installed|available|group-*|nogroups*|grouplist|groupinfo]</pre>
+<pre class="tcy tab">history [info|list|packages-list|summary|addon-info|redo|undo|rollback|new]</pre>
+<pre class="tcy tab">check</pre>
+<pre class="tcy tab">help [<i>command</i>]</pre>
+<p class="tab">Unless the <b>--help</b> or <b>-h</b> option is given, one of the above commands must be present.</p>
+<h2 id="descriptions">Command descriptions</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:290px"><b>install</b></td>
+<td>Used to install the latest version of a package or group of packages while ensuring that all dependencies are satisfied. If no package matches the given package name(s), they are assumed to be a shell <a href="/jargon/g/glob.htm">glob</a> and any matches are then installed. If the name starts with an <b>@</b> character the rest of the name is used as though passed to the <b>groupinstall</b> command. If the name starts with a "<b>-</b>" character, then a search is done within the transaction and any matches are removed. If the name is a file, then <b>install</b> works like <b>localinstall</b>. If the name doesn't match a package, then package "provides" are searched (e.g., "<b>_sqlitecache.so()(64bit)</b>") as are filelists (e.g., "<b>/usr/bin/yum</b>"). Also, note that for filelists and wildcards will match multiple packages.</td>
+</tr>
+<tr class="tcw">
+<td><b>update</b></td>
+<td>If run without any packages, update will update every currently installed package. If one or more packages or package globs are specified, <b>yum</b> will only update the listed packages. While updating packages, <b>yum</b> will ensure that all dependencies are satisfied. If the packages or globs specified match to packages that are not currently installed then <b>update</b> will not install them. <b>update</b> operates on groups, files, provides and filelists just like the "<b>install</b>" command.<br><br> If the main obsoletes configure option is true (default) or the <b>--obsoletes</b> flag is present, <b>yum</b> will include package obsoletes in its calculations; this makes it better for distro-version changes, for example: upgrading from somelinux 8.0 to somelinux 9.<br><br> Note that "<b>update</b>" works on installed packages first, and only if there are no matches does it look for available packages. The difference is most noticeable when you do "<b>update foo-1-2</b>" which will act exactly as "<b>update foo</b>" if <b>foo-1-2</b> is installed. You can use the "<b>update-to</b>" if you'd prefer that nothing happen in the above case.</td>
+</tr>
+<tr class="tcw">
+<td><b>update-to</b></td>
+<td>This command works like "<b>update</b>" but always specifies the version of the package we want to use as the update.</td>
+</tr>
+<tr class="tcw">
+<td><b>check-update</b></td>
+<td>Implemented so you could know if your machine had any updates that needed to be applied without running it interactively. Returns exit value of <b>100</b> if there are packages available for an update. Also, returns a list of the packages to be updated in list format. Returns <b>0</b> if no packages are available for update. Returns <b>1</b> if an error occurred. Running in <a href="/jargon/v/verbose.htm">verbose</a> mode also shows obsoletes.</td>
+</tr>
+<tr class="tcw">
+<td><b>upgrade</b></td>
+<td>Is the same as the <b>update</b> command with the <b>--obsoletes</b> flag set. See <b>update</b> for more details.</td>
+</tr>
+<tr class="tcw">
+<td><b>upgrade-to</b></td>
+<td>This command works like "<b>upgrade</b>" but always specifies the version of the package we want to use as the update.</td>
+</tr>
+<tr class="tcw">
+<td><b>distribution-synchronization</b> or <b>distro-sync</b></td>
+<td>Synchronizes the installed package set with the latest packages available; this is done by either obsoleting, upgrading or downgrading as appropriate. This option will "normally" do the same thing as the <b>upgrade</b> command, however, if you have the package <b>FOO</b> installed at version 4, and the latest available is only version 3, then this command will downgrade <b>FOO</b> to version 3.<br><br> If you give the optional argument "<b>full</b>", then the command will also reinstall packages where the install <a href="/jargon/c/checksum.htm">checksum</a> and the available checksum do not match. And remove old packages (can be used to sync. <b>rpmdb</b> versions). The optional argument "different" can be used to specify the default operation.<br><br> This command does not perform operations on groups, local packages or negative selections.</td>
+</tr>
+<tr class="tcw">
+<td><b>remove</b> or <b>erase</b></td>
+<td>Used to remove the specified packages from the system as well as removing any packages which depend on the package being removed. <b>remove</b> operates on groups, files, provides and filelists just like the "<b>install</b>" command.<br><br> Note that "<b>yum</b>" is included in the <b>protected_packages</b> configuration by default. So you can't accidentally remove <b>yum</b> itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>list</b></td>
+<td>Is used to list various information about available packages; more complete details are available in the List Options section below.</td>
+</tr>
+<tr class="tcw">
+<td><b>provides</b> or <b>whatprovides</b></td>
+<td>Is used to find out which package provides some feature or file. Just use a specific name or a file-glob-syntax wildcards to list the packages available or installed that provide that feature or file.</td>
+</tr>
+<tr class="tcw">
+<td><b>search</b></td>
+<td>This option is used to find packages when you know something about the package but aren't sure of its name. By default, search will try searching just package names and summaries, but if that "fails" it will then try descriptions and url.<br><br><b>yum</b> search orders the results so that those packages matching more terms will appear first.<br><br> You can force searching everything by specifying "<b>all</b>" as the first argument.</td>
+</tr>
+<tr class="tcw">
+<td><b>info</b></td>
+<td>Is used to list a description and summary information about available packages; takes the same arguments as in the List Options section below.</td>
+</tr>
+<tr class="tcw">
+<td><b>clean</b></td>
+<td>Is used to clean up various things which accumulate in the <b>yum</b> cache directory over time. More complete details can be found in the Clean Options section below.</td>
+</tr>
+<tr class="tcw">
+<td><b>makecache</b></td>
+<td>Is used to download and make usable all the metadata for the currently enabled <b>yum</b> repositories.</td>
+</tr>
+<tr class="tcw">
+<td><b>groups</b></td>
+<td>A command, new in 3.4.2, that collects all the subcommands that act on groups together.<br><br> The "<b>group install</b>" is used to install all of the individual packages in a group, of the specified types (this works as if you'd taken each of those package names and put them on the command line for a "<b>yum install</b>" command). The <b>group_package_types</b> configuration option specifies which types will be installed.<br><br> The "<b>group update</b>" is just an alias for <b>groupinstall</b>, which will do the right thing because "<b>yum install X</b>" and "<b>yum update X</b>" do the same thing, when X is already installed.<br><br> The "<b>group list</b>" is used to list the available groups from all <b>yum</b> repositories. Groups are marked as "installed" if all mandatory packages are installed, or if a group doesn't have any mandatory packages then it is installed if any of the optional or default package are installed. The optional "hidden" argument will also list groups marked as not being "user visible". If you pass the <b>-v</b> option, to enable verbose mode, then the groupids are displayed.<br><br> The "<b>group remove</b>" is used to remove all of the packages in a group, unlike "<b>groupinstall</b>" this will remove everything regardless of <b>group_package_types</b>. It is worth pointing out that packages can be in more than one group, so "<b>group install X Y</b>" followed by "<b>group remove Y</b>" does not do give you the same result as "<b>group install X</b>".<br><br> The "<b>groupremove_leaf_only</b>" configuration changes the behaviour of this command to only remove packages which aren't required by something else.<br><br> The "<b>group info</b>" is used to give the description and package list of a group (and which type those packages are marked as). Note that you can use the <b>yum-filter-data</b> and <b>yum-list-data</b> plugins to get/use the data the other way around (i.e., what groups own packages need updating). If you pass the <b>-v</b> option, to enable verbose mode, then the package names are matched against installed/available packages similar to the list command.</td>
+</tr>
+<tr class="tcw">
+<td><b>shell</b></td>
+<td>Is used to enter the '<b>yum shell</b>', when a file name is specified the contents of that file is executed in <b>yum</b> shell mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>resolvedep</b></td>
+<td>Is used to list packages providing the specified dependencies, at most one package is listed per dependency.</td>
+</tr>
+<tr class="tcw">
+<td><b>localinstall</b></td>
+<td>Is used to install a set of local <b>rpm</b> files. If required the enabled repositories will be used to resolve dependencies. Note that the install command will do a local install, if given a file name. This option is maintained for legacy reasons only.</td>
+</tr>
+<tr class="tcw">
+<td><b>localupdate</b></td>
+<td>Is used to update the system by specifying local <b>rpm</b> files. Only the specified <b>rpm</b> files of which an older version is already installed will be installed, the remaining specified packages will be ignored. If required the enabled repositories will be used to resolve dependencies. Note that the update command will do a local update, if given a file name. This option is maintained for legacy reasons only.</td>
+</tr>
+<tr class="tcw">
+<td><b>reinstall</b></td>
+<td>Will reinstall the identically versioned package as is currently installed. This option does not work for "<b>installonly</b>" packages, like <a href="/jargon/k/kernel.htm">kernels</a>. <b>reinstall</b> operates on groups, files, provides and filelists just like the "<b>install</b>" command.</td>
+</tr>
+<tr class="tcw">
+<td><b>downgrade</b></td>
+<td>Will try and downgrade a package from the version currently installed to the previously highest version (or the specified version). The depsolver does not necessarily work, but if you specify all the packages it should work (and thus all the simple cases work). Also, this does not work for "<b>installonly</b>" packages, like kernels. The downgrade option operates on groups, files, provides, filelists, and rpm files, like the "<b>install</b>" command.</td>
+</tr>
+<tr class="tcw">
+<td><b>deplist</b></td>
+<td>Produces a list of all dependencies and what packages provide those dependencies for the given packages. As of 3.2.30, it now only shows the latest version of each package that matches (this can be changed using <b>--showduplicates</b>) and it only shows the newest providers (which can be changed using <b>--verbose</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>repolist</b></td>
+<td>Produces a list of configured repositories. The default is to list all enabled repositories. If you pass <b>-v</b> for verbose mode, more information is listed. If the first argument is '<b>enabled</b>', '<b>disabled</b>' or '<b>all</b>' then the command lists those types of repositories.<br><br> You can pass repo id or name arguments, or wildcards which to match against both of those. However, if the id or name matches exactly, then the repo is listed even if you are listing enabled repositories and it is disabled.<br><br> In non-verbose mode, the first column starts with a '<b>*</b>' if the repo has metalink data and the latest metadata is not local. For non-verbose mode, the last column also displays the number of packages in the repo and (if there are any user specified excludes) the number of packages excluded.<br><br> One last special feature of <b>repolist</b>, is that if you are in non-verbose mode then <b>yum</b> ignores any repo errors and output the information it can get (Eg. "<b>yum clean all; yum -C repolist</b>" outputs something, although the package counts/etc. are zeroed out).</td>
+</tr>
+<tr class="tcw">
+<td><b>version</b></td>
+<td>Produces a "version" of the <b>rpmdb</b>, and of the enabled repositories if "all" is given as the first argument. You can also specify version groups in the <b>version-groups</b> config file. If you specify <b>-v</b> for verbose mode, more information is listed. The version is calculated by taking a <a href="/jargon/h/hashing.htm">sha1 hash</a> of the packages (in sorted order), and the checksum_type/checksum_data entries from the <b>yumdb</b>. Note that this <b>rpmdb</b> version is now also used significantly within <b>yum</b> (especially in the <b>yum</b> history).<br><br> The version command now shows "groups" of packages as a separate version, and so takes sub-commands:<br><br> "<b>version grouplist</b>" - List the defined version groups.<br><br> "<b>version groupinfo</b>" - Get the complete list of packages within one or more version groups.<br><br> "<b>version installed</b>" - This sub-command is the default, only show the version information for installed packages.<br><br> "<b>version available</b>" - Only show the version information for available packages.<br><br> "<b>version all</b>" - Show the version information for installed and available packages.<br><br> "<b>version nogroups | nogroups-*</b>" - Just show the main version information.<br><br> "<b>version group-*</b>" - Just show the grouped version information, if more arguments are given then only show the data for those groups.</td>
+</tr>
+<tr class="tcw">
+<td><b>history</b></td>
+<td>The history command allows the user to view what has happened in past transactions (assuming the <b>history_record</b> config. option is set). You can use info/list/packages-list/summary to view what happened, undo/redo/rollback to act on that information and new to start a new history file.<br><br> The info/list/summary commands take either a transaction id or a package (with wildcards, as in Specifying package names), all three can also be passed no arguments. The list can be passed the keyword "all" to list all the transactions.<br><br> The <b>packages-list</b> command takes a package (with wildcards, as in Specifying package names).<br><br> The undo/redo/rollback commands take either a single transaction id or the keyword last and an offset from the last transaction (Eg. if you've done 250 transactions, "last" refers to transaction 250, and "last-4" refers to transaction 246).<br><br> The undo/redo commands act on the specified transaction, undo'ing or repeating the work of that transaction. While the rollback command will undo all transactions upto the point of the specified transaction. For example, if you have 3 transactions, where package A; B and C where installed respectively. Then "<b>undo 1</b>" will try to remove pacakge A, "<b>redo 1</b>" will try to install package A (if it is not still installed), and "<b>rollback 1</b>" will try to remove packages B and C. Note that after a "<b>rollback 1</b>" you will have a fourth transaction, although the ending rpmdb version (see: <b>yum</b> version) should be the same in transactions <b>1</b> and <b>4</b>.<br><br> The <b>addon-info</b> command takes a transaction ID, and the <b>packages-list</b> command takes a package (with wildcards).<br><br> In "history list" you can change the behaviour of the 2nd column via the configuration option <b>history_list_view</b>.<br><br> In "history list" output the Altered column also gives some extra information if there was something not good with the transaction (this is also shown at the end of the package column in the <b>packages-list</b> command).<br><br><b>&gt;</b> - The rpmdb was changed, outside <b>yum</b>, after the transaction. <b>&lt;</b> - The rpmdb was changed, outside yum, before the transaction. <b>*</b> - The transaction aborted before completion. <b>#</b> - The transaction completed, but with a non-zero status. <b>E</b> - The transaction completed fine, but had warning/error output during the transaction. <b>P</b> - The transaction completed fine, but problems already existed in the rpmdb. <b>s</b> - The transaction completed fine, but <b>--skip-broken</b> was enabled and had to skip some packages.</td>
+</tr>
+<tr class="tcw">
+<td><b>check</b></td>
+<td>Checks the local rpmdb and produces information on any problems it finds. You can pass the <b>check</b> command the arguments "<b>dependencies</b>" or "<b>duplicates</b> ", to limit the checking that is performed (the default is "<b>all</b>" which does both).<br><br> The <b>info</b> command can also take ranges of transaction ids, of the form <i>start</i>...<i>end</i>, which will then display a merged history as if all the transactions in the range had happened at once.<br><br> Eg. "<b>history info 1..4</b>" will merge the first four transactions and display them as a single transaction.</td>
+</tr>
+<tr class="tcw">
+<td><b>help</b></td>
+<td>Produces help, either for all commands or if given a command name then the help for that particular command.</td>
+</tr>
+</table>
+<h2 id="general">General options</h2>
+<p class="tab">Most command line options can be set using the configuration file as well and the descriptions indicate the necessary configuration option to set.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:360px"><b>-h</b>, <b>--help</b></td>
+<td>Display a help message and then quit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b>, <b>--assumeyes</b></td>
+<td>Assume yes; assume that the answer to any question which would be asked is yes.<br><br> Configuration Option: <b>assumeyes</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--config=</b>[<i>config file</i>]</td>
+<td>Specifies the config file location. Can take HTTP and FTP URLs and local file paths.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--quiet</b></td>
+<td>Run without output. Note that you likely also want to use <b>-y</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Run with a lot of debugging output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--debuglevel=</b>[<i>number</i>]</td>
+<td>Sets the debugging level to [<i>number</i>] and turns up or down the amount of things that are printed. Practical range: <b>0</b> - <b>10</b><br><br> Configuration Option: <b>debuglevel</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>, <b>--errorlevel=</b>[<i>number</i>]</td>
+<td>Sets the error level to [<i>number</i>] Practical range <b>0</b> - <b>10</b>. <b>0</b> means print only critical errors about which you must be told. <b>1</b> means print all errors, even ones that are not overly important. <b>1+</b> means print more errors (if any); <b>-e 0</b> is good for <a href="/jargon/c/cron.htm"><b>cron</b></a> jobs.<br><br> Configuration Option: <b>errorlevel</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--rpmverbosity=</b>[<i>name</i>]</td>
+<td>Sets the debug level to [<i>name</i>] for <b>rpm</b> scriplets. '<b>info</b>' is the default, other options are: '<b>critical</b>', '<b>emergency</b>', '<b>error</b>', '<b>warn</b>' and '<b>debug</b>'.<br><br> Configuration Option: <b>rpmverbosity</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>,<br><b>--randomwait=</b>[<i>time in minutes</i>]</td>
+<td>Sets the maximum amount of time yum will wait before performing a command and it randomizes over the time.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b>, <b>--cacheonly</b></td>
+<td>Tells yum to run entirely from system cache. Does not download or update any headers unless it has to perform the requested action. If you're using this as a user <b>yum</b> will not use the tempcache for the user but will only use the system cache in the system cachedir.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Reports the <b>yum</b> version number and installed package versions for everything in <b>history_record_packages</b> (can be added to by plugins).</td>
+</tr>
+<tr class="tcw">
+<td><b>--showduplicates</b></td>
+<td>Doesn't limit packages to their latest versions in the <b>info</b>, <b>list</b> and <b>search</b> commands (will also affect plugins which use the <b>doPackageLists()</b> API).</td>
+</tr>
+<tr class="tcw">
+<td><b>--installroot=</b><i>root</i></td>
+<td>Specifies an alternative <b>installroot</b>, relative to which all packages will be installed. Think of this like doing "<a href="/jargon/c/chroot.htm"><b>chroot</b></a> <i>root</i> <b>yum</b>", except using <b>--installroot</b> allows <b>yum</b> to work before the chroot is created. Note: You may also want to use the option <b>--releasever=</b>/ when creating the <b>installroot</b> as otherwise the <b>$releasever</b> value is taken from the <b>rpmdb</b> within the <b>installroot</b> (and thus. will be empty, before creation).<br><br> Configuration Option: <b>installroot</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--enablerepo=</b><i>repoidglob</i></td>
+<td>Enables specific repositories by id or glob that have been disabled in the configuration file using the <b>enabled=0</b> option.<br><br> Configuration Option: <b>enabled</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--disablerepo=</b><i>repoidglob</i></td>
+<td>Disables specific repositories by id or glob.<br><br> Configuration Option: <b>enabled</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--obsoletes</b></td>
+<td>This option only has affect for an update, it enables <b>yum</b>'s obsoletes processing logic. For more information see the update command above.<br><br> Configuration Option: <b>obsoletes</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b>, <b>--exclude=</b><i>package</i></td>
+<td>Exclude a specific package by name or glob from updates on all repositories. Configuration Option: <b>exclude</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--color=</b>[<b>always</b>|<b>auto</b>|<b>never</b>]</td>
+<td>Display colorized output <b>auto</b>matically, depending on the output terminal, <b>always</b> (using <a href="/jargon/a/ansi.htm">ANSI</a> codes) or <b>never</b>. Note that some commands (Eg. <b>list</b> and <b>info</b>) will do a little extra work when color is enabled.<br><br> Configuration Option: <b>color</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--disableexcludes=</b>[<b>all</b>|<b>main</b>|<b>repoid</b>]</td>
+<td>Disable the excludes defined in your config files. Takes one of three options: <b>all</b> = disable all excludes; <b>main</b> = disable excludes defined in <b>[main]</b> in <b>yum.conf</b>; <b>repoid</b> = disable excludes defined for that repo</td>
+</tr>
+<tr class="tcw">
+<td><b>--disableplugin=</b><i>plugin</i></td>
+<td>Run with one or more plugins disabled, the argument is a comma separated list of wildcards to match against plugin names.</td>
+</tr>
+<tr class="tcw">
+<td><b>--noplugins</b></td>
+<td>Run with all plugins disabled.<br><br> Configuration Option: <b>plugins</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--nogpgcheck</b></td>
+<td>Run with GPG signature checking disabled.<br><br> Configuration Option: <b>gpgcheck</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--skip-broken</b></td>
+<td>Resolve depsolve problems by removing packages that are causing problems from the transaction.<br><br> Configuration Option: <b>skip_broken</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--releasever=</b><i>version</i></td>
+<td>Pretend the current release version is the given string. This option is very useful when combined with <b>--installroot</b>. You can also use <b>--releasever=/</b> to take the releasever information from outside the installroot. Note that with the default upstream cachedir, of <b>/var/cache/yum</b>, using this option will corrupt your cache (and you can use $releasever in your cachedir configuration to stop this).</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--tolerant</b></td>
+<td>This option currently does nothing.</td>
+</tr>
+<tr class="tcw">
+<td><b>--setopt=</b><i>option</i><b>=</b><i>value</i></td>
+<td>Set any config option in yum config or repo files. For options in the global config just use: <b>--setopt=</b><i>option</i><b>=</b><i>value</i> for repo options use: <b>--setopt=</b><i>repoid</i><b>.</b><i>option</i><b>=</b><i>value</i></td>
+</tr>
+</table>
+<h2 id="list">List options</h2>
+<p class="tab">The following are the ways which you can invoke yum in list mode. Note that all list commands include information on the version of the package.</p>
+<h3 class="tab">Output</h3>
+<p class="tab">The format of the output of yum list is:</p>
+<p class="tab">name.arch [epoch:]version-release repo or @installed-from-repo</p>
+<pre class="tab tcy">yum list [all | glob_exp1] [glob_exp2] [...]</pre>
+<p class="tab">List all available and installed packages.</p>
+<pre class="tab tcy">yum list available [glob_exp1] [...]</pre>
+<p class="tab">List all packages in the yum repositories available to be installed.</p>
+<pre class="tab tcy">yum list updates [glob_exp1] [...]</pre>
+<p class="tab">List all packages with updates available in the yum repositories.</p>
+<pre class="tab tcy">yum list installed [glob_exp1] [...]</pre>
+<p class="tab">List the packages specified by args. If an argument does not match the name of an available package, it is assumed to be a shell-style glob and any matches are printed.</p>
+<pre class="tab tcy">yum list extras [glob_exp1] [...]</pre>
+<p class="tab">List the packages installed on the system that are not available in any yum repository listed in the config file.</p>
+<pre class="tab tcy">yum list obsoletes [glob_exp1] [...]</pre>
+<p class="tab">List the packages installed on the system that are obsoleted by packages in any yum repository listed in the config file.</p>
+<pre class="tab tcy">yum list recent</pre>
+<p class="tab">List packages recently added into the repositories. This command is often not helpful, but what you may really want to use is "yum list-updateinfo new" from the security yum plugin.</p>
+<h3 class="tab">Specifying package names</h3>
+<p class="tab">A package can be referred to for install, update, remove, list, info etc with any of the following as well as globs of any of the following:</p>
+<p class="tab">name<br> name.arch<br> name-ver<br> name-ver-rel<br> name-ver-rel.arch<br> name-epoch:ver-rel.arch<br> epoch:name-ver-rel.arch</p>
+<p class="tab">For example:</p>
+<pre class="tab tcy">yum remove kernel-2.4.1-10.i686</pre>
+<p class="tab">... removes this specific kernel-ver-rel.arch;</p>
+<p class="tab">or:</p>
+<pre class="tab tcy">yum list available 'foo*'</pre>
+<p class="tab">... lists all available packages that match 'foo*'. The single quotes will keep your shell from expanding the globs.</p>
+<h3 class="tab">Options</h3>
+<p class="tab">The following are the ways which you can invoke yum in clean mode. Note that "all files" in the commands below means "all files in currently enabled repositories". If you want to also clean any (temporarily) disabled repositories you need to use --enablerepo='*' option.</p>
+<pre class="tab tcy">yum clean expire-cache</pre>
+<p class="tab">Eliminate the local data saying when the metadata and mirrorlists were downloaded for each repository, which means yum will revalidate the cache for each repository next time it is used. However, if the cache is still valid, nothing significant was deleted.</p>
+<pre class="tab tcy">yum clean packages</pre>
+<p class="tab">Eliminate any cached packages from the system. Note that packages are not automatically deleted after they are downloaded.</p>
+<pre class="tab tcy">yum clean headers</pre>
+<p class="tab">Eliminate all of the header files, which old versions of yum used for dependency resolution.</p>
+<pre class="tab tcy">yum clean metadata</pre>
+<p class="tab">Eliminate all of the files which yum uses to determine the remote availability of packages. Using this option will force yum to download all the metadata the next time it is run.</p>
+<pre class="tab tcy">yum clean dbcache</pre>
+<p class="tab">Eliminate the sqlite cache used for faster access to metadata. Using this option will force yum to download the sqlite metadata the next time it is run, or recreate the sqlite metadata if using an older repository.</p>
+<pre class="tab tcy">yum clean rpmdb</pre>
+<p class="tab">Eliminate any cached data from the local rpmdb.</p>
+<pre class="tab tcy">yum clean plugins</pre>
+<p class="tab">Tell any enabled plugins to eliminate their cached data.</p>
+<pre class="tab tcy">yum clean all</pre>
+<p class="tab">Does all of the above.</p>
+<h2 id="plugins">Plugins</h2>
+<p class="tab">Yum can be extended through the use of plugins. A plugin is a <a href="/jargon/p/python.htm">Python</a> "<b>.py</b>" file that is installed in one of the directories specified by the <b>pluginpath</b> option in <b>yum.conf</b>. For a plugin to work, the following conditions must be met:</p>
+<ol>
+<li>The plugin module file must be installed in the plugin path as just described.</li>
+<li>The global plugins option in <b>/etc/yum/yum.conf</b> must be set to "<b>1</b>".</li>
+<li>A configuration file for the plugin must exist in <b>/etc/yum/pluginconf.d/&lt;plugin_name&gt;.conf</b> and the enabled setting in this file must set to "<b>1</b>". The minimal content for such a configuration file is:</li>
+</ol>
+<pre class="tab tcy">[main]
+enabled = 1</pre>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">yum search chromium</pre>
+<p class="tab">Search the yum repositories for all packages with the word "<b>chromium</b>" in the title.</p>
+<pre class="tcy tab">yum -y install chromium</pre>
+<p class="tab">Install the package named "<b>chromium</b>", and assume the answer "<b>y</b>" (yes) to any questions asked during installation.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/dpkg.htm"><b>dpkg</b></a> &mdash; Query, install, remove, and maintain Debian software packages and their dependencies.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a838a7d6684d4',m:'vDrg2rJJ2y.kQDLmvIyF3mv8eF.JjQenS2zePVPfqaE-1661495374-0-AWPMss7YD6GSAlWXSg+MkeghlLZzqiVRnRAvatjIcILOe3yjZ/E6fCdz35/NcdyRuAMf5J+baRrkRi/e6jlEfLhSaP56VkYLy1BfXTAClBQmoaj702ui6DYpnzTAHgC9OQ==',s:[0xe6d0a0798c,0x123121824a],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

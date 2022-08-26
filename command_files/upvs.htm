@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux pvs command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/pvs.gif" width="300" height="300" alt="pvs command" class="floatRight"><p class="intro">On some <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>pvs</b> command displays the internal version information of dynamic objects within an ELF file.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">Commonly, ELF files are dynamic executables and shared objects, and possibly relocatable objects. This version information can fall into one of the following two categories:</p>
+<p class="tab"><i>Version definitions</i> described the interface made available by an ELF file. Each version definition is associated to a set of global symbols provided by the file.</p>
+<p class="tab"><i>Version dependencies</i> describe the binding requirements of dynamic objects on the version definition of any shared object dependencies. When a dynamic object is built with a shared object, the link-editor records information in the dynamic object indicating that the shared object is a dependency.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">pvs [-d] [-l] [-n] [-o] [-r] [-s] [-v] [-N <i>name</i>] <i>file</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>-d</b></td>
+<td>Print version definition information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>When used with the <b>-s</b> option, print any symbols that were reduced from global to local binding due to versioning. By convention, these symbol entries are located in the <b>.symtab</b> section, and fall between the <i>FILE</i> symbol representing the output file, and the <i>FILE</i> symbol representing the first input file used to generate the output file. These reduced symbol entries are assigned the fabricated version definition <b>_REDUCED_</b>. No reduced symbols will be printed if the file was stripped, or if the symbol entry convention cannot be determined.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Normalize version definition information. By default, all version definitions in the object are displayed. However, version definitions may inherit other version definitions, and under normalization only the head of each inheritance list is displayed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b></td>
+<td>Create one-line version definition output. By default, file, version definitions, and any symbol output is indented to ease human inspection. This option prefixes each output line with the file and version definition name and may be more useful for analysis with automated tools.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>Print version dependency (requirements) information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Print the symbols associated with each version definition. Any data symbols are accompanied with the size, in bytes, of the data item.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Verbose output. Indicates any weak version definitions, and any version definition inheritance. When used with the <b>-N</b> and <b>-d</b> options, the inheritance of the base version definition is also shown. When used with the <b>-s</b> option, the version symbol definition is also shown.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b> <i>name</i></td>
+<td>Print only the information for the given version definition name and any of its inherited version definitions (when used with the <b>-d</b> option), or for the given dependency file name (when used with the <b>-r</b> option).</td>
+</tr>
+<tr class="tcw">
+<td><i>file</i></td>
+<td>The ELF file where internal version information is displayed.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">pvs -d /usr/lib/libelf.so.1</pre>
+<p class="tab">Display version definition of the ELF file <b>libelf.so.1</b></p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uld.htm"><b>ld</b></a> &mdash; Link editor for object files.<br><a href="/unix/uldd.htm"><b>ldd</b></a> &mdash; List dynamic dependencies of executable files or shared objects.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8336f9c8c3f7',m:'sTeIYYZdC3dwQrIZTdvtfry2XoPu40MnNGfilwE3wqw-1661495361-0-AZIDlAdxZFG9neJmtU4JLQpxd3trJ+KDXyr5Pywz81xR9rrE0Dh7rnsKylEhh6csmrUKoosNzv4LI+lzfGTfSTzKBWy/y48GGO/plIZfDaixi7DOsmcB6FUqTUkv6IdSDA==',s:[0xf37ab8a473,0x7d792149a8],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

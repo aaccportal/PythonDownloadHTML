@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux su command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/su.gif" width="300" height="300" alt="su command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>su</b> command changes the current user ID to that of the <a href="/jargon/r/root.htm">superuser</a>, or another specified user.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>su</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#exit">Exit values</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>su</b> command, which is short for <i>substitute user</i> or <i>switch user</i>, enables the current user to act as another user during the current <a href="/jargon/l/login.htm">login</a> session.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">su [<i>options</i>] [<i>username</i>]</pre>
+<p class="tab">If no <a href="/jargon/u/username.htm">username</a> is specified, <b>su</b> defaults to becoming the superuser (root).</p>
+<p class="tab">Additional <a href="/jargon/a/argument.htm">arguments</a> may be provided after the username, in which case they are supplied to the user's login <a href="/jargon/s/shell.htm">shell</a>. In particular, an argument of <b>-c</b> causes the next argument to be treated as a command by most command interpreters. The command will be <a href="/jargon/e/execute.htm">executed</a> by the shell specified in <b>/etc/passwd</b> for the target user.</p>
+<p class="tab">The optional argument "<b>-</b>" (a dash) may be used to provide an environment similar to what the user would expect had the user logged in directly.</p>
+<p class="tab">You can use the "<b>--</b>" argument to separate <b>su</b> options from the arguments supplied to the shell.</p>
+<p class="tab">The user will be prompted for a <a href="/jargon/p/password.htm">password</a>, if appropriate. Invalid passwords produce an error message. All attempts, both valid and invalid, are <a href="/jargon/l/log.htm">logged</a> to detect abuse of the system.</p>
+<p class="tab">The current <a href="/jargon/e/environm.htm">environment</a> is passed to the new shell. The value of <b>$PATH</b> is reset to "<b>/bin:/usr/bin</b>" for normal users, or "<b>/sbin:/bin:/usr/sbin:/usr/bin</b>" for the superuser. This may be changed with the <b>ENV_PATH</b> and <b>ENV_SUPATH</b> definitions in <b>/etc/login.defs</b>.</p>
+<p class="tab">A subsystem login is indicated by the presence of a "<b>*</b>" as the first character of the login shell. The given <a href="/jargon/h/homedir.htm">home directory</a> will be used as the root of a new <a href="/jargon/f/filesyst.htm">file system</a> which the user is actually logged into.</p>
+<h3 class="tab" id="options">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px"><b>-c</b>, <b>--command</b> <i>COMMAND</i></td>
+<td>Specify a command that will be invoked by the shell using its <b>-c</b>.<br><br> The executed command have no controlling <a href="/jargon/t/terminal.htm">terminal</a>. This option cannot be used to execute interactive programs which need a controlling <a href="/jargon/t/tty.htm">TTY</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b>, <b>-l</b>, <b>--login</b></td>
+<td>Provide an environment similar to what the user would expect had the user logged in directly.<br><br> When <b>-</b> is used, it must be specified as the last <b>su</b> option. The other forms (<b>-l</b> and <b>--login</b>) do not have this restriction.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--shell</b> <i>SHELL</i></td>
+<td>The shell that will be invoked.<br><br> The invoked shell is chosen from (highest priority first):<br><br><ul><li>The shell specified with <b>--shell</b>.</li><li>If <b>--preserve-environment</b> is used, the shell specified by the <b>$SHELL</b> <a href="/jargon/e/envivari.htm">environment variable</a>.</li><li>The shell indicated in the <b>/etc/passwd</b> entry for the target user.</li><li><b>/bin/sh</b> if a shell could not be found by any above method.</li></ul> If the target user has a restricted shell (i.e., the <b>shell</b> field in <b>/etc/passwd</b> is not listed in <b>/etc/shells</b>), then the <b>--shell</b> option or <b>$SHELL</b> environment variable isn't used, unless it's called by root.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b>, <b>-p</b>,<br><b>--preserve-environment</b></td>
+<td>Preserve the current environment, except for the following variables:<br><br>
+<table>
+<tr class="tcw">
+<td style="width:90px"><b>$PATH</b></td>
+<td>reset according to the /etc/login.defs options ENV_PATH or ENV_SUPATH (see below)</td>
+</tr>
+<tr class="tcw">
+<td><b>$IFS</b></td>
+<td>reset to "<b>&lt;space&gt;&lt;tab&gt;&lt;newline&gt;</b>", if it was set.</td>
+</tr>
+</table>
+<p>If the target user has a restricted shell, this option has no effect (unless <b>su</b> is called by root).</p>
+<p>Note that the default behavior for the environment is the following:</p>
+<ul>
+<li>The <b>$HOME</b>, <b>$SHELL</b>, <b>$USER</b>, <b>$LOGNAME</b>, <b>$PATH</b>, and <b>$IFS</b> environment variables are reset.</li>
+<li>If <b>--login</b> is not used, the environment is copied, except for the variables above.</li>
+<li>If <b>--login</b> is used, the <b>$TERM</b>, <b>$COLORTERM</b>, <b>$DISPLAY</b>, and <b>$XAUTHORITY</b> environment variables are copied if they were set.</li>
+<li>Other environments might be set by PAM modules.</li>
+</ul>
+</td>
+</tr>
+</table>
+<h2 id="configuration">Configuration</h2>
+<p class="tab">The following configuration variables, located in the file <b>/etc/login.defs</b>, change the behavior of <b>su</b>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:200px"><b>Variable</b></td>
+<td style="width:80px"><b>Type</b></td>
+<td><b>Description</b></td>
+</tr>
+<tr class="tcw">
+<td><b>CONSOLE_GROUPS</b></td>
+<td><a href="/jargon/s/string.htm">string</a></td>
+<td>List of groups to add to the user's supplementary groups set when logging in on the console (as determined by the <b>CONSOLE</b> setting). Default is "<b>none</b>".<br><br> Use this with caution; it is possible for users to gain permanent access to these groups, even when not logged in on the console.</td>
+</tr>
+<tr class="tcw">
+<td><b>DEFAULT_HOME</b></td>
+<td><a href="/jargon/b/boolean.htm">boolean</a></td>
+<td>Indicate if login is allowed if even the requesting user can't change to the requested home directory. The default is <b>no</b>.<br><br> If set to <b>yes</b>, the user will login in the root (<b>/</b>) directory if it's not possible to <a href="/unix/ucd.htm"><b>cd</b></a> to his or her home directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>ENV_PATH</b></td>
+<td>string</td>
+<td>If set, it will be used to define the <b>PATH</b> environment variable when a regular user logs in. The value is a colon-separated list of paths (for example "<b>/bin:/usr/bin</b>") and can be preceded by <b>PATH=</b>. The default value is "<b>PATH=/bin:/usr/bin</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>ENV_SUPATH</b></td>
+<td>string</td>
+<td>If set, it will be used to define the <b>PATH</b> environment variable when the superuser logs in. The value is a colon-separated list of paths (for example "<b>/sbin:/bin:/usr/sbin:/usr/bin</b>") and can be preceded by <b>PATH=</b>. The default value is "<b>PATH=/sbin:/bin:/usr/sbin:/usr/bin</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>SULOG_FILE</b></td>
+<td>string</td>
+<td>If defined, all <b>su</b> activity is logged to this file, known as the <b>sulog</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>SU_NAME</b></td>
+<td>string</td>
+<td>If defined, the command name to display when running "<b>su -</b>". For example, if this is defined as "<b>su</b>" then a <a href="/unix/ups.htm">ps</a> displays the command as "<b>-su</b>". If not defined, then <b>ps</b> would display the name of the shell actually being run, e.g., something like "<b>-sh</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>SYSLOG_SU_ENAB</b></td>
+<td>boolean</td>
+<td>Enable "<a href="/jargon/s/syslog.htm"><b>syslog</b></a>" logging of <b>su</b> activity - in addition to <b>sulog</b> file logging.</td>
+</tr>
+</table>
+<h2 id="exit">Exit values</h2>
+<p class="tab">On success, <b>su</b> returns the exit value of the command it executed.</p>
+<p class="tab">If this command was terminated by a <a href="/unix/signals.htm">signal</a>, <b>su</b> returns the number of this signal plus <b>128</b>.</p>
+<p class="tab">If <b>su</b> has to <a href="/jargon/k/kill.htm">kill</a> the command (because it was asked to terminate, and the command did not terminate in time), <b>su</b> returns <b>255</b>.</p>
+<p class="tab">Some exit values from <b>su</b> are independent from the executed command:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:40px"><b>0</b></td>
+<td>Success (<b>--help</b> only).</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>System or <a href="/jargon/a/auth.htm">authentication</a> failure.</td>
+</tr>
+<tr class="tcw">
+<td><b>126</b></td>
+<td>The requested command was not found.</td>
+</tr>
+<tr class="tcw">
+<td><b>127</b></td>
+<td>The requested command could not be executed.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">su - hope</pre>
+<p class="tab">Switch the current user ID to that of user <b>hope</b>, and set the environment to <b>hope</b>'s login environment.</p>
+<ul class="arrow noprint">
+<li><a href="/issues/ch001639.htm">How to become root in Linux.</a></li>
+</ul>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucsh.htm"><b>csh</b></a> &mdash; The C shell command interpreter.<br><a href="/unix/uenv.htm"><b>env</b></a> &mdash; Report the value of environment variables.<br><a href="/unix/uksh.htm"><b>ksh</b></a> &mdash; The Korn shell command interpreter.<br><a href="/unix/ulogin.htm"><b>login</b></a> &mdash; Begin a session on a system.<br><a href="/unix/ush.htm"><b>sh</b></a> &mdash; The Bourne shell command interpreter.<br><a href="/unix/sudo.htm"><b>sudo</b></a> &mdash; Execute a command as the superuser.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83597b2f84b0',m:'bnSYCjFCZrPqTe2LbAFcYMXA.dNAQmdaweyEckqpYRM-1661495366-0-AaBBXD8jmvwL/nvHN/Orcq/LTkNGbhktdBORnCyrf9OpWuPWYqLRxYLrJ/zjA2JW6CXBWvVkmN6jP0LEMxO1sEVzD5zm/KAyIpuhm8s2CHWenaj3MlPZhxSBNOrTCbtw4Q==',s:[0xb2e6ea0be4,0x5f9af61191],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

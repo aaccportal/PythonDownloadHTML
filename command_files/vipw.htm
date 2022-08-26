@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux vipw and vigr command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/vipw.gif" width="300" height="300" alt="vipw command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>vipw</b> and <b>vigr</b> commands are used to edit the password, group, shadow-password, and shadow-group files.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> versions of <b>vipw</b> and <b>vigr</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>vipw</b> and <b>vigr</b> commands edit the files <b>/etc/passwd</b> and <b>/etc/group</b>, respectively. If the <b>-s</b> flag is specified, these commands will edit the shadow (secure) versions of their files: <b>/etc/shadow</b> and <b>/etc/gshadow</b>, respectively. The programs sets the appropriate locks to prevent file <a href="/jargon/c/corrupt.htm">corruption</a>. When looking for an <a href="/jargon/e/editor.htm">editor</a>, the programs will first try the <a href="/jargon/e/environm.htm">environment variable</a> <b>$VISUAL</b>, then the environment variable <b>$EDITOR</b>, and finally the default editor, <a href="/unix/uvi.htm"><b>vi</b></a><b>.</b></p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">vipw [<i>options</i>]</pre>
+<pre class="tcy tab">vigr [<i>options</i>]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>-g</b>, <b>--group</b></td>
+<td>Edit group database.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--passwd</b></td>
+<td>Edit passwd database.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--quiet</b></td>
+<td>Operate quietly.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--root</b> <i>CHROOT_DIR</i></td>
+<td>Apply changes in the <i>CHROOT_DIR</i> <a href="/jargon/d/director.htm">directory</a> and use the configuration files from the <i>CHROOT_DIR</i> directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--shadow</b></td>
+<td>Edit shadow or gshadow database.</td>
+</tr>
+</table>
+<h2 id="environment">Environment</h2>
+<p class="tab">The following environment variables affect the operation of the <b>vipw</b> and <b>vigr</b> commands:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:90px"><b>VISUAL</b></td>
+<td>The editor to use.</td>
+</tr>
+<tr class="tcw">
+<td><b>EDITOR</b></td>
+<td>The editor to use if <b>VISUAL</b> is not set.</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>/etc/group</b></td>
+<td>Group account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/gshadow</b></td>
+<td>Secure group account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/passwd</b></td>
+<td>User account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/shadow</b></td>
+<td>Secure user account information.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">vipw</pre>
+<p class="tab">Edit <b>/etc/passwd</b>.</p>
+<pre class="tcy tab">vigr</pre>
+<p class="tab">Edit <b>/etc/group</b>.</p>
+<pre class="tcy tab">vipw -s</pre>
+<p class="tab">Edit <b>/etc/shadow</b>.</p>
+<pre class="tcy tab">vigr -s</pre>
+<p class="tab">Edit <b>/etc/gshadow</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/adduser.htm"><b>addgroup</b></a> &mdash; Add a group to the system.<br><a href="/unix/adduser.htm"><b>adduser</b></a> &mdash; Add a group to the system.<br><a href="/unix/groupadd.htm"><b>groupadd</b></a> &mdash; Add a group to the system.<br><a href="/unix/useradd.htm"><b>useradd</b></a> &mdash; Add a user to the system.<br><a href="/unix/upasswor.htm"><b>passwd</b></a> &mdash; Change a user's password.<br><a href="/unix/uvi.htm"><b>vi</b></a> &mdash; Text editor based on the visual mode of ex.<br><a href="/unix/visudo.htm"><b>visudo</b></a> &mdash; Safely edit the sudoers file.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83791e2f84c8',m:'yzx_GN2fBdsS.2c1jEYuCFdgDjdeR1qHHiKFPlrc2DI-1661495371-0-AU8o53vLZ0bI00dZ8VHyhR5zQWPoKtR4VBFuLWETRkl+Rxv6S1IIDoCSAGxMkK00O/zb1NLRvj87yLcECMsoJaR0dByFVllwXA79F2YwYBQ0VVXjpDfv45Z7lgD9VpHAUw==',s:[0xd651fba27b,0x9f32e3cffd],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux xargs command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/xargs.gif" width="300" height="300" alt="xargs command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>xargs</b> command builds and executes <a href="/jargon/c/commandi.htm">command lines</a> from <a href="/jargon/s/stdin.htm">standard input</a>. It enables you to run the same command on a large number of files.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>xargs</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#exit">Exit status</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>xargs</b> reads items from the standard input, <a href="/jargon/d/delimite.htm">delimited</a> by blanks (which can be protected with double or single quotes or a backslash) or <a href="/jargon/n/newline.htm">newlines</a>, and executes the command (the default command is <a href="/jargon/e/echo.htm"><b>echo</b></a>, located at <b>/bin/echo</b>) one or more times with any <i>initial-arguments</i> followed by items read from standard input. Blank lines on the standard input are ignored.</p>
+<p class="tab">Because <a href="/jargon/u/unix.htm">Unix</a> <a href="/jargon/f/filename.htm">file names</a> can contain blanks and newlines, this default behaviour is often problematic; file names containing blanks or newlines are incorrectly processed by <b>xargs</b>. In these situations it is better to use the <b>-0</b> option (that's a zero, not a capital o), which prevents such problems. When using this option, you need to ensure that the program which produces the input for <b>xargs</b> also uses a <a href="/jargon/n/null.htm">null</a> <a href="/jargon/c/charact.htm">character</a> as a separator. If that program is <a href="/unix/ufind.htm"><b>find</b></a> for example, the <b>-print0</b> option does this for you.</p>
+<p class="tab">If any invocation of the command exits with a status of 255, <b>xargs</b> stops immediately without reading any further input. An error message is issued on stderr when this happens.</p>
+<p class="tab">This documentation is specific to the <a href="/jargon/g/gnu.htm">GNU</a> version of <b>xargs</b>, which is commonly distributed with most <a href="/jargon/v/variant.htm">variants</a> of <a href="/jargon/l/linux.htm">Linux</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">xargs [-0prtx] [-E <i>eof</i>-str] [-e[<i>eof-str</i>]] [--eof[=<i>eof-str</i>]] [--null] 
+      [-d <i>delimiter</i>] [--delimiter <i>delimiter</i>] [-I <i>replace-str</i>] 
+      [-i[<i>replace-str</i>]] [--replace[=<i>replace-str</i>]] [-l[<i>max-lines</i>]] 
+      [-L <i>max-lines</i>] [--max-lines[=<i>max-lines</i>]] [-n <i>max-args</i>] 
+      [--max-args=<i>max-args</i>] [-s <i>max-chars</i>] [--max-chars=<i>max-chars</i>] 
+      [-P <i>max-procs</i>] [--max-procs=<i>max-procs</i>] [--interactive] [--verbose] 
+      [--exit] [--no-run-if-empty] [--arg-file=<i>file</i>] [--show-limits] 
+      [--version] [--help] [<i>command</i> [<i>initial-arguments</i>]]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:270px"><b>--arg-file=</b><i>file</i>, <b>-a</b> <i>file</i></td>
+<td>Read items from <i>file</i> instead of standard input. If you use this option, stdin remains unchanged when commands are run. Otherwise, stdin is redirected from <b>/dev/null</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--null</b>, <b>-0</b></td>
+<td>Input items are terminated by a null character instead of by <a href="/jargon/w/whitspac.htm">whitespace</a>, and the quotes and backslash are not special (every character is taken literally). Disables the end-of-file <a href="/jargon/s/string.htm">string</a>, which is treated like any other <a href="/jargon/a/argument.htm">argument</a>. Useful when input items might contain white space, quote marks, or backslashes. The <b>find -print0</b> option produces input suitable for this mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>--delimiter=</b><i>delim</i>, <b>-d</b> <i>delim</i></td>
+<td>Input items are terminated by the specified character. Quotes and backslash are not special; every character in the input is taken literally. Disables the <a href="/jargon/e/eof.htm">end-of-file</a> string, which is treated like any other argument. This can be used when the input consists of newline-separated items, although it is often better to design your program to use <b>--null</b> where this is possible. The specified delimiter may be a single character, a <a href="/jargon/c/c.htm">C</a>-style character escape such as <b>\n</b>, or an <a href="/jargon/o/octal.htm">octal</a> or <a href="/jargon/h/hex.htm">hexadecimal</a> escape code. Octal and hexadecimal escape codes are understood as for the <a href="/unix/uprintf.htm">printf</a> command. <a href="/jargon/u/unicode.htm">Multibyte characters</a> are not supported.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b> <i>eof-str</i></td>
+<td>Set the end-of-file string to <i>eof-str</i>. If the end-of-file string occurs as a line of input, the rest of the input is ignored. If neither <b>-E</b> nor <b>-e</b> is used, no end-of-file string is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--eof</b>[<b>=</b><i>eof-str</i>], <b>-e</b>[<i>eof-str</i>]</td>
+<td>This option is a synonym for the <b>-E</b> option. Use <b>-E</b> instead, because it is <a href="/jargon/p/posix.htm">POSIX</a> compliant while this option is not. If <i>eof-str</i> is omitted, there is no end-of-file string. If neither <b>-E</b> nor <b>-e</b> is used, no end-of-file string is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message summarizing <b>xargs</b> options, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> <i>replace-str</i></td>
+<td>Replace occurrences of <i>replace-str</i> in the <i>initial-arguments</i> with names read from standard input. Also, unquoted blanks do not terminate input items; instead the separator is the newline character. Implies <b>-x</b> and <b>-L 1</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--replace</b>[<b>=</b><i>replace-str</i>],<br><b>-i</b>[<i>replace-str</i>]</td>
+<td>This option is a synonym for <b>-I</b><i>replace-str</i> if <i>replace-str</i> is specified, and for <b>-I</b>{} otherwise. This option is deprecated; use <b>-I</b> instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b> <i>max-lines</i></td>
+<td>Use at most <i>max-lines</i> nonblank input lines per command line. Trailing blanks cause an input line to be logically continued on the next input line. Implies <b>-x</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--max-lines</b>[<b>=</b><i>max-lines</i>],<br><b>-l</b>[<i>max-lines</i>]</td>
+<td>Synonym for the <b>-L</b> option. Unlike <b>-L</b>, the <i>max-lines</i> argument is optional. If <i>max-lines</i> is not specified, it defaults to one. The <b>-l</b> option is deprecated since the POSIX standard specifies <b>-L</b> instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>--max-args=</b><i>max-args</i>,<br><b>-n</b> <i>max-args</i></td>
+<td>Use at most <i>max-args</i> arguments per command line. Fewer than <i>max-args</i> arguments will be used if the size (see the <b>-s</b> option) is exceeded, unless the <b>-x</b> option is given, in which case <b>xargs</b> will exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--interactive</b>, <b>-p</b></td>
+<td>Prompt the user about whether to run each command line and read a line from the terminal. Only run the command line if the response starts with "<b>y</b>" or "<b>Y</b>". Implies <b>-t</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--max-chars=</b><i>max-chars</i>,<br><b>-s</b> <i>max-chars</i></td>
+<td>Use at most <i>max-chars</i> characters per command line, including the command and <i>initial-arguments</i> and the terminating nulls at the ends of the argument strings. The largest allowed value is system-dependent, and is calculated as the argument length limit for <a href="/jargon/e/exec.htm"><b>exec</b></a>, less the size of your environment, less 2048 bytes of headroom. If this value is more than 128 <a href="/jargon/k/kibibyte.htm">KiB</a>, 128 KiB is used as the default value; otherwise, the default value is the maximum. 1 KiB is 1024 bytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>--verbose</b>, <b>-t</b></td>
+<td>Print the command line on the standard error output before executing it.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Print the version number of <b>xargs</b>, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--show-limits</b></td>
+<td>Display the limits on the command-line length that are imposed by the <a href="/jargon/o/os.htm">operating system</a>, <b>xargs</b>' choice of buffer size and the <b>-s</b> option. Pipe the input from <b>/dev/null</b> (and perhaps specify <b>--no-run-if-empty</b>) if you don't want <b>xargs</b> to do anything.</td>
+</tr>
+<tr class="tcw">
+<td><b>--exit</b>, <b>-x</b></td>
+<td>Exit if the size (see the <b>-s</b> option) is exceeded.</td>
+</tr>
+<tr class="tcw">
+<td><b>--max-procs=</b><i>max-procs</i>,<br><b>-P</b> <i>max-procs</i></td>
+<td>Run up to <i>max-procs</i> <a href="/jargon/p/process.htm">processes</a> at a time; the default is <b>1</b>. If <i>max-procs</i> is <b>0</b>, <b>xargs</b> runs as many processes as possible at a time. Use the <b>-n</b> option with <b>-P</b>; otherwise chances are that only one <b>exec</b> will be done.</td>
+</tr>
+</table>
+<h2 id="exit">Exit status</h2>
+<p class="tab"><b>xargs</b> exits with the following status:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:60px"><b>0</b></td>
+<td>Success.</td>
+</tr>
+<tr class="tcw">
+<td><b>123</b></td>
+<td>Part of the invocation of the command returned a status between <b>1</b> and <b>125</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>124</b></td>
+<td>The command exited with a status of <b>255</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>125</b></td>
+<td>The command was killed by a <a href="/unix/signals.htm">signal</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>126</b></td>
+<td>The command could not run.</td>
+</tr>
+<tr class="tcw">
+<td><b>127</b></td>
+<td>The command was not found.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>Another error of some kind occurred.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">find /tmp -name core -type f -print | xargs /bin/rm -f</pre>
+<p class="tab">Find files named <b>core</b> in or below the directory <b>/tmp</b> and delete them. Note that this will work incorrectly if there are any file names containing newlines or spaces.</p>
+<pre class="tcy tab">find /tmp -name core -type f -print0 | xargs -0 /bin/rm -f</pre>
+<p class="tab">Find files named <b>core</b> in or below the directory <b>/tmp</b> and delete them, processing file names in such a way that file or directory names containing spaces or newlines are correctly handled.</p>
+<pre class="tcy tab">find /tmp -depth -name core -type f -delete</pre>
+<p class="tab">Find files named <b>core</b> in or below the directory <b>/tmp</b> and delete them, but more efficiently than in the previous example (because we avoid the need to use <a href="/jargon/f/fork.htm">fork</a> and <b>exec</b> <b>rm</b>, and we don't need the extra <b>xargs</b> process).</p>
+<pre class="tcy tab">cut -d: -f1 &lt; /etc/passwd | sort | xargs echo</pre>
+<p class="tab">Uses <a href="/unix/ucut.htm"><b>cut</b></a> to generate a compact listing of all the users on the system.</p>
+<pre class="tcy tab">xargs sh -c 'emacs "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4f6b0f">[email&#160;protected]</a>" &lt; /dev/tty' emacs</pre>
+<p class="tab">Launches the minimum number of copies of <a href="/unix/uemacs.htm">Emacs</a> needed, one after the other, to edit the files listed on <b>xargs</b>' standard input.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ufind.htm"><b>find</b></a> &mdash; Find files within a directory hierarchy.<br><a href="/unix/ulocate.htm"><b>locate</b></a> &mdash; Search a local database to find files by name.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a838219348474',m:'am8t5xoyR3V5XY6Cgngc35Kpo2_Y23KLYHgluSDDum8-1661495373-0-AV5+2oD7HI2CXoTjrSDgVffr/7ndJ/Cu1jxSMf5T+HgGSi3HZTkJwLPhmL1zyTAwq+CUJaO2rE4iGxJlGaHnU9rzXHy/hGpK5QqrtGzVXwLKFjpiMW0fcN6z4ixEzK9bSg==',s:[0xb2ecdbcffc,0x8d7f62876a],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

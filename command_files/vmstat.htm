@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux vmstat command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/vmstat.gif" width="300" height="300" alt="vmstat command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>vmstat</b> command reports <a href="/jargon/v/virtmemo.htm">virtual memory</a> statistics and is used to help identify performance bottlenecks.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#field-desc-vm">Field description for VM mode.</a></li>
+<li><a href="#field-desc-disk">Field description for disk mode.</a></li>
+<li><a href="#field-desc-diskpart">Field description for disk partition mode.</a></li>
+<li><a href="#field-desc-slab">Field description for slab mode.</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>vmstat</b> reports information about <a href="/jargon/p/process.htm">processes</a>, <a href="/jargon/m/memory.htm">memory</a>, <a href="/jargon/p/paging.htm">paging</a>, <a href="/jargon/b/block.htm">block</a> <a href="/jargon/i/io.htm">IO</a>, <a href="/unix/utrap.htm">traps</a>, <a href="/jargon/d/disk.htm">disks</a> and <a href="/jargon/c/cpu.htm">cpu</a> activity.</p>
+<p class="tab">The first report produced gives averages since the last <a href="/jargon/r/reboot.htm">reboot</a>. Additional reports give information on a sampling period of length delay. The process and memory reports are instantaneous in either case.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">vmstat [<i>options</i>] [<i>delay</i> [<i>count</i>]]</pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><i>delay</i></td>
+<td>The delay between updates in seconds. If no delay is specified, only one report is printed with the average values since boot.</td>
+</tr>
+<tr class="tcw">
+<td><i>count</i></td>
+<td>Number of updates. In absence of <i>count</i>, when <i>delay</i> is defined, default is infinite.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b>, <b>--active</b></td>
+<td>Display active and inactive memory, given a 2.5.41 <a href="/jargon/k/kernel.htm">kernel</a> or newer.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--forks</b></td>
+<td>The <b>-f</b> switch displays the number of <a href="/jargon/f/fork.htm">forks</a> since <a href="/jargon/b/boot.htm">boot</a>, which includes the <b>fork</b>, <b>vfork</b>, and <b>clone</b> system calls, and is equivalent to the total number of <a href="/jargon/t/task.htm">tasks</a> created. Each process is represented by one or more tasks, depending on thread usage. This display does not repeat.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b>, <b>--slabs</b></td>
+<td>Displays the contents of <b>/proc/slabinfo</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--one-header</b></td>
+<td>Display the <a href="/jargon/h/header.htm">header</a> only once rather than periodically.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--stats</b></td>
+<td>Displays a table of various <a href="/jargon/e/event.htm">event</a> counters and memory statistics. This display does not repeat.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--disk</b></td>
+<td>Report disk statistics (2.5.70 or above required).</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b>, <b>--disk-sum</b></td>
+<td>Report some summary statistics about disk activity.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--partition</b> <i>device</i></td>
+<td>Detailed statistics about <a href="/jargon/p/partition.htm">partition</a> (kernel 2.5.70 or above required).</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b>, <b>--unit</b> <i>character</i></td>
+<td>Switches outputs between 1000 (<b>k</b>), 1024 (<b>K</b>), 1000000 (<b>m</b>), or 1048576 (<b>M</b>) bytes. Note this does not change the swap (si/so) or block (bi/bo) fields.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Display version information and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display help and exit.</td>
+</tr>
+</table>
+<h2 id="field-desc-vm">Field description for VM mode</h2>
+<p class="tabb">Procs:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>r</b></td>
+<td>The number of processes waiting for run time.</td>
+</tr>
+<tr class="tcw">
+<td><b>b</b></td>
+<td>The number of processes in uninterruptible <a href="/unix/usleep.htm">sleep</a>.</td>
+</tr>
+</table>
+<p class="tabb">Memory:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:60px"><b>swpd</b></td>
+<td>The amount of virtual memory used.</td>
+</tr>
+<tr class="tcw">
+<td><b>free</b></td>
+<td>The amount of idle memory.</td>
+</tr>
+<tr class="tcw">
+<td><b>buff</b></td>
+<td>The amount of memory used as buffers.</td>
+</tr>
+<tr class="tcw">
+<td><b>cache</b></td>
+<td>The amount of memory used as <a href="/jargon/c/cache.htm">cache</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>inact</b></td>
+<td>The amount of inactive memory. (<b>-a</b> option).</td>
+</tr>
+<tr class="tcw">
+<td><b>active</b></td>
+<td>The amount of active memory. (<b>-a</b> option).</td>
+</tr>
+</table>
+<p class="tabb">Swap:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:60px"><b>si</b></td>
+<td>Amount of memory swapped in from disk (per second).</td>
+</tr>
+<tr class="tcw">
+<td><b>so</b></td>
+<td>Amount of memory swapped to disk (per second).</td>
+</tr>
+</table>
+<p class="tabb">IO:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:60px"><b>bi</b></td>
+<td>Blocks received from a block device (blocks per second).</td>
+</tr>
+<tr class="tcw">
+<td><b>bo</b></td>
+<td>Blocks sent to a block device (blocks/s).</td>
+</tr>
+</table>
+<p class="tabb">System:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:60px"><b>in</b></td>
+<td>The number of <a href="/jargon/i/interrup.htm">interrupts</a> per second, including the clock.</td>
+</tr>
+<tr class="tcw">
+<td><b>cs</b></td>
+<td>The number of context switches per second.</td>
+</tr>
+</table>
+<p class="tab"><b>CPU</b>: (values expressed in percentages of CPU time)</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:60px"><b>us</b></td>
+<td>Time spent running non-kernel code. (user time, including <a href="/unix/unice.htm">nice</a> time)</td>
+</tr>
+<tr class="tcw">
+<td><b>sy</b></td>
+<td>Time spent running kernel code. (system time)</td>
+</tr>
+<tr class="tcw">
+<td><b>id</b></td>
+<td>Time spent idle. Before <a href="/jargon/l/linux.htm">Linux</a> 2.5.41, this includes IO-wait time.</td>
+</tr>
+<tr class="tcw">
+<td><b>wa</b></td>
+<td>Time spent waiting for IO. Before Linux 2.5.41, included in idle.</td>
+</tr>
+<tr class="tcw">
+<td><b>st</b></td>
+<td>Time stolen from a virtual machine. Before Linux 2.6.11, unknown.</td>
+</tr>
+</table>
+<h2 id="field-desc-disk">Field description for disk mode</h2>
+<p class="tabb">Reads:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>total</b></td>
+<td>Total reads completed successfully</td>
+</tr>
+<tr class="tcw">
+<td><b>merged</b></td>
+<td>grouped reads (resulting in one I/O)</td>
+</tr>
+<tr class="tcw">
+<td><b>sectors</b></td>
+<td>Sectors read successfully</td>
+</tr>
+<tr class="tcw">
+<td><b>ms</b></td>
+<td>milliseconds spent reading</td>
+</tr>
+</table>
+<p class="tabb">Writes:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>total</b></td>
+<td>Total writes completed successfully</td>
+</tr>
+<tr class="tcw">
+<td><b>merged</b></td>
+<td>grouped writes (resulting in one I/O)</td>
+</tr>
+<tr class="tcw">
+<td><b>sectors</b></td>
+<td>Sectors written successfully</td>
+</tr>
+<tr class="tcw">
+<td><b>ms</b></td>
+<td>milliseconds spent writing</td>
+</tr>
+</table>
+<p class="tabb">IO:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:60px"><b>cur</b></td>
+<td>I/O in progress</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b></td>
+<td>seconds spent for I/O</td>
+</tr>
+</table>
+<h2 id="field-desc-diskpart">Field description for disk partition mode</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:180px"><b>reads</b></td>
+<td>Total number of reads issued to this partition</td>
+</tr>
+<tr class="tcw">
+<td><b>read sectors</b></td>
+<td>Total read sectors for partition</td>
+</tr>
+<tr class="tcw">
+<td><b>writes</b></td>
+<td>Total number of writes issued to this partition</td>
+</tr>
+<tr class="tcw">
+<td><b>requested writes</b></td>
+<td>Total number of write requests made for partition</td>
+</tr>
+</table>
+<h2 id="field-desc-slab">Field description for slab mode</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>cache</b></td>
+<td>Cache name</td>
+</tr>
+<tr class="tcw">
+<td><b>num</b></td>
+<td>Number of currently active objects</td>
+</tr>
+<tr class="tcw">
+<td><b>total</b></td>
+<td>Total number of available objects</td>
+</tr>
+<tr class="tcw">
+<td><b>size</b></td>
+<td>Size of each object</td>
+</tr>
+<tr class="tcw">
+<td><b>pages</b></td>
+<td>Number of pages with at least one active object</td>
+</tr>
+</table>
+<h2 id="notes">Notes</h2>
+<p class="tab"><b>vmstat</b> does not require special permissions.</p>
+<p class="tab">Linux <b>vmstat</b> does not count itself as a running process.</p>
+<p class="tab">All linux blocks are currently 1024 <a href="/jargon/b/byte.htm">bytes</a>. Old kernels may report blocks as 512 bytes, 2048 bytes, or 4096 bytes.</p>
+<p class="tab"><b>vmstat</b> lets you choose units: (<b>k</b>, 1000 bytes; <b>K</b>, 1024 bytes; <b>m</b>, 1000000 bytes; <b>M</b>, 1048576 bytes). Default is <b>K</b> in the default mode.</p>
+<p class="tab"><b>vmstat</b> uses <b>slabinfo</b> 1.1.</p>
+<h2 id="files">Files</h2>
+<p class="tab"><b>/proc/meminfo</b><br><b>/proc/stat</b><br><b>/proc/*/stat</b></p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">vmstat</pre>
+<p class="tab">Displays statistics about system resource usage. Output resembles the following:</p>
+<pre class="tab">procs -----------memory---------- ---swap-- -----io---- -system-- ----cpu----
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa
+ 1  0   9336 128468 238072 342704    0    0     2    11   20  104  6 32 62  0
+</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/free.htm"><b>free</b></a> &mdash; Display the amount of free and used memory.<br><a href="/unix/iostat.htm"><b>iostat</b></a> &mdash; Report CPU and I/O statistics for devices and partitions.<br><a href="/unix/ups.htm"><b>ps</b></a> &mdash; Report the status of a process or processes.<br><a href="/unix/usar.htm"><b>sar</b></a> &mdash; Display system activity information under Solaris.<br><a href="/unix/top.htm"><b>top</b></a> &mdash; Display a sortable, continually-updated list of processes.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a837a2da1c424',m:'oT_KeNbI5cVObwyR3RwSVxTwDRstNJu1usiNoA91bsU-1661495371-0-AaCyjG8d8Y3iGSXRBj/K/PHtH087wy/yr1357HDJdySFbq2ftJ07gWV3l7YY/JB++cCwCDYwb43EyqgFDQ8czlk4f/XzDVw4I2B9I1EZHLYCqCvfgr2Z+/k6F5Hc/hCPug==',s:[0x6861289a59,0x8b762e46a1],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

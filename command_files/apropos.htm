@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux apropos command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-08-16">08/16/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/apropos.gif" width="300" height="300" alt="apropos command" class="floatRight"><p class="intro"><b>apropos</b> searches the manual pages for a <a href="/jargon/k/keyword.htm">keyword</a> or <a href="/jargon/r/regex.htm">regular expression.</a></p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#options">Options</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="options">Options</h2>
+<p class="tab">Each manual page has a short description included with it. <b>apropos</b> searches these descriptions for instances of <i>keyword</i>.</p>
+<p class="tab"><i>keyword</i> is a regular expression (by default; also see the <b>-r</b> option), or may contain <a href="/jargon/w/wildcard.htm">wildcards</a> (<b>-w</b>), or be instructed to match the only exact keyword (<b>-e</b>). Using these options, it may be necessary to quote the keyword, or <a href="/jargon/e/esc.htm">escape</a> ("<b>\</b>") the special <a href="/jargon/c/charact.htm">characters</a> to stop the <a href="/jargon/s/shell.htm">shell</a> from interpreting them.</p>
+<p class="tab">The standard matching rules allow matches to be made against the page name and word boundaries in the description.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">apropos [-dalhvV] [-e|-w|-r] [-s <i>list</i>] [-m <i>system</i>[,...]] [-M <i>path</i>]
+        [-L <i>locale</i>] [-C <i>file</i>] <i>keyword</i> ...
+</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>-d</b>,<br> <b>--debug</b></td>
+<td>Print <a href="/jargon/d/debug.htm">debugging</a> information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>,<br> <b>--verbose</b></td>
+<td>Print <a href="/jargon/v/verbose.htm">verbose</a> warning messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>,<br> <b>--regex</b></td>
+<td>Interpret each <i>keyword</i> as a regular expression. This is the default behavior. Each <i>keyword</i> will be matched against the page names and the descriptions independently. It can match any part of either. The match is not limited to word boundaries.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>,<br> <b>--wildcard</b></td>
+<td>Interpret each <i>keyword</i> as a pattern containing shell-style wildcards. Each <i>keyword</i> will be matched against the page names and the descriptions independently. If <b>--exact</b> is also used, a match is found if an expanded <i>keyword</i> matches an entire description or page name. Otherwise, the <i>keyword</i> is also allowed to match on word boundaries in the description.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>,<br> <b>--exact</b></td>
+<td>Each <i>keyword</i> will be exactly matched against the page names and the descriptions.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b>,<br> <b>--and</b></td>
+<td>Only display items that match all the supplied <i>keywords</i>. The default is to display items that match any <i>keyword</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>,<br> <b>--long</b></td>
+<td>Do not trim output to the <a href="/jargon/t/terminal.htm">terminal</a> width. Normally, output will be <a href="/jargon/t/truncate.htm">truncated</a> to the terminal width to avoid ugly results from poorly-written NAME sections.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>list</i>,<br> <b>--sections</b> <i>list</i>,<br> <b>--section</b> <i>list</i></td>
+<td>Search only the given manual sections. The <i>list</i> is a colon-separated or comma-separated list of sections. If an entry in <i>list</i> is a simple section, for example "<b>3</b>", then the displayed list of descriptions will include pages in sections "<b>3</b>", "<b>3perl</b>", "<b>3x</b>", and so on; while if an entry in <i>list</i> has an extension, for example "<b>3perl</b>", then the list only includes pages in that exact part of the manual section.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b> <i>system</i>[<b>,</b>...],<br> <b>--systems=</b><i>system</i>[<b>,</b>...]</td>
+<td>If this system has access to other operating system's manual page descriptions, they can be searched using this option. For example, to search the manual page descriptions of an operating system called "NewOS", use the option <b>-m NewOS</b>. The <i>system</i> specified is a combination of comma-<a href="/jargon/d/delimite.htm">delimited</a> operating system names. (To include a search of the native operating system's <a href="/unix/whatis.htm">whatis</a> descriptions, include the system name <b>man</b> in the argument string. This option overrides the <b>$SYSTEM</b> <a href="/jargon/e/envivari.htm">environment variable</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b> <i>path</i>,<br> <b>--manpath=</b><i>path</i></td>
+<td>Specify an alternate set of colon-delimited manual page hierarchies to search. By default, <b>apropos</b> uses the <b>$MANPATH</b> environment variable, unless it is empty or unset, in which case it will determine an appropriate "manpath" based on your <b>$PATH</b> environment variable. This option overrides the contents of <b>$MANPATH</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b> <i>locale</i>,<br> <b>--locale=</b><i>locale</i></td>
+<td><b>apropos</b> will normally determine your current locale by a call to the C function <b>setlocale</b> which interrogates various environment variables, possibly including <b>$LC_MESSAGES</b> and <b>$LANG</b>. To temporarily override the determined value, use this option to supply a locale string directly to <b>apropos</b>. Note that it will not take effect until the search for pages actually begins. Output such as the help message is always displayed in the initially determined locale.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b> <i>file</i>,<br> <b>--config-file=</b><i>file</i></td>
+<td>Use this user configuration file rather than the default of <b>~/.manpath</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Print a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Display version information.</td>
+</tr>
+</table>
+<h3 class="tab">Environment</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>SYSTEM</b></td>
+<td>If <b>$SYSTEM</b> is set, it has the same effect as if it had been specified as the argument to the <b>-m</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>MANPATH</b></td>
+<td>If <b>$MANPATH</b> is set, its value is interpreted as the colon-delimited manual page hierarchy search path to use.</td>
+</tr>
+<tr class="tcw">
+<td><b>MANWIDTH</b></td>
+<td>If <b>$MANWIDTH</b> is set, its value is used as the terminal width (see the <b>--long</b> option). If it is not set, the terminal width will be calculated using an <b>ioctl</b> if available, the value of <b>$COLUMNS</b>, or falling back to 80 characters if all else fails.</td>
+</tr>
+<tr class="tcw">
+<td><b>POSIXLY_CORRECT</b></td>
+<td>If <b>$POSIXLY_CORRECT</b> is set, even to a <a href="/jargon/n/null.htm">null</a> value, the default <b>apropos</b> search will be as an extended regex (<b>-r</b>). On newer systems, this is often already the default behavior.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">apropos find</pre>
+<p class="tab">Display all manual entries with the word "<b>find</b>" in the page name or description. Output resembles the following:</p>
+<pre class="tab">aa_find_mountpoint (2) - find where the apparmor interface filesystem is mounted
+chkdupexe (1)          - find duplicate executables
+ffs (3)                - find first bit set in a word
+ffsl (3)               - find first bit set in a word
+ffsll (3)              - find first bit set in a word
+find (1)               - search for files in a directory hierarchy
+find2perl (1)          - translate find command lines to Perl code
+findaffix (1)          - Interactive spelling checking
+findfs (8)             - find a filesystem by label or UUID
+findmnt (8)            - find a filesystem
+findsmb (1)            - list info about machines that respond to SMB name quer...
+glob (3)               - find pathnames matching a pattern, free memory from gl...
+globfree (3)           - find pathnames matching a pattern, free memory from gl...
+ippfind (1)            - find internet printing protocol printers
+lfind (3)              - linear search of an array
+locate (1)             - find files by name
+memdiskfind (1)        - utility to search for a MEMDISK instance
+mlocate (1)            - find files by name
+mysql_find_rows (1)    - extract SQL statements from files
+oldfind (1)            - search for files in a directory hierarchy
+pidof (8)              - find the process ID of a running program.
+texdoc (1)             - find &amp; view documentation in TeX Live
+tfind (3)              - manage a binary tree
+tracediff (1)          - find and print differences between two traces
+ttyslot (3)            - find the slot of the current user's terminal in some file</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uman.htm"><b>man</b></a> &mdash; Display the manual page of a given command.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82adfb968498',m:'zZYTc4wzSEA2s4chZ8gFeO1fxEoi1lEeFI8SnOzFzCU-1661495339-0-ASDneFVKfszJwJi1XiAgzRgzCiHeswrP09pJ4zIrFjmQkZkbMTU7yF9Gqx8uW2tPAR2G10Gv5fE6fR1Jz1x/v4039KviyjbSw2VNPsbCp7x5VrozhAtQS7iMlRGrvhBAEmVap/GqNXr1EdI7TRbqRik=',s:[0x676f3aa3b4,0x86d481473c],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux eject command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/eject.gif" width="300" height="300" alt="eject command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>eject</b> command allows <a href="/jargon/r/remodisk.htm">removable media</a> (typically an <a href="/jargon/c/cdrom.htm">optical disc</a>) to be ejected under <a href="/jargon/s/software.htm">software</a> control. The command can also control some multi-disc CD-ROM changers, the auto-eject feature supported by some <a href="/jargon/d/device.htm">devices</a>, and close the disc tray of some CD-ROM drives.</p>
+<p>This page describes the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>eject</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">When the <b>eject</b> command is executed, the device corresponding to &lt;name&gt; is ejected. The name is a device file or <a href="/jargon/m/mount.htm">mount</a> point, either a full <a href="/jargon/p/path.htm">path</a> or with the leading &quot;<b>/dev</b>&quot;, &quot;<b>/media</b>&quot; or &quot;<b>/mnt</b>&quot; omitted. If no name is specified, the default name &quot;<b>cdrom</b>&quot; is used.</p>
+<p class="tab">There are four different methods of ejecting, depending on whether the device is a CD-ROM, <a href="/jargon/s/scsi.htm">SCSI</a> device, removable floppy, or tape. By default, eject tries all four methods in order until it succeeds.</p>
+<p class="tab">If the device is currently mounted, it is <a href="/jargon/u/unmount.htm">unmounted</a> before ejecting.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">eject -h</pre>
+<pre class="tcy tab">eject [-vnrsfmqp] [<i>&lt;name&gt;</i>]</pre>
+<pre class="tcy tab">eject [-vn] -d</pre>
+<pre class="tcy tab">eject [-vn] -a on|off|1|0 [<i>&lt;name&gt;</i>]</pre>
+<pre class="tcy tab">eject [-vn] -c <i>slot</i> [<i>&lt;name&gt;</i>]</pre>
+<pre class="tcy tab">eject [-vn] -i on|off|1|0 [<i>&lt;name&gt;</i>]</pre>
+<pre class="tcy tab">eject [-vn] -t [<i>&lt;name&gt;</i>]</pre>
+<pre class="tcy tab">eject [-vn] -T [<i>&lt;name&gt;</i>]</pre>
+<pre class="tcy tab">eject [-vn] -x <i>&lt;speed&gt;</i> [<i>&lt;name&gt;</i>]</pre>
+<pre class="tcy tab">eject [-vn] -X [<i>&lt;name&gt;</i>]</pre>
+<pre class="tcy tab">eject -V</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-h</b>, <b>--help</b></td>
+<td>This option causes <b>eject</b> to display a brief description of the command options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>This makes <b>eject</b> run in <a href="/jargon/v/verbose.htm">verbose</a> mode; more information is displayed about what the command is doing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--default</b></td>
+<td>If invoked with this option, <b>eject</b> lists the default device name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b> <b>on</b>|<b>1</b>|<b>off</b>|<b>0</b>,<br> <b>--auto</b></td>
+<td>This option controls the auto-eject mode, supported by some devices. When enabled, the drive automatically ejects when the device is closed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b> <i>&lt;slot&gt;</i>,<br> <b>--changerslot</b></td>
+<td>With this option, a CD slot can be selected from an <a href="/jargon/a/atapi.htm">ATAPI</a>/<a href="/jargon/i/ide.htm">IDE</a> CD-ROM changer. Linux 2.0 or higher is required to use this feature. The CD-ROM drive cannot be in use (mounted data CD or playing a music CD) for a change request to work. Please also note that the first slot of the changer is referred to as 0, not 1.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b> <b>on</b>|<b>1</b>|<b>off</b>|<b>0</b></td>
+<td>This option controls locking of the hardware eject button. When enabled, the drive does not eject when the button is pressed. This is useful when you are carrying a laptop in a bag or case and don't want it to eject if the button is inadvertently pressed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--trayclose</b></td>
+<td>With this option, the drive is given a CD-ROM tray close command. Not all devices support this command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>, <b>--traytoggle</b></td>
+<td>With this option, the drive is given a CD-ROM tray close command if it's opened, and a CD-ROM tray eject command if it's closed. Not all devices support this command, because it uses the above CD-ROM tray close command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b> <i>&lt;speed&gt;</i>,<br> <b>--cdspeed</b></td>
+<td>With this option, the drive is given a CD-ROM select speed command. The speed argument is a number indicating the desired speed (e.g., 8 for 8X speed), or 0 for maximum data rate. Not all devices support this command, and you can only specify speeds the drive is capable of performing. Every time the media is changed, this option is cleared. This option can be used alone, or with the <b>-t</b> and <b>-c</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-X</b>, <b>--listspeed</b></td>
+<td>With this option, the CD-ROM drive is probed to detect the available speeds. The output is a list of speeds which can be used as an argument of the <b>-x</b> option. This only works with Linux 2.6.13 or higher. On previous versions, only the maximum speed is reported. Also, note that some drives may not correctly report the speed; this option does not work with them.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--noop</b></td>
+<td>With this option, the selected device is displayed but no action is performed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--cdrom</b></td>
+<td>This option specifies that the drive should be ejected using a CDROM eject command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--cdrom</b></td>
+<td>This option specifies that the drive should be ejected using SCSI commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--floppy</b></td>
+<td>This option specifies that the drive should be ejected using a removable floppy disk eject command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--tape</b></td>
+<td>This option specifies that the drive should be ejected using a tape drive offline command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--proc</b></td>
+<td>This option lets you use <b>/proc/mounts</b> instead <b>/etc/mtab</b>. It also passes the <b>-n</b> option to <a href="/unix/umount.htm">umount</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b>,<br> <b>--no-unmount</b></td>
+<td>This option allows eject to work with device drivers which automatically mount removable media and therefore must be always mounted. The option tells eject to not try to unmount the given device, even if it's mounted according to <b>/etc/mtab</b> or <b>/proc/mounts</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>This option causes <b>eject</b> to display the program version and exit.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">eject</pre>
+<p class="tab">Eject the default device.</p>
+<pre class="tcy tab">eject cdrom</pre>
+<p class="tab">Eject a device or mount point named <i>cdrom</i>.</p>
+<pre class="tcy tab">eject /dev/cdrom</pre>
+<p class="tab">Same as above, but using the device name.</p>
+<pre class="tcy tab">eject /mnt/cdrom/</pre>
+<p class="tab">Same as above, using the mount point.</p>
+<pre class="tcy tab">eject hdd</pre>
+<p class="tab">Eject 4th IDE device.</p>
+<pre class="tcy tab">eject sda</pre>
+<p class="tab">Eject first SCSI device.</p>
+<pre class="tcy tab">eject sda4</pre>
+<p class="tab">Eject using SCSI partition name.</p>
+<pre class="tcy tab">eject -v -c4 /dev/cdrom</pre>
+<p class="tab">Eject 5th disc on multi-disc changer.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/umount.htm"><b>mount</b></a> &mdash; Mount a file system so that its data may be accessed.<br><a href="/unix/umount.htm"><b>umount</b></a> &mdash; Unmount a file system, making its data inaccessible.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82dbd97484b0',m:'E3rYmTHnHm3OhTkKO1aQxv6JASuOKh3HZIVsl0hxVzo-1661495346-0-AVqMATzK4XxNE97kBAhhBAe5SmQJDQyqRXyCFHRwfJiu5jM5vt8MJMUXUlPgbbEt+Blfa97bDXUTUoFoxHyzxW4VrDRuSCHFzltc9HqMeAXIkjbqXUnHI6bxE7eQRrF+Dg==',s:[0xde0ac2df88,0xaac50aebe1],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

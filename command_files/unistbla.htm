@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux nistbladm command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/nistbladm.gif" width="300" height="300" alt="nistbladm command" class="floatRight"><p class="intro">On the <a href="/jargon/s/solaris.htm">Solaris</a> operating system, the <b>nistbladm</b> command is used to perform NIS+ table administration functions.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>nistbladm</b> command is used to administer NIS+ tables. There are five primary operations that it performs: creating and deleting tables, adding entries to tables, modifying entries within tables, and removing entries from tables.</p>
+<p class="tab">Though NIS+ does not place restrictions on the size of tables or entries, the size of data has an impact on the performance and the <a href="/jargon/d/diskcapa.htm">disk space</a> requirements of the NIS+ server. NIS+ is not designed to store huge pieces of data, such as files; instead, pointers to files should be stored in NIS+.</p>
+<p class="tab">NIS+ design is optimized to support 10,000 objects with a total size of 10 <a href="/jargon/m/megabyte.htm">megabytes</a>. If the requirements exceed the above, it is suggested that the domain hierarchy be created, or the data stored in the tables be pointers to the actual data, instead of the data itself.</p>
+<p class="tab">When creating tables, a table type, type, and a list of column definitions must be provided.</p>
+<p class="tab"><b>type</b> is a string that is stored in the table and later used by the service to verify that entries being added to it are of the correct type.</p>
+<p class="tab">Syntax for column definitions is:</p>
+<pre class="tab tcy"><i>colname</i>=[<i>flags</i>][,<i>access</i>]</pre>
+<p class="tab"><b>flags</b> is a combination of:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>S</b></td>
+<td>Searchable. Specifies that searches can be done on the column's values (see <a href="/unix/unismatc.htm"><b>nismatch</b></a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>I</b></td>
+<td>Case-insensitive (only makes sense in combination with <b>S</b>). Specifies that searches should ignore case.</td>
+</tr>
+<tr class="tcw">
+<td><b>C</b></td>
+<td>Crypt. Specifies that the column's values should be encrypted.</td>
+</tr>
+<tr class="tcw">
+<td><b>B</b></td>
+<td>Binary data (does not make sense in combination with <b>S</b>). If not set, the column's values are expected to be <a href="/jargon/n/null.htm">null</a> terminated <a href="/jargon/a/ascii.htm">ASCII</a> <a href="/jargon/s/string.htm">strings</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>X</b></td>
+<td>XDR encoded data (only makes sense in combination with B).</td>
+</tr>
+</table>
+<p class="tab"><b>access</b> is specified in the format as defined by the <a href="/unix/unischmo.htm"><b>nischmod</b></a> command.</p>
+<p class="tab">When manipulating entries, this command takes two forms of entry name. The first uses several space separated <i>colname</i><b>=</b><i>value</i> pairs that specify column values in the entry. The second is an NIS+ indexed name, <i>indexedname</i>, of the form:</p>
+<pre class="tab tcy">[ <i>colname</i>=<i>value</i>, ... ],<i>tablename</i></pre>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">nistbladm -a | -A [-D <i>defaults</i>] <i>colname</i> = <i>value</i>... <i>tablename</i></pre>
+<pre class="tcy tab">nistbladm -a | -A [-D <i>defaults</i>] <i>indexedname</i></pre>
+<pre class="tcy tab">nistbladm -c [-D <i>defaults</i>] [-p <i>path</i>] [-s <i>sep</i>] <i>type</i> <i>colname</i> = [<i>flags</i>] 
+             [, <i>access</i>]... <i>tablename</i></pre>
+<pre class="tcy tab">nistbladm -d <i>tablename</i></pre>
+<pre class="tcy tab">nistbladm -e | -E <i>colname</i> = <i>value</i>... <i>indexedname</i></pre>
+<pre class="tcy tab">nistbladm -m <i>colname</i> = <i>value</i>... <i>indexedname</i></pre>
+<pre class="tcy tab">nistbladm -r | -R [<i>colname</i> = <i>value</i>...] <i>tablename</i></pre>
+<pre class="tcy tab">nistbladm -r | -R <i>indexedname</i></pre>
+<pre class="tcy tab">nistbladm -u [-p <i>path</i>] [-s <i>sep</i>] [-t <i>type</i>] [<i>colname</i> = <i>access</i>...] <i>tablename</i></pre>
+<h3 class="tab">Options</h3>
+<p class="tab">The following options are supported by <b>nistbladm</b>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><b>-a</b> | <b>A</b></td>
+<td>Adds entries to an NIS+ table. The difference between the lowercase '<b>a</b>' and the uppercase '<b>A</b>' is in the treatment of preexisting entries. The entry's contents are specified by the <i>column</i><b>=</b><i>value</i> pairs on the command line. Values for all columns must be specified when adding entries to a table.<br><br> Normally, NIS+ reports an error if an attempt is made to add an entry to a table that would overwrite an entry that already exists. This prevents multiple parties from adding duplicate entries and having one of them get overwritten. If you want to force the add, the uppercase '<b>A</b>' specifies that the entry is to be added, even if it already exists. This option is analogous to a <b>modify</b> operation on the entry.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>Creates a table named tablename in the namespace. The table that is created must have at least one column and at least one column must be searchable.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>tablename</i></td>
+<td>Destroys the table named <i>tablename</i>. The table that is being destroyed must be empty. The table's contents can be deleted with the <b>-R</b> option below.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b> | <b>E</b></td>
+<td>Edits the entry in the table that is specified by indexdname. The indexdname must uniquely identify a single entry. It is possible to edit the value in a column that would change the indexed name of an entry.<br><br> The change (<i>colname</i><b>=</b><i>value</i>) may affect other entries in the table if the change results in an entry whose indexed name is different from <i>indexedname</i> and which matches that of another existing entry. In this case, the <b>-e</b> option fails and an error is reported. The <b>-E</b> option forces the replacement of the existing entry by the new entry (effectively removing two old entries and adding a new one).</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b></td>
+<td>A synonym for <b>-E</b>. This option is superseded by the <b>-E</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b> | <b>R</b></td>
+<td>Removes entries from a table. The xentry is specified by either several <i>column</i><b>=</b><i>value</i> pairs on the command line, or an indexed name that is specified as <i>entryname</i>. The difference between the interpretation of the lowercase '<b>r</b>' versus the uppercase '<b>R</b>' is in the treatment of non-unique entry specifications. Normally the NIS+ server disallows an attempt to remove an entry when the search criterion specified for that entry resolves to more than one entry in the table. However, it is sometimes desirable to remove more than one entry, as when you are attempting to remove all the entries from a table. In this case, using the uppercase '<b>R</b>' forces the NIS+ server to remove all entries matching the passed search criterion. If that criterion is null and no column values specified, all entries in the table are removed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>Updates attributes of a table. This option allows the concatenation path (<b>-p</b>), separation character (specified with the (<b>-s</b>)), column access rights, and table type string (<b>-t</b>) of a table to be changed. Neither the number of columns, nor the columns that are searchable may be changed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b> <i>defaults</i></td>
+<td>When creating objects, this option specifies a different set of defaults to be used during this operation. The defaults string is several tokens separated by colons. These tokens represent the default values to be used for the generic object properties. All of the legal tokens are described below:<br><br>
+<table class="mtable4">
+<tr class="tcw">
+<td style="width:210px"><b>ttl=</b><i>time</i></td>
+<td>This token sets the default time-to-live for objects that are created by this command. The value time is specified in the format as defined by the <a href="/unix/unischtt.htm"><b>nischttl</b></a> command. The default value is 12 hours.</td>
+</tr>
+<tr class="tcw">
+<td><b>owner=</b><i>ownername</i></td>
+<td>This token specifies that the NIS+ principal ownername should own the created object. Normally this value is the same as the principal who is executing the command.</td>
+</tr>
+<tr class="tcw">
+<td><b>group=</b><i>groupname</i></td>
+<td>This token specifies that the group <i>groupname</i> should be the group owner for the object that is created. The default value is NULL.</td>
+</tr>
+<tr class="tcw">
+<td><b>access=</b><i>rights</i></td>
+<td>This token specifies the set of access rights that are to be granted for the given object. The value rights is specified in the format as defined by the <a href="/unix/unischmo.htm"><b>nischmod</b></a> command. The default value is<br><br><pre>----rmcdr---r---</pre></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>path</i></td>
+<td>When creating or updating a table, this option specifies the table's search path. When an <b>nis_list()</b> function is invoked, the user can specify the flag <b>FOLLOW_PATH</b> to tell the client library to continue searching tables in the table's path if the search criteria used does not yield any entries. The path consists of an ordered list of table names, separated by colons. The names in the path must be fully qualified.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>sep</i></td>
+<td>When creating or updating a table, this option specifies the table's separator character. The separator character is used by <a href="/unix/uniscat.htm"><b>niscat</b></a> when displaying tables on the standard output. Its purpose is to separate column data when the table is in ASCII form. The default value is a space.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>type</i></td>
+<td>When updating a table, this option specifies the table's type string.</td>
+</tr>
+</table>
+<h2 id="environment">Environment</h2>
+<p class="tab"><b>nistbladm</b> makes use of the following <a href="/jargon/e/envivari.htm">environment variables</a>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>NIS_DEFAULTS</b></td>
+<td>This variable contains a defaults string that overrides the NIS+ standard defaults. If the <b>-D</b> switch is used, those values then override both the <b>NIS_DEFAULTS</b> variable and the standard defaults.</td>
+</tr>
+<tr class="tcw">
+<td><b>NIS_PATH</b></td>
+<td>If this variable is set, and the NIS+ table name is not fully qualified, each directory specified is searched until the table is found.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">nistbladm -m name=robert [name=bob],hobbies</pre>
+<p class="tab">Modify the entry named <b>bob</b>, changing the name to <b>robert</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uniscat.htm"><b>niscat</b></a> &mdash; Display NIS+ tables and objects.<br><a href="/unix/unischmo.htm"><b>nischmod</b></a> &mdash; Change access rights on an NIS+ object.<br><a href="/unix/unischow.htm"><b>nischown</b></a> &mdash; Change the owner of an NIS+ object on a system running Solaris.<br><a href="/unix/unischtt.htm"><b>nischttl</b></a> &mdash; Change the time to live value of an NIS+ object.<br><a href="/unix/unisdefa.htm"><b>nisdefaults</b></a> &mdash; Display NIS+ default values.<br><a href="/unix/unismatc.htm"><b>nismatch</b></a> &mdash; Utilities for searching NIS+ tables.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83258fcfc3ca',m:'VC1LGIMabgPEztP1BvrAG7iImKeoMVtPefOqalBuhmo-1661495358-0-AbLTarrS2LeB661CX7+JIhEZbk/yOqZ26hzsPoTznDZ9HgOnvzbbTninc9WfraaKLnlTGu0KuQHfQkvgbHe4jmsYIUIuASY2PWv3Yl06W0rCieJU/ak0NdEaHF3ZvhhIjI8UkkLcZdPvSwpTPobLOhU=',s:[0xcc20ec675f,0x606cc563c6],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux sdiff command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/sdiff.gif" width="300" height="300" alt="sdiff command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>sdiff</b> command compares two files side-by-side, optionally <a href="/jargon/m/merge.htm">merges</a> them interactively, and outputs the results.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>sdiff</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#differences">Displaying differences side-by-side</a></li>
+<li><a href="#White-Space">Handling white space differences</a></li>
+<li><a href="#merging">Merging interactively</a></li>
+<li><a href="#variables">Environment variables</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>sdiff</b> performs a side-by-side comparison of the differences between <i>FILE1</i> and <i>FILE2</i>, and optionally merges them (see the <b>-o</b> option, below).</p>
+<p class="tab">If one of the <i>FILEs</i> is specified as a dash ("<b>-</b>"), <b>sdiff</b> reads from <a href="/jargon/s/stdin.htm">standard input</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">sdiff [<i>OPTION</i>]... <i>FILE1</i> <i>FILE2</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-o</b> <i>FILE</i>, <b>--output=</b><i>FILE</i></td>
+<td><p>Merge the files interactively, and send the output to <i>FILE</i>.</p>
+<p>Specifying this option will begin the side-by-side comparison, and place you at a "<b>%</b>" <a href="/jargon/p/prompt.htm">prompt</a>, asking you how to treat the differences. Press <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a> at the prompt to view the merging options, which are as follows:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:90px"><b>ed</b></td>
+<td>Edit then use both versions, each decorated with a header.</td>
+</tr>
+<tr class="tcw">
+<td><b>eb</b></td>
+<td>Edit then use both versions.</td>
+</tr>
+<tr class="tcw">
+<td><b>el</b> or <b>e1</b></td>
+<td>Edit, then use the left version.</td>
+</tr>
+ <tr class="tcw">
+<td><b>er</b> or <b>e2</b></td>
+<td>Edit, then use the right version.</td>
+</tr>
+<tr class="tcw">
+<td><b>e</b></td>
+<td>Discard both versions, then edit a new one.</td>
+</tr>
+<tr class="tcw">
+<td><b>l</b> or <b>1</b></td>
+<td>Use the left version.</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b> or <b>2</b></td>
+<td>Use the right version.</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b></td>
+<td>Silently include common lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>v</b></td>
+<td><a href="/jargon/v/verbose.htm">Verbosely</a> include common lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>q</b></td>
+<td>Quit.</td>
+</tr>
+</table>
+When merging is complete, the merged contents will be written to <i>FILE</i>.</td>
+</tr>
+<tr class="tcw">
+<td style="width:290px"><b>-i</b>, <b>--ignore-case</b></td>
+<td>Treat <a href="/jargon/u/uppercase.htm">uppercase</a> and <a href="/jargon/l/lowercas.htm">lowercase</a> letters as if they are the same.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b>,<br><b>--ignore-tab-expansion</b></td>
+<td>Ignore changes due to tab expansion (where <a href="/jargon/t/tab.htm">tabs</a> are expanded to blanks or spaces).</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b>,<br><b>--ignore-space-change</b></td>
+<td>Ignore changes in the amount of <a href="/jargon/w/whitspac.htm">white space</a> (spaces, tabs, etc).</td>
+</tr>
+<tr class="tcw">
+<td><b>-W</b>, <b>--ignore-all-space</b></td>
+<td>Ignore all white space.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b>, <b>--ignore-blank-lines</b></td>
+<td>Ignore changes whose lines are all blank.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> <i>RE</i>,<br><b>--ignore-matching-lines=</b><i>RE</i></td>
+<td>Ignore changes whose lines all match <a href="/jargon/r/regex.htm">regular expression</a> <i>RE</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--strip-trailing-cr</b></td>
+<td>Strip trailing <a href="/jargon/c/cr.htm">carriage return</a> on input.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b>, <b>--text</b></td>
+<td>Treat all files as text files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b> <i>NUM</i>, <b>--width=</b><i>NUM</i></td>
+<td>Output at most <i>NUM</i> (default <b>130</b>) print columns.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--left-column</b></td>
+<td>Output only the left column of common lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--suppress-common-lines</b></td>
+<td>Do not output common lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--expand-tabs</b></td>
+<td>Expand tabs to spaces in output.</td>
+</tr>
+<tr class="tcw">
+<td><b>--tabsize=</b><i>NUM</i></td>
+<td>Set tab stops at every <i>NUM</i> (default <b>8</b>) print columns.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--minimal</b></td>
+<td>Try hard to find a smaller set of changes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b>, <b>--speed-large-files</b></td>
+<td>Assume large files (which contain many scattered, small changes).</td>
+</tr>
+<tr class="tcw">
+<td><b>--diff-program=</b><i>PROGRAM</i></td>
+<td>Use <i>PROGRAM</i> to compare files.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--version</b></td>
+<td>Output version information and exit.</td>
+</tr>
+</table>
+<h2 id="differences">Displaying differences side-by-side</h2>
+<p class="tab"><b>sdiff</b> produces a side-by-side difference listing of the two files. The contents of the files are listed in two columns with a "gutter" between them. The gutter contains one of the following markers:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><i>whitespace</i></td>
+<td>The corresponding lines are in common. That is, either the lines are identical, or the difference is ignored because of one of the <b>--ignore options</b> (see: <a href="#White-Space">handling white space differences</a>, below).</td>
+</tr>
+<tr class="tcw">
+<td><b>|</b></td>
+<td>The corresponding lines differ, and they are either both complete or both incomplete.</td>
+</tr>
+<tr class="tcw">
+<td><b>&lt;</b></td>
+<td>The files differ and only the first file contains the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>&gt;</b></td>
+<td>The files differ and only the second file contains the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>(</b></td>
+<td>Only the first file contains the line, but the difference is ignored.</td>
+</tr>
+<tr class="tcw">
+<td><b>)</b></td>
+<td>Only the second file contains the line, but the difference is ignored.</td>
+</tr>
+<tr class="tcw">
+<td><b>\</b></td>
+<td>The corresponding lines differ, and only the first line is incomplete.</td>
+</tr>
+<tr class="tcw">
+<td><b>/</b></td>
+<td>The corresponding lines differ, and only the second line is incomplete.</td>
+</tr>
+</table>
+<p class="tab">Normally, an output line is incomplete if and only if the lines that it contains are incomplete. However, when an output line represents two differing lines, one might be incomplete while the other is not. Which means the output line is complete, but its the gutter is marked "<b>\</b>" if the first line is incomplete, "<b>/</b>" if the second line is.</p>
+<p class="tab">Side by side format is sometimes easiest to read, but it has limitations. It generates much wider output than usual, and <a href="/jargon/t/truncate.htm">truncates</a> the display of any lines that are too long to fit. Also, it relies on lining up output more heavily than usual, so its output looks particularly bad if you use varying width fonts, nonstandard tab stops, or nonprinting <a href="/jargon/c/charact.htm">characters</a>.</p>
+<h2 id="White-Space">Handling white space differences</h2>
+<p class="tab">The <b>--ignore-tab-expansion</b> (<b>-E</b>) option ignores the distinction between tabs and spaces on input. A tab is considered to be equivalent to the number of spaces to the next tab stop.</p>
+<p class="tab">The <b>--ignore-trailing-space</b> (<b>-Z</b>) option ignores white space at line end.</p>
+<p class="tab">The <b>--ignore-space-change</b> (<b>-b</b>) option is stronger than <b>-E</b> and <b>-Z</b> combined. It ignores white space at line end, and considers all other sequences of one or more white space characters within a line to be equivalent. With this option, <b>sdiff</b> considers the following two lines to be equivalent, where &lsquo;<b>$</b>&rsquo; denotes the line end:</p>
+<pre class="tab">Here lyeth  muche rychnesse  in lytell space.   -- John Heywood$
+Here lyeth muche rychnesse in lytell space. -- John Heywood   $</pre>
+<p class="tab">The <b>--ignore-all-space</b> (<b>-w</b>) option is stronger still. It ignores differences even if one line has white space where the other line has none. White space characters include tab, vertical tab, form feed, carriage return, and space; some locales may define additional characters to be white space. With this option, <b>sdiff</b> considers the following two lines to be equivalent, where &lsquo;<b>$</b>&rsquo; denotes the line end and &lsquo;<b>^M</b>&rsquo; denotes a carriage return:</p>
+<pre class="tab">Here lyeth  muche  rychnesse in lytell space.--  John Heywood$
+  He relyeth much erychnes  seinly tells pace.  --John Heywood   ^M$</pre>
+<p class="tab">For other programs the <a href="/jargon/n/newline.htm">newline</a> character is considered a white space character, but <b>sdiff</b> is a line-oriented program and a newline character always ends a line. Hence the <b>-w</b> or <b>--ignore-all-space</b> option does not ignore newline-related changes; it ignores only other white space changes.</p>
+<h2 id="merging">Merging interactively</h2>
+<p class="tab">If you specify an output file using the <b>-o</b> option, <b>sdiff</b> displays differences side-by-side in groups of differing lines, and give you a prompt ("<b>%</b>") where you can choose, case by case, how to handle the differences to create a merged output file.</p>
+<p class="tab">For instance, let's say we have two files, <b>cats.c</b> and <b>cats2.c</b>, shown here side by side:</p>
+<pre class="tab"><b>cats.c:</b>                                              <b>cats2.c:</b>
+/*                                                &#9474; /*
+cats, a program.                                  &#9474; "cats", a computer program.
+Tells you if your cat is alive or dead.           &#9474; Tells you if your cat is alive or dead.
+by E. Schr&ouml;dinger.                                &#9474; by E. Schr&ouml;dinger.
+*/                                                &#9474; */
+                                                  &#9474; 
+#include &lt;stdio.h&gt;                                &#9474; #include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;                               &#9474; #include &lt;stdlib.h&gt;
+#include &lt;time.h&gt;                                 &#9474; #include &lt;time.h&gt;
+                                                  &#9474; 
+int main () {                                     &#9474; int main () {
+                                                  &#9474; 
+    double  numCats;                              &#9474;     /* seed pseudorandomizer */
+    double  chance = (double)rand();              &#9474;     srand( time( NULL ) );
+                                                  &#9474; 
+    chance = chance / (double)RAND_MAX;           &#9474;     double  numCats;
+                                                  &#9474;     double  chance = (double)rand();
+    if ( chance &gt; 0.5 ) {                         &#9474; 
+            printf("Felix is alive.\n");          &#9474;     chance = chance / 1;
+    } else if ( chance &lt; 0.5 ) {                  &#9474; 
+            printf("Felix is not alive.\n");      &#9474;     if ( chance &gt; 0.5 ) {
+    } else {                                      &#9474;             printf("My cat is alive.\n");
+            printf("Felix is alive and dead.\n"); &#9474;     } else if ( chance &lt; 0.5 ) {
+    }                                             &#9474;             printf("My cat is dead.\n");
+}                                                 &#9474;     } else {
+                                                  &#9474;             printf("My cat might be alive.\n");
+                                                  &#9474;     }
+                                                  &#9474; }</pre>
+<p class="tab">There are differences in these two files, and we have to decide which ones to keep. Let's run <b>sdiff</b> on the two files, specifying an output file so <b>sdiff</b> knows we also want to perform a merge:</p>
+<pre class="tab tcy">sdiff -o merged_cats.c cats.c cats2.c</pre>
+<p class="tab"><b>sdiff</b> outputs to the screen:</p>
+<pre class="tab">/*                            /*
+cats, a program.              |     "cats", a computer program.
+</pre>
+<p class="tab">Here, we see the first two lines of our file &mdash; the second line has differences, so <b>sdiff</b> stops there, and gives us a prompt ("<b>%</b>"). The vertical bar ("<b>|</b>") is in what's called "the gutter" &mdash; the space separating the two lines &mdash; and it means that these two lines "line up", that is, their position in their respective files corresponds. If we press <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a> at the prompt, <b>sdiff</b> gives us a brief command listing:</p>
+<pre class="tab">ed:       Edit then use both versions, each decorated with a header.
+eb:       Edit then use both versions.
+el or e1: Edit then use the left version.
+er or e2: Edit then use the right version.
+e:        Discard both versions then edit a new one.
+l or 1:   Use the left version.
+r or 2:   Use the right version.
+s:        Silently include common lines.
+v:        Verbosely include common lines.
+q:        Quit.</pre>
+<p class="tab">All of the options which begin with <b>e</b> (<b>ed</b>, <b>eb</b>, etc.) open an editor (<a href="/unix/ued.htm"><b>ed</b></a> or <a href="/unix/uvi.htm"><b>vi</b></a>, by default) and allow us to manually edit the lines to resolve the differences. For instance, if we enter the command <b>ed</b> at the <b>%</b> prompt:</p>
+<pre class="tab tcy"><b>%</b>ed</pre>
+<p class="tab">...we see the following in our editor:</p>
+<pre class="tab">--- cats.c 2
+cats, a program.
++++ cats2.c 2
+"cats", a computer program.
+</pre>
+<p class="tab">This is a temporary file showing our two differing lines, "decorated with a header": the line from file 1 has three dashes ("<b>---</b>"), the file name, and the line number; the line from file 2 has three plus signs ("<b>+++</b>"), the file name, and the line number. The headers should be deleted, and the two remaining lines should be edited down to one line which represents your manual merge. When you write the temporary file and quit the editor, <b>sdiff</b> resolves the diff with whatever you saved (including the headers if you don't delete them, so make sure you do). If you don't write any changes, <b>sdiff</b> uses the headers and the unchanged lines as the resolution, so make sure you make an edit and write the changes.</p>
+<p class="tab">Alternatively, we could have chosen <b>l</b> (lowercase L) or <b>r</b> to choose the line from file 1 or file 2, respectively. Let's say we want the line from file 2, so we'll type <b>r</b>.</p>
+<pre class="tab tcy"><b>%</b>r</pre>
+<p class="tab"><b>sdiff</b> proceeds through the file, asking us to resolve differences every time it finds any:</p>
+<pre class="tab">Tells you if your cat is alive or dead.         Tells you if your cat is alive or dead.
+by E. Schr&ouml;dinger.                              by E. Schr&ouml;dinger.
+*/                                              */
+#include &lt;stdio.h&gt;                              #include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;                             #include &lt;stdlib.h&gt;
+#include &lt;time.h&gt;                               #include &lt;time.h&gt;
+int main () {                                         int main () {
+                                               &gt;         /* seed pseudorandomizer */
+                                               &gt;         srand( time( NULL ) );
+                                               &gt;
+</pre>
+<p class="tab">Here, the three "<b>&gt;</b>" symbols in the gutter, before the last three lines on the right, tell us that these lines appear in file 2 but not file 1. If we enter <b>l</b> (lowercase L), these lines are deleted from this block of lines; if we enter <b>r</b>, they are kept. Let's keep them:</p>
+<pre class="tab tcy"><b>%</b>r</pre>
+<p class="tab">The next set is then displayed:</p>
+<pre class="tab">    double  numCats;                                    double  numCats;
+    double  chance = (double)rand();                    double  chance = (double)rand();
+    chance = chance / (double)RAND_MAX;        |        chance = chance / 1;</pre>
+<p class="tab">The vertical bar in the gutter on the last line tells us that these two versions of a corresponding line differ and must be resolved. On closer analysis, the one on the left, in file 1, is the version of the line we want to keep, so we'll type <b>l</b> at the prompt:</p>
+<pre class="tab tcy"><b>%</b>l</pre>
+<p class="tab">The next set is then displayed:</p>
+<pre class="tab">    if ( chance &gt; 0.5 ) {                              if ( chance &gt; 0.5 ) {
+        printf("Felix is alive.\n");           |           printf("My cat is alive.\n");
+</pre>
+<p class="tab">Here it's a matter of preference. Let's keep the version on the right:</p>
+<pre class="tab tcy">%r</pre>
+<p class="tab">And so on, through the end of the file:</p>
+<pre class="tab">    } else if ( chance &lt; 0.5 ) {                    } else if ( chance &lt; 0.5 ) {
+        printf("Felix is not alive.\n");       |        printf("My cat is dead.\n");
+</pre>
+<pre class="tab tcy"><b>%</b>r</pre>
+<pre class="tab">    } else {                                        } else {
+        printf("Felix is alive and dead.\n");  |        printf("My cat might be alive.\n");</pre>
+<p class="tab">There are no more differences, so <b>sdiff</b> prints the remaining lines of the file, and returns us to the shell command prompt.</p>
+<p class="tab">Let's look at our merged file:</p>
+<pre class="tab tcy">cat merged_cats.c</pre>
+<pre class="tab">/*
+"cats", a computer program.
+Tells you if your cat is alive or dead.
+by E. Schr&ouml;dinger.
+*/
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;time.h&gt;
+int main () {
+    /* seed pseudorandomizer */
+    srand( time( NULL ) );
+    double  numCats;
+    double  chance = (double)rand();
+    chance = chance / (double)RAND_MAX;
+    if ( chance &gt; 0.5 ) {
+            printf("My cat is alive.\n");
+    } else if ( chance &lt; 0.5 ) {
+            printf("My cat is dead.\n");
+    } else {
+            printf("My cat might be alive.\n");
+    }
+}</pre>
+<p class="tab">As you can see, our choices were incorporated into the merged file, and the versions we discarded were left out.</p>
+<h2 id="variables">Environment variables</h2>
+<p class="tab">The two most relevant <a href="/jargon/e/envivari.htm">environment variables</a> which affect <b>sdiff</b> (other than locale settings such as <b>LC_ALL</b>) are the <b>EDITOR</b> and <b>VISUAL</b> variables. These specify what editor, and what "visual" editor, you want to use by default when editing a file. These variables should be set to the full path of your favorite editor, for instance <b>/usr/bin/vim</b> for <a href="/unix/vim.htm"><b>vim</b></a>. If you're not sure where <b>vim</b> is located, try the <a href="/unix/uwhich.htm"><b>which</b></a> command:</p>
+<pre class="tab tcy">which vim</pre>
+<pre class="tab">/usr/bin/vim</pre>
+<p class="tab">In <a href="/unix/ubash.htm"><b>bash</b></a>, you can set the variable and export it as follows:</p>
+<pre class="tab tcy">EDITOR=/usr/bin/vim; export EDITOR</pre>
+<p class="tab"><b>sdiff</b> now uses the value of this variable when it launches an editor during an interactive merge.</p>
+<p class="tab">If neither <b>EDITOR</b> nor <b>VISUAL</b> are defined, <b>sdiff</b> defaults to <a href="/unix/ued.htm"><b>ed</b></a> or <a href="/unix/uvi.htm"><b>vi</b></a> (probably <b>ed</b>).</p>
+<p class="tab">If <i>both</i> <b>EDITOR</b> and <b>VISUAL</b> are defined, <b>VISUAL</b> overrides <b>EDITOR</b>.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">sdiff file1.txt file2.txt</pre>
+<p class="tab">Compares the files <b>file1.txt</b> and <b>file2.txt</b> side-by-side, displaying differences on standard output.</p>
+<pre class="tcy tab">sdiff - &lt; file1.txt file2.txt</pre>
+<p class="tab">In this command configuration, <b>sdiff</b> compares the text it receives from standard input, which is the contents of <b>file1.txt</b> and <b>file2.txt</b>.</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p><b>sdiff</b> cannot perform an interactive merge when its source material comes from stdin.</p>
+</div>
+<pre class="tcy tab">sdiff -o output.txt file1.txt file2.txt</pre>
+<p class="tab">Performs an interactive merge of <b>file1.txt</b> and <b>file2.txt</b>. Differences are displayed in blocks, with context, from the first line of the files through the last. <b>sdiff</b> prompts you every time it needs you to decide what action to take to resolve differences. Press <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a> at the <b>%</b> prompt for a cheat sheet of possible commands, or refer to the command descriptions above in this page for more information.</p>
+<p class="tab">When the end of the is reached, <b>sdiff</b> writes a merged file, based on your decisions, to the specified file name <b>output.txt</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/udiff.htm"><b>diff</b></a> &mdash; Identify the differences between two files.<br><a href="/unix/ued.htm"><b>ed</b></a> &mdash; A simple text editor.<br><a href="/unix/uex.htm"><b>ex</b></a> &mdash; Line-editor mode of the <b>vi</b> text editor.<br><a href="/unix/uvi.htm"><b>vi</b></a> &mdash; Text editor based on the visual mode of <b>ex</b>.<br><a href="/unix/vim.htm"><b>vim</b></a> &mdash; An advanced version of <b>vi</b>.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8349ec83c41f',m:'djoPCOZiyeAG1XxPHsJ4e3U8.gMNGqXBhJDuvG1s.lI-1661495364-0-AdhiGZGdpHMBnvYMSOq1GRSzbRApCfgxpNjC84eyjFheJpapgzij2iAZEpru+JykfGF1hzHWu5ghc0A8dTsjLhXu7f8RZN1BOIRd8+DOFaZljHEjMNZ2YW54ApfgrFFMQQ==',s:[0x9e64c743e5,0xf58beb8f6f],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

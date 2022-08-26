@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux pstree command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2020-03-06">03/06/2020</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/pstree.gif" width="300" height="300" alt="pstree command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>pstree</b> command displays <a href="/jargon/p/process.htm">processes</a> in tree format.</p>
+<p>This page describes the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>pstree</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>pstree</b> command shows running processes as a tree. The tree is rooted at either <a href="/jargon/p/pid.htm">pid</a> or <a href="/jargon/i/init.htm">init</a> if pid is omitted. If a <a href="/jargon/u/username.htm">username</a> is specified, all process trees rooted at processes owned by that user are shown.</p>
+<p class="tab">Identical branches are merged by putting them in square brackets and prefixing them with the repetition count, for example:</p>
+<pre class="tab">init-+-getty
+     |-getty
+     |-getty
+     &#96;-getty</pre>
+<p class="tab">becomes</p>
+<pre class="tab">init---4*[getty]</pre>
+<p class="tab">Child threads of a process are found under the parent process and shown with the process name in curly braces; for example:</p>
+<pre class="tab">icecast2---13*[{icecast2}]</pre>
+<p class="tab">If <b>pstree</b> is called as <b>pstree.x11</b>, then it prompts the user at the end of the line to press return and does not return until that happens. Executing this command is useful for when <b>pstree</b> is run in an <a href="/unix/uxterm.htm">xterminal</a>.</p>
+<p class="tab">Certain <a href="/jargon/k/kernel.htm">kernel</a> or <a href="/jargon/m/mount.htm">mount</a> parameters, such as the hidepid option for procfs, hide information for some processes. In these situations, pstree attempts to build the tree without this information, showing process names as question marks.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">pstree [-a, --arguments] [-c, --compact] 
+       [-h, --highlight-all, -Hpid, --highlight-pid pid] [-g] --show-pgids] 
+       [-l, --long] [-n, --numeric-sort] [-p, --show-pids] [-s, --show-parents] 
+       [-u, --uid-changes] [-Z, --security-context] 
+       [-A, --ascii, -G, --vt100, -U, --unicode] [<i>pid</i>, <i>user</i>]</pre>
+<pre class="tcy tab">pstree -V, --version</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>-a</b></td>
+<td>Show <a href="/jargon/c/commandi.htm">command line</a> <a href="/jargon/a/argument.htm">arguments</a>. If the command line of a process is swapped out, that process is shown in parentheses. <b>-a</b> implicitly disables compaction for <a href="/jargon/p/process.htm">processes</a> but not <a href="/jargon/t/thread.htm">threads</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b></td>
+<td>Use <a href="/jargon/a/ascii.htm">ASCII</a> <a href="/jargon/c/charact.htm">characters</a> to draw the tree.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>Disable compaction of identical subtrees. By default, subtrees are compacted whenever possible.</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b></td>
+<td>Use VT100 line drawing characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Highlight the current process and its <a href="/jargon/p/parechil.htm">ancestors</a>. This switch is a <a href="/jargon/n/noop.htm">no-op</a> if the <a href="/jargon/t/terminal.htm">terminal</a> doesn't support highlighting or if neither the current process nor any of its ancestors are in the subtree being shown.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b></td>
+<td>Like <b>-h</b>, but highlight the specified process instead. Unlike with <b>-h</b>, <b>pstree</b> fails when using <b>-H</b> if highlighting is not available.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b></td>
+<td>Show PGIDs. Process Group IDs are shown as <a href="/jargon/d/decimal.htm">decimal</a> numbers in parentheses after each process name. <b>-p</b> implicitly disables compaction. If both PIDs and PGIDs are displayed then PIDs are shown first.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>Display long lines. By default, lines are <a href="/jargon/t/truncate.htm">truncated</a> to the display width or 132 if output is sent to a non-<a href="/jargon/t/tty.htm">tty</a> or if the display width is unknown.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Sort processes with the same ancestor by <a href="/jargon/p/pid.htm">PID</a> instead of by name. (Numeric sort.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Show PIDs. PIDs are shown as decimal numbers in parentheses after each process name. <b>-p</b> implicitly disables compaction.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Show parent processes of the specified process.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>Show uid transitions. When the uid of a process differs from the uid of its parent, the new uid is shown in parentheses after the process name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b></td>
+<td>Use UTF-8 (Unicode) line drawing characters. Under Linux 1.1-54 and above, UTF-8 mode is entered on the console with <b><a href="/jargon/e/echo.htm">echo</a> -e ' 33%8'</b> and left with <b>echo -e ' 33%@'</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b></td>
+<td>Display version information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Z</b></td>
+<td>(SELinux) Show security context for each process. This flag only works if <b>pstree</b> is compiled with SELinux support.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">pstree -h</pre>
+<p class="tab">Display all processes as a tree, with the current process and its ancestors highlighted. Output resembles the following:</p>
+<pre class="tab">init&#9472;&#9516;&#9472;NetworkManager&#9472;&#9516;&#9472;dhclient
+     &#9474;                &#9500;&#9472;dnsmasq
+     &#9474;                &#9492;&#9472;3*[{NetworkManager}]
+     &#9500;&#9472;accounts-daemon&#9472;&#9472;&#9472;2*[{accounts-daemon}]
+     &#9500;&#9472;atd
+     &#9500;&#9472;avahi-daemon&#9472;&#9472;&#9472;avahi-daemon
+     &#9500;&#9472;bluetoothd
+     &#9500;&#9472;console-kit-dae&#9472;&#9472;&#9472;63*[{console-kit-dae}]
+     &#9500;&#9472;cron
+     &#9500;&#9472;cupsd
+     &#9500;&#9472;dbus-daemon
+     &#9500;&#9472;dd
+     &#9500;&#9472;6*[getty]
+     &#9500;&#9472;klogd
+     &#9500;&#9472;lightdm&#9472;&#9516;&#9472;Xorg
+     &#9474;         &#9500;&#9472;lightdm&#9472;&#9516;&#9472;init&#9472;&#9516;&#9472;apache2&#9472;&#9472;&#9472;2*[apache2&#9472;&#9472;&#9472;26*[{apache2}]]
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;at-spi-bus-laun&#9472;&#9516;&#9472;dbus-daemon
+     &#9474;         &#9474;         &#9474;      &#9474;                 &#9492;&#9472;3*[{at-spi-bus-laun}]
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;at-spi2-registr&#9472;&#9472;&#9472;{at-spi2-registr}
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;dbus-daemon
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;dropbox&#9472;&#9472;&#9472;29*[{dropbox}]
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;gconfd-2
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;gimp&#9472;&#9516;&#9472;script-fu
+     &#9474;         &#9474;         &#9474;      &#9474;      &#9492;&#9472;2*[{gimp}]
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;gnome-terminal&#9472;&#9516;&#9472;2*[bash&#9472;&#9472;&#9472;vim]
+     &#9474;         &#9474;         &#9474;      &#9474;                &#9500;&#9472;bash&#9472;&#9472;&#9472;pstree
+     &#9474;         &#9474;         &#9474;      &#9474;                &#9500;&#9472;gnome-pty-helpe
+     &#9474;         &#9474;         &#9474;      &#9474;                &#9492;&#9472;3*[{gnome-terminal}]
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;gvfs-afc-volume&#9472;&#9472;&#9472;2*[{gvfs-afc-volume}]
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;gvfs-gphoto2-vo&#9472;&#9472;&#9472;{gvfs-gphoto2-vo}
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;gvfs-mtp-volume&#9472;&#9472;&#9472;{gvfs-mtp-volume}
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;gvfs-udisks2-vo&#9472;&#9472;&#9472;2*[{gvfs-udisks2-vo}]
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;gvfsd&#9472;&#9472;&#9472;{gvfsd}
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;gvfsd-fuse&#9472;&#9472;&#9472;4*[{gvfsd-fuse}]
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;gvfsd-metadata&#9472;&#9472;&#9472;{gvfsd-metadata}
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;indicator-appli&#9472;&#9472;&#9472;{indicator-appli}
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;lxsession&#9472;&#9516;&#9472;lxpanel&#9472;&#9472;&#9472;2*[{lxpanel}]
+     &#9474;         &#9474;         &#9474;      &#9474;           &#9500;&#9472;nm-applet&#9472;&#9472;&#9472;2*[{nm-applet}]
+     &#9474;         &#9474;         &#9474;      &#9474;           &#9500;&#9472;openbox&#9472;&#9472;&#9472;{openbox}
+     &#9474;         &#9474;         &#9474;      &#9474;           &#9500;&#9472;pcmanfm&#9472;&#9472;&#9472;2*[{pcmanfm}]
+     &#9474;         &#9474;         &#9474;      &#9474;           &#9492;&#9472;2*[{lxsession}]
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;menu-cached&#9472;&#9472;&#9472;2*[{menu-cached}]
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;ssh-agent
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;2*[upstart-dbus-br]
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;upstart-event-b
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;upstart-file-br
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;xclip
+     &#9474;         &#9474;         &#9474;      &#9500;&#9472;xfce4-notifyd
+     &#9474;         &#9474;         &#9474;      &#9492;&#9472;xfconfd
+     &#9474;         &#9474;         &#9492;&#9472;{lightdm}
+     &#9474;         &#9492;&#9472;2*[{lightdm}]
+     &#9500;&#9472;modem-manager
+     &#9500;&#9472;mysqld&#9472;&#9472;&#9472;16*[{mysqld}]
+     &#9500;&#9472;ntpd
+     &#9500;&#9472;packagekitd&#9472;&#9472;&#9472;2*[{packagekitd}]
+     &#9500;&#9472;polkitd&#9472;&#9472;&#9472;2*[{polkitd}]
+     &#9500;&#9472;sshd
+     &#9500;&#9472;syslogd
+     &#9500;&#9472;systemd-logind
+     &#9500;&#9472;systemd-udevd
+     &#9500;&#9472;udisksd&#9472;&#9472;&#9472;4*[{udisksd}]
+     &#9500;&#9472;upstart-file-br
+     &#9500;&#9472;upstart-socket-
+     &#9492;&#9472;upstart-udev-br</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ups.htm"><b>ps</b></a> &mdash; Report the status of a process or processes.<br><a href="/unix/top.htm"><b>top</b></a> &mdash; Display a sortable, continually-updated list of processes.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83367ab5c3e8',m:'1W9I1skFuvU8art61HLl2oOjhg7Ztv.J3bJFdl2FFDc-1661495361-0-ASaH8kQ0FmFQ7LZ8ZdkSyMpqAxet9ox4rbhyPP8RBIfXcpw28hjJPa3DJTDPlVCc3oOTfkUBm62WuUBmEMI+49EdstFtuFr/LtjuIVbsCYnl1AFiM6Kn9g82/No/F+zHQg==',s:[0xf73f844afa,0xbaabc5dc21],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

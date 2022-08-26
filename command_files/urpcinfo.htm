@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux rpcinfo command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/rpcinfo.gif" width="300" height="300" alt="rpcinfo command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>rpcinfo</b> command reports <a href="/jargon/r/rpc.htm">RPC</a> information.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>rpcinfo</b> makes an RPC call to an RPC server and reports what it finds.</p>
+<p class="tab">In the first synopsis, <b>rpcinfo</b> lists all the registered RPC services with <b>rpcbind</b> on <i>host</i>. If <i>host</i> is not specified, the <a href="/jargon/l/locahost.htm">local host</a> is the default. If <b>-s</b> is used, the information is displayed in a concise format.</p>
+<p class="tab">In the second synopsis, <b>rpcinfo</b> lists all the RPC services registered with <b>rpcbind</b>, version 2. Also, note that the format of the information is different in the first and the second synopsis. This is because the second synopsis is an older <a href="/jargon/p/protocol.htm">protocol</a> used to collect the information displayed (version 2 of the <b>rpcbind</b> protocol).</p>
+<p class="tab">The third synopsis makes an RPC call to procedure 0 of <i>prognum</i> and <i>versnum</i> on the specified host and reports whether a response was received. The <i>transport</i> is the transport which has to be used for contacting the given service. The remote address of the service is obtained by making a call to the remote <b>rpcbind</b>.</p>
+<p class="tab">The <i>prognum</i> argument is a number that represents an RPC program number. If a <i>versnum</i> is specified, <b>rpcinfo</b> attempts to call that version of the specified <i>prognum</i>. Otherwise, <b>rpcinfo</b> attempts to find all the registered version numbers for the specified <i>prognum</i> by calling version 0, which is presumed not to exist; if it does exist, <b>rpcinfo</b> attempts to obtain this information by calling an extremely high version number instead, and attempts to call each registered version.</p>
+<p class="tab">The version number is required for <b>-b</b> and <b>-d</b> options.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">rpcinfo [-m | -s ] [ <i>host</i> ]</pre>
+<pre class="tcy tab">rpcinfo -p [ <i>host</i> ]</pre>
+<pre class="tcy tab">rpcinfo -T <i>transport</i> <i>host</i> <i>prognum</i> [ <i>versnum</i> ]</pre>
+<pre class="tcy tab">rpcinfo -l [ -T <i>transport</i> ] <i>host</i> <i>prognum</i> <i>versnum</i></pre>
+<pre class="tcy tab">rpcinfo [ -n <i>portnum</i> ] -u <i>host</i> <i>prognum</i> [ <i>versnum</i> ]</pre>
+<pre class="tcy tab">rpcinfo [ -n <i>portnum</i> ] -t <i>host</i> <i>prognum</i> [ <i>versnum</i> ]</pre>
+<pre class="tcy tab">rpcinfo -a <i>serv_address</i> -T <i>transport</i> <i>prognum</i> [ <i>versnum</i> ]</pre>
+<pre class="tcy tab">rpcinfo -b [ -T <i>transport</i> ] <i>prognum</i> <i>versnum</i></pre>
+<pre class="tcy tab">rpcinfo -d [ -T <i>transport</i> ] <i>prognum</i> <i>versnum</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>-m</b></td>
+<td>Display a table of statistics of rpcbind operations on the given <i>host</i>. The table shows statistics for each version of <b>rpcbind</b> (versions 2, 3 and 4), giving the number of times each procedure was requested and successfully serviced, the number and type of remote call requests that were made, and information about RPC address lookups that were handled. This is useful for monitoring RPC activities on <i>host</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Display a concise list of all registered RPC programs on <i>host</i>. If <i>host</i> is not specified, it defaults to the local host.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Probe <b>rpcbind</b> on <i>host</i> using version 2 of the <b>rpcbind</b> protocol, and display a list of all registered RPC programs. If <i>host</i> is not specified, it defaults to the local host. Note that version 2 of the <b>rpcbind</b> protocol was previously known as the portmapper protocol.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Make an RPC call to procedure 0 of <i>prognum</i> on the specified host using <a href="/jargon/t/tcpip.htm">TCP</a>, and report whether a response was received. This option is made obsolete by the <b>-T</b> option as shown in the third synopsis.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>Display a list of entries with given <i>prognum</i> and versnum on the specified <i>host</i>. Entries are returned for all transports in the same protocol family as that used to contact the remote <b>rpcbind</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>Make an RPC broadcast to procedure 0 of the specified <i>prognum</i> and <i>versnum</i> and report all hosts that respond. If transport is specified, it broadcasts its request only on the specified <i>transport</i>. If broadcasting is not supported by any <i>transport</i>, an error message is printed. Use of broadcasting should be limited because of the potential for adverse effect on other systems.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Delete registration for the RPC service of the specified <i>prognum</i> and <i>versnum</i>. If <i>transport</i> is specified, unregister the service on only that transport, otherwise unregister the service on all the transports on which it was registered. Only the owner of a service can delete a registration, except the superuser who can delete any service.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>Make an RPC call to procedure 0 of <i>prognum</i> on the specified host using UDP, and report whether a response was received. This option is made obsolete by the <b>-T</b> option as shown in the third synopsis.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b> <i>serv_address</i></td>
+<td>Use <i>serv_address</i> as the (universal) address for the service on transport to ping procedure 0 of the specified <i>prognum</i> and report whether a response was received. The <b>-T</b> option is required with the <b>-a</b> option.
+<p>If <i>versnum</i> is not specified, <b>rpcinfo</b> tries to ping all available version numbers for that program number. This option avoids calls to remote <b>rpcbind</b> to find the address of the service. The <i>serv_address</i> is specified in universal address format of the given transport.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b> <i>portnum</i></td>
+<td>Use <i>portnum</i> as the port number for the <b>-t</b> and <b>-u</b> options instead of the port number given by <b>rpcbind</b>. Use of this option avoids a call to the remote <b>rpcbind</b> to find out the address of the service. This option is made obsolete by the <b>-a</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b> <i>transport</i></td>
+<td>Specify the <i>transport</i> on which the service is required. If this option is not specified, <b>rpcinfo</b> uses the transport specified in the <b>NETPATH</b> <a href="/jargon/e/envivari.htm">environment variable</a>, or if that is unset or NULL, the transport in the netconfig database is used. This is a generic option, and can be used in conjunction with other options.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">rpcinfo</pre>
+<p class="tab">Display all of the RPC services of the local host.</p>
+<pre class="tcy tab">rpcinfo cpuhope</pre>
+<p class="tab">Show all RPC services registered with <b>rpcbind</b> on the machine named <b>cpuhope</b>.</p>
+<pre class="tcy tab">rpcinfo -s cpuhope</pre>
+<p class="tab">Same as the above command, but shows more concise information (the default information display can be quite lengthy). Output resembles the following:</p>
+<pre class="tab">program   version   netid                     service    owner
+100000    2,3,4     local,tcp,udp,tcp6,udp6   rpcbind    super-user
+100008    1         udp,tcp,udp6,tcp6         walld      super-user
+100002    2,1       udp,udp6                  rusersd    super-user
+100001    2,3,4     udp,udp6                  rstatd     super-user
+100012    1         udp,tcp                   sprayd     super-user
+100007    3         udp,tcp                   ypbind     super-user
+</pre>
+<pre class="tcy tab">rpcinfo -T tcp cpuhope prognum versnum</pre>
+<p class="tab">Show whether the RPC service with program number <b>prognum</b> and version <b>versnum</b> is registered on the machine named <b>cpuhope</b> for the transport <b>tcp</b>.</p>
+<pre class="tcy tab">rpcinfo -p</pre>
+<p class="tab">Show all RPC services registered with version 2 of the <b>rpcbind</b> protocol on the local machine.</p>
+<pre class="tcy tab">rpcinfo -d 100008 1</pre>
+<p class="tab">Delete the registration for version <b>1</b> of the walld (program number <b>100008</b>) service for all transports.</p>
+<pre class="tcy tab">rpcinfo -d walld 1</pre>
+<p class="tab">Same as the above example, but specifies <b>walld</b> by name.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/unetstat.htm"><b>netstat</b></a> &mdash; Print information about network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8343ca53c447',m:'r.J8n95.8uJwqHmw5c6ujg65DvGHJFwUjz7KEz_APVY-1661495363-0-AWfEIs5XqxKJbCETw3r7vZEtVy/kGh0alNgojkJq3QEIiCt16MUkLA4KMn6dM1g4OWiYfFYl03I981DYArCuYFTJfCoWp7ulonqn7FLvR4EaRr7qyZpFXzoBms/CtYVt571TdYWyfvxw7OWyDhdjHHw=',s:[0xaa3074aba1,0x2ddce14456],u:'/cdn-cgi/challenge-platform/h/b'};var _cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/cb/invisible.js?cb=740a8343ca53c447',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

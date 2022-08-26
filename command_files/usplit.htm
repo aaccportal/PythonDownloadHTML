@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux split command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/split.gif" width="300" height="300" alt="split command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>split</b> command splits a <a href="/jargon/f/file.htm">file</a> into pieces.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>split</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>split</b> outputs fixed-size pieces of input <i>INPUT</i> to files named <i>PREFIX</i><b>aa</b>, <i>PREFIX</i><b>ab</b>, ...</p>
+<p class="tab">The default size for each split file is 1000 lines, and default PREFIX is "<b>x</b>". With no INPUT, or when INPUT is a dash ("<b>-</b>"), read from <a href="/jargon/s/stdin.htm">standard input</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">split [<i>OPTION</i>]... [<i>INPUT</i> [<i>PREFIX</i>]]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:310px"><b>-a</b> <i>N</i>, <b>--suffix-length=</b><i>N</i></td>
+<td>Use <a href="/jargon/s/suffix.htm">suffixes</a> of length <i>N</i> (default <b>2</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b> <i>SIZE</i>, <b>--bytes=</b><i>SIZE</i></td>
+<td>Write <i>SIZE</i> <a href="/jargon/b/byte.htm">bytes</a> per output file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b> <i>SIZE</i>, <b>--line-bytes=</b><i>SIZE</i></td>
+<td>Write at most <i>SIZE</i> bytes of lines per output file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--numeric-suffixes</b></td>
+<td>Use numeric suffixes instead of alphabetic.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>, <b>--elide-empty-files</b></td>
+<td>Do not generate empty output files with "<b>-n</b>"</td>
+</tr>
+<tr class="tcw">
+<td><b>--filter=</b><i>COMMAND</i></td>
+<td>Write to <a href="/jargon/s/shell.htm">shell</a> command <i>COMMAND</i>; file name is <b>$FILE</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b> <i>NUMBER</i>, <b>--lines=</b><i>NUMBER</i></td>
+<td>Put <i>NUMBER</i> lines per output file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b> <i>CHUNKS</i>, <b>--number=</b><i>CHUNKS</i></td>
+<td>Generate <i>CHUNKS</i> output files. (See below.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--unbuffered</b></td>
+<td>Immediately copy input to output with "<b>-n r/</b>...".</td>
+</tr>
+<tr class="tcw">
+<td><b>--verbose</b></td>
+<td>Print a <a href="/jargon/v/verbose.htm">verbose</a> diagnostic before each output file is opened.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Output version information and exit.</td>
+</tr>
+</table>
+<p class="tab"><i>SIZE</i> may be one of the following, or an <a href="/jargon/i/integer.htm">integer</a> optionally followed by one of following multipliers:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th><b>suffix</b></th>
+<th><b>multiplier</b></th>
+</tr>
+<tr class="tcw">
+<td><b>KB</b></td>
+<td><b>1000</b></td>
+</tr>
+<tr class="tcw">
+<td><b>K</b></td>
+<td><b>1024</b></td>
+</tr>
+<tr class="tcw">
+<td><b>MB</b></td>
+<td><b>1000</b> x <b>1000</b></td>
+</tr>
+<tr class="tcw">
+<td><b>M</b></td>
+<td><b>1024</b> x <b>1024</b></td>
+</tr>
+</table>
+<p class="tab">...and so on for <b>G</b> (<a href="/jargon/g/gigabyte.htm">gigabytes</a>), <b>T</b> (<a href="/jargon/t/terabyte.htm">terabytes</a>), <b>P</b> (<a href="/jargon/p/petabyte.htm">petabytes</a>), <b>E</b> (<a href="/jargon/e/exabyte.htm">exabytes</a>), <b>Z</b> (<a href="/jargon/z/zettabyt.htm">zettabytes</a>), <b>Y</b> (<a href="/jargon/y/yottabyt.htm">yottabytes</a>).</p>
+<p class="tab"><i>CHUNKS</i> may be:</p>
+<ul>
+<li><i>N</i>: split into <i>N</i> files based on size of input</li>
+<li><i>K</i><b>/</b><i>N</i>: output <i>K</i>th of <i>N</i> to standard output</li>
+<li><i>l</i><b>/</b><i>N</i>: split into <i>N</i> files without splitting lines</li>
+<li><i>l</i><b>/</b><i>K</i><b>/</b><i>N</i>: output <i>K</i>th of <i>N</i> to standard output without splitting lines</li>
+<li><i>r</i><b>/</b><i>N</i>: like "<b>l</b>" but use round robin distribution <i>r</i><b>/</b><i>K</i><b>/</b><i>N</i> likewise but only output <i>K</i>th of <i>N</i> to standard output</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">split -b 22 newfile.txt new</pre>
+<p class="tab">Split the file <b>newfile.txt</b> into three separate files called <b>newaa</b>, <b>newab</b> and <b>newac</b>..., with each file containing 22 bytes of data.</p>
+<pre class="tcy tab">split -l 300 file.txt new</pre>
+<p class="tab">Split the file <b>newfile.txt</b> into files beginning with the name <b>new</b>, each containing 300 lines of text.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucsplit.htm"><b>csplit</b></a> &mdash; Split files based on a defined context.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8355ca1a8474',m:'DHvdUFJjYQLxKpMpbZEiThNt_BuKh_oDYh4ZAGs7wjU-1661495366-0-AdvCJ7Ow3e6Q0yBkHt8cwR/TrFRN9M+7iw9x1+FCgL/bC+0emx6XiLQej0O+RioHfVvvb1vFsH0eXfx3QMp9ozqA1x6QS/7jQ9EJC0nsTPDKsyCpFml++mo22rEQkS+GUA==',s:[0x0d3d652cba,0x38dc7cc2b7],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux route command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/route.gif" width="300" height="300" alt="route command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>route</b> command displays or modifies the <a href="/jargon/i/ip.htm">IP</a> <a href="/jargon/r/routing_table.htm">routing table</a>.</p>
+<p>This page describes the <a href="/jargon/l/linux.htm">Linux</a> version of <b>route</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">In computer networking, a <a href="/jargon/r/router.htm">router</a> is a device responsible for forwarding network traffic. When <a href="/jargon/p/packet.htm">datagrams</a> arrive at a router, the router must determine the best way to <i>route</i> them to their destination.</p>
+<p class="tab">On <a href="/jargon/l/linux.htm">Linux</a>, <a href="/jargon/b/bsd.htm">BSD</a>, and other Unix-like systems, the <b>route</b> command is used to view and make changes to the <a href="/jargon/k/kernel.htm">kernel</a> routing table. The command syntax is different on different systems; here, with specific command syntax, we'll be discussing the Linux version.</p>
+<p class="tab">Running <b>route</b> at the command line without any options displays the routing table entries:</p>
+<pre class="tab tcy">route</pre>
+<pre class="tab">Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         192.168.1.2     0.0.0.0         UG    1024   0        0 eth0
+192.168.1.0     *               255.255.255.0   U     0      0        0 eth0</pre>
+<p class="tab">This shows us how the system is currently configured. If a packet comes into the system and has a destination in the range <b>192.168.1.0</b> through <b>192.168.1.255</b>, then it is forwarded to the gateway <b>*</b>, which is <b>0.0.0.0</b> &mdash; a special address which represents an invalid or non-existant destination. Here, our system will not route these packets.</p>
+<p class="tab">If the destination is not in this IP address range, it is forwarded to the default gateway (in this case, <b>192.168.1.2</b>, and that system will determine how to forward the traffic on to the next step towards its destination.</p>
+<h3 class="tab">Technical description</h3>
+<p class="tab"><b>route</b> manipulates the kernel's IP routing tables. Its primary use is to set up <a href="/jargon/s/static.htm">static</a> <a href="/jargon/r/route.htm">routes</a> to specific hosts or networks via an interface after it was configured with the <a href="/unix/uifconfi.htm">ifconfig</a> program.</p>
+<p class="tab">When the <b>add</b> or <b>del</b> options are used, <b>route</b> modifies the routing tables. Without these <a href="/jargon/o/option.htm">options</a>, <b>route</b> displays the current contents of the routing tables.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">route [-CFvnee]</pre>
+<pre class="tcy tab">route [-v] [-A <i>family</i>] add [-net|-host] target [netmask <i>Nm</i>] [gw <i>Gw</i>] 
+      [metric <i>N</i>] i [mss <i>M</i>] [window <i>W</i>] [irtt <i>m</i>] [reject] [mod] [dyn] 
+      [reinstate] [[dev] <i>If</i>]</pre>
+<pre class="tcy tab">route [-v] [-A <i>family</i>] del [-net|-host] target [gw <i>Gw</i>] [netmask <i>Nm</i>] 
+      [metric <i>N</i>] [[dev] <i>If</i>]</pre>
+<pre class="tcy tab">route [-V] [--version] [-h] [--help]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-A</b> <i>family</i></td>
+<td>Use the specified <a href="/jargon/a/address.htm">address</a> family (eg '<b>inet</b>'; use '<b>route --help</b>' for a full list).</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b></td>
+<td>Operate on the kernel's FIB (Forwarding Information Base) routing table. This is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>Operate on the kernel's routing <a href="/jargon/c/cache.htm">cache</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Select <a href="/jargon/v/verbose.htm">verbose</a> operation.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Show numerical addresses instead of trying to determine symbolic <a href="/jargon/h/hostname.htm">hostnames</a>. This is useful if you are trying to determine why the route to your nameserver has vanished.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>Use <a href="/jargon/n/netstat.htm">netstat</a>-format for displaying the routing table. <b>-ee</b> generates a very long line with all <a href="/jargon/p/paramete.htm">parameters</a> from the routing table.</td>
+</tr>
+<tr class="tcw">
+<td><b>del</b></td>
+<td><a href="/jargon/d/delete.htm">Delete</a> a route.</td>
+</tr>
+<tr class="tcw">
+<td><b>add</b></td>
+<td>Add a new route.</td>
+</tr>
+<tr class="tcw">
+<td><b>target</b></td>
+<td>The destination <a href="/jargon/n/network.htm">network</a> or <a href="/jargon/h/hostcomp.htm">host</a>. You can provide IP addresses in dotted <a href="/jargon/d/decimal.htm">decimal</a> or host/network names.</td>
+</tr>
+<tr class="tcw">
+<td><b>-net</b></td>
+<td>The target is a network.</td>
+</tr>
+<tr class="tcw">
+<td><b>-host</b></td>
+<td>The target is a host.</td>
+</tr>
+<tr class="tcw">
+<td><b>netmask</b> <i>NM</i></td>
+<td>When adding a network route, the <a href="/jargon/n/netmask.htm">netmask</a> to be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>gw</b> <i>GW</i></td>
+<td>Route packets via a <a href="/jargon/g/gateway.htm">gateway</a>. NOTE: The specified gateway must be reachable first. This usually means you have to set up a static route to the gateway beforehand. If you specify the address of one of your <a href="/jargon/l/local.htm">local</a> <a href="/jargon/i/interfac.htm">interfaces</a>, it will be used to decide about the interface routing the <a href="/jargon/p/packet.htm">packets</a>. This is a <a href="/jargon/b/bsd.htm">BSD</a>-style compatibility hack.</td>
+</tr>
+<tr class="tcw">
+<td><b>metric</b> <i>M</i></td>
+<td>Set the metric field in the routing table (used by routing <a href="/jargon/d/daemon.htm">daemons</a>) to <i>M</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>mss</b> <i>M</i></td>
+<td>Set the TCP Maximum Segment Size (MSS) for connections over this route to <i>M</i> bytes. The default is the device <a href="/jargon/m/mtu.htm">MTU</a> minus headers, or a lower MTU when path mtu discovery occurred. This setting can be used to force smaller TCP packets on the other end when path mtu discovery does not work (usually because of misconfigured <a href="/jargon/f/firewall.htm">firewalls</a> that block <a href="/jargon/i/icmp.htm">ICMP</a> Fragmentation Needed)</td>
+</tr>
+<tr class="tcw">
+<td><b>window</b> <i>W</i></td>
+<td>Set the <a href="/jargon/t/tcpip.htm">TCP</a> window size for connections over this route to <i>W</i> <a href="/jargon/b/byte.htm">bytes</a>. This is only used on AX.25 networks and with <a href="/jargon/d/driver.htm">drivers</a> unable to handle back to back frames.</td>
+</tr>
+<tr class="tcw">
+<td><b>irtt</b> <i>m</i></td>
+<td>Set the initial round trip time (<b>irtt</b>) for TCP connections over this route to <i>m</i> <a href="/jargon/m/millisec.htm">milliseconds</a> (<b>1</b>-<b>12000</b>). This is only used on AX.25 networks. If omitted the RFC 1122 default of <b>300ms</b> is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>reject</b></td>
+<td>Install a blocking route, which will force a route lookup to fail. This is for example used to mask out networks before using the default route. This is NOT for firewalling.</td>
+</tr>
+<tr class="tcw">
+<td><b>mod</b>, <b>dyn</b>, <b>reinstate</b></td>
+<td>Install a dynamic or modified route. These flags are for <a href="/jargon/d/diagnost.htm">diagnostic</a> purposes, and are generally only set by routing daemons.</td>
+</tr>
+<tr class="tcw">
+<td><b>dev</b> <i>If</i></td>
+<td>Force the route to be associated with the specified <a href="/jargon/d/device.htm">device</a>, as the kernel will otherwise try to determine the device on its own (by checking already existing routes and device specifications, and where the route is added to). In most normal networks you won't need this.<br><br> If <b>dev</b> <i>If</i> is the last option on the <a href="/jargon/c/commandi.htm">command line</a>, the word <b>dev</b> may be omitted, as it's the default. Otherwise, the order of the route modifiers (<b>metric</b> - <b>netmask</b> - <b>gw</b> - <b>dev</b>) doesn't matter.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">route -n</pre>
+<p class="tab">Shows routing table for all IPs bound to the <a href="/jargon/m/millisec.htm">server</a>.</p>
+<pre class="tcy tab">route add -net 192.56.76.0 netmask 255.255.255.0 dev eth0</pre>
+<p class="tab">adds a route to the network <b>192.56.76.x</b> via <b>"eth0"</b> The Class C netmask modifier is not really necessary here because &gt;<b>192.*</b> is a Class C IP address. The word "<b>dev</b>" can be omitted here.</p>
+<pre class="tcy tab">route add -net 224.0.0.0 netmask 240.0.0.0 dev eth0</pre>
+<p class="tab">This command sets all of the class D (<a href="/jargon/m/multicast.htm">multicast</a>) IP routes to go via "<b>eth0</b>". This is the correct normal configuration for a multicasting kernel.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/arp.htm"><b>arp</b></a> &mdash; Manipulate the system ARP cache.<br><a href="/unix/uifconfi.htm"><b>ifconfig</b></a> &mdash; View or modify the configuration of network interfaces.<br><a href="/unix/ip.htm"><b>ip</b></a> &mdash; Display and manipulate information about routing, devices, policy routing and tunnels.<br><a href="/unix/unetstat.htm"><b>netstat</b></a> &mdash; Print information about network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83434b95c429',m:'Pwr.Fk3PNPZH6UwzMYEMc54ObR5.doDcb8dlUmfhRDE-1661495363-0-AfEAnsElrsx6Ib+qrXyMSnMWEepLsQJuOHwJ+qAbj+qsnkbSAqoGyXlF3gr1TriZz1MZxWddE6RrboAWBW1FSrmrO9egOF82uZHIzOZ3j41f5eAdZ6WAqWpi9Iz4Inemng==',s:[0xd3759bbc00,0xe2856fda27],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

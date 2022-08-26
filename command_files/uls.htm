@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux ls command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/ls.gif" width="300" height="300" alt="ls command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>ls</b> command lists information about files and directories.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>ls</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#long-listing">Information in a "long" listing</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>ls</b> lists files and directories, and their associated <a href="/jargon/m/metadata.htm">metadata</a>, such as file size, ownership, and modification time. With no options, <b>ls</b> lists the files contained in the <a href="/jargon/c/currentd.htm">current directory</a>, sorting them alphabetically.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab"><b>ls</b> [<i>option</i> ...] [<i>file</i>]...</pre>
+<pre class="tcy tab"><b>ls</b> [<b>-a</b> | <b>--all</b>] [<b>-A</b> | <b>--almost-all</b>] [<b>--author</b>] [<b>-b</b> | <b>--escape</b>]
+   [<b>--block-size=</b><i>size</i>] [<b>-B</b> | <b>--ignore-backups</b>] [<b>-c</b>] [<b>-C</b>] [<b>--color</b>[<b>=</b><i>when</i>]] 
+   [<b>-d</b> | <b>--directory</b>] [<b>-D</b> | <b>--dired</b>] [<b>-f</b>] [<b>-F</b> | <b>--classify</b>] [<b>--file-type</b>]
+   [<b>--format=</b><i>word</i>] [<b>--full-time</b>] [<b>-g</b>] [<b>--group-directories-first</b>]
+   [<b>-G</b> | <b>--no-group</b>] [<b>-h</b> | <b>--human-readable</b>] [<b>--si</b>] 
+   [<b>-H</b> | <b>--dereference-command-line</b>] [<b>--dereference-command-line-symlink-to-dir</b>]
+   [<b>--hide=</b><i>pattern</i>] [<b>--indicator-style=</b><i>word</i>] [<b>-i</b> | <b>--inode</b>]
+   [<b>-I</b> | <b>--ignore=</b><i>pattern</i>] [<b>-k</b> | <b>--kibibytes</b>] [<b>-l</b>] [<b>-L</b> | <b>--dereference</b>] 
+   [<b>-m</b>] [<b>-n</b> | <b>--numeric-uid-gid</b>] [<b>-N</b> | <b>--literal</b>] [<b>-o</b>] 
+   [<b>-p</b> | <b>--indicator-style=slash</b>] [<b>-q</b> | <b>--hide-control-chars</b>]
+   [<b>--show-control-chars</b>] [<b>-Q</b> | <b>--quote-name</b>] [<b>--quoting-style=</b><i>word</i>]
+   [<b>-r</b> | <b>--reverse</b>] [<b>-R</b> | <b>--recursive</b>] [<b>-s</b> | <b>--size</b>] [<b>-S</b>] [<b>--sort=</b><i>word</i>]
+   [<b>--time=</b><i>word</i>] [<b>--time-style=</b><i>style</i>] [<b>-t</b>] [<b>-T</b> | <b>--tabsize=</b><i>cols</i>]
+   [<b>-u</b>] [<b>-U</b>] [<b>-v</b>] [<b>-w</b> | <b>--width=</b><i>cols</i>] [<b>-x</b>] [<b>-X</b>] [<b>-Z</b> | <b>--context</b>] [<b>-1</b>]</pre>
+<pre class="tab tcy"><b>ls</b> [<b>--help | --version</b>]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:270px"><b>-a</b>, <b>--all</b></td>
+<td>Do not ignore entries starting with "<b>.</b>", providing visibility to hidden files (those starting with a ".")</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b>, <b>--almost-all</b></td>
+<td>Do not list implied "<b>.</b>" and "<b>..</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>--author</b></td>
+<td>With <b>-l</b>, print the author of each file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b>, <b>--escape</b></td>
+<td>Print <a href="/jargon/c/c.htm">C</a>-style escapes for nongraphic characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>--block-size=</b><i>size</i></td>
+<td>Scale sizes by <i>size</i> before printing them. For example, '<b>--block-size=M</b>' prints sizes in units of 1,048,576 <a href="/jargon/b/byte.htm">bytes</a>. See <a href="#Size-Format">size format</a> below.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b>, <b>--ignore-backups</b></td>
+<td>Do not list implied entries ending with "<b>~</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>With <b>-lt:</b>, sort by and show the <b>ctime</b> (time of last modification of file status information); with <b>-l:</b>, show <b>ctime</b> and sort by name; otherwise: sort by <b>ctime</b>, newest first.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>List entries by columns.</td>
+</tr>
+<tr class="tcw">
+<td><b>--color</b>[<b>=</b><i>when</i>]</td>
+<td>Colorize the output. <i>when</i> defaults to '<b>always</b>' or can be '<b>never</b>' or '<b>auto</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--directory</b></td>
+<td>List directory entries instead of contents, and do not dereference <a href="/jargon/s/symblink.htm">symbolic links</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b>, <b>--dired</b></td>
+<td>Generate output designed for <a href="/unix/uemacs.htm">Emacs</a>' dired mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>Do not sort, enable <b>-aU</b>, and disable <b>-ls --color</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b>, <b>--classify</b></td>
+<td>Append indicator (one of <b>*/=&gt;@|</b>) to entries.</td>
+</tr>
+<tr class="tcw">
+<td><b>--file-type</b></td>
+<td>Similar to <b>--classify</b>, except do not append '<b>*</b>'</td>
+</tr>
+<tr class="tcw">
+<td><b>--format=</b><i>word</i></td>
+<td>Formats according to the following: across <b>-x</b>, commas <b>-m</b>, horizontal <b>-x</b>, long <b>-l</b>, single-column <b>-1</b>, verbose <b>-l</b>, vertical <b>-C</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--full-time</b></td>
+<td>Like <b>-l --time-style=full-iso</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b></td>
+<td>Like <b>-l</b>, but do not list owner.</td>
+</tr>
+<tr class="tcw">
+<td><b>--group-directories-first</b></td>
+<td>Group directories before files. Can be augmented with a <b>--sort</b> option, but any use of <b>--sort=none</b> (<b>-U</b>) disables grouping.</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b>, <b>--no-group</b></td>
+<td>In a long listing, don't print group names.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--human-readable</b></td>
+<td>With <b>-l</b>, print sizes in human-readable format (e.g., <b>1K</b>, <b>234M</b>, <b>2G</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>--si</b></td>
+<td>Like <b>--human-readable</b>, but use powers of 1000, not 1024.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b>, <b>--dereference-command-line</b></td>
+<td>Follow symbolic links listed on the command line.</td>
+</tr>
+<tr class="tcw">
+<td><b>--dereference-command-line-symlink-to-dir</b></td>
+<td>Follow each command line symbolic link that points to a directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>--hide=</b><i>pattern</i></td>
+<td>Do not list implied entries matching shell <i>pattern</i> (overridden by <b>-a</b> or <b>-A</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>--indicator-style=</b><i>word</i></td>
+<td>Append indicator with style <i>word</i> to entry names: <b>none</b> (default), <b>slash</b> (<b>-p</b>), <b>file-type</b> (<b>--file-type</b>), <b>classify</b> (<b>-F</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--inode</b></td>
+<td>Print the index number of each file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b>, <b>--ignore=</b><i>pattern</i></td>
+<td>Do not list implied entries matching shell <i>pattern</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b>, <b>--kibibytes</b></td>
+<td>Use 1024-byte blocks.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>Use a long listing format.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--dereference</b></td>
+<td>When showing file information for a symbolic link, show information for the file the link references rather than for the link itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b></td>
+<td>Fill width with a comma separated list of entries.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--numeric-uid-gid</b></td>
+<td>Like <b>-l</b>, but list numeric user and group IDs.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b>, <b>--literal</b></td>
+<td>Print raw entry names (don't treat e.g., control characters specially).</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b></td>
+<td>Like <b>-l</b>, but do not list group information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--indicator-style=slash</b></td>
+<td>Append "<b>/</b>" indicator to directories</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--hide-control-chars</b></td>
+<td>Print <b>?</b> instead of non graphic characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>--show-control-chars</b></td>
+<td>Show non graphic characters as-is (default unless program is '<b>ls</b>' and output is a terminal).</td>
+</tr>
+<tr class="tcw">
+<td><b>-Q</b>, <b>--quote-name</b></td>
+<td>Enclose entry names in double quotes.</td>
+</tr>
+<tr class="tcw">
+<td><b>--quoting-style=</b><i>word</i></td>
+<td>Use quoting style <i>word</i> for entry names: <b>literal</b>, <b>locale</b>, <b>shell</b>, <b>shell-always</b>, <b>c</b>, <b>escape</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--reverse</b></td>
+<td>Reverse order while sorting.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--recursive</b></td>
+<td>List subdirectories <a href="/jargon/r/recursive.htm">recursively</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--size</b></td>
+<td>Print the allocated size of each file, in blocks.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b></td>
+<td>Sort by file size.</td>
+</tr>
+<tr class="tcw">
+<td><b>--sort=</b><i>word</i></td>
+<td>Sort by <i>word</i> instead of name: <b>none</b> (<b>-U</b>), <b>extension</b> (<b>-X</b>), <b>size</b> (<b>-S</b>), <b>time</b> (<b>-t</b>), <b>version</b> (<b>-v</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>--time=</b><i>word</i></td>
+<td>With <b>-l</b>, show time as <i>word</i> instead of modification time: "<b>atime</b>" (<b>-u</b>), "<b>access</b>" (<b>-u</b>), "<b>use</b>" (<b>-u</b>), "<b>ctime</b>" (<b>-c</b>), or "<b>status</b>" (<b>-c</b>); use specified time as sort key if <b>--sort=time</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--time-style=</b><i>style</i></td>
+<td>With <b>-l</b>, show times using style <i>style</i>.<br><br><i>style</i> may be one of: "<b>full-iso</b>", "<b>long-iso</b>", "<b>iso</b>", "<b>locale</b>", "<b>+</b><i>format</i>".<br><br><i>format</i> is interpreted like '<b>date</b>'; if <i>format</i> is "<b>format1</b>&lt;newline&gt;<b>format2</b>", <b>format1</b> applies to non-recent files and <b>format2</b> to recent files; if <i>style</i> is prefixed with '<b>posix-</b>', <i>style</i> takes effect only outside the <a href="/jargon/p/posix.htm">POSIX</a> locale.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Sort by modification time, newest first.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>, <b>--tabsize=</b><i>cols</i></td>
+<td>Assume tab stops at each <i>cols</i> instead of 8.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>With <b>-lt:</b>, sort by and show access time; with <b>-l:</b> show access time and sort by name; otherwise: sort by access time.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b></td>
+<td>Do not sort; lists entries in the directory order.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Natural sort of (version) numbers within text.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>, <b>--width=</b><i>cols</i></td>
+<td>Assume screen width <i>cols</i> instead of current value.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b></td>
+<td>List entries by lines instead of by columns.</td>
+</tr>
+<tr class="tcw">
+<td><b>-X</b></td>
+<td>Sort alphabetically by entry extension.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Z</b>, <b>--context</b></td>
+<td>Print any SELinux security context of each file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-1</b></td>
+<td>List one file per line.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display version information and exit.</td>
+</tr>
+</table>
+<h3 class="tab" id="Size-Format">Size Format</h3>
+<p class="tab"><i>size</i> is an <a href="/jargon/i/integer.htm">integer</a> and optional unit (example: <b>10M</b> is <b>10*1024*1024</b>). Units are <a href="/jargon/k/kilobyte.htm">K</a>, <a href="/jargon/m/megabyte.htm">M</a>, <a href="/jargon/g/gigabyte.htm">G</a>, <a href="/jargon/t/terabyte.htm">T</a>, <a href="/jargon/p/petabyte.htm">P</a>, <a href="/jargon/e/exabyte.htm">E</a>, <a href="/jargon/z/zettabyt.htm">Z</a>, <a href="/jargon/y/yottabyt.htm">Y</a> (powers of 1024) or <b>KB</b>, <b>MB</b>, ... (powers of 1000).</p>
+<p class="tab">Using color to distinguish file types is disabled both by default and with <b>--color=never</b>. With <b>--color=auto</b>, <b>ls</b> emits color codes only when standard output is connected to a terminal. The <b>LS_COLORS</b> <a href="/jargon/e/envivari.htm">environment variable</a> can change the settings. Use the <b>dircolors</b> command to set it.</p>
+<h3 class="tab">Exit Status</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>0</b></td>
+<td>Everything is OK.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>There were minor problems; for example, could not access a subdirectory.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>There were serious problems; for example, a command-line option could not be accessed.</td>
+</tr>
+</table>
+<h2 id="long-listing">Information shown in a "long" listing</h2>
+<p class="tab">To view extended information about files, use the <b>-l</b> option to create a "long" listing. For instance:</p>
+<pre class="tcy tab">ls -l file.txt</pre>
+<p class="tab">...displays something like the following:</p>
+<pre class="tab">-rwxrw-r-- 1   hope   hopestaff  123   Feb 03 15:36   file.txt</pre>
+<p class="tab">Here's what each part of this information means:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:140px"><b>-</b></td>
+<td>The first character represents the file type: "<b>-</b>" for a regular file, "<b>d</b>" for a directory, "<b>l</b>" for a symbolic link.</td>
+</tr>
+<tr class="tcw">
+<td><b>rwx</b></td>
+<td>The next three characters represent the permissions for the file's owner: the owner may <b>r</b>ead from, <b>w</b>rite to, ore <b>x</b>ecute the file.</td>
+</tr>
+<tr class="tcw">
+<td><b>rw-</b></td>
+<td>The next three characters represent the permissions for members of the file group. Any member of the file's owning group may <b>r</b>ead from or <b>w</b>rite to the file. The final dash is a placeholder; group members do not have permission to execute this file.</td>
+</tr>
+<tr class="tcw">
+<td><b>r--</b></td>
+<td>The permissions for "others" (everyone else). Others may only <b>r</b>ead this file.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>The number of <a href="/jargon/h/hardlink.htm">hard links</a> to this file.</td>
+</tr>
+<tr class="tcw">
+<td><b>hope</b></td>
+<td>The file's owner.</td>
+</tr>
+<tr class="tcw">
+<td><b>hopestaff</b></td>
+<td>The group to whom the file belongs.</td>
+</tr>
+<tr class="tcw">
+<td><b>123</b></td>
+<td>The size of the file in <a href="/jargon/b/block.htm">blocks</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Feb 03 15:36</b></td>
+<td>The file's mtime (date and time when the file was last modified).</td>
+</tr>
+<tr class="tcw">
+<td><b>file.txt</b></td>
+<td>The name of the file.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">ls -l</pre>
+<p class="tab">Lists the total files in the directory and subdirectories, the names of the files in the current directory, their permissions, the number of subdirectories in directories listed, the size of the file, and the date of last modification.</p>
+<pre class="tcy tab">ls -laxo</pre>
+<p class="tab">Lists files with permissions, shows hidden files, displays them in a column format, and suppresses group information.</p>
+<pre class="tcy tab">ls ~</pre>
+<p class="tab">List the contents of your home directory by adding a <a href="/jargon/t/tilde.htm">tilde</a> after the <b>ls</b> command.</p>
+<pre class="tcy tab">ls /</pre>
+<p class="tab">List the contents of your <a href="/jargon/r/root.htm">root</a> directory.</p>
+<pre class="tcy tab">ls ../</pre>
+<p class="tab">List the contents of the <a href="/jargon/p/parechil.htm">parent directory</a>.</p>
+<pre class="tcy tab">ls */</pre>
+<p class="tab">List the contents of all subdirectories.</p>
+<pre class="tcy tab">ls -d */</pre>
+<p class="tab">Display a list of directories in the current directory.</p>
+<p class="tcy tab">ls *.{htm,php,cgi}</p>
+<p class="tab">List all files containing the <a href="/jargon/f/fileext.htm">file extension</a> .htm, .php, or .cgi</p>
+<pre class="tcy tab">ls -ltr</pre>
+<p class="tab">List files sorted by the time they were last modified in reverse order (most recently modified files last).</p>
+<p class="tab tcy">ls [aeiou]*</p>
+<p class="tab">In the above example, only files that begin with a vowel (a, e, i, o, or u).</p>
+<p class="tcy tab">ls myfile.txt 2&gt;/dev/null</p>
+<p class="tab">Silences or suppresses any error message if the ls command does not find the file.</p>
+<div class="tip tab" role="note">
+<span class="title">Tip</span>
+<p>Please also see our <a href="/jargon/num/dotdot.htm">explanation of the ./ and ../ directories listed in the listing of files.</a></p>
+</div>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uchmod.htm"><b>chmod</b></a> &mdash; Change the permissions of files or directories.<br><a href="/unix/udf.htm"><b>df</b></a> &mdash; Report the amount of available disk space on file systems.<br><a href="/unix/udiff.htm"><b>diff</b></a> &mdash; Identify the differences between two files.<br><a href="/unix/udu.htm"><b>du</b></a> &mdash; Report the amount of disk space used by a file or files.<br><a href="/unix/ufile.htm"><b>file</b></a> &mdash; Determine a file's type.<br><a href="/unix/ugrep.htm"><b>grep</b></a> &mdash; Search for and output lines that match a specified pattern.<br><a href="/unix/stat.htm"><b>stat</b></a> &mdash; Display the status of a file or filesystem.<br><a href="/unix/tree.htm"><b>tree</b></a> &mdash; List the contents of a file hierarchy visually in a tree format.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a830e988684f8',m:'rth.MWScVj9ozvLoHWNXU5aLjr8hAlJ.BoSYfBijbfA-1661495354-0-AQMv+d9YdVKmy9W4QOLnQ3s8H4Z2YXV+n8RdELOnWfevWPNDbqVRMlu6JXKnuh5VCKN86ouKPUJpbO1MMjgEt4WsETLdhmP2Fy6uwWm9Ts8X+//rCKLQMBUJ/Wqhkt8Epw==',s:[0xcd96f415f8,0x5050ad4347],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

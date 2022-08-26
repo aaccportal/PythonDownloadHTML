@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux ctags command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/ctags.gif" width="300" height="300" alt="ctags command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>ctags</b> command creates tag files for <a href="/jargon/s/source.htm">source</a> <a href="/jargon/c/code.htm">code</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#sourcefi">Source files</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#opdetails">Operational Details</a></li>
+<li><a href="#tagfileform">Tag File Format</a></li>
+<li><a href="#use-with-vi">How To Use With Vi</a></li>
+<li><a href="#use-gnu-emacs">How To Use With Gnu Emacs</a></li>
+<li><a href="#use-with-nedit">How to use with NEdit</a></li>
+<li><a href="#caveat">Caveats</a></li>
+<li><a href="#bugs">Known bugs</a></li>
+<li><a href="#env-variables">Environment variables</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>ctags</b> and <b>etags</b> programs (hereafter collectively referred to as <b>ctags</b>, except where distinguished) generate an index (or "tag") file for a variety of <a href="/jargon/l/language.htm">language</a> objects found in the specified file(s). This tag file allows these items to be quickly and easily located by a <a href="/jargon/e/editor.htm">text editor</a> or other <a href="/jargon/u/utility.htm">utility</a>. A "tag" signifies a language object for which an index entry is available (or the index entry created for that object).</p>
+<p class="tab">Alternatively, <b>ctags</b> can generate a cross reference file which lists, in human-readable form, information about the various source objects found in a set of language files.</p>
+<p class="tab">Tag index files are supported by numerous editors, which allow the user to locate the object associated with a name appearing in a source file and jump to the file and line which defines the name. These include:</p>
+<ul>
+<li><a href="/unix/uvi.htm">vi</a> and its derivatives (e.g., <b>Elvis</b>, <b>Vim</b>, <b>Vile</b>, <b>Lemmy</b>)</li>
+<li>CRiSP</li>
+<li><a href="/unix/uemacs.htm">Emacs</a></li>
+<li>FTE (Folding Text Editor)</li>
+<li>JED</li>
+<li>jEdit</li>
+<li>Mined</li>
+<li>NEdit (Nirvana Edit)</li>
+<li>TSE (The SemWare Editor)</li>
+<li>UltraEdit</li>
+<li>WorkSpace</li>
+<li>X2</li>
+<li>Zeus</li>
+</ul>
+<p class="tab"><b>ctags</b> is capable of generating different kinds of tags for each of many different languages. For a complete list of supported languages, the names by which they are recognized, and the kinds of tags that are generated for each, see the <b>--list-languages</b> and <b>--list-kinds</b> options.</p>
+<h2 id="sourcefi">Source files</h2>
+<p class="tab">Unless the <b>--language-force</b> option is specified, the language of each source file is automatically selected based upon a mapping of file names to languages. The mappings in effect for each language may be display using the <b>--list-maps</b> option and may be changed using the <b>--langmap</b> option. On <a href="/jargon/p/platform.htm">platforms</a> which support it, if the name of a file is not mapped to a language and the file is <a href="/jargon/e/execfile.htm">executable</a>, the first line of the file is checked to see if the file is a "<b>#!</b>" <a href="/jargon/s/script.htm">script</a> for a recognized language.</p>
+<p class="tab">By default, all other file names are ignored. This permits running <b>ctags</b> on all files in either a single <a href="/jargon/d/director.htm">directory</a> (e.g., "<b>ctags *</b>"), or on all files in an entire source directory tree (e.g., "<b>ctags -R</b>"), since only those files whose names are mapped to languages are scanned.</p>
+<p class="tab">The reason that <b>.h</b> <a href="/jargon/e/extensio.htm">extensions</a> are mapped to <a href="/jargon/c/cplus.htm">C++</a> files rather than <a href="/jargon/c/c.htm">C</a> files is because it is common to use <b>.h</b> extensions in C++, and no harm results in treating them as C++ files.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">ctags [<i>options</i>] [<i>file(s)</i>]</pre>
+<pre class="tcy tab">etags [<i>options</i>] [<i>file(s)</i>]</pre>
+<h2 id="options">Options</h2>
+<p class="tab">Despite the wealth of available options, defaults are set so that <b>ctags</b> is most commonly executed without any options (e.g., "<b>ctags *</b>", or "<b>ctags -R</b>"), which creates a tag file in the current directory for all recognized source files. The options described below are provided merely to allow custom tailoring to meet special needs.</p>
+<p class="tab">Note that spaces separating the single-letter options from their <a href="/jargon/p/paramete.htm">parameters</a> are optional.</p>
+<p class="tab">Note also that the <a href="/jargon/b/boolean.htm">boolean</a> parameters to the long form options (those beginning with "<b>--</b>" and that take a "<b>[=yes|no]</b>" parameter) may be omitted, in which case "<b>=yes</b>" is implied. (e.g., <b>--sort</b> is equivalent to <b>--sort=yes</b>). Note also that "<b>=1</b>" and "<b>=on</b>" are considered synonyms for "<b>=yes</b>", and that "<b>=0</b>" and "<b>=off</b>" are considered synonyms for "<b>=no</b>".</p>
+<p class="tab">Some options are either ignored or useful only when used while running in <b>etags</b> mode (see <b>-e</b> option). Such options are noted.</p>
+<p class="tab">Most options may appear anywhere on the <a href="/jargon/c/commandi.htm">command line</a>, affecting only those files which follow the option. A few options, however, must appear before the first file name and are noted as such.</p>
+<p class="tab">Options taking language names accept those names in either upper or lowercase. See the <b>--list-languages</b> option for a complete list of the built-in language names.</p>
+<p class="tab">Options are:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:280px"><b>-a</b></td>
+<td>Equivalent to <b>--append</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b></td>
+<td>Use backward searching patterns (e.g., <b>?pattern?</b>). Ignored in <b>etags</b> mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>Enable <b>etags</b> mode, which creates a tag file for use with the <b>Emacs</b> editor. Alternatively, if <b>ctags</b> is invoked by a name containing the <a href="/jargon/s/string.htm">string</a> "<b>etags</b>" (either by renaming, or creating a link to, the executable), <b>etags</b> mode is enabled. This option must appear before the first <a href="/jargon/f/filename.htm">file name</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>tagfile</i></td>
+<td>Use the name specified by <i>tagfile</i> for the tag file (default is "<b>tags</b>", or "<b>TAGS</b>" when running in <b>etags</b> mode). If <i>tagfile</i> is specified as "<b>-</b>", then the tag file is written to standard output instead. <b>ctags</b> stubbornly refuses to take orders if <i>tagfile</i> exists and its first line contains something other than a valid <b>tags</b> line. This saves your neck if you mistakenly type "<b>ctags -f *.c</b>", which would otherwise overwrite your first C file with the tags generated by the rest! It also refuses to accept a multi-<a href="/jargon/c/charact.htm">character</a> file name which begins with a '<b>-</b>' (dash) character, as this most likely means you left out the tag file name and this option tried to grab the next option as the file name. If you want to name your output tag file "<b>-ugly</b>", specify as "<b>./-ugly</b>". This option must appear before the first file name. If this option is specified more than once, only the last applies.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b></td>
+<td>Use forward searching patterns (e.g., <b>/pattern/</b>). This is the default. Ignored in <b>etags</b> mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b> <i>list</i></td>
+<td>Specifies a list of file extensions, separated by periods, which are to be interpreted as include (or header) files. To indicate files having no extension, use a period not followed by a non-period character (e.g., "<b>.</b>", "<b>..x</b>", "<b>.x.</b>"). This option only affects how the scoping of a particular kinds of tags is interpreted (i.e., whether or not they are considered as <a href="/jargon/g/global.htm">globally</a> visible or visible only in the file where they are defined); it does not map the extension to any particular language. Any tag that is located in a non-include file and cannot be seen (e.g., linked to) from another file is considered to have limited (e.g., static) scope. No kind of tag appearing in an include file is considered to have file-limited scope. If the first character in the list is a plus sign, then the extensions in the list are appended to the current list; otherwise, the list replaces the current list. See also the <b>--file-scope</b> option. The default list is "<b>.h.H.hh.hpp.hxx.h++.inc.def</b>". To restore the default list, specify <b>-h</b> default. Note that if an extension supplied to this option is not already mapped to a particular language (see <a href="#sourcefi">Source Files</a>, above), you need to use either the <b>--langmap</b> or <b>--language-force</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> <i>identifier-list</i></td>
+<td>Specifies a list of identifiers that are to be specially handled while parsing C and C++ source files. This option is specifically provided to handle special cases arising through the use of preprocessor <a href="/jargon/m/macro.htm">macros</a>. When the identifiers listed are simple identifiers, these identifiers are ignored during parsing of the source files. If an identifier is suffixed with a '<b>+</b>' character, <b>ctags</b> also ignores any parenthesis-enclosed argument list which may immediately follow the identifier in the source files. If two identifiers are separated with the '<b>=</b>' character, the first identifiers is replaced by the second identifiers for parsing purposes. The list of identifiers may be supplied directly on the command line or read in from a separate file. If the first character of identifier-list is '<b>@</b>', '<b>.</b>' or a pathname separator ('<b>/</b>' or '<b>\</b>'), or the first two characters specify a drive letter (e.g., "<b>C:</b>"), the parameter identifier-list is interpreted as a file name from which to read a list of identifiers, one per input line. Otherwise, <i>identifier-list</i> is a list of identifiers (or identifier pairs) to be specially handled, each <a href="/jargon/d/delimite.htm">delimited</a> by either a comma or by <a href="/jargon/w/whitspac.htm">white space</a> (in which case the list should be quoted to keep the entire list as one command line argument). Multiple <b>-I</b> options may be supplied. To clear the list of ignore identifiers, supply a single dash ("<b>-</b>") for <i>identifier-list.</i><br><br> This feature is useful when preprocessor macros are used in such a way that they cause syntactic confusion due to their presence. Indeed, this is the best way of working around problems caused by the presence of syntax-busting macros in source files (see <a href="#caveat">Caveats</a>, below). Some examples:<br><br><pre class="tcy">int foo ARGDECL4(void *, ptr, long int, nbytes)</pre> In the above example, the macro "<b>ARGDECL4</b>" would be mistakenly interpreted to be the name of the function instead of the correct name of "<b>foo</b>". Specifying <b>-I ARGDECL4</b> results in the correct behavior.<br><br><pre class="tcy">/* creates an RCS version string in module */ MODULE_VERSION("$Revision: 690 $")</pre> In the above example, the macro invocation looks too much like a function definition because it is not followed by a semicolon (indeed, it could even be followed by a global variable definition that would look much like a <a href="/people/brian_kernighan.htm">Kernighan</a> &amp; <a href="/people/dennis_ritchie.htm">Ritchie</a> style function parameter declaration). In fact, this seeming function definition could possibly even cause the rest of the file to be skipped over while trying to complete the definition. Specifying <b>-I MODULE_VERSION+</b> would avoid such a problem.<br><br><pre class="tcy">CLASS Example { // your content here };</pre> The example above uses "<b>CLASS</b>" as a preprocessor macro which expands to something different for each platform. For instance <b>CLASS</b> may be defined as "<b>class __declspec(dllexport)</b>" on <a href="/jargon/w/win32.htm">Win32</a> platforms and "<b>class</b>" on <a href="/jargon/u/unix.htm">UNIX</a>. Normally, the absence of the C++ keyword "<b>class</b>" would cause the source file to be incorrectly parsed. Correct behavior can be restored by specifying <b>-I CLASS=class</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b> <i>file</i></td>
+<td>Read from file a list of file names for which tags should be generated. If file is specified as "<b>-</b>", then file names are read from <a href="/jargon/s/stdin.htm">standard input</a>. File names read using this option are processed following file names appearing on the command line. Options are also accepted in this input. If this option is specified more than once, only the last applies. Note: file is read in line-oriented mode, where a <a href="/jargon/n/newline.htm">newline</a> is the only <a href="/jargon/d/delimite.htm">delimiter</a> and non-trailing <a href="/jargon/w/whitspac.htm">white space</a> is considered significant, in order that file names containing spaces may be supplied (however, trailing white space is stripped from lines); this can affect how options are parsed if included in the input.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Equivalent to <b>--excmd=number</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b></td>
+<td>Equivalent to <b>--excmd=pattern</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b> <i>tagfile</i></td>
+<td>Equivalent to <b>-f</b> tagfile.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b></td>
+<td>Equivalent to <b>--recurse</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>Equivalent to <b>--sort=no</b> (unsorted).</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b></td>
+<td>Equivalent to <b>--verbose</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b></td>
+<td>This option is silently ignored for backward-compatibility with the <b>ctags</b> of SVR4 Unix.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b></td>
+<td>Print a tabular, human-readable cross reference (xref) file to standard output instead of generating a tag file. The information contained in the output includes: the tag name; the kind of tag; the line number, file name, and source line (with extra white space condensed) of the file which defines the tag. No tag file is written and all options affecting tag file output are ignored. Example applications for this feature are generating a listing of all functions located in a source file (e.g., <b>ctags -x --c-kinds=f file</b>), or generating a list of all externally visible global variables located in a source file (e.g., <b>ctags -x --c-kinds=v --file-scope=no file</b>). This option must appear before the first file name.</td>
+</tr>
+<tr class="tcw">
+<td><b>--append</b>[<b>=yes</b>|<b>no</b>]</td>
+<td>Indicates whether tags generated from the specified files should be appended to those already present in the tag file or should replace them. This option is off by default. This option must appear before the first file name.</td>
+</tr>
+<tr class="tcw">
+<td><b>--etags-include=</b><i>file</i></td>
+<td>Include a reference to <i>file</i> in the tag file. This option may be specified as many times as desired. This supports <b>Emacs</b>' capability to use a tag file which "includes" other tag files. [Available only in <b>etags</b> mode]</td>
+</tr>
+<tr class="tcw">
+<td><b>--exclude=</b>[<i>pattern</i>]</td>
+<td>Add <i>pattern</i> to a list of excluded files and directories. This option may be specified as many times as desired. For each file name considered by <b>ctags</b>, each pattern specified using this option is compared against both the complete <a href="/jargon/p/path.htm">path</a> (e.g., <b>some/path/base.ext</b>) and the base name (e.g., <b>base.ext</b>) of the file, thus allowing patterns which match a specified file name irrespective of its path, or match only a specific path. If appropriate support is available from the runtime library of your C <a href="/jargon/c/compile.htm">compiler</a>, then <i>pattern</i> may contain the usual <a href="/jargon/s/shell.htm">shell</a> <a href="/jargon/w/wildcard.htm">wildcards</a> (not <a href="/jargon/r/regex.htm">regular expressions</a>) common on Unix (be sure to quote the option parameter to protect the wildcards from being expanded by the shell before being passed to <b>ctags</b>; also be aware that wildcards can match the slash character, '<b>/</b>'). You can determine if shell wildcards are available on your platform by examining the output of the <b>--version</b> option, which includes "<b>+wildcards</b>" in the compiled feature list; otherwise, pattern is matched against file names using a simple textual comparison.<br><br> If pattern begins with the character '<b>@</b>', then the rest of the string is interpreted as a file name from which to read exclusion patterns, one per line. If pattern is empty, the list of excluded patterns is cleared. Note that at program startup, the default exclude list contains "<b>EIFGEN</b>", "<b>SCCS</b>", "<b>RCS</b>", and "<b>CVS</b>", which are names of directories for which it is generally not desirable to descend while processing the <b>--recurse</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>--excmd=</b><i>type</i></td>
+<td>Determines the type of <b>EX</b> command used to locate tags in the source file. (Ignored in <b>etags</b> mode.) The valid values for <i>type</i> (either the entire word or the first letter is accepted) are:<br><br><b>number</b>: Use only line numbers in the tag file for locating tags. This has four advantages:<br><br> 1. Significantly reduces the size of the resulting tag file.<br><br> 2. Eliminates failures to find tags because the line defining the tag has changed, causing the pattern match to fail (note that some editors, such as <b>vim</b>, can recover in many such instances).<br><br> 3. Eliminates finding identical matching, but incorrect, source lines (see <a href="#bugs">Bugs</a>, below).<br><br> 4. Retains separate entries in the tag file for lines that are identical in content. In pattern mode, duplicate entries are dropped because the search patterns they generate are identical, making the duplicate entries useless.<br><br> However, this option has one significant drawback: changes to the source files can cause the line numbers recorded in the tag file to no longer correspond to the lines in the source file, causing jumps to some tags to miss the target definition by one or more lines. Basically, this option is best used when the source code that it is applied to is not subject to change. Selecting this option type causes the following options to be ignored: <b>-BF.</b><br><br><b>pattern</b>: Use only search patterns for all tags, rather than the line numbers usually used for macro definitions. This has the advantage of not referencing obsolete line numbers when lines are added or removed since the tag file was generated.<br><br><b>mixed</b>: In this mode, patterns are generally used with a few exceptions. For C, line numbers are used for macro definition tags. This was the default format generated by the original <b>ctags</b> and is, therefore, retained as the default for this option. For <a href="/jargon/f/fortran.htm">Fortran</a>, line numbers are used for common blocks because their corresponding source lines are generally identical, making pattern searches useless for finding all matches.</td>
+</tr>
+<tr class="tcw">
+<td><b>--extra=</b>[<b>+</b>|<b>-</b>]<i>flags</i></td>
+<td>Specifies whether to include extra tag entries for certain kinds of information. The parameter flags is a set of one-letter flags, each representing one kind of extra tag entry to include in the tag file. If flags is preceded by either the '<b>+</b>' or '<b>-</b>' character, the effect of each flag is added to, or removed from, those currently enabled; otherwise the flags replace any current settings. The meaning of each flag:<br><br><b>f</b>: Include an entry for the base file name of every source file (e.g., "<b>example.c</b>"), which addresses the first line of the file.<br><br><b>q</b>: Include an extra class-qualified tag entry for each tag that is a member of a class (for languages for which this information is extracted; currently C++, <a href="/people/bertrand_meyer.htm">Eiffel</a>, and <a href="/jargon/j/java.htm">Java</a>). The actual form of the qualified tag depends upon the language from which the tag was derived (using a form that is most natural for how qualified calls are specified in the language). For C++, it's in the form "<b>class::member</b>"; for Eiffel and Java, it's in the form "<b>class.member</b>". This may allow easier location of a specific tags when multiple occurrences of a tag name occur in the tag file. Note, however, that this could potentially more than double the size of the tag file.</td>
+</tr>
+<tr class="tcw">
+<td><b>--fields=</b>[+|-]<i>flags</i></td>
+<td>Specifies the available extension fields that are to be included in the entries of the tag file (see <a href="#tagfileform">Tag File Format</a>, below, for more information). The parameter flags is a set of one-letter flags, each representing one type of extension field to include, with the following meanings (disabled by default unless indicated):<br><br><b>a</b>: Access (or export) of class members<br><br><b>f</b>: File-restricted scoping [enabled]<br><br><b>i</b>: Inheritance information<br><br><b>k</b>: Kind of tag as a single letter [enabled]<br><br><b>K</b>: Kind of tag as full name<br><br><b>l</b>: Language of source file containing tag<br><br><b>m</b>: Implementation information<br><br><b>n</b>: Line number of tag definition<br><br><b>s</b>: Scope of tag definition [enabled]<br><br><b>S</b>: Signature of routine (e.g., prototype or parameter list)<br><br><b>z</b>: Include the "kind:" key in kind field<br><br><b>t</b>: Type and name of a variable or typedef as "typeref:" field [enabled]<br><br> Each letter or group of letters may be preceded by either '<b>+</b>' to add it to the default set, or '<b>-</b>' to exclude it. In the absence of any preceding '<b>+</b>' or '<b>-</b>' sign, only those kinds explicitly listed in flags are included in the output (i.e., overriding the default set). This option is ignored if the option <b>--format=1</b> is specified. The default value of this option is <b>fkst</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--file-scope</b>[<i>=yes</i>|<i>no</i>]</td>
+<td>Indicates whether tags scoped only for a single file (i.e., tags which cannot be seen outside of the file where they are defined, such as "static" tags) should be included in the output. See also the <b>-h</b> option. This option is enabled by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>--filter</b>[<i>=yes</i>|<i>no</i>]</td>
+<td>Causes <b>ctags</b> to behave as a filter, reading source file names from standard input and printing their tags to standard output on a file-by-file basis. If <b>--sorted</b> is enabled, tags are sorted only in the source file where they are defined. File names are read from standard input in line-oriented input mode (see note for <b>-L</b> option) and only after file names listed on the command line or from any file supplied using the <b>-L</b> option. When this option is enabled, the options <b>-f</b>, <b>-o</b>, and <b>--totals</b> are ignored. This option is quite esoteric and is disabled by default. This option must appear before the first file name.</td>
+</tr>
+<tr class="tcw">
+<td><b>--filter-terminator</b><i>=string</i></td>
+<td>Specifies a string to print to standard output following the tags for each file name parsed when the <b>--filter</b> option is enabled. This may permit an application reading the output of <b>ctags</b> to determine when the output for each file is finished. Note that if the file name read is a directory and <b>--recurse</b> is enabled, this string is printed only one once at the end of all tags found for by descending the directory. This string is always separated from the last tag line for the file by its terminating newline. This option is quite esoteric and is empty by default. This option must appear before the first file name.</td>
+</tr>
+<tr class="tcw">
+<td><b>--format</b><i>=level</i></td>
+<td>Change the format of the output tag file. Currently the only valid values for <i>level</i> are <b>1</b> or <b>2</b>. Level <b>1</b> specifies the original tag file format and level <b>2</b> specifies a new extended format containing extension fields (but in a manner which retains backward-compatibility with original <a href="/unix/uvi.htm">vi</a> implementations). The default level is <b>2</b>. This option must appear before the first file name. Ignored in <b>etags</b> mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Prints to standard output a detailed usage description, and then exits.</td>
+</tr>
+<tr class="tcw">
+<td><b>--if0</b>[<b>=yes</b>|<b>no</b>]</td>
+<td>Indicates a preference as to whether code within an "<b>#if 0</b>" branch of a preprocessor conditional should be examined for non-macro tags (macro tags are always included). Because the intent of this construct is to disable code, the default value of this option is <b>no</b>. Note that this indicates a preference only and does not guarantee skipping code within an "<b>#if 0</b>" branch, as the fall-back <a href="/jargon/a/algorith.htm">algorithm</a> used to generate tags when preprocessor conditionals are too complex follows all branches of a conditional. This option is disabled by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>--&lt;LANG&gt;-kinds=</b>[<b>+</b>|<b>-</b>]<i>kinds</i></td>
+<td>Specifies a list of language-specific kinds of tags (or kinds) to include in the output file for a particular language, where <b>&lt;LANG&gt;</b> is case-insensitive and is one of the built-in language names (see the <b>--list-languages</b> option for a complete list). The parameter kinds is a group of one-letter flags designating kinds of tags (particular to the language) to either include or exclude from the output. The specific sets of flags recognized for each language, their meanings and defaults may be list using the <b>--list-kinds</b> option. Each letter or group of letters may be preceded by either '<b>+</b>' to add it to, or '<b>-</b>' to remove it from, the default set. In the absence of any preceding '<b>+</b>' or '<b>-</b>' sign, only those kinds explicitly listed in kinds are included in the output (i.e., overriding the default for the specified language).<br><br> As an example for the C language, to add prototypes and external variable declarations to the default set of tag kinds, but exclude macros, use <b>--c-kinds=+px-d</b>; to include only tags for functions, use <b>--c-kinds=f</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--langdef=</b><i>name</i></td>
+<td>Defines a new user-defined language, <i>name</i>, to be parsed with regular expressions. Once defined, name may be used in other options taking language names. The typical use of this option is to first define the language, then map file names to it using <b>--langmap</b>, then specify regular expressions using <b>--regex-&lt;LANG&gt;</b> to define how its tags are found.</td>
+</tr>
+<tr class="tcw">
+<td><b>--langmap=</b><i>map</i>[<b>,</b><i>map</i>[...]]</td>
+<td>Controls how file names are mapped to languages (see the <b>--list-maps</b> option). Each comma-separated map consists of the language name (either a built-in or user-defined language), a colon, and a list of file extensions and/or file name patterns. A file extension is specified by preceding the extension with a period (e.g., "<b>.c</b>"). A file name pattern is specified by enclosing the pattern in parentheses (e.g., "<b>([Mm]akefile)</b>"). If appropriate support is available from the runtime library of your C compiler, then the file name pattern may contain the usual shell wildcards common on Unix (be sure to quote the option parameter to protect the wildcards from being expanded by the shell before being passed to <b>ctags</b>). You can determine if shell wildcards are available on your platform by examining the output of the <b>--version</b> option, which includes "<b>+wildcards</b>" in the compiled feature list; otherwise, the file name patterns are matched against file names using a simple textual comparison. When mapping a file extension, it first is unmapped from any other languages.<br><br> If the first character in a map is a plus sign, then the extensions and file name patterns in that map are appended to the current map for that language; otherwise, the map replaces the current map. For example, to specify that only files with extensions of <b>.c</b> and <b>.x</b> are to be treated as C language files, use "<b>--langmap=c:.c.x</b>"; to also add files with extensions of <b>.j</b> as Java language files, specify "<b>--langmap=c:.c.x,java:+.j</b>". To map makefiles (e.g., files named either "<b>Makefile</b>", "<b>makefile</b>", or having the extension "<b>.mak</b>") to a language called "<b>make</b>", specify "<b>--langmap=make:([Mm]akefile).mak</b>". To map files having no extension, specify a period not followed by a non-period character (e.g., "<b>.</b>", "<b>..x</b>", "<b>.x.</b>"). To clear the mapping for a particular language (thus inhibiting automatic generation of tags for that language), specify an empty extension list (e.g., "<b>--langmap=fortran:</b>"). To restore the default language mappings for all a particular language, supply the keyword "<b>default</b>" for the mapping. To specify restore the default language mappings for all languages, specify "<b>--langmap=default</b>". Note that file extensions are tested before file name patterns when inferring the language of a file.</td>
+</tr>
+<tr class="tcw">
+<td><b>--language-force</b><i>=language</i></td>
+<td>By default, <b>ctags</b> automatically selects the language of a source file, ignoring those files whose language cannot be determined (see <a href="#sourcefi">Source Files</a>, above). This option forces the specified language (case-insensitive; either built-in or user-defined) to be used for every supplied file instead of automatically selecting the language based upon its extension. Also, the special value <b>auto</b> indicates that the language should be automatically selected (which effectively disables this option).</td>
+</tr>
+<tr class="tcw">
+<td><b>--languages</b>=[+|-]<i>list</i></td>
+<td>Specifies the languages for which tag generation is enabled, with <i>list</i> containing a comma-separated list of language names (case-insensitive; either built-in or user-defined). If the first language of list is not preceded by either a '<b>+</b>' or '<b>-</b>', the current list is cleared before adding or removing the languages in list. Until a '<b>-</b>' is encountered, each language in the list is added to the current list. As either the '<b>+</b>' or '<b>-</b>' is encountered in the list, the languages following it are added or removed from the current list, respectively. Thus, it becomes simple to replace the current list with a new one, or to add or remove languages from the current list. The actual list of files for which tags are generated depends upon the language extension mapping in effect (see the <b>--langmap</b> option). Note that all languages, including user-defined languages are enabled unless explicitly disabled using this option. Language names included in list may be any built-in language or one previously defined with <b>--langdef</b>. The default is "<b>all</b>", which is also accepted as a valid argument. See the <b>--list-languages</b> option for a complete list of the built-in language names.</td>
+</tr>
+<tr class="tcw">
+<td><b>--license</b></td>
+<td>Prints a summary of the software license to standard output, and then exits.</td>
+</tr>
+<tr class="tcw">
+<td><b>--line-directives</b>[<b>=yes</b>|<b>no</b>]</td>
+<td>Specifies whether "<b>#line</b>" directives should be recognized. These are present in the output of preprocessors and contain the line number, and possibly the file name, of the original source file(s) from which the preprocessor output file was generated. When enabled, this option causes <b>ctags</b> to generate tag entries marked with the file names and line numbers of their locations original source file(s), instead of their actual locations in the preprocessor output. The actual file names placed in the tag file have the same leading path components as the preprocessor output file, as it is assumed that the original source files are located relative to the preprocessor output file (unless, of course, the <b>#line</b> directive specifies an <a href="/jargon/a/absopath.htm">absolute path</a>). This option is off by default. Note: This option is generally only useful when used together with the <b>--excmd=number</b> (<b>-n</b>) option. Also, you may have to use either the <b>--langmap</b> or <b>--language-force</b> option if the extension of the preprocessor output file is not known to <b>ctags</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--links</b>[=<i>yes</i>|<i>no</i>]</td>
+<td>Indicates whether <a href="/jargon/s/symblink.htm">symbolic links</a> (if supported) should be followed. When disabled, symbolic links are ignored. This option is on by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>--list-kinds</b>[=<i>language</i>|<i>all</i>]</td>
+<td>Lists the tag kinds recognized for either the specified language or all languages, and then exits. Each kind of tag recorded in the tag file is represented by a one-letter flag, which is also used to filter the tags placed into the output through use of the <b>--&lt;LANG&gt;-kinds</b> option. Note that some languages and/or tag kinds may be implemented using regular expressions and may not be available if regex support is not compiled into <b>ctags</b> (see the <b>--regex-&lt;LANG&gt;</b> option). Each kind listed is enabled unless followed by "<b>[off]</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>--list-maps</b>[<i>=language</i>|<i>all</i>]</td>
+<td>Lists the file extensions and file name patterns which associate a file name with a language for either the specified language or all languages, and then exits. See the <b>--langmap</b> option, and <a href="#sourcefi">Source Files</a>, above.</td>
+</tr>
+<tr class="tcw">
+<td><b>--list-languages</b></td>
+<td>Lists the names of the languages understood by ctags, and then exits. These language names are case insensitive and may be used in the <b>--language-force</b>, <b>--languages</b>, <b>--&lt;LANG&gt;-kinds</b>, and <b>--regex-&lt;LANG&gt;</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>--options=</b><i>file</i></td>
+<td>Read additional options from file. The file should contain one option per line. As a special case, if <b>--options=NONE</b> is specified as the first option on the command line, it disables the automatic reading of any configuration options from either a file or the environment (see <a href="#files">Files</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>--recurse</b>[<b>=yes</b>|<b>no</b>]</td>
+<td>Recurse into directories encountered in the list of supplied files. If the list of supplied files is empty and no file list is specified with the <b>-L</b> option, then the current directory (i.e., "<b>.</b>") is assumed. Symbolic links are followed. If you don't like these behaviors, either explicitly specify the files or pipe the output of <a href="/jargon/f/find.htm">find</a> into <b>ctags -L-</b> instead. Note: This option is not supported on all platforms at present. It is available if the output of the <b>--help</b> option includes this option. See, also, the <b>--exclude</b> to limit <a href="/jargon/r/recursio.htm">recursion</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--regex-</b><i>LANG</i><b>=/</b><i>regexp</i><b>/</b><i>replacement</i><b>/</b>[<i>kind-spec</i><b>/</b>][<i>flags</i>]</td>
+<td>The <i>/regexp/replacement/</i> pair define a <a href="/jargon/r/regex.htm">regular expression</a> replacement pattern, similar in style to <a href="/unix/used.htm">sed</a> substitution commands, with which to generate tags from source files mapped to the named language, <b>&lt;LANG&gt;</b>, (case-insensitive; either a built-in or user-defined language). The regular expression, <i>regexp</i>, defines an extended regular expression (roughly that used by <a href="/unix/uegrep.htm">egrep</a>), which is used to locate a single source line containing a tag and may specify tab characters using <b>\t</b>. When a matching line is found, a tag is generated for the name defined by replacement, which generally contains the special back-references <b>\1</b> through <b>\9</b> to refer to matching sub-expression groups within regexp. The '<b>/</b>' separator characters shown in the parameter to the option can actually be replaced by any character. Note that whichever separator character is used must be escaped with a backslash ('<b>\</b>') character wherever it is used in the parameter as something other than a separator. The regular expression defined by this option is added to the current list of regular expressions for the specified language unless the parameter is omitted, in which case the current list is cleared.<br><br> Unless modified by flags, <i>regexp</i> is interpreted as a <a href="/jargon/p/posix.htm">POSIX</a> extended regular expression. The replacement should expand for all matching lines to a non-empty string of characters, or a warning message is reported. An optional kind specifier for tags matching <i>regexp</i> may follow replacement, which determines what kind of tag is reported in the "kind" extension field (see <a href="#tagfileform">Tag File Format</a>, below). The full form of <i>kind-spec</i> is in the form of a single letter, a comma, a name (without spaces), a comma, a description, followed by a separator, which specify the short and long forms of the <i>kind</i> value and its textual description (displayed using <b>--list-kinds</b>). Either the kind name and/or the description may be omitted. If <i>kind-spec</i> is omitted, it defaults to "<b>r,regex</b>". Finally, flags are one or more single-letter characters having the following effect upon the interpretation of <i>regexp</i>:<br><br><b>b</b>: The pattern is interpreted as a POSIX basic regular expression.<br><br><b>e</b>: The pattern is interpreted as a POSIX extended regular expression (default).<br><br><b>i</b>: The regular expression is to be applied in a case-insensitive manner.<br><br> Note that this option is available only if <b>ctags</b> was compiled with support for regular expressions, which depends upon your platform. You can determine if support for regular expressions is compiled in by examining the output of the <b>--version</b> option, which includes "<b>+regex</b>" in the compiled feature list.<br><br> For more information on the regular expressions used by <b>ctags</b>, see either the regex man page, or the <a href="/jargon/g/gnu.htm">GNU</a> info documentation for regex (e.g., "<b>info regex</b>").</td>
+</tr>
+<tr class="tcw">
+<td><b>--sort</b>[=<i>yes</i>|<i>no</i>|<i>foldcase</i>]</td>
+<td>Indicates whether the tag file should be <a href="/jargon/s/sort.htm">sorted</a> on the tag name (default is <b>yes</b>). Note that the original <b>vi</b> required sorted tags. The foldcase value specifies case insensitive (or case-folded) sorting. Fast binary searches of tag files sorted with case-folding require special support from tools using tag files, such as that found in the <b>ctags</b> <i>readtags</i> library, or Vim version 6.2 or higher (using "<b>set ignorecase</b>"). This option must appear before the first file name. Ignored in <b>etags</b> mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>--tag-relative</b>[=<i>yes</i>|<i>no</i>]</td>
+<td>Indicates that the file paths recorded in the tag file should be relative to the directory containing the tag file, rather than relative to the current directory, unless the files supplied on the command line are specified with absolute paths. This option must appear before the first file name. The default is <b>yes</b> when running in <b>etags</b> mode (see the <b>-e</b> option), <b>no</b> otherwise.</td>
+</tr>
+<tr class="tcw">
+<td><b>--totals</b>[=<i>yes</i>|<i>no</i>]</td>
+<td>Prints statistics about the source files read and the tag file written during the current invocation of <b>ctags</b>. This option is off by default. This option must appear before the first file name.</td>
+</tr>
+<tr class="tcw">
+<td><b>--verbose</b>[<i>=yes</i>|<i>no</i>]</td>
+<td>Enable <a href="/jargon/v/verbose.htm">verbose</a> mode. This prints out information on option processing and a brief message describing what action is being taken for each file considered by <b>ctags</b>. Normally, <b>ctags</b> does not read command line arguments until after options are read from the configuration files (see <a href="#files">Files</a>, below) and the <b>CTAGS</b> <a href="/jargon/e/envivari.htm">environment variable</a>. However, if this option is the first argument on the command line, it takes effect before any options are read from these sources. The default is <b>no</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Prints a version identifier for <b>ctags</b> to standard output, and then exits. This is guaranteed to always contain the string "<b>Exuberant Ctags</b>".</td>
+</tr>
+</table>
+<h2 id="opdetails">Operational Details</h2>
+<p class="tab">As <b>ctags</b> considers each file name in turn, it tries to determine the language of the file by applying the following three tests in order: if the file extension is mapped to a language, if the file name matches a shell pattern mapped to a language, and finally if the file is executable and its first line specifies an interpreter using the Unix-style "<b>#!</b>" specification (if supported on the platform). If a language was identified, the file is opened and then the appropriate language <a href="/jargon/p/parse.htm">parser</a> is called to operate on the currently open file. The parser parses through the file and adds an entry to the tag file for each language object it is written to handle. See <a href="#tagfileform">Tag File Format</a>, below, for details on these entries.</p>
+<p class="tab">Newer implementations of <b>ctags</b> impose no formatting requirements on C code as do legacy implementations. Older implementations of <b>ctags</b> tended to rely upon certain formatting assumptions to help it resolve coding dilemmas caused by preprocessor conditionals.</p>
+<p class="tab">In general, <b>ctags</b> tries to be smart about conditional preprocessor directives. If a preprocessor conditional is encountered within a statement which defines a tag, <b>ctags</b> follows only the first branch of that conditional (except in the special case of "<b>#if 0</b>", in which case it follows only the last branch). The reason for this is that failing to pursue only one branch can result in ambiguous syntax, as in the following example:</p>
+<pre class="tab tcy">#ifdef TWO_ALTERNATIVES struct { #else union { #endif short a; long b; }</pre>
+<p class="tab">Both branches cannot be followed, or braces become unbalanced and <b>ctags</b> would be unable to make sense of the syntax. If the application of this <a href="/jargon/h/heuristi.htm">heuristic</a> fails to properly parse a file, generally due to complicated and inconsistent pairing in the conditionals, <b>ctags</b> retries the file using a different heuristic which does not selectively follow conditional preprocessor branches, but instead falls back to relying upon a closing brace ("<b>}</b>") in column 1 as indicating the end of a block once any brace imbalance results from following a <b>#if</b> conditional branch.</p>
+<p class="tab"><b>ctags</b> also tries to specially handle arguments lists enclosed in double sets of parentheses to accept the following conditional construct:</p>
+<pre class="tab tcy">extern void foo __ARGS((int one, char two));</pre>
+<p class="tab">Any name immediately preceding the "<b>((</b>" is automatically ignored and the previous name is used. C++ operator definitions are specially handled. For consistency with all types of operators (overloaded and conversion), the operator name in the tag file is always preceded by the string "<b>operator</b> " (i.e., even if the actual operator definition was written as "<b>operator&lt;&lt;</b>").</p>
+<p class="tab">After creating or appending to the tag file, it is sorted by the tag name, removing identical tag lines.</p>
+<h2 id="tagfileform">Tag File Format</h2>
+<p class="tab">When not running in <b>etags</b> mode, each entry in the tag file consists of a separate line, each looking like this in the most general case:</p>
+<pre class="tab tcy">tag_name&lt;TAB&gt;file_name&lt;TAB&gt;ex_cmd;"&lt;TAB&gt;extension_fields</pre>
+<p class="tab">The fields and separators of these lines are specified as follows:</p>
+<ol>
+<li>tag name;</li>
+<li>single tab character;</li>
+<li>name of the file in which the object associated with the tag is located;</li>
+<li>single tab character;</li>
+<li><b>EX</b> command used to locate the tag in the file; generally a search pattern (either <b>/pattern/</b> or <b>?pattern?</b>) or line number (see <b>--excmd</b>). Tag file format 2 (see <b>--format</b>) extends this <b>EX</b> command under certain circumstances to include a set of extension fields (described below) embedded in an <b>EX</b> comment immediately appended to the <b>EX</b> command, which leaves it backward-compatible with original <b>vi</b> implementations.</li>
+</ol>
+<p class="tab">A few special tags are written into the tag file for internal purposes. These tags are composed in such a way that they always sort to the top of the file. Therefore, the first two characters of these tags are used a magic number to detect a tag file for purposes of determining whether a valid tag file is being overwritten rather than a source file.</p>
+<p class="tab">Note that the name of each source file is recorded in the tag file exactly as it appears on the command line. Therefore, if the path you specified on the command line was relative to the current directory, then it is recorded in that same manner in the tag file. See, however, the <b>--tag-relative</b> option for how this behavior can be modified.</p>
+<p class="tab">Extension fields are tab-separated key-value pairs appended to the end of the <b>EX</b> command as a comment, as described above. These key value pairs appear in the general form "<b>key:<i>value</i></b>". Their presence in the lines of the tag file are controlled by the <b>--fields</b> option. The possible keys and the meaning of their values are as follows:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>access</b></td>
+<td>Indicates the visibility of this class member, where <i>value</i> is specific to the language.</td>
+</tr>
+<tr class="tcw">
+<td><b>file</b></td>
+<td>Indicates that the tag has file-limited visibility. This key has no corresponding <i>value</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>kind</b></td>
+<td>Indicates the type, or kind, of tag. Its <i>value</i> is either one of the corresponding one-letter flags described under the various <b>--&lt;LANG&gt;-kinds</b> options above, or a full name. It is permitted (and is, in fact, the default) for the key portion of this field to be omitted. The optional behaviors are controlled with the <b>--fields</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>implementation</b></td>
+<td>When present, this indicates a limited implementation (abstract vs. concrete) of a routine or class, where <i>value</i> is specific to the language ("<b>virtual</b>" or "<b>pure virtual</b>" for C++; "<b>abstract</b>" for Java).</td>
+</tr>
+<tr class="tcw">
+<td><b>inherits</b></td>
+<td>When present, <i>value</i> is a comma-separated list of classes from which this class is derived (i.e., inherits from).</td>
+</tr>
+<tr class="tcw">
+<td><b>signature</b></td>
+<td>When present, <i>value</i> is a language-dependent representation of the signature of a routine. A routine signature in its complete form specifies the return type of a routine and its formal argument list. This extension field is presently supported only for C-based languages and does not include the return type.</td>
+</tr>
+</table>
+<p class="tab">Also, information on the scope of the tag definition may be available, with the key portion equal to some language-dependent construct name and its value the name declared for that construct in the program. This scope entry indicates the scope in which the tag was found. For example, a tag generated for a C structure member would have a scope that looked like "<b>struct:myStruct</b>".</p>
+<h2 id="use-with-vi">How To Use With Vi</h2>
+<p class="tab">By default, <b>vi</b> expects a tag file by the name "<b>tags</b>" in the current directory. Once the tag file is built, the following commands exercise the tag indexing feature:</p>
+<pre class="tab tcy">vi -t tag</pre>
+<p class="tab">Start <b>vi</b> and position the cursor at the file and line where "tag" is defined.</p>
+<pre class="tab tcy">:ta tag</pre>
+<p class="tab">Find a tag.</p>
+<pre class="tab tcy">Ctrl-]</pre>
+<p class="tab">Find the tag under the cursor.</p>
+<pre class="tab tcy">Ctrl-T</pre>
+<p class="tab">Return to previous location before jump to tag (not widely implemented).</p>
+<h2 id="use-gnu-emacs">How To Use With Gnu Emacs</h2>
+<p class="tab">By default, <b>Emacs</b> expect a tag file by the name "<b>TAGS</b>" in the current directory. Once the tag file is built, the following commands exercise the tag indexing feature:</p>
+<pre class="tab tcy">M-x visit-tags-table &lt;RET&gt; FILE &lt;RET&gt;</pre>
+<p class="tab">Select the tag file, "<b>FILE</b>", to use.</p>
+<pre class="tab tcy">M-. [TAG] &lt;RET&gt;</pre>
+<p class="tab">Find the first definition of <b>TAG</b>. The default tag is the identifier under the cursor.</p>
+<pre class="tab tcy">M-*</pre>
+<p class="tab">Pop back to where you previously invoked "<b>M-.</b>".</p>
+<pre class="tab tcy">C-u M-.</pre>
+<p class="tab">Find the next definition for the last tag.</p>
+<h2 id="use-with-nedit">How to use with NEdit</h2>
+<p class="tab"><b>NEdit</b> version 5.1 and later can handle the new extended tag file format (see <b>--format</b>). To make <b>NEdit</b> use the tag file, select &quot;File-&gt;Load Tags File&quot;. To jump to the definition for a tag, highlight the word, then press <a href="/jargon/c/ctrl-d.htm"><kbd>Ctrl</kbd>+<kbd>D</kbd></a>. <b>NEdit</b> 5.1 can read multiple tag files from different directories. Setting the <a href="/jargon/x/xwin.htm">X</a> resource <b>nedit.tagFile</b> to the name of a tag file instructs <b>NEdit</b> to automatically load that tag file at startup time.</p>
+<h2 id="caveat">Caveats</h2>
+<p class="tab">Because <b>ctags</b> is neither a preprocessor nor a compiler, use of preprocessor macros can fool <b>ctags</b> into either missing tags or improperly generating inappropriate tags. Although <b>ctags</b> is designed to handle certain common cases, this is the single biggest cause of reported problems. In particular, the use of preprocessor constructs which alter the textual syntax of C can fool <b>ctags</b>. You can work around many such problems using the <b>-I</b> option.</p>
+<p class="tab">Note that since <b>ctags</b> generates patterns for locating tags (see the <b>--excmd</b> option), it is entirely possible that the wrong line may be found by your editor if there exists another source line that is identical to the line containing the tag. The following example demonstrates this condition:</p>
+<pre class="tab tcy">int variable;
+/* ... */
+void foo(variable)
+int variable;
+{
+    /* ... */
+}
+</pre>
+<p class="tab">Depending on what editor you use and where in the code you happen to be, the search pattern may locate the local parameter declaration in <b>foo()</b> before it finds the actual global variable definition, as the lines (and therefore their search patterns are identical). This can be avoided by use of the <b>--excmd=n</b> option.</p>
+<h2 id="bugs">Known bugs</h2>
+<p class="tab">When parsing a C++ member function definition (e.g., "<b>className::function</b>"), <b>ctags</b> cannot determine whether the scope specifier is a class name or a namespace specifier and always lists as a class name in the scope portion of the extension fields. Also, if a C++ function is defined outside of the class declaration (the usual case), the access specification (i.e., <b>public</b>, <b>protected</b>, or <b>private</b>) and implementation information (e.g., <b>virtual</b>, <b>pure virtual</b>) contained in the function declaration are not known when the tag is generated for the function definition. It is, however, available for prototypes (e.g <b>--c++-kinds=+p</b>).</p>
+<p class="tab">No qualified tags are generated for language objects inherited into a class.</p>
+<h2 id="env-variables">Environment variables</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>CTAGS</b></td>
+<td>If this <a href="/jargon/e/envivari.htm">environment variable</a> exists, it is expected to contain a set of default options that are read when <b>ctags</b> starts, after the configuration files listed in <b>FILES</b>, below, are read, but before any command line options are read. Options appearing on the command line override options specified in this variable. Only options are read from this variable. Note that all white space in this variable is considered a separator, making it impossible to pass an option parameter containing an embedded space. If this is a problem, use a configuration file instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>ETAGS</b></td>
+<td>Similar to the <b>CTAGS</b> variable above, this variable, if found, is read when etags starts. If this variable is not found, <b>etags</b> tries to use <b>CTAGS</b> instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>TMPDIR</b></td>
+<td>On Unix-like hosts where <b>mkstemp()</b> is available, the value of this variable specifies the directory in which to place <a href="/jargon/t/tempfile.htm">temporary files</a>. This can be useful if the size of a temporary file becomes too large to fit on the <a href="/jargon/p/partition.htm">partition</a> holding the default temporary directory defined at compilation time. <b>ctags</b> creates temporary files only if either an <b>emacs</b>-style tag file is being generated, or the tag file is sent to standard output, or the program was compiled to use an internal sort algorithm to sort the tag files instead of the sort utility of the operating system. If the sort utility of the operating system is used, it generally observes this variable also. Note that if <b>ctags</b> is <a href="/jargon/s/suid.htm">setuid</a>, the value of <b>TMPDIR</b> is ignored.</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<ul>
+<li><b>/ctags.cnf</b> (on <a href="/jargon/m/msdos.htm">MS-DOS</a> and <a href="/jargon/w/windows.htm">Microsoft Windows</a> only)</li>
+<li><b>/etc/ctags.conf</b></li>
+<li><b>/usr/local/etc/ctags.conf</b></li>
+<li><b>$HOME/.ctags</b></li>
+<li><b>$HOME/ctags.cnf</b> (on MS-DOS, Microsoft Windows only)</li>
+<li><b>.ctags</b></li>
+<li><b>ctags.cnf</b> (on MS-DOS, Microsoft Windows only)</li>
+</ul>
+<p class="tab">If any of these configuration files exist, each is expected to contain a set of default options that are read in the order listed when <b>ctags</b> starts, but before the <b>CTAGS</b> environment variable is read or any command line options are read. This makes it possible to set up site-wide, personal or project-level defaults. It is possible to compile <b>ctags</b> to read an additional configuration file before any of those shown above, which is indicated if the output produced by the <b>--version</b> option lists the "<b>custom-conf</b>" feature. Options appearing in the <b>CTAGS</b> environment variable or on the command line override options specified in these files. Only options are read from these files. Note that the option files are read in line-oriented mode in which spaces are significant (since shell quoting is not possible). Each line of the file is read as one command line parameter (as if it were quoted with single quotes). Therefore, use new lines to indicate separate command-line arguments.</p>
+<ul>
+<li><b>tags</b> (The default tag file created by <b>ctags</b>.)</li>
+<li><b>TAGS</b> (The default tag file created by <b>etags</b>.)</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">ctags -R *</pre>
+<p class="tab">Create a <b>tags</b> file for every source file in the current directory and in all subdirectories.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uex.htm"><b>ex</b></a> &mdash; Line-editor mode of the <b>vi</b> text editor.<br><a href="/unix/ulex.htm"><b>lex</b></a> &mdash; Generate programs for performing lexical tasks.<br><a href="/unix/uvgrind.htm"><b>vgrind</b></a> &mdash; "Grind" <a href="/unix/unice.htm"><b>nice</b></a> program listings.<br><a href="/unix/uvi.htm"><b>vi</b></a> &mdash; Text editor based on the visual mode of <b>ex</b>.<br><a href="/unix/uyacc.htm"><b>yacc</b></a> &mdash; "Yet another compiler-compiler."</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82ccec7ac415',m:'SqM9CshAsCzjOL0_KHhBmfm4KjiBHj88SJ9MmwC7HO8-1661495344-0-AaUosSFV/wgHJbw1sEuACp7AdqTKB/nC+wzUO8BaSnxpndVvedsuHCRAmo2U/PcbUe4UTV0BYjM5AR/dvPd7Sl5yLYoU0pxBvewnU7QDSs59jFFcL0GHD9raMepnA0cHDg==',s:[0xc5eb3326b6,0x9a6d388f85],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

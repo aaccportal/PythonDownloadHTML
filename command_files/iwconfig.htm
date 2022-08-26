@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux iwconfig command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/iwconfig.gif" width="300" height="300" alt="iwconfig command" class="floatRight"><p class="intro">On Linux operating systems, the <b>iwconfig</b> command configures a <a href="/jargon/w/wifi.htm">wireless</a> network interface.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">Iwconfig is similar to <a href="/unix/uifconfi.htm">ifconfig</a>, but is dedicated to the <a href="/jargon/w/wireless.htm">wireless</a> interfaces. It is used to set the parameters of the <a href="/jargon/n/nic.htm">network interface</a> that are specific to the wireless operation (the wireless frequency, for example). Iwconfig may also be used to display those parameters, and the wireless statistics (extracted from /proc/net/wireless).</p>
+<p class="tab">All these parameters and statistics are device dependent. Each driver provides only some of them depending on hardware support, and the range of values may change. Check the <a href="/unix/uman.htm">man</a> page of each device for details.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">iwconfig [<i>interface</i>]</pre>
+<pre class="tcy tab">iwconfig interface [essid <i>X</i>] [nwid <i>N</i>] [mode <i>M</i>] [freq <i>F</i>] [channel <i>C</i>][sens <i>S</i> ]
+         [ap <i>A</i> ][nick <i>NN</i> ] [rate <i>R</i>] [rts <i>RT</i>] [frag <i>FT</i>] [txpower <i>T</i>] [enc <i>E</i>]
+         [key <i>K</i>] [power <i>P</i>] [retry <i>R</i>] [modu <i>M</i>] [commit]
+</pre>
+<pre class="tcy tab">iwconfig --help</pre>
+<pre class="tcy tab">iwconfig --version</pre>
+<h3 class="tab">Parameters</h3>
+<div class="tip tab" role="note">
+<span class="title">Tip</span>
+<p>For an extended description of these parameters and examples of each, see the <a href="#examples">examples</a>.</p>
+</div>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>essid</b></td>
+<td>Set the ESSID (or Network Name - in some products, it may also be called Domain ID).</td>
+</tr>
+<tr class="tcw">
+<td><b>nwid</b></td>
+<td>Set the Network ID.</td>
+</tr>
+<tr class="tcw">
+<td><b>nick</b></td>
+<td>Set the nickname, or the station name.</td>
+</tr>
+<tr class="tcw">
+<td><b>mode</b></td>
+<td>Set the operating mode of the device, which depends on the <a href="/jargon/t/topology.htm">network topology</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>freq</b>/<b>channel</b></td>
+<td>Set the operating frequency or channel in the device.</td>
+</tr>
+<tr class="tcw">
+<td><b>ap</b></td>
+<td>Force the card to register to the <a href="/jargon/a/accepoin.htm">access point</a> given by the address, if it's possible.</td>
+</tr>
+<tr class="tcw">
+<td><b>rate</b>/<b>bit</b></td>
+<td>For cards supporting multiple bit rates, set the bitrate in b/s.</td>
+</tr>
+<tr class="tcw">
+<td><b>txpower</b></td>
+<td>For cards supporting multiple transmit powers, sets the transmit power in dBm.</td>
+</tr>
+<tr class="tcw">
+<td><b>sens</b></td>
+<td>Set the sensitivity threshold. This defines how sensitive the card is to poor operating conditions (low signal, interference).</td>
+</tr>
+<tr class="tcw">
+<td><b>retry</b></td>
+<td>Set the maximum number of times the MAC can retry transmission.</td>
+</tr>
+<tr class="tcw">
+<td><b>rts</b></td>
+<td>RTS/CTS adds a handshake before each packet transmission to make sure the channel is clear.</td>
+</tr>
+<tr class="tcw">
+<td><b>frag</b></td>
+<td>Sets the maximum fragment size, which is always lower than the maximum packet size.</td>
+</tr>
+<tr class="tcw">
+<td><b>key</b>/<b>enc</b></td>
+<td>Used to manipulate encryption or scrambling keys and security mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>power</b></td>
+<td>Used to manipulate power management scheme parameters and mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>modu</b></td>
+<td>Force the card to use a specific set of modulations.</td>
+</tr>
+<tr class="tcw">
+<td><b>commit</b></td>
+<td>Forces the card to apply all pending changes.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<h3 class="tab">Examples</h3>
+<pre class="tcy tab">iwconfig eth0 essid any</pre>
+<pre class="tcy tab">iwconfig eth0 essid &quot;My Network&quot;</pre>
+<pre class="tcy tab">iwconfig eth0 essid -- &quot;ANY&quot;</pre>
+<p class="tab"><b>essid</b> sets the ESSID (or Network Name - in some products, it may also be called Domain ID). The ESSID is used to identify cells that are part of the same virtual network.</p>
+<p class="tab">As opposed to the AP Address or NWID which define a single cell, the ESSID defines a group of cells connected via repeaters or infrastructure, where the user may roam transparently.</p>
+<p class="tab">With some cards, you may disable the ESSID checking (ESSID promiscuous) with <b>off</b> or <b>any</b> (and <b>on</b> to reenable it).</p>
+<p class="tab">If the ESSID of your network is one of the special keywords (<b>off</b>, <b>on</b> or <b>any</b>), use <b>--</b> to escape it.</p>
+<h3 class="tab">Examples</h3>
+<pre class="tcy tab">iwconfig eth0 nwid AB34</pre>
+<pre class="tcy tab">iwconfig eth0 nwid off</pre>
+<p class="tab"><b>nwid</b> sets the Network ID. As all adjacent wireless networks share the same medium, this parameter is used to differentiate them (create logical collocated networks) and identify nodes belonging to the same cell.</p>
+<p class="tab">This parameter is only used for pre-802.11 hardware. The 802.11 protocol uses the ESSID and AP Address for this function.</p>
+<p class="tab">With some cards, you may disable the Network ID checking (NWID promiscuous) with <b>off</b> (and <b>on</b> to reenable it).</p>
+<h3 class="tab">Examples</h3>
+<pre class="tcy tab">iwconfig eth0 nickname &quot;My Linux Node&quot;</pre>
+<p class="tab"><b>nick</b> sets the nickname, or the station name. Some 802.11 products define it, but this is not used as far as the protocols (MAC, IP, TCP) are concerned, and are completely useless as far as configuration goes. Only some wireless diagnostic tools may use it.</p>
+<h3 class="tab">Examples</h3>
+<pre class="tcy tab">iwconfig eth0 mode Managed</pre>
+<pre class="tcy tab">iwconfig eth0 mode ad hoc</pre>
+<p class="tab"><b>mode</b> sets the operating mode of the device, which depends on the network topology. The mode can be <b>ad hoc</b> (network composed of only one cell and without access point), <b>Managed</b> (node connects to a network composed of many access points, with roaming), <b>Master</b> (the node is the synchronisation master or acts as an access point), <b>Repeater</b> (the node forwards packets between other wireless nodes), <b>Secondary</b> (the node acts as a backup master/repeater), <b>Monitor</b> (the node is not associated with any cell and passively monitor all packets on the frequency) or <b>Auto.</b></p>
+<h3 class="tab">freq/channel examples</h3>
+<pre class="tcy tab">iwconfig eth0 freq 2422000000</pre>
+<pre class="tcy tab">iwconfig eth0 freq 2.422G</pre>
+<pre class="tcy tab">iwconfig eth0 channel 3</pre>
+<pre class="tcy tab">iwconfig eth0 channel auto</pre>
+<p class="tab"><b>freq</b> and <b>channel</b> set the operating frequency or channel in the device, respectively. A value below 1000 indicates a channel number, a value greater than 1000 is a frequency in Hz. You may append the suffix k, M, or G to the value (for example, &quot;2.46G&quot; for 2.46 GHz frequency), or add enough '0'.</p>
+<p class="tab">Channels are usually numbered starting at 1, and you may use <i>iwlist</i> to get the total number of channels, list the available frequencies, and display the current frequency as a channel. Depending on regulations, some frequencies/channels may not be available.</p>
+<p class="tab">When using <i>Managed</i> mode, most often the access point dictates the channel and the driver may refuse the setting of the frequency. In ad hoc mode, the frequency setting may only be used at initial cell creation, and may be ignored when joining an existing cell.</p>
+<p class="tab">You may also use <b>off</b> or <b>auto</b> to let the card pick up the best channel (when supported).</p>
+<h3 class="tab">Examples</h3>
+<pre class="tcy tab">iwconfig eth0 ap 00:60:1D:01:23:45</pre>
+<pre class="tcy tab">iwconfig eth0 ap any</pre>
+<pre class="tcy tab">iwconfig eth0 ap off</pre>
+<p class="tab"><b>ap</b> forces the card to register to the access point given by the address, if it's possible. This address is the cell identity of the access point, as reported by wireless scanning, which may be different from its network MAC address. If the wireless link is point to point, set the address of the other end of the link. If the link is <a href="/jargon/a/adhoc.htm">ad hoc</a>, set the cell identity of the ad hoc network. When the quality of the connection goes too low, the driver may revert to automatic mode (the card selects the best access point in range). You may also use <b>off</b> to re-enable automatic mode without changing the current access point, or you may use <b>any</b> or <b>auto</b> to force the card to reassociate with the currently best access point.</p>
+<h3 class="tab">rate/bit examples</h3>
+<pre class="tcy tab">iwconfig eth0 rate 11M</pre>
+<pre class="tcy tab">iwconfig eth0 rate auto</pre>
+<pre class="tcy tab">iwconfig eth0 rate 5.5M auto</pre>
+<p class="tab">For cards supporting multiple bit rates, <b>rate</b> sets the bitrate in b/s. The bitrate is the speed that bits are transmitted over the medium. The user speed of the link is lower due to medium sharing and various overhead.</p>
+<p class="tab">You may append the suffix k, M, or G to the value (decimal multiplier : 10^3, 10^6, and 10^9 b/s), or add enough '0'. Values below 1000 are card specific, usually an index in the bitrate list. Use <b>auto</b> to select automatic bitrate mode (fallback to lower rate on noisy channels), which is the default for most cards, and <b>fixed</b> to revert to fixed setting. If you specify a bitrate value and append <b>auto</b>, the driver uses all bitrates lower than and equal to this value.</p>
+<h3 class="tab">Examples</h3>
+<pre class="tcy tab">iwconfig eth0 txpower 15</pre>
+<pre class="tcy tab">iwconfig eth0 txpower 30mW</pre>
+<pre class="tcy tab">iwconfig eth0 txpower auto</pre>
+<pre class="tcy tab">iwconfig eth0 txpower off</pre>
+<p class="tab">For cards supporting multiple transmit powers, <b>txpower</b> sets the transmit power in dBm. If W is the power in Watt, the power in dBm is P = 30 + 10.log(W). If the value is postfixed by <b>mW</b>, it is automatically converted to dBm.</p>
+<p class="tab">In addition, <b>on</b> and <b>off</b> enable and disable the radio, and auto and fixed enable and disable power control (if those features are available).</p>
+<h3 class="tab">sens examples</h3>
+<pre class="tcy tab">iwconfig eth0 sens -80</pre>
+<pre class="tcy tab">iwconfig eth0 sens 2</pre>
+<p class="tab"><b>sens</b> sets the sensitivity threshold. This defines how sensitive the card is to poor operating conditions (low signal, interference). Positive values are assumed to be the raw value used by the hardware or a percentage, negative values are assumed to be dBm. Depending on the hardware implementation, this parameter may control various functions.</p>
+<p class="tab">On modern cards, this parameter usually control handover/roaming threshold, the lowest signal level for which the hardware remains associated with the current access point. When the signal level goes below this threshold, the card starts looking for a new/better access point. Some cards may use the number of missed beacons to trigger this. For high density of access points, a higher threshold make sure the card is always associated with the best AP, for low density of APs, a lower threshold minimise the number of failed handoffs.</p>
+<p class="tab">On more ancient cards, this parameter usually controls the defer threshold, the lowest signal level for which the hardware considers the channel busy. Signal levels above this threshold make the hardware inhibit its own transmission, whereas signals weaker than this are ignored and the hardware is free to transmit. This is usually strongly linked to the receive threshold, the lowest signal level for which the hardware attempts packet reception. Proper setting of these thresholds prevent the card from wasting time on background noise, while still receiving weak transmissions. Modern designs seems to control those thresholds automatically.</p>
+<h3 class="tab">retry examples</h3>
+<pre class="tcy tab">iwconfig eth0 retry 16</pre>
+<pre class="tcy tab">iwconfig eth0 retry lifetime 300m</pre>
+<pre class="tcy tab">iwconfig eth0 retry short 12</pre>
+<pre class="tcy tab">iwconfig eth0 retry min limit 8</pre>
+<p class="tab">Most cards have MAC retransmissions, and some allow to set the behaviour of the <b>retry</b> mechanism.</p>
+<p class="tab">To set the maximum number of retries, enter <b>limit</b> &#96;value'. This is an absolute value (without unit), and the default (when nothing is specified). To set the maximum length of time the MAC should retry, enter <b>lifetime</b> &#96;value'. By defaults, this value is in seconds. Append the suffix m or u to specify values in milliseconds or microseconds.</p>
+<p class="tab">You can also add the <b>short</b>, <b>long</b>, <b>min</b> and <b>max</b> modifiers. If the card supports automatic mode, they define the bounds of the limit or lifetime. Some other cards define different values depending on packet size; for example, in 802.11, <b>min limit</b> is the short retry limit (non RTS/CTS packets).</p>
+<h3 class="tab">rts example</h3>
+<pre class="tcy tab">iwconfig eth0 rts 250</pre>
+<pre class="tcy tab">iwconfig eth0 rts off</pre>
+<p class="tab"><b>rts</b> adds a handshake before each packet transmission to make sure that the channel is clear. This adds overhead, but increases performance in case of hidden nodes or a large number of active nodes. This parameter sets the size of the smallest packet for which the node sends RTS; a value equal to the maximum packet size disables the mechanism. You may also set this parameter to <b>auto</b>, <b>fixed</b> or <b>off.</b></p>
+<h3 class="tab">frag example</h3>
+<pre class="tcy tab">iwconfig eth0 frag 512</pre>
+<pre class="tcy tab">iwconfig eth0 frag off</pre>
+<p class="tab"><b>frag</b> allows the device to split an IP packet in a burst of smaller fragments transmitted on the medium. In most cases, this adds overhead, but in a very noisy environment, this reduces the error penalty and allow packets to get through interference bursts. This parameter sets the maximum fragment size that is always lower than the maximum packet size. This parameter may also control Frame Bursting available on some cards, the ability to send multiple IP packets together. This mechanism would be enabled if the fragment size is larger than the maximum packet size. You may also set this parameter to <b>auto</b>, <b>fixed</b> or <b>off</b>.</p>
+<h3 class="tab">key/enc examples</h3>
+<pre class="tcy tab">iwconfig eth0 key 0123-4567-89</pre>
+<pre class="tcy tab">iwconfig eth0 key [3] 0123-4567-89</pre>
+<pre class="tcy tab">iwconfig eth0 key s:password [2]</pre>
+<pre class="tcy tab">iwconfig eth0 key [2]</pre>
+<pre class="tcy tab">iwconfig eth0 key open</pre>
+<pre class="tcy tab">iwconfig eth0 key off</pre>
+<pre class="tcy tab">iwconfig eth0 key restricted [3] 0123456789</pre>
+<pre class="tcy tab">iwconfig eth0 key 01-23 key 45-67 [4] key [4]</pre>
+<p class="tab"><b>key</b> is used to manipulate encryption or scrambling keys and security mode. To set the current encryption key, enter the key in hex digits as <b>XXXX-XXXX- XXXX-XXXX</b> or <b>XXXXXXXX</b>. To set a key other than the current key, prepend or append <b>[<i>index</i>]</b> to the key itself (this won't change what is the active key). You can also enter the key as an ASCII string using the <b>s:</b> prefix. Passphrase is currently not supported.</p>
+<p class="tab">To change which key is the currently active key, enter <b>[<i>index</i>]</b> (without entering any key value).</p>
+<p class="tab"><b>off</b> and <b>on</b> disable and reenable encryption. The security mode may be <b>open</b> or <b>restricted</b>, and its meaning depends on the card used. With most cards, in open mode, no authentication is used and the card may also accept non-encrypted sessions. In restricted mode, only encrypted sessions are accepted and the card uses authentication if available. If you need to set multiple keys, or set a key and change the active key, you need to use multiple key directives. Arguments can be put in any order, and the last one takes precedence.</p>
+<h3 class="tab">Examples</h3>
+<pre class="tcy tab">iwconfig eth0 power period 2</pre>
+<pre class="tcy tab">iwconfig eth0 power 500m unicast</pre>
+<pre class="tcy tab">iwconfig eth0 power timeout 300u all</pre>
+<pre class="tcy tab">iwconfig eth0 power saving 3</pre>
+<pre class="tcy tab">iwconfig eth0 power off</pre>
+<pre class="tcy tab">iwconfig eth0 power min period 2 power max period 4</pre>
+<p class="tab"><b>power</b> is used to manipulate power management scheme parameters and mode. To set the period between wake ups, enter <b>period</b> &#96;value'. To set the timeout before going back to sleep, enter <b>timeout</b> &#96;value'. To set the generic level of power saving, enter <b>saving</b> &#96;value'. You can also add the <b>min</b> and <b>max</b> modifiers. By default, those values are in seconds. Append the suffix m or u to specify values in milliseconds or microseconds. Sometimes, those values are without units (number of beacon periods, dwell, percentage or similar).</p>
+<p class="tab"><b>off</b> and <b>on</b> disable and reenable power management. Finally, you may set the power management mode to <b>all</b> (receive all packets), <b>unicast</b> (receive unicast packets only, discard multicast and broadcast) and <b>multicast</b> (receive multicast and broadcast only, discard unicast packets).</p>
+<h3 class="tab">Examples</h3>
+<pre class="tcy tab">iwconfig eth0 modu 11g</pre>
+<pre class="tcy tab">iwconfig eth0 modu CCK OFDMa</pre>
+<pre class="tcy tab">iwconfig eth0 modu auto</pre>
+<p class="tab"><b>modu</b> forces the card to use a specific set of modulations. Modern cards support various modulations, some that are standard, such as 802.11b or 802.11g, and some proprietary. This command forces the card to only use the specific set of modulations listed on the command line, and can fix interoperability issues. The list of available modulations depends on the card/driver and is displayed using <b>iwlist modulation</b>. Note that some cards/drivers may not be able to select each modulation listed independently; some may come as a group. You may also set this parameter to <b>auto</b> to let the card/driver do its best.</p>
+<h3 class="tab">Examples</h3>
+<pre class="tcy tab">iwconfig commit</pre>
+<p class="tab">Some cards may not apply changes done through wireless extensions immediately (they may wait to aggregate the changes or apply it only when the card is brought up via <b>ifconfig</b>). This command (when available) forces the card to apply all pending changes.</p>
+<p class="tab">This is normally not needed, because the card eventually applies the changes, but can be useful for debugging.</p>
+<h3 class="tab">What is displayed</h3>
+<p class="tab">For each device that supports wireless extensions, <b>iwconfig</b> displays the name of the MAC protocol used (name of device for proprietary protocols), the ESSID (Network Name), the NWID, the frequency (or channel), the sensitivity, the mode of operation, the access point address, the bitrate, the RTS threshold, the fragmentation threshold, the encryption key and the power management settings (depending on availability).</p>
+<p class="tab">The parameters displayed have the same meaning and values as the parameters you can set. Please refer to the previous part for a detailed explanation of them.</p>
+<p class="tab">Some parameters are only displayed in short/abbreviated form, such as encryption. You may use <b>iwlist</b> to get all the details. Some parameters have two modes, such as bitrate. If the value is prefixed by &#96;=', it indicates the parameter is fixed and forced to that value. If it's prefixed by &#96;:', the parameter is in automatic mode and the current value is shown (and may change).</p>
+<h3 class="tab">Access point/cell</h3>
+<p class="tab">An address equal to 00:00:00:00:00:00 indicates the card failed to associate with an <a href="/jargon/a/accepoin.htm">access point</a> (most likely a configuration issue). The access point parameter is shown as <i>cell</i> in ad hoc mode (for obvious reasons), but otherwise works the same.</p>
+<p class="tab">If <i>/proc/net/wireless</i> exists, <b>iwconfig</b> also displays its content. Note that those values depend on the driver and the hardware specifics, so you need to refer to your driver documentation for proper interpretation of those values.</p>
+<h3 class="tab">Link quality</h3>
+<p class="tab">Overall quality of the link. May be based on the level of contention or interference, the bit or frame error rate, how good the received signal is, some timing synchronisation, or other hardware metric. This is an aggregate value, and depends totally on the driver and hardware.</p>
+<h3 class="tab">Signal level</h3>
+<p class="tab">Received signal strength (RSSI - how strong the received signal is). May be arbitrary units or dBm. <b>iwconfig</b> uses driver meta information to interpret the raw value given by <i>/proc/net/wireless</i> and display the proper unit or maximum value (using 8 bit arithmetic). In <b>ad hoc</b> mode, this may be undefined; use <b>iwspy.</b></p>
+<h3 class="tab">Noise level</h3>
+<p class="tab">Background noise level (when no packet is transmitted). Similar comments as for <b>Signal level</b>.</p>
+<h3 class="tab">Rx invalid nwid</h3>
+<p class="tab">Number of packets received with a different NWID or ESSID. Used to detect configuration problems or adjacent network existence (on the same frequency).</p>
+<h3 class="tab">Rx invalid crypt</h3>
+<p class="tab">Number of packets that the hardware was unable to decrypt. This can detect invalid encryption settings.</p>
+<h3 class="tab">Rx invalid frag</h3>
+<p class="tab">Number of packets for which the hardware was not able to properly re-assemble the link layer fragments (most likely one was missing).</p>
+<h3 class="tab">Tx excessive retries</h3>
+<p class="tab">Number of packets that the hardware failed to deliver. Most MAC protocols retry the packet many times before giving up.</p>
+<h3 class="tab">Invalid misc</h3>
+<p class="tab">Other packets lost in relation with specific wireless operations.</p>
+<h3 class="tab">Missed beacon</h3>
+<p class="tab">Number of periodic beacons from the cell or the access point we have missed. Beacons are sent at regular intervals to maintain the cell coordination. Failure to receive them usually indicates the card is out of range.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uifconfi.htm"><b>ifconfig</b></a> &mdash; View or modify the configuration of network interfaces.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82fe1fb6c3f7',m:'oUhUOCelNGjb.QqJzlDWA_fzETG5nQCh.o.itEmMGPI-1661495352-0-Aa/ZEPuZuMTaLooNJJ27sWGBg2uYMOsQmazemcbKJ9QgATHBJJlTOC4fSmnvF3HUotTcfK5urn0KHCZLfXmA6DwUWimQjKRLXPFyYbomv8+6k7TISUi1mKeckAO7vAe6IR2FTsgHkJZRNgmdh5zxoAQ=',s:[0xfeef27df86,0x1b2bcd7f79],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

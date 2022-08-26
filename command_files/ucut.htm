@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux cut command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/cut.gif" width="300" height="300" alt="cut command" class="floatRight">
+<p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>cut</b> command removes (&quot;cuts out&quot;) sections of each line of a <a href="/jargon/f/file.htm">file</a> or files.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>cut</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#usage">Usage Notes</a></li>
+<li><a href="#Specifying-LIST">Specifying LIST</a></li>
+<li><a href="#delimiter">Specifying A Delimiter Other Than Tab.</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">cut <i>OPTION</i>... [<i>FILE</i>]...</pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:270px"><b>-b</b>, <b>--bytes=</b><i>LIST</i></td>
+<td>Select only the <a href="/jargon/b/byte.htm">bytes</a> from each line as specified in <i>LIST</i>. <i>LIST</i> specifies a byte, a set of bytes, or a range of bytes; see <a href="#Specifying-LIST">Specifying <i>LIST</i></a> below.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--characters=</b><i>LIST</i></td>
+<td>Select only the <a href="/jargon/c/charact.htm">characters</a> from each line as specified in <i>LIST</i>. <i>LIST</i> specifies a character, a set of characters, or a range of characters; see <a href="#Specifying-LIST">Specifying <i>LIST</i></a> below.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--delimiter=</b><i>DELIM</i></td>
+<td>Use character <i>DELIM</i> instead of a <a href="/jargon/t/tab.htm">tab</a> for the <a href="/jargon/f/field.htm">field</a> <a href="/jargon/d/delimite.htm">delimiter</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--fields=</b><i>LIST</i></td>
+<td>Select only these fields on each line; also print any line containing no delimiter character, unless the <b>-s</b> option is specified. <i>LIST</i> specifies a field, a set of fields, or a range of fields; see <a href="#Specifying-LIST">Specifying <i>LIST</i></a> below.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>This option is ignored, but is included for compatibility reasons.</td>
+</tr>
+<tr class="tcw">
+<td><b>--complement</b></td>
+<td>Complement the set of selected bytes, characters or fields.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--only-delimited</b></td>
+<td>Do not print lines not containing delimiters.</td>
+</tr>
+<tr class="tcw">
+<td><b>--output-delimiter=</b><i>STRING</i></td>
+<td>Use <i>STRING</i> as the output delimiter <a href="/jargon/s/string.htm">string</a>. The default is to use the input delimiter.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Output version information and exit.</td>
+</tr>
+</table>
+<h2 id="usage">Usage Notes</h2>
+<p class="tab">When invoking <b>cut</b>, use the <b>-b</b>, <b>-c</b>, or <b>-f</b> option, but only one of them.</p>
+<p class="tab">If no <i>FILE</i> is specified, <b>cut</b> reads from the <a href="/jargon/s/stdin.htm">standard input</a>.</p>
+<h2 id="Specifying-LIST">Specifying LIST</h2>
+<p class="tab">Each <i>LIST</i> is made up of an <a href="/jargon/i/integer.htm">integer</a>, a range of integers, or multiple integer ranges separated by commas. Selected input is written in the same order that it is read, and is written to output exactly once. A range consists of:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><i>N</i></td>
+<td>The <i>N</i>th byte, character, or field, counted from <b>1</b>.</td>
+</tr>
+<tr class="tcw">
+<td><i>N<b>-</b></i></td>
+<td>From the <i>N</i>th byte, character, or field, to the end of the line.</td>
+</tr>
+<tr class="tcw">
+<td><i>N</i><b>-</b><i>M</i></td>
+<td>From the <i>N</i>th to the <i>M</i>th byte, character, or field (inclusive).</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b><i>M</i></td>
+<td>From the first to the <i>M</i>th byte, character, or field.</td>
+</tr>
+</table>
+<p class="tab">For example, let's say you have a file named <b>data.txt</b> which contains the following text:</p>
+<pre class="tab">one	two	three	four	five
+alpha	beta	gamma	delta	epsilon</pre>
+<p class="tab">In this example, each of these words is separated by a tab character, not spaces. The tab character is the default delimiter of <b>cut</b>, so by default, it considers a field to be anything delimited by a tab.</p>
+<p class="tab">To "cut" only the third field of each line, use the command:</p>
+<pre class="tcy tab">cut -f 3 data.txt</pre>
+<p class="tab">...which outputs the following:</p>
+<pre class="tab">three
+gamma</pre>
+<p class="tab">If instead you want to "cut" only the second-through-fourth field of each line, use the command:</p>
+<pre class="tcy tab">cut -f 2-4 data.txt</pre>
+<p class="tab">...which outputs the following:</p>
+<pre class="tab">two	three	four
+beta	gamma	delta</pre>
+<p class="tab">If you want to "cut" only the first-through-second and fourth-through-fifth field of each line (omitting the third field), use the command:</p>
+<pre class="tcy tab">cut -f 1-2,4-5 data.txt</pre>
+<p class="tab">...which outputs the following:</p>
+<pre class="tab">one	two	four	five
+alpha	beta	delta	epsilon</pre>
+<p class="tab">Or, let's say you want the third field and every field after it, omitting the first two fields. In this case, you could use the command:</p>
+<pre class="tcy tab">cut -f 3- data.txt</pre>
+<p class="tab">...which outputs the following:</p>
+<pre class="tab">three	four	five
+gamma	delta	epsilon</pre>
+<p class="tab">Specifying a range with <i>LIST</i> also applies to <b>cut</b>ting characters (<b>-c</b>) or bytes (<b>-b</b>) from a line. For example, to output only the third-through-twelfth character of every line of <b>data.txt</b>, use the command:</p>
+<pre class="tcy tab">cut -c 3-12 data.txt</pre>
+<p class="tab">...which outputs the following:</p>
+<pre class="tab">e	two	thre
+pha	beta	g</pre>
+<p class="tab">Remember that the "space" between each word is actually a single tab character, so both lines of output are displaying ten characters: eight <a href="/jargon/a/alphanum.htm">alphanumeric</a> characters and two tab characters. In other words, <b>cut</b> is omitting the first two characters of each line, counting tabs as one character each; outputting characters three through twelve, counting tabs as one character each; and omitting any characters after the twelfth.</p>
+<p class="tab">Counting bytes instead of characters results in the same output in this case, because in an <a href="/jargon/a/ascii.htm">ASCII</a>-<a href="/jargon/c/charcode.htm">encoded</a> text file, each character is represented by a single byte (eight bits) of data. So the command:</p>
+<pre class="tcy tab">cut -b 3-12 data.txt</pre>
+<p class="tab">...for our file <b>data.txt</b>, produces the same output:</p>
+<pre class="tab">e	two	thre
+pha	beta	g</pre>
+<h2 id="delimiter">Specifying A Delimiter Other Than Tab</h2>
+<p class="tab">The tab character is the default delimiter that <b>cut</b> uses to determine what constitutes a field. So, if your file's fields are already delimited by tabs, you don't need to specify a different delimiter character.</p>
+<p class="tab">You can specify any character as the delimiter, however. For instance, the file <b>/etc/passwd</b> contains information about each user on the system, one user per line, and each information field is delimited by a colon ("<b>:</b>"). For example, the line of <b>/etc/passwd</b> for the <b>root</b> user may look like this:</p>
+<pre class="tab">root:x:0:0:root:/root:/bin/bash
+</pre>
+<p class="tab">These fields contain the following information, in the following order, separated by a colon character:</p>
+<ol>
+<li>Username</li>
+<li>Password (shown as <b>x</b> if <a href="/jargon/e/encrypt.htm">encrypted</a>)</li>
+<li>User ID number or UID</li>
+<li>Group ID number or GID</li>
+<li>Comment field (used by the <a href="/unix/ufinger.htm">finger</a> command)</li>
+<li><a href="/jargon/h/homedir.htm">Home Directory</a></li>
+<li><a href="/jargon/s/shell.htm">Shell</a></li>
+</ol>
+<p class="tab">The username is the first field on the line, so to display each username on the system, use the command:</p>
+<pre class="tcy tab">cut -f 1 -d ':' /etc/passwd</pre>
+<p class="tab">...which outputs, for example:</p>
+<pre class="tab">root
+daemon
+bin
+sys
+chope</pre>
+<p class="tab">(There are many more user accounts on a typical system, including many accounts specific to system services, but for this example, we pretend there are only five users.)</p>
+<p class="tab">The third field of each line in the <b>/etc/passwd</b> file is the UID (user ID number), so to display each username and user ID number, use the command:</p>
+<pre class="tcy tab">cut -f 1,3 -d ':' /etc/passwd</pre>
+<p class="tab">...which outputs the following, for example:</p>
+<pre class="tab">root:0
+daemon:1
+bin:2
+sys:3
+chope:1000</pre>
+<p class="tab">As you can see, the output is delimited, by default, using the same delimiter character specified for the input. In this case, that's the colon character (&quot;<b>:</b>&quot;). You can specify a different delimiter for the input and output, however. So, if you want to run the previous command, but have the output delimited by a space, you could use the command:</p>
+<pre class="tcy tab">cut -f 1,3 -d ':' --output-delimiter=' ' /etc/passwd</pre>
+<pre class="tab">root 0
+daemon 1
+bin 2
+sys 3
+chope 1000</pre>
+<p class="tab">But what if you want the output to be delimited by a tab? Specifying a tab character on the command line is a bit more complicated, because it is an unprintable character. To specify it on the command line, you must "protect" it from the shell. This is done differently depending on which shell you're using, but in the Linux default shell (<a href="/unix/ubash.htm">bash</a>), you can specify the tab character with <b>$'\t'</b>. So the command:</p>
+<pre class="tcy tab">cut -f 1,3 -d ':' --output-delimiter=$'\t' /etc/passwd</pre>
+<p class="tab">...outputs the following, for example:</p>
+<pre class="tab">root	0
+daemon	1
+bin	2
+sys	3
+chope	1000</pre>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">cut -c 3 file.txt</pre>
+<p class="tab">Output the third character of every line of the file <b>file.txt</b>, omitting the others.</p>
+<pre class="tcy tab">cut -c 1-3 file.txt</pre>
+<p class="tab">Output the first three characters of every line of the file <b>file.txt</b>, omitting the rest.</p>
+<pre class="tcy tab">cut -c -3 file.txt</pre>
+<p class="tab">Same as the above command. Output the first three characters of every line of <b>file.txt</b>.</p>
+<pre class="tcy tab">cut -c 3- file.txt</pre>
+<p class="tab">Output the third through the last characters of each line of the file <b>file.txt</b>, omitting the first two characters.</p>
+<pre class="tcy tab">cut -d ':' -f 1 /etc/passwd</pre>
+<p class="tab">Output the first field of the file <b>/etc/passwd</b>, where fields are delimited by a colon ('<b>:</b>'). The first field of <b>/etc/passwd</b> is the <a href="/jargon/u/username.htm">username</a>, so this command outputs every username in the <b>passwd</b> file.</p>
+<pre class="tcy tab">grep '/bin/bash' /etc/passwd | cut -d ':' -f 1,6</pre>
+<p class="tab">Output the first and sixth fields, delimited by a colon, of any entry in the <b>/etc/passwd</b> file which specifies <b>/bin/bash</b> as the login shell. This command outputs the username and <a href="/jargon/h/homedir.htm">home directory</a> of any user whose <a href="/jargon/l/login.htm">login</a> shell is <b>/bin/bash</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ugrep.htm"><b>grep</b></a> &mdash; Filter text which matches a regular expression.<br><a href="/unix/upaste.htm"><b>paste</b></a> &mdash; Merge corresponding lines of files.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82cedcabc401',m:'5vbUGDsch8.ETWGwm1TT0S2k9zJQpOiwCtKEg8VsqUE-1661495344-0-AfSiAnD17Fyz4FbZYnFx1gkXxe35d0dTNwdL7zehlPAZ3JY+dekXM6NWd/iKdTIqnFaYQNPA8wY2oizKsJUS23KUf6fJg3hMOrrqw/hUb22kEBRrRny56WLyCcwHt65Ffw==',s:[0x8246d1f768,0x2c9271e16e],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

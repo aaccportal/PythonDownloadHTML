@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux zipinfo command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/zipinfo.gif" width="300" height="300" alt="zipinfo command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>zipinfo</b> command lists technical information about a <a href="/jargon/z/zip.htm">ZIP</a> <a href="/jargon/a/archive.htm">archive</a>.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>zipinfo</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#technical">Technical details</a></li>
+<li><a href="#environment">Environment options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>zipinfo</b> lists technical information about files in a zip archive, most commonly found on <a href="/jargon/m/msdos.htm">MS-DOS</a> systems. Such information includes file access <a href="/jargon/p/permissi.htm">permissions</a>, <a href="/jargon/e/encrypt.htm">encryption</a> status, type of <a href="/jargon/c/compress.htm">compression</a>, version and <a href="/jargon/o/os.htm">operating system</a> or file system of compressing program. The default behavior (with no options) is to list single-line entries for each file in the archive, with header and trailer lines providing summary information for the entire archive. The format is a cross between Unix "<b>ls -l</b>" and "<b><a href="/unix/unzip.htm">unzip</a> -v</b>" output. Note that <b>zipinfo</b> is the same program as <b>unzip</b> (under Unix, a link to it); on some systems, however, <b>zipinfo</b> support may have been omitted when <b>unzip</b> was <a href="/jargon/c/compile.htm">compiled</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">zipinfo [-12smlvhMtTz] <i>file</i>[.zip] [<i>file(s)</i> ...] [-x <i>xfile(s)</i> ...]</pre>
+<h3 class="tab">Arguments</h3>
+<p class="tab">The <b>zipinfo</b> command takes the following <a href="/jargon/a/argument.htm">arguments</a>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><i>file</i>[<b>.zip</b>]</td>
+<td><a href="/jargon/p/path.htm">Path</a> of the zip archive(s). If the file specification is a <a href="/jargon/w/wildcard.htm">wildcard</a>, each matching file is processed in an order determined by the operating system (or file system). Only the file name can be a wildcard; the path itself cannot. Wildcard expressions are similar to Unix <a href="/unix/uegrep.htm">egrep</a> <a href="/jargon/r/regex.htm">regular expressions</a>, and may contain:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>*</b></td>
+<td>matches a sequence of 0 or more <a href="/jargon/c/charact.htm">characters</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>matches exactly 1 character.</td>
+</tr>
+<tr class="tcw">
+<td style="width:60px"><b>[</b>...<b>]</b></td>
+<td>matches any single character found inside the brackets; ranges are specified by a beginning character, a hyphen, and an ending character. If an exclamation point or a <a href="/jargon/c/caret.htm">caret</a> ("<b>!</b>" or "<b>^</b>") follows the left bracket, then the range of characters within the brackets is complemented (that is, anything except the characters inside the brackets is considered a match). To specify a verbatim left bracket, the three-character sequence "<b>[[]</b>" has to be used.</td>
+</tr>
+</table>
+(Be sure to quote any character that might otherwise be interpreted or modified by the operating system, particularly under Unix and <a href="/jargon/v/vms.htm">VMS</a>.) If no matches are found, the specification is assumed to be a literal file name; and if that also fails, the suffix <b>.zip</b> is appended. Note that <a href="/jargon/s/sea.htm">self-extracting</a> zip files are supported, as with any other zip archive; just specify the <b>.exe</b> <a href="/jargon/e/extensio.htm">suffix</a> (if any) explicitly.</td>
+</tr>
+<tr class="tcw">
+<td><i>file</i> ...</td>
+<td>An optional list of archive members to be processed, separated by spaces. <a href="/jargon/r/regex.htm">Regular expressions</a> or <a href="/jargon/w/wildcard.htm">wildcards</a> may be used to match multiple members; see above. Again, be sure to quote expressions that would otherwise be expanded or modified by the <a href="/os.htm">operating system</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b> <i>xfile</i> ...</td>
+<td>An optional list of archive members to be excluded from processing.</td>
+</tr>
+</table>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:40px"><b>-1</b></td>
+<td>List file names only, one per line. This option excludes all others; headers, trailers and zipfile <a href="/jargon/c/comment.htm">comments</a> are never printed. It is intended for use in Unix <a href="/jargon/s/shell.htm">shell</a> <a href="/jargon/s/script.htm">scripts</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-2</b></td>
+<td>List file names only, one per line, but allow headers (<b>-h</b>), trailers (<b>-t</b>) and zipfile comments (<b>-z</b>), as well. This option may be useful in cases where the stored file names are particularly long.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>List zipfile info in short Unix "<b><a href="/jargon/l/ls.htm"><b>ls</b></a> -l</b>" format. This is the default behavior.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b></td>
+<td>List zipfile info in medium Unix "<b>ls -l</b>" format. Identical to the <b>-s</b> output, except that the compression factor, expressed as a percentage, is also listed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>List zipfile info in long Unix "<b>ls -l</b>" format. As with <b>-m</b> except that the compressed size (in <a href="/jargon/b/byte.htm">bytes</a>) is printed instead of the compression ratio.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>List zipfile information in verbose, multi-page format.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>List header line. The archive name, actual size (in bytes) and total number of files is printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b></td>
+<td><a href="/jargon/p/pipe.htm">Pipe</a> all output through an internal pager similar to the <a href="/unix/umore.htm">more</a> command. At the end of a screenful of output, <b>zipinfo</b> pauses with a "<b>--More--</b>" prompt; the next screenful may be viewed by pressing the Enter (Return) key or the spacebar. <b>zipinfo</b> can be terminated by pressing the <b>q</b> key and, on some systems, the Enter/Return key. Unlike <b>more</b>, there is no forward-searching or editing capability. Also, <b>zipinfo</b> doesn't notice if long lines wrap at the edge of the screen, effectively resulting in the printing of two or more lines and the likelihood that some text will scroll off the top of the screen before being viewed. On some systems the number of available lines on the screen is not detected, in which case <b>zipinfo</b> assumes the height is 24 lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>List totals for files listed or for all files. The number of files listed, their uncompressed and compressed total sizes, and their overall compression factor is printed; or, if only the totals line is being printed, the values for the entire archive are given. The compressed total size does not include the 12 additional header bytes of each encrypted entry. Note that the total compressed (data) size will never match the actual zipfile size, since the latter includes all of the internal zipfile headers in addition to the compressed data.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b></td>
+<td>Print the file dates and times in a sortable decimal format (<b>yymmdd.hhmmss</b>). The default date format is a more standard, human-readable version with abbreviated month names.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b></td>
+<td>Modify or disable UTF-8 handling. When <b>UNICODE_SUPPORT</b> is available, the option <b>-U</b> forces <b>unzip</b> to escape all non-ASCII characters from UTF-8 coded file names as "<b>#Uxxxx</b>". This option is mainly provided for debugging purpose when the fairly new UTF-8 support is suspected to mangle up extracted file names.<br><br> The option <b>-UU</b> allows to entirely disable the recognition of UTF-8 encoded file names. The handling of file name codings within <b>unzip</b> falls back to the behaviour of previous versions.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b></td>
+<td>Include the archive comment (if any) in the listing.</td>
+</tr>
+</table>
+<h2 id="technical">Technical details</h2>
+<p class="tab"><b>zipinfo</b> has a number of modes, and its behavior can be rather difficult to fathom if one isn't familiar with Unix <a href="/jargon/l/ls.htm"><b>ls</b></a>. The default behavior is to list files in the following format:</p>
+<pre class="tab">-rw-rws--- 1.9 unx 2802 t- defX 11-Aug-91 13:48 perms.2660</pre>
+<p class="tab">The last three fields are the modification date and time of the file, and its name. The case of the file name is respected; thus files that come from MS-DOS <a href="/jargon/p/pkzip.htm">PKZIP</a> are always capitalized. If the file was zipped with a stored directory name, that is also displayed as part of the file name.</p>
+<p class="tab">The second and third fields indicate that the file was zipped under Unix with version <b>1.9</b> of <b>zip</b>. Since it comes from Unix, the file permissions at the beginning of the line are printed in Unix format. The uncompressed file-size (2802 in this example) is the fourth field. The fifth field consists of two <a href="/jargon/c/charact.htm">characters</a>, either of which may take on several values. The first character may be either "<b>t</b>" or "<b>b</b>", indicating that <b>zip</b> believes the file to be text or binary, respectively. If the file is encrypted, <b>zipinfo</b> notes this fact by capitalizing the character ("<b>T</b>" or "<b>B</b>"). The second character may also take on four values, depending on whether there is an extended local header or an "extra field" associated with the file (they provide a standard way to include non-standard information in the archive). If neither exists, the character will be a hyphen ("<b>-</b>"); if there is an extended local header but no extra field, "<b>l</b>"; if the reverse, "<b>x</b>"; and if both exist, "<b>X</b>". Thus the file in this example is (probably) a text file, is not encrypted, and has neither an extra field nor an extended local header associated with it. The example below, on the other hand, is an encrypted binary file with an extra field:</p> 
+<pre class="tab">RWD,R,R 0.9 vms 168 Bx shrk 9-Aug-91 19:15 perms.0644</pre>
+<p class="tab">Extra fields are used for various purposes (see discussion of the <b>-v</b> option below) including the storage of VMS file attributes, which is presumably the case here. These file attributes are listed in VMS format. Some other possibilities for the host operating system (which is actually a misnomer--host file system is more correct) include <a href="/jargon/o/os2.htm">OS/2</a> or <a href="/jargon/w/winnt.htm">NT</a> with High Performance File System (<a href="/jargon/h/hpfs.htm">HPFS</a>), <a href="/jargon/m/msdos.htm">MS-DOS</a>, <a href="/jargon/o/os2.htm">OS/2</a> or NT with File Allocation Table (<a href="/jargon/f/fat.htm">FAT</a>) file system, and <a href="/jargon/a/applemac.htm">Macintosh</a>. These are denoted as follows:</p>
+<pre class="tab">-rw-a--     1.0 hpf    5358 Tl i4:3  4-Dec-91 11:33 longfilename.hpfs
+-r--ahs     1.1 fat    4096 b- i4:2 14-Jul-91 12:58 EA DATA. SF
+--w-------  1.0 mac   17357 bx i8:2  4-May-92 04:02 unzip.macr</pre>
+<p class="tab">File attributes in the first two cases are indicated in a Unix-like format, where the seven subfields indicate whether the file:</p>
+<ul>
+<li>is a <a href="/jargon/d/director.htm">directory</a>,</li>
+<li>is readable (always true),</li>
+<li>is writable,</li>
+<li>is <a href="/jargon/e/execfile.htm">executable</a> (guessed on the basis of the extension; <b>.exe</b>, <b>.com</b>, <b>.bat</b>, <b>.cmd</b> and <b>.btm</b> files are assumed to be so),</li>
+<li>has its archive bit set,</li>
+<li>is <a href="/jargon/h/hiddenfi.htm">hidden</a>, and</li>
+<li>is a system file. Interpretation of Macintosh file attributes is unreliable because some Macintosh archivers don't store any attributes in the archive.</li>
+</ul>
+<p class="tab">Finally, the sixth field indicates the compression method and possible sub-method used. There are six methods known at present: storing (no compression), reducing, shrinking, imploding, tokenizing (never publicly released), and deflating. Also, there are four levels of reducing (1 through 4); four types of imploding (4K or 8K sliding dictionary, and 2 or 3 Shannon-Fano trees); and four levels of deflating (super fast, fast, normal, maximum compression). <b>zipinfo</b> represents these methods and their sub-methods as follows: stor; re:1, re:2, etc.; shrk; i4:2, i8:3, etc.; tokn; and defS, defF, defN, and defX.</p>
+<p class="tab">The medium and long listings are almost identical to the short format except that they add information on the file's compression. The medium format lists the file's compression factor as a percentage indicating the amount of space that has been "removed":</p>
+<pre class="tab">-rw-rws--- 1.5 unx 2802 t- 81% defX 11-Aug-91 13:48 perms.2660</pre>
+<p class="tab">In this example, the file has been compressed by more than a factor of five; the compressed data are only 19% of the original size. The long format gives the compressed file's size in bytes, instead:</p>
+<pre class="tab">-rw-rws--- 1.5 unx 2802 t- 538 defX 11-Aug-91 13:48 perms.2660</pre>
+<p class="tab">In contrast to the unzip listings, the compressed size figures in this listing format denote the complete size of compressed data, including the 12 extra header bytes in case of encrypted entries.</p>
+<p class="tab">Adding the <b>-T</b> option changes the file date and time to decimal format:</p>
+<pre class="tab">-rw-rws--- 1.5 unx 2802 t- 538 defX 910811.134804 perms.2660</pre>
+<p class="tab">Note that because of limitations in the MS-DOS format used to store file times, the seconds field is always rounded to the nearest even second. For Unix files this is expected to change in the next major releases of <b>zip</b> and <b>unzip</b>.</p>
+<p class="tab">In addition to individual file information, a default zipfile listing also includes header and trailer lines:</p>
+<pre class="tab">Archive:  OS2.zip   5453 bytes   5 files
+,,rw, 1.0 hpf     730 b- i4:3 26-Jun-92 23:40 Contents
+,,rw, 1.0 hpf    3710 b- i4:3 26-Jun-92 23:33 makefile.os2
+,,rw, 1.0 hpf    8753 b- i8:3 26-Jun-92 15:29 os2unzip.c
+,,rw, 1.0 hpf      98 b- stor 21-Aug-91 15:34 unzip.def
+,,rw, 1.0 hpf      95 b- stor 21-Aug-91 17:51 zipinfo.def
+5 files, 13386 bytes uncompressed, 4951 bytes compressed:  63.0%</pre>
+<p class="tab">The header line gives the name of the archive, its total size, and the total number of files; the trailer gives the number of files listed, their total uncompressed size, and their total compressed size (not including any of zip's internal overhead). If, however, one or more file(s) are provided, the header and trailer lines are not listed. This behavior is also similar to that of Unix's "<b>ls -l</b>"; it may be overridden by specifying the <b>-h</b> and <b>-t</b> options explicitly. In such a case the listing format must also be specified explicitly, since <b>-h</b> or <b>-t</b> (or both) in the absence of other options implies that ONLY the header or trailer line (or both) is listed.</p>
+<p class="tab">The <a href="/jargon/v/verbose.htm">verbose</a> listing is mostly self-explanatory. It also lists file comments and the zipfile comment, if any, and the type and number of bytes in any stored extra fields. Currently known types of extra fields include PKWARE's authentication ("AV") info; OS/2 extended attributes; VMS filesystem info, both PKWARE and Info-ZIP versions; Macintosh resource forks; Acorn/Archimedes SparkFS info; and so on. (Note that in the case of OS/2 extended attributes (perhaps the most common use of zipfile extra fields); the size of the stored EAs as reported by zipinfo may not match the number given by OS/2's dir command: OS/2 always reports the number of bytes required in <a href="/jargon/num/16bit.htm">16-bit</a> format, whereas zipinfo always reports the <a href="/jargon/num/32bit.htm">32-bit</a> storage.)</p>
+<p class="tab">Again, the compressed size figures of the individual entries include the 12 extra header bytes for encrypted entries. In contrast, the archive total compressed size and the average compression ratio shown in the summary bottom line are calculated without the extra 12 header bytes of encrypted entries.</p>
+<h2 id="environment">Environment options</h2>
+<p class="tab">Modifying <b>zipinfo</b>'s default behavior via options placed in an <a href="/jargon/e/envivari.htm">environment variable</a> can be a bit complicated to explain, due to <b>zipinfo</b>'s attempts to handle various defaults in an intuitive, yet Unix-like, manner. Nevertheless, there is some underlying logic. In brief, there are three "priority levels" of options: the default options; environment options, which can override or add to the defaults; and explicit options given by the user, which can override or add to either of the above.</p>
+<p class="tab">The default listing format, as noted above, corresponds roughly to the "<b>zipinfo -hst</b>" command (except when individual zipfile members are specified). A user who prefers the long-listing format (<b>-l</b>) can make use of the zipinfo's environment variable to change this default using the following methods:</p>
+<p class="tab">in Unix <a href="/jargon/b/bourne.htm">Bourne shell</a>:</p>
+<pre class="tab tcy">ZIPINFO=-l; export ZIPINFO</pre>
+<p class="tab">in Unix <a href="/unix/ucsh.htm">C shell</a>:</p>
+<pre class="tab tcy">setenv ZIPINFO -l</pre>
+<p class="tab">in OS/2 or MS-DOS:</p>
+<pre class="tab tcy">set ZIPINFO=-l</pre>
+<p class="tab">in VMS (quotes for lowercase):</p>
+<pre class="tab tcy">define ZIPINFO_OPTS "-l"</pre>
+<p class="tab">If, in addition, the user dislikes the trailer line, <b>zipinfo</b>'s concept of "negative options" may be used to override the default inclusion of the line. This is accomplished by preceding the undesired option with one or more minuses: e.g., "<b>-l-t</b>" or "<b>--tl</b>", in this example. The first hyphen is the regular switch character, but the one before the "<b>t</b>" is a minus sign. The dual use of hyphens may seem a little awkward, but it's reasonably intuitive nonetheless: ignore the first hyphen and go from there. It is also consistent with the behavior of the Unix command <a href="/unix/unice.htm"><b>nice</b></a>.</p>
+<p class="tab">As suggested above, the default variable names are <b>ZIPINFO_OPTS</b> for <b>VMS</b> (where the symbol used to install <b>zipinfo</b> as a foreign command would otherwise be confused with the environment variable), and <b>ZIPINFO</b> for all other operating systems. For compatibility with <b>zip</b>, <b>ZIPINFOOPT</b> is also accepted. If both <b>ZIPINFO</b> and <b>ZIPINFOOPT</b> are defined, however, ZIPINFO takes precedence. unzip's diagnostic option (<b>-v</b> with no zipfile name) can be used to check the values of all four possible <b>unzip</b> and <b>zipinfo</b> environment variables.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">zipinfo hope</pre>
+<p class="tab">Display information about the archive <b>hope.zip</b>. Output will resemble the following:</p>
+<pre class="tab">Archive: hope.zip 9628445 bytes 25 files
+-rw-r--r-- 2.3 unx    282667  tx  defN  18-Jul-11 14:17 badips.txt
+-rw-r--r-- 2.3 unx  46177980  tx  defN  18-Jul-11 04:45 hijacklogs.txt
+-rw-r--r-- 2.3 unx    231984  tx  defN  18-Jul-11 13:01 isitup.txt
+.
+.
+.
+25 files, 60757943 bytes uncompressed, 9625041 bytes compressed: 84.2%</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/unzip.htm"><b>unzip</b></a> &mdash; List, test and extract compressed files in a zip archive.<br><a href="/unix/zip.htm"><b>zip</b></a> &mdash; A compression and archiving utility.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a838caa85848c',m:'revzeRPLmRo83Sg1v_tQ6A59XN14NkWqeUs12RODpwg-1661495374-0-AWHd3UExGzP6YGZFGxDx+nyjtS5rb142+Ehl7fyiZBTONZrcFaKJ/BA73DEtAHkxuKcP68+HRtPGN9hifP6E+SmFY+VIhVfpoaRMvbEt69Lz2BjlE+fEoC34YevcvK69mOCnxDcndLlg/kcuK7uWoNg=',s:[0xc981d343b1,0xac2a135695],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

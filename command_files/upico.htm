@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux nano and pico command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2020-03-06">03/06/2020</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/pico.gif" width="300" height="300" alt="pico command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>pico</b> is a simple text <a href="/jargon/e/editor.htm">editor</a> in the style of the <a href="/unix/upine.htm">pine</a> e-mail composer.</p>
+<div class="tip" role="note">
+<span class="title">Tip</span><p>On modern <a href="/jargon/l/linux.htm">Linux</a> systems, <b>nano</b> (the <a href="/jargon/g/gnu.htm">GNU</a> version of pico) is installed by default. It's identical to pico. In all the commands listed here, you can use "nano" instead of "pico" on Linux.</p>
+</div>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<img src="/jargon/n/nano-editor.jpg" width="300" height="175" alt="GNU nano" class="floatRight">
+<p class="tab"><b>Pico</b> (available on modern Linux systems as <b>nano</b>) is a simple, display-oriented text editor. Commands and their Control key shortcuts are displayed at the bottom of the screen. As <a href="/jargon/c/charact.htm">characters</a> are typed, they are immediately inserted into the text.</p>
+<p class="tab">Editing commands are entered using <a href="/jargon/c/ctrl.htm">Control key</a> shortcuts. As a workaround for communications programs that swallow certain control characters, you can emulate a control key by pressing <a href="/jargon/e/esc.htm">Escape</a> twice, followed by the desired control character. For example, "<b>Esc Esc c</b>" would be equivalent to entering a <b>ctrl-c</b>. The editor has five basic features: paragraph <a href="/jargon/j/justify.htm">justification</a>, <a href="/jargon/s/search.htm">searching</a>, block <a href="/jargon/p/paste.htm">cut/paste</a>, a spelling checker, and a file browser.</p>
+<p class="tab">Paragraph justification (or filling) takes place in the paragraph containing the <a href="/jargon/c/cursor.htm">cursor</a>, or, if the cursor is between lines, in the paragraph immediately below. Paragraphs are <a href="/jargon/d/delimite.htm">delimited</a> by blank lines, or by lines beginning with a space or tab. Unjustification can be done immediately after justification using the <b>control-U</b> key combination.</p>
+<p class="tab">String searches are not sensitive to case. A search begins at the current cursor position and wraps around the end of the text. The most recent search string is offered as the default in subsequent searches.</p>
+<p class="tab">Blocks of text can be moved, copied or deleted with creative use of the command for mark (<b>ctrl-^</b>), delete (<b>ctrl-k</b>) and undelete (<b>ctrl-u</b>). The delete command removes text between the "mark" and the current cursor position, and place it in the "cut" buffer. The undelete command effects a "paste" at the current cursor position.</p>
+<p class="tab">The spell checker examines all words in the text. It then offers each misspelled word for correction while highlighting it in the text. Spell checking can be canceled at any time. Alternatively, <b>pico</b> will substitute for the default spell checking routine a routine defined by the <b>SPELL</b> <a href="/jargon/e/envivari.htm">environment variable</a>. The replacement routine should read <a href="/jargon/s/stdin.htm">standard input</a> and write standard output.</p>
+<p class="tab">The file browser is offered as an option in the "Read File" and "Write Out" command prompts. It is intended to help in searching for specific files and navigating <a href="/jargon/h/hierfile.htm">directory hierarchies</a>. File names with sizes and names of directories in the current working directory are presented for selection. The current working directory is displayed on the top line of the display while the list of available commands takes up the bottom two. Several basic file manipulation functions are supported: file renaming, copying, and deletion.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">pico [ <i>options</i> ] [ <i>file</i> ]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:220px"><b>+</b><i>n</i></td>
+<td>Causes <b>pico</b> to be started with the cursor located <i>n</i> lines into the file. (Note: no space between "<b>+</b>" sign and number)</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>Display all files including those beginning with a period (<b>.</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>Enable the option to replace text matches found using the "Where is" command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Rebind the "delete" key so the character the cursor is on is rubbed out rather than the character to its left.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>Enable file name completion.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>Use function keys for commands. This option supported only in conjunction with UW Enhanced <a href="/jargon/n/ncsa.htm">NCSA</a> <a href="/jargon/t/telnet.htm">telnet</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>List valid command line options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-j</b></td>
+<td>Enable "Goto" command in the file browser. This enables the command to permit explicitly telling pilot which directory to visit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b></td>
+<td>Enable "Show Cursor" mode in file browser. Cause cursor to be positioned before the current selection rather than placed at the lower left of the display.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b></td>
+<td>Causes "Cut Text" command to remove characters from the cursor position to the end of the line rather than remove the entire line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b></td>
+<td>Enable mouse functionality. This only works when pico is run from within an <a href="/jargon/x/xwin.htm">X Window System</a> <a href="/unix/uxterm.htm">xterm</a> window.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b><i>n</i></td>
+<td>The <b>-n</b><i>n</i> option enables new mail notification. The <i>n</i> argument is optional, and specifies how often, in seconds, your mailbox is checked for new mail. For example, <b>-n</b><i>60</i> causes <b>pico</b> to check for new mail once every minute. The default interval is 180 seconds, while the minimum allowed is 30. (Note: no space between "<i>n</i>" and the number)</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b> <i>dir</i></td>
+<td>Sets operating directory. Only files in the directory are accessible. Likewise, the file browser is limited to the specified directory subtree.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b><i>n</i></td>
+<td>Sets column used to limit the "Justify" command's right margin.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>speller</i></td>
+<td>Specify an alternate program spell to use when spell checking.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Enable "tool" mode. Intended for when <b>pico</b> is used as the editor within other tools. <b>pico</b> will not prompt for save on exit, and will not rename the buffer during the "Write Out" command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>View the file only, disallowing any editing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-version</b></td>
+<td>Print <b>pico</b> version and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b></td>
+<td>Disable word wrap (thus allow editing of long lines).</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b></td>
+<td>Disable keymenu at the bottom of the screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b></td>
+<td>Enable <b>^Z</b> suspension of <b>pico</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Preserve the "start" and "stop" characters, often <b>Ctrl-Q</b> and <b>Ctrl-S</b>, which are sometimes used in communications paths to control data flow between devices that operate at different speeds.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Q</b> <i>quotestr</i></td>
+<td>Set the quote string. Especially useful when composing e-mail, setting this allows the quote string to be checked for when justifying paragraphs. A common quote string is "<b>&gt;</b> ".</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b></td>
+<td>Termcap or terminfo definition for input escape sequences are used in preference to sequences defined by default. This option is only available if pico was compiled with the <b>TERMCAP_WINS</b> define turned on.</td>
+</tr>
+<tr class="tcw">
+<td><b>-setlocale_ctype</b></td>
+<td>Do setlocale(<b>LC_CTYPE</b>) if available. Default is to not do this.</td>
+</tr>
+<tr class="tcw">
+<td><b>-no_setlocale_collate</b></td>
+<td>Do not do <b>setlocale(LC_COLLATE)</b>. Default is to do this.</td>
+</tr>
+</table>
+<p class="tab">When a running <b>pico</b> is disconnected (i.e., receives a SIGHUP <a href="/unix/signals.htm">signal</a>), <b>pico</b> saves the current work if needed before exiting. Work is saved under the current file name with "<b>.save</b>" appended. If the current work is unnamed, it is saved under the file name "<b>pico.save</b>".</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">pico myfile.txt</pre>
+<p class="tab">Launches the <b>pico</b> editor, and opens the file <b>myfile.txt</b> for editing.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ued.htm"><b>ed</b></a> &mdash; A simple text editor.<br><a href="/unix/uemacs.htm"><b>emacs</b></a> &mdash; A highly extensible text editor.<br><a href="/unix/uex.htm"><b>ex</b></a> &mdash; Line-editor mode of the <b>vi</b> text editor.<br><a href="/unix/upine.htm"><b>pine</b></a> &mdash; A client for using mail and newsgroups.<br><a href="/unix/uvi.htm"><b>vi</b></a> &mdash; Text editor based on the visual mode of <b>ex</b>.<br><a href="/unix/vim.htm"><b>vim</b></a> &mdash; An advanced version of <b>vi</b>.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83311dffc44c',m:'N0Q_5NrOZwOQ79vLdoutU5FHxY0vgl4ZtczFGTkEK9g-1661495360-0-AZBO2aEpJ/SCeobTafy77phQaqiSEliHBMkxrLSzc2JsQvxQWOsF+LTdXvyp3LjEPhIfYl0W1ugJbT7gw3cNkwVqnahvHQzObYllrDAMu6jnUhQ7tRhqfeud9HJ/ymwx0Q==',s:[0x8fa27b1d90,0x9f32e3cffd],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

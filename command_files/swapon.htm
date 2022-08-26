@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux swapon and swapoff command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/swapoff.gif" width="300" height="300" alt="swapoff command" class="floatRight"><p class="intro">On Linux operating systems, the <b>swapon</b> and <b>swapoff</b> commands enable and disable, respectively, <a href="/jargon/d/device.htm">devices</a> and <a href="/jargon/f/file.htm">files</a> for <a href="/jargon/s/swapfile.htm">paging and swapping</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>swapon</b> is used to specify devices on which paging and swapping are to take place.</p>
+<p class="tab">The device or file used is given by the <i>specialfile</i> <a href="/jargon/p/paramete.htm">parameter</a>. It may be of the form "<b>-L</b> <i>label</i>" or "<b>-U</b> <i>uuid</i>" to indicate a device by label or <a href="/jargon/u/uuid.htm">uuid</a>.</p>
+<p class="tab">Calls to <b>swapon</b> normally occur in the system boot scripts making all swap devices available, so that the paging and swapping activity is interleaved across several devices and files.</p>
+<p class="tab"><b>swapoff</b> disables swapping on the specified devices and files. When the <b>-a</b> flag is given, swapping is disabled on all known swap devices and files (as found in <b>/proc/swaps</b> or <b>/etc/fstab</b>).</p>
+<h2 id="syntax">Syntax</h2>
+<p class="tab">To get swap information:</p>
+<pre class="tcy tab">swapon -s [-h] [-V]</pre>
+<p class="tab">To enable a swap area:</p>
+<pre class="tcy tab">swapon [-d] [-f] [-p <i>priority</i>] [-v] <i>specialfile</i>...</pre>
+<p class="tab">To disable a swap area:</p>
+<pre class="tcy tab">swapoff [-v] <i>specialfile</i>...</pre>
+<p class="tab">To enable all swap areas:</p>
+<pre class="tcy tab">swapon -a [-e] [-f] [-v]</pre>
+<p class="tab">To disable all swap areas:</p>
+<pre class="tcy tab">swapoff -a [-v]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-a</b>, <b>--all</b></td>
+<td>All devices marked as "swap" in <b>/etc/fstab</b> are made available, except for those with the "<b>noauto</b>" option. Devices that are already used as swap are silently skipped.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--discard</b></td>
+<td>Discard freed swap pages before they are reused, if the swap device supports the discard or trim operation. This may improve performance on some <a href="/jargon/s/solistat.htm">solid-state devices</a>, but often it does not. The <b>/etc/fstab</b> mount option <b>discard</b> may be also used to enable discard flag.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>, <b>--ifexists</b></td>
+<td>Silently skip devices that do not exist. The <b>/etc/fstab</b> mount option <b>nofail</b> may be also used to skip non-existing device.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--fixpgsz</b></td>
+<td>Reinitialize (<b><a href="/jargon/e/exec.htm">exec</a> /sbin/mkswap</b>) the swap space if its page size does not match that of the current running kernel. <a href="/unix/mkswap.htm"><b>mkswap</b></a> initializes the whole device and does not check for bad blocks.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b> <i>label</i></td>
+<td>Use the partition with the specified label. (For this, access to <b>/proc/partitions</b> is needed.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--priority</b> <i>priority</i></td>
+<td>Specify the priority of the swap device. The <i>priority</i> is a value between <b>-1</b> and <b>32767</b>. Higher numbers indicate higher priority. Add <b>pri=</b><i>value</i> to the option field of <b>/etc/fstab</b> for use with <b>swapon -a</b>. If no priority is specified, it defaults to <b>-1</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--summary</b></td>
+<td>Display swap usage summary by device. Equivalent to "<b><a href="/unix/ucat.htm">cat</a> /proc/swaps</b>". Not available before Linux 2.1.25.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b> <i>uuid</i></td>
+<td>Use the partition with the specified <a href="/jargon/u/uuid.htm">UUID</a> <i>uuid</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Use <a href="/jargon/v/verbose.htm">verbose</a> output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+</table>
+<h2 id="notes">Notes</h2>
+<p class="tab">You should not use <b>swapon</b> on a file with holes (not contiguously represented on disk). Swap over <a href="/jargon/n/nfs.htm">NFS</a> may not work. <b>swapon</b> automatically detects and rewrites swap space signature with old software suspend data (e.g., <b>S1SUSPEND</b>, <b>S2SUSPEND</b>, ...); otherwise, you can get data <a href="/jargon/c/corrupt.htm">corruption</a> the next time an attempt at unsuspending is made.</p>
+<p class="tab">The <b>swapon</b> command may not work correctly when using a swap file with some versions of <b>btrfs</b> (B-Tree file system). Because the swap file implementation in the kernel expecting to be able to write to the file directly, without the assistance of the file system. Since <b>btrfs</b> is a copy-on-write file system, the file location may not be static and corruption can result. <b>btrfs</b> actively disallows the use of files on its file systems by refusing to map the file. This problem shown in the system log as "swapon: swapfile has holes." One possible workaround is to map the file to a loopback device, which allows the file system to determine the mapping properly but may come with a performance impact.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">swapon /dev/sdc1</pre>
+<p class="tab">Enable the swap partition <b>/dev/sdc1</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/fdisk.htm"><b>fdisk</b></a> &mdash; A disk partitioning utility.<br><a href="/unix/telinit.htm"><b>init</b></a> &mdash; The parent of all processes on the system.<br><a href="/unix/mkswap.htm"><b>mkswap</b></a> &mdash; Set up a Linux swap area.<br><a href="/unix/umount.htm"><b>mount</b></a> &mdash; Mount a file system so that its data may be accessed.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a835b0c43c3ca',m:'pY34kLTaQHDA883VyWe_Kvs6PKm7qBh2SWZLApeQd8I-1661495366-0-AU2n5naXPbrSikSEo5nql36FYiJ/nyF7IYURxL050qT8qvyUE4qhO3YCDuRytAnYnckAUadl5oN78FYjxFs64OGjDAX2EFpK79qPOcIonZQHWBXK70H0CsLI+WRUJGXQUQ==',s:[0xf73f844afa,0x8ae4f26d01],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

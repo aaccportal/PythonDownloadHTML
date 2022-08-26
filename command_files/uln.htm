@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux ln command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/ln.gif" width="300" height="300" alt="ln command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>ln</b> command creates links between files, associating file names with file data.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>ln</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#links-explained">What is a link?</a></li>
+<li><a href="#using">Using the link command</a></li>
+<li><a href="#difference">The difference between ln and link</a></li>
+<li><a href="#symlinks">Creating symlinks to directories</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>ln</b> creates a <a href="/unix/link.htm">link</a> to file <i>TARGET</i> with the name <i>LINKNAME</i>. If <i>LINKNAME</i> is omitted, a link to <i>TARGET</i> is created in the current <a href="/jargon/d/director.htm">directory</a>, using the name of <i>TARGET</i> as the <i>LINKNAME</i>.</p>
+<p class="tab"><b>ln</b> creates <a href="/jargon/h/hardlink.htm">hard links</a> by default, or <a href="/jargon/s/symblink.htm">symbolic links</a> if the <b>-s</b> (<b>--symbolic</b>) option is specified. When creating hard links, each <i>TARGET</i> must exist.</p>
+<h2 id="links-explained">What is a link?</h2>
+<p class="tab">Before we discuss the <b>ln</b> command, let's first discuss the <a href="/unix/link.htm"><b>link</b></a> command, what a link is, and how it relates to files as we know them.</p>
+<p class="tab">A <i>link</i> is an entry in your <a href="/jargon/f/filesyst.htm">file system</a> which connects a <a href="/jargon/f/filename.htm">file name</a> to the actual <a href="/jargon/b/byte.htm">bytes</a> of <a href="/jargon/d/data.htm">data</a> on the <a href="/jargon/d/disk.htm">disk</a>. More than one file name can "link" to the same data. Here's an example. Let's create a file named <b>file1.txt</b>:</p>
+<pre class="tab tcy">echo "This is a file." &gt; file1.txt</pre>
+<p class="tab">This command <a href="/unix/uecho.htm"><b>echo</b></a>es the <a href="/jargon/s/string.htm">string</a> "<b>This is a file</b>". Normally this would echo to our terminal, but the <b>&gt;</b> operator <a href="/jargon/r/redirect.htm">redirects</a> the string's text to the <b>file1.txt</b> file. We can check that it worked using <a href="/unix/ucat.htm"><b>cat</b></a> to display the contents of the file:</p>
+<pre class="tab tcy">cat file1.txt</pre>
+<pre class="tab">This is a file.
+</pre>
+<p class="tab">When this file was created, the operating system wrote the bytes to a location on the disk and also <i>linked</i> that data to a file name, <b>file1.txt</b> so that we can refer to the file in commands and <a href="/jargon/a/argument.htm">arguments</a>. If you rename the file, the contents of the file are not altered; only the information that <i>points</i> to it. <i>The file name and the file's data are two separate entities.</i></p>
+<p class="tab">Here's an illustration of the file name and the data to help you visualize it:</p>
+<p class="tab"><img src="/unix/images/nolink-diagram.jpg" width="260" height="191" alt="file1.txt's link and data components"></p>
+<h2 id="using">Using the link command</h2>
+<p class="tab">What the <b>link</b> command does is allow us to manually create a link to file data that already exists. So, let's use <b>link</b> to create our own link to the file data recently created. In essence, we'll create another file name for the data that already exists.</p>
+<p class="tab">Let's call our new link <b>file2.txt</b>. How do we create it?</p>
+<p class="tab">The general form of the <b>link</b> command is: "<b>link</b> <i>file_name</i> <i>linkname</i>". Our first argument is the name of the file whose data we're linking to; the second argument is the name of the new link we're creating.</p>
+<pre class="tab tab tcy">link file1.txt file2.txt</pre>
+<p class="tab">Now both <b>file1.txt</b> and <b>file2.txt</b> point to the same data on the disk:</p>
+<pre class="tab tab tcy">cat file1.txt</pre>
+<pre class="tab">This is a file.</pre>
+<pre class="tab tab tcy">cat file2.txt</pre>
+<pre class="tab">This is a file.</pre>
+<p class="tab">The important thing to realize is that we did <i>not make a copy</i> of this data. Both file names point to the same bytes of data on the disk. Here's an illustration to help you visualize it:</p>
+<p class="tab"><img src="/unix/images/link-diagram.jpg" width="317" height="191" alt="file1.txt and file2.txt both linked to the same data"></p>
+<p class="tab">If we change the contents of the data pointed to by either one of these files, the other file's contents are changed as well. Let's append a line to one of them using the <b>&gt;&gt;</b> operator:</p>
+<pre class="tab tab tcy">echo "It points to data on the disk." &gt;&gt; file1.txt</pre>
+<p class="tab">Now let's look at the contents of <b>file1.txt</b>:</p>
+<pre class="tab tab tcy">cat file1.txt</pre>
+<pre class="tab">This is a file.
+It points to data on the disk.
+</pre>
+<p class="tab">... and now let's look at the second file, the one we created with the <b>link</b> command:</p>
+<pre class="tab tab tcy">cat file2.txt</pre>
+<pre class="tab">This is a file.
+It points to data on the disk.
+</pre>
+<p class="tab">Both files show the change because they share the same data on the disk. Changes to the data of either one of these files change the contents of the other.</p>
+<p class="tab">But what if we delete one of the files? Will both files be deleted?</p>
+<p class="tab">No. If we delete one of the files, we're deleting one of the links to the data. Because we created another link manually, we still have a pointer to that data; we still have a way, at the user-level, to access the data we put in there. So if we use the <a href="/unix/urm.htm"><b>rm</b></a> command to remove our first file:</p>
+<pre class="tab tab tcy">rm file1.txt</pre>
+<p class="tab">...it no longer exists as a file with that name:</p>
+<pre class="tab tab tcy">cat file1.txt</pre>
+<pre class="tab">cat: file1.txt: No such file or directory</pre>
+<p class="tab">...but the link to the data we manually created still exists, and still points to the data:</p>
+<pre class="tab tab tcy">cat file2.txt</pre>
+<pre class="tab">This is a file.
+It points to data on the disk.
+</pre>
+<p class="tab">As you can see, the data stays on the disk even after the "file" (which is actually a link to the data) is removed. We can still access that data as long as there is a link to it. This is important to know when you're removing files &mdash; "removing" a file makes the data inaccessible by <a href="/unix/unlink.htm"><b>unlink</b></a>-ing it. The data still exists on the storage media, somewhere, inaccessible to the system, and that space on disk is marked as being available for future use.</p>
+<p class="tab">The type of link we've been working with here is sometimes called a "hard" link. A hard link and the data it links to must always exist on the same filesystem; you can't, for instance, create a hard link on one <a href="/jargon/p/partition.htm">partition</a> to file data stored on another partition. You also can't create a hard link to a directory. Only symbolic links may link to a directory; we'll get to that in a moment.</p>
+<h2 id="difference">The difference between ln and link</h2>
+<p class="tab">So what about <b>ln</b>? That's why we're here, right?</p>
+<p class="tab"><b>ln</b>, by default, creates a hard link like <b>link</b> does. So this <b>ln</b> command:</p>
+<pre class="tab tab tcy">ln file1.txt file2.txt</pre>
+<p class="tab">...is the same as the following <b>link</b> command:</p>
+<pre class="tab tab tcy">link file1.txt file2.txt</pre>
+<p class="tab">...because both commands create a hard link named <b>file2.txt</b> which links to the data of <b>file1.txt</b>.</p>
+<p class="tab">However, we can also use <b>ln</b> to create <i>symbolic links</i> with the <b>-s</b> option. So the command:</p>
+<pre class="tab tab tcy">ln -s file1.txt file2.txt</pre>
+<p class="tab">Create a symbolic link to <b>file1.txt</b> named <b>file2.txt</b>. In contrast to our hard link example, here's an illustration to help you visualize our symbolic link:</p>
+<p class="tab"><img src="/unix/images/symlink-diagram.jpg" width="317" height="191" alt="file2.txt symlinked to file1.txt"></p>
+<h3 class="tab">What are symbolic links?</h3>
+<p class="tab">Symbolic links, sometimes called "soft" links, are different than "hard" links. Instead of linking to the data of a file, they <i>link to another link</i>. So in the example above, <b>file2.txt</b> points to the link <b>file1.txt</b>, which in turn points to the data of the file.</p>
+<p class="tab">This has several potential benefits. For one thing, symbolic links (also called "symlinks" for short) can link to directories. Also, symbolic links can cross file system boundaries, so a symbolic link to data on one drive or partition can exist on another drive or partition.</p>
+<p class="tab">You should also be aware that, unlike hard links, removing the file (or directory) that a symlink points to breaks the link. So if we create <b>file1.txt</b>:</p>
+<pre class="tab tab tcy">echo "This is a file." &gt; file1.txt</pre>
+<p class="tab">...and create a symbolic link to it:</p>
+<pre class="tab tab tcy">ln -s file1.txt file2.txt</pre>
+<p class="tab">...we can <b>cat</b> either one of these to see the contents:</p>
+<pre class="tab tab tcy">cat file1.txt</pre>
+<pre class="tab">This is a file.</pre>
+<pre class="tab tab tcy">cat file2.txt</pre>
+<pre class="tab">This is a file.</pre>
+<p class="tab">...but if we remove <b>file1.txt</b>:</p>
+<pre class="tab tab tcy">rm file1.txt</pre>
+<p class="tab">...we can no longer access the data it contained with our symlink:</p>
+<pre class="tab tab tcy">cat file2.txt</pre>
+<pre class="tab">cat: file2.txt: No such file or directory</pre>
+<p class="tab">This error message might be confusing at first, because <b>file2.txt</b> still exists in your directory. It's a broken symlink, however &mdash; a symbolic link which points to something that no longer exists. The operating system tries to follow the symlink to the file that's supposed to be there (<b>file1.txt</b>), but finds nothing, and so it returns the error message.</p>
+<p class="tab">While hard links are an essential component of how the operating system works, symbolic links are generally more of a convenience. You can use them to refer, in any way you'd like, to information already on the disk somewhere else.</p>
+<h2 id="symlinks">Creating symlinks to directories</h2>
+<p class="tab">To create a symbolic link to a directory, specify the directory name as the target. For instance, let's say we have a directory named <b>documents</b>, which contains one file, named <b>file.txt</b>.</p>
+<p class="tab">Let's create a symbolic link to <b>documents</b> named <b>dox</b>. This command will do the trick:</p>
+<pre class="tab tcy">ln -s documents/ dox</pre>
+<p class="tab">We now have a symlink named <b>dox</b> which we can refer to <i>as if it's the directory <b>documents</b></i>. For instance, if we use <a href="/unix/uls.htm"><b>ls</b></a> to list the contents of the directory, and then to list the contents of the symlinked directory, they will both show the same file:</p>
+<pre class="tab tcy">ls documents</pre>
+<pre class="tab">file.txt</pre>
+<pre class="tab tcy">ls dox</pre>
+<pre class="tab">file.txt</pre>
+<p class="tab">When we work in the directory <b>dox</b> now, we are actually working in <b>documents</b>, but we see the word <b>dox</b> instead of <b>documents</b> in all pathnames.</p>
+<p class="tab">Symbolic links are a useful way to make shortcuts to long, complicated pathnames. For instance, this command:</p>
+<pre class="tab tcy">ln -s documents/work/budgets/Engineering/2014/April aprbudge</pre>
+<p class="tab">...saves us a lot of typing; now, instead of <a href="/unix/ucd.htm">changing directory</a> with the following command:</p>
+<pre class="tab tcy">cd documents/work/budgets/Engineering/2014/April</pre>
+<p class="tab">...we can do this, instead:</p>
+<pre class="tab tcy">cd aprbudge</pre>
+<p class="tab">Normally, you remove directories (once they're empty) with the <a href="/unix/urmdir.htm"><b>rmdir</b></a> command. But our symbolic link is not actually a directory: it's a file that points to a directory. So to remove our symlink, we use the <b>rm</b> command:</p>
+<pre class="tab tcy">rm aprbudge</pre>
+<p class="tab">This command removes the symlink, but the original directory and all its files are not affected.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">ln [<i>OPTION</i>]... <i>TARGET</i> [...] [<i>LINKNAME</i> [...]]</pre>
+<h3 class="tab">Options</h3>
+<p class="tab">Here are the options that can be passed to the <b>ln</b> command.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:220px"><b>--backup</b>[<b>=</b><i>CONTROL</i>]</td>
+<td>Use this option to additionally create a backup of each existing destination file. The style of backup is optionally defined by the value of <i>CONTROL</i>. See <a href="#Backup-Option">backup options</a> below for more information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>This functions like <b>--backup</b>, but you cannot specify the <i>CONTROL</i>; the default style (<b>simple</b>) is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>-F</b>, <b>--directory</b></td>
+<td>This option allows the <a href="/jargon/r/root.htm">superuser</a> to attempt to hard link directories (although it will probably fail due to system restrictions, even for the superuser).</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--force</b></td>
+<td>If the destination file or files already exist, overwrite them.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--interactive</b></td>
+<td>Prompt the user before overwriting destination files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--logical</b></td>
+<td>Dereference <i>TARGETs</i> that are symbolic links. In other words, if you are trying to create a link (or a symlink) to a symlink, link to what it links to, not to the symlink itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--no-dereference</b></td>
+<td>Treat <i>LINKNAME</i> as a normal file if it's a symbolic link to a directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b>, <b>--physical</b></td>
+<td>Make hard links directly to symbolic links, rather than dereferencing them.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--relative</b></td>
+<td>Create symbolic links relative to link location.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--symbolic</b></td>
+<td>Make symbolic links instead of hard links.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b>, <b>--suffix=</b><i>SUFFIX</i></td>
+<td>Use the file suffix <i>SUFFIX</i> rather than the default suffix "<b>~</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--target-directory=</b><i>DIRECTORY</i></td>
+<td>Specify the <i>DIRECTORY</i> to create the links.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>, <b>--no-target-directory</b></td>
+<td>Always treat <i>LINKNAME</i> as a normal file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Operate <a href="/jargon/v/verbose.htm">verbosely</a>; print the name of each linked file.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+</table>
+<h3 class="tab" id="Backup-Option">The --backup option</h3>
+<p class="tab">When using the <b>--backup</b> (or <b>-b</b>) option, the default file suffix for backups is '<b>~</b>'. You can change this, however, using the <b>--suffix</b> option or setting the <b>SIMPLE_BACKUP_SUFFIX</b> <a href="/jargon/e/envivari.htm">environment variable</a>.</p>
+<p class="tab">The <i>CONTROL</i> argument to the <b>--backup</b> option specifies the version control method. Alternatively, it can be specified by setting the <b>VERSION_CONTROL</b> environment variable. Here are the values to use for either one:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:140px"><b>none</b>, <b>off</b></td>
+<td>Never make backups (even if <b>--backup</b> is given).</td>
+</tr>
+<tr class="tcw">
+<td><b>numbered</b>, <b>t</b></td>
+<td>Make numbered backups.</td>
+</tr>
+<tr class="tcw">
+<td><b>existing</b>, <b>nil</b></td>
+<td>Numbered if numbered backups exist, simple otherwise.</td>
+</tr>
+<tr class="tcw">
+<td><b>simple</b>, <b>never</b></td>
+<td>Always make simple backups.</td>
+</tr>
+</table>
+<p class="tab">If you use <b>-b</b> instead of <b>--backup</b>, the <i>CONTROL</i> method is always <i>simple</i>.</p>
+<p class="tab">If you specify the <b>-s</b> option (which symlinks), <b>ln</b> ignores the <b>-L</b> and <b>-P</b> options. Otherwise (if you are making hard links), the last option specified controls behavior when a <i>TARGET</i> is a symbolic link. The default is to act as if <b>-P</b> was specified.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">ln public_html/myfile1.txt</pre>
+<p class="tab">Create a hard link to the file <b>public_html/myfile1.txt</b> in the current directory.</p>
+<pre class="tcy tab">ln -s public_html/myfile1.txt</pre>
+<p class="tab">Create a symbolic link to the file <b>public_html/myfile1.txt</b> in the current directory.</p>
+<pre class="tcy tab">ln -s public_html/ webstuff</pre>
+<p class="tab">Create a symbolic link to the directory <b>public_html</b> named <b>webstuff</b>.</p>
+<pre class="tcy tab">ln -s -b file1.txt file2.txt</pre>
+<p class="tab">Creates a symbolic link to the file <b>file1.txt</b> named <b>file2.txt</b>. If <b>file2.txt</b> already exists, it is renamed to <b>file2.txt~</b> before the new <b>file2.txt</b> symlink is created.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uchmod.htm"><b>chmod</b></a> &mdash; Change the permissions of files or directories.<br><a href="/unix/link.htm"><b>link</b></a> &mdash; Create a hard link to a regular file.<br><a href="/unix/uls.htm"><b>ls</b></a> &mdash; List the contents of a directory or directories.<br><a href="/unix/readlink.htm"><b>readlink</b></a> &mdash; Print the value of a symbolic link or canonical file name.<br><a href="/unix/unlink.htm"><b>unlink</b></a> &mdash; Remove a file.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83071e228474',m:'HhUfuDWRlg5KpAvI1QgbIYpSJlbdqFqXNLejtcYexHE-1661495353-0-ARVnSBBv53Zkm7ZCvBTvqitF/oy20xaPVOzeLXavz2ardtxMU5UuhY8LCxPM4pxi2xEX5dLFQ8OKirlzyXWrDDSnG3ucUJFtoqvbqJSBNjmAjKJHuxwQniaIt9oBaEJiGA==',s:[0x93d49da143,0xcb6fddcf0c],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

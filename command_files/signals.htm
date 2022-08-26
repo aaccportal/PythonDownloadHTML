@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux signals</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/kill.gif" width="300" height="300" alt="kill command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems such as <a href="/jargon/l/linux.htm">Linux</a>, <b>signals</b> are <a href="/jargon/s/software.htm">software</a> <a href="/jargon/i/interrup.htm">interrupts</a>. They provide a way for the user (or a <a href="/jargon/p/process.htm">process</a>) to directly communicate with a process.</p>
+<p>Software may be programmed to respond intelligently to a wide array of signals, and certain signals cause processes to behave in a standardized, predefined way at the <a href="/jargon/k/kernel.htm">kernel</a> level.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#system-specific">Finding system-specific signals</a></li>
+<li><a href="#linux">Signals in Linux</a></li>
+<li><a href="#examples">Examples: sending signals</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">Process signals were developed as part of <a href="/history/unix.htm">UNIX</a> in the 1970s. They are used on all modern Unix-like operating systems, including <a href="/jargon/l/linux.htm">Linux</a>, <a href="/jargon/b/bsd.htm">BSD</a>, and <a href="/jargon/m/macosx.htm">macOS X</a>.</p>
+<p class="tab">When a signal is sent to a process, the operating system interrupts the normal flow of the process execution and delivers the notification. If the process has previously registered a way to handle that particular signal, that <a href="/jargon/r/routine.htm">routine</a> is executed, otherwise the system executes the default signal handler.</p>
+<p class="tab">Signals can be sent with the <a href="/jargon/k/kill.htm"><b>kill</b></a> command, which is named for its default signal (<b>SIGKILL</b>) that instructs the OS to forcefully terminate a process before doing anything else.</p>
+<p class="tab">Signal names are commonly abbreviated without their <b>SIG</b> prefix, e.g., "KILL", including in the command arguments of <b>kill</b>.</p>
+<h2 id="system-specific">Finding system-specific signals</h2>
+<p class="tab">Signals are defined in the system library <b>signal.h</b>. To view the signals used by your operating system, open a <a href="/jargon/t/terminal.htm">terminal</a> and run <b>man signal</b> or <b>man 7 signal</b>.</p>
+<h2 id="linux">Signals in Linux</h2>
+<table class="mtable3">
+<tr class="tcw">
+<th style="width:140px">Signal</th>
+<th>Number</th>
+<th>Description</th>
+<th>Standard</th>
+</tr>
+<tr class="tcw">
+<td><b>SIGHUP</b></td>
+<td>1</td>
+<td>The <b>HUP</b> signal is sent to a process when its controlling terminal is closed. It was originally designed to notify a <a href="/jargon/s/serial.htm">serial</a> line drop (<b>HUP</b> stands for "Hang Up"). In modern systems, this signal usually indicates the controlling pseudo or virtual terminal is closed.</td>
+<td><a href="/jargon/p/posix.htm">POSIX</a></td>
+</tr>
+<tr class="tcw">
+<td><b>SIGINT</b></td>
+<td>2</td>
+<td>The <b>INT</b> signal is sent to a process by its controlling terminal when a user wants to <i>interrupt</i> the process. This signal is often initiated by pressing <a href="/jargon/c/ctrlc.htm"><kbd>Ctrl</kbd>+<kbd>C</kbd></a>, but on some systems, the "delete" character or "break" key can be used.</td>
+<td><a href="/jargon/a/ansi.htm">ANSI</a></td>
+</tr>
+<tr class="tcw">
+<td><b>SIGQUIT</b></td>
+<td>3</td>
+<td>The <b>QUIT</b> signal is sent to a process by its controlling terminal when the user requests that the process perform a <a href="/jargon/c/core.htm">core dump</a>.</td>
+<td>POSIX</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGILL</b></td>
+<td>4</td>
+<td>Illegal instruction. The <b>ILL</b> signal is sent to a process when it attempts to execute a malformed, unknown, or privileged <a href="/jargon/c/compinst.htm">instruction</a>.</td>
+<td>ANSI</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGTRAP</b></td>
+<td>5</td>
+<td>Trace trap. The <b>TRAP</b> signal is sent to a process when a condition arises that a <a href="/jargon/d/debugger.htm">debugger</a> is tracing &mdash; for example, when a particular <a href="/jargon/f/function.htm">function</a> is <a href="/jargon/e/execute.htm">executed</a>, or when a particular <a href="/jargon/v/variable.htm">variable</a> changes value.</td>
+<td>POSIX</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGABRT</b>,<br><b>SIGIOT</b></td>
+<td>6</td>
+<td>Abort process. <b>ABRT</b> is usually sent by the process itself, when it calls the <b>abort()</b> system call to signal an abnormal <a href="/jargon/t/terminat.htm">termination</a>, but it can be sent from any process like any other signal. <b>SIGIOT</b> is a synonym for SIGABRT. (<b>IOT</b> stands for input/output trap, a signal which originated on the <a href="/jargon/p/pdp.htm">PDP-11</a>.)</td>
+<td>4.2 <a href="/jargon/b/bsd.htm">BSD</a></td>
+</tr>
+<tr class="tcw">
+<td><b>SIGBUS</b></td>
+<td>7</td>
+<td>The <b>BUS</b> signal is sent to a process when it causes a <a href="/jargon/b/bus.htm">bus</a> error, such as an incorrect <a href="/jargon/m/memory.htm">memory</a> access alignment or non-existent <a href="/jargon/p/physaddr.htm">physical address</a>. In Linux, this signal maps to SIGUNUSED, because memory access errors of this kind are not possible.</td>
+<td>4.2 BSD</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGFPE</b></td>
+<td>8</td>
+<td>Floating point exception. The <b>FPE</b> signal is sent to a process when it executes erroneous arithmetic operations, such as <a href="/issues/ch000396.htm">division by zero</a>.</td>
+<td>ANSI</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGKILL</b></td>
+<td>9</td>
+<td>Forcefully terminate a process. With <b>STOP</b>, this is one of two signals which cannot be intercepted, ignored, or handled by the process itself.</td>
+<td>POSIX</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGUSR1</b></td>
+<td>10</td>
+<td>User-defined signal 1. This is one of two signals designated for custom user signal handling.</td>
+<td>POSIX</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGSEGV</b></td>
+<td>11</td>
+<td>The <b>SEGV</b> signal is sent to a process when it makes an invalid virtual memory reference, or segmentation fault, i.e., when it performs a segmentation violation.</td>
+<td></td>
+</tr>
+<tr class="tcw">
+<td><b>SIGUSR2</b></td>
+<td>12</td>
+<td>User-defined signal 2. This is one of two signals designated for custom user signal handling.</td>
+<td>POSIX</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGPIPE</b></td>
+<td>13</td>
+<td>The <b>PIPE</b> signal is sent to a process when it attempts to write to a <a href="/jargon/p/pipe.htm">pipe</a> without a process connected to the other end.</td>
+<td>POSIX</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGALRM</b></td>
+<td>14</td>
+<td>The <b>ALRM</b> signal notifies a process that the time interval specified in a call to the <b>alarm()</b> system function has expired.</td>
+<td>POSIX</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGTERM</b></td>
+<td>15</td>
+<td>The <b>TERM</b> signal is sent to a process to request its termination. Unlike the <b>KILL</b> signal, it can be caught and interpreted or ignored by the process. This signal allows the process to perform nice termination releasing resources and saving state if appropriate. It should be noted that <b>SIGINT</b> is nearly identical to <b>SIGTERM</b>.</td>
+<td>ANSI</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGSTKFLT</b></td>
+<td>16</td>
+<td>Stack fault. Maps to SIGUNUSED in Linux.</td>
+<td></td>
+</tr>
+<tr class="tcw">
+<td><b>SIGCHLD</b></td>
+<td>17</td>
+<td>The <b>CHLD</b> signal is sent to a process when a <a href="/jargon/p/parechil.htm">child process</a> terminates, is interrupted, or resumes after being interrupted. One common usage of the signal is to instruct the operating system to clean up the <a href="/jargon/r/resource.htm">resources</a> used by a child process after its termination without an explicit call to the wait system call.</td>
+<td>POSIX</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGCONT</b></td>
+<td>18</td>
+<td>Continue executing after stopped, e.g., by <b>STOP</b></td>
+<td>POSIX</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGSTOP</b></td>
+<td>19</td>
+<td>The <b>STOP</b> signal instructs the operating system to stop a process for later resumption. This is one of two signals, along with <b>KILL</b> that cannot be intercepted, ignored, or handled by the process itself.</td>
+<td>POSIX</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGTSTP</b></td>
+<td>20</td>
+<td>The <b>TSTP</b> signal is sent to a process by its controlling terminal to request it to stop temporarily. It is commonly initiated by the user pressing <a href="/jargon/c/ctrl-z.htm"><kbd>Ctrl</kbd>+<kbd>Z</kbd></a>. Unlike <b>SIGSTOP</b>, this process can register a signal handler for or ignore the signal.</td>
+<td>POSIX</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGTTIN</b></td>
+<td>21</td>
+<td>The <b>TTIN</b> signal is sent to a process when it attempts to read from the <b>tty</b> while in the background. This signal can be received only by processes under job control. <a href="/jargon/d/daemon.htm">Daemons</a> do not have controlling terminals and should never receive this signal.</td>
+<td>POSIX</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGTTOU</b></td>
+<td>22</td>
+<td><b>TTOU</b> signal is sent to a process when it attempts to write from the <b>tty</b> while in the background. The compliment to <b>TTIN</b>.</td>
+<td>POSIX</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGURG</b></td>
+<td>23</td>
+<td>The <b>URG</b> signal is sent to a process when a <a href="/jargon/s/socket.htm">socket</a> has urgent or out-of-band <a href="/jargon/d/data.htm">data</a> available to read.</td>
+<td>4.2 BSD</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGXCPU</b></td>
+<td>24</td>
+<td>The <b>XCPU</b> signal is sent to a process when it has used up the <a href="/jargon/c/cpu.htm">CPU</a> for a duration that exceeds a certain predetermined user-settable value. The arrival of an <b>XCPU</b> signal provides the receiving process a chance to quickly save any intermediate results and to exit gracefully, before it is terminated by the operating system using the SIGKILL signal.</td>
+<td>4.2 BSD</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGXFSZ</b></td>
+<td>25</td>
+<td>The <b>XFSZ</b> signal is sent to a process when it grows a <a href="/jargon/f/file.htm">file</a> larger than the maximum allowed size.</td>
+<td>4.2 BSD</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGVTALRM</b></td>
+<td>26</td>
+<td>Virtual alarm clock. May be sent by the <b>alarm()</b> system call. By default, this signal kills the process, but it's intended for use with process-specific signal handling.</td>
+<td>4.2 BSD</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGPROF</b></td>
+<td>27</td>
+<td>Profiling alarm clock. Indicates expiration of a timer that measures CPU time used by the current process ("user" time), and CPU time expended on behalf of the process by the system ("system" time). These times may be used to implement code profiling facilities. By default, this signal terminates the process, but it's intended for use with process-specific signal handling.</td>
+<td>4.2 BSD</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGWINCH</b></td>
+<td>28</td>
+<td>Window change. The <b>WINCH</b> signal is sent to a process when its controlling terminal changes size, for instance if you resize it in your window manager.</td>
+<td>4.3 BSD, Sun</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGIO</b>,<br><b>SIGPOLL</b></td>
+<td>29</td>
+<td>Input/output is now possible. <b>SIGPOLL</b> is a synonym for SIGIO, and in Linux its behavior is identical to SIGURG.</td>
+<td>4.2 BSD</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGPWR</b>,<br><b>SIGLOST</b></td>
+<td>30</td>
+<td>Power failure. The <b>PWR</b> signal is sent to a process when the system detects a power failure. <b>SIGLOST</b> is a synonym for SIGPWR.</td>
+<td><a href="/jargon/s/system-v.htm">System V</a></td>
+</tr>
+<tr class="tcw">
+<td><b>SIGUNUSED</b>,<br><b>SIGSYS</b></td>
+<td>31</td>
+<td>Unused signal. This signal is provided for compatibility reasons, for example when porting software from an operating system with different or unsupported signals in Linux. In Linux, <b>SIGSYS</b> is a synonym for SIGUNUSED.</td>
+<td>System V r4</td>
+</tr>
+</table>
+<h3 class="tab">Signals not supported by Linux</h3>
+<p class="tab">The following signals may be used by other systems, such as BSD, but are interpreted as <b>SIGUNUSED</b> in Linux.</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:100px"><b>SIGEMT</b></td>
+<td>The <b>EMT</b> signal is sent to a process when an <a href="/jargon/e/emulator.htm">emulator</a> <a href="/jargon/i/interrup.htm">trap</a> occurs. Unused in Linux.</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGINFO</b></td>
+<td>The <b>INFO</b> signal is sent to a process when a status request is received from the controlling terminal. Unused in Linux</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGLOST</b></td>
+<td>The <b>LOST</b> signal is sent to a process when a file <a href="/jargon/l/lock.htm">lock</a> is lost. Unused in Linux.</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGSYS</b></td>
+<td>The <b>SYS</b> signal is sent to a process when it passes a bad <a href="/jargon/a/argument.htm">argument</a> to a system call. Unused in Linux.</td>
+</tr>
+</table>
+<h3 class="tab">Sending signals from the keyboard</h3>
+<p class="tab">Signals may be sent from the keyboard. Several standard defaults are listed below. Default key combinations for sending interrupt signals can be defined with the <a href="/unix/ustty.htm">stty</a> command.</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:100px"><b>Ctrl-C</b></td>
+<td>Send <b>SIGINT</b> (Interrupt). By default, this causes a process to terminate.</td>
+</tr>
+<tr class="tcw">
+<td><b>Ctrl-Z</b></td>
+<td>Send <b>SIGTSTP</b> (Suspend). By default, this causes a process to <a href="/jargon/s/suspend.htm">suspend</a> all operation.</td>
+</tr>
+<tr class="tcw">
+<td><b>Ctrl-\</b></td>
+<td>Send <b>SIGQUIT</b> (Quit). By default, this causes a process to terminate immediately and dump the <a href="/jargon/c/core.htm">core</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Ctrl-T</b></td>
+<td>Send <b>SIGINFO</b> (Info). By default, this causes the operating system to display information about the command. Not supported on all systems.</td>
+</tr>
+</table>
+<h2 id="real-time-signals">Real-time signals</h2>
+<p class="tab">Real-time signals are a set of signals with no predefined purpose, for programmers to use as they want in their software. Two signal names, <b>SIGRTMIN</b> and <b>SIGRTMAX</b>, define the minimum and maximum signal numbers of the real-time signals. For example, the programmer may use the signal number as <b>SIGRTMIN+3</b> to refer to the fourth real-time signal number.</p>
+<h2 id="examples">Examples: sending signals</h2>
+<p class="tab">The <b>kill</b> command sends signals to processes. Your shell may have a built-in version of <b>kill</b>, which supersedes the version installed at <b>/bin/kill</b>. The two versions have slightly different options, but basic functions are the same. The following examples may run using either version of <b>kill</b>.</p>
+<p class="tab">The process to be signaled is referred to by PID (process ID). If you're not sure of the process ID, you can find it with the <b>ps</b> command, for example <b>ps -aux</b>.</p>
+<pre class="tab">kill 1234</pre>
+<p class="tab">Send the <b>KILL</b> signal to the process with PID <b>1234</b>.</p>
+<pre class="tab">kill 123 456 789</pre>
+<p class="tab">Kill three processes: PIDs <b>123</b>, <b>456</b>, and <b>789</b>.</p>
+<pre class="tab">kill -15 1234 5678</pre>
+<p class="tab">Send signal number <b>15</b> (<b>TERM</b>) to processes <b>1234</b> and <b>5678</b>.</p>
+<pre class="tcy tab">kill -TERM 1234 5678</pre>
+<p class="tab">Same as the previous command.</p>
+<pre class="tcy tab">kill -l</pre>
+<p class="tab">List all available signals. Example output:</p>
+<pre class="tab"> 1) SIGHUP       2) SIGINT       3) SIGQUIT      4) SIGILL       5) SIGTRAP
+ 6) SIGABRT      7) SIGBUS       8) SIGFPE       9) SIGKILL     10) SIGUSR1
+11) SIGSEGV     12) SIGUSR2     13) SIGPIPE     14) SIGALRM     15) SIGTERM
+16) SIGSTKFLT   17) SIGCHLD     18) SIGCONT     19) SIGSTOP     20) SIGTSTP
+21) SIGTTIN     22) SIGTTOU     23) SIGURG      24) SIGXCPU     25) SIGXFSZ
+26) SIGVTALRM   27) SIGPROF     28) SIGWINCH    29) SIGIO       30) SIGPWR
+31) SIGSYS      34) SIGRTMIN    35) SIGRTMIN+1  36) SIGRTMIN+2  37) SIGRTMIN+3
+38) SIGRTMIN+4  39) SIGRTMIN+5  40) SIGRTMIN+6  41) SIGRTMIN+7  42) SIGRTMIN+8
+43) SIGRTMIN+9  44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 47) SIGRTMIN+13
+48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13 52) SIGRTMAX-12
+53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9  56) SIGRTMAX-8  57) SIGRTMAX-7
+58) SIGRTMAX-6  59) SIGRTMAX-5  60) SIGRTMAX-4  61) SIGRTMAX-3  62) SIGRTMAX-2
+63) SIGRTMAX-1  64) SIGRTMAX</pre>
+<p class="tcy tab">kill -9 -1</p>
+<p class="tab">The special process ID <b>-1</b> refers to all processes other than <b>kill</b> and the system root process. This command attempts to kill (<b>-9</b>) every possible process (<b>-1</b>) on the system. For more information, see the documentation of <b>kill</b>, linked below.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ukill.htm"><b>kill</b></a> &mdash; End a process.<br><a href="/unix/ustty.htm"><b>stty</b></a> &mdash; Change terminal line settings.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83528e0084b0',m:'VrlKObL9V1rDS7Ycb9Wb8UlNn.KapQ726MnzY1J._N4-1661495365-0-AWpQWPXg9LsstQmZ8e8KwODKHo01bmLNh5uK81c3vhD4ElXkhoaToy6gkFS3Md3rdsK8vw16In6iaqb1W9W7d4VFcxHNNvoJctl/M5bKuktSXsjoOu9MPKF69j8gaey0bzPhOUTatmnbagqxHbPE5N8=',s:[0xa436eb75a3,0xf58beb8f6f],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

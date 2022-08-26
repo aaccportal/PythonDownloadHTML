@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux stop command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/stop.gif" width="300" height="300" alt="stop command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>stop</b> command calls the <a href="/jargon/i/init.htm">init</a> <a href="/jargon/d/daemon.htm">daemon</a> to stop a job that is running on the system. It is equivalent to the command <b>initctl stop</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>initctl</b> allows a <a href="/jargon/r/root.htm">system administrator</a> to communicate and interact with the <b>init</b> daemon.</p>
+<p class="tab">When run as <b>initctl</b>, the first non-option <a href="/jargon/a/argument.htm">argument</a> is the <i>COMMAND</i>. Global options may be specified before or after the command.</p>
+<p class="tab">You may also create <a href="/jargon/s/symblink.htm">symbolic</a> or <a href="/jargon/h/hardlink.htm">hard links</a> to <b>initctl</b> named after commands. When invoked through these links the tool will behave only as that command, with global and command-specific options intermixed. The default installation supplies such links for the <b>start</b>, <b>stop</b>, <b>restart</b>, <b>reload</b> and <b>status</b> commands.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">initctl [<i>OPTION</i>]...  <i>COMMAND</i> [<i>OPTION</i>]... <i>ARG</i>...</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:105px"><b>--user</b></td>
+<td>User mode. In this mode, <b>initctl</b> will talk to the <b>init</b> daemon using the D-Bus private socket defined in the <b>UPSTART_SESSION</b> <a href="/jargon/e/envivari.htm">environment variable</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--session</b></td>
+<td>Connect to <b>init</b> daemon using the D-Bus session bus (for testing purposes only).</td>
+</tr>
+<tr class="tcw">
+<td><b>--system</b></td>
+<td>Communication with the <b>init</b> daemon is normally performed over a private socket connection. This communication has the advantage of speed and robustness, when issuing commands to start or stop services or even reboot the system you do not want to be affected by changes to the D-Bus system bus daemon.<br><br> The disadvantage to using the private socket, however, is security; <b>init</b> only permits the root user to communicate over this socket which means that read-only commands such as <b>status</b> and <b>list</b> cannot be made by other users.<br><br> The <b>--system</b> option instructs <b>initctl</b> to communicate via the D-Bus system bus rather than over the private socket.<br><br> This option is only possible if the system bus daemon is running and if <b>init</b> is connected to it. The advantage is that the default security configuration allows non-root users to use <a href="/jargon/r/readonly.htm">read-only</a> commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>--dest</b></td>
+<td>Specifies the "well-known" name of the <b>init</b> daemon when using <b>--system</b>.<br><br> There is normally no need to use this option since the <b>init</b> daemon uses the default Upstart name. However, it may be useful for <a href="/jargon/d/debug.htm">debugging</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-wait</b></td>
+<td>Applies to the <b>start</b>, <b>stop</b>, <b>restart</b> and <b>emit</b> commands.<br><br> Normally <b>initctl</b> will wait for the command to finish before returning.<br><br> For the <b>start</b>, <b>stop</b> and <b>restart</b> commands, finishing indicates the named job is running (or has finished for tasks) or was fully stopped.<br><br> For the <b>emit</b> command, finishing means that all of the jobs affected by the event are running (or have finished for tasks) or was stopped.<br><br> This option instead causes these commands to only wait for the goal change or event to be queued.</td>
+</tr>
+<tr class="tcw">
+<td><b>--quiet</b></td>
+<td>Reduces output of all commands to errors only.</td>
+</tr>
+</table>
+<h2 id="commands">Commands</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:260px"><b>start</b> <i>JOB</i> [<i>KEY</i><b>=</b><i>VALUE</i>]...</td>
+<td>Requests that a new instance of the named <i>JOB</i> be started, outputting the status of the job to standard output when the command completes.<br><br> See <b>status</b> for a description of the output format.<br><br> The optional <i>KEY</i><b>=</b><i>VALUE</i> arguments specify environment variables to be passed to the starting job, and placed in its environment. They also serve to specify which instance of multi-instance jobs should be started.<br><br> Most jobs only permit a single instance; those that use the instance stanza in their configuration define a <a href="/jargon/s/string.htm">string</a> expanded from environment variables to name the instance. As many unique instances may be started as unique names may be generated by the stanza. Thus the environment variables also serve to select which instance of <i>JOB</i> is to be acted upon.<br><br> If the job is already running, <b>start</b> returns an error.<br><br> When called from the pre-stop stanza of a job configuration, <b>start</b> may be called without argument to cancel the <b>stop</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>stop</b> <i>JOB</i> [<i>KEY</i><b>=</b><i>VALUE</i>]...</td>
+<td>Requests that an instance of the named <i>JOB</i> be stopped, outputting the status of the job to standard output when the command completes.<br><br> See <b>status</b> for a description of the output format, and <b>start</b> for a discussion on instances.<br><br> When called from the pre-start stanza of a job configuration, <b>stop</b> may be called without an argument to cancel the <b>start</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>restart</b> <i>JOB</i> [<i>KEY</i><b>=</b><i>VALUE</i>]...</td>
+<td>Requests that an instance of the named <i>JOB</i> be restarted, outputting the status of the job to standard output when the command completes.<br><br> The job instance being restarted will retain its original configuration. To have the new instance run with the latest job configuration, <b>stop</b> the job and then <b>start</b> it again instead.<br><br> See <b>status</b> for a description of the output format and <b>start</b> for a discussion on instances.<br><br> Note that this command can only be used when there is an instance of <i>JOB</i>; if there is none then it returns an error instead of starting a new one.</td>
+</tr>
+<tr class="tcw">
+<td><b>reload</b> <i>JOB</i> [<i>KEY</i><b>=</b><i>VALUE</i>]...</td>
+<td>Sends the <b>SIGHUP</b> <a href="/unix/signals.htm">signal</a> to running <a href="/jargon/p/process.htm">process</a> of the named <i>JOB</i> instance. See <b>start</b> for a discussion on instances.</td>
+</tr>
+<tr class="tcw">
+<td><b>status</b> <i>JOB</i> [<i>KEY</i><b>=</b><i>VALUE</i>]...</td>
+<td>Requests the status an instance of the named <i>JOB</i>, outputting to standard output.<br><br> See <b>start</b> for a discussion on instances.<br><br> For a single-instance job, a line like the following is output:<br><br><pre>job start/running, process 1234</pre> The job name is given first followed by the current goal and state of the selected instance. The goal is either <b>start</b> or <b>stop</b>, the status may be one of <b>waiting</b>, <b>starting</b>, <b>pre-start</b>, <b>spawned</b>, <b>post-start</b>, <b>running</b>, <b>pre-stop</b>, <b>stopping</b>, <b>killed</b> or <b>post-stop</b>.<br><br> If the job has an active process, the <a href="/jargon/p/pid.htm">process id</a> will follow on the same line. If the state is pre-start or post-stop this will be the process id of the equivalent process, otherwise it will be the process id of the main process:<br><br><pre>job start/pre-start, process 902</pre> The post-start and pre-stop states may have multiple processes attached, the extra processes will follow on consecutive lines indented by a tab:<br><br><pre>job start/post-start, process 1234 post-start process 1357</pre> If there is no main process, they may follow on the same line but will be prefixed to indicate that it is not the main process id being given:<br><br><pre>job start/post-start, (post-start) process 1357</pre> Jobs that permit multiple instances have names for each instance, the output is otherwise identical to the above except that the instance name follows the job name in parentheses:<br><br><pre>job (tty1) start/post-start, process 1234 post-start process 1357</pre></td>
+</tr>
+<tr class="tcw">
+<td><b>list</b></td>
+<td>Requests a list of the known jobs and instances, outputs the status of each to standard output.<br><br> Note that this command includes in the enumeration as-yet-to-run jobs (in other words, configuration files for which no job instances have yet been created) in the output with status "stop/waiting". In effect such entries denote configuration files which represent potential future jobs.<br><br> See <b>status</b> for a description of the output format, and <b>start</b> for a discussion on instances.<br><br> No particular order is used for the output, and there is no difference in the output (other than the instance name appearing in parentheses) between single-instance and multiple-instance jobs.</td>
+</tr>
+<tr class="tcw">
+<td><b>emit</b> <i>EVENT</i> [<i>KEY</i><b>=</b><i>VALUE</i>]...</td>
+<td>Requests that the named <i>EVENT</i> be emitted, potentially causing jobs to be started and stopped depending on their use of the <b>start</b> on and <b>stop</b> on stanzas in their configuration.<br><br> The optional <i>KEY</i><b>=</b><i>VALUE</i> arguments specify environment variables to be included with the event and thus exported into the environment of any jobs started and stopped by the event.<br><br> The environment may also serve to specify which instance of multi-instance jobs should be started or stopped. See <b>start</b> for a discussion on instances.<br><br> There is no limitation on the event names emitted with this command, you are free to invent new events and use them in your job configurations.<br><br> The most "well-known" event used by the default Upstart configuration is the <a href="/jargon/r/runlevel.htm">runlevel</a> event. This option is normally emitted by the <a href="/unix/telinit.htm">telinit</a> and <a href="/unix/ushutdow.htm">shutdown</a> tools.</td>
+</tr>
+<tr class="tcw">
+<td><b>reload-configuration</b></td>
+<td>Requests that the <b>init</b> daemon reloads its configuration.<br><br> This command is generally not necessary since <b>init</b> watches its configuration directories with <b>inotify</b> and automatically reloads in changes.<br><br> No jobs will be started by this command.</td>
+</tr>
+<tr class="tcw">
+<td><b>version</b></td>
+<td>Requests and outputs the version of the running <b>init</b> daemon.</td>
+</tr>
+<tr class="tcw">
+<td><b>log-priority</b> [<i>PRIORITY</i>]</td>
+<td>When called with a <i>PRIORITY</i> argument, it requests that the <b>init</b> daemon log all messages with that priority or greater. This may be used to both increase and decrease the volume of logged messages.<br><br><i>PRIORITY</i> may be one of <b>debug</b>, <b>info</b>, <b>message</b>, <b>warn</b>, <b>error</b> or <b>fatal</b>.<br><br> When called without argument, it requests the current minimum message priority that the <b>init</b> daemon will log and outputs to standard output.</td>
+</tr>
+<tr class="tcw">
+<td><b>show-config</b> [<i>OPTIONS</i>] [<i>CONF</i>]</td>
+<td>Display <b>emits</b>, <b>start on</b> and <b>stop on</b> job configuration details (in that order) for specified job configuration, <i>CONF</i>. If <i>CONF</i> is not specified, list information for all valid job configurations.<br><br> Note that a job configuration is the name of a job configuration file, without the extension. Note too that this information is static: it does not refer to any running job.<br><br> For each event emitted, a separate line is displayed beginning with two space characters followed by, "emits event" where "event" denotes a single emitted event.<br><br> The <b>start on</b> and <b>stop on</b> conditions are listed on separate lines beginning with two space <a href="/jargon/c/charact.htm">characters</a> and followed by "start on" and "stop on" respectively and ending with the appropriate condition.<br><br> If a job configuration has no <b>emits</b>, <b>start on</b>, or <b>stop on</b> conditions, the name of the job configuration will be displayed with no further details.<br><br> Note that the <b>start on</b> and <b>stop on</b> conditions will be fully bracketed, regardless of whether they appear like this in the job configuration file, which is useful to see how the <b>init</b> daemon perceives the condition.<br><br> Example output:<br><br><pre>foo emits boing emits blip start on (starting A and (B or C var=2)) stop on (bar HELLO=world testing=123 or stopping wibble)</pre>
+<p><i>OPTION</i> may be the following:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:180px"><b>-e</b>, <b>--enumerate</b></td>
+<td>If specified, rather than listing the precise <b>start on</b> and <b>stop on</b> conditions, outputs the <b>emits</b> lines along with one line for each event or job the <i>CONF</i> in question may be started or stopped by if it were to become a job. If the <b>start on</b> condition specifies a non-job event, this will be listed verbatim, whereas for a job event, the name of the job as opposed to the event the job emits will be listed.<br><br> The type of entity, its triggering event (if appropriate) and its full environment is displayed in brackets following its name for clarity.<br><br> This option is useful for tools which generate graphs of relationships between jobs and events. It is also instructive since it shows how the <b>init</b> daemon has parsed the job configuration file.<br><br> Example output (an analog of the default output format above):<br><br><pre>foo emits boing emits blip start on starting (job: A, env:) start on B (job:, env:) start on C (job:, env: var=2) stop on bar (job:, env: HELLO=world testing=123) stop on stopping (job: wibble, event: stopping, env:)</pre></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>check-config</b> [<i>OPTIONS</i>] [<i>CONF</i>]</td>
+<td>Considers all job configurations looking for jobs that cannot be started or stopped, given the currently available job configurations. By considering the <b>start on</b>, <b>stop on</b> and <b>emits</b> stanzas for each job configuration and identifying unreachable scenarios.<br><br> This option is useful for determining the impact of adding or removing job configuration files.<br><br> Note that to use this command, it is necessary to ensure that all job configuration files advertise the events they emit correctly.<br><br> If errors are identified, the name of the job configuration will be displayed. Subsequent lines will show the failed conditions for the job configuration, one per line. Condition lines begin with two spaces and are followed with either "start on: " or "stop on: ", the word "unknown", the type of entity that is not known and finally its name.<br><br> Note that only job configurations that are logically in error (those with unsatisfiable conditions) will be displayed. Note too that job configurations that are syntactically invalid may trigger an error if they would cause a condition to be in error.<br><br> Assuming job configuration file <b>/etc/init/foo.conf</b> contains the following:<br><br><pre>start on starting grapestop on peach</pre> The <b>check-config</b> command might display:<br><br><pre>foo start on: unknown job grape stop on: unknown event peach</pre> If any errors are detected, the exit code will be <b>1</b> (one). If all checks pass, the exit code will be <b>0</b> (zero).<br><br> Note that for complex <b>start on</b> and <b>stop on</b> conditions, this command may give what appears to be misleading output when an error condition is found since all expressions in the failing condition that are in error will generate error output. For example, if job configuration <b>/etc/init/bar.conf</b> contains the following:<br><br><pre>start on (A and (started B or (starting C or D)))</pre> And only event <b>A</b> can be satisfied, the output will be:<br><br><pre>bar start on: unknown job B start on: unknown job C start on: unknown event D</pre><i>OPTION</i> may be the following:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:180px"><b>-i</b> [<i>EVENTS</i>],<br><b>--ignore-events</b> [<i>EVENTS</i>]</td>
+<td>If specified, the argument should be a list of comma-separated events to ignore when checking the job configuration files. This option may be useful to ignore errors if a particular job configuration file does not advertise it emits an event. Note that internal events (such as <b>startup</b> and <b>starting</b>) are automatically ignored.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>, <b>--warn</b></td>
+<td>If specified, treat any unknown jobs and events as errors.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>notify-disk-writeable</b></td>
+<td>Notify the <b>init</b> daemon that the disk is now writeable. This currently causes the <b>init</b> daemon to flush its internal <a href="/jargon/c/cache.htm">cache</a> of 'early job' output data. An early job is any job which finishes before the log disk becomes writeable. If job logging is not disabled, this command should be called once the log disk becomes writeable to ensure that output from all early jobs is flushed. If the data is written successfully to disk, the internal cache is deleted.</td>
+</tr>
+<tr class="tcw">
+<td><b>list-env</b> [<i>OPTION</i>]</td>
+<td>Display a lexicographically sorted list of all variables and their values in a job environment table.<br><br> When run from within a job, this command will automatically query the job-specific environment table; otherwise the global environment table that is applied to all jobs when they first start is queried.<br><br> Note that the global job environment table comprises those variables already set in the <b>init</b> daemons environment at startup, the minimal set of standard system variables added by the <b>init</b> daemon, and any variables set using <b>set-env</b>. See <a href="/unix/telinit.htm">init</a> for further details.<br><br><i>OPTION</i> may be the following:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>-g</b>, <b>--global</b></td>
+<td>Operate on the global job environment table. This option is implied when not run from within a job.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>get-env</b> [<i>OPTION</i>] <i>VARIABLE</i></td>
+<td>Display the value of the specified <a href="/jargon/v/variable.htm">variable</a> in a job environment table.<br><br> When run from within a job, this command will automatically query the job-specific environment table; otherwise the global environment table that is applied to all jobs when they first start is queried.<br><br><i>OPTION</i> may be the following:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>-g</b>, <b>--global</b></td>
+<td>Operate on the global job environment table. This option is implied when not run from within a job.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>set-env</b> [<i>OPTIONS</i>] <i>VARIABLE</i>[<b>=</b><i>VALUE</i>]</td>
+<td>Adds or updates a variable in a job environment table. Variables set in this way will apply to all subsequently-starting jobs.<br><br> This command is only permitted When running in User Session Mode. See <a href="/unix/telinit.htm">init</a> for further details.<br><br><i>OPTIONS</i> may be the following:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>-r</b>, <b>--retain</b></td>
+<td>If the specified variable is already set, do not modify it.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>, <b>--global</b></td>
+<td>Operate on the <a href="/jargon/g/global.htm">global</a> job environment table and all existing running job environment tables. This option is implied when not run from within a job.<br><br> This option is an advanced option whose use is discouraged since it can change the job environment as it moves between different process stages (for example, between pre-start and the main process). See <a href="/unix/telinit.htm">init</a> for further details.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>unset-env</b> [<i>OPTIONS</i>] <i>VARIABLE</i></td>
+<td>Remove the specified <a href="/jargon/v/variable.htm">variable</a> from a job environment table. If the variable does not already exist in the table, no change will be made. This command is only permitted When running in User Session Mode. See <a href="/unix/telinit.htm">init</a> for further details.<br><br><i>OPTIONS</i> may be the following:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>-r</b>, <b>--retain</b></td>
+<td>If the specified <a href="/jargon/v/variable.htm">variable</a> is already set, do not modify it.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>, <b>--global</b></td>
+<td>Operate on the global job environment table and all existing running job environment tables. This option is implied when not run from within a job.<br><br> This option is an advanced option whose use is discouraged since it can change the job environment as it moves between different process stages (for example, between pre-start and the main process). See <a href="/unix/telinit.htm">init</a> for further details.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>reset-env</b> [<i>OPTIONS</i>]</td>
+<td>Discards all changes made to a job <a href="/jargon/e/environm.htm">environment</a> table, setting it back to its default set of variables and values.<br><br> This command is only permitted when running in User Session Mode. See <a href="/unix/telinit.htm">init</a> for further details.<br><br> Note that the effect of the Session Init process that manages the User Session Mode restarting is equivalent to this command having been called.<br><br><i>OPTIONS</i> may be the following:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>-r</b>, <b>--retain</b></td>
+<td>If the specified variable is already set, do not modify it.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>, <b>--global</b></td>
+<td>Operate on the global job environment table. This option is implied when not run from within a job.<br><br> Note that unlike <b>set-env</b> and <b>unset-env</b>, this option does not modify running job environment tables.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>list-sessions</b></td>
+<td>List the <a href="/jargon/p/pid.htm">pid</a> of the Session Init process followed by the value of <b>UPSTART_SESSION</b> in use for that session separated by a space character. Session files relating to non-longer running Session Init processes are considered 'stale' and are not listed (although when run using <b>--verbose</b>, the full path of the stale session file is displayed).</td>
+</tr>
+<tr class="tcw">
+<td><b>usage</b> <i>JOB</i> [<i>KEY</i><b>=</b><i>VALUE</i>]...</td>
+<td>Show usage information for the named <i>JOB</i>. If the job specified does not define the usage stanza, a blank usage will be displayed.<br><br> Example output for a job that specifies the <b>usage</b> stanza is shown below:<br><br><pre>Usage: tty DEV=ttyX - where X is console id</pre></td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">stop 1234</pre>
+<p class="tab">Stop the job with process ID <b>1234</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/telinit.htm"><b>init</b></a> &mdash; The parent of all processes on the system.<br><a href="/unix/ukill.htm"><b>kill</b></a> &mdash; Send a signal to a process, affecting its behavior or killing it.<br><a href="/unix/ups.htm"><b>ps</b></a> &mdash; Report the status of a process or processes.<br><a href="/unix/ushutdow.htm"><b>shutdown</b></a> &mdash; Schedule a time for the system to be powered down.<br><a href="/unix/top.htm"><b>top</b></a> &mdash; Display a sortable, continually-updated list of processes.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8356ceaec41f',m:'PFpvK51.5Bc3RjL_bOhC3y8Qsn63ndlIwz8_YopzIno-1661495366-0-AVnw8d/WJdjjUdn4dCrCIdjIPFmeMnHh8AyhPLSWq26ImHKw2HR14RREjMKltQk5IU5ButYCeuLgNZncCZltp6pUOoLI2PuzUIJ9at/wK9aCFC7h+5y6/PNjnVCf11hxrA==',s:[0x7f9062fc84,0x3623f32a12],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

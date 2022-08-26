@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux elm command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/elm.gif" width="300" height="300" alt="elm command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>elm</b> is an interactive <a href="/jargon/e/email.htm">e-mail</a> reader and processor.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">Elm is an screen-oriented mailer program that supersedes <a href="/unix/umail.htm">mail</a> and <b>mailx.</b></p>
+<p class="tab">There are three main ways to use the <b>elm</b> mailer. One way to use the mailer is to specify a list of addresses on the <a href="/jargon/c/commandi.htm">command line</a> when the mailer is invoked. This allows sending of a single message to the specified recipients with all the options usually available in the <b>elm</b> system itself. For example, the command</p>
+<pre class="tcy tab">elm -s testing joe</pre>
+<p class="tab">...would initiate the sending of a message to the alias <b>joe</b> with the subject "<b>testing</b>" and would put you into an editor for you to enter the text of the message. If the subject flag and argument were not present, you would be prompted for a message subject.</p>
+<p class="tab">The second way, used most commonly when transmitting files, is to specify the subject of the message and the recipients using the command line and <a href="/jargon/r/redirect.htm">redirect</a> a file as <a href="/jargon/s/stdin.htm">standard input</a>. For example, the command</p>
+<pre class="tcy tab">elm -s testing joe &lt; test.c</pre>
+<p class="tab">...would mail a copy of the file <b>test.c</b> to alias <b>joe</b>, with the subject "<b>testing</b>" indicated. The subject flag and argument are optional.</p>
+<p class="tab">The third way to invoke <b>elm</b> is with neither subject nor addresses specified on the command line and without standard input redirected. You can then read any messages in your incoming mailbox (or specified folder), reply to messages in the mailbox, mail messages, etc.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">elm [ -achkKMmrtwz ] [ -f <i>alternate-folder</i> ] [ -d <i>debug-level</i> ]</pre>
+<pre class="tcy tab">elm [ -s subject ] <i>list-of-aliases-or-addresses</i></pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><b>-a</b></td>
+<td>Arrow: force the arrow <a href="/jargon/c/cursor.htm">cursor</a> (instead of the inverse bar)</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>Checkalias: expand the following aliases and return.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>level</i></td>
+<td>Debug: sets specified <a href="/jargon/d/debug.htm">debug</a> level. Debugging information is output to "<b>$HOME/ELM:debug.info</b>"</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>alternative-folder</i></td>
+<td>Folder: read the specified mail folder rather than the incoming mailbox.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Help: give a list of starting options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b> <i>file</i></td>
+<td>Include: include prepared file in edit <a href="/jargon/b/buffer.htm">buffer</a> for sending.</td>
+</tr>
+<tr class="tcw">
+<td><b>-?</b></td>
+<td>Same as <b>-h</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b></td>
+<td>Keypad: force knowledge of <a href="/comp/hp.htm">HP</a> <a href="/jargon/t/terminal.htm">terminal</a> keyboard, to allow the use of the <b>NEXT</b>, <b>PREV</b> and <b>HOME</b>/<b>SHIFT-HOME</b> keys.</td>
+</tr>
+<tr class="tcw">
+<td><b>-K</b></td>
+<td>Keypad + softkeys: enable use of softkeys on HP terminals only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b></td>
+<td>Magic mode: treat all folders as if they were the spool folder (lock, update Status: headers, etc.).</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b></td>
+<td>Menu off: Turn off the menu, and use the extra lines for more message headers.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>subj</i></td>
+<td>Subject: specify subject for message to mail.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Tite: turn off usage of the termcap/terminfo ti/te sequence.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Version: print <a href="/jargon/v/version.htm">version</a> and configuration information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b></td>
+<td>Zero: don't enter <b>Elm</b> if zero mail is pending.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">elm -z</pre>
+<p class="tab">Opens <b>elm</b> if mail is waiting, or returns to the command prompt if no mail is waiting.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/upine.htm"><b>pine</b></a> &mdash; A client for using mail and newsgroups.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82dc59edc41f',m:'F2z1EUIyaUE_XX56adaXAn96ntRXiqYqDB12TeEbg.A-1661495346-0-AZUmcLnHPUWUW6Kj1nXuaiEsghPvs40iQqLX3Sw+JTtNLN5YHwAKQlltyFqQGtTqXSn6v8KeKdQMHWyCNsxCrP8NDq1X6I00nrsU4JXmcX8lwGorjCDL9HuJc8t8hjkIhQ==',s:[0x4d56e381b1,0xf89354af69],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

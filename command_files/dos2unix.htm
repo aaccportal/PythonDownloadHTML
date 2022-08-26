@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux dos2unix and unix2dos commands</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-08-16">08/16/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/dos2unix.gif" width="300" height="300" alt="dos2unix command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>dos2unix</b> and <b>unix2dos</b> commands <a href="/jargon/c/conversi.htm">convert</a> <a href="/jargon/p/plaintex.htm">plain text</a> files from <a href="/jargon/d/dos.htm">DOS</a> or <a href="/jargon/m/mac.htm">Mac</a> format to <a href="/jargon/u/unix.htm">Unix</a>, and vice versa.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#mac">Mac mode</a></li>
+<li><a href="#conversion">Conversion modes</a></li>
+<li><a href="#unicode">Unicode</a></li>
+<li><a href="#recursive">Recursive conversion</a></li>
+<li><a href="#localization">Localization</a></li>
+<li><a href="#return">Return values</a></li>
+<li><a href="#examples">Examples</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">In DOS/<a href="/jargon/w/windows.htm">Windows</a> text files, a <a href="/jargon/l/linebrea.htm">line break</a>, also known as <a href="/jargon/n/newline.htm">newline</a>, is a combination of two characters: a <a href="/jargon/c/cr.htm">carriage return (CR)</a> followed by a <a href="/jargon/l/lf.htm">line feed (LF)</a>. In Unix text files a line break is a single character: the line feed (LF). In Mac text files, before <a href="/jargon/m/macosx.htm">macOS X</a>, a line break was single carriage return (CR) character. Nowadays, macOS uses Unix style (LF) line breaks.</p>
+<p class="tab"><a href="/jargon/b/binary.htm">Binary</a> files are automatically skipped, unless conversion is forced.</p>
+<p class="tab">Non-regular files, such as <a href="/jargon/d/director.htm">directories</a> and <a href="/jargon/f/fifo.htm">FIFOs</a>, are automatically skipped.</p>
+<p class="tab"><a href="/jargon/s/symblink.htm">Symbolic links</a> and their targets are by default kept untouched. Symbolic links can optionally be replaced, or the output can be written to the symbolic link target. Symbolic links on Windows are not supported. Windows symbolic links are always replaced, keeping the targets unchanged.</p>
+<p class="tab"><b>Dos2unix</b> was modelled after dos2unix under <a href="/jargon/s/solaris.htm">SunOS/Solaris</a> and has similar conversion modes.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">dos2unix [<i>options</i>] [<i>FILE</i> ...] [-n <i>INFILE</i> <i>OUTFILE</i> ...]</pre>
+<pre class="tcy tab">unix2dos [<i>options</i>] [<i>FILE</i> ...] [-n <i>INFILE</i> <i>OUTFILE</i> ...]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:270px"><b>--</b></td>
+<td><p>Treat all options that follow as <a href="/jargon/f/filename.htm">file names</a>. Use this option, for instance, if you want to convert files whose names start with a dash. So, to convert a file named "<b>-foo</b>", you can use this command:</p>
+<p><b>dos2unix -- -foo</b> Or in new file mode:</p>
+<p><b>dos2unix -n -- -foo out.txt</b></p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-ascii</b></td>
+<td>Convert only line breaks. This is the default conversion mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-iso</b></td>
+<td>Conversion between DOS and <a href="/jargon/i/iso.htm">ISO</a>-8859-1 character set. See also section CONVERSION MODES.</td>
+</tr>
+<tr class="tcw">
+<td><b>-1252</b></td>
+<td>Use Windows code page 1252 (Western European).</td>
+</tr>
+<tr class="tcw">
+<td><b>-437</b></td>
+<td>Use DOS code page 437 (US). This is the default code page used for ISO conversion.</td>
+</tr>
+<tr class="tcw">
+<td><b>-850</b></td>
+<td>Use DOS code page 850 (Western European)</td>
+</tr>
+<tr class="tcw">
+<td><b>-860</b></td>
+<td>Use DOS code page 860 (Portuguese).</td>
+</tr>
+<tr class="tcw">
+<td><b>-863</b></td>
+<td>Use DOS code page 863 (French Canadian).</td>
+</tr>
+<tr class="tcw">
+<td><b>-865</b></td>
+<td>Use DOS code page 865 (Nordic).</td>
+</tr>
+<tr class="tcw">
+<td><b>-7</b></td>
+<td>Convert 8 bit characters to 7 bit space.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c,<br> --convmode</b> <i>CONVMODE</i></td>
+<td>Set conversion mode. Where <i>CONVMODE</i> is one of: <b>ascii</b>, <b>7bit</b>, <b>iso</b>, or <b>mac</b>, with <b>ascii</b> being the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f, --force</b></td>
+<td>Force conversion of binary files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h, --help</b></td>
+<td>Display help and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k, --keepdate</b></td>
+<td>Keep the <a href="/jargon/t/timestam.htm">date stamp</a> of output file same as input file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L, --license</b></td>
+<td>Display program's <a href="/jargon/l/license.htm">license</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l, --newline</b></td>
+<td><p>Add additional newline.</p>
+<p><b>dos2unix</b>: Only DOS line breaks are changed to two Unix line breaks. In Mac mode, only Mac line breaks are changed to two Unix line breaks.</p>
+<p><b>unix2dos</b>: Only Unix line breaks are changed to two DOS line breaks. In Mac mode, Unix line breaks are changed to two Mac line breaks.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-m, --add-bom</b></td>
+<td>Write an <a href="/jargon/u/utf.htm">UTF</a>-8 Byte Order Mark in the output file. Never use this option when the output encoding is other than UTF-8. See also section UNICODE.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n,<br> --newfile</b> <i>INFILE OUTFILE</i> ...</td>
+<td><p>New file mode. Convert file <i>INFILE</i> and write output to file <i>OUTFILE</i>. File names must be given in pairs and wildcard names should not be used or you will lose your files.</p>
+<p>The person who starts the conversion in new file (paired) mode will be the owner of the converted file. The read/write permissions of the new file will be the permissions of the original file minus the <a href="/unix/uumask.htm">umask</a> of the person who runs the conversion.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-o, --oldfile</b> <i>FILE ...</i></td>
+<td><p>Old file mode. Convert file <i>FILE</i> and overwrite output to it. The program defaults to run in this mode. <a href="/jargon/w/wildcard.htm">Wildcard</a> names may be used.</p>
+<p>In old file (in-place) mode the converted file gets the same <a href="/jargon/o/owner.htm">owner</a>, <a href="/jargon/g/group.htm">group</a>, and <a href="/jargon/r/rw.htm">read/write</a> <a href="/jargon/p/permissi.htm">permissions</a> as the original file. Also, when the file is converted by another user who has write permissions on the file (e.g., user <a href="/jargon/r/root.htm">root</a>). The conversion will be aborted when it is not possible to preserve the original values. Change of owner could mean that the original owner is not able to read the file any more. Change of group could be a security risk, the file could be made readable for persons for whom it is not intended. Preservation of owner, group, and read/write permissions is only supported on Unix.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-q, --quiet</b></td>
+<td>Quiet mode. Suppress all warnings and messages. The <a href="/jargon/r/return.htm">return</a> value is zero. Except when wrong <a href="/jargon/c/commandi.htm">command-line</a> options are used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s, --safe</b></td>
+<td>Skip binary files (default).</td>
+</tr>
+<tr class="tcw">
+<td><b>-F, --follow-symlink</b></td>
+<td>Follow symbolic links and convert the targets.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R, --replace-symlink</b></td>
+<td>Replace symbolic links with converted files (original target files remain unchanged).</td>
+</tr>
+<tr class="tcw">
+<td><b>-S, --skip-symlink</b></td>
+<td>Keep symbolic links and targets unchanged (default).</td>
+</tr>
+<tr class="tcw">
+<td><b>-V, --version</b></td>
+<td>Display version information and exit.</td>
+</tr>
+</table>
+<h2 id="mac">Mac mode</h2>
+<p class="tab">In normal mode line breaks are converted from DOS to Unix and vice versa. Mac line breaks are not converted.</p>
+<p class="tab">In Mac mode, line breaks are converted from Mac to Unix and vice versa. DOS line breaks are not changed.</p>
+<p class="tab">To run in Mac mode, use the command-line option "<b>-c mac</b>" or use the commands "<b>mac2unix</b>" or "<b>unix2mac</b>".</p>
+<h2 id="conversion">Conversion modes</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:90px"><b>ascii</b></td>
+<td>In mode "ascii" only line breaks are converted. This is the default conversion mode.<br><br> Although the name of this mode is <a href="/jargon/a/ascii.htm">ASCII</a>, which is a 7 <a href="/jargon/b/bit.htm">bit</a> standard, the actual mode is <a href="/jargon/num/8bit.htm">8 bit</a>. Use always this mode when converting Unicode UTF-8 files.</td>
+</tr>
+<tr class="tcw">
+<td><b>7bit</b></td>
+<td>In this mode all 8 bit non-ASCII characters (with values from 128 to 255) are converted to a 7 bit space.</td>
+</tr>
+<tr class="tcw">
+<td><b>iso</b></td>
+<td><p>Characters are converted between a DOS character set (code page) and ISO character set ISO-8859-1 (Latin-1) on Unix. DOS characters without ISO-8859-1 equivalent, for which conversion is not possible, are converted to a dot. The same counts for ISO-8859-1 characters without DOS counterpart.</p>
+<p>When only option "-iso" is used dos2unix will try to determine the active code page. When this is not possible dos2unix will use default code page CP437, which is mainly used in the USA. To force a specific code page use options "-437" (US), "-850" (Western European), "-860" (Portuguese), "-863" (French Canadian), or "-865" (Nordic). Windows code page CP1252 (Western European) is also supported with option "-1252". For other code pages use dos2unix in combination with <b>iconv</b>. <b>iconv</b> can convert between a long list of character encodings.</p>
+<p>Never use ISO converion on Unicode text files. It will corrupt UTF-8 encoded files.</p>
+<p>Some examples:</p>
+<p>Convert from DOS default code page to Unix Latin-1:</p>
+<pre class="tcy">dos2unix -iso -n in.txt out.txt</pre>
+<p>Convert from DOS CP850 to Unix Latin-1:</p>
+<pre class="tcy">dos2unix -850 -n in.txt out.txt</pre>
+<p>Convert from Windows CP1252 to Unix Latin-1:</p>
+<pre class="tcy">dos2unix -1252 -n in.txt out.txt</pre>
+<p>Convert from Windows CP1252 to Unix UTF-8 (Unicode):</p>
+<pre class="tcy">iconv -f CP1252 -t UTF-8 in.txt | dos2unix &gt; out.txt</pre>
+<p>Convert from Unix Latin-1 to DOS default code page:</p>
+<pre class="tcy">unix2dos -iso -n in.txt out.txt</pre>
+<p>Convert from Unix Latin-1 to DOS CP850:</p>
+<pre class="tcy">unix2dos -850 -n in.txt out.txt</pre>
+<p>Convert from Unix Latin-1 to Windows CP1252:</p>
+<pre class="tcy">unix2dos -1252 -n in.txt out.txt</pre>
+<p>Convert from Unix UTF-8 (Unicode) to Windows CP1252:</p>
+<pre class="tcy">unix2dos &lt; in.txt | iconv -f UTF-8 -t CP1252 &gt; out.txt</pre>
+<p>See also <a href="http://czyborra.com/charsets/codepages.html" class="external">http://czyborra.com/charsets/codepages.html</a> and <a href="http://czyborra.com/charsets/iso8859.html" class="external">http://czyborra.com/charsets/iso8859.html</a>.</p>
+</td>
+</tr>
+</table>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>Conversion modes <b>ascii</b>, <b>7bit</b>, and <b>iso</b> are similar to those of <b>dos2unix/unix2dos</b> under SunOS/Solaris.</p>
+</div>
+<h2 id="unicode">Unicode</h2>
+<h3 class="tab">Encodings</h3>
+<p class="tab">There exist different Unicode encodings. On Linux, Unicode files are often encoded in UTF-8 encoding. On Windows Unicode text files can be encoded in UTF-8, UTF-16, or UTF-16 big <a href="/jargon/e/endian.htm">endian</a>, but are mostly encoded in UTF-16 format.</p>
+<h3 class="tab">Conversion</h3>
+<p class="tab">Unicode text files can have DOS, Unix or Mac line breaks, like regular text files.</p>
+<p class="tab">All versions of <b>dos2unix</b> and <b>unix2dos</b> can convert UTF-8 encoded files, because UTF-8 was designed for backward compatibility with ASCII.</p>
+<p class="tab">dos2unix and unix2dos with Unicode UTF-16 support can read little and big endian UTF-16 encoded text files. To see if dos2unix was built with UTF-16 support type "<b>dos2unix -V</b>".</p>
+<p class="tab">The Windows versions of dos2unix and unix2dos convert UTF-16 encoded files always to UTF-8 encoded files. Unix versions of dos2unix/unix2dos convert UTF-16 encoded files to the locale character encoding when it is set to UTF-8. Use the <b>locale</b> command to find out what the locale character encoding is.</p>
+<p class="tab">Because UTF-8 formatted text files are well supported on both Windows and Unix, dos2unix, and unix2dos have no option to write UTF-16 files. All UTF-16 characters can be encoded in UTF-8. Conversion from UTF-16 to UTF-8 is without loss. UTF-16 files will be skipped on Unix when the locale character encoding is not UTF-8, to prevent accidental loss of text. When an UTF-16 to UTF-8 conversion error occurs, for instance when the UTF-16 input file contains an error, the file will be skipped.</p>
+<p class="tab">ISO and 7-bit mode conversion do not work on UTF-16 files.</p>
+<h3 class="tab">Byte Order Mark</h3>
+<p class="tab">On Windows, Unicode text files often have a Byte Order Mark (BOM), because many Windows programs (including Notepad) add BOMs by default. See also <a href="https://en.wikipedia.org/wiki/Byte_order_mark" class="external">https://en.wikipedia.org/wiki/Byte_order_mark</a>.</p>
+<p class="tab">On Unix, Unicode files often don't have a BOM. It is assumed that text files are encoded in the locale <a href="/jargon/c/charact.htm">character</a> encoding.</p>
+<p class="tab"><b>dos2unix</b> can only detect if a file is in UTF-16 format if the file has a BOM. When an UTF-16 file doesn't have a BOM, <b>dos2unix</b> sees the file as a binary file.</p>
+<p class="tab">Use <b>dos2unix</b> in combination with <b>iconv</b> to convert an UTF-16 file without BOM.</p>
+<p class="tab">Dos2unix never writes a BOM in the output file, unless you use option "<b>-m</b>".</p>
+<p class="tab">Unix2dos writes a BOM in the output file when the input file has a BOM, or when option "<b>-m</b>" is used.</p>
+<h3 class="tab">Examples</h3>
+<p class="tab">Convert from Windows UTF-16 (with BOM) to Unix UTF-8:</p>
+<pre class="tab tcy">dos2unix -n in.txt out.txt</pre>
+<p class="tab">Convert from Windows UTF-16 (without BOM) to Unix UTF-8:</p>
+<pre class="tab tcy">iconv -f UTF-16 -t UTF-8 in.txt | dos2unix &gt; out.txt</pre>
+<p class="tab">Convert from Unix UTF-8 to Windows UTF-8 with BOM:</p>
+<pre class="tab tcy">unix2dos -m -n in.txt out.txt</pre>
+<p class="tab">Convert from Unix UTF-8 to Windows UTF-16:</p>
+<pre class="tab tcy">unix2dos &lt; in.txt | iconv -f UTF-8 -t UTF-16 &gt; out.txt</pre>
+<h2 id="recursive">Recursive conversion</h2>
+<p class="tab">Use <b>dos2unix</b> in combination with the <a href="/unix/ufind.htm"><b>find</b></a> and <a href="/unix/xargs.htm"><b>xargs</b></a> commands to recursively convert text files in a directory tree structure. For instance to convert all <b>.txt</b> files in the directory tree under the current directory type:</p>
+<pre class="tcy tab">find . -name *.txt | xargs dos2unix</pre>
+<h2 id="localization">Localization</h2>
+<h3 class="tab">LANG</h3>
+<p class="tab">The primary language is selected with the <a href="/jargon/e/envivari.htm">environment variable</a> <b>LANG</b>. The <b>LANG</b> variable consists out of several parts. The first part is in small letters the language code. The second is optional and is the country code in capital letters, preceded with an underscore. There is also an optional third part: character encoding, preceded with a dot. A few examples for <a href="/jargon/p/posix.htm">POSIX</a> standard type shells:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>export LANG=nl</b></td>
+<td>Dutch</td>
+</tr>
+<tr class="tcw">
+<td><b>export LANG=nl_NL</b></td>
+<td>Dutch, The Netherlands</td>
+</tr>
+<tr class="tcw">
+<td><b>export LANG=nl_BE</b></td>
+<td>Dutch, Belgium</td>
+</tr>
+<tr class="tcw">
+<td><b>export LANG=es_ES</b></td>
+<td>Spanish, Spain</td>
+</tr>
+<tr class="tcw">
+<td><b>export LANG=es_MX</b></td>
+<td>Spanish, Mexico</td>
+</tr>
+<tr class="tcw">
+<td><b>export LANG=en_US.iso88591</b></td>
+<td>English, USA, Latin-1 encoding</td>
+</tr>
+<tr class="tcw">
+<td><b>export LANG=en_GB.UTF-8</b></td>
+<td>English, UK, UTF-8 encoding</td>
+</tr>
+</table>
+<p class="tab">For a complete list of language and country codes see the gettext manual: <a href="https://www.gnu.org/software/gettext/manual/gettext.html#Language-Codes" class="external">https://www.gnu.org/software/gettext/manual/gettext.html#Language-Codes</a></p>
+<p class="tab">On Unix systems, you can use to command <b>locale</b> to get locale-specific information.</p>
+<h3 class="tab">LANGUAGE</h3>
+<p class="tab">With the <b>LANGUAGE</b> environment variable you can specify a priority list of languages, separated by colons. Dos2unix gives preference to <b>LANGUAGE</b> over <b>LANG</b>. For instance, first Dutch and then German: "<b>LANGUAGE=nl:de</b>". You have to first enable localization, by setting <b>LANG</b> (or <b>LC_ALL</b>) to a value other than "<b>C</b>", before you can use a language priority list through the <b>LANGUAGE</b> variable. See also the gettext manual: <a href="https://www.gnu.org/software/gettext/manual/gettext.html#The-LANGUAGE-variable" class="external">https://www.gnu.org/software/gettext/manual/gettext.html#The-LANGUAGE-variable</a></p>
+<p class="tab">If you select a language that's not available, the standard English messages are shown.</p>
+<h3 class="tab">DOS2UNIX_LOCALEDIR</h3>
+<p class="tab">With the environment variable <b>DOS2UNIX_LOCALEDIR</b>, the <b>LOCALEDIR</b> set during <a href="/jargon/c/compile.htm">compilation</a> can be overruled. <b>LOCALEDIR</b> is used to find the language files. The GNU default value is "<b>/usr/local/share/locale</b>". Option <b>--version</b> displays the <b>LOCALEDIR</b> that is used.</p>
+<p class="tab">Example (<a href="/jargon/p/posix.htm">POSIX</a> shell):</p>
+<pre class="tab tcy">export DOS2UNIX_LOCALEDIR=$HOME/share/locale</pre>
+<h2 id="return">Return values</h2>
+<p class="tab">On success, zero is returned. When a system error occurs the last system error will be returned. For other errors 1 is returned.</p>
+<p class="tab">The return value is always zero in quiet mode, except when wrong command-line options are used.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">dos2unix</pre>
+<p class="tab">Get input from <a href="/jargon/s/stdin.htm">stdin</a> and write output to stdout.</p>
+<pre class="tcy tab">dos2unix a.txt b.txt</pre>
+<pre class="tcy tab">dos2unix -o a.txt b.txt</pre>
+<p class="tab">Both of the above commands will do the same thing: convert, and replace, both <b>a.txt</b> and <b>b.txt</b> in one command.</p>
+<pre class="tcy tab">dos2unix -k a.txt</pre>
+<p class="tab">Converts and replaces <b>a.txt</b> while keeping original date stamp.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83645d32c424',m:'oQK8r7k5Wy_KoV25J1BKoKAx791ezCcIW07aM.gKob0-1661495368-0-Ad6NzGyEn/aD5e/WiS5ZgyqHg3pec9C9vqbfTE+NZiraJ/oPiSZWyBFqdKyH1XDbSG2NBp9c+jJ/B3Gl8s6un+GjZIcHKyUPAth16FR0U/ZtSOiSxUN3AGxaGLGdZx+1yGnxMW6tW7yJ+OTcyfmtTlU=',s:[0x59c41d87b9,0x606cc563c6],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

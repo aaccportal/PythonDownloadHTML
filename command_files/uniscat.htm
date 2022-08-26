@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux niscat command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/niscat.gif" width="300" height="300" alt="niscat command" class="floatRight"><p class="intro">On <a href="/jargon/s/solaris.htm">Solaris</a>, the <b>niscat</b> command displays NIS+ (Network Information Service) tables and objects.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">In the first syntax form above, <b>niscat</b> displays the contents of the NIS+ tables named by <i>tablename</i>.</p>
+<p class="tab">In the second syntax form, <b>niscat</b> displays the internal representation of the NIS+ objects named by <i>name</i>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">niscat [-AhLMv] [-s <i>sep</i>] <i>tablename</i>...</pre>
+<pre class="tcy tab">niscat [-ALMP] -o <i>name</i>...</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>-A</b></td>
+<td>Display the data in the table and all the data in tables in the initial table's <a href="/jargon/c/concaten.htm">concatenation</a> <a href="/jargon/p/path.htm">path</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Display the header line before displaying the table. The header consists of the '<b>#</b>' (hash) <a href="/jargon/c/charact.htm">character</a> followed by the name of each column. The column names are separated by the table separator character.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b></td>
+<td>Follow <a href="/unix/link.htm">links</a>. When this option is specified, if tablename or name names a LINK type object, the link is followed and the object or table named by the link is displayed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b></td>
+<td>Master server only. This option specifies that the request should be sent to the master server of the named data. This guarantees that the most up-to-date information is seen at the possible expense of increasing the load on the master server and increasing the possibility of the NIS+ server being unavailable or busy for updates.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b></td>
+<td>Follow concatenation path. This option specifies that the request should follow the concatenation path of a table if the initial search is unsuccessful. This option is only useful when using an indexed name for <i>name</i> and the <b>-o</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Display <a href="/jargon/b/binary.htm">binary</a> data directly. This option displays columns containing binary data on the standard output. Without this option binary data is displayed as the string &quot;<b>*BINARY*</b>&quot;.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b> <i>name</i></td>
+<td>Display the internal representation of the named NIS+ object(s). If <i>name</i> is an indexed name (see <a href="/unix/unismatc.htm">nismatch</a>), then each of the matching entry objects is displayed. This option is used to display access rights and other attributes of individual columns.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>sep</i></td>
+<td>This option specifies the character to use to separate the table columns. If no character is specified, the default separator for the table is used.</td>
+</tr>
+</table>
+<h2 id="environment">Environment</h2>
+<p class="tab">If the <b>NIS_PATH</b> <a href="/jargon/e/envivari.htm">environment variable</a> is set, and the NIS+ table name is not fully qualified, each directory specified is searched until the table is found (see <a href="/unix/unisdefa.htm">nisdefaults</a>).</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">niscat -h hosts.org_dir</pre>
+<p class="tab">Display the contents of the host table. Output resembles the following:</p>
+<pre class="tab"># cname    name       addr               comment
+client1    client1    129.144.201.100    Joe Smith
+crunchy    crunchy    129.144.201.44     Jane Smith
+crunchy    softy      129.144.201.44</pre>
+<p class="tab">If the user has insufficient permissions to view the contents of any given field or entry, the string &quot;<b>*NP*</b>&quot; is printed.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><b>nisdefaults</b> &mdash; Display NIS+ default values.<br><a href="/unix/unismatc.htm"><b>nismatch</b></a> &mdash; Utilities for searching NIS+ tables.<br><a href="/unix/unistbla.htm"><b>nistbladm</b></a> &mdash; Administer NIS+ tables.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83215d768474',m:'q6JVPtVDvtIEWxmsOlBkXSiBETV9u6iVedcy0OfNT6g-1661495357-0-AVlDEkv+40kWtwJCDqYJjQuSjX14RqbTVOCJ4KR6mLeIJl02S9Ab2KWvbZ1CPRc0hfVpiDFKxjkvbdL/Um5e7pu3dge55tfuM8E37yBTC3AtKr+Wa1v1I9cckDhUnVdvDsE1TQQERWNz3T2PehjaR0w=',s:[0x27b5552636,0x35ffd680b1],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

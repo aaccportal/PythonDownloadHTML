@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux ifup, ifdown, and ifquery command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-08-16">08/16/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/ifup.gif" width="300" height="300" alt="ifup command" class="floatRight"><p class="intro">On some <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>ifup</b> activates a network interface, making it available to transmit and receive data.</p>
+<p>The <b>ifdown</b> command disables a network interface, placing it in a state where it cannot transmit or receive data.</p>
+<p>The <b>ifquery</b> command displays information about a network interface's configuration.</p>
+<p>This page describes the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of these commands.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#description">Technical description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#limitations">Known limitations</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="description">Technical description</h2>
+<p class="tab">The <b>ifup</b> and <b>ifdown</b> commands may be used to configure <a href="/jargon/n/nic.htm">network interfaces</a> based on interface definitions in the file <b>/etc/network/interfaces</b>.</p>
+<p class="tab">The <b>ifquery</b> command is used to <a href="/jargon/p/parse.htm">parse</a> interface configuration data.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">ifup [-nv] [--no-act] [--verbose] [-i <i>FILE</i>|--interfaces=<i>FILE</i>]
+     [--allow <i>CLASS</i>] -a|<i>IFACE</i>...
+</pre>
+<pre class="tcy tab">ifup -h|--help</pre>
+<pre class="tcy tab">ifup -V|--version</pre>
+<pre class="tcy tab">ifdown [-nv] [--no-act] [--verbose] [-i <i>FILE</i>|--interfaces=<i>FILE</i>]
+       [--allow <i>CLASS</i>] -a|<i>IFACE</i>...
+</pre>
+<pre class="tcy tab">ifquery [-nv] [--no-act] [--verbose] [-i <i>FILE</i>|--interfaces=<i>FILE</i>]
+        [--allow <i>CLASS</i>] -a|<i>IFACE</i>...
+</pre>
+<pre class="tcy tab">ifquery -l|--list [-nv] [--no-act] [--verbose] [-i <i>FILE</i>|--interfaces=<i>FILE</i>]
+        [--allow <i>CLASS</i>] -a|<i>IFACE</i>... 
+</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-a, --all</b></td>
+<td>If given to <b>ifup</b>, affect all <a href="/jargon/i/interfac.htm">interfaces</a> marked <b>auto</b>. Interfaces are brought up in the order they are defined in <b>/etc/network/interfaces</b>. Combined with <b>--allow</b>, acts on all interfaces of a specified class instead. If given to <b>ifdown</b>, affect all defined interfaces. Interfaces are brought down in the order they are currently listed in the state file. Only interfaces defined in <b>/etc/network/interfaces</b> are brought down.</td>
+</tr>
+<tr class="tcw">
+<td><b>--force</b></td>
+<td>Force configuration or deconfiguration of the interface.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h, --help</b></td>
+<td>Show summary of options.</td>
+</tr>
+<tr class="tcw">
+<td><b>--allow=</b><i>CLASS</i></td>
+<td>Only allow interfaces listed in an allow-CLASS line in <b>/etc/network/interfaces</b> to be acted upon.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b> <i>FILE</i>,<br> <b>--interfaces=</b><i>FILE</i></td>
+<td>Read interface definitions from FILE instead of from <b>/etc/network/interfaces</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-X</b> <i>PATTERN</i>,<br> <b>--exclude=</b><i>PATTERN</i></td>
+<td>Exclude interfaces from the list of interfaces to operate on by the <i>PATTERN</i>. <i>PATTERN</i> uses a shell glob syntax. If shell wildcards are not used, it must match the exact interface name. This option may be specified multiple times resulting in more than one pattern being excluded.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b> <i>OPTION=VALUE</i></td>
+<td>Set <i>OPTION</i> to <i>VALUE</i> as though it were in <b>/etc/network/interfaces</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--no-act</b></td>
+<td>Don't configure any interfaces or run any &quot;up&quot; or &quot;down&quot; commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-mappings</b></td>
+<td>Don't run any mappings. See <b>interfaces</b> for more information about the mapping feature.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-scripts</b></td>
+<td>Don't run any scripts under <b>/etc/network/if-*.d/</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Show Copyright and version information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v, --verbose</b></td>
+<td>Show commands as they are executed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--list</b></td>
+<td>For <b>ifquery</b>, list all the interfaces which match the specified class. If no class specified, prints all the interfaces listed as <b>auto</b>.</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px"><b>/etc/network/interfaces</b></td>
+<td>Definitions of network interfaces.</td>
+</tr>
+<tr class="tcw">
+<td><b>/run/network/ifstate</b></td>
+<td>Current state of network interfaces.</td>
+</tr>
+</table>
+<h2 id="limitations">Known limitations</h2>
+<p class="tab">The program keeps records of whether network interfaces are up or down. Under exceptional circumstances, these records can become inconsistent with the real states of the interfaces. For example, an interface that was brought up using <b>ifup</b> and later deconfigured using <a href="/unix/uifconfi.htm"><b>ifconfig</b></a> is still recorded as <b>up</b>. To fix this, you can use the <b>--force</b> option to force <b>ifup</b> or <b>ifdown</b> to run configuration or deconfiguration commands despite what it considers the current state of the interface to be.</p>
+<p class="tab">The file <b>/run/network/ifstate</b> must be <a href="/jargon/w/write.htm">writable</a> for <b>ifup</b> or <b>ifdown</b> to work properly. If that location is not writable (for example, because the <a href="/jargon/r/root.htm">root</a> <a href="/jargon/f/filesyst.htm">filesystem</a> is mounted <a href="/jargon/r/readonly.htm">read-only</a> for system <a href="/jargon/r/recover.htm">recovery</a>), then <b>/run/network/ifstate</b> should be made a <a href="/jargon/s/symblink.htm">symbolic link</a> to a writable location. If that is not possible, then you can use the <b>--force</b> option to run configuration or deconfiguration commands without updating the file.</p>
+<p class="tab">Note that the program does not run automatically: <b>ifup</b> alone does not bring up interfaces that appear as a result of <a href="/jargon/h/hardware.htm">hardware</a> being <a href="/jargon/i/install.htm">installed</a>, and <b>ifdown</b> alone does not bring down interfaces that disappear as a result of hardware being removed. To automate the configuration of network interfaces, you need to install other packages, such as <b>udev</b> or <b>ifplugd</b>.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">ifup -a</pre>
+<p class="tab">Bring up all the interfaces defined with <b>auto</b> in <b>/etc/network/interfaces</b>.</p>
+<pre class="tcy tab">ifup eth0</pre>
+<p class="tab">Bring up interface <b>eth0</b>.</p>
+<pre class="tcy tab">ifup eth0=home</pre>
+<p class="tab">Bring up interface <b>eth0</b> as logical interface <b>home</b>.</p>
+<pre class="tcy tab">ifdown -a</pre>
+<p class="tab">Bring down all interfaces that are currently up.</p>
+<pre class="tcy tab">ifquery -l</pre>
+<p class="tab">Print names of all interfaces specified with the <b>auto</b> keyword.</p>
+<pre class="tcy tab">ifquery -l --allow=hotplug</pre>
+<p class="tab">Print names of all interfaces specified with the <b>allow-hotplug</b> keyword.</p>
+<pre class="tcy tab">ifquery eth0</pre>
+<p class="tab">Display the interface options as specified in the <b>ifupdown</b> configuration. Each <b>key-value</b> pair is printed out on individual line using &quot;<b>:</b> &quot; as separator.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uifconfi.htm"><b>ifconfig</b></a> &mdash; View or modify the configuration of network interfaces.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82fa69088498',m:'XoZT4swsWq5rIqVGbR5Ycp6SZ7ickHsRcu2axlWj8XM-1661495351-0-AdLjL93FGOoUaE9ALtJoln0tKezAO+NQs7gb8hPMcqdRgX5JacMElCnk9f4+2w52G0W81UCrhHXGoZ9cpDHGs6aYbTxa1rtRQ98rH2f3EA8iCpTqQktWM452jq4ze82SuQ==',s:[0xaab3131b1a,0x4352858ac1],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

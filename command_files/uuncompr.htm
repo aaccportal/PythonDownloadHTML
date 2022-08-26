@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux uncompress command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/uncompress.gif" width="300" height="300" alt="uncompress command" class="floatRight">
+<p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>uncompress</b> command uncompresses <a href="/jargon/f/file.htm">files</a> that were <a href="/jargon/c/compress.htm">compressed</a> using the <a href="/unix/ucompres.htm"><b>compress</b></a> command.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>uncompress</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#exit">Exit status</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>uncompress</b> <a href="/jargon/u/utility.htm">utility</a> will restore files to their original state after they are compressed using the <b>compress</b> utility. If no files are specified, the <a href="/jargon/s/stdin.htm">standard input</a> will be uncompressed to the standard output.</p>
+<p class="tab">Files compressed with <b>compress</b> often have the <a href="/jargon/e/extensio.htm">extension</a> <b>.Z</b>, and <b>uncompress</b> looks for and recognizes files with that extension as compressed files.</p>
+<p class="tab">This utility supports the uncompressing of any files produced by <b>compress</b>. For files produced by <b>compress</b> on other systems, <b>uncompress</b> supports 9- to 16-bit compression (see <b>-b</b>, below).</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">uncompress [-cfv] [<i>file</i>...]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:70px"><b>-c</b></td>
+<td>Writes to the standard output; no files are changed and no <b>.Z</b> files are created. The behavior of <a href="/unix/uzcat.htm"><b>zcat</b></a> is identical to that of "<b>uncompress -c</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>When compressing, the <b>-f</b> option forces compression of files, even if it does not actually reduce the size of the files, or if corresponding <b>file.Z</b> files already exist. If the <b>-f</b> option is not given, and the process is not running in the background, prompts to verify whether an existing <b>file.Z</b> file should be overwritten. When uncompressing, does not prompt for overwriting files. If the <b>-f</b> option is not given, and the process is not running in the background, prompts to verify whether an existing file should be overwritten. If the standard input is not a terminal and <b>-f</b> is not given, writes a diagnostic message to standard error and exits with a status greater than <b>0</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td><a href="/jargon/v/verbose.htm">Verbose</a>. Writes to standard error any messages concerning the percentage reduction or expansion of each file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b> <i>bits</i></td>
+<td>Sets the upper limit (in <a href="/jargon/b/bit.htm">bits</a>) for common <a href="/jargon/s/substring.htm">substring</a> codes. Bits must be between <b>9</b> and <b>16</b> (<b>16</b> is the default). Lowering the number of bits results in larger, less-compressed files.</td>
+</tr>
+<tr class="tcw">
+<td><i>file</i></td>
+<td>A <a href="/jargon/p/path.htm">path name</a> of a file to be compressed by <b>compress</b>, uncompressed by <b>uncompress</b>, or whose uncompressed form is written to standard out by <b>zcat</b>. If file is specified as a dash ("<b>-</b>"), or if no file is specified, the standard input will be used.</td>
+</tr>
+</table>
+<h2 id="exit">Exit status</h2>
+<p class="tab"><b>uncompress</b> returns the following status upon exit:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>0</b></td>
+<td>Operation successful.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>An error occurred.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>One or more files were not compressed because they would have increased in size (and the <b>-f</b> option was not specified).</td>
+</tr>
+<tr class="tcw">
+<td>&gt;<b>2</b></td>
+<td>An error occurred.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">uncompress myfile.txt.Z</pre>
+<p class="tab">Uncompress the file <b>myfile.txt.Z</b>.</p>
+<p class="tab">Note that the <b>.Z</b> extension is assumed by default. If instead this command were given as</p>
+<pre class="tcy tab">uncompress myfile.txt</pre>
+<p class="tab">...<b>uncompress</b> would still search for <b>myfile.txt.Z</b>, and uncompress it.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucompres.htm"><b>compress</b></a> &mdash; Compress a file or files.<br><a href="/unix/uln.htm"><b>ln</b></a> &mdash; Create a link, or a symbolic link, to a file or directory.<br><a href="/unix/upack.htm"><b>pack</b></a> &mdash; Compress files using a Huffman algorithm.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a836b8a48c424',m:'QlOHXME5FZ13JHrZe6mmj.4gvCjaPiFh9wmgn7bqAD0-1661495369-0-AfOjo6IS0kVEjsMakULXui2o8qVmYBFBHzYBhrqJtZFwb5Q8OWUiOAN6aQ+HNTIPhPjPMnE/1t35TjFe9YqG30fUkbBeY0+RwM8t3mTeYkU5AwJwxrU6wF6Bc4Zv2Ozkp/SZWOVdPMZAAh8+lgQn/d8=',s:[0xfded89dd13,0x2b58d1dbbf],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

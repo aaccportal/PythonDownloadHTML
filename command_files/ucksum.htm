@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux cksum command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/cksum.gif" width="300" height="300" alt="cksum command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>cksum</b> command calculates a <a href="/jargon/c/crc.htm">cyclic redundancy check</a> (<b>CRC</b>) and <a href="/jargon/b/byte.htm">byte</a> count for each input file, and writes it to <a href="/jargon/s/stdout.htm">standard output</a>.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>cksum</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <a href="/jargon/c/checksum.htm">checksum</a> of a file is a simple way to check if its data has become <a href="/jargon/c/corrupt.htm">corrupted</a> when being transferred from one place to another. If the checksum value of the file is the same before and after being transferred, it is unlikely that any data corruption has accidentally occurred &mdash; from <a href="/jargon/n/noise.htm">signal noise</a>, for example.</p>
+<p class="tab">Let's say you have a file, <b>myfile.txt</b>, containing the following text:</p>
+<pre class="tab">This is my original file.</pre>
+<p class="tab">You can calculate the checksum using <b>cksum</b>:</p>
+<pre class="tab tcy">cksum myfile.txt</pre>
+<p class="tab">...and this is the output:</p>
+<pre class="tab">4164605383 26 myfile.txt</pre>
+<p class="tab">Here, <b>4164605383</b> is the checksum, and <b>26</b> is the amount of data, in bytes. If you change the contents of the file to this:</p>
+<pre class="tab">This is no longer my original file.</pre>
+<p class="tab">...and run <b>cksum</b> again, you see the following:</p>
+<pre class="tab tcy">cksum myfile.txt</pre>
+<pre class="tab">632554699 36 myfile.txt</pre>
+<p class="tab">The checksum is very different, and we can also see that there are ten more bytes of data.</p>
+<p class="tab">The checksum is different even if the number of bytes is same as the original:</p>
+<pre class="tab">This is a corrupted file.</pre>
+<pre class="tab tcy">cksum myfile.txt</pre>
+<pre class="tab">2256884274 26 myfile.txt</pre>
+<p class="tab">...and it changes dramatically even if only one <a href="/jargon/c/charact.htm">character</a> is different:</p>
+<pre class="tab">This is my original file?</pre>
+<pre class="tab tcy">cksum myfile.txt</pre>
+<pre class="tab">3832066352 26 myfile.txt</pre>
+<div class="tip tab" role="note">
+<span class="title note">Important</span>
+<p>Simple checksums, such as those produced by the <b>cksum</b> tool, are useful only for detecting accidental data corruption. It's not meant to protect against malicious alteration of a file. It's been proven that an attacker could carefully make changes to a file that would produce an identical <b>cksum</b> checksum. Therefore, if you need to be absolutely certain that a file is identical to the original, use a more powerful method. We highly recommend using the SHA256 <a href="/jargon/a/algorith.htm">algorithm</a> for verifying data integrity. You can generate and verify SHA256 <a href="/jargon/h/hashing.htm">hash</a> sums using tools such as <a href="/jargon/g/gnu.htm">GNU</a> <b>rhash</b>.</p>
+</div>
+<h2 id="syntax">Syntax</h2>
+<p class="tab">The command syntax of the <b>cksum</b> command is very straightforward. Either specify one or more files to be checked:</p>
+<pre class="tcy tab">cksum [<i>FILE</i>]...</pre>
+<p class="tab">...or an option:</p>
+<pre class="tcy tab">cksum [<i>OPTION</i>]</pre>
+<p class="tab">If you run <b>cksum</b> with no <a href="/jargon/f/filename.htm">file names</a> and no options, it creates a checksum for data read from <a href="/jargon/s/stdin.htm">standard input</a>.</p>
+<h2 id="options">Options</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><i>FILE</i></td>
+<td>The name of the file you want to check.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display <a href="/jargon/v/version.htm">version</a> information, and exit.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">cksum file.txt</pre>
+<p class="tab">Calculate the checksum and bytecount of <b>file.txt</b> and output the values with the file name. Output will be similar to the following:</p>
+<pre class="tab">1740057581 19 file.txt</pre>
+<p class="tab">Here, <b>1740057581</b> is the checksum, <b>19</b> is the number of bytes in the file, and <b>file.txt</b> is the file name.</p>
+<pre class="tab tcy">cksum myfile.txt myfile2.txt</pre>
+<p class="tab">The above command generates checksums and bytecounts for the files <b>myfile.txt</b> and <b>myfile2.txt</b>. Output resembles the following:</p>
+<pre class="tab">3832066352 26 myfile.txt
+3722946153 34 myfile2.txt</pre>
+<pre class="tab tcy">cksum &lt; myfile.txt</pre>
+<p class="tab">The above command will <a href="/jargon/r/redirect.htm">redirect</a> the contents of <b>myfile.txt</b> to <b>cksum</b>, which will read the data from standard input and output a checksum and bytecount.</p>
+<pre class="tab tcy">cat myfile.txt | cksum</pre>
+<p class="tab">The above command will <a href="/unix/ucat.htm">cat</a> the contents of <b>myfile.txt</b> and <a href="/jargon/p/pipe.htm">pipe</a> the output to <b>cksum</b>, which reads it from the standard input.</p>
+<pre class="tab tcy">cksum</pre>
+<p class="tab">Running <b>cksum</b> with no options lets you type anything you like, pressing <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a> for new lines. When you are finished entering text, you can press <a href="/jargon/c/ctrl-d.htm"><kbd>Ctrl</kbd>+<kbd>D</kbd></a> to signal the end of standard input, and <b>cksum</b> outputs the checksum and bytecount of the text you entered.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82c58cf4c43d',m:'j4fgkvOEz1z6SsoJDWE837Z2qo2.yO6aRVzNObSrvRE-1661495342-0-AV3uGHbvlnxNh719HhWydL4XtE3XW/VzUuQlZB0DFsnuu5W1I/cEpdVN7tUO6kaEZaKxcw99duP+CMoMiXgs7ZyM2Vd0q80SYMKMa+G1hIAbPOK2/FCtb1wtwZWldlAr4A==',s:[0x6959a11bad,0x262f9e3917],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

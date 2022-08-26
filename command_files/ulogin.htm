@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux login command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/login.gif" width="300" height="300" alt="login command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>login</b> command begins a new login session on the system.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>login</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>login</b> program is used to establish a new session with the system. It is normally invoked automatically by responding to the "login:" prompt on the user's <a href="/jargon/t/terminal.htm">terminal</a>. <b>login</b> may be special to the <a href="/jargon/s/shell.htm">shell</a> and may not be invoked as a sub-process. When called from a shell, <b>login</b> should be executed as <a href="/jargon/e/exec.htm">exec</a> login which causes the user to exit from the current shell (and thus prevents the new logged in user to return to the session of the caller). Attempting to execute <b>login</b> from any shell but the login shell produces an error message.</p>
+<p class="tab">The user is then prompted for a <a href="/jargon/p/password.htm">password</a>, where appropriate. <a href="/jargon/e/echo.htm">Echoing</a> is disabled to prevent revealing the password. Only a small number of password failures are permitted before login exits and the communications link is severed.</p>
+<p class="tab">If password aging is enabled for your account, you may be prompted for a new password before proceeding. You will be forced to provide your old password and the new password before continuing; refer to our <a href="/unix/upasswor.htm">passwd</a> for more information.</p>
+<p class="tab">Your user and group ID will be set according to their values in the <b>/etc/passwd</b> file. The value for <b>$HOME</b>, <b>$SHELL</b>, <b>$PATH</b>, <b>$LOGNAME</b>, and <b>$MAIL</b> are set according to the appropriate fields in the password entry. <b>ulimit</b>, <a href="/unix/uumask.htm">umask</a> and <a href="/unix/unice.htm">nice</a> values may also be set according to entries in the GECOS field.</p>
+<p class="tab">On some installations, the <a href="/jargon/e/envivari.htm">environment variable</a> <b>$TERM</b> will be initialized to the terminal type on your <a href="/jargon/t/tty.htm">tty</a> line, as specified in <b>/etc/ttytype</b>.</p>
+<p class="tab">An initialization script may also be executed; check the documentation of your <a href="/jargon/c/comminte.htm">command interpreter</a> for information on init scripts.</p>
+<p class="tab">A subsystem login is indicated by the presence of a "<b>*</b>" as the first <a href="/jargon/c/charact.htm">character</a> of the login shell. The given <a href="/jargon/h/homedir.htm">home directory</a> will be used as the root of a new <a href="/jargon/f/filesyst.htm">file system</a> which the user is actually logged into.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">login [-p] [-h <i>host</i>] [<i>username</i>] [<i>ENV</i>=<i>VAR</i>...]</pre>
+<pre class="tcy tab">login [-p] [-h <i>host</i>] -f <i>username</i></pre>
+<pre class="tcy tab">login [-p] -r <i>host</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>-f</b></td>
+<td>Do not perform <a href="/jargon/a/auth.htm">authentication</a>; user is pre-authenticated. In that case, <a href="/jargon/u/username.htm">username</a> is mandatory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Name of the remote <a href="/jargon/h/hostcomp.htm">host</a> for this login.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Preserve environment.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>Perform autologin protocol for <a href="/unix/urlogin.htm">rlogin</a>.</td>
+</tr>
+</table>
+<h2 id="configuration">Configuration</h2>
+<p class="tab">The following configuration variables in <b>/etc/login.defs</b> change the behavior of this tool:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th style="width:220px"><b>name</b></th>
+<th style="width:80px"><b>type</b></th>
+<th><b>description</b></th>
+</tr>
+<tr class="tcw">
+<td><b>CONSOLE_GROUPS</b></td>
+<td><a href="/jargon/s/string.htm">string</a></td>
+<td>List of groups to add to the user's supplementary groups set when logging in on the console (as determined by the CONSOLE setting). Default is none.<br><br> Use with caution - it is possible for users to gain permanent access to these groups, even when not logged in on the console.</td>
+</tr>
+<tr class="tcw">
+<td><b>DEFAULT_HOME</b></td>
+<td><a href="/jargon/b/boolean.htm">boolean</a></td>
+<td>Indicate if <b>login</b> is allowed if we can't <a href="/jargon/c/cd.htm">cd</a> to the home directory. Default is <b>no</b>.<br><br> If set to <b>yes</b>, the user will login in the root (<b>/</b>) directory if it's not possible to cd to the user's home directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>ENV_PATH</b></td>
+<td>string</td>
+<td>If set, it will be used to define the <b>PATH</b> environment variable when a regular user login. The value is a colon separated list of paths (for example <b>/bin:/usr/bin</b>) and can be preceded by <b>PATH=</b>. The default value is <b>PATH=/bin:/usr/bin</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>ENV_SUPATH</b></td>
+<td>string</td>
+<td>If set, it will be used to define the <b>PATH</b> environment variable when the superuser logs in. The value is a colon separated list of paths (for example <b>/sbin:/bin:/usr/sbin:/usr/bin</b>) and can be preceded by <b>PATH=</b>. The default value is <b>PATH=/sbin:/bin:/usr/sbin:/usr/bin</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>ERASECHAR</b></td>
+<td>number</td>
+<td>Terminal Erase character (<b>010</b> = backspace, <b>0177</b> = Del).<br><br> The value can be prefixed "<b>0</b>" for an <a href="/jargon/o/octal.htm">octal</a> value, or "<b>0x</b>" for a <a href="/jargon/h/hex.htm">hexadecimal</a> value.</td>
+</tr>
+<tr class="tcw">
+<td><b>FAIL_DELAY</b></td>
+<td>number</td>
+<td>Delay in seconds before being allowed another attempt after a login failure.</td>
+</tr>
+<tr class="tcw">
+<td><b>FAKE_SHELL</b></td>
+<td>string</td>
+<td>If set, <b>login</b> will execute this shell instead of the users' shell specified in <b>/etc/passwd</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>HUSHLOGIN_FILE</b></td>
+<td>string</td>
+<td>If defined, this file can inhibit all the usual chatter during the login sequence. If a full pathname is specified, then hushed mode will be enabled if the user's name or shell are found in the file. If not a full pathname, then hushed mode will be enabled if the file exists in the user's home directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>KILLCHAR</b></td>
+<td>number</td>
+<td>Terminal KILL character (<b>025</b> = <b>^U</b>).<br><br> The value can be prefixed "<b>0</b>" for an octal value, or "<b>0x</b>" for a hexadecimal value.</td>
+</tr>
+<tr class="tcw">
+<td><b>LOGIN_RETRIES</b></td>
+<td>number</td>
+<td>Maximum number of login retries in case of bad password.<br><br> This will most likely be overridden by PAM since the default <b>pam_unix</b> module has its own built-in of 3 retries. However, this is a safe fallback in case you are using an authentication module that does not enforce <b>PAM_MAXTRIES</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>LOGIN_TIMEOUT</b></td>
+<td>number</td>
+<td>Max time in seconds for <b>login</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>LOG_OK_LOGINS</b></td>
+<td>boolean</td>
+<td>Enable logging of successful logins.</td>
+</tr>
+<tr class="tcw">
+<td><b>LOG_UNKFAIL_ENAB</b></td>
+<td>boolean</td>
+<td>Enable display of unknown usernames when login failures are recorded.<br><br> Note! Logging unknown usernames may be a security issue if a user enters their password instead of their login name, as the typo would then be logged.</td>
+</tr>
+<tr class="tcw">
+<td><b>TTYGROUP</b>, <b>TTYPERM</b></td>
+<td>string</td>
+<td>The terminal permissions: the login tty will be owned by the <b>TTYGROUP</b> group, and the permissions will be set to <b>TTYPERM</b>.<br><br> By default, the ownership of the terminal is set to the user's primary group and the permissions are set to <b>0600</b>.<br><br><b>TTYGROUP</b> can be either the name of a group or a numeric group identifier.<br><br> If you have a write program which is "setgid" to a special group which owns the terminals, define <b>TTYGROUP</b> to the group number and <b>TTYPERM</b> to <b>0620</b>. Otherwise, leave <b>TTYGROUP</b> commented out and assign <b>TTYPERM</b> to either <b>622</b> or <b>600</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>TTYTYPE_FILE</b></td>
+<td>string</td>
+<td>If defined, file which maps the tty line to the <b>TERM</b> environment parameter. Each line of the file is in a format such as "<b>vt100 tty01</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>USERGROUPS_ENAB</b></td>
+<td>boolean</td>
+<td>If set to <b>yes</b>, <a href="/unix/userdel.htm">userdel</a> removes the user's group if it contains no more members, and <a href="/unix/useradd.htm">useradd</a> creates (by default) a group with the name of the user.</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>/var/run/utmp</b></td>
+<td>List of current login sessions.</td>
+</tr>
+<tr class="tcw">
+<td><b>/var/log/wtmp</b></td>
+<td>List of previous login sessions.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/passwd</b></td>
+<td>User account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/shadow</b></td>
+<td>Secure user account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/motd</b></td>
+<td>System message of the day file.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/nologin</b></td>
+<td>Prevent non-root users from logging in.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/ttytype</b></td>
+<td>List of terminal types.</td>
+</tr>
+<tr class="tcw">
+<td><b>$HOME/.hushlogin</b></td>
+<td>Suppress printing of system messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/login.defs</b></td>
+<td>Shadow password suite configuration.</td>
+</tr>
+</table>
+<p class="tab">The <b>-r</b>, <b>-h</b> and <b>-f</b> options are only used when <b>login</b> is invoked by <a href="/jargon/r/root.htm">root</a>.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">login computerhope.com</pre>
+<p class="tab">Attempts to log in to the host <b>computerhope.com</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucsh.htm"><b>csh</b></a> &mdash; The C shell command interpreter.<br><a href="/unix/uexit.htm"><b>exit</b></a> &mdash; Exit the command shell.<br><a href="/unix/telinit.htm"><b>init</b></a> &mdash; The parent of all processes on the system.<br><a href="/unix/uksh.htm"><b>ksh</b></a> &mdash; The Korn shell command interpreter.<br><a href="/unix/umail.htm"><b>mail</b></a> &mdash; Read, compose, and manage mail.<br><a href="/unix/umailx.htm"><b>mailx</b></a> &mdash; Process mail messages.<br><a href="/unix/unewgrp.htm"><b>newgrp</b></a> &mdash; Log into a new group.<br><a href="/unix/upasswor.htm"><b>passwd</b></a> &mdash; Change a user's password.<br><a href="/unix/urlogin.htm"><b>rlogin</b></a> &mdash; Begin a session on a remote system.<br><a href="/unix/ursh.htm"><b>rsh</b></a> &mdash; Execute a command on a remote shell.<br><a href="/unix/ush.htm"><b>sh</b></a> &mdash; The Bourne shell command interpreter.<br><a href="/unix/utelnet.htm"><b>telnet</b></a> &mdash; Connect to a remote system using the telnet protocol.<br><a href="/unix/uumask.htm"><b>umask</b></a> &mdash; Get or set the file mode creation mask.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8308cdd6c3c5',m:'yginJPxh1w559WD2lT2G0G62Qv.7P3N6GsBCQ0v4mGc-1661495353-0-AZOEwR6WofxoXRVZtg/tKK8ARn872usvZTLRhpoIOX5y40iMoJqXM5d9SGT5X+40BW+VIcnnANB9SaMB1/5AxYl08ur7ossdEIxbXDyeIguqIaTGuprHd9ash4z+t5JDxQ==',s:[0xc981d343b1,0xf4ff3f2e43],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

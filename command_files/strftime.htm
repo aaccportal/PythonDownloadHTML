@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux strftime command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/strftime.gif" width="300" height="300" alt="strftime command" class="floatRight"><p class="intro">The <b>strftime()</b> <a href="/jargon/c/c.htm">C</a> function, part of the <b>time.h</b> library, formats strings to represent the system date and time.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>strftime()</b> <a href="/jargon/f/function.htm">function</a> formats the broken-down time <b>tm</b> according to the format specification format and places the result in the <a href="/jargon/c/charact.htm">character</a> <a href="/jargon/a/array.htm">array</a> <b>s</b> of size <b>max</b>.</p>
+<p class="tab">The format <a href="/jargon/s/specific.htm">specification</a> is a <a href="/jargon/n/null.htm">null</a>-<a href="/jargon/t/terminat.htm">terminated</a> <a href="/jargon/s/string.htm">string</a> and may contain special character sequences called conversion specifications, each introduced by a '<b>%</b>' character and terminated by some other character known as a conversion specifier character. All other character sequences are ordinary character sequences.</p>
+<p class="tab">The characters of ordinary character sequences (including the null <a href="/jargon/b/byte.htm">byte</a>) are copied verbatim from <b>format</b> to <b>s</b>.</p>
+<p class="tab">Conversion characters are replaced as follows.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">#include &lt;time.h&gt;
+size_t strftime(char *<i>s</i>, size_t <i>max</i>, const char *<i>format</i>, const struct tm *<i>tm</i>);</pre>
+<h2>Conversion characters</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:50px"><b>%a</b></td>
+<td>The abbreviated weekday name according to the current locale.</td>
+</tr>
+<tr class="tcw">
+<td><b>%A</b></td>
+<td>The full weekday name according to the current locale.</td>
+</tr>
+<tr class="tcw">
+<td><b>%b</b></td>
+<td>The abbreviated month name according to the current locale.</td>
+</tr>
+<tr class="tcw">
+<td><b>%B</b></td>
+<td>The full month name according to the current locale.</td>
+</tr>
+<tr class="tcw">
+<td><b>%c</b></td>
+<td>The preferred date and time representation for the current locale.</td>
+</tr>
+<tr class="tcw">
+<td><b>%C</b></td>
+<td>The century number (year/100) as a 2-digit integer.</td>
+</tr>
+<tr class="tcw">
+<td><b>%d</b></td>
+<td>The day of the month as a decimal number (range 01 to 31).</td>
+</tr>
+<tr class="tcw">
+<td><b>%D</b></td>
+<td>Equivalent to <b>%m</b>/<b>%d</b>/<b>%y</b> for Americans. Americans should note that in other countries <b>%d</b>/<b>%m</b>/<b>%y</b> is rather common. In the international context, this format is ambiguous and should not be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>%e</b></td>
+<td>Like <b>%d</b>, the day of the month as a decimal number, but a leading zero is replaced by a space.</td>
+</tr>
+<tr class="tcw">
+<td><b>%E</b></td>
+<td>Modifier: use alternative format, see below.</td>
+</tr>
+<tr class="tcw">
+<td><b>%F</b></td>
+<td>Equivalent to <b>%Y</b>-<b>%m</b>-<b>%d</b> (the <a href="/jargon/i/iso.htm">ISO</a> 8601 date format).</td>
+</tr>
+<tr class="tcw">
+<td><b>%G</b></td>
+<td>The ISO 8601 week-based year (see NOTES) with century as a decimal number. The 4-digit year corresponding to the ISO week number (see <b>%V</b>). This conversion has the same format and value as <b>%Y</b>, except that if the ISO week number belongs to the previous or next year, that year is used instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>%g</b></td>
+<td>Like <b>%G</b>, but without century, that is, with a 2-digit year (00-99).</td>
+</tr>
+<tr class="tcw">
+<td><b>%h</b></td>
+<td>Equivalent to <b>%b</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%H</b></td>
+<td>The hour as a decimal number using a 24-hour clock (range 00 to 23).</td>
+</tr>
+<tr class="tcw">
+<td><b>%I</b></td>
+<td>The hour as a decimal number using a 12-hour clock (range 01 to 12).</td>
+</tr>
+<tr class="tcw">
+<td><b>%j</b></td>
+<td>The day of the year as a decimal number (range 001 to 366).</td>
+</tr>
+<tr class="tcw">
+<td><b>%k</b></td>
+<td>The hour (24-hour clock) as a decimal number (range 0 to 23); single digits are preceded by a blank. (See also <b>%H</b>.)</td>
+</tr>
+<tr class="tcw">
+<td><b>%l</b></td>
+<td>The hour (12-hour clock) as a decimal number (range 1 to 12); single digits are preceded by a blank. (See also <b>%I</b>.)</td>
+</tr>
+<tr class="tcw">
+<td><b>%m</b></td>
+<td>The month as a decimal number (range 01 to 12).</td>
+</tr>
+<tr class="tcw">
+<td><b>%M</b></td>
+<td>The minute as a decimal number (range 00 to 59).</td>
+</tr>
+<tr class="tcw">
+<td><b>%n</b></td>
+<td>A <a href="/jargon/n/newline.htm">newline</a> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>%O</b></td>
+<td>Modifier: use alternative format, see below.</td>
+</tr>
+<tr class="tcw">
+<td><b>%p</b></td>
+<td>Either "AM" or "PM" according to the given time value, or the corresponding strings for the current locale. Noon is treated as "PM" and midnight as "AM".</td>
+</tr>
+<tr class="tcw">
+<td><b>%P</b></td>
+<td>Like %p but in lowercase: "am" or "pm" or a corresponding string for the current locale.</td>
+</tr>
+<tr class="tcw">
+<td><b>%r</b></td>
+<td>The time in a.m. or p.m. notation. In the <a href="/jargon/p/posix.htm">POSIX</a> locale, this is equivalent to <b>%I</b>:<b>%M</b>:<b>%S</b> <b>%p</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%R</b></td>
+<td>The time in 24-hour notation (<b>%H</b>:<b>%M</b>). (SU) For a version including the seconds, see <b>%T</b> below.</td>
+</tr>
+<tr class="tcw">
+<td><b>%s</b></td>
+<td>The number of seconds since the <a href="/jargon/e/epoch.htm">epoch</a>, 1970-01-01 00:00:00 +0000 (<a href="/jargon/u/ut.htm">UTC</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%S</b></td>
+<td>The second as a decimal number (range 00 to 60). The range is up to 60 to allow for occasional leap seconds.</td>
+</tr>
+<tr class="tcw">
+<td><b>%t</b></td>
+<td>A <a href="/jargon/t/tab.htm">tab</a> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>%T</b></td>
+<td>The time in 24-hour notation (<b>%H</b>:<b>%M</b>:<b>%S</b>).</td> 
+</tr>
+<tr class="tcw">
+<td><b>%u</b></td>
+<td>The day of the week as a decimal, range 1 to 7, Monday being 1. See also <b>%w</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%U</b></td>
+<td>The week number of the current year as a decimal number, range 00 to 53, starting with the first Sunday as the first day of week 01. See also <b>%V</b> and <b>%W</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%V</b></td>
+<td>The ISO 8601 week number (see NOTES) of the current year as a decimal number, range 01 to 53, where week 1 is the first week with at least four days in the new year. See also <b>%U</b> and <b>%W</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%w</b></td>
+<td>The day of the week as a decimal, range 0 to 6, Sunday being 0. See also <b>%u</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%W</b></td>
+<td>The week number of the current year as a decimal number, range 00 to 53, starting with the first Monday as the first day of week 01.</td>
+</tr>
+<tr class="tcw">
+<td><b>%x</b></td>
+<td>The preferred date representation for the current locale without the time.</td>
+</tr>
+<tr class="tcw">
+<td><b>%X</b></td>
+<td>The preferred time representation for the current locale without the date.</td>
+</tr>
+<tr class="tcw">
+<td><b>%y</b></td>
+<td>The year as a decimal number without a century (range 00 to 99).</td>
+</tr>
+<tr class="tcw">
+<td><b>%Y</b></td>
+<td>The year as a decimal number including the century.</td>
+</tr>
+<tr class="tcw">
+<td><b>%z</b></td>
+<td>The +hhmm or -hhmm numeric time zone (that is, the hour and minute offset from UTC).</td>
+</tr>
+<tr class="tcw">
+<td><b>%Z</b></td>
+<td>The time zone or name or abbreviation.</td>
+</tr>
+<tr class="tcw">
+<td><b>%+</b></td>
+<td>The date and time in <i>date</i> format.</td>
+</tr>
+<tr class="tcw">
+<td><b>%%</b></td>
+<td>A literal '<b>%</b>' character.</td>
+</tr>
+</table>
+<p class="tab">Some conversion specifications can be modified by preceding the conversion specifier character by the <b>E</b> or <b>O</b> modifier to indicate that an alternative format should be used. If the alternative format or specification does not exist for the current locale, the behavior will be as if the unmodified conversion specification were used. The SU (Single <a href="/jargon/u/unix.htm">Unix</a> specification) mentions <b>%Ec</b>, <b>%EC</b>, <b>%Ex</b>, <b>%EX</b>, <b>%Ey</b>, <b>%EY</b>, <b>%Od</b>, <b>%Oe</b>, <b>%OH</b>, <b>%OI</b>, <b>%Om</b>, <b>%OM</b>, <b>%OS</b>, <b>%Ou</b>, <b>%OU</b>, <b>%OV</b>, <b>%Ow</b>, <b>%OW</b>, <b>%Oy</b>, where the effect of the <b>O</b> modifier is to use alternative numeric symbols (say, roman numerals), and that of the <b>E</b> modifier is to use a locale-dependent alternative representation.</p>
+<p class="tab">The broken-down time structure <b>tm</b> is defined in <b>&lt;time.h&gt;</b>. See also <b>ctime</b></p>
+<h2>Return value</h2>
+<p class="tab">The <b>strftime()</b> function returns the number of bytes placed in the array <b>s</b>, not including the terminating null byte, provided the string, including the terminating null byte, fits. Otherwise, it returns <b>0</b>, and the contents of the array is undefined. This behavior applies since at least libc 4.4.4; very old versions of libc, such as libc 4.4.1, would return max if the array was too small. Note that the return value <b>0</b> does not necessarily indicate an error; for example, in many locales <b>%p</b> yields an empty string, which is equivalent to zero.</p>
+<h2>Environment</h2>
+<p class="tab">The environment variables <b>TZ</b> and <b>LC_TIME</b> are used.</p>
+<h2>Notes</h2>
+<p class="tab"><b>ISO 8601 Week Dates</b> <b>%G</b>, <b>%g</b>, and <b>%V</b> yield values calculated from the week-based year defined by the ISO 8601 standard. In this system, weeks start on a Monday, and are numbered from <b>01</b>, for the first week, up to <b>52</b> or <b>53</b>, for the last week. Week 1 is the first week where four or more days fall in the new year (or, synonymously, week <b>01</b> is: the first week of the year containing a <b>Thursday</b>; or, the week with <b>4 January</b> in it).</p>
+<p class="tab">When three of fewer days of the first calendar week of the new year fall within that year, then the ISO 8601 week-based system counts those days as part of week <b>53</b> of the preceding year. For example, <b>1 January 2010</b> is a Friday, meaning that only three days of that calendar week fall in 2010. Thus, the ISO 8601 week-based system considers these days to be part of week 53 (<b>%V</b>) of the year 2009 (<b>%G</b>) ; week 01 of ISO 8601 year 2010 starts on <b>Monday, 4 January 2010.</b></p>
+<p class="tabb">Glibc Notes</p>
+<p class="tab">Glibc provides some extensions for conversion specifications. These extensions are not specified in POSIX.1-2001, but a few other systems provide similar features. Between the '<b>%</b>' character and the conversion specifier character, an optional flag and field width may be specified. These precede the <b>E</b> or <b>O</b> modifiers, if present.</p>
+<p class="tab">The following flag characters are permitted:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>_</b></td>
+<td><b>(underscore)</b><br><br> Pad a numeric result string with spaces.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td><b>(dash)</b><br><br> Do not pad a numeric result string.</td>
+</tr>
+<tr class="tcw">
+<td><b>0</b></td>
+<td><b>(zero)</b><br><br> Pad a numeric result string with zeros even if the conversion specifier character uses space-padding by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>^</b></td>
+<td><b>(carat)</b><br><br> Convert alphabetic characters in result string to uppercase.</td>
+</tr>
+<tr class="tcw">
+<td><b>#</b></td>
+<td><b>(hash)</b><br><br> Swap the case of the result string.<br><br> This flag only works with certain conversion specifier characters, and of these, it is only really useful with <b>%Z</b>.</td>
+</tr>
+</table>
+<p>An optional decimal width specifier may follow the (possibly absent) flag. If the natural size of the field is smaller than this width, then the result string is padded (on the left) to the specified width.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">"%a, %b %d %l:%M.%S"</pre>
+<p class="tab">The above string would format the date and time to look like: <b>Sat, Jul 13 1:32.59</b></p>
+<p class="tab">Here's an example of a program that uses <b>strftime()</b> to interpret such a string:</p>
+<pre class="tcy tab">#include &lt;time.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+int main(int argc, char *argv[])
+{
+  char outstr[200];
+  time_t t;
+  struct tm *tmp;
+  t = time(NULL);
+  tmp = localtime(&amp;t);
+  if (tmp == NULL) {
+  perror("localtime");
+  exit(EXIT_FAILURE);
+  }
+   if (strftime(outstr, sizeof(outstr), argv[1], tmp) == 0)
+   {
+   fprintf(stderr, "strftime returned 0");
+   exit(EXIT_FAILURE);
+   }
+   printf("Result string is \"%s\"\n", outstr);
+   exit(EXIT_SUCCESS);
+}
+</pre>
+<p class="tab">For example, if the above program were compiled as the executable file <b>a.out</b>, it could be used from the command line like this:</p>
+<pre class="tcy tab">./a.out '%m'</pre>
+<pre class="tab">Result string is "11"</pre>
+<pre class="tcy tab">./a.out '%5m'</pre>
+<pre class="tab">Result string is "00011"</pre>
+<pre class="tcy tab">./a.out '%_5m'</pre>
+<pre class="tab">Result string is " 11"</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/udate.htm"><b>date</b></a> &mdash; Output the current date and time.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8357d87ac3ed',m:'fqnlrAROPv1ZaKsxwyav09JgJmRMDDhB2RT0UZ3DNqU-1661495366-0-Af83vYcZnTld2kCr0ehtCgRNb7Kyc+7ptX4OLrcERpppesPR/Lvb2rooQw1qwEMw8LQ3VN456DETzF+w/79Z+OOAKgP4eBhDEDL/svH+qXX0NUkYWcMYgxEiITenHdvERySf0EQzV43vv66fM3Se8q4=',s:[0xc460bf2553,0x9a6d388f85],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

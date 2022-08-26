@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux diff command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/diff.gif" width="300" height="300" alt="diff command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>diff</b> command analyzes two files and prints the lines that are different. In essence, it outputs a set of instructions for how to change one file to make it identical to the second file.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>diff</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#diff-output">Viewing diff Output In Context.</a></li>
+<li><a href="#unified">Unified mode</a></li>
+<li><a href="#finding-diff">Finding differences in directory contents.</a></li>
+<li><a href="#using-diff">Using diff to create an editing script.</a></li>
+<li><a href="#common-diff">Commonly-used diff options.</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>diff</b> software does not actually change the files it compares. However, it can optionally generate a script (if the <b>-e</b> option is specified) for the program <a href="/unix/ued.htm"><b>ed</b></a> or <a href="/unix/uex.htm"><b>ex</b></a> which can apply the changes.</p>
+<p class="tab">For example, consider two files, <b>file1.txt</b> and <b>file2.txt</b>.</p>
+<p class="tab">If <b>file1.txt</b> contains the following four lines of text:</p>
+<pre class="tab">I need to buy apples.
+I need to run the laundry.
+I need to wash the dog.
+I need to get the car detailed.</pre>
+<p class="tab">...and <b>file2.txt</b> contains these four lines:</p>
+<pre class="tab">I need to buy apples.
+I need to do the laundry.
+I need to wash the car.
+I need to get the dog detailed.</pre>
+<p class="tab">...then we can use <b>diff</b> to automatically display for us which lines <i>differ</i> between the two files with this command:</p>
+<pre class="tab tcy">diff file1.txt file2.txt</pre>
+<p class="tab">...and the output is:</p>
+<pre class="tab">2,4c2,4
+&lt; I need to run the laundry.
+&lt; I need to wash the dog.
+&lt; I need to get the car detailed.
+---
+&gt; I need to do the laundry.
+&gt; I need to wash the car.
+&gt; I need to get the dog detailed.
+</pre>
+<p class="tab">Let's take a look at what this output means. The important thing to remember is that when <b>diff</b> is describing these differences to you, it's doing so in a <i>prescriptive</i> context: it's telling you how to change the first file to make it match the second file.</p>
+<p class="tab">The first line of the <b>diff</b> output contains:</p>
+<ul>
+<li>line numbers corresponding to the first file,</li>
+<li>a letter (<b>a</b> for <i>add</i>, <b>c</b> for <i>change</i>, or <b>d</b> for <i>delete</i>), and</li>
+<li>line numbers corresponding to the second file.</li>
+</ul>
+<p class="tab">In our output above, "<b>2,4c2,4</b>" means: "Lines <b>2</b> through <b>4</b> in the first file need to be <b>c</b>hanged to match lines <b>2</b> through <b>4</b> in the second file." It then tells us what those lines are in each file:</p>
+<ul>
+<li>Lines preceded by a <b>&lt;</b> are lines from the first file;</li>
+<li>lines preceded by <b>&gt;</b> are lines from the second file.</li>
+</ul>
+<p class="tab">The three dashes ("<b>---</b>") merely separate the lines of file 1 and file 2.</p>
+<p class="tab">Let's look at another example. Let's say our two files look like this:</p>
+<p class="tabb">file1.txt:</p>
+<pre class="tab">I need to go to the store.
+I need to buy some apples.
+When I get home, I'll wash the dog.</pre>
+<p class="tabb">file2.txt:</p>
+<pre class="tab">I need to go to the store.
+I need to buy some apples.
+Oh yeah, I also need to buy grated cheese.
+When I get home, I'll wash the dog.</pre>
+<pre class="tab tcy">diff file1.txt file2.txt</pre>
+<p class="tab">Output:</p>
+<pre class="tab">2a3
+&gt; Oh yeah, I also need to buy grated cheese.
+</pre>
+<p class="tab">Here, the output is telling us "After line <b>2</b> in the first file, a line needs to be <b>a</b>dded: line <b>3</b> from the second file." It then shows us what that line is.</p>
+<p class="tab">Now let's see what it looks like when <b>diff</b> tells us we need to delete a line.</p>
+<p class="tab"><b>file1</b>:</p>
+<pre class="tab">I need to go to the store.
+I need to buy some apples.
+When I get home, I'll wash the dog.
+I promise.</pre>
+<p class="tab"><b>file2</b>:</p>
+<pre class="tab">I need to go to the store.
+I need to buy some apples.
+When I get home, I'll wash the dog.</pre>
+<p class="tab">Our command:</p>
+<pre class="tab tcy">diff file1.txt file2.txt</pre>
+<p class="tab">The output:</p>
+<pre class="tab">4d3
+&lt; I promise.
+</pre>
+<p class="tab">Here, the output is telling us "You need to <b>d</b>elete line <b>4</b> in the first file so that both files sync up at line <b>3</b>." It then shows us the contents of the line that needs to be deleted.</p>
+<h2 id="diff-output">Viewing diff Output In Context</h2>
+<p class="tab">The examples above show the <i>default</i> output of <b>diff</b>. It's intended to be read by a computer, not a human, so for human purposes, sometimes it helps to see the <i>context</i> of the changes.</p>
+<p class="tab"><a href="/jargon/g/gnu.htm">GNU</a> <b>diff</b>, which is the version most linux users are using, offers two different ways to do this: "context mode" and "unified mode".</p>
+<p class="tab">To view differences in context mode, use the <b>-c</b> option. For instance, let's say <b>file1.txt</b> and <b>file2.txt</b> contain the following:</p>
+<p class="tabb">file1.txt:</p>
+<pre class="tab">apples
+oranges
+kiwis
+carrots</pre>
+<p class="tabb">file2.txt:</p>
+<pre class="tab">apples
+kiwis
+carrots
+grapefruits</pre>
+<p class="tab">Let's look at the contextual output for the diff of these two files. Our command is:</p>
+<pre class="tab tcy">diff -c file1.txt file2.txt</pre>
+<p class="tab">And our output looks like this:</p>
+<pre class="tab">*** file1.txt   2014-08-21 17:58:29.764656635 -0400
+--- file2.txt   2014-08-21 17:58:50.768989841 -0400
+***************
+*** 1,4 ****
+  apples
+- oranges
+  kiwis
+  carrots
+--- 1,4 ----
+  apples
+  kiwis
+  carrots
++ grapefruits</pre>
+<p class="tab">The first two lines of this output show us information about our "from" file (file 1) and our "to" file (file 2). It lists the <a href="/jargon/f/filename.htm">file name</a>, modification date, and modification time of each of our files, one per line. The "from" file is indicated by "<b>***</b>", and the "to" file is indicated by "<b>---</b>".</p>
+<p class="tab">The line "<b>***************</b>" is a separator.</p>
+<p class="tab">The next line has three asterisks ("<b>***</b>") followed by a line range from the first file (in this case lines <b>1</b> through <b>4</b>, separated by a comma). Then four asterisks ("<b>****</b>").</p>
+<p class="tab">Then it shows us the contents of those lines. If the line is unchanged, it's prefixed by two spaces. If the line is changed, however, it's prefixed by an indicative character and a space. The character meanings are as follows:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<th>character</th>
+<th>meaning</th>
+</tr>
+<tr class="tcw">
+<td><b>!</b></td>
+<td>Indicates that this line is part of a group of one or more lines that needs to change. There is a corresponding group of lines prefixed with "<b>!</b>" in the other file's context as well.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b></td>
+<td>Indicates a line in the second file that needs to be added to the first file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>Indicates a line in the first file that needs to be deleted.</td>
+</tr>
+</table>
+<p class="tab">After the lines from the first file, there are three dashes ("<b>---</b>"), then a line range, then four dashes ("<b>----</b>"). This indicates the line range in the second file that syncs up with our changes in the first file.</p>
+<p class="tab">If there is more than one section that needs to change, <b>diff</b> shows these sections one after the other. Lines from the first file are still indicated with "<b>***</b>", and lines from the second file with "<b>---</b>".</p>
+<h2 id="unified">Unified mode</h2>
+<p class="tab">Unified mode (the <b>-u</b> option) is similar to context mode, but it doesn't display any redundant information. Here's an example, using the same input files as our last example:</p>
+<p class="tabb">file1.txt:</p>
+<pre class="tab">apples
+oranges
+kiwis
+carrots</pre>
+<p class="tabb">file2.txt:</p>
+<pre class="tab">apples
+kiwis
+carrots
+grapefruits</pre>
+<p class="tab">Our command:</p>
+<pre class="tab tcy">diff -u file1.txt file2.txt</pre>
+<p class="tab">The output:</p>
+<pre class="tab">--- file1.txt   2014-08-21 17:58:29.764656635 -0400
++++ file2.txt   2014-08-21 17:58:50.768989841 -0400
+@@ -1,4 +1,4 @@
+ apples
+-oranges
+ kiwis
+ carrots
++grapefruits</pre>
+<p class="tab">The output is similar to above, but as you can see, the differences are "unified" into one set.</p>
+<h2 id="finding-diff">Finding differences in directory contents</h2>
+<p class="tab"><b>diff</b> can also compare directories by providing directory names instead of file names. See the <a href="#examples">Examples</a> section.</p>
+<h2 id="using-diff">Using diff to create an editing script</h2>
+<p class="tab">The <b>-e</b> option tells <b>diff</b> to output a script, which can be used by the editing programs <b>ed</b> or <b>ex</b>, containing a sequence of commands. The commands are a combination of <b>c</b> (change), <b>a</b> (add), and <b>d</b> (delete) which, when executed by the editor, modify the contents of <i>file1</i> (the first file specified on the <b>diff</b> command line) so that it matches the contents of <i>file2</i> (the second file specified).</p>
+<p class="tab">Let's say we have two files with the following contents:</p>
+<p class="tabb">file1.txt:</p>
+<pre class="tab">Once upon a time, there was a girl named Persephone.
+She had black hair.
+She loved her mother more than anything.
+She liked to sit outside in the sunshine with her cat, Daisy.
+She dreamed of being a painter when she grew up.</pre>
+<p class="tabb">file2.txt</p>
+<pre class="tab">Once upon a time, there was a girl named Persephone.
+She had red hair.
+She loved chocolate chip cookies more than anything.
+She liked to sit outside in the sunshine with her cat, Daisy.
+She would look up into the clouds and dream of being a world-famous baker.</pre>
+<p class="tab">We can run the following command to analyze the two files with <b>diff</b> and produce a script to create a file identical to <b>file2.txt</b> from the contents of <b>file1.txt</b>:</p>
+<p class="tab tcy">diff -e file1.txt file2.txt</p>
+<p class="tab">...and the output looks like this:</p>
+<pre class="tab">5c
+She would look up into the clouds and dream of being a world-famous baker.
+.
+2,3c
+She had red hair.
+She loved chocolate chip cookies more than anything.
+.</pre>
+<p class="tab">Notice that the changes are listed in reverse order: the changes closer to the end of the file are listed first, and changes closer to the beginning of the file are listed last. This order is to preserve line numbering; if we made the changes at the beginning of the file first, that might change the line numbers later in the file. So the script starts at the end, and works backwards.</p>
+<p class="tab">Here, the script is telling the editing program: "<b>c</b>hange line <b>5</b> to (the following line), and <b>change</b> lines <b>2</b> through <b>3</b> to (the following two lines)."</p>
+<p class="tab">Next, we should save the script to a file. We can <a href="/jargon/r/redirect.htm">redirect</a> the <b>diff</b> output to a file using the <b>&gt;</b> operator, like this:</p>
+<pre class="tab tcy">diff -e file1.txt file2.txt &gt; my-ed-script.txt</pre>
+<p class="tab">This command does not display anything on the screen (unless there is an error); instead, the output is <i>redirected</i> to the file <b>my-ed-script.txt</b>. If <b>my-ed-script.txt</b> doesn't exist, it is created; if it exists already, it is <a href="/jargon/o/overwrit.htm">overwritten</a>.</p>
+<p class="tab">If we now check the contents of <b>my-ed-script.txt</b> with the <a href="/unix/ucat.htm"><b>cat</b></a> command...</p>
+<pre class="tab tcy">cat my-ed-script.txt</pre>
+<p class="tab">...we see the same script we saw displayed above.</p>
+<p class="tab">There's still one thing missing, though: we need the script to tell <b>ed</b> to actually <i>write</i> the file. All that's missing from the script is the <b>w</b> command, which writes the changes. We can add this to our script by <a href="/jargon/e/echo.htm">echoing</a> the letter "<b>w</b>" and using the <b>&gt;&gt;</b> operator to add it to our file. (The <b>&gt;&gt;</b> operator is similar to the <b>&gt;</b> operator. It redirects output to a file, but instead of overwriting the destination file, it <a href="/jargon/a/append.htm">appends</a> to the end of the file.) The command looks like this:</p>
+<pre class="tab tcy">echo "w" &gt;&gt; my-ed-script.txt</pre>
+<p class="tab">Now, we can check to see that our script has changed by running the <b>cat</b> command again:</p>
+<pre class="tab tcy">cat my-ed-script.txt</pre>
+<pre class="tab">5c
+She would look up into the clouds and dream of being a world-famous baker.
+.
+2,3c
+She had red hair.
+She loved chocolate chip cookies more than anything.
+.
+w</pre>
+<p class="tab">Now our script, when issued to <b>ed</b>, makes the changes and write the changes to disk.</p>
+<p class="tab">So how do we get <b>ed</b> to do this?</p>
+<p class="tab">We can issue this script to <b>ed</b> with the following command, telling it to overwrite our original file. The dash ("<b>-</b>") tells <b>ed</b> to read from the standard input, and the <b>&lt;</b> operator directs our script to that input. In essence, the system enters whatever is in our script as input to the editing program. The command looks like this:</p>
+<pre class="tab tcy">ed - file1.txt &lt; my-ed-script.txt</pre>
+<p class="tab">This command displays nothing, but if we look at the contents of our original file...</p>
+<pre class="tab tcy">cat file1.txt</pre>
+<pre class="tab">Once upon a time, there was a girl named Persephone.
+She had red hair.
+She loved chocolate chip cookies more than anything.
+She liked to sit outside in the sunshine with her cat, Daisy.
+She would look up into the clouds and dream of being a world-famous baker.</pre>
+<p class="tab">...we can see that <b>file1.txt</b> now matches <b>file2.txt</b> exactly.</p>
+<div class="tip tab" role="note">
+<span class="title note">Warning</span>
+<p>In this example, <b>ed</b> overwrote the contents of our original file, <b>file1.txt</b>. After running the script, the original text of <b>file1.txt</b> disappears, so make sure you understand what you're doing before running these commands!</p>
+</div>
+<h2 id="common-diff">Commonly-used diff options</h2>
+<p class="tab">Here are some useful <b>diff</b> options to take note of:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>Ignore any changes which only change the amount of <a href="/jargon/w/whitspac.htm">whitespace</a> (such as spaces or tabs).</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b></td>
+<td>Ignore whitespace entirely.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b></td>
+<td>Ignore blank lines when calculating differences.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b></td>
+<td>Display output in two columns.</td>
+</tr>
+</table>
+<p class="tab">These are only some of the most commonly-used <b>diff</b> options. What follows is a complete list of <b>diff</b> options and their function.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">diff [<i>OPTION</i>]... <i>FILES</i></pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:290px"><b>--normal</b></td>
+<td>Output a "normal" diff, which is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--brief</b></td>
+<td>Produce output only when files differ. If there are no differences, output nothing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>,<br> <b>--report-identical-files</b></td>
+<td>Report when two files are the same.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>-C</b> <i>NUM</i>,<br> <b>--context</b>[<b>=</b><i>NUM</i>]</td>
+<td>Provide <i>NUM</i> (default <b>3</b>) lines of context.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>-U</b> <i>NUM</i>,<br> <b>--unified</b>[<b>=</b><i>NUM</i>]</td>
+<td>Provide <i>NUM</i> (default <b>3</b>) lines of unified context.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>, <b>--ed</b></td>
+<td>Output an <a href="/unix/ued.htm"><b>ed</b></a> script.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--rcs</b></td>
+<td>Output an <a href="/jargon/r/rcs.htm">RCS</a>-format diff.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b>, <b>--side by side</b></td>
+<td>Format output in two columns.</td>
+</tr>
+<tr class="tcw">
+<td><b>-W</b>, <b>--width</b><b>=</b><i>NUM</i></td>
+<td>Output at most <i>NUM</i> (default <b>130</b>) print columns.</td>
+</tr>
+<tr class="tcw">
+<td><b>--left-column</b></td>
+<td>Output only the left column of common lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>--suppress-common-lines</b></td>
+<td>Do not output lines common between the two files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--show-c-function</b></td>
+<td>For files that contain C code, also show each C function change.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b>,<br> <b>--show-function-line</b><b>=</b><i>RE</i></td>
+<td>Show the most recent line matching regular expression <i>RE</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--label</b> <i>LABEL</i></td>
+<td>When displaying output, use the label <i>LABEL</i> instead of the file name. This option can be issued more than once for multiple labels.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--expand-tabs</b></td>
+<td>Expand tabs to spaces in output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>, <b>--initial-tab</b></td>
+<td>Make tabs line up by prepending a tab if necessary.</td>
+</tr>
+<tr class="tcw">
+<td><b>--tabsize</b><b>=</b><i>NUM</i></td>
+<td>Define a tab stop as <i>NUM</i> (default <b>8</b>) columns.</td>
+</tr>
+<tr class="tcw">
+<td><b>--suppress-blank-empty</b></td>
+<td>Suppress spaces or tabs before empty output lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--paginate</b></td>
+<td>Pass output through <a href="/unix/upr.htm"><b>pr</b></a> to <a href="/jargon/p/paginati.htm">paginate</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--recursive</b></td>
+<td><a href="/jargon/r/recursive.htm">Recursively</a> compare any <a href="/jargon/s/subdirec.htm">subdirectories</a> found.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b>, <b>--new-file</b></td>
+<td>If a specified file does not exist, perform the diff as if it's an empty file.</td>
+</tr>
+<tr class="tcw">
+<td><b>--unidirectional-new-file</b></td>
+<td>Same as <b>-n</b>, but only applies to the first file.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ignore-file-name-case</b></td>
+<td>Ignore case when comparing file names.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-ignore-file-name-case</b></td>
+<td>Consider case when comparing file names.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b>, <b>--exclude</b><b>=</b><i>PAT</i></td>
+<td>Exclude files that match file name pattern <i>PAT</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-X</b>, <b>--exclude-from</b><b>=</b><i>FILE</i></td>
+<td>Exclude files that match any file name pattern in file <i>FILE</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b>, <b>--starting-file</b><b>=</b><i>FILE</i></td>
+<td>Start with file <i>FILE</i> when comparing <a href="/jargon/d/director.htm">directories</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--from-file</b><b>=</b><i>FILE1</i></td>
+<td>Compare <i>FILE1</i> to all <a href="/jargon/o/operand.htm">operands</a>; <i>FILE1</i> can be a directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>--to-file</b><b>=</b><i>FILE2</i></td>
+<td>Compare all operands to <i>FILE2</i>; <i>FILE2</i> can be a directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--ignore-case</b></td>
+<td>Ignore case differences in file contents.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b>, <b>--ignore-tab-expansion</b></td>
+<td>Ignore changes due to <a href="/jargon/t/tab.htm">tab</a> expansion.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b>, <b>--ignore-space-change</b></td>
+<td>Ignore changes in the amount of <a href="/jargon/w/whitspac.htm">white space</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>, <b>--ignore-all-space</b></td>
+<td>Ignore all white space.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b>, <b>--ignore-blank-lines</b></td>
+<td>Ignore changes whose lines are all blank.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b>,<br> <b>--ignore-matching-lines</b><b>=</b><i>RE</i></td>
+<td>Ignore changes whose lines all match <a href="/jargon/r/regex.htm">regular expression</a> <i>RE</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b>, <b>--text</b></td>
+<td>Treat all files as text.</td>
+</tr>
+<tr class="tcw">
+<td><b>--strip-trailing-cr</b></td>
+<td>Strip trailing <a href="/jargon/c/cr.htm">carriage return</a> on input.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b>, <b>--ifdef</b>=NAME</td>
+<td>Output merged file with "<b>#ifdef NAME</b>" diffs.</td>
+</tr>
+<tr class="tcw">
+<td><b>--</b><i>GTYPE</i><b>-group-format</b><b>=</b><i>GFMT</i></td>
+<td>Format <i>GTYPE</i> input groups with <i>GFMT</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--line-format</b><b>=</b><i>LFMT</i></td>
+<td>Format all input lines with <i>LFMT</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--</b><i>LTYPE</i><b>-line-format</b><b>=</b><i>LFMT</i></td>
+<td>Format <i>LTYPE</i> input lines with <i>LFMT</i>.<br><br> These format options provide fine-grained control over the output of <b>diff</b>, generalizing <b>-D</b>/<b>--ifdef</b>.<br><br><i>LTYPE</i> is <b>old</b>, <b>new</b>, or <b>unchanged</b>.<br><br><i>GTYPE</i> can be any of the <i>LTYPE</i> values, or the value <b>changed</b>.<br><br><i>GFMT</i> (but not <i>LFMT</i>) may contain:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:50px"><b>%&lt;</b></td>
+<td>Lines from <i>FILE1</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%&gt;</b></td>
+<td>Lines from <i>FILE2</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%=</b></td>
+<td>Lines common to <i>FILE1</i> and <i>FILE2</i>.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>%</b>[<b>-</b>][<i>WIDTH</i>][<b>.</b>[<i>PREC</i>]]{<b>doxX</b>}<i>LETTER</i></td>
+<td><a href="/unix/uprintf.htm"><b>printf</b></a>-style spec for <i>LETTER</i></td>
+</tr>
+</table>
+<p class="tab"><i>LETTER</i>s are as follows for new group, lowercase for old group:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><b>F</b></td>
+<td>First line number.</td>
+</tr>
+<tr class="tcw">
+<td><b>L</b></td>
+<td>Last line number,</td>
+</tr>
+<tr class="tcw">
+<td><b>N</b></td>
+<td>Number of lines = <i>L</i> - <i>F</i> + <i>1.</i></td>
+</tr>
+<tr class="tcw">
+<td><b>E</b></td>
+<td><i>F</i> - <b>1</b></td>
+</tr>
+<tr class="tcw">
+<td><b>M</b></td>
+<td><i>L</i> + <b>1</b></td>
+</tr>
+<tr class="tcw">
+<td><b>%(</b><b>A</b><b>=</b><b>B</b><b>?</b><b>T</b><b>:</b><b>E</b>)</td>
+<td>If <i>A</i> equals <i>B</i> then <i>T</i> else <i>E.</i></td>
+</tr>
+</table>
+<p class="tab"><i>LFMT</i> (only) may contain:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>%L</b></td>
+<td>Contents of line.</td>
+</tr>
+<tr class="tcw">
+<td><b>%l</b></td>
+<td>Contents of line, excluding any trailing newline.</td>
+</tr>
+<tr class="tcw">
+<td><b>%</b>[<b>-</b>][<i>WIDTH</i>][<b>.</b>[<i>PREC</i>]]{<b>doxX</b>}<i>n</i></td>
+<td><b>printf</b>-style spec for input line number.</td>
+</tr>
+</table>
+<p class="tab">Both <i>GFMT</i> and <i>LFMT</i> may contain:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:220px"><b>%%</b></td>
+<td>A literal <b>%.</b></td>
+</tr>
+<tr class="tcw">
+<td><b>%c'</b><i>C</i><b>'</b></td>
+<td>The single character <i>C.</i></td>
+</tr>
+<tr class="tcw">
+<td><b>%c'\OOO'</b></td>
+<td>The character with <a href="/jargon/o/octal.htm">octal</a> code <b>OOO.</b></td>
+</tr>
+<tr class="tcw">
+<td><i>C</i></td>
+<td>The character <i>C</i> (other characters represent themselves).</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--minimal</b></td>
+<td>Try hard to find a smaller set of changes.</td>
+</tr>
+<tr class="tcw">
+<td><b>--horizon-lines</b><b>=</b><i>NUM</i></td>
+<td>Keep <i>NUM</i> lines of the common prefix and suffix.</td>
+</tr>
+<tr class="tcw">
+<td><b>--speed-large-files</b></td>
+<td>Assume large files and many scattered small changes.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--version</b></td>
+<td>Output version information and exit.</td>
+</tr>
+</table>
+<p class="tab"><i>FILES</i> takes the form "<i>FILE1 FILE2</i>" or "<i>DIR1 DIR2</i>" or "<i>DIR FILE</i>..." or "<i>FILE</i>... <i>DIR</i>".</p>
+<p class="tab">If the <b>--from-file</b> or <b>--to-file</b> options are given, there are no restrictions on <i>FILE</i>(s). If a <i>FILE</i> is a dash ("<b>-</b>"), <b>diff</b> reads from <a href="/jargon/s/stdin.htm">standard input</a>.</p>
+<p class="tab">Exit status is either <b>0</b> if inputs are the same, <b>1</b> if different, or <b>2</b> if <b>diff</b> encounters any trouble.</p>
+<h2 id="examples">Examples</h2>
+<p class="tab">Here's an example of using <b>diff</b> to examine the differences between two files side by side using the <b>-y</b> option, given the following input files:</p>
+<p class="tabb">file1.txt:</p>
+<pre class="tab">apples
+oranges
+kiwis
+carrots</pre>
+<p class="tabb">file2.txt:</p>
+<pre class="tab">apples
+kiwis
+carrots
+grapefruits</pre>
+<pre class="tcy tab">diff -y file1.txt file2.txt</pre>
+<p class="tabb">Output:</p>
+<pre class="tab">apples            apples
+oranges         &lt;
+kiwis             kiwis
+carrots           carrots
+                &gt; grapefruits
+</pre>
+<p class="tab">And as promised, here is an example of using <b>diff</b> to compare two directories:</p>
+<pre class="tcy tab">diff dir1 dir2</pre>
+<p class="tabb">Output:</p>
+<pre class="tab">Only in dir1: tab2.gif
+Only in dir1: tab3.gif
+Only in dir1: tab4.gif
+Only in dir1: tape.htm
+Only in dir1: tbernoul.htm
+Only in dir1: tconner.htm
+Only in dir1: tempbus.psd</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ubdiff.htm"><b>bdiff</b></a> &mdash; Identify the differences between two very big files.<br><a href="/unix/ucmp.htm"><b>cmp</b></a> &mdash; Compare two files byte by byte.<br><a href="/unix/ucomm.htm"><b>comm</b></a> &mdash; Compare two sorted files line by line.<br><a href="/unix/udircmp.htm"><b>dircmp</b></a> &mdash; Compare the contents of two directories, listing unique files.<br><a href="/unix/ued.htm"><b>ed</b></a> &mdash; A simple text editor.<br><a href="/unix/upr.htm"><b>pr</b></a> &mdash; Format a text file for printing.<br><a href="/unix/uls.htm"><b>ls</b></a> &mdash; List the contents of a directory or directories.<br><a href="/unix/usdiff.htm"><b>sdiff</b></a> &mdash; Compare two files, side-by-side.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82d43f81c433',m:'tBDp7fwnsIGcxiDEmsKo3Eb.ZSXYWgGQyqtoiQEdPas-1661495345-0-AbEuRYRwvjMyKCtMhcajoaxzYrt6cKiTZokFY/K035lo7Gtr6x2kx+L5JLPSefoO6YwYl62eOy/sbtdKUOBvGDrXeTK2EGjSampCY9ZXOpWj7tHIOyCBwIG9TOsbZKa88Q==',s:[0x3a77ef4083,0xaa263a6c79],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

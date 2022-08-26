@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux mysqldump command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/mysqldump.gif" width="300" height="300" alt="mysqldump command" class="floatRight">
+<p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems running <a href="/jargon/m/mysql.htm">MySQL</a>, the <b>mysqldump</b> command &quot;dumps&quot; a MySQL <a href="/jargon/d/database.htm">database</a>, or a collection of databases, for <a href="/jargon/b/backup.htm">backup</a> or transferral to another <a href="/jargon/s/sql.htm">SQL</a> <a href="/jargon/s/server.htm">server</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#performance">Performance and scalability considerations</a></li>
+<li><a href="#invoking">Invoking mysqldump</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#restrictions">Restrictions</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>mysqldump</b> <a href="/jargon/c/client.htm">client</a> is a <a href="/jargon/u/utility.htm">utility</a> that performs logical <a href="/jargon/b/backup.htm">backups</a>, producing a set of SQL statements that can reproduce the original <a href="/jargon/s/schema.htm">schema</a> objects, table data, or both. It dumps one or more MySQL database for backup or transfer to another SQL server. The <b>mysqldump</b> command can also generate output in <a href="/jargon/c/csv.htm">CSV</a>, other <a href="/jargon/d/delimite.htm">delimited</a> text, or <a href="/jargon/x/xml.htm">XML</a> format.</p>
+<p class="tab"><b>mysqldump</b> requires at least the <b>SELECT</b> privilege for dumped tables, <b>SHOW VIEW</b> for dumped views, <b>TRIGGER</b> for dumped triggers, and <b>LOCK TABLES</b> if the <b>--single-transaction</b> option is not used. Certain options might require other privileges as noted in the option descriptions.</p>
+<p class="tab">To reload a dump file, you must have the same privileges needed to create each of the dumped objects by issuing <b>CREATE</b> statements manually.</p>
+<p class="tab"><b>mysqldump</b> output can include <b>ALTER DATABASE</b> statements that change the database collation. These may be used when dumping stored programs to preserve their <a href="/jargon/e/encode.htm">character encodings</a>. To reload a dump file containing such statements, the <b>ALTER</b> privilege for the affected database is required.</p>
+<h2 id="performance">Performance and scalability considerations</h2>
+<p class="tab"><b>mysqldump</b> advantages include the convenience and flexibility of viewing or even editing the output before restoring. You can clone databases for development and <a href="/jargon/d/dba.htm">DBA</a> work, or produce slight variations of an existing database for testing. It is not intended as a fast or scalable solution for backing up substantial amounts of data. With large data sizes, even if the backup step takes a reasonable time, restoring the data can be very slow because replaying the SQL statements involves <a href="/jargon/d/disk.htm">disk</a> <a href="/jargon/i/io.htm">I/O</a> for insertion, index creation, etc.</p>
+<p class="tab">For large-scale backup and restore, a physical backup is more appropriate, to copy the data files in their original format that can be restored quickly:</p>
+<ul>
+<li>If your tables are primarily InnoDB tables, or if you have a mix of InnoDB and MyISAM tables, a better tool may be the <b>mysqlbackup</b> command of the MySQL Enterprise Backup product (which is not free). It provides the best performance for InnoDB backups, and can also back up tables from MyISAM and other storage engines; and it provides many convenient options to accommodate different backup scenarios.</li>
+<li>If your tables are primarily MyISAM tables, consider using the <b>mysqlhotcopy</b> instead, for better performance than <b>mysqldump</b> of backup and restore operations.</li>
+</ul>
+<p class="tab"><b>mysqldump</b> can retrieve and dump table contents <a href="/jargon/r/row.htm">row</a> by row, or it can retrieve the entire content from a table and buffer it in memory before dumping it. Buffering in memory can cause problems if you are dumping large tables. To dump tables row by row, use the <b>--quick</b> option (or <b>--opt</b>, which enables <b>--quick</b>). The <b>--opt</b> option (and hence <b>--quick</b>) is enabled by default, so to enable memory buffering, use <b>--skip-quick</b>.</p>
+<p class="tab">If you are using a recent version of <b>mysqldump</b> to generate a dump to be reloaded into a very old MySQL server, use the <b>--skip-opt</b> option instead of the <b>--opt</b> or <b>--extended-insert</b> option.</p>
+<h2 id="invoking">Invoking mysqldump</h2>
+<p class="tab">There are three general ways to use <b>mysqldump</b>. It can dump a set of one or more tables, a set of one or more complete databases, or an entire MySQL server. These three uses, respectively, are shown here:</p>
+<pre class="tab tcy">mysqldump [options] db_name [tbl_name ...]
+</pre>
+<pre class="tab tcy">mysqldump [options] --databases db_name ...
+</pre>
+<pre class="tab tcy">mysqldump [options] --all-databases
+</pre>
+<p class="tab">To dump entire databases, do not name any tables following <i>db_name</i>; or, use the <b>--databases</b> or <b>--all-databases</b> option.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">mysqldump [<i>options</i>] [<i>db_name</i> [<i>tbl_name</i> ...]]</pre>
+<h2 id="options">Options</h2>
+<p class="tab"><b>mysqldump</b> supports the following options, which can be specified on the <a href="/jargon/c/commandi.htm">command line</a> or in the <b>[mysqldump]</b> and <b>[client]</b> groups of an option file.</p>
+<h3 class="tab">Connection options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:320px"><pre><b>--bind-address=</b><i>ip_address</i></pre></td>
+<td>On a computer having multiple <a href="/jargon/n/nic.htm">network interfaces</a>, this option can select which interface is employed when connecting to the MySQL server. This option is supported beginning with MySQL 5.6.1.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--compress</b><b>-C</b></pre></td>
+<td><a href="/jargon/c/compress.htm">Compress</a> all information sent between the client and the server if both support compression.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--default-auth=</b><i>plugin</i></pre></td>
+<td>The client-side authentication plugin to use.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--host=</b><i>host_name,<br></i><b>-h</b> <i>host_name</i></pre></td>
+<td>Dump data from the MySQL server on the given host. The default host is <a href="/jargon/l/locahost.htm">localhost</a>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--login-path=</b><i>name</i></pre></td>
+<td>Read options from the named <a href="/jargon/l/login.htm">login</a> <a href="/jargon/p/path.htm">path</a> in the <b>.mylogin.cnf</b> login file. A &quot;login path&quot; is an option group that permits only a limited set of options: <b>host</b>, <b>user</b>, and <b>password</b>. Think of a login path as a set of values that indicate the server host and the credentials for authenticating with the server. To create the login file, use the <b>mysql_config_editor</b> utility. This option was added in MySQL 5.6.6.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--password</b>[<b>=</b><i>password</i>],<br><b>-p</b>[<i>password</i>]</pre></td>
+<td>The password to use when connecting to the server. If you use the short option form (<b>-p</b>), you cannot have a space between the option and the password. If you omit the password value following the <b>--password</b> or <b>-p</b> option on the command line, <b>mysqldump</b> prompts for one.<br><br> Specifying a password on the command line should be considered insecure since anyone who can view your <a href="/jargon/p/process.htm">processes</a> (for instance, with the <a href="/unix/ups.htm"><b>ps</b></a> command) you can see your password as <a href="/jargon/p/plaintex.htm">plaintext</a>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--pipe</b><b>-W</b></pre></td>
+<td>On <a href="/jargon/w/windows.htm">Windows</a>, connect to the server using a named <a href="/jargon/p/pipe.htm">pipe</a>. This option applies only if the server supports named-pipe connections.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--plugin-dir=</b><i>path</i></pre></td>
+<td>The <a href="/jargon/d/director.htm">directory</a> where to look for <a href="/jargon/p/plugin.htm">plugins</a>. It may be necessary to specify this option if the <b>--default-auth</b> option is used to specify an authentication plugin, but <b>mysqldump</b> does not find it.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--protocol=</b>{<b>TCP</b>|<b>SOCKET</b>|<b>PIPE</b>|<b>MEMORY</b>}</pre></td>
+<td>The connection <a href="/jargon/p/protocol.htm">protocol</a> to use for connecting to the server. It is useful when the other connection parameters normally would cause a protocol to be used other than the one you want.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--secure-auth</b></pre></td>
+<td>Do not send passwords to the server in old (pre-4.1) format. This prevents connections except for servers that use the newer password format. This option is enabled by default; use <b>--skip-secure-auth</b> to disable it. This option was added in MySQL 5.6.17.<br><br><b>Note:</b> Passwords that use the pre-4.1 <a href="/jargon/h/hash.htm">hashing</a> method are less secure than passwords that use the native password hashing method and should be avoided. Pre-4.1 passwords are deprecated and support for them is removed in later MySQL releases.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--socket=</b><i>path</i>, <b>-S</b> <i>path</i></pre></td>
+<td>For connections to localhost, the Unix socket file to use, or on Windows, the name of the named pipe to use.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--ssl*</b></pre></td>
+<td>Options that begin with <b>--ssl</b> specify whether to connect to the server using <a href="/jargon/s/ssl.htm">SSL</a> and indicate where to find SSL keys and <a href="/jargon/c/certific.htm">certificates</a>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--user=</b><i>user_name</i>, <b>-u</b> <i>user_name</i></pre></td>
+<td>The MySQL username to use when connecting to the server.</td>
+</tr>
+</table>
+<p class="tab">You can also set the following <a href="/jargon/v/variable.htm">variables</a> using <b>--var_name=</b><i>value</i> syntax:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><pre><b>max_allowed_packet</b></pre></td>
+<td>The maximum size of the <a href="/jargon/b/buffer.htm">buffer</a> for client/server communication. The default is 24 <a href="/jargon/m/megabyte.htm">MB</a>, the maximum is 1 <a href="/jargon/g/gigabyte.htm">GB</a>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>net_buffer_length</b></pre></td>
+<td>The initial size of the buffer for client/server communication. When creating multiple-row <b>INSERT</b> statements (as with the <b>--extended-insert</b> or <b>--opt</b> option), <b>mysqldump</b> creates rows up to <b>net_buffer_length</b> length. If you increase this variable, ensure the <b>net_buffer_length</b> variable in the MySQL server is at least this large.</td>
+</tr>
+</table>
+<h3 class="tab">DDL options</h3>
+<p class="tab">Usage scenarios for <b>mysqldump</b> include setting up an entire new MySQL instance (including database tables), and replacing data inside an existing instance with existing databases and tables.</p>
+<p class="tab">The following options let you specify which things to tear down and set up when restoring a dump, by encoding various DDL statements in the dump file.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><pre><b>--add-drop-database</b></pre></td>
+<td>Add a <b>DROP DATABASE</b> statement before each <b>CREATE DATABASE</b> statement. This option is used with the <b>--all-databases</b> or <b>--databases</b> option because no <b>CREATE DATABASE</b> statements are written unless one of those options is specified.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--add-drop-table</b></pre></td>
+<td>Add a <b>DROP TABLE</b> statement before each <b>CREATE TABLE</b> statement.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--add-drop-trigger</b></pre></td>
+<td>Add a <b>DROP TRIGGER</b> statement before each <b>CREATE TRIGGER</b> statement.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--all-tablespaces</b><b>-Y</b></pre></td>
+<td>Adds to a table dump all SQL statements needed to create any tablespaces used by an NDB table. This information is not otherwise included in the output from <b>mysqldump</b>. This option is currently relevant only to MySQL Cluster tables.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--no-create-db</b><b>-n</b></pre></td>
+<td>This option suppresses the <b>CREATE DATABASE</b> statements that are otherwise included in the output if the <b>--databases</b> or <b>--all-databases</b> option is given.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--no-create-info</b><b>-t</b></pre></td>
+<td>Do not write <b>CREATE TABLE</b> statements that re-create each dumped table.<br><br><b>Note:</b> This option does not exclude statements creating log file groups or tablespaces from <b>mysqldump</b> output; however, you can use the <b>--no-tablespaces</b> option for this purpose.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--no-tablespaces</b><b>-y</b></pre></td>
+<td>This option suppresses all <b>CREATE LOGFILE GROUP</b> and <b>CREATE TABLESPACE</b> statements in the output of <b>mysqldump</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--replace</b></pre></td>
+<td>Write <b>REPLACE</b> statements rather than <b>INSERT</b> statements.</td>
+</tr>
+</table>
+<h3 class="tab">Debug options</h3>
+<p class="tab">The following options print <a href="/jargon/d/debug.htm">debugging</a> information, encode debugging information in the dump file, or let the dump operation proceed regardless of potential problems.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:300px"><pre><b>--allow-keywords</b></pre></td>
+<td>Permit creation of column names that are keywords. This works by prefixing each column name with the table name.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--comments</b><b>-i</b></pre></td>
+<td>Write additional information in the dump file, such as program version, server version, and host. This option is enabled by default. To suppress this additional information, use <b>--skip-comments</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--debug</b>[<b>=</b><i>debug_options</i>]<b>-#</b> [<i>debug_options</i>]</pre></td>
+<td>Write a debugging <a href="/jargon/l/log.htm">log</a>. A typical <i>debug_options</i> <a href="/jargon/s/string.htm">string</a> is <b>d:t:o,file_name</b>. The default value is <b>d:t:o,/tmp/mysqldump.trace</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--debug-check</b></pre></td>
+<td>Print some debugging information when the program exits.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--debug-info</b></pre></td>
+<td>Print debugging information and <a href="/jargon/m/memory.htm">memory</a> and <a href="/jargon/c/cpu.htm">CPU</a> usage statistics when the program exits.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--dump-date</b></pre></td>
+<td>If the <b>--comments</b> option is given, <b>mysqldump</b> produces a <a href="/jargon/c/comment.htm">comment</a> at the end of the dump of the following form:<br><br><pre>-- Dump completed on DATE</pre>However, the date causes dump files taken at different times to appear to be different, even if the data is otherwise identical. <b>--dump-date</b> and <b>--skip-dump-date</b> control whether the date is added to the comment. The default is <b>--dump-date</b> (include the date in the comment). <b>--skip-dump-date</b> suppresses date printing.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--force</b><b>-f</b></pre></td>
+<td>Continue even if an SQL error occurs during a table dump.<br><br>One use for this option is to cause <b>mysqldump</b> to continue <a href="/jargon/e/execute.htm">executing</a> even when it encounters a view that became invalid because the definition refers to a table that was dropped. Without <b>--force</b>, <b>mysqldump</b> exits with an error message. With <b>--force</b>, <b>mysqldump</b> prints the error message, but it also writes an SQL comment containing the view definition to the dump output and continues executing.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--log-error=</b><i>file_name</i></pre></td>
+<td>Log warnings and errors by appending them to the named file. The default is to do no logging.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--skip-comments</b></pre></td>
+<td>See the description for the <b>--comments</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--verbose</b><b>-v</b></pre></td>
+<td><a href="/jargon/v/verbose.htm">Verbose</a> mode. Print more information about what the program does.</td>
+</tr>
+</table>
+<h3 class="tab">Help options</h3>
+<p class="tab">The following options display information about the <b>mysqldump</b> command itself.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><pre><b>--help</b><b>-?</b></pre></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--version</b><b>-V</b></pre></td>
+<td>Display <a href="/jargon/v/version.htm">version</a> information and exit.</td>
+</tr>
+</table>
+<p class="tab">The following options change how the <b>mysqldump</b> command represents <a href="/jargon/c/charact.htm">character</a> data with national language settings.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:300px"><pre><b>--character-sets-dir=</b><i>path</i></pre></td>
+<td>The directory where <a href="/jargon/c/charcode.htm">character sets</a> are installed.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--default-character-set=</b><i>charset_name</i></pre></td>
+<td>Use <i>charset_name</i> as the default character set. If no character set is specified, <b>mysqldump</b> uses <b>utf8</b>, and earlier versions use <b>latin1</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--no-set-names</b>, <b>-N</b></pre></td>
+<td>Turns off the <b>--set-charset</b> setting, the same as specifying <b>--skip-set-charset</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--set-charset</b></pre></td>
+<td>Add <b>SET NAMES default_character_set</b> to the output. This option is enabled by default. To suppress the <b>SET NAMES</b> statement, use <b>--skip-set-charset</b>.</td>
+</tr>
+</table>
+<h3 class="tab">Replication options</h3>
+<p class="tab">The <b>mysqldump</b> command is frequently used to create an empty instance, or an instance including data, on a slave server in a replication configuration. The following options apply to dumping and restoring data on replication master and slave servers.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:300px"><pre><b>--apply-slave-statements</b></pre></td>
+<td>For a slave dump produced with the <b>--dump-slave</b> option, add a <b>STOP SLAVE</b> statement before the <b>CHANGE MASTER</b> TO statement and a <b>START SLAVE</b> statement at the end of the output.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--delete-master-logs</b></pre></td>
+<td>On a master replication server, delete the binary logs by sending a <b>PURGE BINARY LOGS</b> statement to the server after performing the dump operation. This option automatically enables <b>--master-data</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--dump-slave</b>[<b>=</b><i>value</i>]</pre></td>
+<td>This option is similar to <b>--master-data</b> except that it is used to dump a replication slave server to produce a dump file that can set up another server as a slave with the same master as the dumped server. It causes the dump output to include a <b>CHANGE MASTER TO</b> statement that indicates the binary log coordinates (file name and position) of the dumped slave's master. These are the master server coordinates from which the slave should start replicating.<br><br><b>--dump-slave</b> causes the coordinates from the master to be used rather than those of the dumped server, as is done by the <b>--master-data</b> option. Also, specifying this option causes the <b>--master-data</b> option to be overridden, if used, and effectively ignored.<br><br>The option value is handled the same way as for <b>--master-data</b> (setting no value or <b>1</b> causes a <b>CHANGE MASTER</b> TO statement to be written to the dump, setting 2 causes the statement to be written but encased in SQL comments) and has the same effect as <b>--master-data</b> in terms of enabling or disabling other options and in how locking is handled.<br><br>This option causes <b>mysqldump</b> to stop the slave SQL <a href="/jargon/t/thread.htm">thread</a> before the dump and restart it again after.<br><br>In conjunction with <b>--dump-slave</b>, the <b>--apply-slave-statements</b> and <b>--include-master-host-port</b> options can also be used.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--include-master-host-port</b></pre></td>
+<td>For the <b>CHANGE MASTER</b> TO statement in a slave dump produced with the <b>--dump-slave</b> option, add <b>MASTER_HOST</b> and <b>MASTER_PORT</b> options for the <a href="/jargon/h/hostname.htm">hostname</a> and <a href="/jargon/t/tcpip.htm">TCP/IP</a> <a href="/jargon/p/port.htm">port number</a> of the slave's master.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--master-data</b>[<b>=</b><i>value</i>]</pre></td>
+<td>Use this option to dump a master replication server to produce a dump file that can set up another server as a slave of the master. It causes the dump output to include a <b>CHANGE MASTER TO</b> statement that indicates the binary log coordinates (file name and position) of the dumped server. These are the master server coordinates from which the slave should start replicating after you load the dump file into the slave.<br><br>If the option value is <b>2</b>, the <b>CHANGE MASTER TO</b> statement is written as an SQL comment, and thus is informative only; it has no effect when the dump file is reloaded. If the option value is 1, the statement is not written as a comment and takes effect when the dump file is reloaded. If no option value is specified, the default value is 1.<br><br>This option requires the <b>RELOAD</b> privilege and the binary log must be enabled.<br><br>The <b>--master-data</b> option automatically turns off <b>--lock-tables</b>. It also turns on <b>--lock-all-tables</b>, unless <b>--single-transaction</b> also is specified, where a global read lock is acquired only for a short time at the beginning of the dump (see the description for <b>--single-transaction</b>). In all cases, any action on logs happens at the exact moment of the dump.<br><br>It is also possible to set up a slave by dumping an existing slave of the master, using the <b>--dump-slave</b> option, which overrides <b>--master-data</b> and causes it to be ignored if both options are used.<br><br>Before MySQL 5.6.4, this option was required for dumping the replication log tables.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--set-gtid-purged=</b><i>value</i></pre></td>
+<td>This option enables control over GTID (global transaction ID) information written to the dump file, by indicating whether to add a <b>SET @@global.gtid_purged</b> statement to the output.<br><br>The following table shows the permitted option values. The default value is <b>AUTO</b>.<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<th style="width:90px">value</th>
+<th>meaning</th>
+</tr>
+<tr class="tcw">
+<td><b>OFF</b></td>
+<td>Add no <b>SET</b> statement to the output.</td>
+</tr>
+<tr class="tcw">
+<td><b>ON</b></td>
+<td>Add a <b>SET</b> statement to the output. An error occurs if GTIDs are not enabled on the server.</td>
+</tr>
+<tr class="tcw">
+<td><b>AUTO</b></td>
+<td>Add a <b>SET</b> statement to the output if GTIDs are enabled on the server.</td>
+</tr>
+</table>
+<br>This option was added in MySQL 5.6.9.</td>
+</tr>
+</table>
+<h3 class="tab">Format options</h3>
+<p class="tab">The following options specify how to represent the entire dump file or certain kinds of data in the dump file. They also control whether certain optional information is written to the dump file.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:300px"><pre><b>--compact</b></pre></td>
+<td>Produce more compact output. This option enables the <b>--skip-add-drop-table</b>, <b>--skip-add-locks</b>, <b>--skip-comments</b>, <b>--skip-disable-keys</b>, and <b>--skip-set-charset</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--compatible=</b><i>name</i></pre></td>
+<td>Produce output that is more compatible with other database systems or with older MySQL servers. The value of name can be <b>ansi</b>, <b>mysql323</b>, <b>mysql40</b>, <b>postgresql</b>, <b>oracle</b>, <b>mssql</b>, <b>db2</b>, <b>maxdb</b>, <b>no_key_options</b>, <b>no_table_options</b>, or <b>no_field_options</b>. To use several values, separate them by commas. These values have the same meaning as the corresponding options for setting the server SQL mode.<br><br>This option does not guarantee compatibility with other servers. It only enables those SQL mode values that are currently available for making dump output more compatible. For example, <b>--compatible=oracle</b> does not map data types to <a href="/comp/oracle.htm">Oracle</a> types or use Oracle comment <a href="/jargon/s/syntax.htm">syntax</a>.<br><br>This option requires a server version of 4.1.0 or higher. With older servers, it does nothing.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--complete-insert</b><b>-c</b></pre></td>
+<td>Use complete <b>INSERT</b> statements that include column names.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--create-options</b></pre></td>
+<td>Include all MySQL-specific table options in the <b>CREATE TABLE</b> statements.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--fields-terminated-by=</b>...<b>--fields-enclosed-by=</b>...<b>--fields-optionally-enclosed-by=</b>...<b>--fields-escaped-by=</b>...</pre></td>
+<td>These options are used with the <b>--tab</b> option and have the same meaning as the corresponding <b>FIELDS</b> clauses for <b>LOAD DATA INFILE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--hex-blob</b></pre></td>
+<td>Dump binary columns using <a href="/jargon/h/hex.htm">hexadecimal</a> notation (for example, '<b>abc</b>' becomes <b>0x616263</b>). The affected data types are <b>BINARY</b>, <b>VARBINARY</b>, the <b>BLOB</b> types, and <b>BIT</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--lines-terminated-by=</b>...</pre></td>
+<td>This option is used with the <b>--tab</b> option and has the same meaning as the corresponding <b>LINES</b> clause for <b>LOAD DATA INFILE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--quote-names</b><b>-Q</b></pre></td>
+<td>Quote identifiers (such as database, table, and column names) within &quot;<b>&#96;</b>&quot; (backtick) characters. If the <b>ANSI_QUOTES SQL</b> mode is enabled, identifiers are quoted in &quot;<b>&quot;</b>&quot; (double-quote) characters. This option is enabled by default. It can be disabled with <b>--skip-quote-names</b>, but this option should be given after any option such as <b>--compatible</b> that may enable <b>--quote-names</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--result-file=</b><i>file_name</i><b>-r</b> <i>file_name</i></pre></td>
+<td>Direct output to a given file. This option should be used on Windows to prevent <a href="/jargon/n/newline.htm">newline</a> &quot;<b>\n</b>&quot; characters from being converted to &quot;<b>\r\n</b>&quot; <a href="/jargon/c/cr.htm">carriage return</a>/newline sequences. The result file is created and its previous contents overwritten, even if an error occurs while generating the dump.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--tab=</b><i>path</i><b>-T</b> <i>path</i></pre></td>
+<td>Produce <a href="/jargon/t/tab.htm">tab</a>-separated text-format data files. For each dumped table, <b>mysqldump</b> creates a <b>tbl_name.sql</b> file containing the <b>CREATE TABLE</b> statement that creates the table, and the server writes a <b>tbl_name.txt</b> file contains its data. The option value is the directory where files are written.<br><br><b>Note:</b> This option should be used only when <b>mysqldump</b> is run on the same machine as the <b>mysqld</b> server. You must have the <b>FILE</b> privilege, and the server must have permission to write files in the directory that you specify. By default, the <b>.txt</b> data files are formatted using tab characters between column values and a newline at the end of each line. The format can be specified explicitly using the <b>--fields-xxx</b> and <b>--lines-terminated-by</b> options.<br><br>Column values are converted to the character set specified by the <b>--default-character-set</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--tz-utc</b></pre></td>
+<td>This option enables <a href="/jargon/t/timestam.htm">TIMESTAMP</a> columns to be dumped and reloaded between servers in different time zones. <b>mysqldump</b> sets its connection time zone to UTC and adds <b>SET TIME_ZONE='+00:00'</b> to the dump file. Without this option, <b>TIMESTAMP</b> columns are dumped and reloaded in the time zones local to the source and destination servers, which can cause the values to change if the servers are in different time zones. <b>--tz-utc</b> also protects against changes due to daylight saving time. <b>--tz-utc</b> is enabled by default. To disable it, use <b>--skip-tz-utc</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--xml</b><b>-X</b></pre></td>
+<td>Write dump output as well-formed <a href="/jargon/x/xml.htm">XML</a>.<br><br> <b>NULL</b>, '<b>NULL</b>', and Empty Values: For a column named column_name, the <b>NULL</b> value, an empty string, and the string value '<b>NULL</b>' are distinguished from one another in the output generated by this option as follows.
+<table class="mtable3">
+<tr class="tcw">
+<th>value</th>
+<th>xml representation</th>
+</tr>
+<tr class="tcw">
+<td><b>NULL</b><br> (unknown value)</td>
+<td>&lt;field name=&quot;column_name&quot; xsi:nil=&quot;true&quot; /&gt;</td>
+</tr>
+<tr class="tcw">
+<td><b>''</b><br> (empty string)</td>
+<td>&lt;field name=&quot;column_name&quot;&gt;&lt;/field&gt;</td>
+</tr>
+<tr class="tcw">
+<td><b>'NULL'</b><br> (string value)</td>
+<td>&lt;field name=&quot;column_name&quot;&gt;NULL&lt;/field&gt;</td>
+</tr>
+</table>
+<p>The output from the <b>mysql</b> client when run using the <b>--xml</b> option also follows the preceding rules.</p>
+</td>
+</tr>
+</table>
+<h3 class="tab">Filtering options</h3>
+<p class="tab">The following options control which kinds of schema objects are written to the dump file: by category, such as triggers or events; by name, for example, choosing which databases and tables to dump; or even filtering rows from the table data using a <b>WHERE</b> clause.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:360px"><pre><b>--all-databases</b><b>-A</b></pre></td>
+<td>Dump all tables in all databases. This is the same as using the <b>--databases</b> option and naming all databases on the command line.<br><br>Before MySQL 5.6.4, the slave_master_info and slave_relay_log_info tables (see section 16.2.2, &quot;Replication Relay and Status Logs&quot;) were not included by this option.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--databases</b><b>-B</b></pre></td>
+<td>Dump several databases. Normally, <b>mysqldump</b> treats the first name <a href="/jargon/a/argument.htm">argument</a> on the command line as a database name and following names as table names. With this option, it treats all name arguments as database names. <b>CREATE DATABASE</b> and <b>USE</b> statements are included in the output before each new database.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--events</b><b>-E</b></pre></td>
+<td>Include Event Scheduler events for the dumped databases in the output.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--ignore-table=</b><i>db_name</i>.<i>tbl_name</i></pre></td>
+<td>Do not dump the given table, which must be specified using both the database and table names. To ignore multiple tables, use this option multiple times. This option also can ignore views.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--no-data</b><b>-d</b></pre></td>
+<td>Do not write any table row information (that is, do not dump table contents). This is useful if you want to dump only the <b>CREATE TABLE</b> statement for the table (for example, to create an empty copy of the table by loading the dump file).</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--routines</b><b>-R</b></pre></td>
+<td>Include stored routines (procedures and functions) for the dumped databases in the output. Use of this option requires the <b>SELECT</b> privilege for the mysql.proc table. The output generated using <b>--routines</b> contains <b>CREATE PROCEDURE</b> and <b>CREATE FUNCTION</b> statements to re-create the routines. However, these statements do not include attributes such as the routine creation and modification timestamps. This means that when the routines are reloaded, they are created with the timestamps equal to the reload time.<br><br>If you require routines to be re-created with their original timestamp attributes, do not use <b>--routines</b>. Instead, dump and reload the contents of the mysql.proc table directly, using a MySQL account with the appropriate privileges for the mysql database.<br><br>Before MySQL 5.6.5, this option had no effect when used together with the <b>--xml</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--tables</b></pre></td>
+<td>Override the <b>--databases</b> or <b>-B</b> option. <b>mysqldump</b> regards all name arguments following the option as table names.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--triggers</b></pre></td>
+<td>Include triggers for each dumped table in the output. This option is enabled by default; disable it with <b>--skip-triggers</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--where='</b><i>where_condition</i><b>'</b><b>-w '</b><i>where_condition</i><b>'</b></pre></td>
+<td>Dump only rows selected by the given <b>WHERE</b> condition. Quotes around the condition are mandatory if it contains spaces or other characters that are special to your command interpreter. Examples:<br><br><pre class="tcy">--where=&quot;user='jimf'&quot;</pre><pre class="tcy">-w&quot;userid&gt;1&quot;</pre><pre class="tcy">-w&quot;userid&lt;1&quot;</pre></td>
+</tr>
+</table>
+<h3 class="tab">Performance options</h3>
+<p class="tab">The following options are the most relevant for the performance particularly of the restore operations. For large data sets, restore operation (processing the <b>INSERT</b> statements in the dump file) is the most time-consuming part. When it is urgent to restore data quickly, plan and test the performance of this stage in advance. For restore times measured in hours, you might prefer an alternative backup and restore solution, such as MySQL Enterprise Backup for InnoDB-only and mixed-use databases, or mysqlhotcopy for MyISAM-only databases.</p>
+<p class="tab">Performance is also affected by the transactional options, primarily for the dump operation.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><pre><b>--delayed-insert</b></pre></td>
+<td>For those non-transactional tables that support the <b>INSERT DELAYED</b> syntax, use that statement rather than regular <b>INSERT</b> statements.<br><br>As of MySQL 5.6.6, <b>DELAYED</b> inserts are deprecated, so this option is removed in later releases.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--disable-keys</b><b>-K</b></pre></td>
+<td>For each table, surround the <b>INSERT</b> statements with <b>/*!40000 ALTER TABLE tbl_name DISABLE KEYS */;</b> and <b>/*!40000 ALTER TABLE tbl_name ENABLE KEYS */;</b> statements. This makes loading the dump file faster because the indexes are created after all rows are inserted. This option is effective only for non unique indexes of MyISAM tables.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--extended-insert</b><b>-e</b></pre></td>
+<td>Use multiple-row <b>INSERT</b> syntax that include several <b>VALUES</b> lists. This results in a smaller dump file and speeds up inserts when the file is reloaded.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--insert-ignore</b></pre></td>
+<td>Write <b>INSERT IGNORE</b> statements rather than <b>INSERT</b> statements.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--opt</b></pre></td>
+<td>This option, enabled by default, is shorthand for the combination of <b>--add-drop-table --add-locks --create-options --disable-keys --extended-insert --lock-tables --quick --set-charset</b>. It gives a fast dump operation and produces a dump file that can be reloaded into a MySQL server quickly.<br><br>Because the <b>--opt</b> option is enabled by default, you only specify its converse, the <b>--skip-opt</b> to turn off several default settings. See the discussion of <b>mysqldump</b> option groups for information about selectively enabling or disabling a subset of the options affected by <b>--opt</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--quick</b><b>-q</b></pre></td>
+<td>This option is useful for dumping large tables. It forces <b>mysqldump</b> to retrieve rows for a table from the server a row at a time rather than retrieving the entire row set and buffering it in memory before writing it out.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--skip-opt</b></pre></td>
+<td>See the description for the <b>--opt</b> option.</td>
+</tr>
+</table>
+<h3 class="tab">Transactional options</h3>
+<p class="tab">The following options trade off the performance of the dump operation, against the reliability and consistency of the exported data.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><pre><b>--add-locks</b></pre></td>
+<td>Surround each table dump with <b>LOCK TABLES</b> and <b>UNLOCK TABLES</b> statements. This results in faster inserts when the dump file is reloaded.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--flush-logs</b><b>-F</b></pre></td>
+<td>Flush the MySQL server log files before starting the dump. This option requires the RELOAD privilege. If you use this option in combination with the <b>--all-databases</b> option, the logs are flushed for each database dumped. The exception is when using <b>--lock-all-tables</b>, <b>--master-data</b>, or <b>--single-transaction</b>: In this case, the logs are flushed only once, corresponding to the moment that all tables are locked. If you want your dump and the log flush to happen at the same moment, use <b>--flush-logs</b> together with <b>--lock-all-tables</b>, <b>--master-data</b>, or <b>--single-transaction</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--flush-privileges</b></pre></td>
+<td>Add a <b>FLUSH PRIVILEGES</b> statement to the dump output after dumping the mysql database. This option should be used any time the dump contains the mysql database and any other database that depends on the data in the mysql database for proper restoration.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--lock-all-tables</b><b>-x</b></pre></td>
+<td>Lock all tables across all databases. This is achieved by acquiring a global read lock for the duration of the whole dump. This option automatically turns off <b>--single-transaction</b> and <b>--lock-tables</b>.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--lock-tables</b><b>-l</b></pre></td>
+<td>For each dumped database, lock all tables to be dumped before dumping them. The tables are locked with <b>READ LOCAL</b> to permit concurrent inserts in the case of MyISAM tables. For transactional tables, such as InnoDB, <b>--single-transaction</b> is a better option than <b>--lock-tables</b> because it does not need to lock the tables at all.<br><br>Because <b>--lock-tables</b> locks tables for each database separately, this option does not guarantee that the tables in the dump file are logically consistent between databases. Tables in different databases may be dumped in completely different states.<br><br>Some options, such as <b>--opt</b>, automatically enable <b>--lock-tables</b>. If you want to override this, use <b>--skip-lock-tables</b> at the end of the option list.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--no-autocommit</b></pre></td>
+<td>Enclose the <b>INSERT</b> statements for each dumped table within <b>SET autocommit = 0</b> and <b>COMMIT</b> statements.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--order-by-primary</b></pre></td>
+<td>Dump each table's rows sorted by its primary key, or by its first unique index, if such an index exists. This is useful when dumping a MyISAM table to be loaded into an InnoDB table, but makes the dump operation take considerably longer.</td>
+</tr>
+<tr class="tcw">
+<td><pre><b>--single-transaction</b></pre></td>
+<td>This option sets the transaction isolation mode to <b>REPEATABLE READ</b> and sends a <b>START TRANSACTION SQL</b> statement to the server before dumping data. It is useful only with transactional tables, such as InnoDB, because then it dumps the consistent state of the database at the time when <b>START TRANSACTION</b> was issued without blocking any applications.<br><br>When using this option, keep in mind that only InnoDB tables are dumped in a consistent state. For example, any MyISAM or <b>MEMORY</b> tables dumped while using this option may still change state.<br><br>While a <b>--single-transaction</b> dump is in process, to ensure a valid dump file (correct table contents and binary log coordinates), no other connection should use the following statements: <b>ALTER TABLE</b>, <b>CREATE TABLE</b>, <b>DROP TABLE</b>, <b>RENAME TABLE</b>, <b>TRUNCATE TABLE</b>. A consistent read is not isolated from those statements, so use of them on a table to be dumped can cause the <b>SELECT</b> that is performed by <b>mysqldump</b> to retrieve the table contents to obtain incorrect contents or fail.<br><br>The <b>--single-transaction</b> option and the <b>--lock-tables</b> option are mutually exclusive because <b>LOCK TABLES</b> causes any pending transactions to be committed implicitly.<br><br>To dump large tables, combine the <b>--single-transaction</b> option with the <b>--quick</b> option.</td>
+</tr>
+</table>
+<h3 class="tab">Option groups</h3>
+<ul>
+<li>The <b>--opt</b> option turns on several settings that work together to perform a fast dump operation. All these settings are on by default, because <b>--opt</b> is on by default. Thus you rarely if ever specify <b>--opt</b>. Instead, you can turn these settings off as a group by specifying <b>--skip-opt</b>, then optionally re-enable certain settings by specifying the associated options later on the command line.</li>
+<li>The <b>--compact</b> option turns off several settings that control whether optional statements and comments appear in the output. Again, you can follow this option with other options that re-enable certain settings, or turn all the settings on using the <b>--skip-compact</b> form.</li>
+</ul>
+<p class="tab">When you selectively enable or disable the effect of a group option, order is important because options are processed first to last. For example, <b>--disable-keys --lock-tables --skip-opt</b> would not have the intended effect; it is the same as <b>--skip-opt</b> by itself.</p>
+<h3 class="tab">Usage notes</h3>
+<ul>
+<li>To select the effect of <b>--opt</b>, except for some features, use the <b>--skip</b> option for each feature. To disable extended inserts and memory buffering, use <b>--opt --skip-extended-insert--skip-quick</b>. (Actually, <b>--skip-extended-insert --skip-quick</b> is sufficient because <b>--opt</b> is on by default.)</li>
+<li>To reverse <b>--opt</b> for all features, except index disabling and table locking, use <b>--skip-opt --disable-keys --lock-tables</b>.</li>
+</ul>
+<h2 id="restrictions">Restrictions</h2>
+<ul>
+<li><b>mysqldump</b> does not dump the <b>INFORMATION_SCHEMA</b> database by default. To dump <b>INFORMATION_SCHEMA</b>, name it explicitly on the command line and also use the <b>--skip-lock-tables</b> option.</li>
+<li><b>mysqldump</b> never dumps the performance_schema database.</li>
+<li><b>mysqldump</b> also does not dump the MySQL Cluster ndbinfo information database.</li>
+<li>Before MySQL 5.6.6, <b>mysqldump</b> does not dump the general_log or slow_query_log tables for dumps of the mysql database. As of 5.6.6, the dump includes statements to recreate those tables so that they are not missing after reloading the dump file. Log table contents are not dumped.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">mysqldump db_name &gt; backup-file.sql</pre>
+<p class="tab">Back up the entire database <b>db_name</b> to the file <b>backup-file.sql</b>.</p>
+<pre class="tcy tab">mysql db_name &lt; backup-file.sql</pre>
+<p class="tab">Load the backup file <b>backup-file.sql</b> into the database <b>db_name</b>.</p>
+<pre class="tcy tab">mysql -e &quot;source /path-to-backup/backup-file.sql&quot; db_name</pre>
+<p class="tab">This is another way to do the same thing as the previous example (load the backup file into the database).</p>
+<pre class="tcy tab">mysqldump --opt db_name | mysql --host=remote_host -C db_name</pre>
+<p class="tab">Populate a remote mysql server's database <b>db_name</b> with local database <b>db_name</b>.</p>
+<pre class="tcy tab">mysqldump --databases db_name1 [db_name2 ...] &gt; my_databases.sql</pre>
+<p class="tab">The command above dumps multiple databases (<b>db_name1</b>, <b>db_name2</b>...) to the single backup file <b>my_databases.sql</b>.</p>
+<pre class="tcy tab">mysqldump --all-databases &gt; all_databases.sql</pre>
+<p class="tab">Dumps all databases to the backup file <b>all_databases.sql</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/myisamch.htm"><b>myisamchk</b></a> &mdash; Check, repair, optimize, or fetch information about a MySQL database.<br><a href="/unix/mysql.htm"><b>mysql</b></a> &mdash; An open-source relational database management system.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a831cdea6c447',m:'Gmqdo3hx5S9BjZU3Rn_G30HM0QaKxtyhncO3.j0IVO0-1661495356-0-AeIyC3USaqrKtDaf9bY4GQcHwNf0f24q9h5pGT1tyfxJT+1Wg0tpt5DPV16lslZeBh/waodMAnadGS5+GRESVBgX72eIhYYWp5hM5Avjj6iZDIkUDxvb5+l05U+0tyaPd3dBoJuv6bBeYlN//DpgmSU=',s:[0x4979d0a9e8,0x6d8e768dcc],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

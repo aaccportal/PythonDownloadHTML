@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux troff command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/troff.gif" width="300" height="300" alt="troff command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>troff</b> command performs typesetting functions and formats documents. It is the major component of the document processing system developed by <a href="/comp/att.htm">AT&amp;T</a> for <a href="/jargon/u/unix.htm">Unix</a>.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>troff</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#warnings">Warnings</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>troff</b> formats <a href="/jargon/t/text.htm">text</a> for <a href="/jargon/p/printer.htm">printers</a> and <a href="/jargon/c/charact.htm">character</a> <a href="/jargon/t/terminal.htm">terminals</a>, and is one of the most important pieces of software in <a href="/history/unix.htm">Unix history</a>.</p>
+<p class="tab">Like <b>roff</b>, <a href="/unix/unroff.htm">nroff</a> and <b>groff</b>, <b>troff</b> is descended from a text formatting program called RUNOFF written by Jerome Saltzer for <a href="/jargon/m/mit.htm">MIT</a>'s CTSS operating system in the mid-1960s. The name RUNOFF comes from the phrase "to run off a document," meaning to finalize a document, or prepare it for publication or presentation.</p>
+<p class="tab">Later iterations of RUNOFF were called <b>rf</b> and then <b>roff</b>, and a version of <b>roff</b> was eventually written for Unix on a <a href="/jargon/p/pdp.htm">PDP</a>-7. Eventually, it evolved in to <b>nroff</b> ("newer roff") and then <b>troff</b> ("typesetter roff"). The legendary <a href="/people/brian_kernighan.htm">Brian Kernighan</a> eventually rewrote <b>troff</b>, giving it a more flexible <a href="/jargon/s/syntax.htm">syntax</a> and designing it to be device-independent.</p>
+<p class="tab">Although other typesetting software packages such as <b>LaTeX</b> have gained prominent usage throughout the years, <b>troff</b> is still used extensively in Unix, and is the default type formatter for <a href="/jargon/m/man.htm">man</a>.</p>
+<p class="tab">This documentation is for GNU version of the <b>troff</b> command, which is part of the <b>groff</b> package and commonly used on Linux.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">troff [-abcivzCERU] [-d <i>cs</i>] [-f <i>fam</i>] [-F <i>dir</i>] [-I <i>dir</i>] [-m <i>name</i>] [-M <i>dir</i>] 
+      [-n <i>num</i>] [-o <i>list</i>] [-r <i>cn</i>] [-T <i>name</i>] [-w <i>name</i>] [-W <i>name</i>] [<i>file</i> ...]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>-a</b></td>
+<td>Generate an <a href="/jargon/a/ascii.htm">ASCII</a> approximation of the typeset output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>Print a backtrace with each warning or error message. This backtrace should help track down causing the error. The line numbers given in the backtrace may not always be correct, for <b>troff</b>'s idea of line numbers gets confused by <b>as</b> or <b>am</b> requests.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>Disable color output (always disabled in compatibility mode).</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>Enable compatibility mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b><i>cs</i>, <b>-dname=</b><i>s</i></td>
+<td>Define <i>c</i> or <i>name</i> to be a string <i>s</i>; <i>c</i> must be a one-letter name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b></td>
+<td>Inhibit all error messages of <b>troff</b>. Note that this doesn't affect messages output to standard error by macro packages using the <b>tm</b> or <b>tm1</b> requests.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b><i>fam</i></td>
+<td>Use <i>fam</i> as the default <a href="/jargon/f/font.htm">font</a> family.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b><i>dir</i></td>
+<td>Search in a <a href="/jargon/d/director.htm">directory</a> (or directory <a href="/jargon/p/path.htm">path</a>) <i>dir</i> for <a href="/jargon/s/subdirec.htm">subdirectories</a> <b>dev</b><i>name</i> (where <i>name</i> is the name of the device), and for the DESC file and font files. The <i>dir</i> is scanned before all other font directories.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td>Read the <a href="/jargon/s/stdin.htm">standard input</a> after all the named input files are processed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b><i>dir</i></td>
+<td>This option may be used to add a directory to the search path for files (both those on the <a href="/jargon/c/commandi.htm">command line</a> and those named in <b>.psbb</b> requests). The search path is initialized with the current directory. This option may be specified more than once; the directories are then searched in the order specified (but before the current directory). If you want to make the current directory be read before other directories, add <b>-I.</b> at the appropriate place.<br><br> No directory search is performed for files with an <a href="/jargon/a/absopath.htm">absolute</a> file name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b><i>name</i></td>
+<td>Read in the file "<i>name</i><b>.tmac</b>". If it isn't found, "<b>tmac.</b><i>name</i>" is tried instead. It will be first searched for in:<br><ol><li>directories given with the <b>-M</b> command line option,</li><li>then in directories given in the <b>GROFF_TMAC_PATH</b> <a href="/jargon/e/envivari.htm">environment variable</a>,</li><li>then in the current directory (only if in "unsafe" mode),</li><li>the <a href="/jargon/h/homedir.htm">home directory</a>,</li><li><b>/usr/lib/groff/site-tmac</b>,</li><li><b>/usr/share/groff/site-tmac</b>,</li><li>and finally in <b>/usr/share/groff/1.22.2/tmac</b>.</li></ol></td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b><i>dir</i></td>
+<td>Search directory (or directory path) <i>dir</i> for macro files. This is scanned before all other macro directories.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b><i>num</i></td>
+<td>Number the first page <i>num</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b><i>list</i></td>
+<td>Output only pages in <i>list</i>, which is a comma-separated list of page ranges; <i>n</i> means print page <i>n</i>, <i>m</i><b>-</b><i>n</i> means print every page between <i>m</i> and <i>n</i>, <b>-</b><i>n</i> means print every page up to <i>n</i>, <i>n</i><b>-</b> means print every page from <i>n</i>. <b>troff</b> will exit after printing the last page in the list.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b><i>cn</i> <b>-rname=</b><i>n</i></td>
+<td>Set number register <i>c</i> or <i>name</i> to <i>n</i>; <i>c</i> must be a one character name; <i>n</i> can be any <b>troff</b> numeric expression.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b></td>
+<td>Don't load <b>troffrc</b> and <b>troffrc-end</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b><i>name</i></td>
+<td>Prepare output for device <i>name</i>, rather than the default <b>ps</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b></td>
+<td>Unsafe mode. This enables the following requests: <b>open</b>, <b>opena</b>, <b>pso</b>, <b>sy</b>, and <b>pi</b>. For security reasons, these potentially dangerous requests are disabled otherwise. It also adds the current directory to the macro search path.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Print the version number.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b><i>name</i></td>
+<td>Enable warning <i>name</i>. Available warnings are described in the section <a href="#warnings">warnings</a> below. For example, to enable all warnings, use <b>-w all</b>. Multiple <b>-w</b> options are allowed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-W</b><i>name</i></td>
+<td>Inhibit warning <i>name</i>. Multiple <b>-W</b> options are allowed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b></td>
+<td>Suppress formatted output.</td>
+</tr>
+</table>
+<h2 id="warnings">Warnings</h2>
+<p class="tab">The warnings that can be given by <b>troff</b> are divided into the following categories. The name associated with each warning is used by the <b>-w</b> and <b>-W</b> options; the number is used by the <b>warn</b> request, and by the <b>.warn</b> register; it is always a power of 2 to allow <a href="/jargon/b/bitwoper.htm">bitwise composition</a> (any two codes can be combined additively to create a unique number).</p>
+<p class="tab">Warnings, listed by bit:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th style="width:50px"><b>bit</b></th>
+<th style="width:110px"><b>code</b></th>
+<th><b>warning</b></th>
+</tr>
+<tr class="tcw">
+<td>0</td>
+<td><b>1</b></td>
+<td>char</td>
+</tr>
+<tr class="tcw">
+<td>1</td>
+<td><b>2</b></td>
+<td>number</td>
+</tr>
+<tr class="tcw">
+<td>2</td>
+<td><b>4</b></td>
+<td>break</td>
+</tr>
+<tr class="tcw">
+<td>3</td>
+<td><b>8</b></td>
+<td>delim</td>
+</tr>
+<tr class="tcw">
+<td>4</td>
+<td><b>16</b></td>
+<td>el</td>
+</tr>
+<tr class="tcw">
+<td>5</td>
+<td><b>32</b></td>
+<td>scale</td>
+</tr>
+<tr class="tcw">
+<td>6</td>
+<td><b>64</b></td>
+<td>range</td>
+</tr>
+<tr class="tcw">
+<td>7</td>
+<td><b>128</b></td>
+<td>syntax</td>
+</tr>
+<tr class="tcw">
+<td>8</td>
+<td><b>256</b></td>
+<td>di</td>
+</tr>
+<tr class="tcw">
+<td>9</td>
+<td><b>512</b></td>
+<td>mac</td>
+</tr>
+<tr class="tcw">
+<td>10</td>
+<td><b>1024</b></td>
+<td>reg</td>
+</tr>
+<tr class="tcw">
+<td>11</td>
+<td><b>2048</b></td>
+<td>tab</td>
+</tr>
+<tr class="tcw">
+<td>12</td>
+<td><b>4096</b></td>
+<td>right-brace</td>
+</tr>
+<tr class="tcw">
+<td>13</td>
+<td><b>8192</b></td>
+<td>missing</td>
+</tr>
+<tr class="tcw">
+<td>14</td>
+<td><b>16384</b></td>
+<td>input</td>
+</tr>
+<tr class="tcw">
+<td>15</td>
+<td><b>32768</b></td>
+<td>escape</td>
+</tr>
+<tr class="tcw">
+<td>16</td>
+<td><b>65536</b></td>
+<td>space</td>
+</tr>
+<tr class="tcw">
+<td>17</td>
+<td><b>131072</b></td>
+<td>font</td>
+</tr>
+<tr class="tcw">
+<td>18</td>
+<td><b>262144</b></td>
+<td>ig</td>
+</tr>
+<tr class="tcw">
+<td>19</td>
+<td><b>524288</b></td>
+<td>color</td>
+</tr>
+<tr class="tcw">
+<td>20</td>
+<td><b>1048576</b></td>
+<td>file</td>
+</tr>
+</table>
+<p class="tab">Descriptions:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th><b>warning</b></th>
+<th style="width:110px"><b>code</b></th>
+<th><b>description</b></th>
+</tr>
+<tr class="tcw">
+<td>break</td>
+<td><b>4</b></td>
+<td>In fill mode, lines which could not be broken so that their length was less than the line length. This is enabled by default.</td>
+</tr>
+<tr class="tcw">
+<td>char</td>
+<td><b>1</b></td>
+<td>Non-existent characters. This is enabled by default.</td>
+</tr>
+<tr class="tcw">
+<td>color</td>
+<td><b>524288</b></td>
+<td>Color related warnings.</td>
+</tr>
+<tr class="tcw">
+<td>delim</td>
+<td><b>8</b></td>
+<td>Missing or mismatched closing <a href="/jargon/d/delimite.htm">delimiters</a>.</td>
+</tr>
+<tr class="tcw">
+<td>di</td>
+<td><b>256</b></td>
+<td>Use of <b>di</b> or <b>da</b> without an <a href="/jargon/a/argument.htm">argument</a> when there is no current diversion.</td>
+</tr>
+<tr class="tcw">
+<td>el</td>
+<td><b>16</b></td>
+<td>Use of the <b>el</b> request with no matching <b>ie</b> request.</td>
+</tr>
+<tr class="tcw">
+<td>escape</td>
+<td><b>32768</b></td>
+<td>Unrecognized <a href="/jargon/e/esc.htm">escape</a> sequences. When an unrecognized escape sequence is encountered, the escape character is ignored.</td>
+</tr>
+<tr class="tcw">
+<td>file</td>
+<td><b>1048576</b></td>
+<td>Indicates a missing file for the <b>mso</b> request. Enabled by default.</td>
+</tr>
+<tr class="tcw">
+<td>font</td>
+<td><b>131072</b></td>
+<td>Non-existent fonts. This is enabled by default.</td>
+</tr>
+<tr class="tcw">
+<td>ig</td>
+<td><b>262144</b></td>
+<td>Invalid escapes in text ignored with the <b>ig</b> request. These are conditions that are errors when they do not occur in ignored text.</td>
+</tr>
+<tr class="tcw">
+<td>input</td>
+<td><b>16384</b></td>
+<td>Invalid input characters.</td>
+</tr>
+<tr class="tcw">
+<td>mac</td>
+<td><b>512</b></td>
+<td>Use of undefined <a href="/jargon/s/string.htm">strings</a>, <a href="/jargon/m/macro.htm">macros</a> and diversions. When an undefined string, macro or diversion is used, that string is automatically defined as empty. So, in most cases, at most one warning will be given for each name.</td>
+</tr>
+<tr class="tcw">
+<td>missing</td>
+<td><b>8192</b></td>
+<td>Requests that are missing non-optional arguments.</td>
+</tr>
+<tr class="tcw">
+<td>number</td>
+<td><b>2</b></td>
+<td>Invalid numeric <a href="/jargon/e/expressi.htm">expressions</a>. This is enabled by default.</td>
+</tr>
+<tr class="tcw">
+<td>range</td>
+<td><b>64</b></td>
+<td>Out of range arguments.</td>
+</tr>
+<tr class="tcw">
+<td>reg</td>
+<td><b>1024</b></td>
+<td>Use of undefined number <a href="/jargon/r/register.htm">registers</a>. When an undefined number register is used, that register is automatically defined to have a value of <b>0</b>. So, in most cases, at most one warning will be given for use of a particular name.</td>
+</tr>
+<tr class="tcw">
+<td>right-brace</td>
+<td><b>4096</b></td>
+<td>Use of <b>\}</b> where a number was expected.</td>
+</tr>
+<tr class="tcw">
+<td>scale</td>
+<td><b>32</b></td>
+<td>Meaningless scaling indicators.</td>
+</tr>
+<tr class="tcw">
+<td>space</td>
+<td><b>65536</b></td>
+<td>Missing space between a request or macro and its argument. This warning will be given when an undefined name longer than two characters is encountered, and the first two characters of the name make a defined name. The request or macro cannot be invoked. When this warning is given, no macro is automatically defined. This is enabled by default. This warning never occur in compatibility mode.</td>
+</tr>
+<tr class="tcw">
+<td>syntax</td>
+<td><b>128</b></td>
+<td>Dubious syntax in numeric expressions.</td>
+</tr>
+<tr class="tcw">
+<td>tab</td>
+<td><b>2048</b></td>
+<td>Inappropriate use of a <a href="/jargon/t/tab.htm">tab</a> character. Either use of a tab character where a number was expected, or use of tab character in an unquoted macro argument.</td>
+</tr>
+</table>
+<p class="tab">There are also names that can refer to groups of warnings:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:40px"><b>all</b></td>
+<td>All warnings except <b>di</b>, <b>mac</b>, and <b>reg</b>. It is intended that this covers all warnings that are useful with traditional macro packages.</td>
+</tr>
+<tr class="tcw">
+<td><b>w</b></td>
+<td>All warnings.</td>
+</tr>
+</table>
+<h2 id="environment">Environment</h2>
+<p class="tab"><b>troff</b> makes use of the following environment variables:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:210px"><b>GROFF_TMAC_PATH</b></td>
+<td>A colon-separated list of directories to search for macro files. <b>troff</b> scans directories given in the <b>-M</b> option before these, and in standard directories (current directory if in unsafe mode, home directory, <b>/usr/lib/groff/site-tmac</b>, <b>/usr/share/groff/site-tmac</b>, <b>/usr/share/groff/1.22.2/tmac</b>) after these.</td>
+</tr>
+<tr class="tcw">
+<td><b>GROFF_TYPESETTER</b></td>
+<td>Default device.</td>
+</tr>
+<tr class="tcw">
+<td><b>GROFF_FONT_PATH</b></td>
+<td>A colon separated list of directories to search for the <b>dev</b><i>name</i> directory. <b>troff</b> scans directories given in the <b>-F</b> option before these, and in standard directories (<b>/usr/share/groff/site-font</b>, <b>/usr/share/groff/1.22.2/font</b>, <b>/usr/lib/font</b>) after these.</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:470px"><b>/usr/share/groff/1.22.2/tmac/troffrc</b></td>
+<td>Initialization file (called before any other macro package).</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/share/groff/1.22.2/tmac/troffrc-end</b></td>
+<td>Initialization file (called after any other macro package).</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/share/groff/1.22.2/tmac/name.tmac</b>, <b>/usr/share/groff/1.22.2/tmac/tmac.name</b></td>
+<td>Macro files</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/share/groff/1.22.2/font/devname/DESC</b></td>
+<td>Device description file for device name.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/share/groff/1.22.2/font/dev</b><i>name</i><b>/</b><i>F</i></td>
+<td>Font file for font <i>F</i> of device <i>name</i>.</td>
+</tr>
+</table>
+<p class="tab">Note that <b>troffrc</b> and <b>troffrc-end</b> are neither searched in the current nor in the home directory by default for security reasons (even if the <b>-U</b> option is given). Use the <b>-M</b> command line option or the <b>GROFF_TMAC_PATH</b> environment variable to add these directories to the search path if necessary.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">troff myfile</pre>
+<p class="tab">Process file <b>myfile</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uchecknr.htm"><b>checknr</b></a> &mdash; Check <b>nroff</b> and <b>troff</b> files for errors.<br><a href="/unix/ucol.htm"><b>col</b></a> &mdash; Filter reverse linefeeds.<br><a href="/unix/udpost.htm"><b>dpost</b></a> &mdash; Translate files created by <b>troff</b> into PostScript under Solaris.<br><a href="/unix/ueqn.htm"><b>eqn</b></a> &mdash; Language processor for describing equations.<br><a href="/unix/ulp.htm"><b>lp</b></a> &mdash; Print a file on the System V operating system.<br><a href="/unix/uman.htm"><b>man</b></a> &mdash; Display the manual page of a given command.<br><a href="/unix/unroff.htm"><b>nroff</b></a> &mdash; Format documents for terminal display or line-printer.<br><a href="/unix/utbl.htm"><b>tbl</b></a> &mdash; Preprocessor which formats tables for <b>nroff</b> or <b>troff</b>.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+ <ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8368389784b0',m:'BWP0OoV_641lOJBqMl8AboYYXqhjD7963d93l7lmy34-1661495369-0-ATMENAu5WnMC+Cqjv2mQ6exzlkVKMxjpOyQbko+DwP2ZoLGUnDh+GjWrphy1L3rP2Q1Czw3M9p6kU3i1u2AnIO9aTpTL5o2o07uQsHIqfANmG8OuAblDcl0SqH4H1VHCSg==',s:[0x1b8cb3503e,0x284358718f],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

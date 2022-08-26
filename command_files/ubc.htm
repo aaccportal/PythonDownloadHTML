@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux bc command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/bc.gif" width="300" height="300" alt="bc command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>bc</b> is a language for performing arbitrary-precision math calculations, and an interactive <a href="/jargon/i/interpre.htm">interpreter</a> for that language.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#numbers">Numbers</a></li>
+<li><a href="#variables">Variables</a></li>
+<li><a href="#comments">Comments</a></li>
+<li><a href="#expressions">Expressions</a></li>
+<li><a href="#statements">Statements</a></li>
+<li><a href="#pseudo-statements">Pseudo statements</a></li>
+<li><a href="#functions">Functions</a></li>
+<li><a href="#math-library">Math library</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>bc</b> is a language that supports arbitrary-precision numbers, meaning that it delivers accurate results regardless of how large (or very small) the numbers are.</p>
+<p class="tab">It has an interactive mode, accepting input from the terminal and providing calculations on request. As a language, its syntax is similar to the <a href="/jargon/c/c.htm">C</a> programming language. A standard math <a href="/jargon/l/library.htm">library</a> is available using a <a href="/jargon/c/commandi.htm">command line</a> option. If requested, the math library is defined before processing any files.</p>
+<p class="tab"><b>bc</b> starts by processing code from all the files listed on the command line in the order listed. After all files are processed, <b>bc</b> reads from the <a href="/jargon/s/stdin.htm">standard input</a>. All code is executed as it is read.</p>
+<p class="tab">Newer versions of <b>bc</b> contain several extensions beyond traditional <b>bc</b> implementations and the <a href="/jargon/p/posix.htm">POSIX</a> draft standard. Command-line options can cause these extensions to print a warning or be rejected. This page describes the newer version of the <b>bc</b> language; where a particular function is an extension of the standard, it is noted accordingly below.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">bc [ -hlwsqv ] [<i>long-options</i>] [ <i>file</i> ... ]</pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>-h</b>, <b>--help</b></td>
+<td>Print a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--interactive</b></td>
+<td>Force interactive mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--mathlib</b></td>
+<td>Define the standard math library.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>, <b>--warn</b></td>
+<td>Give warnings for extensions to POSIX <b>bc</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--standard</b></td>
+<td>Process exactly the POSIX <b>bc</b> language.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--quiet</b></td>
+<td>Do not print the normal GNU <b>bc</b> welcome message.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--version</b></td>
+<td>Print the version number and Copyright information, and exit.</td>
+</tr>
+</table>
+<h2 id="numbers">Numbers</h2>
+<p class="tab">The most basic element in <b>bc</b> is the number. Numbers are arbitrary-precision numbers. This precision is both in the <a href="/jargon/i/integer.htm">integer</a> part and the fractional part. All numbers are represented internally in <a href="/jargon/d/decimal.htm">decimal</a> and all computation is done in decimal. Some versions of <b>bc</b> <a href="/jargon/t/truncate.htm">truncate</a> results from divide and multiply operations.</p>
+<p class="tab">There are two attributes of numbers, the length and the scale. The length is the total number of significant decimal digits in a number and the scale is the total number of decimal digits after the decimal point. For example:</p>
+<p class="tab"><b>.000001</b> has a length of 6 and scale of 6.</p>
+<p class="tab"><b>1935.000</b> has a length of 7 and a scale of 3.</p>
+<h2 id="variables">Variables</h2>
+<p class="tab">Numbers are stored in two types of <a href="/jargon/v/variable.htm">variables</a>: simple variables and <a href="/jargon/a/array.htm">arrays</a>. Both simple variables and array variables are named. Names begin with a letter followed by any number of letters, digits and underscores. All letters must be <a href="/jargon/l/lowercas.htm">lowercase</a>. Full <a href="/jargon/a/alphanum.htm">alphanumeric</a> names are an extension. In POSIX <b>bc</b>, all names are a single lowercase letter. The type of variable is clear by the context because all array variable names will be followed by brackets (<b>[]</b>).</p>
+<p class="tab">There are four special variables: <b>scale</b>, <b>ibase</b>, <b>obase</b>, and <b>last</b>.</p>
+<p class="tab"><b>scale</b> defines how some operations use digits after the decimal point. The default value of scale is 0.</p>
+<p class="tab"><b>ibase</b> and <b>obase</b> define the conversion base for input and output numbers. The default for both input and output is base 10.</p>
+<p class="tab"><b>last</b> (an extension) is a variable with the value of the last printed number.</p>
+<p class="tab">All variables may have values assigned to them, and can be used in <a href="/jargon/e/expressi.htm">expressions</a>.</p>
+<h2 id="comments">Comments</h2>
+<p class="tab"><a href="/jargon/c/comment.htm">Comments</a> in <b>bc</b> start with the characters &quot;<b>/*</b>&quot; and end with the characters &quot;<b>*/</b>&quot;. Comments may start anywhere and appear as a single space in the input. This causes comments to <a href="/jargon/d/delimite.htm">delimit</a> other input items. For example, a comment cannot be placed in the middle of a variable name. Comments include any <a href="/jargon/n/newline.htm">newlines</a> (end of line) between the start and the end of the comment.</p>
+<p class="tab">To support the use of <a href="/jargon/s/script.htm">scripts</a> for <b>bc</b>, a single line comment is added as an extension. A single line comment starts at a &quot;<b>#</b>&quot; character and continues to the next end-of-line. The end-of-line character is not part of the comment and is processed normally.</p>
+<h2 id="expressions">Expressions</h2>
+<p class="tab">Numbers are manipulated by expressions and statements. Since the language was designed to be interactive, statements and expressions are executed as soon as possible. There is no &quot;main&quot; program; instead, code is executed as it is encountered. Functions, discussed in detail <a href="#functions">later</a>, are defined when encountered.</p>
+<p class="tab">A simple expression is a <a href="/jargon/c/constant.htm">constant</a>. <b>bc</b> converts constants into internal decimal numbers using the current input base, specified by the variable <b>ibase</b>. There is an exception in functions. The legal values of <b>ibase</b> are <b>2</b> through <b>16</b>. Assigning a value outside this range to <b>ibase</b> results in a value of 2 or 16. Input numbers may contain the characters <b>0-9</b> and <b>A-F</b>.</p>
+<div class="tip dtab">
+<span class="title note">Note</span>
+<p>They must be capital letters. Lowercase letters are reserved for variable names.</p>
+</div>
+<p class="tab">Single-digit numbers always have the value of the digit, regardless of the value of <b>ibase</b>. For multi-digit numbers, <b>bc</b> changes all input digits greater or equal to <b>ibase</b> to the value of <b>ibase-1</b>. This makes the number <b>FFF</b> always be the largest 3-digit number of the input base.</p>
+<p class="tab">Full expressions are similar to other high-level languages. Since there is only one kind of number, there are no rules for mixing variable types. Instead, there are rules on the <b>scale</b> of expressions. Every expression has a scale that is derived from the scale of original numbers, the operation performed, and in many cases, the value of the variable <b>scale</b>. Legal values of the variable scale are 0 to the maximum number representable by a C integer.</p>
+<p class="tab">In the following descriptions of legal expressions, &quot;<i>expr</i>&quot; refers to a complete expression and &quot;<i>var</i>&quot; refers to a simple or array variable. A simple variable is a <i>name</i> and an array variable is specified as <i>name</i>[<i>expr</i>].</p>
+<p class="tab">Unless specifically mentioned, the scale of the result is the maximum scale of the expressions involved.</p>
+<p class="tab"><b>-</b> <i>expr</i> - The result is the negation of the expression.</p>
+<p class="tab"><b>++</b> <i>var</i> - The variable is incremented by one and the new value is the result of the expression.</p>
+<p class="tab"><b>--</b> <i>var</i> - The variable is decremented by one and the new value is the result of the expression.</p>
+<p class="tab"><i>var</i> <b>++</b> - The result of the expression is the value of the variable and then the variable is incremented by one.</p>
+<p class="tab"><i>var</i> <b>--</b> - The result of the expression is the value of the variable and then the variable is decremented by one.</p>
+<p class="tab"><i>expr</i> <b>+</b> <i>expr</i> - The result of the expression is the sum of the two expressions.</p>
+<p class="tab"><i>expr</i> <b>-</b> <i>expr</i> - The result of the expression is the difference of the two expressions.</p>
+<p class="tab"><i>expr</i> <b>*</b> <i>expr</i> - The result of the expression is the product of the two expressions.</p>
+<p class="tab"><i>expr</i> <b>/</b> <i>expr</i> - The result of the expression is the quotient of the two expressions. The scale of the result is the value of the variable scale.</p>
+<p class="tab"><i>expr</i> <b>%</b> <i>expr</i> - The result of the expression is the &quot;remainder&quot; and it is computed in the following way. To compute <i>a</i><b>%</b><i>b</i>, first <i>a</i><b>/</b><i>b</i> is computed to scale digits. That result is used to compute <i>a</i><b>-(</b><i>a</i><b>/</b><i>b</i><b>)*</b><i>b</i> to the scale of the maximum of <i>scale</i><b>+</b><i>scale</i><b>(</b><i>b</i><b>)</b> and <i>scale</i><b>(</b><i>a</i><b>)</b>. If scale is set to zero and both expressions are integers, this expression is the integer remainder function.</p>
+<p class="tab"><i>expr</i> <b>^</b> <i>expr</i> - The result of the expression is the value of the first raised to the power of the second. The second expression must be an integer. If the second expression is not an integer, a warning is generated and the expression is truncated to get an integer value. The scale of the result is <b>scale</b> if the exponent is negative. If the exponent is positive, the scale of the result is the minimum of the scale of the first expression times the value of the exponent and the maximum of scale and the scale of the first expression. (e.g., <b>scale(</b><i>a</i><b>^</b><i>b</i><b>) = min(</b><i>scale</i><b>(</b><i>a</i><b>)*</b><i>b</i><b>, max(</b> <i>scale</i><b>,</b> <i>scale</i><b>(</b><i>a</i><b>)))</b>.) It should be noted that <i>expr</i><b>^0</b> always returns the value of <b>1</b>.</p>
+<p class="tab"><b>(</b> <i>expr</i> <b>)</b> - This alters the standard precedence to force the evaluation of the expression.</p>
+<p class="tab"><i>var</i> <b>=</b> <i>expr</i> - The variable is assigned the value of the expression.</p>
+<p class="tab"><i>var</i> <i>&lt;op&gt;</i><b>=</b> <i>expr</i> - This expression is equivalent to &quot;<i>var</i> <b>=</b> <i>var &lt;op&gt; expr</i>&quot; with the exception that the &quot;<b>var</b>&quot; part is evaluated only once. This can make a difference if "<b>var</b>" is an array.</p>
+<p class="tab">Relational expressions are a special kind of expression that always evaluate to 0 or 1: <b>0</b> if the relation is false and <b>1</b> if the relation is true. These may appear in any legal expression. POSIX <b>bc</b> requires that relational expressions are used only in <b>if</b>, <b>while</b>, and <b>for</b> statements and that only one relational test may be done in them. The relational operators are:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><i>expr1</i> <b>&lt;</b> <i>expr2</i></td>
+<td>The result is 1 if <i>expr1</i> is strictly less than <i>expr2</i>.</td>
+</tr>
+<tr class="tcw">
+<td><i>expr1</i> <b>&lt;=</b> <i>expr2</i></td>
+<td>The result is 1 if <i>expr1</i> is less than or equal to <i>expr2</i>.</td>
+</tr>
+<tr class="tcw">
+<td><i>expr1</i> <b>&gt;</b> <i>expr2</i></td>
+<td>The result is 1 if <i>expr1</i> is strictly greater than <i>expr2</i>.</td>
+</tr>
+<tr class="tcw">
+<td><i>expr1</i> <b>&gt;=</b> <i>expr2</i></td>
+<td>The result is 1 if <i>expr1</i> is greater than or equal to <i>expr2</i>.</td>
+</tr>
+<tr class="tcw">
+<td><i>expr1</i> <b>==</b> <i>expr2</i></td>
+<td>The result is 1 if <i>expr1</i> is equal to <i>expr2</i>.</td>
+</tr>
+<tr class="tcw">
+<td><i>expr1</i> <b>!=</b> <i>expr2</i></td>
+<td>The result is 1 if <i>expr1</i> is not equal to <i>expr2</i>.</td>
+</tr>
+</table>
+<p class="tab"><a href="/jargon/b/boolean.htm">Boolean</a> operations are also legal. (POSIX <b>bc</b> does NOT have boolean operations). The result of all boolean operations are <b>0</b> and <b>1</b> (for false and true) as in relational expressions. The boolean operators are:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><b>!</b><i>expr</i></td>
+<td>The result is 1 if <b>expr</b> is 0.</td>
+</tr>
+<tr class="tcw">
+<td><i>expr</i> <b>&amp;&amp;</b> <i>expr</i></td>
+<td>The result is 1 if both expressions are non-zero.</td>
+</tr>
+<tr class="tcw">
+<td><i>expr</i> <b>||</b> <i>expr</i></td>
+<td>The result is 1 if either expression is non-zero.</td>
+</tr>
+</table>
+<p class="tab">The expression precedence is as follows: (lowest to highest)</p>
+<ul>
+<li><b>||</b> operator, left associative</li>
+<li><b>&amp;&amp;</b> operator, left associative</li>
+<li><b>!</b> operator, nonassociative</li>
+<li>Relational operators, left associative</li>
+<li>Assignment operator, right associative</li>
+<li><b>+</b> and <b>-</b> operators, left associative</li>
+<li><b>*</b>, <b>/</b> and <b>%</b> operators, left associative</li>
+<li><b>^</b> operator, right associative</li>
+<li>unary <b>-</b> operator, nonassociative</li>
+<li><b>++</b> and <b>--</b> operators, nonassociative</li>
+</ul>
+<p class="tab">This precedence was chosen so that POSIX-compliant <b>bc</b> programs run correctly. This causes the use of the relational and logical operators to have some unusual behavior when used with assignment expressions. Consider the expression:</p>
+<pre class="tab tcy">a = 3 &lt; 5</pre>
+<p class="tab">Most C programmers would assume this would assign the result of &quot;<b>3 &lt; 5</b>&quot; (the value 1) to the variable &quot;<b>a</b>&quot;. What this does in <b>bc</b> is assign the value <b>3</b> to the variable &quot;<b>a</b>&quot; and then compare <b>3</b> to <b>5</b>. It is best to use parenthesis when using relational and logical operators with the assignment operators.</p>
+<p class="tab">There are a few more special expressions that are provided in <b>bc</b>. These have to do with user defined functions and standard functions. They all appear as &quot;<b>name(parameters)</b>&quot;. See the section on functions for user defined functions. The standard functions are:</p>
+<p class="tabb"><b>length (</b> <i>expression</i> <b>)</b></p>
+<p class="tab">The value of the <b>length</b> function is the number of significant digits in the expression.</p>
+<p class="tabb">read ( )</p>
+<p class="tab">The <b>read</b> function (an extension) will read a number from the standard input, regardless of where the function occurs. Beware, this can cause problems with the mixing of data and program in the standard input. The best use for this function is in a previously written program that needs input from the user, but never allows program code to be input from the user. The value of the read function is the number read from the standard input using the current value of the variable <b>ibase</b> for the conversion base.</p>
+<p class="tab"><b>scale (</b> <i>expression</i> <b>)</b></p>
+<p class="tab">The value of the scale function is the number of digits after the decimal point in the expression.</p>
+<p class="tab"><b>sqrt (</b> <i>expression</i> <b>)</b></p>
+<p class="tab">The value of the <b>sqrt</b> function is the square root of the expression. If the expression is negative, a runtime error is generated.</p>
+<h2 id="statements">Statements</h2>
+<p class="tab">Statements (as in most algebraic languages) provide the sequencing of expression evaluation. In <b>bc</b>, statements are executed &quot;as soon as possible.&quot; Execution happens when a <a href="/jargon/n/newline.htm">newline</a> is encountered and there are one or more complete statements. Due to this immediate execution, newlines are important in <b>bc</b>. In fact, both a semicolon and a newline are used as statement separators. An improperly placed newline causes a syntax error. Because newlines are statement separators, it is possible to hide a newline using the backslash character. The sequence &quot;<b>\&lt;nl&gt;</b>&quot;, where <b>&lt;nl&gt;</b> is the newline, appears to <b>bc</b> as <a href="/jargon/w/whitspac.htm">whitespace</a> instead of a newline. A statement list is several statements separated by semicolons and newlines. The following is a list of <b>bc</b> statements and what they do: Things enclosed in brackets (<b>[]</b>) are optional parts of the statement.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px"><i>expression</i></td>
+<td>This statement does one of two things. If the expression starts with &quot;<b>&lt;variable&gt; &lt;assignment&gt; ...</b>&quot;, it is considered to be an assignment statement. If the expression is not an assignment statement, the expression is evaluated and printed to the output. After the number is printed, a newline is printed. For example, &quot;<b>a=1</b>&quot; is an assignment statement and &quot;<b>(a=1)</b>&quot; is an expression with an embedded assignment. All numbers printed are printed in the base specified by the variable <b>obase</b>. The legal values for <b>obase</b> are 2 through <b>BC_BASE_MAX</b>. (See the section "Limits.") For bases 2 through 16, the usual method of writing numbers is used. For bases greater than 16, <b>bc</b> uses a multi-character digit method of printing the numbers where each higher base digit is printed as a base 10 number. The multi-character digits are separated by spaces. Each digit contains the number of characters required to represent the base ten value of &quot;<b>obase-1</b>&quot;. Since numbers are of arbitrary precision, some numbers may not be printable on a single output line. These long numbers are split across lines using the "<b>\</b>" as the last character on a line. The maximum number of characters printed per line is 70. Due to the interactive nature of <b>bc</b>, printing a number causes the side effect of assigning the printed value to the special variable last. This feature allows the user to recover the last value printed without having to retype the expression that printed the number. Assigning to last is legal and will overwrite the last printed value with the assigned value. The newly assigned value remain until the next number is printed or another value is assigned to last. Some installations may allow the use of a single period (<b>.</b>) which is not part of a number as a short hand notation for last.</td>
+</tr>
+<tr class="tcw">
+<td><i>string</i></td>
+<td>The <a href="/jargon/s/string.htm">string</a> is printed to the output. Strings start with a double quote character and contain all characters until the next double quote character. All characters are take literally, including any newline. No newline character is printed after the string.</td>
+</tr>
+<tr class="tcw">
+<td><b>print</b> <i>list</i></td>
+<td>The <b>print</b> statement (an extension) provides another method of output. The &quot;list&quot; is a list of strings and expressions separated by commas. Each string or expression is printed in the order of the list. No terminating newline is printed. Expressions are evaluated and their value is printed and assigned to the variable last. Strings in the print statement are printed to the output and may contain special characters. Special characters start with the backslash character (<b>\</b>). The special characters recognized by <b>bc</b> are &quot;<b>a</b>&quot; (alert or bell), &quot;<b>b</b>&quot; (<a href="/jargon/b/backspac.htm">backspace</a>), &quot;<b>f</b>&quot; (<a href="/jargon/f/formfeed.htm">form feed</a>), &quot;<b>n</b>&quot; (<a href="/jargon/n/newline.htm">newline</a>), &quot;<b>r</b>&quot; (<a href="/jargon/c/cr.htm">carriage return</a>), &quot;<b>q</b>&quot; (<a href="/jargon/q/quote.htm">double quote</a>), &quot;<b>t</b>&quot; (<a href="/jargon/t/tab.htm">tab</a>), and &quot;<b>\</b>&quot; (<a href="/jargon/b/backslash.htm">backslash</a>). Any other character following the backslash are ignored.</td>
+</tr>
+<tr class="tcw">
+<td><p><b>{</b><i>statement_list</i><b>}</b></p></td>
+<td>This option is the compound statement. It allows multiple statements to be grouped together for execution.</td>
+</tr>
+<tr class="tcw">
+<td><b>if (</b><i>expression</i><b>)</b> <i>statement1</i> [<b>else</b> <i>statement2</i>]</td>
+<td>The <b>if</b> statement evaluates the expression and executes <i>statement1</i> or <i>statement2</i> depending on the value of the expression. If the expression is non-zero, <i>statement1</i> is executed. If <i>statement2</i> is present and the value of the expression is <b>0</b>, then <i>statement2</i> is executed. The <b>else</b> clause is an extension.</td>
+</tr>
+<tr class="tcw">
+<td><b>while (</b> <i>expression</i> <b>)</b> <i>statement</i></td>
+<td>The <b>while</b> statement will execute the statement while the expression is non-zero. It evaluates the expression before each execution of the statement. Termination of the loop is caused by a zero expression value or the execution of a break statement.</td>
+</tr>
+<tr class="tcw">
+<td><b>for (</b> [<i>expression1</i>] <b>;</b> [<i>expression2</i>] <b>;</b> [<i>expression3</i>] <b>)</b> <i>statement</i></td>
+<td>The <b>for</b> statement controls repeated execution of the statement. <b>Expression1</b> is evaluated before the loop. <b>Expression2</b> is evaluated before each execution of the statement. If it is non-zero, the statement is evaluated. If it is zero, the loop is terminated. After each execution of the statement, <b>expression3</b> is evaluated before the reevaluation of <b>expression2</b>. If <b>expression1</b> or <b>expression3</b> are missing, nothing is evaluated at the point they would be evaluated. If <b>expression2</b> is missing, it is the same as substituting the value <b>1</b> for <b>expression2</b>. The optional expressions are an extension. POSIX <b>bc</b> requires all three expressions. The following is equivalent code for the <b>for</b> statement:<br><br> <pre class="tcy"><i>expression1</i>; while (<i>expression2</i>) { <i>statement</i>; <i>expression3</i>; }</pre></td>
+</tr>
+<tr class="tcw">
+<td><b>break</b></td>
+<td>This statement causes a forced exit of the most recent enclosing <b>while</b> statement or <b>for</b> statement.</td>
+</tr>
+<tr class="tcw">
+<td><b>continue</b></td>
+<td>The <b>continue</b> statement (an extension) causes the most recent enclosing for statement to start the next iteration.</td>
+</tr>
+<tr class="tcw">
+<td><b>halt</b></td>
+<td>The <b>halt</b> statement (an extension) is an executed statement that causes the <b>bc</b> processor to quit only when it is executed. For example, &quot;<b>if (0 == 1) halt</b>&quot; does not cause <b>bc</b> to terminate because the <b>halt</b> is not executed.</td>
+</tr>
+<tr class="tcw">
+<td><b>return</b></td>
+<td>Return the value 0 from a function. (See the <a href="#functions">section on functions</a>.)</td>
+</tr>
+<tr class="tcw">
+<td><b>return (</b> <i>expression</i> <b>)</b></td>
+<td>Return the value of the expression from a function. (See the <a href="#functions">section on functions</a>.) As an extension, the parenthesis are not required.</td>
+</tr>
+</table>
+<h2 id="pseudo-statements">Pseudo statements</h2>
+<p class="tab">These statements are not statements in the traditional sense. They are not executed statements. Their function is performed at "compile" time.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>limits</b></td>
+<td>Print the local limits enforced by the local version of <b>bc</b>. (This is an extension.)</td>
+</tr>
+<tr class="tcw">
+<td><b>quit</b></td>
+<td>When the <b>quit</b> statement is read, the <b>bc</b> processor is terminated, regardless of where the <b>quit</b> statement is found. For example, &quot;<b>if (0 == 1) quit</b>&quot; causes <b>bc</b> to terminate.</td>
+</tr>
+<tr class="tcw">
+<td><b>warranty</b></td>
+<td>Print a warranty notice. (This is an extension.)</td>
+</tr>
+</table>
+<h2 id="functions">Functions</h2>
+<p class="tab">Functions provide a method of defining a computation that can be executed later. Functions in <b>bc</b> always compute a value and return it to the caller. Function definitions are &quot;dynamic&quot; in the sense that a function is undefined until a definition is encountered in the input. That definition is then used until another definition function for the same name is encountered. The new definition then replaces the older definition. A function is defined as follows:</p>
+<pre class="tab tcy">define <i>name</i> ( <i>parameters</i> ) { <i>newline auto_list statement_list</i> }</pre>
+<p class="tab">A function call is an expression of the form "name(parameters)".</p>
+<p class="tab">Parameters are numbers or arrays (an extension). In the function definition, zero or more parameters are defined by listing their names separated by commas. All parameters are call by value parameters. Arrays are specified in the parameter definition by the notation &quot;<b>name[]</b>&quot;. In the function call, actual parameters are full expressions for number parameters. The same notation is used for passing arrays as for defining array parameters. The named array is passed by value to the function. Since function definitions are dynamic, parameter numbers and types are checked when a function is called. Any mismatch in number or types of parameters causes a runtime error. A runtime error also occurs for the call to an undefined function.</p>
+<p class="tab">The <b>auto_list</b> is an optional list of variables that are for &quot;local&quot; use. The syntax of the auto list (if present) is &quot;<b>auto name, ... ;</b>&quot;. The semicolon is optional. Each <b>name</b> is the name of an auto variable. Arrays may be specified using the same notation as used in parameters. These variables have their values pushed onto a stack at the start of the function. The variables are then initialized to zero and used throughout the execution of the function. At function exit, these variables are popped so that the original value (at the time of the function call) of these variables are restored. The parameters are really auto variables that are initialized to a value provided in the function call. Auto variables are different than traditional local variables because if function <b>A</b> calls function <b>B</b>, <b>B</b> may access function <b>A</b>'s auto variables using the same name, unless function <b>B</b> has called them auto variables. Because that auto variables and parameters are pushed onto a stack, <b>bc</b> supports <a href="/jargon/r/recursive.htm">recursive</a> functions.</p>
+<p class="tab">The function body is a list of <b>bc</b> statements. Again, statements are separated by semicolons or newlines. Return statements cause the termination of a function and the return of a value. There are two versions of the return statement. The first form, "<b>return</b>", returns the value 0 to the calling expression. The second form, "<b>return ( expression )</b>", computes the value of the expression and returns that value to the calling expression. There is an implied "<b>return (0)</b>" at the end of every function, which allows a function to terminate and return 0 without an explicit return statement.</p>
+<p class="tab">Functions also change the usage of the variable <b>ibase</b>. All constants in the function body will be converted using the value of <b>ibase</b> at the time of the function call. Changes of <b>ibase</b> are ignored during the execution of the function except for the standard function read, which always uses the current value of <b>ibase</b> for conversion of numbers.</p>
+<p class="tab">Several extensions were added to functions. First, the format of the definition is slightly relaxed. The standard requires the opening brace be on the same line as the define keyword and all other parts must be on following lines. Newer versions of <b>bc</b> allow any number of newlines before and after the opening brace of the function. For example, the following definitions are legal.</p>
+<pre class="tab tcy">define <i>d</i> (<i>n</i>) { return (2*<i>n</i>); } define <i>d</i> (<i>n</i>) { return (2*<i>n</i>); }</pre>
+<p class="tab">Functions may be defined as <b>void</b>. A void function returns no value and thus may not be used in any place that needs a value. A void function does not produce any output when called by itself on an input line. The key word <b>void</b> is placed between the key word define and the function name. For example, consider the following session.</p>
+<pre class="tab tcy">define py (y) { print "---&gt;", y, "&lt;---", "0; }
+define void px (x) { print "---&gt;", x, "&lt;---", "0; }
+py(1)
+---&gt;1&lt;---
+0
+px(1)
+---&gt;1&lt;---
+</pre>
+<p class="tab">Since <b>py</b> is not a void function, the call of <b>py(1)</b> prints the desired output and then prints a second line that is the value of the function. Since the value of a function that is not given an explicit return statement is zero, the zero is printed. For <b>px(1)</b>, no zero is printed because the function is a void function.</p>
+<p class="tab">Also, call by variable for arrays was added. To declare a call by variable array, the declaration of the array parameter in the function definition looks like "<b>*name[]</b>". The call to the function remains the same as call by value arrays.</p>
+<h2 id="math-library">Math library</h2>
+<p class="tab">If <b>bc</b> is invoked with the <b>-l</b> option, a math library is preloaded and the default scale is set to 20. The math functions calculate their results to the scale set at the time of their call. The math library defines the following functions:</p>
+<ul>
+<li><b>s (</b><i>x</i><b>)</b> - The sine of <i>x</i>, in radians.</li>
+<li><b>c (</b><i>x</i><b>)</b> - The cosine of <i>x</i>, in radians.</li>
+<li><b>a (</b><i>x</i><b>)</b> - The arctangent of <i>x</i>, in radians.</li>
+<li><b>l (</b><i>x</i><b>)</b> - The natural logarithm of <i>x</i>.</li>
+<li><b>e (</b><i>x</i><b>)</b> - The exponential function of raising <i>e</i> to the value <i>x</i>.</li>
+<li><b>j (</b><i>n</i><b>,</b><i>x</i><b>)</b> - The <a href="https://en.wikipedia.org/wiki/Bessel_function" class="external">Bessel function</a> of integer order <i>n</i> of <i>x</i>.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<p class="tab">In <a href="/jargon/s/sh.htm">sh</a>, the following code assigns the value of <a href="/jargon/p/pi.htm">pi</a> to the shell variable <b>pi</b>. Here, <b>a</b> refers to the arctangent function, which is part of the math library loaded with the <b>-l</b> option:</p>
+<pre class="tab tcy">pi=$(echo &quot;scale=10; 4*a(1)&quot; | bc -l)</pre>
+<p class="tab">The following is the definition of the exponential function used in the math library. This function is written in POSIX <b>bc</b>.</p>
+<pre class="tab tcy">scale = 20
+/* Uses the fact that e^x = (e^(x/2))^2
+   When x is small enough, we use the series:
+     e^x = 1 + x + x^2/2! + x^3/3! + ...
+*/
+define e(x) {
+  auto  a, d, e, f, i, m, v, z
+  /* Check the sign of x. */
+  if (x&lt;0) {
+    m = 1
+    x = -x
+  }
+  /* Precondition x. */
+  z = scale;
+  scale = 4 + z + .44*x;
+  while (x &gt; 1) {
+    f += 1;
+    x /= 2;
+  }
+  /* Initialize the variables. */
+  v = 1+x
+  a = x
+  d = 1
+  for (i=2; 1; i++) {
+    e = (a *= x) / (d *= i)
+    if (e == 0) {
+      if (f&gt;0) while (f--)  v = v*v;
+      scale = z
+      if (m) return (1/v);
+      return (v/1);
+    }
+    v += e
+  }
+}</pre>
+<p class="tab">The following is code that uses the extended features of <b>bc</b> to implement a simple program for calculating checkbook balances. This program is best kept in a file so that it can be used many times without having to retype it at every use.</p>
+<pre class="tab tcy">scale=2
+print &quot;\nCheck book program!\n&quot;
+print &quot;  Remember, deposits are negative transactions.\n&quot;
+print &quot;  Exit by a 0 transaction.\n\n&quot;
+print &quot;Initial balance? &quot;; bal = read()
+bal /= 1
+print &quot;\n&quot;
+while (1) {
+  &quot;current balance = &quot;; bal
+  &quot;transaction? &quot;; trans = read()
+  if (trans == 0) break;
+  bal -= trans
+  bal /= 1
+}
+quit</pre>
+<p class="tab">The following is the definition of the recursive factorial function.</p>
+<pre class="tab tcy">define f (x) { if (x &lt;= 1) return (1); return (f(x-1) * x); }</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/udc.htm"><b>dc</b></a> &mdash; An arbitrary precision arithmetic package.<br><a href="/unix/uawk.htm"><b>awk</b></a> &mdash; Interpreter for the AWK text processing programming language.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82b74d0ec3c5',m:'vNIM7aPMth4NJFaaJoyoS26bgzIlubLvzjyKcXjId3s-1661495340-0-ARSvk0+AowD4PcXFokVysMAdhUEOtwxee2wB7p3C4DdZ/TMoHYN9H7lZMjKUuhzYOq6tzGjqhSEwnbvidFTfIrdOYZrzR4tXpZKBRpGRcHgZPAmVyfSAQ8KcEGia8wk7GA==',s:[0x74ddd4b76a,0x8d30a6fb4d],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux cal and ncal command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/cal.gif" width="300" height="300" alt="cal and ncal command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>cal</b> and <b>ncal</b> commands display a formatted calendar in the <a href="/jargon/t/terminal.htm">terminal</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">By default, the calendar displayed by <b>cal</b> looks like this:</p>
+<pre class="tab">     April 2019       
+Su Mo Tu We Th Fr Sa  
+    1  2  3  4  5  6  
+ 7  8  9 <b>10</b> 11 12 13  
+14 15 16 17 18 19 20  
+21 22 23 24 25 26 27  
+28 29 30</pre>
+<p class="tab">The <b>ncal</b> (&quot;new cal&quot;) command provides the same functions of <b>cal</b>, but it can display the calendar vertically (with weeks in columns). On systems with <b>ncal</b> installed, <b>cal</b> is often a <a href="/jargon/s/symblink.htm">symbolic link</a> to <b>ncal</b>. It behaves like the original <b>cal</b> if you use the name <b>cal</b> to run the program.</p>
+<p class="tab">If no options are specified, <b>cal</b> and <b>ncal</b> display the current month, with the current day highlighted.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab"><b>cal</b> [<i>month</i>] [<i>year</i>] [<b>-m</b> <i>month</i>] [<b>-y</b> <i>year</i>] [<b>-h</b>] [<b>-3</b>] [<b>-1</b>] [<b>-A</b> <i>num</i>] [<b>-B</b> <i>num</i>]
+    [<b>-d</b> <i>YYYY</i><b>-</b><i>MM</i>] [<b>-j</b>] [<b>-N</b>]</pre>
+<pre class="tcy tab"><b>ncal</b> [<i>month</i>] [<i>year</i>] [<b>-m</b> <i>month</i>] [<b>-y</b> <i>year</i>] [<b>-h</b>] [<b>-3</b>] [<b>-1</b>] [<b>-A</b> <i>num</i>] [<b>-B</b> <i>num</i>]
+     [<b>-d</b> <i>YYYY</i><b>-</b><i>MM</i>] [<b>-J</b>] [<b>-C</b>] [<b>-e</b>] [<b>-o</b>] [<b>-p</b>] [<b>-w</b>] [<b>-M</b>] [<b>-S</b>] [<b>-b</b>]</pre>
+<h2 id="options">Options</h2>
+<p class="tab">The following options are available in both <b>cal</b> and <b>ncal</b>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<th style="width:120px">Option</th>
+<th>Description</th>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Don't highlight today's date.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b> <i>month</i></td>
+<td>Specify a month to display. The <i>month</i> specifier is a full month name (e.g., <b>Februiary</b>), a month abbreviation of at least three letters (e.g., <b>Feb</b>), or a number (e.g., <b>2</b>). If you specify a number, followed by the letter <b>f</b> or <b>p</b>, the month of the following or previous year, respectively, display. For instance, <b>-m 2f</b> displays February of next year.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b> <i>year</i></td>
+<td>Specify a year to display. For example, <b>-y 1970</b> displays the entire calendar of the year 1970.</td>
+</tr>
+<tr class="tcw">
+<td><b>-3</b></td>
+<td>Display last month, this month, and next month.</td>
+</tr>
+<tr class="tcw">
+<td><b>-1</b></td>
+<td>Display only this month. This is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b> <i>num</i></td>
+<td>Display <i>num</i> months occurring after any months already specified. For example, <b>-3 -A 3</b> displays last month, this month, and four months after this one; and <b>-y 1970 -A 2</b> displays every month in 1970, and the first two months of 1971.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b> <i>num</i></td>
+<td>Display <i>num</i> months occurring before any months already specified. For example, <b>-3 -B 2</b> displays the previous three months, this month, and next month.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>YYYY</i><b>-</b><i>MM</i></td>
+<td>Operate as if the current month is number <i>MM</i> of year <i>YYYY</i>.</td>
+</tr>
+</table>
+<h3 class="tab">Options: cal</h3>
+<p class="tab">The following options are available only in <b>cal</b>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<th>Option</th>
+<th>Description</th>
+</tr>
+<tr class="tcw">
+<td><b>-j</b></td>
+<td>Display a Julian calendar, instead of the default Gregorian calendar. All days are numbered from January 1, rather than from the beginning of the month.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b></td>
+<td>Behave as if you ran <b>ncal</b>, using its options and display output.</td>
+</tr>
+</table>
+<h3 class="tab">Options: ncal</h3>
+<p class="tab">The following options are available only in <b>ncal</b>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<th>Option</th>
+<th>Description</th>
+</tr>
+<tr class="tcw">
+<td><b>-J</b></td>
+<td>Display a Julian calendar, instead of the default Gregorian calendar. All days are numbered from January 1, rather than from the beginning of the month. If combined with <b>-o</b>, display the date of Orthodox Easter according to the Julian calendar.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>Display the date of Easter for western calendars. This option exists because Easter is a defining date when calculating traditional calendar dates.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b></td>
+<td>Display the date of orthodox Easter.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Print country codes and &quot;switching days&quot; for switching from Julian to Gregorian calendars in various countries.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b></td>
+<td>Print the number of the week under each week column.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>Behave as if you ran <b>cal</b>, using its options and display output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b></td>
+<td>Display weeks with Monday as the first day.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b></td>
+<td>Display weeks with Sunday as the first day. This is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>Use the calendar display format of <b>cal</b>.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">cal</pre>
+<p class="tab">Display the calendar for this month, with today highlighted.</p>
+<pre class="tcy tab">cal -h</pre>
+<p class="tab">Same as the previous command, but do not highlight today.</p>
+<pre class="tcy tab">cal -3</pre>
+<p class="tab">Display last month, this month, and next month.</p>
+<pre class="tcy tab">cal -y</pre>
+<p class="tab">Display this entire year's calendar.</p>
+<pre class="tcy tab">cal -y 2000</pre>
+<p class="tab">Display the entire year 2000 calendar.</p>
+<pre class="tcy tab">cal 2000</pre>
+<p class="tab">Same as the previous command.</p>
+<pre class="tab tcy">cal -m December</pre>
+<p class="tab">Display the calendar for December of this year.</p>
+<pre class="tab tcy">cal -m Dec</pre>
+<p class="tab">Same as the previous command.</p>
+<pre class="tcy tab">cal -m 12</pre>
+<p class="tab">Same as the previous two commands.</p>
+<pre class="tcy tab">cal 12</pre>
+<p class="tab">Same as the previous three commands.</p>
+<pre class="tcy tab">cal 12 2000</pre>
+<p class="tab">Display the calendar for December 2000.</p>
+<pre class="tcy tab">ncal</pre>
+<p class="tab">Display this month's calendar, with weeks arranged vertically rather than horizontally.</p>
+<pre class="tcy tab">ncal -y</pre>
+<p class="tab">Use a vertical calendar representation, displaying the entire year.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucalande.htm"><b>calendar</b></a> &mdash; Display appointments and reminders.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82bb981bc406',m:'pHfkxWbyDB.jYeJPjUEtjZh02UKO7GOHgnEn7B3Dp.o-1661495341-0-AYoXK10Tc88TRURN7LcTSeqbQDd61fYxS99D3p5p2UkZkUu+KS/IPveoD49VAEXRrPjy2MG/xeqsYQyc5o+lJfQy2/fFRBH70ZTF0zN7DhMuJ+qtld5LH577zV1WsXdQPA==',s:[0x1dff18ed34,0x6578522a6b],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

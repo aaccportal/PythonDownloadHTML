@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux test command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/test.gif" width="300" height="300" alt="test command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>test</b> command checks file types and compares values.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>test</b>.</p>
+<div class="tip" role="note">
+<span class="title">Tip</span>
+<p>For information about the test command in bash see our <a href="/unix/bash/test.htm">bash test command</a> page.</p>
+</div>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#expressions">Expressions</a></li>
+<li><a href="#examples">Examples</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>test</b> is used as part of the <a href="/jargon/c/contstat.htm">conditional</a> execution of <a href="/jargon/s/shell.htm">shell</a> commands.</p>
+<p class="tab"><b>test</b> exits with the status determined by EXPRESSION. Placing the EXPRESSION between square brackets (<b>[</b> and <b>]</b>) is the same as testing the EXPRESSION with <b>test</b>. To see the exit status at the command prompt, <a href="/unix/uecho.htm">echo</a> the value "<b>$?</b>" A value of 0 means the expression evaluated as true, and a value of 1 means the expression evaluated as false.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">test <i>EXPRESSION</i></pre>
+<pre class="tcy tab">[ <i>EXPRESSION</i> ]</pre>
+<h2 id="expressions">Expressions</h2>
+<p class="tab">Expressions take the following forms:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:300px"><b>(</b> <i>EXPRESSION</i> <b>)</b></td>
+<td><i>EXPRESSION</i> is true</td>
+</tr>
+<tr class="tcw">
+<td><b>!</b> <i>EXPRESSION</i></td>
+<td><i>EXPRESSION</i> is false</td>
+</tr>
+<tr class="tcw">
+<td><i>EXPRESSION1</i> <b>-a</b> <i>EXPRESSION2</i></td>
+<td>both <i>EXPRESSION1</i> and <i>EXPRESSION2</i> are true</td>
+</tr>
+<tr class="tcw">
+<td><i>EXPRESSION1</i> <b>-o</b> <i>EXPRESSION2</i></td>
+<td>either <i>EXPRESSION1</i> or <i>EXPRESSION2</i> is true</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b> <i><a href="/jargon/s/string.htm">STRING</a></i></td>
+<td>the length of <i>STRING</i> is nonzero</td>
+</tr>
+<tr class="tcw">
+<td><i>STRING</i></td>
+<td>equivalent to <b>-n</b> <i>STRING</i></td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b> <i>STRING</i></td>
+<td>the length of <i>STRING</i> is zero</td>
+</tr>
+<tr class="tcw">
+<td><i>STRING1</i> <b>=</b> <i>STRING2</i></td>
+<td>the strings are equal</td>
+</tr>
+<tr class="tcw">
+<td><i>STRING1</i> <b>!=</b> <i>STRING2</i></td>
+<td>the strings are not equal</td>
+</tr>
+<tr class="tcw">
+<td><i>INTEGER1</i> <b>-eq</b> <i>INTEGER2</i></td>
+<td><i>INTEGER1</i> is equal to <i>INTEGER2</i></td>
+</tr>
+<tr class="tcw">
+<td><i>INTEGER1</i> <b>-ge</b> <i>INTEGER2</i></td>
+<td><i>INTEGER1</i> is greater than or equal to <i>INTEGER2</i></td>
+</tr>
+<tr class="tcw">
+<td><i>INTEGER1</i> <b>-gt</b> <i>INTEGER2</i></td>
+<td><i>INTEGER1</i> is greater than <i>INTEGER2</i></td>
+</tr>
+<tr class="tcw">
+<td><i>INTEGER1</i> <b>-le</b> <i>INTEGER2</i></td>
+<td><i>INTEGER1</i> is less than or equal to <i>INTEGER2</i></td>
+</tr>
+<tr class="tcw">
+<td><i>INTEGER1</i> <b>-lt</b> <i>INTEGER2</i></td>
+<td><i>INTEGER1</i> is less than <i>INTEGER2</i></td>
+</tr>
+<tr class="tcw">
+<td><i>INTEGER1</i> <b>-ne</b> <i>INTEGER2</i></td>
+<td><i>INTEGER1</i> is not equal to <i>INTEGER2</i></td>
+</tr>
+<tr class="tcw">
+<td><i>FILE1</i> <b>-ef</b> <i>FILE2</i></td>
+<td><i>FILE1</i> and <i>FILE2</i> have the same device and <a href="/jargon/i/inode.htm">inode</a> numbers</td>
+</tr>
+<tr class="tcw">
+<td><i>FILE1</i> <b>-nt</b> <i>FILE2</i></td>
+<td><i>FILE1</i> is newer (modification date) than <i>FILE2</i></td>
+</tr>
+<tr class="tcw">
+<td><i>FILE1</i> <b>-ot</b> <i>FILE2</i></td>
+<td><i>FILE1</i> is older than <i>FILE2</i></td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and is <a href="/jargon/b/block.htm">block</a> special</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and is <a href="/jargon/c/charact.htm">character</a> special</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and is a <a href="/jargon/d/director.htm">directory</a></td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b> <i>FILE</i></td>
+<td><i>FILE</i> exists</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and is a regular file</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and is set-group-ID</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and is owned by the effective group ID</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and is a <a href="/jargon/s/symblink.htm">symbolic link</a> (same as <b>-L</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and has its sticky bit set</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and is a symbolic link (same as <b>-h</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and is owned by the effective user ID</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and is a named pipe</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and read <a href="/jargon/p/permissi.htm">permission</a> is granted</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and has a size greater than zero</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and is a socket</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>FD</i></td>
+<td>file descriptor <i>FD</i> is opened on a terminal</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and its set-user-ID bit is set</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and write permission is granted</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b> <i>FILE</i></td>
+<td><i>FILE</i> exists and execute (or search) permission is granted</td>
+</tr>
+</table>
+<p class="tab">Except for <b>-h</b> and <b>-L</b>, all <i>FILE-related</i> tests dereference symbolic links. Beware that parentheses need to be escaped (e.g., by backslashes) for shells. <b>INTEGER</b> may also be <b>-l STRING</b>, which evaluates to the length of <b>STRING</b>.</p>
+<p class="tab"><b>NOTE:</b> your shell may have its own version of <b>test</b>, which usually supersedes the version described here. Please refer to your shell's documentation for details about the options it supports.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">test 100 -gt 99 &amp;&amp; echo "Yes, that's true." || echo "No, that's false."</pre>
+<p class="tab">This command prints the text "<b>Yes, that's true.</b>" because <b>100</b> is greater than <b>99</b>.</p>
+<pre class="tcy tab">test 100 -lt 99 &amp;&amp; echo "Yes." || echo "No."</pre>
+<p class="tab">This command prints the text "<b>No.</b>" because <b>100</b> is not less than <b>99</b>.</p>
+<pre class="tcy tab">[ "awesome" = "awesome" ]; echo $?</pre>
+<p class="tab">This command prints "<b>0</b>" because the expression is true; the two strings are identical.</p>
+<pre class="tcy tab">[ 5 -eq 6 ]; echo $?</pre>
+<p class="tab">This command prints "<b>1</b>" because the expression is false; 5 does not equal 6.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8362dc91c3d4',m:'xLBSucaqwcVjd59DiBf6.EP063iTno7Ms90Iamt8LjI-1661495368-0-AaSB98FDNA0J4nXrNrw8O5Y/72lakSTPl8bH7ey8pjw8BvAYN82G4hj1LVf3TSJZ23WrVPo5j3iXBl7l8n2baCmnj7RBUFv8AL5uvsc82O0TV1TnMxct7qbJYP55niEIgg==',s:[0x466d219325,0xe2856fda27],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

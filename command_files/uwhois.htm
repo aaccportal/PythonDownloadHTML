@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux whois command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/whois.gif" width="300" height="300" alt="whois command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>whois</b> command is a client for the WHOIS directory service.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#history">History</a></li>
+<li><a href="#notes">Technical notes</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>whois</b> searches for an object in a WHOIS database. WHOIS is a <a href="/jargon/q/query.htm">query</a> and response protocol that is widely used for querying <a href="/jargon/d/database.htm">databases</a> that store the registered users of an <a href="/jargon/i/internet.htm">Internet</a> resource, such as a <a href="/jargon/d/domain.htm">domain name</a> or an <a href="/jargon/i/ip.htm">IP</a> <a href="/jargon/a/address.htm">address</a> block, but is also used for a wider range of other information.</p>
+<p class="tab">Most modern versions of <b>whois</b> try to guess the right server to ask for the specified object. If no guess can be made, <b>whois</b> will connect to <b>whois.networksolutions.com</b> for NIC handles or <b>whois.arin.net</b> for <a href="/jargon/i/ipv4.htm">IPv4</a> addresses and network names.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">whois [ -h <i>HOST</i> ] [ -p <i>PORT</i> ] [ -aCFHlLMmrRSVx ] [ -g <i>SOURCE</i>:<i>FIRST-LAST</i> ] 
+      [ -i <i>ATTR</i> ] [ -S <i>SOURCE</i> ] [ -T <i>TYPE</i> ] <i>object</i></pre>
+<pre class="tcy tab">whois -t <i>TYPE</i></pre>
+<p class="tcy tab">whois -v <i>TYPE</i></p>
+<p class="tcy tab">whois -q <i>keyword</i></p>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>-h</b> <i>HOST</i></td>
+<td>Connect to WHOIS database host <i>HOST</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b></td>
+<td>Suppress the display of legal disclaimers.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>PORT</i></td>
+<td>When connecting, connect to network port <i>PORT</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--verbose</b></td>
+<td>Operate <a href="/jargon/v/verbose.htm">verbosely</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+</table>
+<h2 id="history">History</h2>
+<p class="tab">When the Internet was first emerging from the primordial ooze of the <a href="/jargon/a/arpanet.htm">ARPANET</a>, there was only one organization that handled all domain registrations: <a href="/jargon/d/darpa.htm">DARPA</a>. WHOIS was developed (and standardized in the early '80s) to look up domains, people and other resources related to domain and number registrations. Because all registration was done by one organization at that time, there was one centralized server for all WHOIS queries. This made looking up WHOIS information very easy.</p>
+<p class="tab">The first WHOIS servers were highly permissive and would allow <a href="/jargon/w/wildcard.htm">wildcard</a> searches. A WHOIS query of a person's last name would yield all individuals with that name; a query with given <a href="/jargon/k/keyword.htm">keyword</a> returned all registered domains containing that keyword. A query for given administrative contact returned all domains associated with the administrator. Since the advent of the commercialized Internet, multiple registrars, and <a href="/jargon/s/spam.htm">spammers</a>, such permissive searching is no longer available.</p>
+<p class="tab">Responsibility of domain registration remained with DARPA as the ARPANET became the Internet during the 1980s. Then the National Science Foundation directed that management of Internet domain registration would be handled by commercial, third-party entities. <a href="/jargon/i/internic.htm">InterNIC</a> was formed in 1993 under contract with the NSF, consisting of <a href="/jargon/n/netwsolu.htm">Network Solutions</a>, Inc., General Atomics and <a href="/comp/att.htm">AT&amp;T</a>. In 1999, management of the <a href="/jargon/t/tld.htm">TLD</a> <b>.com</b>, <b>.net</b>, and <b>.org</b> was assigned to <a href="/jargon/i/icann.htm">ICANN</a>.</p>
+<p class="tab">By 2005, there were many more generic top-level domains than there had been in the early 1980s, and many more country-code top-level domains. This led to a complex network of domain name registrars and registrar associations, especially as the management of Internet infrastructure became more internationalized. As a result, performing a WHOIS query on a domain now requires knowing the correct, authoritative WHOIS server to use, and tools to do WHOIS <a href="/jargon/p/proxyser.htm">proxy</a> searches have become common.</p>
+<p class="tab">In 2004, an <a href="/jargon/i/ietf.htm">IETF</a> committee was formed to create a new standard for looking up information on domain names and network numbers. The current working name for this proposed new standard is Cross Registry Information Service Protocol, or <b>CRISP</b>. It is intended to someday replace WHOIS, but is currently still in development.</p>
+<h2 id="notes">Technical notes</h2>
+<p class="tab">Please remember that <b>whois.networksolutions.com</b> by default only searches in the domains database. If you want to search for NIC handles, you have to prepend a "<b>!</b>" character. When you do this, the default server becomes <b>whois.networksolutions.com</b>.</p>
+<p class="tab">When querying <b>whois.arin.net</b> for IPv4 or <a href="/jargon/i/ipv6.htm">IPv6</a> networks, the CIDR <a href="/jargon/n/netmask.htm">netmask</a> length will be automatically removed from the query <a href="/jargon/s/string.htm">string</a>.</p>
+<p class="tab">When querying <b>whois.nic.ad.jp</b> for AS numbers, the program automatically converts the request in the appropriate format, inserting a space after the string AS.</p>
+<p class="tab">When querying <b>whois.denic.de</b> for domain names and no other flags are specified, the program automatically adds the flag <b>-T dn</b>.</p>
+<p class="tab">When querying <b>whois.dk-hostmaster.dk</b> for domain names and no other flags are specified, the program automatically adds the flag <b>--show-handles</b>.</p>
+<p class="tab">If the <b>/etc/whois.conf</b> config file exists, it will be consulted to find a server before applying the normal rules. Each line of the file should contain a <a href="/jargon/r/regex.htm">regular expression</a> to be matched against the query text and the WHOIS server to use, separated by <a href="/jargon/w/whitspac.htm">white space</a>. IDN domains must use the ACE (ASCII Compatible Encoding) format.</p>
+<p class="tab">The WHOIS protocol does not specify an <a href="/jargon/c/charcode.htm">encoding</a> for characters which cannot be represented by <a href="/jargon/a/ascii.htm">ASCII</a> and implementations vary wildly. If the program knows that a specific server uses a certain encoding, if needed it will transcode the server output to the encoding specified by the current system locale.</p>
+<p class="tab"><a href="/jargon/c/commandi.htm">Command line</a> <a href="/jargon/a/argument.htm">arguments</a> are always be interpreted accordingly to the current system locale and converted to the IDN ASCII Compatible Encoding.</p>
+<h2 id="configuration">Configuration</h2>
+<p class="tab">The <b>whois</b> configuration file is located at <b>/etc/whois.conf</b> by default.</p>
+<h2 id="environment">Environment</h2>
+<p class="tab">The following <a href="/jargon/e/envivari.htm">environment variables</a> affect the operation of <b>whois</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><b>LANG</b></td>
+<td>When querying <b>whois.nic.ad.jp</b> and <b>whois.jprs.jp</b>, English text is requested unless the <b>LANG</b> or <b>LC_MESSAGES</b> environment variables specify a Japanese locale.</td>
+</tr>
+<tr class="tcw">
+<td><b>WHOIS_OPTIONS</b></td>
+<td>A list of options which will be evaluated before the ones specified on the command line.</td>
+</tr>
+<tr class="tcw">
+<td><b>WHOIS_SERVER</b></td>
+<td>This server will be queried if the program cannot guess where some kind of objects are located. If the variable does not exist then <b>whois.arin.net</b> will be queried.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">whois computerhope.com</pre>
+<p class="tab">Performs a <b>whois</b> query for the domain name <b>computerhope.com</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uwho.htm"><b>who</b></a> &mdash; Report which users are logged in to the system.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83808c0d84c8',m:'kboyU05ntDTAXlTjogq7HgAJjNBq84f0EE0VeYNjp9M-1661495372-0-AcDMtpruABm50fvVl+r5/606bL/5H2yB+nzuPfIsyVVsJH4oQLJCxndeg0GtUgLVcvZDVw+JyxPsQpKFbjIs634zOVtlyf+OHZxeuQQ12Y6NbaKSz71dn5kpas4Hvx1d8w==',s:[0x1633359ccc,0xfa5139a1a8],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

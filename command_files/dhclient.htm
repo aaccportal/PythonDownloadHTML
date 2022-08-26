@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux dhclient command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-08-16">08/16/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/dhclient.gif" width="300" height="300" alt="dhclient command" class="floatRight"><p class="intro">The Internet Systems Consortium <a href="/jargon/d/dhcp.htm">DHCP</a> Client, <b>dhclient</b>, provides a means for configuring one or more network interfaces using the Dynamic Host Configuration Protocol, <a href="/jargon/b/bootp.htm">BOOTP</a> protocol, or if these <a href="/jargon/p/protocol.htm">protocols</a> fail, by <a href="/jargon/s/statallo.htm">statically assigning</a> an <a href="/jargon/a/address.htm">address</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#omapi">Omapi</a></li>
+<li><a href="#control">The control object</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The DHCP protocol allows a <a href="/jargon/h/hostcomp.htm">host</a> to contact a central <a href="/jargon/s/server.htm">server</a> which maintains a list of <a href="/jargon/i/ip.htm">IP addresses</a> which may be assigned on one or more <a href="/jargon/s/subnetma.htm">subnets</a>. A DHCP client may request an address from this pool, and then use it on a temporary basis for communication on network. The DHCP protocol also provides a mechanism whereby a client can learn important details about the attached network, such as the location of a default <a href="/jargon/r/router.htm">router</a>, the location of a <a href="/jargon/n/nameser.htm">name server</a>, etc.</p>
+<p class="tab">On startup, <b>dhclient</b> reads the file <b>dhclient.conf</b> for configuration instructions. It then gets a list of all the network interfaces that are configured in the current system. For each interface, it attempts to configure the interface using the DHCP protocol.</p>
+<p class="tab">To keep track of leases across system <a href="/jargon/r/reboot.htm">reboots</a> and server restarts, dhclient keeps a list of leases it was assigned in the <b>dhclient.leases</b> file. On startup, after reading the <b>dhclient.conf</b> file, dhclient reads the <b>dhclient.leases</b> file to refresh its memory about what leases it was assigned.</p>
+<p class="tab">When a new lease is acquired, it is appended to the end of the <b>dhclient.leases</b> file. To prevent the file from becoming arbitrarily large, from time to time dhclient creates a new <b>dhclient.leases</b> file from its in-core lease <a href="/jargon/d/database.htm">database</a>. The old version of the <b>dhclient.leases</b> file is retained under the name <b>dhclient.leases~</b> until the next time dhclient rewrites the database.</p>
+<p class="tab">Old leases are kept around in case the DHCP server is unavailable when <b>dhclient</b> is first invoked (generally during the initial system boot process). In that event, old leases from the <b>dhclient.leases</b> file which have not yet expired are tested, and if they are determined to be valid, they are used until either they expire or the DHCP server becomes available.</p>
+<p class="tab">A mobile host which may sometimes need to access a network on which no DHCP server exists may be preloaded with a lease for a fixed address on that network. When all attempts to contact a DHCP server have failed, dhclient will try to validate the static lease, and if it succeeds, uses that lease until it is restarted.</p>
+<p class="tab">A mobile host may also travel to some networks on which DHCP is not available but <a href="/jargon/b/bootp.htm">BOOTP</a> is. In that case, it may be advantageous to arrange with the network <a href="/jargon/r/root.htm">administrator</a> for an entry on the BOOTP database, so that the host can boot quickly on that network rather than cycling through the list of old leases.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">dhclient [ -4 | -6 ] [ -S ] [ -N [ -N... ] ] [ -T [ -T... ] ] [ -P [ -P... ] ]
+         [ -p <i>port</i> ] [ -d ] [ -e VAR=<i>value</i> ] [ -q ] [ -1 ] [ -r | -x ]
+         [ -lf <i>lease-file</i> ] [ -pf <i>pid-file</i> ] [ -cf <i>config-file</i> ]
+         [ -sf <i>script-file</i> ] [ -s <i>server</i> ] [ -g <i>relay</i> ] [ -n ] [ -nc ] [ -nw ]
+         [ -w ] [ -B ] [ -I <i>dhcp-client-identifier</i> ] [ -H <i>host-name</i> ]
+         [ -F <i>fqdn</i>.<i>fqdn</i> ] [ -V <i>vendor-class-identifier</i> ]
+         [ -R <i>request-option-list</i> ] [ -timeout <i>timeout</i> ] [ -v ] [ --<i>version</i> ]
+         [ if0 [ ...ifN ] ]
+</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:260px"><b>-4</b></td>
+<td>Use the DHCPv4 protocol to obtain an IPv4 address and configuration <a href="/jargon/p/paramete.htm">parameters</a> (default).</td>
+</tr>
+<tr class="tcw">
+<td><b>-6</b></td>
+<td>Use the DHCPv6 protocol to obtain whatever IPv6 addresses are available with configuration parameters. The functionality of DHCPv6 mode may be modified with the <b>-S</b>, <b>-T</b>, and <b>-N</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b></td>
+<td>Perform an information-only request over DHCPv6 to get stateless configuration parameters. It is not recommended to combine this option with the <b>-N</b>, <b>-P</b>, or <b>-T</b> options or share lease files between different modes of operation. Only valid with the <b>-6</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b></td>
+<td>Perform a normal (IA_NA) address <a href="/jargon/q/query.htm">query</a> over DHCPv6. It is not recommended to combine this option with the <b>-P</b>, <b>-S</b>, or <b>-T</b> options or share lease files between different modes of operation. Only valid with the <b>-6</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b></td>
+<td>Perform a temporary (IA_TA) address query over DHCPv6 (disables normal address query). It is not recommended to combine this option with the <b>-N</b>, <b>-P</b>, or <b>-S</b> options or share lease files between different modes of operation. Only valid with the <b>-6</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b></td>
+<td>Enable IPv6 prefix delegation (disables normal address query). It is not recommended to combine this option with the <b>-N</b>, <b>-S</b>, or <b>-T</b> options or share lease files between different modes of operation. Only valid with the <b>-6</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>&lt;port number&gt;</i></td>
+<td>The UDP port number the DHCP client should listen and transmit. If unspecified, dhclient uses the default port 68. This option is mostly useful for debugging purposes. If a different port is specified for the client to listen and transmit on, the client also uses a different destination port: one less than the specified port.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Force dhclient to run as a <a href="/jargon/f/foregrou.htm">foreground</a> <a href="/jargon/p/process.htm">process</a>. This is useful when running the client under a <a href="/jargon/d/debug.htm">debugger</a>, or when running it out of inittab on System V systems.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b> <i>VAR</i><b>=</b><i>value</i></td>
+<td>Define additional <a href="/jargon/e/envivari.htm">environment variables</a> for the <a href="/jargon/e/environm.htm">environment</a> where <b>dhclient-script</b> executes. You may specify multiple <b>-e</b> options on the command line. For example: <b>-e IF_METRIC=1</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b></td>
+<td>Suppress all terminal and log output except error messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-1</b></td>
+<td>Try once to get a lease. One failure, exit with code 2.</td>
+</tr>
+<tr class="tcw">
+<td id="release"><p><b>-r</b></p></td>
+<td>Tell <b>dhclient</b> to release the current lease it has from the server. This is not required by the DHCP protocol, but some ISPs require their clients to notify the server if they want to release an assigned IP address.</td>
+</tr>
+<tr class="tcw">
+<td><b>-lf</b> <i>&lt;lease-file&gt;</i></td>
+<td>Path to the lease database file. If unspecified, the default <b>/var/lib/dhclient/dhclient.leases</b> is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-pf</b> <i>&lt;pid-file&gt;</i></td>
+<td>Path to the process ID file. If unspecified, the default <b>/var/run/dhclient.pid</b> is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-cf</b> <i>&lt;config-file&gt;</i></td>
+<td>Path to the client configuration file. If unspecified, the default <b>/etc/dhcp/dhclient.conf</b> is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-sf</b> <i>&lt;script-file&gt;</i></td>
+<td>Path to the network configuration script invoked by dhclient when it gets a lease. If unspecified, the default <b>/sbin/dhclient-script</b> is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>&lt;server&gt;</i></td>
+<td>Specify the server IP address or fully qualified domain name to transmit DHCP protocol messages. Normally, <b>dhclient</b> transmits these messages to 255.255.255.255 (the IP limited broadcast address). Overriding this is mostly useful for debugging purposes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b> <i>&lt;relay&gt;</i></td>
+<td>Only for debugging. Set the giaddr field of all packets the client sends to the IP address specified. This should not be expected to work in any consistent or useful way.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Do not configure any interfaces. Most useful combined with the <b>-w</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-nc</b></td>
+<td>Do not drop capabilities.<br><br> Normally, if dhclient was compiled with <b>libcap-ng</b> support, dhclient drops most capabilities immediately upon startup. While more secure, this greatly restricts the additional actions that hooks in <b>dhclient-script</b> can take. (For example, any daemons that <b>dhclient-script</b> starts or restarts will inherit the restricted capabilities as well, which may interfere with their correct operation.) Thus, the <b>-nc</b> option can prevent dhclient from dropping capabilities. The <b>-nc</b> option is ignored if dhclient was not compiled with <b>libcap-ng</b> support.</td>
+</tr>
+<tr class="tcw">
+<td><b>-nw</b></td>
+<td>Become a daemon process immediately (nowait) rather than waiting until an IP address is acquired.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b></td>
+<td>Keep running even if no network interfaces are found. The <b>omshell</b> program can notify the client when a network interface is added or removed so it can attempt to configure an IP address on that interface.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b></td>
+<td>Set the BOOTP broadcast flag in request packets so servers always broadcast replies.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> <i>&lt;dhcp-client-identifier&gt;</i></td>
+<td>Specify the <i>dhcp-client-identifier</i> option to send to the DHCP server.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b> <i>&lt;host-name&gt;</i></td>
+<td>Specify the <i>host-name</i> option to send to the DHCP server. The <i>host-name</i> string only contains the client's <a href="/jargon/h/hostname.htm">hostname</a> prefix that the server will append the <i>ddns-domainname</i> or <i>domain-name</i> options, if any, to derive the fully qualified domain name of the client. The <b>-H</b> option cannot be used with the <b>-F</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b> <i>&lt;fqdn.fqdn&gt;</i></td>
+<td>Specify the <i>fqdn.fqdn</i> option to send to the DHCP server. This option cannot be used with the <b>-H</b> option. The <i>fqdn.fqdn</i> option must specify the complete domain name of the client host, which the server may use for dynamic DNS updates.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b> <i>&lt;vendor-class-identifier&gt;</i></td>
+<td>Specify the vendor-class-identifier option to send to the DHCP server.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b> <i>&lt;option&gt;</i>[<b>,</b><i>&lt;option&gt;</i>...]</td>
+<td>Specify the list of options the client is to request from the server. The option list must be a single string consisting of option names separated by at least one command and optional space characters. The default option list is: <b>subnet-mask</b>, <b>broadcast-address</b>, <b>time-offset</b>, <b>routers</b>, <b>domain-name</b>, <b>domain-name-servers</b>, <b>host-name</b>, <b>nis-domain</b>, <b>nis-servers</b>, <b>ntp-servers</b>, <b>interface-mtu</b> The <b>-R</b> option does not append options to the default request, it overrides the default request list. Keep this in mind if you want to request an additional option besides the default request list. You have to specify all option names for the <b>-R</b> parameter.</td>
+</tr>
+<tr class="tcw">
+<td><b>-timeout</b> <i>&lt;timeout&gt;</i></td>
+<td>Specify the time after which <b>dhclient</b> will decide that no DHCP servers can be contacted when no responses are received.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Enable verbose log messages.</td>
+</tr>
+</table>
+<p class="tab">If the client is killed by a signal (for example at <a href="/jargon/s/shutdown.htm">shutdown</a> or reboot), it will not execute the <b>dhclient-script</b> at exit. However, if you shut the client down gracefully with <b>-r</b> or <b>-x</b> it will execute <b>dhclient-script</b> at shutdown with the specific reason for calling the script set in the environment table.</p>
+<h2 id="omapi">Omapi</h2>
+<p class="tab">The DHCP client provides some ability to control it while it is running, without stopping it. This capability is provided using OMAPI, an API for manipulating remote objects. OMAPI clients connect to the client using <a href="/jargon/t/tcpip.htm">TCP/IP</a>, authenticate, and can then examine the client's current status and make changes to it.</p>
+<p class="tab">Rather than implementing the underlying OMAPI protocol directly, user programs should use the dhcpctl API or OMAPI itself. Dhcpctl is a wrapper that handles some of the housekeeping chores that OMAPI does not do automatically. Most things you'd want to do with the client can be done directly using the <b>omshell</b> command, rather than having to write a special program.</p>
+<h2 id="control">The control object</h2>
+<p class="tab">The control object lets you shut the client down, releasing all leases that it holds and deleting any DNS records it may have added. It also lets you pause the client - this unconfigures any interfaces the client uses. You can then restart it, which causes it to reconfigure those interfaces. You would normally pause the client before going into <a href="/jargon/h/hibernat.htm">hibernation</a> or <a href="/jargon/s/sleep.htm">sleep</a> on a <a href="/jargon/l/laptop.htm">laptop computer</a>. You would then resume it after the power comes back. This allows PC cards to be shut down while the computer is hibernating or sleeping, and then reinitialized to their previous state once the computer comes out of hibernation or sleep.</p>
+<p class="tab">The control object has one attribute - the <i>state</i> attribute. To shut the client down, set its <i>state</i> attribute to <b>2</b>. It automatically does a <b>DHCPRELEASE</b>. To pause it, set its <i>state</i> attribute to <b>3</b>. To resume it, set its <i>state</i> attribute to <b>4</b>.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">dhclient eth0</pre>
+<p class="tab">Renews the dynamically-assigned <a href="/jargon/i/ip.htm">IP address</a> of a primary <a href="/jargon/e/ethernet.htm">Ethernet</a> device.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uifconfi.htm"><b>ifconfig</b></a> &mdash; View or modify the configuration of network interfaces.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82d3af7bc43d',m:'CeN__1U9zgvwLSmA438rzfJ.jNIR2ZNWb_JDz4MRIeA-1661495345-0-AQikUbDe53OK8EWZkIa7MBetxK0LZrxA/b98PIYUz2AgpXMd92R2GX2Xo4PbLiGwHGd5kRIpE0Dyv/FhM2tZ9yM37hMLSidOVbEZ3cvKN02xd7m72sWOgZKOHsmTDvVwKrQL+RNJIBW6soigjNNu604=',s:[0x90d227b231,0xa6a734b96f],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

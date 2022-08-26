@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux sh command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/sh.gif" width="300" height="300" alt="sh command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>sh</b> is the command name of the <a href="/jargon/b/bourne.htm">Bourne</a> <a href="/jargon/s/shell.htm">shell</a>, the standard command language <a href="/jargon/i/interpre.htm">interpreter</a> of <a href="/jargon/u/unix.htm">Unix</a> and many <a href="/jargon/u/unix-like.htm">Unix-like</a> <a href="/jargon/o/os.htm">operating systems</a>, including <a href="/jargon/l/linux.htm">Linux</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#description">Description and history</a></li>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#substitution">Command substitution</a></li>
+<li><a href="#parameter">Parameter substitution</a></li>
+<li><a href="#interpretation">Blank interpretation</a></li>
+<li><a href="#filename">File name generation</a></li>
+<li><a href="#quoting">Quoting</a></li>
+<li><a href="#prompting">Prompting</a></li>
+<li><a href="#input">Input and output</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#signals">Signals</a></li>
+<li><a href="#execution">Execution</a></li>
+<li><a href="#special">Special commands</a></li>
+<li><a href="#invocation">Invocation</a></li>
+<li><a href="#job">Job control</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">sh [-acefhikmnprstuvx] [<i>arg</i>] ...</pre>
+<h2 id="description">Description and history</h2>
+<p class="tab"><b>sh</b> is a command language interpreter that executes commands read from a <a href="/jargon/c/commandi.htm">command line</a> <a href="/jargon/s/string.htm">string</a>, the <a href="/jargon/s/stdin.htm">standard input</a>, or a specified <a href="/jargon/f/file.htm">file</a>.</p>
+<p class="tab">The Bourne shell was developed in 1977 by Stephen Bourne at <a href="/comp/att.htm">AT&amp;T</a>'s <a href="/history/unix.htm">Bell Labs</a> in 1977. It was the default shell of Unix Version 7. Most Unix-like systems contain the file <b>/bin/sh</b> that is either the Bourne shell, or a <a href="/jargon/s/symblink.htm">symbolic link</a> (or <a href="/jargon/h/hardlink.htm">hard link</a>) to a compatible shell.</p>
+<p class="tab">The Bourne Shell was originally developed as a replacement for the <a href="/people/ken_thompson.htm">Thompson</a> shell, whose <a href="/jargon/e/execfile.htm">executable file</a> was also named <b>sh</b>. Although it is used as an interactive command <a href="/jargon/i/interpre.htm">interpreter</a>, its original purpose was to function as a <a href="/jargon/s/script.htm">scripting</a> language.</p>
+<p class="tab">Features of the Bourne Shell include:</p>
+<ul>
+<li>Scripts can be invoked as commands using their <a href="/jargon/f/filename.htm">file name</a>.</li>
+<li>The shell may be used interactively or non-interactively.</li>
+<li>Commands may be executed synchronously or asynchronously.</li>
+<li>The shell supports input and output redirection, and <a href="/jargon/p/pipe.htm">pipelines</a>.</li>
+<li>A robust set of built-in commands.</li>
+<li>Flow control constructs, quotation facilities, and <a href="/jargon/f/function.htm">functions</a>.</li>
+<li>Typeless <a href="/jargon/v/variable.htm">variables</a>.</li>
+<li>Both local and <a href="/jargon/g/global.htm">global</a> variable scopes.</li>
+<li>Scripts can be interpreted, i.e., they do not have to be <a href="/jargon/c/compile.htm">compiled</a> to be executed.</li>
+<li>Command substitution using back quotes, e.g.: <b>&#96;</b><i>command</i><b>&#96;</b>.</li>
+<li>"Here documents": the use of <b>&lt;&lt;</b> to embed a block of input text within a script.</li>
+<li>&quot;<b>for</b>/<b>do</b>/<b>done</b>&quot; <a href="/jargon/l/loop.htm">loops</a>, in particular the use of <b>$*</b> to loop over arguments.</li>
+<li>"<b>case</b>/<b>in</b>/<b>esac</b>" selection mechanism, primarily intended to assist <a href="/jargon/a/argument.htm">argument</a> <a href="/jargon/p/parse.htm">parsing</a>.</li>
+<li>Support for <a href="/jargon/e/envivari.htm">environment variables</a> using keyword <a href="/jargon/p/paramete.htm">parameters</a> and exportable variables.</li>
+<li>Strong provisions for controlling input and output and in its <a href="/jargon/e/expressi.htm">expression</a>-matching facilities.</li>
+</ul>
+<p class="tab">Use of the Bourne Shell has largely been superceded by the Bourne-Again Shell (<a href="/unix/ubash.htm"><b>bash</b></a>), which supports more user-friendly interactive features such as job control and a <a href="/unix/uhistory.htm">command history</a>.</p>
+<h2 id="commands">Commands</h2>
+<p class="tab">A <i>simple-command</i> is a sequence of non-blank words separated by blanks (a blank is a tab or a space). The first word specifies the name of the command to be executed. Except as specified below, the remaining words are passed as arguments to the invoked command. The command name is passed as argument 0 (see <a href="/jargon/e/exec.htm"><b>exec</b></a>). The value of a <i>simple-command</i> is its exit status if it terminates normally or 200+status if it terminates abnormally (see our <a href="/unix/signals.htm">operating system signals overview</a> for a list of status values).</p>
+<p class="tab">A <i>pipeline</i> is a sequence of one or more commands separated by a vertical bar (&quot;<b>|</b>&quot;). The standard output of each command but the last connects by a <a href="/jargon/p/pipe.htm">pipe</a> to the <a href="/jargon/s/stdin.htm">standard input</a> of the next command. Each command is run as a separate process; the shell waits for the last command to terminate. The value of a pipeline is the exit status of its last command.</p>
+<p class="tab">A <i>list</i> is a sequence of one or more pipelines separated by &quot;<b>;</b>&quot;, &quot;<b>&amp;</b>&quot;, &quot;<b>&amp;&amp;</b>&quot; or &quot;<b>||</b>&quot; and optionally terminated by &quot;<b>;</b>&quot; or &quot;<b>&amp;</b>&quot;. &quot;<b>;</b>&quot; and &quot;<b>&amp;</b>&quot; have equal precedence that is lower than that of &quot;<b>&amp;&amp;</b>&quot; and &quot;<b>||</b>&quot;, &quot;<b>&amp;&amp;</b>&quot; and &quot;<b>||</b>&quot; also have equal precedence. A semicolon causes sequential execution; an ampersand causes the preceding pipeline to be executed without waiting for it to finish. The symbol &quot;<b>&amp;&amp;</b>&quot; (&quot;<b>||</b>&quot;) causes the list following to be executed only if the preceding pipeline returns a zero (non zero) value. <a href="/jargon/n/newline.htm">Newlines</a> may appear in a list, instead of semicolons, to <a href="/jargon/d/delimite.htm">delimit</a> commands.</p>
+<p class="tab">A "<b>#</b>" at the beginning of a word starts a <a href="/jargon/c/comment.htm">comment</a> and causes the rest of the line to be ignored.</p>
+<p class="tab">A <i>command</i> is either a simple-command or one of the following. The value returned by a command is that of the last simple-command executed in the command:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>for</b> <i>name</i> [<b>in</b> <i>word</i> ...] <b>do</b> <i>list</i> <b>done</b></td>
+<td><a href="/jargon/f/for.htm">For loop</a>. Each time a <b>for</b> command is executed, <i>name</i> is set to the next <i>word</i> in the <b>for</b> word list. If '<b>in</b> <i>word</i> ...' is omitted, then '<b>in "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ddf99d">[email&#160;protected]</a>"</b>' is assumed. Execution ends when there are no more words in the list.</td>
+</tr>
+<tr class="tcw">
+<td><b>case</b> <i>word</i> <b>in</b> [<i>pattern</i> [<b>|</b> <i>pattern</i> ] ... ) <i>list</i> <b>;;</b>] ... <b>esac</b></td>
+<td>A <b>case</b> command executes the <i>list</i> associated with the first <i>pattern</i> that matches <i>word</i>. The form of the patterns is the same as that used for file name generation.</td>
+</tr>
+<tr class="tcw">
+<td><b>if</b> <i>list</i> <b>then</b> <i>list</i> [<b>elif</b> <i>list</i> <b>then</b> <i>list</i>] ... [<b>else</b> <i>list</i>] <b>fi</b></td>
+<td>The <i>list</i> following <b>if</b> is executed, and if it returns zero, the <i>list</i> following <b>then</b> is executed. Otherwise, the <i>list</i> following <b>elif</b> ("else if") is executed and if its value is zero, the <i>list</i> following <b>then</b> is executed. Failing that the <b>else</b> <i>list</i> is executed.</td>
+</tr>
+<tr class="tcw">
+<td><b>while</b> <i>list</i> [<b>do</b> <i>list</i>] <b>done</b></td>
+<td>A <b>while</b> command repeatedly executes the <b>while</b> <i>list</i>, and if its value is zero, executes the <b>do</b> <i>list</i>; otherwise the loop terminates. The value returned by a <b>while</b> command is that of the last executed command in the <b>do</b> <i>list</i>. <b>until</b> may be used in place of <b>while</b> to negate the loop termination test.</td>
+</tr>
+<tr class="tcw">
+<td><b>(</b> <i>list</i> <b>)</b></td>
+<td>Execute <i>list</i> in a subshell.</td>
+</tr>
+<tr class="tcw">
+<td><b>{</b> <i>list</i><b>; }</b></td>
+<td>The <i>list</i> is executed.</td>
+</tr>
+<tr class="tcw">
+<td><i>name</i><b>() {</b> <i>list</i><b>; }</b></td>
+<td>Defines the shell function <i>name</i>. Each time <i>name</i> is recognized as a command, <i>list</i> is executed, with the positional parameters <b>$1</b>, <b>$2</b>... set to the arguments of the command. After the function returns, the previous positional parameters are restored.</td>
+</tr>
+</table>
+<p class="tab">The following words are only recognized as the first word of a command, and when not enclosed in quotes:</p>
+<ul>
+<li><b>if</b></li>
+<li><b>then</b></li>
+<li><b>else</b></li>
+<li><b>elif</b></li>
+<li><b>fi</b></li>
+<li><b>case</b></li>
+<li><b>in</b></li>
+<li><b>esac</b></li>
+<li><b>for</b></li>
+<li><b>while</b></li>
+<li><b>until</b></li>
+<li><b>do</b></li>
+<li><b>done</b></li>
+<li><b>{</b></li>
+<li><b>}</b></li>
+</ul>
+<h2 id="substitution">Command substitution</h2>
+<p class="tab">The standard output from a command enclosed in a pair of grave accents (<b>&#96;&#96;</b>) may be used as part or all of a word; trailing newlines are removed. For example, if the executable script <b>echotest.sh</b> contained the command:</p>
+<pre class="tab tcy">echo "The name of this script is &#96;basename $0&#96;."</pre>
+<p class="tab">Then running the script would display the combined output of <a href="/unix/uecho.htm"><b>echo</b></a> and <a href="/unix/ubasenam.htm"><b>basename</b></a>:</p>
+<pre class="tab">The name of this script is echotest.sh.</pre>
+<h2 id="parameter">Parameter substitution</h2>
+<p class="tab">The character <b>$</b> is used to introduce substitutable parameters. Positional parameters may be assigned values by <a href="/unix/uset.htm"><b>set</b></a>. Variables may be set in the form "<b>name=</b><i>value</i> [ <b>name=</b><i>value</i> ] ...".</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>${</b><i>parameter</i><b>}</b></td>
+<td>A <i>parameter</i> is a sequence of letters, digits or underscores (a name), a digit, or any of the characters <b>* @ # ? - $ !</b>. The value, if any, of the parameter is substituted. The braces are required only when parameter is followed by a letter, digit, or underscore that is not to be interpreted as part of its name. If <i>parameter</i> is a digit then it is a positional parameter. If parameter is <b>*</b> or <b>@</b> then all the positional parameters, starting with <b>$1</b>, are substituted separated by spaces. <b>$0</b> is set from argument zero when the shell is invoked.</td>
+</tr>
+<tr class="tcw">
+<td><b>${</b><i>parameter</i><b>:-</b><i>word</i><b>}</b></td>
+<td>If <i>parameter</i> is set and not empty then substitute its value; otherwise substitute <i>word</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>${</b><i>parameter</i><b>:=</b><i>word</i><b>}</b></td>
+<td>If <i>parameter</i> is not set and not empty then set it to <i>word</i>; the value of the parameter is then substituted. Positional parameters may not be assigned-to in this way.</td>
+</tr>
+<tr class="tcw">
+<td><b>${</b><i>parameter</i><b>:?</b><i>word</i><b>}</b></td>
+<td>If <i>parameter</i> is set and not empty then substitute its value; otherwise, print <i>word</i> and exit from the shell. If <i>word</i> is omitted then a standard message is printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>${</b><i>parameter</i><b>:+</b><i>word</i><b>}</b></td>
+<td>If <i>parameter</i> is set and not empty then substitute <i>word</i>; otherwise substitute nothing.</td>
+</tr>
+</table>
+<p class="tab">If the <b>:</b> is omitted, the substitutions are only executed if the parameter is set, even if it's empty.</p>
+<p class="tab">In the above, <i>word</i> is not evaluated unless it is to be used as the substituted string. So, for example, "<b>echo ${d-&#96;pwd&#96;}"</b> only executes <a href="/jargon/p/pwd.htm"><b>pwd</b></a> if <b>d</b> is unset.</p>
+<p class="tab">The following parameters are automatically set by the shell:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>#</b></td>
+<td>The number of positional parameters, in decimal.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>Options supplied to the shell on invocation or by <b>set</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>The value returned by the last executed command, in decimal.</td>
+</tr>
+<tr class="tcw">
+<td><b>$</b></td>
+<td>The process number of this shell.</td>
+</tr>
+<tr class="tcw">
+<td><b>!</b></td>
+<td>The process number of the last background command invoked.</td>
+</tr>
+</table>
+<p class="tab">The following parameters are used by the shell:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>CDPATH</b></td>
+<td>The search path for the <a href="/unix/ucd.htm"><b>cd</b></a> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>HOME</b></td>
+<td>The default argument (<a href="/jargon/h/homedir.htm">home directory</a>) for the <b>cd</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>OPTARG</b></td>
+<td>The value of the last option argument processed by the <b>getopts</b> special command.</td>
+</tr>
+<tr class="tcw">
+<td><b>OPTIND</b></td>
+<td>The index of the last option processed by the <b>getopts</b> special command.</td>
+</tr>
+<tr class="tcw">
+<td><b>PATH</b></td>
+<td>The search path for commands (see <a href="#execution">Execution</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>MAIL</b></td>
+<td>If this variable is set to the name of a <a href="/jargon/m/mailbox.htm">mail file</a> then the shell informs the user of the arrival of mail in the specified file.</td>
+</tr>
+<tr class="tcw">
+<td><b>MAILCHECK</b></td>
+<td>If this variable is set, it is interpreted as a value in seconds to wait between checks for new mail. The default is <b>600</b> (10 minutes). If the value is zero, mail is checked before each prompt.</td>
+</tr>
+<tr class="tcw">
+<td><b>MAILPATH</b></td>
+<td>A colon-separated list of files that are checked for new mail. MAIL is ignored if this variable is set.</td>
+</tr>
+<tr class="tcw">
+<td><b>PS1</b></td>
+<td>Primary prompt string, by default <b>'$ '</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>PS2</b></td>
+<td>Secondary prompt string, by default <b>'&gt; '</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>IFS</b></td>
+<td>Internal field separators, normally space, tab, and newline.</td>
+</tr>
+<tr class="tcw">
+<td><b>LANG</b>, <b>LC_ALL</b></td>
+<td>Locale variables.</td>
+</tr>
+<tr class="tcw">
+<td><b>LC_CTYPE</b></td>
+<td>Affects the mapping of bytes to characters for file name generation, for the interpretation of '<b>\</b>', and for handling <b>$IFS</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>SHACCT</b></td>
+<td>If this variable is set in the initial <a href="/jargon/e/environm.htm">environment</a> passed to the shell and points to a file writable by the user, accounting statistics are written to it.</td>
+</tr>
+<tr class="tcw">
+<td><b>TIMEOUT</b></td>
+<td>The shell exists when prompting for input if no command is entered for more than the given value in seconds. A value of zero means no <a href="/jargon/t/timeout.htm">timeout</a> and is the default.</td>
+</tr>
+</table>
+<h2 id="interpretation">Blank interpretation</h2>
+<p class="tab">After parameter and command substitution, any results of substitution are scanned for internal field separator characters (those found in <b>$IFS</b>) and split into distinct arguments where such characters are found. Explicit null arguments (<b>""</b> or <b>''</b>) are retained. Implicit <a href="/jargon/n/null.htm">null</a> arguments (those resulting from parameters that have no values) are removed.</p>
+<h2 id="filename">File name generation</h2>
+<p class="tab">Following substitution, each command word is scanned for the characters "<b>*</b>", "<b>?</b>" and "<b>[</b>". If one of these characters appears then the word is regarded as a pattern. The word is replaced with alphabetically sorted file names that match the pattern. If no file name is found that matches the pattern then the word is left unchanged. The character <b>.</b> at the start of a file name or immediately following a "<b>/</b>", and the character "<b>/</b>", must be matched explicitly.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:50px"><b>*</b></td>
+<td>Matches any string, including the null string.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>Matches any single character.</td>
+</tr>
+<tr class="tcw">
+<td><b>[</b>...<b>]</b></td>
+<td>Matches any one of the characters enclosed. A pair of characters separated by - matches any character lexically between the pair.</td>
+</tr>
+<tr class="tcw">
+<td><b>[!</b>...<b>]</b></td>
+<td>Matches any character except the enclosed ones.</td>
+</tr>
+</table>
+<h2 id="quoting">Quoting</h2>
+<p class="tab">The following characters have a special meaning to the shell and cause termination of a word unless quoted:</p>
+<ul>
+<li><b>;</b></li>
+<li><b>&amp;</b></li>
+<li><b>(</b></li>
+<li><b>)</b></li>
+<li><b>|</b></li>
+<li><b>^</b></li>
+<li><b>&lt;</b></li>
+<li><b>&gt;</b></li>
+<li><b>newline</b></li>
+<li><b>space</b></li>
+<li><b>tab</b></li>
+</ul>
+<p class="tab">A character may be quoted by preceding it with a "<b>\</b>". "<b>\\</b><i>newline</i>" is ignored. All characters enclosed between a pair of quote marks (<b>''</b>), except a single quote, are quoted. Inside double quotes (<b>""</b>) parameter and command substitution occurs and "<b>\</b>" quotes the characters <b>\</b>, <b>&#96;</b> <b>"</b> and <b>$</b>.</p>
+<p class="tab">'<b>$*</b>' is equivalent to '<b>$1 $2</b> ...', whereas '<b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="331773">[email&#160;protected]</a></b>' is equivalent to '<b>"$1" "$2"</b>...'.</p>
+<h2 id="prompting">Prompting</h2>
+<p class="tab">When used interactively, the shell prompts with the value of <b>$PS1</b> before reading a command. If at any time a newline is typed and further input is needed to complete a command then the secondary prompt (<b>$PS2</b>) is issued.</p>
+<h2 id="input">Input and output</h2>
+<p class="tab">Before a command is executed its input and output may be redirected using a special notation interpreted by the shell. The following may appear anywhere in a simple-command or may precede or follow a command and are not passed on to the invoked command. Substitution occurs before <i>word</i> or <i>digit</i> is used:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>&lt;</b><i>word</i></td>
+<td>Use file <i>word</i> as standard input (file descriptor 0).</td>
+</tr>
+<tr class="tcw">
+<td><b>&gt;</b><i>word</i></td>
+<td>Use file <i>word</i> as standard output (file descriptor 1). If the file does not exist then it is created; otherwise it is truncated to zero length.</td>
+</tr>
+<tr class="tcw">
+<td><b>&gt;&gt;</b><i>word</i></td>
+<td>Use file <i>word</i> as standard output. If the file exists then output is appended (by seeking to the end); otherwise the file is created.</td>
+</tr>
+<tr class="tcw">
+<td><b>&lt;&lt;</b>[<b>-</b>]<i>word</i></td>
+<td>The shell input is read up to a line the same as <i>word</i>, or <a href="/jargon/e/eof.htm">end of file</a>. The resulting document becomes the standard input. If any character of <i>word</i> is quoted, then no interpretation is placed upon the characters of the document; otherwise, parameter and command substitution occurs, <b>\</b><i>newline</i> is ignored, and <b>\</b> is used to quote the characters <b>\</b> <b>$</b> <b>&#96;</b> and the first character of <i>word</i>. The optional "<b>-</b>" causes leading tabulator character to be stripped from the resulting document; <i>word</i> may then also be prefixed by a tabulator.</td>
+</tr>
+<tr class="tcw">
+<td><b>&lt;&amp;</b><i>digit</i></td>
+<td>The standard input is duplicated from file descriptor <i>digit</i>. Similarly for the standard output using <b>&gt;</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>&lt;&amp;-</b></td>
+<td>The standard input is closed. Similarly for the standard output using <b>&gt;</b>.</td>
+</tr>
+</table>
+<p class="tab">If one of the above is preceded by a digit then the file descriptor created is that specified by the digit (instead of the default 0 or 1). For example, "... <b>2&gt;&amp;1</b>" creates file descriptor <b>2</b> to be a duplicate of file descriptor <b>1</b>. If a command is followed by <b>&amp;</b> then the default standard input for the command is the empty file (<b>/dev/null</b>), unless job control is enabled. Otherwise, the environment for the execution of a command contains the file descriptors of the invoking shell as modified by input/output specifications.</p>
+<h2 id="environment">Environment</h2>
+<p class="tab">The <i>environment</i> is a list of name-value pairs that is passed to an executed program in the same way as a normal argument list; see <a href="/jargon/e/exec.htm"><b>exec</b></a> and <b>environ</b>. The shell interacts with the environment in several ways. On invocation, the shell scans the environment and creates a parameter for each name found, giving it the corresponding value. Executed commands inherit the same environment. If the user modifies the values of these parameters or creates new ones, none of these affects the environment unless the export command is used to bind the shell's parameter to the environment. The environment seen by any executed command is thus composed of any unmodified name-value pairs originally inherited by the shell, plus any modifications or additions, all of which must be noted in export commands.</p>
+<p class="tab">The environment for any simple-command may be augmented by prefixing it with one or more assignments to parameters. Thus these two lines are equivalent:</p>
+<pre class="tab tcy">TERM=450 cmd args</pre>
+<pre class="tab tcy">(export TERM; TERM=450; cmd args)</pre>
+<h2 id="signals">Signals</h2>
+<p class="tab">The INTERRUPT and QUIT <a href="/unix/signals.htm">signals</a> for an invoked command are ignored if the command is followed by <b>&amp;</b> (unless job control is enabled); otherwise signals have the values inherited by the shell from its <a href="/jargon/p/parechil.htm">parent</a>. See also <a href="/unix/utrap.htm"><b>trap</b></a>.</p>
+<h2 id="execution">Execution</h2>
+<p class="tab">Each time a command is executed the above substitutions are carried out. The shell then first looks if a function with the command name was defined; if so, it is chosen for execution. Otherwise, except for the 'special commands' listed below a new process is created and an attempt is made to execute the command via an <b>exec</b>.</p>
+<p class="tab">The shell parameter <b>$PATH</b> defines the search <a href="/jargon/p/path.htm">path</a> for the directory containing the command. Each alternative directory name is separated by a colon ("<b>:</b>"). The default path is '<b>/usr/sbin:/bin:/usr/bin:</b>'. If the command name contains a <b>/</b> then the search path is not used. Otherwise, each directory in the path is searched for an executable file. If the file has execute <a href="/jargon/p/permissi.htm">permission</a> but is not an <b>a.out</b> file, it is assumed to be a file containing shell commands. A subshell (i.e., a separate process) is spawned to read it. A parenthesized command is also executed in a subshell.</p>
+<h2 id="special">Special commands</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:320px"><b>:</b></td>
+<td>No effect; the command does nothing.</td>
+</tr>
+<tr class="tcw">
+<td><b>.</b> <i>file</i></td>
+<td>Read and execute commands from file and return. The search path <b>$PATH</b> is used to find the directory containing <i>file</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>break</b> [<i>n</i>]</td>
+<td>Exit from the enclosing <b>for</b> or <b>while</b> loop, if any. If <i>n</i> is specified then break <i>n</i> levels.</td>
+</tr>
+<tr class="tcw">
+<td><b>continue</b> [<i>n</i>]</td>
+<td>Resume the next iteration of the enclosing <b>for</b> or <b>while</b> loop. If <i>n</i> is specified then resume at the <i>n</i>th enclosing loop.</td>
+</tr>
+<tr class="tcw">
+<td><b>cd</b> [<i>arg</i>]</td>
+<td>Change the current directory to <i>arg</i>. The shell parameter $HOME is the default arg. If no directory arg is found and the $CDPATH parameter contains a list of directories separated by colons, each of these directories is used as a prefix to arg in the given order, and the current directory is set to the first one found.<br><br> If no suitable directory been found, an interactive shell may try to fix spelling errors and propose an alternative directory name:<br><br><pre class="tcy">cd /usf/lb</pre><pre class="tab"><b>cd /usr/lib?</b> y<b>ok</b></pre> If the answer is '<b>y</b>' or anything other than '<b>n</b>', the shell sets the current directory to the one proposed.</td>
+</tr>
+<tr class="tcw">
+<td><b>echo</b> [<i>arg</i> ...]</td>
+<td>Each <i>arg</i> is printed to standard output; afterwards, a newline is printed. The following escape sequences are recognized in <i>arg</i>:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:70px"><b>\b</b></td>
+<td>Prints a backspace character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\c</b></td>
+<td>Causes the command to return immediately. Any following characters are ignored, and the terminating newline is not printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>\f</b></td>
+<td>Prints a formfeed character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\n</b></td>
+<td>Prints a newline character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\r</b></td>
+<td>Prints a <a href="/jargon/c/cr.htm">carriage-return</a> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\t</b></td>
+<td>Prints a tabulator character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\v</b></td>
+<td>Prints a vertical tabulator character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\\</b></td>
+<td>Prints a backslash character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\0</b><i>nnn</i></td>
+<td>Prints the character (byte) with <a href="/jargon/o/octal.htm">octal</a> value <i>nnn</i>.</td>
+</tr>
+</table>
+<br>
+If <b>/usr/ucb</b> precedes <b>/usr/sbin</b> or <b>/usr/bin</b> in the current setting of the <b>$PATH</b> variable and the first argument is <b>-n</b>, the terminating newline is not printed, and no escape sequences are recognized. If the <b>$SYSV3</b> variable is set in the initial environment passed to the shell, the <b>-n</b> argument is also interpreted, but escape sequences are processed as usual.</td>
+</tr>
+<tr class="tcw">
+<td><b>eval</b> [<i>arg</i> ...]</td>
+<td>The arguments are read as input to the shell and the resulting command(s) are executed.</td>
+</tr>
+<tr class="tcw">
+<td><b>exec</b> [<i>arg</i> ...]</td>
+<td>The command specified by the arguments is executed in place of this shell without creating a new process. Input/output arguments may appear and (if no other arguments are given) cause the shell input/output to be modified.</td>
+</tr>
+<tr class="tcw">
+<td><b>exit</b> [<i>n</i>]</td>
+<td>Causes the shell to exit with the exit status specified by <i>n</i>. If <i>n</i> is omitted then the exit status is that of the last command executed. An end of file also exits from the shell.</td>
+</tr>
+<tr class="tcw">
+<td><b>export</b> [<i>name</i> ...]</td>
+<td>The given names are marked for automatic export to the environment of subsequently-executed commands. If no arguments are given then a list of exportable names is printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>getopts</b> <i>optstring</i> <i>variable</i> [<i>arg</i> ...]</td>
+<td>Retrieves options and option-arguments from <i>arg</i> (or the positional parameters) similar to <b>getopt</b>. <i>optstring</i> is a list of characters (bytes); each character represents an option letter. A character followed by "<b>:</b>" indicates that the option has an argument. Calling <b>getopts</b> repeatedly causes one option to be retrieved per call. The index of the current option is stored in the variable <b>OPTIND</b>; it is initialized to <b>1</b> when the shell starts. The option-argument, if any, is stored in the <b>OPTARG</b> variable. The option character is stored in the <i>variable</i>. When the end of the options is reached, <b>getopts</b> returns with a non-zero value. A missing argument or an illegal option also causes a non-zero return value, and an error message is printed to standard error.</td>
+</tr>
+<tr class="tcw">
+<td><b>hash</b> [<i>name</i> ...]</td>
+<td>The shell maintains a <a href="/jargon/h/hash.htm">hash</a> table of the locations of external commands. If name arguments are given, each one is looked up and is inserted into the table if it's found. Otherwise, a list of the commands currently in the table is printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>newgrp</b> [<i>arg</i> ...]</td>
+<td>Equivalent to "<b>exec</b> <a href="/unix/unewgrp.htm"><b>newgrp</b></a> <i>arg</i> ...".</td>
+</tr>
+<tr class="tcw">
+<td><b>pwd</b></td>
+<td>Prints the name of the present <a href="/jargon/c/currentd.htm">working directory</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>read</b> [<b>-r</b>] <i>name</i> ...</td>
+<td>One line is read from the standard input; successive words of the input are assigned to the variables name in order, with leftover words to the last variable. The return code is <b>0</b> unless end-of-file is encountered. Normally, backslashes escape the following character; this is inhibited if the <b>-r</b> option is given.</td>
+</tr>
+<tr class="tcw">
+<td><b>readonly</b> [<i>name</i> ...]</td>
+<td>The given names are marked readonly and the values of the these names may not be changed by subsequent assignment. If no arguments are given then a list of all readonly names is printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>return</b> [<i>n</i>]</td>
+<td>Return from a shell function to the execution level above. With the argument <i>n</i>, the special variable <b>$?</b> is set to the given value.</td>
+</tr>
+<tr class="tcw">
+<td><b>set</b> [<b>--aefhknptuvx</b> [<i>arg</i> ...]]</td>
+<td><table class="mtable3"><tr class="tcw"><td style="width:40px"><b>--</b></td>
+<td>No effect; useful if the first <i>arg</i> begins with <b>-</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>Export any variables that are modified or created going forward.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>If non-interactive, exit immediately if a command fails.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>File name generation is disabled.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>When a function is defined, look up all external commands it contains as described for the <b>hash</b> special command. Normally, these commands are looked up when they are executed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b></td>
+<td>All keyword arguments are placed in the environment for a command, not only those that precede the command name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b></td>
+<td>Enables job control (see below).</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Read commands but do not execute them.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Makes the shell privileged. A privileged shell does not execute the system and user profiles; if a non-privileged shell (the default) has an effective user or group id different to its real user or group id or if it has an effective user or group id below 100, it resets its effective user or group id, respectively, to the corresponding real id at startup.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Exit after reading and executing one command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>Treat unset variables as an error when substituting.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Print shell input lines as they are read.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b></td>
+<td>Print commands and their arguments as they are executed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>Turn off the <b>-x</b> and <b>-v</b> options.</td>
+</tr>
+</table>
+<br>
+These flags can also be used upon invocation of the shell. The current set of flags found in <b>$-</b>.<br>
+<br>
+If <b>+</b> is used instead of <b>-</b>, the given flags are disabled.<br>
+<br>
+Remaining arguments are positional parameters and are assigned, in order, to <b>$1</b>, <b>$2</b>, etc. If no arguments are given then the values of all names are printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>shift</b> [<i>n</i>]</td>
+<td>The positional parameters from <b>$2</b>... are renamed <b>$1</b>... The <i>n</i> argument causes a shift by the given number, i.e., <b>$</b><i>n+1</i> is renamed to <b>$1</b> and so forth.</td>
+</tr>
+<tr class="tcw">
+<td><b>times</b></td>
+<td>Print the accumulated user and system times for processes run from the shell.</td>
+</tr>
+<tr class="tcw">
+<td><b>test</b> [<i>expr</i>]</td>
+<td><b>test</b> evaluates the expression <i>expr</i>, and if its value is true then it returns zero exit status; otherwise, a non-zero exit status is returned. <b>test</b> returns a non-zero exit if there are no arguments.<br><br> The following primitives are used to construct <i>expr</i>:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:100px"><b>-r</b> <i>file</i></td>
+<td>True if the file exists and is readable.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b> <i>file</i></td>
+<td>True if the file exists and is writable.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b> <i>file</i></td>
+<td>True if the file exists and has the <a href="/jargon/s/suid.htm">setuid</a> bit set.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b> <i>file</i></td>
+<td>True if the file exists and has the setgid bit set.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b> <i>file</i></td>
+<td>True if the file exists and has the sticky bit set.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>file</i></td>
+<td>True if the file exists and is a regular file (or any file other than a directory if <b>/usr/ucb</b> occurs early in the current <b>$PATH</b> parameter).</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>file</i></td>
+<td>True if the file exists and is a <a href="/jargon/d/director.htm">directory</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b> <i>file</i></td>
+<td>True if the file exists and is a <a href="/jargon/s/symblink.htm">symbolic link</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b> <i>file</i></td>
+<td>True if the file exists and is a symbolic link.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>file</i></td>
+<td>True if the file exists and is a named pipe.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b> <i>file</i></td>
+<td>True if the file exists and is a block device.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b> <i>file</i></td>
+<td>True if the file exists and is a character device.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>file</i></td>
+<td>True if the file exists and has a size greater than zero.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> [<i>fildes</i>]</td>
+<td>True if the open file whose file descriptor number is <i>fildes</i> (<b>1</b> by default) is associated with a terminal device.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b> <i>s1</i></td>
+<td>True if the length of string <i>s1</i> is zero.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b> <i>s1</i></td>
+<td>True if the length of the string <i>s1</i> is nonzero.</td>
+</tr>
+<tr class="tcw">
+<td><i>s1</i> <b>=</b> <i>s2</i></td>
+<td>True if the strings <i>s1</i> and <i>s2</i> are equal.</td>
+</tr>
+<tr class="tcw">
+<td><i>s1</i> <b>!=</b> <i>s2</i></td>
+<td>True if the strings <i>s1</i> and <i>s2</i> are not equal.</td>
+</tr>
+<tr class="tcw">
+<td><i>s1</i></td>
+<td>True if <i>s1</i> is not the null string.</td>
+</tr>
+<tr class="tcw">
+<td><i>n1</i> <b>-eq</b> <i>n2</i></td>
+<td>True if the integers <i>n1</i> and <i>n2</i> are algebraically equal. Any of the comparisons <b>-ne</b>, <b>-gt</b>, <b>-ge</b>, <b>-lt</b>, or <b>-le</b> may be used in place of <b>-eq</b>.</td>
+</tr>
+</table>
+<br>
+These primaries may be combined with the following operators:<br>
+<br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:90px"><b>!</b></td>
+<td>Unary negation operator.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>Binary AND operator.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b></td>
+<td>Binary OR operator.</td>
+</tr>
+<tr class="tcw">
+<td><b>(</b> <i>expr</i> <b>)</b></td>
+<td>Parentheses for grouping.</td>
+</tr>
+</table>
+<br>
+<b>-a</b> has higher precedence than <b>-o</b>. Notice that all the operators and flags are separate arguments to <b>test</b>. Notice also that parentheses are meaningful as command separators and must be <a href="/jargon/e/esc.htm">escaped</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>trap</b> [<i>arg</i>] [<i>n</i><b>|</b><i>name</i>] ...</td>
+<td>The <i>arg</i> is a command to be read and executed when the shell receives signal(s) <i>n</i>. Note that <i>arg</i> is scanned once when the trap is set and once when the trap is taken. <b>trap</b> commands are executed in order of signal number. If <i>arg</i> is absent then all trap(s) <i>n</i> are reset to their original values. If <i>arg</i> is the null string then this signal is ignored by the shell and by invoked commands. If <i>n</i> is <b>0</b> then the command <i>arg</i> is executed on exit from the shell, otherwise upon receipt of signal <i>n</i> as numbered in signal. Trap with no arguments prints a list of commands associated with each signal number. A symbolic name can be used instead of the <i>n</i> argument; it is formed by the signal name in the <a href="/jargon/c/c.htm">C</a> language minus the <b>SIG</b> prefix, e.g., <b>TERM</b> for <b>SIGTERM</b>. <b>EXIT</b> is the same as a zero ('<b>0</b>') argument.</td>
+</tr>
+<tr class="tcw">
+<td><b>type</b> <i>name</i> ...</td>
+<td>For each <i>name</i>, prints if it would be executed as a shell function, as a special command, or as an external command. In the last case, the full path name to the command is also printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>ulimit</b> [<b>-</b>[<b>HS</b>][<b>a</b>|<b>cdfmnstuv</b>]]<br><br><b>ulimit</b> [<b>-</b>[<b>HS</b>][<b>c</b>|<b>d</b>|<b>f</b>|<b>m</b>|<b>n</b>|<b>s</b>|<b>t</b>|<b>u</b>|<b>v</b>]] [<i>limit</i>]</td>
+<td><p>Handles resource limits for the shell and processes created by it, as described in <b>getrlimit</b>. Without a <i>limit</i> argument, the current settings are printed; otherwise, a new limit is set. The following options are accepted:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:40px"><b>-H</b></td>
+<td>Sets a hard limit. Only the super-user may raise a hard limit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b></td>
+<td>Sets a soft limit. A soft limit must not exceed the hard limit.<br><br> If neither <b>-H</b> or <b>-S</b> is given, the soft limit is printed, or both limits are set, respectively.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>Chooses all limits described.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>The maximum size of a core dump in 512-byte blocks.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>The maximum size of the data segment in <a href="/jargon/k/kilobyte.htm">kbytes</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>The maximum size of a file in 512-byte blocks. This is the default if no limit is explicitly selected.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>The maximum size of locked memory in kbytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b></td>
+<td>The maximum resident set size in kbytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>The maximum number of open file descriptors.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>The maximum size of the stack segment in kbytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>The maximum processor time in seconds.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>The maximum number of <a href="/jargon/p/parechil.htm">child</a> processes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>The maximum address space size in kbytes.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>umask</b> [<b>-S</b>] [<i>nnn</i>]</td>
+<td>The user file creation mask is set to the octal value <i>nnn</i> (see <a href="/unix/uumask.htm">umask</a>). Symbolic modes as described in <a href="/unix/uchmod.htm">chmod</a> are also accepted. If <i>nnn</i> is omitted, the current value of the mask is printed. With the <b>-S</b> option, the current mask is printed as a symbolic string.</td>
+</tr>
+<tr class="tcw">
+<td><b>unset</b> <i>variable</i> ...</td>
+<td>Unsets each <i>variable</i> named.</td>
+</tr>
+<tr class="tcw">
+<td><b>wait</b> [<i>n</i>]</td>
+<td>Wait for the specified process and report its termination status. If <i>n</i> is not given then a wait occurs for all currently active child processes. The return code from this command is of the waited process. If <i>n</i> does not refer to a child process of the shell, <b>wait</b> returns immediately with code <b>0</b>.</td>
+</tr>
+</table>
+<h2 id="invocation">Invocation</h2>
+<p class="tab">If the first character of argument zero is <b>-</b>, commands are read from <b>/etc/profile</b> and <b>$HOME/.profile</b>, if the respective file exists. Commands are then read as described below. The following flags are interpreted by the shell when it is invoked:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>-c</b> <i>string</i></td>
+<td>If the <b>-c</b> flag is present then commands are read from <i>string</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>If the <b>-s</b> flag is present or if no arguments remain then commands are read from the <a href="/jargon/s/stdin.htm">standard input</a>. Shell output is written to file descriptor 2.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td>If the <b>-i</b> flag is present or if the shell input and output are attached to a <a href="/jargon/t/terminal.htm">terminal</a> (as told by the function <b>isatty()</b>) then this shell is interactive. In this case, the terminate <a href="/unix/signals.htm">signal</a> <b>SIGTERM</b> is ignored (so that '<b>kill 0</b>' does not kill an interactive shell) and the interrupt signal <b>SIGINT</b> is caught and ignored (so that <b>wait</b> is interruptible). In all cases <b>SIGQUIT</b> is ignored by the shell.</td>
+</tr>
+</table>
+<p class="tab">The remaining flags and arguments are described under the <a href="/unix/uset.htm"><b>set</b></a> command.</p>
+<h2 id="job">Job control</h2>
+<p class="tab">When an interactive shell is invoked as <b>jsh</b>, job control is enabled. Job control allows to stop and resume processes, and to switch between foreground and background jobs. A job consists of the commands of a single <a href="/jargon/p/pipe.htm">pipeline</a>. Each job is placed in a separate process group; a login shell and all jobs created by it form a session. Interrupt, quit, and other terminal control characters only affect the current foreground process group. The foreground job can be stopped pressing the suspend key, often <b>^Z</b>; any job can be stopped by sending the <b>STOP</b> signal to it. Jobs are identified by job IDs of the following form:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>%</b>, <b>%%</b>, or <b>%+</b></td>
+<td>The current job.</td>
+</tr>
+<tr class="tcw">
+<td><b>%-</b></td>
+<td>The job that was previously the current job.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b><i>string</i></td>
+<td>The only job whose name contains <i>string</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%</b><i>number</i></td>
+<td>The job with the given number.</td>
+</tr>
+<tr class="tcw">
+<td><i>number</i></td>
+<td>The job with process group id <i>number</i>.</td>
+</tr>
+<tr class="tcw">
+<td><i>string</i></td>
+<td>The only job for which <i>string</i> is a prefix of its name.</td>
+</tr>
+</table>
+<p class="tab">The following built-in commands are additionally available with job control:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>bg</b> [<i>jobid</i> ...]</td>
+<td>Places each <i>jobid</i> in the background. The default job id is the current job.</td>
+</tr>
+<tr class="tcw">
+<td><b>fg</b> [<i>jobid</i> ...]</td>
+<td>Sequentially selects each <i>jobid</i> as the foreground job. The default job id is the current job.</td>
+</tr>
+<tr class="tcw">
+<td><b>jobs</b> [<b>-p</b>|<b>-l</b>] [<i>jobid</i> ...] | [<b>-x</b> <i>command</i> [<i>arguments</i> ...]]</td>
+<td><p>Prints information about each <i>jobid</i>, or executes <i>command</i>:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>-l</b></td>
+<td>Includes the process group id and the starting directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Includes the process group id.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b> <i>command</i> [<i>arguments</i> ...]</td>
+<td>Executes command with arguments; each argument that forms a job id is replaced by the process group id of the respective job. It is an error if the job does not exist.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>kill</b> [[<b>-s</b> <i>signal</i> | <b>-</b><i>signal</i>] <i>jobid</i> ... | <b>-l</b> [<i>status</i>]</td>
+<td>A special version of the <a href="/unix/ukill.htm"><b>kill</b></a> command that recognizes job ids in its arguments.</td>
+</tr>
+<tr class="tcw">
+<td><b>stop</b> <i>jobid</i> ...</td>
+<td>Stops the given jobs (i.e., sends a <b>STOP</b> signal to them).</td>
+</tr>
+<tr class="tcw">
+<td><b>suspend</b></td>
+<td>Stops the shell itself. This is not allowed if the shell is a session leader.</td>
+</tr>
+<tr class="tcw">
+<td><b>wait</b> [<i>jobid</i>]</td>
+<td>The <b>wait</b> command (see above) recognizes job ids in its arguments.</td>
+</tr>
+</table>
+<h2 id="notes">Notes</h2>
+<p class="tab">For historical reasons, <b>^</b> is a synonym for <b>|</b> as pipeline separator. Its use in new applications is therefore discouraged.</p>
+<p class="tab">If a command other than a simple-command (i.e., '<b>for</b> ...', '<b>case</b> ...', etc.) is redirected, it is executed in a subshell. If variable assignments must be visible in the parent shell after the input is redirected, the <b>exec</b> special command can be used:</p>
+<pre class="tab tcy">exec 5&lt;&amp;0 &lt;input
+while read line
+do
+        ...
+        variable=value
+        ...
+done
+exec &lt;&amp;5 5&lt;&amp;-
+</pre>
+<p class="tab">If parameters that were inherited from the initial environment are modified, they must be explicitly exported to make the change visible to external commands, as described under '<a href="#environment">Environment</a>' above.</p>
+<p class="tab">The <b>$IFS</b> parameter is applied to any unquoted word. Thus:</p>
+<pre class="tab tcy">IFS=X
+echoXfoo</pre>
+<p class="tab">executes the '<b>echo</b>' command with the argument '<b>foo</b>'. The command '<b>set --</b>' without further arguments is a no-op (no operation). The shift special command can delete all positional parameters.</p>
+<p class="tab">There is only one namespace for both functions and parameters. A function definition deletes a parameter with the same name and vice-versa.</p>
+<p class="tab">Parameter assignments that precede a special command affect the shell itself; parameter assignments that precede the call of a function are ignored.</p>
+<h2 id="files">Files</h2>
+<p class="tabb">/etc/profile<br> $HOME/.profile<br> /tmp/sh*<br> /dev/null</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">sh</pre>
+<p class="tab">Invokes the Bourne shell, and places you at a command prompt.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ubc.htm"><b>bc</b></a> &mdash; A calculator.<br><a href="/unix/telinit.htm"><b>init</b></a> &mdash; The parent of all processes on the system.<br><a href="/unix/ukill.htm"><b>kill</b></a> &mdash; Send a signal to a process, affecting its behavior or killing it.<br><a href="/unix/uksh.htm"><b>ksh</b></a> &mdash; The Korn shell command interpreter.<br><a href="/unix/ulogin.htm"><b>login</b></a> &mdash; Begin a session on a system.<br><a href="/unix/unewgrp.htm"><b>newgrp</b></a> &mdash; Log into a new group.<br><a href="/unix/ups.htm"><b>ps</b></a> &mdash; Report the status of a process or processes.<br><a href="/unix/upwd.htm"><b>pwd</b></a> &mdash; Print the name of the working directory.<br><a href="/unix/ustty.htm"><b>stty</b></a> &mdash; Set options for your terminal display.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a834efe7984b0',m:'j8grS90MCgddx0_S9gXtN9QOFTYCSdAGEfjBSYHsLzg-1661495364-0-AZD2nZ57Gvg1pfpENdg3e8v3BE5fowCSZKOAz9omaIhjIXtOASdekfLrTHwwq80Eu44zJAIiTp6IsugNKWmlnOEQhG2RvHdrXvRZbUTfvEazD8MscAgWOphMDQJ4VUhixw==',s:[0x7c70101884,0x35ffd680b1],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

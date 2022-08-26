@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux groupadd command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-08-16">08/16/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/groupadd.gif" width="300" height="300" alt="groupadd command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>groupadd</b> command creates a new group.</p>
+<p>This page describes the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>groupadd</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>groupadd</b> command creates a new <a href="/jargon/g/group.htm">group</a> account using the values specified on the <a href="/jargon/c/commandi.htm">command line</a>, plus the default values from the system. The new group is entered into the system files as needed.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">groupadd [<i>options</i>] <i>group</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>-f, --force</b></td>
+<td>This option causes the command to exit with success status if the specified group already exists. When used with <b>-g</b>, and the specified GID already exists, another (unique) GID is chosen (i.e., <b>-g</b> is turned off).</td>
+</tr>
+<tr class="tcw">
+<td><b>-g, --gid</b> <i>GID</i></td>
+<td>The numerical value of the group's ID. This value must be unique, unless the <b>-o</b> option is used. The value must be non-negative. The default is to use the smallest ID value greater than or equal to <b>GID_MIN</b> and greater than every other group.<br><br>See also the <b>-r</b> option and the <b>GID_MAX</b> description.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-K</b>,<br> <b>--key</b> <i>KEY=VALUE</i></td>
+<td>Overrides <b>/etc/login.defs</b> defaults (<b>GID_MIN</b>, <b>GID_MAX</b> and others). Multiple <b>-K</b> options can be specified.<br><br>Example: <b>-K GID_MIN=100 -K GID_MAX=499</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-o,</b> <i>--non-unique</i></td>
+<td>This option permits to add a group with a non-unique GID.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>,<br> <b>--password</b> <i>PASSWORD</i></td>
+<td>The <a href="/jargon/e/encrypt.htm">encrypted</a> <a href="/jargon/p/password.htm">password</a>, as returned by the <b>crypt()</b> system call. The default is to disable the password.<br><br><b>Note:</b> This option is not recommended because the password (or encrypted password) is visible by users listing the processes. You should make sure the password respects the system's password policy.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--system</b></td>
+<td>Create a system group. The numeric identifiers of new system groups are chosen in the <b>SYS_GID_MIN-SYS_GID_MAX</b> range, defined in <b>login.defs</b>, instead of <b>GID_MIN-GID_MAX.</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--root</b> <i>CHROOT_DIR</i></td>
+<td>Apply changes in the <b>CHROOT_DIR</b> directory and use the configuration files from the <b>CHROOT_DIR</b> directory. See also <a href="/jargon/c/chroot.htm"><b>chroot</b></a>.</td>
+</tr>
+</table>
+<h2 id="configuration">Configuration</h2>
+<p class="tab">The following configuration variables in <b>/etc/login.defs</b> change the behavior of this tool:</p>
+<p class="tab"><b>GID_MAX</b> <i>(number)</i>, <b>GID_MIN</b> <i>(number)</i></p>
+<p class="tab">Range of group IDs used for the creation of regular groups by <a href="/unix/useradd.htm">useradd</a>, groupadd, or <b>newusers</b>. The default value for <b>GID_MIN</b> (resp. <b>GID_MAX</b>) is <b>1000</b> (resp. <b>60000</b>).</p>
+<p class="tab"><b>MAX_MEMBERS_PER_GROUP</b> <i>(number)</i></p>
+<p class="tab">Maximum members per <a href="/jargon/g/group.htm">group</a> entry. When the maximum is reached, a new group entry (line) is started in <b>/etc/group</b> (with the same name, same password, and same GID). The default value is <b>0</b>, meaning that there are no limits in the number of members in a group. This feature (split group) permits to limit the length of lines in the group file. This is useful to make sure that lines for NIS groups are not larger than 1024 characters. If you need to enforce such limit, you can use <b>25</b>. <b>Note:</b> split groups may not be supported by all tools (even in the Shadow toolsuite). You should not use this variable unless you need it.</p>
+<p class="tab"><b>SYS_GID_MAX</b> <i>(number)</i>, <b>SYS_GID_MIN</b> <i>(number)</i></p>
+<p class="tab">Range of group IDs used for the creation of system groups by <a href="/unix/useradd.htm">useradd</a>, groupadd, or <b>newusers</b>. The default value for <b>SYS_GID_MIN</b> (resp. <b>SYS_GID_MAX</b>) is <b>101</b> (resp. <b>GID_MIN-1</b>).</p>
+<h2 id="examples">Examples</h2>
+<div class="tip tab" role="note">
+<span class="title">Tip</span>
+<p>For this command to work, you must have superuser rights or be logged in as <a href="/jargon/r/root.htm">root</a>.</p>
+</div>
+<pre class="tcy tab">groupadd newgroup</pre>
+<p class="tab">The example above would create a new group called &quot;<b>newgroup</b>&quot;. This new group could then have users added to it using the <a href="/unix/useradd.htm"><b>useradd</b></a> command.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/gpasswd.htm"><b>gpasswd</b></a> &mdash; Administer /etc/group and /etc/gshadow.<br><a href="/unix/groupdel.htm"><b>groupdel</b></a> &mdash; Remove a group from the system.<br><a href="/unix/groupmod.htm"><b>groupmod</b></a> &mdash; Modify a group definition.<br><a href="/unix/useradd.htm"><b>useradd</b></a> &mdash; Add a user to the system.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82f01969c41f',m:'bWzcZCp.NdiPTOxbtXcQ33JvLH0SoFEh8uWN4ExHAXM-1661495349-0-AXxNp0ieUiZIF9eqcQcyjimZoQjcluVgZsmNetcQBqrek+zJnPt4i8yyttmMwV3ZE1FlC58sHa6EFaTdN1PyITybXoHXidx5m76vU8YDsbknek1jN7D34C7qZjsFCrKtLVSFTV84NTAP/potY3wdveQ=',s:[0x6c6bbd2551,0x8ae4f26d01],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

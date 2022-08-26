@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux zipsplit command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/zipsplit.gif" width="300" height="300" alt="zipsplit command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>zipsplit</b> command splits a single <a href="/jargon/z/zip.htm">zip</a> <a href="/jargon/a/archive.htm">archive</a> into a set of smaller zipfiles.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>zipsplit</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#splitting">Splitting an archive</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#limitations">Limitations</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>zipsplit</b> is a very simple program which will split an archive into smaller, sequentially-numbered zipfiles. This command can be useful, for instance, if you need to break an archive into smaller archives that fits onto <a href="/jargon/r/remodisk.htm">removable media</a> of limited capacity.</p>
+<p class="tab"><b>zipsplit</b> does not break the individual files in your archive into smaller pieces; therefore, the minimum size of the split zipfiles is the size of the largest file inside the original archive.</p>
+<h2 id="splitting">Splitting an archive</h2>
+<p class="tab">Let's say you have a zipfile named <b>archive.zip</b> that is about 50 <a href="/jargon/m/megabyte.htm">megabytes</a> in size, and you want to split it into pieces that are no larger than 1 megabyte. You could use this command:</p>
+<pre class="tab tcy">zipsplit -n 1048576 archive.zip</pre>
+<p class="tab">...which tells <b>zipsplit</b> to create a sequence of zipfiles, each no larger than <b>1048576</b> <a href="/jargon/b/byte.htm">bytes</a> (one megabyte), which collectively contain the same files as <b>archive.zip</b>. The output of this command looks something like:</p>
+<pre class="tab">66 zip files will be made (70% efficiency)
+creating: archive01.zip
+creating: archive02.zip
+creating: archive03.zip
+...
+creating: archive66.zip</pre>
+<p class="tab">As you can see, the result here was 66 new files, <b>archive01.zip</b> through <b>archive66.zip</b>, which together contain the same files as <b>archive.zip</b>.</p>
+<p class="tab"><b>archive.zip</b> is unchanged by this process.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">zipsplit [-t] [-i] [-p] [-s] [-n <i>size</i>] [-r <i>room</i>] [-b <i>path</i>] [-h] [-v] 
+         [-L] <i>zipfile</i>
+</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tbody>
+<tr class="tcw">
+<td style="width:90px"><b>-t</b></td>
+<td>Report how many files it takes to perform the split, but don't actually split anything.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td>Create a zip index named <b>zipsplit.idx</b>, and include its size in the first zip file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b> <i>size</i></td>
+<td>Create zipfiles no larger than <i>size</i> bytes. For the split to be successful, <i>size</i> must be larger than the largest file in the original zipfile. Default is <b>35978</b> bytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b> <i>room</i></td>
+<td>Make the first split file smaller by <i>room</i> bytes. This option can be useful if you intend to store the split zipfiles on removable disks, and you need extra space on the first disk for other software, such as an executable file to decompress the archives. The default value of <i>room</i> is zero.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b> <i>path</i></td>
+<td>Output zip files into the <a href="/jargon/p/path.htm">path</a> <i>path</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Pause between each zip file that is output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Perform a sequential split even if it requires more zip files. In other words, make sure that the order of files in the split archives exactly matches the order of files as they appear in the original archive; do not "shuffle them around" when splitting them up.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b></td>
+<td>Display software licensing information, and exit.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="limitations">Limitations</h2>
+<p class="tab"><b>zipsplit</b> does not support splitting archives that are larger than 2 <a href="/jargon/g/gigabyte.htm">gigabytes</a>.</p>
+<p class="tab"><b>zipsplit</b> offers very little control over how it decides to split up your archive. If one of the files inside your archive is very large, you may not be able to split the archive at all, because <b>zipsplit</b> cannot span a single archived file across multiple zipfiles.</p>
+<p class="tab">The default maximum size of a split file is approximately 36 <a href="/jargon/k/kilobyte.htm">kilobytes</a>, which by modern standards is very small. If you want or need to create splits larger than 36 Kb, you must specify a different maximum size using the <b>-n</b> option.</p>
+<p class="tab">There is no convenient way to re-assemble a set of split zip archives into a single unified archive. <a href="/jargon/c/concaten.htm">Concatenating</a> them manually and then "fixing" the concatenated file with <a href="/unix/zip.htm"><b>zip</b></a>'s <b>-FF</b> option is possible, however. For example, if your split files are named <b>archive01.zip</b>, <b>archive02.zip</b>, etc. you could concatenate them into a new file, <b>whole.zip</b>, with the command:</p>
+<pre class="tab tcy">cat archive*.zip &gt; whole.zip</pre>
+<p class="tab">...and then "fix" <b>whole.zip</b> (re-build its index), using the command:</p>
+<pre class="tab tcy">zip -FF whole.zip --out fixed.zip</pre>
+<p class="tab">...which would leave you with a re-assembled archive named <b>fixed.zip</b>.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">zipsplit -n 2097152 /home/user/myarchive.zip</pre>
+<p class="tab">Split the archive <b>/home/user/myarchive.zip</b> into multiple smaller archives, each of that is no larger than <b>2097152</b> bytes (2 megabytes). The split files will be written into the current directory.</p>
+<pre class="tcy tab">zipsplit -p -n 2097152 /home/user/myarchive.zip</pre>
+<p class="tab">Same as the above command, but pause between the creation of each split file. This command can be useful on much older systems if the destination of your split files is a <a href="/jargon/f/fdd.htm">floppy disk drive</a>, as it gives you the option to insert a new floppy disk between each split.</p>
+<pre class="tcy tab">zipsplit -b /archive -n 2097152 myarchive.zip</pre>
+<p class="tab">Split <b>myarchive.zip</b> into zipfiles no larger than 2 megabytes, and write the split zipfiles into the directory <b>/archive</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/unzip.htm"><b>unzip</b></a> &mdash; List, test and extract compressed files in a zip archive.<br><a href="/unix/zip.htm"><b>zip</b></a> &mdash; A compression and archiving utility.<br><a href="/unix/zipcloak.htm"><b>zipcloak</b></a> &mdash; Encrypt files within an existing zip archive.<br><a href="/unix/zipnote.htm"><b>zipnote</b></a> &mdash; View, add, or modify a zip file's comments.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a838daca7c41a',m:'ky_IVBmt32grU9lSTyynlit.cZUP9fR41MHZrqJlHsw-1661495375-0-AUGRB9bcnuzTEQAURndf/eb9ycpAmsiIjtY4Cy5IIq38bh8KgzX19GnA1lLaQ1H5oUZl9eRUVpNCdKgRBTQpmEO1NT19XgCxWty3KzoXjwJb2TSuH3smpFtEs80QeQJmpwix3i5KLw8qIBE/lv4rnPw=',s:[0xb485e1f4e9,0xb9f6823cd8],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

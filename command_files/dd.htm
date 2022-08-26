@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux dd command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/dd.gif" width="300" height="300" alt="dd command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>dd</b> command copies a file, <a href="/jargon/c/conversi.htm">converting</a> the format of the data in the process, according to the <a href="/jargon/o/operand.htm">operands</a> specified.</p>
+<p>This page describes the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>dd</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">dd [<i>OPERAND</i>]...</pre>
+<pre class="tcy tab">dd <i>OPTION</i></pre>
+<h3 class="tab">Operands</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>bs=</b><i>BYTES</i></td>
+<td><a href="/jargon/r/read.htm">Read</a> and <a href="/jargon/w/write.htm">write</a> <i>BYTES</i> <a href="/jargon/b/byte.htm">bytes</a> at a time (also see <b>ibs=</b>,<b>obs=</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>cbs=</b><i>BYTES</i></td>
+<td>Convert <i>BYTES</i> bytes at a time.</td>
+</tr>
+<tr class="tcw">
+<td><b>conv=</b><i>CONVS</i></td>
+<td>Convert the file as per the comma separated symbol list. Each symbol may be one of the following, and represents a specific type of conversion:<br><br> <b>ascii</b><br><br> from <a href="/jargon/e/ebcdic.htm">EBCDIC</a> to <a href="/jargon/a/ascii.htm">ASCII</a><br><br> <b>ebcdic</b><br><br> from ASCII to EBCDIC<br><br> <b>ibm</b><br><br> from ASCII to alternate EBCDIC<br><br> <b>block</b><br><br> pad <a href="/jargon/n/newline.htm">newline</a>-<a href="/jargon/t/terminat.htm">terminated</a> records with spaces to <b>cbs</b>-size<br><br> <b>unblock</b><br><br> replace trailing spaces in <b>cbs</b>-size records with newline<br><br> <b>lcase</b><br><br> change <a href="/jargon/u/uppercase.htm">uppercase</a> to <a href="/jargon/l/lowercas.htm">lowercase</a><br><br> <b>nocreat</b><br><br> do not create the <a href="/jargon/o/output.htm">output</a> file<br><br> <b>excl</b><br><br> fail if the output file already exists<br><br> <b>notrunc</b><br><br> do not <a href="/jargon/t/truncate.htm">truncate</a> the output file<br><br> <b>ucase</b><br><br> change lowercase to uppercase<br><br> <b>swab</b><br><br> swap every pair of input bytes<br><br> <b>noerror</b><br><br> continue after read errors<br><br> <b>sync</b><br><br> pad every <a href="/jargon/i/input.htm">input</a> <a href="/jargon/b/block.htm">block</a> with <a href="/jargon/n/null.htm">NULLs</a> to <b>ibs</b>-size; when used with block or unblock, pad with spaces rather than NULLs<br><br> <b>fdatasync</b><br><br> physically write output file data before finishing<br><br> <b>fsync</b><br><br> likewise, but also write <a href="/jargon/m/metadata.htm">metadata</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>count=</b><i>BLOCKS</i></td>
+<td>Copy only <i>BLOCKS</i> input blocks.</td>
+</tr>
+<tr class="tcw">
+<td><b>ibs=</b><i>BYTES</i></td>
+<td>Read <i>BYTES</i> bytes at a time (default: <b>512</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>if=</b><i>FILE</i></td>
+<td>Read from <i>FILE</i> instead of <a href="/jargon/s/stdin.htm">stdin.</a></td>
+</tr>
+<tr class="tcw">
+<td><b>iflag=</b><i>FLAGS</i></td>
+<td>Read as per the comma separated symbol list. Each symbol may be one of the following:<br><br> <b>append</b><br><br> append mode (makes sense only for output; <b>conv=notrunc</b> suggested)<br><br> <b>direct</b><br><br> use direct <a href="/jargon/i/io.htm">I/O</a> for data<br><br> <b>directory</b><br><br> fail unless a <a href="/jargon/d/director.htm">directory</a><br><br> <b>dsync</b><br><br> use synchronized I/O for data<br><br> <b>sync</b><br><br> likewise, but also for metadata<br><br> <b>fullblock</b><br><br> accumulate full blocks of input (iflag only)<br><br> <b>nonblock</b><br><br> use non-blocking I/O<br><br> <b>noatime</b><br><br> do not update access time<br><br> <b>noctty</b><br><br> do not assign controlling terminal from file<br><br> <b>nofollow</b><br><br> do not follow <a href="/jargon/s/symblink.htm">symlinks</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>obs=</b><i>BYTES</i></td>
+<td>Write <i>BYTES</i> bytes at a time (default: <b>512</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>of=</b><i>FILE</i></td>
+<td>Write to <i>FILE</i> instead of stdout.</td>
+</tr>
+<tr class="tcw">
+<td><b>oflag=</b><i>FLAGS</i></td>
+<td>Write as per the comma separated symbol list.</td>
+</tr>
+<tr class="tcw">
+<td><b>seek=</b><i>BLOCKS</i></td>
+<td>Skip <i>BLOCKS</i> <b>obs</b>-sized blocks at start of output.</td>
+</tr>
+<tr class="tcw">
+<td><b>skip=</b><i>BLOCKS</i></td>
+<td>Skip <i>BLOCKS</i> <b>ibs</b>-sized blocks at start of input.</td>
+</tr>
+<tr class="tcw">
+<td><b>status=</b>noxfer</td>
+<td>Suppress <a href="/jargon/d/datatran.htm">transfer</a> statistics.</td>
+</tr>
+</table>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>--help</b></td>
+<td>Display help and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display version information and exit.</td>
+</tr>
+</table>
+<h3 class="tab">Numerical suffixes</h3>
+<p class="tab"><i>BLOCKS</i> and <i>BYTES</i> may be followed by the following multiplicative suffixes:</p>
+<p class="tab"><b>c</b>=1<br><b>w</b>=2<br><b>b</b>=512<br><b>kB</b>=1000<br><b>K</b>=1024<br><b>MB</b>=1000*1000<br><b>M</b>=1024*1024<br><b>xM</b>=M<br><b>GB</b>=1000*1000*1000<br><b>G</b>=1024*1024*1024</p>
+<p class="tab">...and so on for <b>T</b> (<a href="/jargon/t/terabyte.htm">terabytes</a>), <b>P</b> (<a href="/jargon/p/petabyte.htm">petabytes</a>), <b>E</b> (<a href="/jargon/e/exabyte.htm">exabytes</a>), <b>Z</b> (<a href="/jargon/z/zettabyt.htm">zettabytes</a>), and <b>Y</b> (<a href="/jargon/y/yottabyt.htm">yottabytes</a>).</p>
+<h2 id="examples">Examples</h2>
+<div class="tip tab" role="note">
+<span class="title note">Caution</span>
+<p>Use <b>dd</b> cautiously &mdash; improper usage or entering the wrong values could inadvertently wipe, destroy, or overwrite the data on your hard drive.</p>
+</div>
+<pre class="tcy tab">dd if=/dev/sr0 of=/home/hope/exampleCD.iso bs=2048 conv=noerror,sync</pre>
+<p class="tab">Create an <a href="/jargon/i/isoimage.htm">ISO disc image</a> from the CD in the computer.</p>
+<pre class="tcy tab">dd if=/dev/sda of=~/disk1.img</pre>
+<p class="tab">Create an img file of the /dev/sda hard drive. To restore that image type: <b>dd if=disk1.img of=/dev/sda</b></p>
+<pre class="tcy tab">dd if=/dev/sda of=/dev/sdb</pre>
+<p class="tab">Copy the contents from the <b>if=</b> drive <b>/dev/sda</b> to the <b>of=</b> drive <b>/dev/sdb</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/jargon/c/cp.htm"><b>cp</b></a> &mdash; Copy files and directories.<br><a href="/jargon/f/fdisk.htm"><b>fdisk</b></a> &mdash; A disk partitioning utility.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82d079ec84d4',m:'8aTFfv6fjttvFNxbow75ALoS5bmzQET_MEjNaC9BaO4-1661495344-0-AV5yKGrc/lpVdhpwgPFhdOrWNpjCO6IV1nIUaB3zVFgIGbzy3RBaImGssYk6S5cTzofJqtf8Y84SXD5LTDvjVUkCNAHNlCFB5ybXFOwuq657OxKfe+gEJmFEA9MZE34MYA==',s:[0x54f938c7a8,0xcb6fddcf0c],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

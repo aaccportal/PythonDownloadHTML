@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux gzip, gunzip, and zcat commands</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/gzip.gif" width="300" height="300" alt="gzip command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>gzip</b>, <b>gunzip</b>, and <b>zcat</b> commands are used to <a href="/jargon/c/compress.htm">compress</a> or <a href="/jargon/e/expand.htm">expand</a> files in the <a href="/jargon/g/gnu.htm">GNU</a> <a href="/jargon/g/gzip.htm">GZIP</a> format.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#advanced">Advanced usage</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>gzip</b> reduces the size of the named files using <a href="/people/abraham_lempel.htm">Lempel</a>-<a href="/people/jacob_ziv.htm">Ziv</a> coding (LZ77). Whenever possible, each file is replaced by one with the <a href="/jargon/e/extensio.htm">extension</a> <b>.gz</b>, while keeping the same <a href="/jargon/o/owner.htm">ownership</a> <a href="/unix/uchmod.htm">modes</a>, access and modification times. (The default extension is <b>-gz</b> for <a href="/jargon/v/vms.htm">VMS</a>, <b>z</b> for <a href="/jargon/m/msdos.htm">MS-DOS</a>, <a href="/jargon/o/os2.htm">OS/2</a> <a href="/jargon/f/fat.htm">FAT</a>, <a href="/jargon/w/winnt.htm">Windows NT FAT</a> and <a href="/comp/atari.htm">Atari</a>.) If no files are specified, or if a file name is "<b>-</b>", the <a href="/jargon/s/stdin.htm">standard input</a> is compressed to the standard output. <b>gzip</b> only attempts to compress regular files. In particular, it ignores <a href="/jargon/s/symblink.htm">symbolic links</a>.</p>
+<p class="tab">If the compressed file name is too long for its <a href="/jargon/f/filesyst.htm">file system</a>, <b>gzip</b> truncates it. <b>gzip</b> attempts to <a href="/jargon/t/truncate.htm">truncate</a> only the parts of the file name longer than three <a href="/jargon/c/charact.htm">characters</a>. (A part is <a href="/jargon/d/delimite.htm">delimited</a> by dots.) If the name consists of small parts only, the longest parts are truncated. For example, if file names are limited to 14 characters, <b>gzip.msdos.exe</b> is compressed to <b>gzi.msd.exe.gz</b>. Names are not truncated on systems which do not have a limit on file name length.</p>
+<p class="tab">By default, <b>gzip</b> keeps the original file name and <a href="/jargon/t/timestam.htm">timestamp</a> in the compressed file. These are used when decompressing the file with the <b>-N</b> option. This setting is useful when the compressed file name was truncated or when the timestamp was not preserved after a <a href="/jargon/f/filetran.htm">file transfer</a>.</p>
+<p class="tab">Compressed files can be restored to their original form using <b>gzip -d</b> or <b>gunzip</b> or <b>zcat</b>. If the original name saved in the compressed file is not suitable for its file system, a new name is constructed from the original one to make it legal.</p>
+<p class="tab"><b>gunzip</b> takes a list of files on its command line and replaces each file whose name ends with <b>.gz</b>, <b>-gz</b>, <b>.z</b>, <b>-z</b>, or <b>_z</b> (ignoring case) and which begins with the correct magic number with an uncompressed file without the original extension. <b>gunzip</b> also recognizes the special extensions <b>.tgz</b> and <b>.taz</b> as shorthands for <b>.tar.gz</b> and <b>.tar.Z</b> respectively. When compressing, <b>gzip</b> uses the <b>.tgz</b> extension if necessary instead of truncating a file with a <b>.tar</b> extension.</p>
+<p class="tab"><b>gunzip</b> can currently decompress files created by <b>gzip</b>, <a href="/unix/zip.htm">zip</a>, <a href="/jargon/c/compress.htm">compress</a>, <b>compress -H</b> or <a href="/jargon/p/pack.htm">pack</a>. The detection of the input format is automatic. When using the first two formats, <b>gunzip</b> checks a 32-bit <a href="/jargon/c/crc.htm">CRC</a>. For <b>pack</b>, <b>gunzip</b> checks the uncompressed length. The standard compress format was not designed to allow consistency checks. However <b>gunzip</b> is sometimes able to detect a bad <b>.Z</b> file. If you get an error when uncompressing a <b>.Z</b> file, do not assume that the <b>.Z</b> file is correct because the standard uncompress does not complain. This generally indicates the standard uncompress does not check its input, and happily generates garbage output. The <a href="/comp/sco.htm">SCO</a> <b>compress -H</b> format (lzh compression method) does not include a CRC but also allows some consistency checks.</p>
+<p class="tab">Files created by <b>zip</b> can be uncompressed by <b>gzip</b> only if they have a single member compressed with the 'deflation' method. This feature is only intended to help conversion of <b>tar.zip</b> files to the <b>tar.gz</b> format. To extract a <b>zip</b> file with a single member, use a command like:</p>
+<pre class="tab tcy">gunzip &lt;foo.zip</pre>
+<p class="tab">or:</p>
+<pre class="tab tcy">gunzip -S .zip foo.zip</pre>
+<p class="tab">To extract zip files with several members, use <b>unzip</b> instead of <b>gunzip</b>.</p>
+<p class="tab"><b>zcat</b> is identical to <b>gunzip -c</b>. (On some systems, <b>zcat</b> may be installed as <b>gzcat</b> to preserve the original link to <b>compress</b>.) <b>zcat</b> uncompresses either a list of files on the <a href="/jargon/c/commandi.htm">command line</a> or its standard input and writes the uncompressed data on standard output. <b>zcat</b> will uncompress files that have the correct magic number whether they have a <b>.gz</b> <a href="/jargon/s/suffix.htm">suffix</a> or not.</p>
+<p class="tab"><b>gzip</b> uses the Lempel-Ziv algorithm used in <b>zip</b> and <a href="/jargon/p/pkzip.htm">PKZIP</a>. The amount of compression obtained depends on the size of the input and the distribution of common substrings. Typically, text such as <a href="/jargon/s/source.htm">source code</a> or English is reduced by 60-70%. Compression is generally better than that achieved by LZW (as used in <b>compress</b>), <a href="/people/david_huffman.htm">Huffman</a> coding (as used in <b>pack</b>), or adaptive Huffman coding (<b>compact</b>).</p>
+<p class="tab">Compression is always performed, even if the compressed file is slightly larger than the original. The worst case expansion is a few bytes for the <b>gzip</b> file <a href="/jargon/h/header.htm">header</a>, plus 5 bytes every 32 K block, or an expansion ratio of 0.015% for large files. Note that the actual number of used disk <a href="/jargon/b/block.htm">blocks</a> almost never increases. <b>gzip</b> preserves the mode, ownership and timestamps of files when compressing or decompressing.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">gzip [ -acdfhlLnNrtvV19 ] [-S <i>suffix</i>] [ <i>name</i> ...  ]</pre>
+<pre class="tcy tab">gunzip [ -acfhlLnNrtvV ] [-S <i>suffix</i>] [ <i>name</i> ...  ]</pre>
+<pre class="tcy tab">zcat [ -fhLV ] [ <i>name</i> ...  ]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>-a</b>, <b>--ascii</b></td>
+<td><a href="/jargon/a/ascii.htm">ASCII</a> text mode: convert end-of-lines using local conventions. This option is supported only on some non-Unix systems. For MS-DOS, <a href="/jargon/c/cr.htm">CR</a> <a href="/jargon/l/lf.htm">LF</a> is converted to LF when compressing, and LF is converted to CR LF when decompressing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--stdout</b>, <b>--to-stdout</b></td>
+<td>Write output on standard output; keep original files unchanged. If there are several input files, the output consists of a sequence of independently compressed members. To obtain better compression, <a href="/jargon/c/concaten.htm">concatenate</a> all input files before compressing them.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--decompress</b>,<br><b>--uncompress</b></td>
+<td>Decompress.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--force</b></td>
+<td>Force compression or decompression even if the file has multiple links or the corresponding file already exists, or if the compressed data is read from or written to a terminal. If the input data is not in a format recognized by <b>gzip</b>, and if the option <b>--stdout</b> is also given, copy the input data without change to the standard output: let <b>zcat</b> behave as <a href="/unix/ucat.htm">cat</a>. If <b>-f</b> is not given, and when not running in the background, <b>gzip</b> <a href="/jargon/p/prompt.htm">prompts</a> to verify whether an existing file should be <a href="/jargon/o/overwrit.htm">overwritten</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display a help screen and quit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--list</b></td>
+<td>For each compressed file, list the following fields:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:200px"><b>compressed size</b></td>
+<td>size of the compressed file</td>
+</tr>
+<tr class="tcw">
+<td><b>uncompressed size</b></td>
+<td>size of the uncompressed file</td>
+</tr>
+<tr class="tcw">
+<td><b>ratio</b></td>
+<td>compression ratio (0.0% if unknown)</td>
+</tr>
+<tr class="tcw">
+<td><b>uncompressed_name</b></td>
+<td>name of the uncompressed file</td>
+</tr>
+</table>
+The uncompressed size is given as <b>-1</b> for files not in <b>gzip</b> format, such as compressed <b>.Z</b> files. To get the uncompressed size for such a file, you can use:<br>
+<br>
+<pre class="tcy">zcat file.Z | wc -c</pre>
+In combination with the <b>--verbose</b> option, the following fields are also displayed:<br>
+<br>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>method</b></td>
+<td>compression method</td>
+</tr>
+<tr class="tcw">
+<td><b>crc</b></td>
+<td>the 32-bit CRC of the uncompressed data</td>
+</tr>
+<tr class="tcw">
+<td><b>date &amp; time</b></td>
+<td>timestamp for the uncompressed file</td>
+</tr>
+</table>
+The compression methods currently supported are <b>deflate</b>, <b>compress</b>, <b>lzh</b> (SCO <b>compress -H</b>) and <b>pack</b>. The crc is given as <b>ffffffff</b> for a file not in <b>gzip</b> format.<br>
+<br>
+With <b>--name</b>, the uncompressed name, date and time are those stored in the compress file if present.<br>
+<br>
+With <b>--verbose</b>, the size totals and compression ratio for all files is also displayed, unless some sizes are unknown. With <b>--quiet</b>, the title and totals lines are not displayed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--license</b></td>
+<td>Display the <b>gzip</b> license and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--no-name</b></td>
+<td>When compressing, do not save the original file name and timestamp by default. (The original name is always saved if the name had to be truncated.) When decompressing, do not restore the original file name if present (remove only the gzip suffix from the compressed file name) and do not restore the original timestamp if present (copy it from the compressed file). This option is the default when decompressing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b>, <b>--name</b></td>
+<td>When compressing, always save the original file name and timestamp; this is the default. When decompressing, restore the original file name and timestamp if present. This option is useful on systems which have a limit on file name length or when the timestamp is lost after a file transfer.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--quiet</b></td>
+<td>Suppress all warnings.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--recursive</b></td>
+<td>Travel the <a href="/jargon/h/hierfile.htm">directory structure</a> <a href="/jargon/r/recursive.htm">recursively</a>. If any of the file names specified on the command line are directories, <b>gzip</b> will descend into the directory and compress all the files it finds there (or decompress them in the case of <b>gunzip</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-S .</b><i>suf</i>, <b>--suffix .</b><i>suf</i></td>
+<td>When compressing, use suffix <b>.</b><i>suf</i> instead of <b>.gz</b>. Any non-empty suffix can be given, but suffixes other than <b>.z</b> and <b>.gz</b> should be avoided to avoid confusion when files are transferred to other systems.<br><br> When decompressing, add <b>.</b><i>suf</i> to the beginning of the list of suffixes to try, when deriving an output file name from an input file name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--test</b></td>
+<td>Test. Check the compressed file integrity.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td><a href="/jargon/v/verbose.htm">Verbose</a>. Display the name and percentage reduction for each file compressed or decompressed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Version. Display the version number and compilation options then quit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b><i>#</i>, <b>--fast</b>, <b>--best</b></td>
+<td>Regulate the speed of compression using the specified digit <i>#</i>, where <b>-1</b> or <b>--fast</b> indicates the fastest compression method (less compression) and <b>-9</b> or <b>--best</b> indicates the slowest compression method (best compression). The default compression level is <b>-6</b> (that is, biased towards high compression at expense of speed).</td>
+</tr>
+</table>
+<h2 id="advanced">Advanced usage</h2>
+<p class="tab">Multiple compressed files can be concatenated. In this example, <b>gunzip</b> will extract all members at once. For example:</p>
+<pre class="tab tcy">gzip -c file1  &gt; foo.gz</pre>
+<pre class="tab tcy">gzip -c file2 &gt;&gt; foo.gz</pre>
+<p class="tab">Then:</p>
+<pre class="tab tcy">gunzip -c foo</pre>
+<p class="tab">is equivalent to:</p>
+<pre class="tab tcy">cat file1 file2</pre>
+<p class="tab">In case of damage to one member of a <b>.gz</b> file, other members can still be recovered (if the damaged member is removed). However, you can get better compression by compressing all members at once:</p>
+<pre class="tab tcy">cat file1 file2 | gzip &gt; foo.gz</pre>
+<p class="tab">compresses better than:</p>
+<pre class="tab tcy">gzip -c file1 file2 &gt; foo.gz</pre>
+<p class="tab">If you want to recompress concatenated files to get better compression, do:</p>
+<pre class="tab tcy">gzip -cd old.gz | gzip &gt; new.gz</pre>
+<p class="tab">If a compressed file consists of several members, the uncompressed size and CRC reported by the --list option applies to the last member only. If you need the uncompressed size for all members, you can use:</p>
+<pre class="tab tcy">gzip -cd file.gz | wc -c</pre>
+<p class="tab">If you want to create a single archive file with multiple members so that members can later be extracted independently, use an archiver such as <a href="/unix/utar.htm">tar</a> or <b>zip</b>. GNU <b>tar</b> supports the <b>-z</b> option to invoke <b>gzip</b> transparently. <b>gzip</b> is designed as a complement to <b>tar</b>, not as a replacement.</p>
+<h2 id="environment">Environment</h2>
+<p class="tab">The <a href="/jargon/e/envivari.htm">environment variable</a> <b>GZIP</b> can hold a set of default options for <b>gzip</b>. These options are interpreted first and can be overwritten by explicit command line parameters. For example:</p>
+<p class="tab">for <a href="/unix/ush.htm">sh</a>:</p>
+<pre class="tab tcy">GZIP="-8v --name"; export GZIP</pre>
+<p class="tab">for <a href="/unix/ucsh.htm">csh</a>:</p>
+<pre class="tab tcy">setenv GZIP "-8v --name"</pre>
+<p class="tab">for <a href="/jargon/m/msdos.htm">MS-DOS</a>:</p>
+<pre class="tab tcy">set GZIP=-8v --name</pre>
+<p class="tab">On Vax/VMS, the name of the environment variable is <b>GZIP_OPT</b>, to avoid a conflict with the symbol set for invocation of the program.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">zcat myfiles.tar.gz | more</pre>
+<p class="tab">Prints the contents of all files in the gzipped tar archive <b>myfiles.tar.gz</b>, <a href="/jargon/p/pipe.htm">piping</a> the output to the <a href="/unix/umore.htm">more</a> command, which pages the output (pauses at the end of each page).</p>
+<pre class="tcy tab">gzip backup.tar</pre>
+<p class="tab">Compresses the tar archive <b>backup.tar</b>, and renames it <b>backup.tar.gz</b>.</p>
+<pre class="tcy tab">gunzip backup.tar.gz</pre>
+<p class="tab">Uncompresses the gzipped file <b>backup.tar.gz</b>, renaming it <b>backup.tar</b>.</p>
+<pre class="tcy tab">gzip -r backupfolder</pre>
+<p class="tab">Recursively compresses all files in the folder <b>backupfolder</b>, and all files in any subdirectories of that folder, and gives them the extension <b>.gz</b>.</p>
+<pre class="tcy tab">gunzip -r backupfolder</pre>
+<p class="tab">Recursively uncompresses all gzipped files in the folder <b>backupfolder</b>, and removes the extension <b>.gz</b> from the file names.</p>
+<pre class="tcy tab">gzip -c myfile.txt &gt; myfile.txt.gz</pre>
+<p class="tab">Compresses the file <b>myfile.txt</b>, writing the compressed file data to standard output, which is <a href="/jargon/r/redirect.htm">redirected</a> to a file, <b>myfile.txt.gz</b>. The result is that the original file and the gzipped file will both exist after the command is run.</p>
+<pre class="tcy tab">zcat myfile.txt.gz</pre>
+<p class="tab">Prints the uncompressed contents of the compressed file <b>myfile.txt.gz</b>. The output is identical to printing the contents of the uncompressed file with the command <b>cat myfile.txt</b>.</p>
+<pre class="tcy tab">gunzip -c myfile.txt.gz &gt; myfile.txt</pre>
+<p class="tab">Uncompresses the gzipped file <b>myfile.txt.gz</b> to standard output, which is redirected to the file <b>myfile.txt</b>. If <b>myfile.txt</b> already exists, the <a href="/jargon/s/shell.htm">shell</a> prompt you to overwrite it (or not).</p>
+<div class="tip tab" role="note">
+<span class="title">Tip</span>
+<p>See the above <a href="#advanced">advanced usage</a> for additional examples.</p>
+</div>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucat.htm"><b>cat</b></a> &mdash; Output the contents of a file.<br><a href="/unix/ucompres.htm"><b>compress</b></a> &mdash; Compress a file or files.<br><a href="/unix/utar.htm"><b>tar</b></a> &mdash; Create, modify, list the contents of, and extract files from tar archives.<br><a href="/unix/uuncompr.htm"><b>uncompress</b></a> &mdash; Extract files from compressed archives.<br><a href="/jargon/u/unzip.htm"><b>unzip</b></a> &mdash; List, test and extract compressed files in a zip archive.<br><a href="/unix/zip.htm"><b>zip</b></a> &mdash; A compression and archiving utility.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a838af9ecc3e8',m:'duw3eTDcb1jwZ0j_SpG7EKvXcLx8UspHptqalmMqMLE-1661495374-0-AR+FKggTrO/jbm8tj8/joG1HJ0Wr2QNuClNl0qM+/NpoJvE+Td23thDdeZIQEU2ckfRuyKoq23hyggZ9+Pnex7q2cmKxaOkNXXpW/0ZrKwNKQf+wYPEYkdhTPetbyQxKWg==',s:[0xe67c800a2f,0xccb872b92b],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux chgrp command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/chgrp.gif" width="300" height="300" alt="chgrp command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>chgrp</b> command changes the <a href="/jargon/g/group.htm">group</a> <a href="/jargon/o/owner.htm">ownership</a> of a file or files.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>chgrp</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>chgrp</b> command changes the group of each <b>FILE</b> to <b>GROUP</b>. If the <b>--reference</b> option is specified, <b>chgrp</b> changes the group of each <b>FILE</b> to that of <b>RFILE</b>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">chgrp [<i>OPTION</i>]... <i>GROUP</i> <i>FILE</i>...</pre>
+<pre class="tcy tab">chgrp [<i>OPTION</i>]... --reference=<i>RFILE</i> <i>FILE</i>...</pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:190px"><b>-c</b>, <b>--changes</b></td>
+<td>Like <b>verbose</b> but report only when a change is made.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--silent</b>, <b>--quiet</b></td>
+<td>Suppress most error messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Output a diagnostic for every file processed.</td>
+</tr>
+<tr class="tcw">
+<td><b>--dereference</b></td>
+<td>Affect the referenced file of each <a href="/jargon/s/symblink.htm">symbolic link</a>, rather than the symbolic link itself, which is default setting.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>,<br> <b>--no-dereference</b></td>
+<td>Affect symbolic links instead of any referenced file. This option is useful only on systems that change the ownership of a symlink.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-preserve-root</b></td>
+<td>Do not treat '<b>/</b>' in any special way. This option is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>--preserve-root</b></td>
+<td>Do not operate <a href="/jargon/r/recursive.htm">recursively</a> on '<b>/</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>--reference</b><i>=RFILE</i></td>
+<td>Use <i>RFILE</i>'s group rather than specifying a <i>GROUP</i> value.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--recursive</b></td>
+<td>Operate on files and directories recursively.</td>
+</tr>
+</table>
+<p class="tab">The following options modify how a hierarchy is traversed when the <b>-R</b> option is also specified. If more than one of these options is specified, only the final one takes effect:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>-H</b></td>
+<td>If a <a href="/jargon/c/commandi.htm">command line</a> <a href="/jargon/a/argument.htm">argument</a> is a symbolic link to a directory, traverse it.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b></td>
+<td>Traverse every symbolic link to a directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b></td>
+<td>Do not traverse any symbolic links. This option is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Output <a href="/jargon/v/version.htm">version</a> information and exit.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">chgrp hope file.txt</pre>
+<p class="tab">Change the owning group of the file <b>file.txt</b> to the group named <b>hope</b>.</p>
+<pre class="tcy tab">chgrp -hR staff /office/files</pre>
+<p class="tab">Change the owning group of <b>/office/files</b>, and all subdirectories, to the group <b>staff</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uchmod.htm"><b>chmod</b></a> &mdash; Change the permissions of files or directories.<br><a href="/unix/uchown.htm"><b>chown</b></a> &mdash; Change the ownership of files or directories.<br><a href="/unix/uid.htm"><b>id</b></a> &mdash; Display real and effective user and group IDs.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82c23d70c41a',m:'kckvZrQvY2482INa0erXca.ctDXmXMl1yuFCcXW9VwM-1661495342-0-AQrRGIfuss+m4Ih4Xliw5GLAEkMhfMeqvomCY8df7nTYK0MyQic9yiNEJtYc0EcRZjKXeLTY+UVG1YPMuVeqs7ptJVCR3oAOpauJ7dNrN0Folv0szngSeC9Y9GObsidrHw==',s:[0x95cef0bdbb,0x0e59e83ea9],u:'/cdn-cgi/challenge-platform/h/b'};var _cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/cb/invisible.js?cb=740a82c23d70c41a',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

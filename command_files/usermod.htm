@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux usermod command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/usermod.gif" width="300" height="300" alt="usermod command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>usermod</b> command modifies a user <a href="/jargon/a/account.htm">account</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>usermod</b> command is used by an <a href="/jargon/r/root.htm">administrator</a> to change a user's system account settings, as listed in the options below:</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">usermod [<i>options</i>] <i>LOGIN</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:260px"><b>-a</b>, <b>--append</b></td>
+<td>Add the user to the supplementary <a href="/jargon/g/group.htm">group</a>(s). Use only with the <b>-G</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b> <i>COMMENT</i>,<br><b>--comment</b> <i>COMMENT</i></td>
+<td>The new value of the user's password file <a href="/jargon/c/comment.htm">comment</a> field. It is normally modified using the <a href="/unix/chfn.htm"><b>chfn</b></a> utility.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>,<br><b>--home</b> <i>HOME_DIR</i></td>
+<td>The user's new login directory.<br><br> If the <b>-m</b> option is given, the contents of the current <a href="/jargon/h/homedir.htm">home directory</a> is moved to the new home directory, which is created if it does not already exist.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b> <i>EXPIRE_DATE</i>,<br><b>--expiredate</b> <i>EXPIRE_DATE</i></td>
+<td>The date on which the user account is disabled. The date is specified in the format <b>YYYY-MM-DD</b>. An empty <i>EXPIRE_DATE</i> <a href="/jargon/a/argument.htm">argument</a> disables the expiration of the account.<br><br> This option requires a <b>/etc/shadow</b> file. A <b>/etc/shadow</b> entry is created if there were none.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>INACTIVE</i>,<br><b>--inactive</b> <i>INACTIVE</i></td>
+<td>The number of days after a <a href="/jargon/p/password.htm">password</a> expires until the account is permanently disabled.<br><br> A value of <b>0</b> disables the account as soon as the password has expired, and a value of <b>-1</b> disables the feature.<br><br> This option requires a <b>/etc/shadow</b> file. A <b>/etc/shadow</b> entry is created if there were none.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b> <i>GROUP</i>, <b>--gid</b> <i>GROUP</i></td>
+<td>The group name or number of the user's new initial login group. The group must exist.<br><br> Any file from the user's home directory owned by the previous primary group of the user is owned by this new group.</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b>,<br><b>--groups</b> <i>GROUP1</i>[<b>,GROUP2,</b>...[<b>,GROUPN</b>]]</td>
+<td>A list of groups that contain the user as a member. Each group is separated from the next by a comma, with no intervening <a href="/jargon/w/whitspac.htm">whitespace</a>. The groups are subject to the same restrictions as the group given with the <b>-g</b> option. If the user is currently a member of a group that is not listed, the user is removed from the group.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b> <i>NEW_LOGIN</i>,<br><b>--login</b> <i>NEW_LOGIN</i></td>
+<td>The name of the user is changed from <i>LOGIN</i> to <i>NEW_LOGIN</i>. Nothing else is changed. In particular, the user's home directory or <a href="/jargon/e/email.htm">mail</a> <a href="/jargon/s/spool.htm">spool</a> should probably be renamed manually to reflect the new login name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--lock</b></td>
+<td>Lock a user's password. This puts a "<b>!</b>" in front of the <a href="/jargon/e/encrypt.htm">encrypted</a> password, effectively disabling the password. You can't use this option with <b>-p</b> or <b>-U</b>.<br><br> Note: if you want to lock the account (not only access with a password), also set the <i>EXPIRE_DATE</i> to <b>1</b> using <b>-e</b> (see above).</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b>, <b>--move-home</b></td>
+<td>Move the content of the user's home directory to the new location.<br><br> This option is only valid in combination with the <b>-d</b> (or <b>--home</b>) option.<br><br><b>usermod</b> will try to adapt the ownership of the files and to copy the modes, <a href="/jargon/a/acl.htm">ACL</a> and extended attributes, but manual changes might be needed afterwards.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--non-unique</b></td>
+<td>When used with the <b>-u</b> option, this option allows to change the user ID to a non-unique value.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>PASSWORD</i>,<br><b>--password</b> <i>PASSWORD</i></td>
+<td>The encrypted password, as returned by crypt.<br><br> Note: This option is not recommended because the password (or encrypted password) is visible by users listing the <a href="/jargon/p/process.htm">processes</a> (using the <a href="/unix/ups.htm">ps</a> command, for instance).<br><br> The password is written in the local <b>/etc/passwd</b> or <b>/etc/shadow</b> file. This might differ from the password database configured in your PAM (Pluggable Authentication Module) configuration.<br><br> Make sure the password respects the system's password policy.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b> <i>CHROOT_DIR</i>,<br><b>--root</b> <i>CHROOT_DIR</i></td>
+<td>Apply changes in the <i>CHROOT_DIR</i> <a href="/jargon/c/chroot.htm">chroot</a> directory and use the configuration files from the <i>CHROOT_DIR</i> directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>SHELL</i>, <b>--shell</b> <i>SHELL</i></td>
+<td>The name of the user's new login shell. Setting this field to blank causes the system to select the default login shell.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--uid</b> <i>UID</i></td>
+<td>The new numerical value of the user's ID.<br><br> This value must be unique, unless the <b>-o</b> option is used. The value must be non-negative.<br><br> The user's mailbox, and any files which the user owns and that are located in the user's home directory, have the file user ID changed automatically.<br><br> The ownership of files outside of the user's home directory must be fixed manually.<br><br> No checks are performed with regard to the <b>UID_MIN</b>, <b>UID_MAX</b>, <b>SYS_UID_MIN</b>, or <b>SYS_UID_MAX</b> values from <b>/etc/login.defs</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b>, <b>--unlock</b></td>
+<td>Unlock a user's password. This removes the "<b>!</b>" in front of the encrypted password. You can't use this option with <b>-p</b> or <b>-L</b>.<br><br> Note: if you want to unlock the account (not only access with a password), set the <i>EXPIRE_DATE</i> (for example to <b>99999</b>, or to the <b>EXPIRE</b> value from <b>/etc/default/useradd</b>) using the <b>-e</b> option (see above).</td>
+</tr>
+<tr class="tcw">
+<td><b>-Z</b> <i>SEUSER</i>,<br><b>--selinux-user</b> <i>SEUSER</i></td>
+<td>The new SELinux user for the user's login.<br><br> A blank <i>SEUSER</i> removes the SELinux user mapping for user <i>LOGIN</i> (if any).</td>
+</tr>
+</table>
+<h2 id="notes">Notes</h2>
+<p class="tab">You must make certain that the named user is not executing any processes when this command is being executed if the user's numerical user ID, the user's name, or the user's home directory is being changed. <b>usermod</b> checks this on <a href="/jargon/l/linux.htm">Linux</a>, but only checks if the user is logged in according to the <b>utmp</b> file on other systems.</p>
+<p class="tab">You must change the owner of any <a href="/unix/ucrontab.htm">crontab</a> files or at jobs manually.</p>
+<p class="tab">You must make any changes involving NIS (Network Information Service) on the NIS server.</p>
+<h2 id="configuration">Configuration</h2>
+<p class="tab">The following configuration variables in <b>/etc/login.defs</b> change the behavior of this tool:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th style="width:300px"><b>Name</b></th>
+<th style="width:80px"><b>Type</b></th>
+<th><b>Description</b></th>
+</tr>
+<tr class="tcw">
+<td><b>MAIL_DIR</b></td>
+<td><a href="/jargon/s/string.htm">string</a></td>
+<td>The mail spool directory. This is needed to manipulate the mailbox when its corresponding user account is modified or deleted. If not specified, a <a href="/jargon/c/compile.htm">compile</a>-time default is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>MAIL_FILE</b></td>
+<td>string</td>
+<td>Defines the location of the users' mail spool files relative to their home directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>MAX_MEMBERS_PER_GROUP</b></td>
+<td>number</td>
+<td>Maximum members per group entry. When the maximum is reached, a new group entry (line) is started in <b>/etc/group</b> (with the same name, same password, and same GID).<br><br> The default value is <b>0</b>, meaning that there are no limits in the number of members in a group.<br><br> This feature (split group) permits to limit the length of lines in the group file. This is useful to make sure that lines for NIS groups are not larger than 1024 <a href="/jargon/c/charact.htm">characters</a>.<br><br> If you need to enforce such limit, you can use <b>25</b>.<br><br> Note: split groups may not be supported by all tools. You should not use this variable unless you need it.</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<p class="tab"><b>usermod</b> makes use of the following files:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>/etc/group</b></td>
+<td>Group account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/gshadow</b></td>
+<td>Secure group account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/login.defs</b></td>
+<td>Shadow password suite configuration.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/passwd</b></td>
+<td>User account information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/shadow</b></td>
+<td>Secure user account information.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">usermod -d /home/exampleusernew exampleuser</pre>
+<p class="tab">Modifies the home directory for the <b>exampleuser</b> account, changing it to <b>/home/exampleusernew</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/chsh.htm"><b>chsh</b></a> &mdash; The C shell command interpreter.<br><a href="/unix/useradd.htm"><b>useradd</b></a> &mdash; Add a user to the system.<br><a href="/unix/userdel.htm"><b>userdel</b></a> &mdash; Remove a user from the system.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83748ce584bc',m:'XE2WQ3Oo1PNJSg0U7uYaXwAwTJaapHapKr5FeDNWcq0-1661495371-0-Ae0GDRG7lj01KCY2exOlMPpMzssn7YcvLNTa9AueV58GPyk6NiERQaYzCp2k5GxfZGANSmp6PnwMqyRs5prYwRNWDrrwYzPaZx1qC7Yt2R0S33cKpjvl4QiB510IoeCvFm/jOGCsaOunkNJPvdL/kX8=',s:[0x6c71a8c3b7,0x16082f8ab0],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

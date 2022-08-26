@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux aptitude command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/aptitude.gif" width="300" height="300" alt="aptitude command" class="floatRight"><p class="intro"><b>aptitude</b> is the text-based <a href="/jargon/f/frontend.htm">front-end</a> for the APT <a href="/jargon/p/package.htm">package</a> management system. It allows the user to view the list of packages and to perform package management tasks such as <a href="/jargon/i/install.htm">installing</a>, <a href="/jargon/u/upgrade.htm">upgrading</a>, and <a href="/jargon/d/delete.htm">removing</a> packages. Actions may be performed from a visual interface or from the <a href="/jargon/c/commandi.htm">command-line</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#actions">Actions</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#visual">Visual mode options</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">aptitude [<i>&lt;options&gt;</i>...] {autoclean | clean | forget-new | keep-all | update}
+</pre>
+<pre class="tcy tab">aptitude [<i>&lt;options&gt;</i>...] {full-upgrade | safe-upgrade} [<i>&lt;packages&gt;</i>...]
+</pre>
+<pre class="tcy tab">aptitude [<i>&lt;options&gt;</i>...] {build-dep | build-depends | changelog |
+         download | forbid-version | hold | install | markauto | purge |
+         reinstall | remove | show | unhold | unmarkauto | versions}
+         <i>&lt;packages&gt;</i>...
+</pre>
+<pre class="tcy tab">aptitude extract-cache-subset <i>&lt;output-directory&gt;</i> <i>&lt;packages&gt;</i>...
+</pre>
+<pre class="tcy tab">aptitude [<i>&lt;options&gt;</i>...] search <i>&lt;patterns&gt;</i>...
+</pre>
+<pre class="tcy tab">aptitude [&lt;options&gt;...] {add-user-tag | remove-user-tag} &lt;tag&gt; &lt;packages&gt;...
+</pre>
+<pre class="tcy tab">aptitude [<i>&lt;options&gt;</i>...] {why | why-not} [<i>&lt;patterns&gt;</i>...] <i>&lt;package&gt;</i>
+</pre>
+<pre class="tcy tab">aptitude [-S <i>&lt;fname&gt;</i>] [--autoclean-on-startup | --clean-on-startup | -i | -u]
+</pre>
+<pre class="tcy tab">aptitude help
+</pre>
+<h2 id="actions">Actions</h2>
+<p class="tab">The first <a href="/jargon/a/argument.htm">argument</a> which does not begin with a hyphen ("<b>-</b>") is considered to be an action that the program should perform. If an action is not specified on the command-line, <b>aptitude</b> starts up in visual mode.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:220px"><b>install</b></td>
+<td>Install one or more packages. The packages should be listed after the "<b>install</b>" command; if a package name contains a tilde character ("<b>~</b>") or a question mark ("<b>?</b>"), it will be treated as a search pattern and every package matching the pattern will be installed.<br><br> To select a particular <a href="/jargon/v/version.htm">version</a> of the package, append <b>=&lt;version&gt;</b> to the package name: for instance, <b>aptitude install apt=0.3.1</b>. Similarly, to select a package from a particular <a href="/jargon/a/archive.htm">archive</a>, append <b>/&lt;archive&gt;</b> to the package name: for instance, <b>aptitude install apt/experimental</b>. You cannot specify both an archive and a version for a package.<br><br> Not every package listed on the command line has to be installed; you can tell aptitude to do something different with a package by appending an "override specifier" to the name of the package. For example, <b>aptitude remove wesnoth+</b> will install "wesnoth", not remove it. The following override specifiers are available:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><i>package</i><b>+</b></td>
+<td>Install <i>package</i>.</td>
+</tr>
+<tr class="tcw">
+<td><i>package</i><b>+M</b></td>
+<td>Install <i>package</i> and immediately mark as automatically installed (note that if nothing depends on <i>package</i>, this causes it to be immediately removed).</td>
+</tr>
+<tr class="tcw">
+<td><i>package</i><b>-</b></td>
+<td>Remove <i>package</i>.</td>
+</tr>
+<tr class="tcw">
+<td><i>package</i><b>_</b></td>
+<td><a href="/jargon/p/purge.htm">Purge</a> <i>package</i>: remove it and all its associated configuration and data files.</td>
+</tr>
+<tr class="tcw">
+<td><i>package</i><b>=</b></td>
+<td>Place <i>package</i> on hold: cancel any active installation, upgrade, or removal, and prevent this package from being automatically upgraded in the future.</td>
+</tr>
+<tr class="tcw">
+<td><i>package</i><b>:</b></td>
+<td>Keep <i>package</i> at its current version: cancel any installation, removal, or upgrade. Unlike "hold" (above) this does not prevent automatic upgrades in the future.</td>
+</tr>
+<tr class="tcw">
+<td><i>package</i><b>&amp;M</b></td>
+<td>Mark <i>package</i> as having been automatically installed.</td>
+</tr>
+<tr class="tcw">
+<td><i>package</i><b>&amp;m</b></td>
+<td>Mark <i>package</i> as having been manually installed.</td>
+</tr>
+</table>
+As a special case, "<b>install</b>" with no arguments will act on any stored/pending actions.<br><br>
+Once you enter "Y" at the final confirmation prompt, the <b>install</b> command modifies aptitude's stored information about what actions to perform. Therefore, if you issue (for example) the command <b>aptitude install foo bar</b> and then abort the installation once aptitude has started downloading and installing packages, you need to run <b>aptitude remove foo bar</b> to cancel that order.
+</td>
+</tr>
+<tr class="tcw">
+<td><b>remove</b>, <b>purge</b>,<br><b>hold</b>, <b>unhold</b>,<br><b>keep</b>, <b>reinstall</b></td>
+<td>These commands are the same as <b>install</b>, but apply the named action to all packages given on the command line for which it is not overridden.<br><br> The difference between <b>hold</b> and <b>keep</b> is that <b>hold</b> causes a package to be ignored by future <b>safe-upgrade</b> or full-upgrade commands, while <b>keep</b> merely cancels any scheduled actions on the package. <b>unhold</b> allows a package to be upgraded by future <b>safe-upgrade</b> or <b>full-upgrade</b> commands, without otherwise altering its state.<br><br> For instance, <b>aptitude remove '~ndeity'</b> removes all packages whose name contains "deity".</td>
+</tr>
+<tr class="tcw">
+<td><b>markauto</b>,<br><b>unmarkauto</b></td>
+<td>Mark packages as automatically installed or manually installed, respectively. Packages are specified in the same way as for the <b>install</b> command. For instance, <b>aptitude markauto '~slibs'</b> will mark all packages in the "libs" section as having been automatically installed.</td>
+</tr>
+<tr class="tcw">
+<td><b>build-depends</b>,<br><b>build-dep</b></td>
+<td>Satisfy the build dependencies of a package. Each package name may be a source package, in which case the build dependencies of that source package are installed; otherwise, binary packages are found in the same way as for the <b>install</b> command, and the build-dependencies of the source packages that build those binary packages are satisfied.<br><br> If the command-line parameter <b>--arch-only</b> is present, only architecture-dependent build dependencies (i.e., not <b>Build-Depends-Indep</b> or <b>Build-Conflicts-Indep</b>) will be obeyed.</td>
+</tr>
+<tr class="tcw">
+<td><b>forbid-version</b></td>
+<td>Forbid a package from being upgraded to a particular version. This prevents aptitude from automatically upgrading to this version, but allows automatic upgrades to future versions. By default, aptitude selects the version of the package; you may override this selection by appending <b>=&lt;version&gt;</b> to the package name: for instance, <b>aptitude forbid-version vim=1.2.3.broken-4</b>.<br><br> This command is useful for avoiding broken versions of packages without having to set and clear manual holds. If you decide you want the forbidden version after all, <b>aptitude install &lt;package&gt;</b> removes the ban.</td>
+</tr>
+<tr class="tcw">
+<td><b>update</b></td>
+<td>Updates the list of available packages from the apt sources (this is equivalent to <b>apt-get update</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>safe-upgrade</b></td>
+<td>Upgrades installed packages to their most recent version. Installed packages will not be removed unless they are unused. Packages that are not currently installed may be installed to resolve dependencies unless the <b>--no-new-installs</b> command-line option is supplied.<br><br> If no <b>&lt;package&gt;</b> is listed on the command line, aptitude attempts to upgrade every package that can be upgraded. Otherwise, aptitude attempts to upgrade only the packages that it is instructed to upgrade. The <b>&lt;package&gt;s</b> can be extended with suffixes in the same manner as arguments to <b>aptitude install</b>, so you can also give additional instructions to aptitude here; for instance, <b>aptitude safe-upgrade bash dash-</b> attempts to upgrade the "bash" package and remove the "dash" package.<br><br> It is sometimes necessary to remove one package to upgrade another; this command is not able to upgrade packages in such situations. Use the <b>full-upgrade</b> command to upgrade as many packages as possible.</td>
+</tr>
+<tr class="tcw">
+<td><b>full-upgrade</b></td>
+<td>Upgrades installed packages to their most recent version, removing or installing packages as necessary. This command is less conservative than <b>safe-upgrade</b> and thus more likely to perform unwanted actions. However, it is capable of upgrading packages that <b>safe-upgrade</b> cannot upgrade.<br><br> If no <b>&lt;package&gt;</b> is listed on the command line, aptitude attempts to upgrade every package that can be upgraded. Otherwise, aptitude attempts to upgrade only the packages that it is instructed to upgrade. The <b>&lt;package&gt;</b> can be extended with suffixes in the same manner as arguments to <b>aptitude install</b>, so you can also give additional instructions to aptitude here; for instance, <b>aptitude full-upgrade bash dash-</b> attempts to upgrade the "bash" package and remove the "dash" package.<br><br> This command was originally named <b>dist-upgrade</b> for historical reasons, and aptitude still recognizes <b>dist-upgrade</b> as a synonym for <b>full-upgrade</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>keep-all</b></td>
+<td>Cancels all scheduled actions on all packages; any packages whose sticky state indicates an installation, removal, or upgrade has this sticky state cleared.</td>
+</tr>
+<tr class="tcw">
+<td><b>forget-new</b></td>
+<td>Forgets all internal information about what packages are "new" (equivalent to pressing "<b>f</b>" when in visual mode).</td>
+</tr>
+<tr class="tcw">
+<td><b>search</b></td>
+<td>Searches for packages matching one of the patterns supplied on the command line. All packages that match any of the given patterns will display; for instance, <b>aptitude search '~N' edit</b> lists all "new" packages and all packages whose name contains "edit". For more information on search patterns, see the section "Search Patterns" in the aptitude reference manual.<br><br> In the example above, <b>aptitude search '~N' edit</b> has two arguments after search and thus is searching for two patterns: "~N" and "edit". As described in the search pattern reference, a single pattern composed of two sub-patterns separated by a space (such as <b>~N edit</b>) matches only if both patterns match. Thus, the command <b>aptitude search '~N edit'</b> only shows "new" packages whose name contains "edit".<br><br> Each search result is listed on a separate line. The first character of each line indicates the current state of the package: the most common states are <b>p</b>, meaning that no trace of the package exists on the system, <b>c</b>, meaning that the package was deleted but its configuration files remain on the system, <b>i</b>, meaning that the package is installed, and <b>v</b>, meaning that the package is virtual. The second character indicates the stored action (if any; otherwise a blank space is displayed) to be performed on the package, with the most common actions being <b>i</b>, meaning that the package will be installed, <b>d</b>, meaning that the package will be deleted, and <b>p</b>, meaning that the package and its configuration files will be removed. If the third character is <b>A</b>, the package was automatically installed.<br><br> To customize the <a href="/jargon/o/output.htm">output</a> of search, see the command-line options <b>-F</b> and <b>--sort</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>show</b></td>
+<td>Displays detailed information about one or more packages, listed following the search command. If a package name contains a tilde character ("<b>~</b>") or a question mark ("<b>?</b>"), it will be treated as a search pattern and all matching packages are displayed.<br><br> If the <a href="/jargon/v/verbose.htm">verbosity</a> level is 1 or greater (i.e., at least one <b>-v</b> is present on the command-line), information about all versions of the package is displayed. Otherwise, information about the "candidate version" (the version that <b>aptitude install</b> would download) is displayed.<br><br> You can display information about a different version of the package by appending <b>=&lt;version&gt;</b> to the package name; you can display the version from a particular archive or release by appending <b>/&lt;archive&gt;</b> or <b>/&lt;release&gt;</b> to the package name: for instance, <b>/unstable</b> or <b>/sid</b>. If either of these is present, then only the version you request is displayed, regardless of the verbosity level.<br><br> If the verbosity level is 1 or greater, the package's <a href="/jargon/a/architec.htm">architecture</a>, <a href="/jargon/c/compress.htm">compressed</a> size, <a href="/jargon/f/filename.htm">file name</a>, and <a href="/jargon/m/md5sum.htm">md5sum</a> fields are displayed. If the verbosity level is 2 or greater, the select version or versions are displayed once for each archive found.</td>
+</tr>
+<tr class="tcw">
+<td><b>versions</b></td>
+<td>Displays the versions of the packages listed on the command-line.<br><br> <pre class="tcy">$ aptitude versions wesnoth</pre><pre>p 1:1.4.5-1 100p 1:1.6.5-1 unstable 500p 1:1.7.14-1 experimental 1</pre> As you can see, each version is listed on a separate line. The leftmost three characters indicate the current state, planned state (if any), and whether the package was automatically installed; for more information on their meanings, see the documentation of <b>aptitude search</b>. To the right of the version number you can find the releases from which the version is available, and the pin priority of the version.<br><br> If a package name contains a tilde character ("<b>~</b>") or a question mark ("<b>?</b>"), it will be treated as a search pattern and all matching versions are displayed (see the section "Search Patterns" in the aptitude reference manual). This means that, for instance, <b>aptitude versions '~i'</b> displays all the versions that are currently installed on the system and nothing else, not even other versions of the same packages.<br><br>
+<p class="tcy">$ aptitude versions '~nexim4-daemon-light'</p>
+<pre>Package exim4-daemon-light: i 4.71-3 100 p 4.71-4 unstable 500
+Package exim4-daemon-light-dbg: p 4.71-4 unstable 500
+</pre>
+If the input is a search pattern, or if more than one package's versions are to be displayed, aptitude automatically groups the output by package, as shown above. You can disable this via <b>--group-by=none</b>, in which case aptitude displays a single list of all the versions that were found and automatically include the package name in each output line:<br><br>
+<pre class="tcy">$ aptitude versions --group-by=none '~nexim4-daemon-light'</pre>
+<pre>i exim4-daemon-light 4.71-3 100
+p exim4-daemon-light 4.71-4 unstable 500
+p exim4-daemon-light-dbg 4.71-4 unstable 500
+</pre>
+To disable the package name, pass <b>--show-package-names=never:</b><br><br>
+<pre class="tcy">$ aptitude versions --show-package-names=never
+           --group-by=none '~nexim4-daemon-light'
+</pre>
+<pre>i 4.71-3 100
+p 4.71-4 unstable 500
+p 4.71-4 unstable 500</pre>
+In addition to the above options, the information printed for each version can be controlled by the command-line option <b>-F</b>. The order versions are displayed can be controlled by the command-line option <b>--sort</b>. To prevent aptitude from formatting the output into columns, use <b>--disable-columns</b>.
+</td>
+</tr>
+<tr class="tcw">
+<td><b>add-user-tag</b>, <b>remove-user-tag</b></td>
+<td>Adds a user tag to or removes a user tag from the selected group of packages. If a package name contains a tilde ("~") or question mark ("?"), it is treated as a search pattern and the tag is added to or removed from all the packages that match the pattern (see the section "Search Patterns" in the aptitude reference manual).<br><br>User tags are arbitrary strings associated with a package. They can be used with the <b>?user-tag(</b>&lt;tag&gt;<b>)</b> search term, which selects all the packages with a user tag matching &lt;tag&gt;.</td>
+</tr>
+<tr class="tcw">
+<td><b>why</b>, <b>why-not</b></td>
+<td>Explains the reason that a particular package should or cannot be installed on the system.<br><br> This command searches for packages that require or conflict with the given package. It displays a sequence of dependencies leading to the target package, along with a note indicating the installed state of each package in the dependency chain:<br><br> <pre class="tcy">$ aptitude why kdepim</pre> <pre>i nautilus-data  Recommends nautilusi A nautilus     Recommends desktop-basei A desktop-base Suggests   gnome p kde Depends kdepim</pre> The command why finds a dependency chain that installs the package named on the command line, as above. Note that the dependency that aptitude produced in this case is only a suggestion. This is because no package currently installed on this computer depends on or recommends the kdepim package; if a stronger dependency were available, aptitude would have displayed it.<br><br> In contrast, <b>why-not</b> finds a dependency chain leading to a conflict with the target package:<br><br> <pre class="tcy">$ aptitude why-not textopo</pre> <pre>i ocaml-core            Depends   ocamlwebi A ocamlweb            Depends   tetex-extrai A texlive-latex-extra Conflicts textopo</pre> If one or more <b>&lt;patterns&gt;</b> are present, then aptitude will begin its search at these patterns; that is, the first package in the chain it prints will be a package matching the pattern in question. The patterns are considered to be package names unless they contain a tilde character ("~") or a question mark ("?"), in which case they are treated as search patterns (see the section "Search Patterns" in the aptitude reference manual).<br><br> If no patterns are present, then aptitude will search for dependency chains beginning at manually installed packages. This effectively shows the packages that have caused or would cause a given package to be installed.<br><br> Aptitude why does not perform full dependency resolution; it only displays direct relationships between packages. For instance, if A requires B, C requires D, and B and C conflict, <b>aptitude why-not D</b> will not produce the answer "A depends on B, B conflicts with C, and D depends on C". By default, aptitude outputs only the "most installed, strongest, tightest, shortest" dependency chain. That is, it looks for a chain that only contains packages that are installed or will be installed; it looks for the strongest possible dependencies under that restriction; it looks for chains that avoid OR'ed dependencies and Provides; and it looks for the shortest dependency chain meeting those criteria. These rules are progressively weakened until a match is found.<br><br> If the verbosity level is 1 or more, then <i>all</i> the explanations aptitude can find are displayed, in inverse order of relevance. If the verbosity level is 2 or more, a truly excessive amount of <a href="/jargon/d/debug.htm">debugging</a> information will be printed to standard output.<br><br> This command returns 0 if successful, 1 if no explanation could be constructed, and -1 if an error occurred. </td>
+</tr>
+<tr class="tcw">
+<td><b>clean</b></td>
+<td>Removes all previously downloaded .deb files from the package <a href="/jargon/c/cache.htm">cache</a> <a href="/jargon/d/director.htm">directory</a> (usually located at <b>/var/cache/apt/archives</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>autoclean</b></td>
+<td>Removes any cached packages that can no longer be downloaded. This lets you prevent a cache from growing out of control over time without completely emptying it.</td>
+</tr>
+<tr class="tcw">
+<td><b>changelog</b></td>
+<td>Downloads and displays the Debian changelog for each of the given <a href="/jargon/s/source.htm">source</a> or <a href="/jargon/b/binary.htm">binary</a> packages.<br><br> By default, the changelog for the version which would be installed with <b>aptitude install</b> is downloaded. You can select a particular version of a package by appending <b>=&lt;version&gt;</b> to the package name; you can select the version from a particular archive or release by appending <b>/&lt;archive&gt;</b> or <b>/&lt;release&gt;</b> to the package name (for instance, <b>/unstable</b> or <b>/sid</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>download</b></td>
+<td>Downloads the .deb file for the given package to the current directory. If a package name contains a tilde character ("~") or a question mark ("?"), it will be treated as a search pattern and all the matching packages will be downloaded.<br><br> By default, the version which would be installed with <b>aptitude install</b> is downloaded. You can select a particular version of a package by appending <b>=&lt;version&gt;</b> to the package name; you can select the version from a particular archive or release by appending <b>/&lt;archive&gt;</b> or <b>&lt;/&lt;release</b> to the package name (for instance: <b>/unstable</b> or <b>/sid</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>extract-cache-subset</b></td>
+<td>Copy the apt configuration directory (<b>/etc/apt</b>) and a subset of the package database to the specified directory. If no packages are listed, the entire package database is copied; otherwise only the entries corresponding to the named packages are copied. Each package name may be a search pattern, and all the packages matching that pattern will be selected. Any existing package database files in the output directory will be <a href="/jargon/o/overwrit.htm">overwritten</a>.<br><br> Dependencies in binary package stanzas will be rewritten to remove references to packages not in the selected set.</td>
+</tr>
+<tr class="tcw">
+<td><b>help</b></td>
+<td>Displays a summary of the available commands and options.</td>
+</tr>
+</table>
+<h2 id="options">Options</h2>
+<p class="tab">The following options may be used to modify the behavior of the actions described above. Note that while all options will be accepted for all commands, some options don't apply to particular commands and is ignored by those commands.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:290px"><b>--add-user-tag</b> <i>&lt;tag&gt;</i></td>
+<td>For <b>full-upgrade</b>, <b>safe-upgrade</b>, <b>forbid-version</b>, <b>hold</b>, <b>install</b>, <b>keep-all</b>, <b>markauto</b>, <b>unmarkauto</b>, <b>purge</b>, <b>reinstall</b>, <b>remove</b>, <b>unhold</b>, and <b>unmarkauto</b>: add the user tag <i>&lt;tag&gt;</i> to all packages that are installed, removed, or upgraded by this command as if with the <b>add-user-tag</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>--add-user-tag-to</b> <i>&lt;tag&gt;,<br>&lt;pattern&gt;</i></td>
+<td>For <b>full-upgrade</b>, <b>safe-upgrade</b>, <b>forbid-version</b>, <b>hold</b>, <b>install</b>, <b>keep-all</b>, <b>markauto</b>, <b>unmarkauto</b>, <b>purge</b>, <b>reinstall</b>, <b>remove</b>, <b>unhold</b>, and <b>unmarkauto</b>: add the user tag <i>&lt;tag&gt;</i> to all packages that match <i>&lt;pattern&gt;</i> as if with the <b>add-user-tag</b> command. The pattern is a search pattern as described in the section "Search Patterns" in the aptitude reference manual.<br><br> For instance, <b>aptitude safe-upgrade --add-user-tag-to "new-installs,?action(install)"</b> adds the tag <i>new-installs</i> to all the packages installed by the <b>safe-upgrade</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>--allow-new-upgrades</b></td>
+<td>When the safe resolver is used (i.e., <b>--safe-resolver</b> was passed, the action is <b>safe-upgrade</b>, or <b>Aptitude::Always-Use-Safe-Resolver</b> is set to <i>true</i>), allow the dependency resolver to install upgrades for packages regardless of the value of <b>Aptitude::Safe-Resolver::No-New-Upgrades</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--allow-new-installs</b></td>
+<td>Allow the <b>safe-upgrade</b> command to install new packages; when the safe resolver is used (i.e., <b>--safe-resolver</b> was passed, the action is <b>safe-upgrade</b>, or <b>Aptitude::Always-Use-Safe-Resolver</b> is set to <i>true</i>), allow the dependency resolver to install new packages. This option takes effect regardless of the value of <b>Aptitude::Safe-Resolver::No-New-Installs</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--allow-untrusted</b></td>
+<td>Install packages from untrusted sources without <a href="/jargon/p/prompt.htm">prompting</a>. You should only use this if you know what you are doing, as it could easily compromise your system's security.</td>
+</tr>
+<tr class="tcw">
+<td><b>--disable-columns</b></td>
+<td>This option causes <b>aptitude search</b> and <b>aptitude versions</b> to output their results without any special formatting. In particular: normally aptitude adds <a href="/jargon/w/whitspac.htm">whitespace</a> or <a href="/jargon/t/truncate.htm">truncate</a> search results in an attempt to fit its results into vertical "columns". With this flag, each line will be formed by replacing any format escapes in the format string with the corresponding text; column widths is ignored.<br><br> For instance, the first few lines of output from <b>aptitude search -F '%p %V' --disable-columns libedataserver</b> might be:<br><br> <pre>disksearch 1.2.1-3hp-search-mac 0.1.3libbsearch-ruby 1.5-5libbsearch-ruby1.8 1.5-5libclass-dbi-abstractsearch-perl 0.07-2libdbix-fulltextsearch-perl 0.73-10</pre> As in the above example, <b>--disable-columns</b> is often useful in combination with a custom display format set using the command-line option <b>-F</b>.<br><br> This corresponds to the configuration option <b>Aptitude::CmdLine::Disable-Columns</b>. </td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b>, <b>--show-deps</b></td>
+<td>For commands that will install or remove packages (<b>install</b>, <b>full-upgrade</b>, etc), show brief explanations of automatic installations and removals.<br><br> This corresponds to the configuration option <b>Aptitude::CmdLine::Show-Deps</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--download-only</b></td>
+<td>Download packages to the package cache as necessary, but do not install or remove anything. By default, the package cache is stored in <b>/var/cache/apt/archives</b>.<br><br> This corresponds to the configuration option <b>Aptitude::CmdLine::Download-Only</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b> <i>&lt;format&gt;</i>,<br><b>--display-format</b> <i>&lt;format&gt;</i></td>
+<td>Specify the format which should be used to display output from the search and versions commands. For instance, passing "<b>%p %V %v</b>" for <i>&lt;format&gt;</i> display a package's name, followed by its currently installed version and its available version.<br><br> The command-line option <b>--disable-columns</b> is often useful in combination with <b>-F</b>.<br><br> For <b>search</b>, this corresponds to the configuration option <b>Aptitude::CmdLine::Package-Display-Format</b>; for <b>versions</b>, this corresponds to the configuration option <b>Aptitude::CmdLine::Version-Display-Format</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>Try hard to fix the dependencies of broken packages, even if it means ignoring the actions requested on the command line.<br><br> This corresponds to the configuration item <b>Aptitude::CmdLine::Fix-Broken</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--full-resolver</b></td>
+<td>When package dependency problems are encountered, use the default "full" resolver to solve them. Unlike the "safe" resolver activated by <b>--safe-resolver</b>, the full resolver will happily remove packages to fulfill dependencies. It can resolve more situations than the safe <a href="/jargon/a/algorith.htm">algorithm</a>, but its solutions are more likely to be undesirable.<br><br> This option can force the use of the full resolver even when <b>Aptitude::Always-Use-Safe-Resolver</b> is true. The <b>safe-upgrade</b> command never uses the full resolver and does not accept the <b>--full-resolver</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>--group-by</b> <i>&lt;grouping-mode&gt;</i></td>
+<td>Control how the versions command groups its output. The following values are recognized:<br><br><b>archive</b> to group packages by the archive they occur in ("stable", "unstable", etc). If a package occurs in several archives, it is displayed in each of them.<br><br><b>auto</b> to group versions by their package unless there is exactly one argument and it is not a search pattern.<br><br><b>none</b> to display all the versions in a single list without any grouping.<br><br><b>package</b> to group versions by their package.<br><br><b>source-package</b> to group versions by their source package.<br><br><b>source-version</b> to group versions by their source package and source version.<br><br>This corresponds to the configuration option <b>Aptitude::CmdLine::Versions-Group-By</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display a brief help message. Identical to the <b>help</b> action.</td>
+</tr>
+<tr class="tcw">
+<td><b>--log-file=</b><i>&lt;file&gt;</i></td>
+<td>If <i>&lt;file&gt;</i> is a nonempty <a href="/jargon/s/string.htm">string</a>, log messages will be written to it, except that if <i>&lt;file&gt;</i> is "-", the messages will be written to standard output instead. If this option appears multiple times, the last occurrence is the one that takes effect.<br><br> This does not affect the log of installations that aptitude has performed (<b>/var/log/aptitude</b>); the log messages written using this configuration include internal program events, errors, and debugging messages. See the command-line option <b>--log-level</b> to get more control over what gets logged.<br><br> This corresponds to the configuration option <b>Aptitude::Logging::File</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--log-level=</b><i>&lt;level&gt;</i>,<br> <b>--log-level=</b><i>&lt;category&gt;</i><b>:</b><i>&lt;level&gt;</i></td>
+<td><b>--log-level=</b><i>&lt;level&gt;</i> causes aptitude to only log messages whose level is <i>&lt;level&gt;</i> or higher. For instance, setting the log level to error causes only messages at the log levels error and fatal to display; all others will be hidden. Valid log levels (in descending order) are <b>off</b>, <b>fatal</b>, <b>error</b>, <b>warn</b>, <b>info</b>, <b>debug</b>, and <b>trace</b>. The default log level is <b>warn</b>.<br><br> <b>--log-level=</b><i>&lt;category&gt;</i><b>:</b><i>&lt;level&gt;</i> causes messages in <i>&lt;category&gt;</i> to only be logged if their level is <i>&lt;level&gt;</i> or higher.<br><br> <b>--log-level</b> may appear multiple times on the command line; the most specific setting is the one that takes effect, so if you pass <b>--log-level=aptitude.resolver:fatal</b> and <b>--log-level=aptitude.resolver.hints.match:trace</b>, then messages in <b>aptitude.resolver.hints.parse</b> is only printed if their level is fatal, but all messages in <b>aptitude.resolver.hints.match</b> will be printed. If you set the level of the same category two or more times, the last setting is the one that takes effect.<br><br> This does not affect the log of installations that aptitude has performed (<b>/var/log/aptitude</b>); the log messages written using this configuration include internal program events, errors, and debugging messages. See the command-line option <b>--log-file</b> to change where log messages go.<br><br> This corresponds to the configuration group <b>Aptitude::Logging::Levels</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--log-resolver</b></td>
+<td>Set some standard log levels related to the resolver, to produce logging output suitable for processing with automated tools. This is equivalent to the command-line options <b>--log-level=aptitude.resolver.search:trace --log-level=aptitude.resolver.search.tiers:info</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-new-installs</b></td>
+<td>Prevent <b>safe-upgrade</b> from installing any new packages; when the safe resolver is used (i.e., <b>--safe-resolver</b> was passed or <b>Aptitude::Always-Use-Safe-Resolver</b> is set to <i>true</i>), forbid the dependency resolver from installing new packages. This option takes effect regardless of the value of <b>Aptitude::Safe-Resolver::No-New-Installs</b>.<br><br> This mimics the historical behavior of <b>apt-get upgrade</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-new-upgrades</b></td>
+<td>When the safe resolver is used (i.e., <b>--safe-resolver</b> was passed or <b>Aptitude::Always-Use-Safe-Resolver</b> is set to <i>true</i>), forbid the dependency resolver from installing upgrades for packages regardless of the value of <b>Aptitude::Safe-Resolver::No-New-Upgrades</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-show-resolver-actions</b></td>
+<td>Do not display the actions performed by the "safe" resolver, overriding any configuration option or earlier <b>--show-resolver-actions</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b> <i>&lt;order&gt;</i>, <b>--sort</b> <i>&lt;order&gt;</i></td>
+<td>Specify the order where output from the search and versions commands should display. For instance, passing "<b>installsize</b>" for <i>&lt;order&gt;</i> lists packages in order according to their size when installed.<br><br> The default sort order is <b>name,version</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b> <i>&lt;key&gt;</i><b>=</b><i>&lt;value&gt;</i></td>
+<td>Set a configuration file option directly; for instance, use <b>-o Aptitude::Log=/tmp/my-log</b> to log aptitude's actions to <i>/tmp/my-log</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b>, <b>--prompt</b></td>
+<td>Always display a prompt before downloading, installing or removing packages, even when no actions other than those explicitly requested will be performed.<br><br> This corresponds to the configuration option <b>Aptitude::CmdLine::Always-Prompt.</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--purge-unused</b></td>
+<td>If <b>Aptitude::Delete-Unused</b> is set to <i>true</i> (its default), then in addition to removing each package that is no longer required by any installed package, aptitude also purges them, removing their configuration files and perhaps other important data.<br><br> <b>THIS OPTION CAN CAUSE DATA LOSS. DO NOT USE IT UNLESS YOU KNOW WHAT YOU ARE DOING.</b><br><br> This corresponds to the configuration option <b>Aptitude::Purge-Unused.</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>[<b>=</b><i>&lt;n&gt;</i>], <b>--quiet</b>[<b>=</b><i>&lt;n&gt;</i>]</td>
+<td>Suppress all incremental progress indicators, thus making the output loggable. This may be supplied multiple times to make the program quieter, but unlike <b>apt-get</b>, <b>aptitude</b> does not enable <b>-y</b> when <b>-q</b> is supplied more than once.<br><br> The optional =<i>&lt;n&gt;</i> may be used to directly set the amount of quietness (for instance, to override a setting in <b>/etc/apt/apt.conf</b>); it causes the program to behave as if <b>-q</b> had been passed exactly <i>&lt;n&gt;</i> times.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--without-recommends</b></td>
+<td>Do not treat recommendations as dependencies when installing new packages (this overrides settings in <b>/etc/apt/apt.conf</b> and <b>~/.aptitude/config</b>). Packages previously installed due to recommendations will not be removed.<br><br> This corresponds to the pair of configuration options <b>Apt::Install-Recommends</b> and <b>Apt::AutoRemove::InstallRecommends</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--with-recommends</b></td>
+<td>Treat recommendations as dependencies when installing new packages (this overrides settings in <b>/etc/apt/apt.conf</b> and <b>~/.aptitude/config</b>).<br><br> This corresponds to the configuration option <b>Apt::Install-Recommends</b></td>
+</tr>
+<tr class="tcw">
+<td><b>--remove-user-tag</b> <i>&lt;tag&gt;</i></td>
+<td>For <b>full-upgrade</b>, <b>safe-upgrade forbid-version</b>, <b>hold</b>, <b>install</b>, <b>keep-all</b>, <b>markauto</b>, <b>unmarkauto</b>, <b>purge</b>, <b>reinstall</b>, <b>remove</b>, <b>unhold</b>, and <b>unmarkauto</b>: remove the user tag <i>&lt;tag&gt;</i> from all packages that are installed, removed, or upgraded by this command as if with the <b>add-user-tag</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>--remove-user-tag-from</b> <i>&lt;tag&gt;</i>,<i>&lt;pattern&gt;</i></td>
+<td>For <b>full-upgrade</b>, <b>safe-upgrade forbid-version</b>, <b>hold</b>, <b>install</b>, <b>keep-all</b>, <b>markauto</b>, <b>unmarkauto</b>, <b>purge</b>, <b>reinstall</b>, <b>remove</b>, <b>unhold</b>, and <b>unmarkauto</b>: remove the user tag <i>&lt;tag&gt;</i> from all packages that match <i>&lt;pattern&gt;</i> as if with the <b>remove-user-tag</b> command. The pattern is a search pattern as described in the section "Search Patterns" in the aptitude reference manual.<br><br> For instance, <b>aptitude safe-upgrade --remove-user-tag-from "not-upgraded,?action(upgrade)"</b> removes the not-upgraded tag from all packages that the <b>safe-upgrade</b> command can upgrade.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--simulate</b></td>
+<td>In command-line mode, print the actions that would normally be performed, but don't actually perform them. This does not require root privileges. In the visual interface, always open the cache in <a href="/jargon/r/readonly.htm">read-only</a> mode regardless of whether you are root.<br><br> This corresponds to the configuration option <b>Aptitude::Simulate</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--safe-resolver</b></td>
+<td>When package dependency problems are encountered, use a "safe" algorithm to solve them. This resolver attempts to preserve as many of your choices as possible; it never remove a package or install a version of a package other than the package's default candidate version. It is the same algorithm used in <b>safe-upgrade</b>; indeed, <b>aptitude --safe-resolver full-upgrade</b> is equivalent to <b>aptitude safe-upgrade</b>. Because <b>safe-upgrade</b> always uses the safe resolver, it does not accept the <b>--safe-resolver</b> flag.<br><br> This option is equivalent to setting the configuration variable <b>Aptitude::Always-Use-Safe-Resolver</b> to <i>true</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--schedule-only</b></td>
+<td>For commands that modify package states, schedule operations to be performed in the future, but don't perform them. You can execute scheduled actions by running <b>aptitude install</b> with no arguments. This is equivalent to making the corresponding selections in visual mode, then exiting the program normally.<br><br> For instance, <b>aptitude --schedule-only install evolution</b> will schedule the <i>evolution</i> package for later installation.</td>
+</tr>
+<tr class="tcw">
+<td><b>--show-package-names</b> <i>&lt;when&gt;</i></td>
+<td>Controls when the versions command shows package names. The following settings are allowed:<br><br><b>always:</b> display package names every time that aptitude versions runs.<br><br> <b>auto:</b> display package names when aptitude versions runs if the output is not grouped by package, and either there is a pattern-matching argument or there is more than one argument.<br><br> <b>never:</b> never display package names in the output of aptitude versions.<br><br> Configuration Item: <b>Aptitude::CmdLine::Versions-Show-Package-Names</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--show-resolver-actions</b></td>
+<td>Display the actions performed by the "safe" resolver and by <b>safe-upgrade</b>.<br><br> When executing the command <b>safe-upgrade</b> or when the option <b>--safe-resolver</b> is present, aptitude displays a summary of the actions performed by the resolver before printing the installation preview. This is equivalent to the configuration option <b>Aptitude::Safe-Resolver::Show-Resolver-Actions</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--show-summary</b>[<b>=</b><i>&lt;MODE&gt;</i>]</td>
+<td>Changes the behavior of <b>aptitude why</b> to summarize each dependency chain that it outputs, rather than displaying it in long form. If this option is present and <i>&lt;MODE&gt;</i> is not "no-summary", chains that contain Suggests dependencies are not displayed: combine <b>--show-summary</b> with <b>-v</b> to see a summary of all the reasons for the target package to be installed.<br><br> <i>&lt;MODE&gt;</i> can be any one of the following:<br><br> <b>no-summary:</b> don't show a summary (the default behavior if <b>--show-summary</b> is not present).<br><br> <b>first-package:</b> display the first package in each chain. This is the default value of <i>&lt;MODE&gt;</i> if it is not present.<br><br> <b>first-package-and-type:</b> display the first package in each chain, along with the strength of the weakest dependency in the chain.<br><br> <b>all-packages:</b> briefly display each chain of dependencies leading to the target package.<br><br> <b>all-packages-with-dep-versions:</b> briefly display each chain of dependencies leading to the target package, including the target version of each dependency. Configuration Item: <b>Aptitude::CmdLine::Show-Summary</b>; if <b>--show-summary</b> is present on the command-line, it will override <b>Aptitude::CmdLine::Show-Summary</b>.<br><br> Example usage of <b>--show-summary</b>, used with <b>-v</b> to display all the reasons a package is installed:<br><br> <pre class="tcy">$ aptitude -v --show-summary why foomatic-db</pre> <pre>Packages requiring foomatic-db:cupsys-driver-gutenprintfoomatic-db-enginefoomatic-db-gutenprintfoomatic-db-hpijsfoomatic-filters-ppdsfoomatic-guikdeprintconfwine</pre> <pre class="tcy">$ aptitude -v --show-summary=first-package-and-type why foomatic-db</pre> <pre>Packages requiring foomatic-db:[Depends] cupsys-driver-gutenprint[Depends] foomatic-db-engine[Depends] foomatic-db-gutenprint[Depends] foomatic-db-hpijs[Depends] foomatic-filters-ppds[Depends] foomatic-gui[Depends] kde[Depends] printconf[Depends] wine</pre> <b>--show-summary</b> used to list a chain on one line:<br><br> <pre class="tcy">$ aptitude --show-summary=all-packages why aptitude-gtk libglib2.0-data</pre> <pre>Packages requiring libglib2.0-data:aptitude-gtk D: libglib2.0-0 R: libglib2.0-data</pre> </td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>&lt;release&gt;</i>,<br><b>--target-release</b> <i>&lt;release&gt;</i></td>
+<td>Set the release from which packages should be installed. For instance, <b>aptitude -t experimental ...</b> will install packages from the experimental distribution unless you specify otherwise. For the command-line actions "<b>changelog</b>", "<b>download</b>", and "<b>show</b>", this is equivalent to appending <b>/&lt;release&gt;</b> to each package named on the command-line; for other commands, this affects the default candidate version of packages according to the rules described in <b>apt_preferences</b>.<br><br> This corresponds to the configuration item <b>APT::Default-Release</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--show-versions</b></td>
+<td>Show which versions of packages will be installed.<br><br> This corresponds to the configuration option <b>Aptitude::CmdLine::Show-Versions</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Causes some commands (for instance, <b>show</b>) to display extra information. This may be supplied multiple times to get more and more information.<br><br> This corresponds to the configuration option <b>Aptitude::CmdLine::Verbose</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display the version of <b>aptitude</b> and some information about how it was <a href="/jargon/c/compile.htm">compiled</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--visual-preview</b></td>
+<td>When installing or removing packages from the command line, instead of displaying the usual prompt, start up the visual interface and display its preview screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>-W</b>, <b>--show-why</b></td>
+<td>In the preview displayed before packages are installed or removed, show which manually installed package requires each automatically installed package. For instance:<br><br> <pre class="tcy">$ aptitude --show-why install mediawiki</pre><pre>...The following NEW packages will be installed:libapache2-mod-php5{a} (for mediawiki)mediawiki php5{a} (for mediawiki)php5-cli{a} (for mediawiki)php5-common{a} (for mediawiki)php5-mysql{a} (for mediawiki)</pre> When combined with <b>-v</b> or a non-zero value for <b>Aptitude::CmdLine::Verbose</b>, this displays the entire chain of dependencies that lead each package to be installed. For instance:<br><br> <pre class="tcy">$ aptitude -v --show-why install libdb4.2-dev</pre> <pre>The following NEW packages will be installed:libdb4.2{a} (libdb4.2-dev D: libdb4.2) libdb4.2-devThe following packages will be REMOVED:libdb4.4-dev{a} (libdb4.2-dev C: libdb-dev P&lt;- libdb-dev)</pre> This option also describes why packages are being removed, as shown above. In this example, <i>libdb4.2-dev</i> conflicts with <i>libdb-dev</i>, which is provided by <i>libdb-dev</i>.<br><br> This argument corresponds to the configuration option <b>Aptitude::CmdLine::Show-Why</b> and displays the same information that is computed by <b>aptitude why</b> and <b>aptitude why-not</b>. </td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b> <i>&lt;width&gt;</i>, <b>--width</b> <i>&lt;width&gt;</i></td>
+<td>Specify the display width which should be used for output from the search command (by default, the <a href="/jargon/t/terminal.htm">terminal</a> width is used).<br><br> This corresponds to the configuration option <b>Aptitude::CmdLine::Package-Display-Width</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b>, <b>--assume-yes</b></td>
+<td>When a yes/no prompt would be presented, assume that the user entered "yes". In particular, suppresses the prompt that appears when installing, upgrading, or removing packages. Prompts for "dangerous" actions, such as removing essential packages, is still display. This option overrides <b>-P</b>.<br><br> This corresponds to the configuration option <b>Aptitude::CmdLine::Assume-Yes</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Z</b></td>
+<td>Show how much <a href="/jargon/d/diskcapa.htm">disk space</a> will be used or freed by the individual packages being installed, upgraded, or removed. This corresponds to the configuration option <b>Aptitude::CmdLine::Show-Size-Changes.</b></td>
+</tr>
+</table>
+<h2 id="visual">Visual mode options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>--autoclean-on-startup</b></td>
+<td>Deletes old downloaded files when the program starts (equivalent to starting the program and immediately selecting <b>Actions &rarr; Clean obsolete files</b>). You cannot use this option and "<b>--autoclean-on-startup</b>", "<b>-i</b>", or "<b>-u</b>" at the same time.</td>
+</tr>
+<tr class="tcw">
+<td><b>--clean-on-startup</b></td>
+<td>Cleans the package cache when the program starts (equivalent to starting the program and immediately selecting <b>Actions &rarr; Clean package cache</b>). You cannot use this option and <b>--autoclean-on-startup</b>, <b>-i</b>, or <b>-u</b> at the same time.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td>Displays a download preview when the program starts (equivalent to starting the program and immediately pressing "g"). You cannot use this option and <b>--autoclean-on-startup</b>, <b>--clean-on-startup</b>, or <b>-u</b> at the same time.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b> <i>&lt;fname&gt;</i></td>
+<td>Loads the extended state information from <i>&lt;fname&gt;</i> instead of the standard state file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>Begins updating the package lists as soon as the program starts. You cannot use this option and <b>--autoclean-on-startup</b>, <b>--clean-on-startup</b>, or <b>-i</b> at the same time.</td>
+</tr>
+</table>
+<h2 id="environment">Environment</h2>
+<p class="tab">The following <a href="/jargon/e/envivari.htm">environment variables</a> affect <b>aptitude</b>.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><b>HOME</b></td>
+<td>If <b>$HOME/.aptitude</b> exists, aptitude will store its configuration file in <b>$HOME/.aptitude/config</b>. Otherwise, it looks up the current user's home directory using <b>getpwuid</b> and place its configuration file there.</td>
+</tr>
+<tr class="tcw">
+<td><b>PAGER</b></td>
+<td>If this environment variable is set, aptitude uses it to display changelogs when "aptitude changelog" is invoked. If not set, it defaults to more.</td>
+</tr>
+<tr class="tcw">
+<td><b>TMP</b></td>
+<td>If <b>TMPDIR</b> is unset, aptitude will store its <a href="/jargon/t/tempfile.htm">temporary files</a> in <b>TMP</b> if that variable is set. Otherwise, it will store them in <b>/tmp</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>TMPDIR</b></td>
+<td><b>aptitude</b> will store its temporary files in the directory indicated by this environment variable. If <b>TMPDIR</b> is not set, then <b>TMP</b> will be used; if <b>TMP</b> is also unset, then aptitude uses <b>/tmp</b>.</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:290px"><b>/var/lib/aptitude/pkgstates</b></td>
+<td>The file where stored package states and some package flags are stored.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/apt/apt.conf,<br>/etc/apt/apt.conf.d/*,<br>~/.aptitude/config</b></td>
+<td>The configuration files for aptitude. <b>~/.aptitude/config</b> overrides <b>/etc/apt/apt.conf</b>. See <b>apt.conf</b> for documentation of the format and contents of these files.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">aptitude</pre>
+<p class="tab">Load <b>aptitude</b> in visual mode. If your terminal supports it (and it probably does), you'll enter the program in your terminal and be presented with a menu system which responds to mouse events.</p>
+<pre class="tcy tab">aptitude update</pre>
+<p class="tab">Update the APT package lists. This is the same as running <b>aptitude</b> in visual mode and pressing &quot;u&quot;.</p>
+<pre class="tcy tab">aptitude safe-upgrade</pre>
+<p class="tab">Upgrade as many packages as possible without removing any.</p>
+<pre class="tcy tab">aptitude full-upgrade</pre>
+<p class="tab">Upgrade packages, removing packages if necessary to resolve dependency issues.</p>
+<pre class="tcy tab">aptitude search gnome kde</pre>
+<p class="tab">Search the APT repositories and display all packages containing the text <b>gnome</b> or <b>kde</b>.</p>
+<pre class="tcy tab">aptitude show perdition</pre>
+<p class="tab">Display all available information about the package named <b>perdition</b>.</p>
+<pre class="tcy tab">aptitude install ruby</pre>
+<p class="tab">Install the <b>ruby</b> package.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/apt.htm"><b>apt</b></a> &mdash; A unified APT front end for the command line.<br> <a href="/unix/apt-cache.htm"><b>apt-cache</b></a> &mdash; Get information about software packages available through APT.<br> <a href="/unix/apt-get.htm"><b>apt-get</b></a> &mdash; Command line tool for managing APT software packages.<br> <a href="/unix/apt-file.htm"><b>apt-file</b></a> &mdash; Search for individual files in all available APT packages.<br> <a href="/unix/apt-mark.htm"><b>apt-mark</b></a> &mdash; Change or view the settings of individual APT packages.<br> <a href="/unix/dpkg.htm"><b>dpkg</b></a> &mdash; Install, remove, and maintain Debian software packages.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82afae0b84e0',m:'dSV98iW5CQRh22Q4T9Xx_wj09bQmkSlAbvSzqyp1IiI-1661495339-0-AWeoS0byGYQNoA0xPY99ViZyNNO+8kls4qHSkGM2d0uzWwsILh180IZ/fyA5hIOEKP8SW6ZGOFKkjZUOq2CiQVKjNsu+3R0Qm41OR+lCaynzWe7IkFJWjbtzmd+6Ykmqg/ainXxgWYBoiuGErt/wZRQ=',s:[0x6c71a8c3b7,0xc1ca3bb2c8],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

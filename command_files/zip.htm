@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux zip command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/zip.gif" width="300" height="300" alt="zip command" class="floatRight"><p class="intro">The <b>zip</b> program is used to package and compress files.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#format">Command format</a></li>
+<li><a href="#lists">File lists</a></li>
+<li><a href="#zipfiles">Zip files</a></li>
+<li><a href="#scanning">Scanning and reading files</a></li>
+<li><a href="#modes">Command modes</a></li>
+<li><a href="#split">Split archives</a></li>
+<li><a href="#unicode">Unicode support</a></li>
+<li><a href="#clformat">Command line format</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="description">Description</h2>
+<p class="tab"><b>zip</b> is a compression and file packaging <a href="/jargon/u/utility.htm">utility</a> for <a href="/jargon/u/unix.htm">Unix</a>, <a href="/jargon/v/vms.htm">VMS</a>, <a href="/jargon/m/msdos.htm">MSDOS</a>, <a href="/jargon/o/os2.htm">OS/2</a>, <a href="/jargon/w/windows.htm">Windows</a> <a href="/jargon/w/win98.htm">9x</a>/<a href="/jargon/w/winnt.htm">NT</a>/<a href="/jargon/w/winxp.htm">XP</a>, <a href="/jargon/m/minix.htm">Minix</a>, <a href="/comp/atari.htm">Atari</a>, <a href="/jargon/a/applemac.htm">Macintosh</a>, <a href="/jargon/a/amiga.htm">Amiga</a>, and Acorn <a href="/jargon/r/risc.htm">RISC</a> <a href="/jargon/o/os.htm">OS</a>. It is analogous to a combination of the Unix commands <a href="/unix/utar.htm"><b>tar</b></a> and <a href="/jargon/c/compress.htm"><b>compress</b></a>, and it is compatible with <a href="/jargon/p/pkzip.htm">PKZIP</a>.</p>
+<p class="tab">A separate companion program, <a href="/unix/unzip.htm"><b>unzip</b></a>, unpacks and uncompresses <b>zip</b> archives. The <b>zip</b> and <b>unzip</b> programs can work with archives produced by PKZIP (supporting most PKZIP features up to PKZIP version 4.6), and PKZIP and PKUNZIP can work with archives produced by <b>zip</b> (with some exceptions).</p>
+<p class="tab"><b>zip</b> supports <a href="/jargon/m/macosx.htm">macOS X</a>, and on that OS, most Unix features are the same.</p>
+<h2 id="usage">Usage</h2>
+<p class="tab"><b>zip</b> is useful for packaging a set of files for distribution, for archiving files, and for saving disk space by temporarily compressing unused files or <a href="/jargon/d/director.htm">directories</a>.</p>
+<p class="tab">The <b>zip</b> program puts one or more compressed files into a single <b>zip</b> archive, along with information about the files (name, path, date, time of last modification, protection, and check information to verify file <a href="/jargon/i/integrit.htm">integrity</a>). An entire directory structure can be packed into a <b>zip</b> archive with a single command. Compression ratios of 2:1 to 3:1 are common for text files. <b>zip</b> has one compression method (<b>deflation</b>) and can also store files without compression. (If <b>bzip2</b> support is added, <b>zip</b> can also compress using <b>bzip2</b> compression, but such entries require a reasonably modern <b>unzip</b> to decompress. When <b>bzip2</b> compression is selected, it replaces deflation as the default method.) <b>zip</b> automatically chooses the better of the two (<b>deflation</b> or <b>store</b> or, if <b>bzip2</b> is selected, <b>bzip2</b> or <b>store</b>) for each file to be compressed.</p>
+<h2 id="format">Command format</h2>
+<p class="tab">The basic command format is:</p>
+<pre class="tab tcy">zip options archive inpath inpath ...</pre>
+<p class="tab">...where <b>archive</b> is a new or existing zip archive and <b>inpath</b> is a directory or file path optionally including wildcards. When given the name of an existing zip archive, <b>zip</b> will replace identically named entries in the zip archive (matching the relative names as stored in the archive) or add entries for new names. For example, if <b>foo.zip</b> exists and contains <b>foo/file1</b> and <b>foo/file2</b>, and the directory <b>foo</b> contains the files <b>foo/file1</b> and <b>foo/file3</b>, then:</p>
+<pre class="tab tcy">zip -r foo.zip foo</pre>
+<p class="tab">or more concisely:</p>
+<pre class="tab tcy">zip -r foo foo</pre>
+<p class="tab">...will replace <b>foo/file1</b> in <b>foo.zip</b> and add <b>foo/file3</b> to <b>foo.zip</b>. After this, <b>foo.zip</b> contains <b>foo/file1</b>, <b>foo/file2</b>, and <b>foo/file3</b>, with <b>foo/file2</b> unchanged from before.</p>
+<p class="tab">So if before the <b>zip</b> command is executed <b>foo.zip</b> has:</p>
+<pre class="tab">foo/file1 
+foo/file2</pre>
+<p class="tab">and directory foo has:</p>
+<pre class="tab">file1 
+file3</pre>
+<p class="tab">then <b>foo.zip</b> will have:</p>
+<pre class="tab">foo/file1 
+foo/file2 
+foo/file3</pre>
+<p class="tab">...where <b>foo/file1</b> is replaced and <b>foo/file3</b> is new.</p>
+<h2 id="lists">File lists</h2>
+<p class="tab">If a file list is specified as <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="092449">[email&#160;protected]</a></b>, <b>zip</b> takes the list of input files from <a href="/jargon/s/stdin.htm">standard input</a> instead of from the command line. For example,</p>
+<pre class="tab tcy">zip <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="250865">[email&#160;protected]</a> foo</pre>
+<p class="tab">...will store the files listed, one per line on standard input, in the archive <b>foo.zip</b>.</p>
+<p class="tab">Under Unix, this option can be used to powerful effect in conjunction with the <a href="/jargon/f/find.htm"><b>find</b></a> command. For example, to archive all the <a href="/jargon/c/c.htm">C</a> <a href="/jargon/s/source.htm">source</a> files in the current directory and its subdirectories:</p>
+<pre class="tab tcy">find . -name "*.[ch]" -print | zip source <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a076a">[email&#160;protected]</a></pre>
+<p class="tab">(note that the pattern must be quoted to keep the shell from expanding it).</p>
+<p class="tab">Streaming input and output. <b>zip</b> will also accept a single dash ("<b>-</b>") as the <b>zip</b> file name, in which case it will write the zip file to standard output, allowing the output to be piped to another program. For example:</p>
+<pre class="tab tcy">zip -r - . | dd of=/dev/nrst0 obs=16k</pre>
+<p class="tab">...would write the zip output directly to a tape with the specified block size for the purpose of backing up the current directory.</p>
+<p class="tab"><b>zip</b> also accepts a single dash ("<b>-</b>") as the name of a file to be compressed, in which case it will read the file from standard input, allowing <b>zip</b> to take input from another program. For example:</p>
+<pre class="tab tcy">tar cf - . | zip backup -</pre>
+<p class="tab">...would compress the output of the <b>tar</b> command for the purpose of backing up the current directory. This generally produces better compression than the previous example using the <b>-r</b> option because <b>zip</b> can take advantage of redundancy between files. The backup can be restored using the command:</p>
+<pre class="tab tcy">unzip -p backup | tar xf -</pre>
+<p class="tab">When no <b>zip</b> file name is given and stdout is not a terminal, <b>zip</b> acts as a filter, compressing standard input to standard output. For example,</p>
+<pre class="tab tcy">tar cf - . | zip | dd of=/dev/nrst0 obs=16k</pre>
+<p class="tab">...is equivalent to</p>
+<pre class="tab tcy">tar cf - . | zip - - | dd of=/dev/nrst0 obs=16k</pre>
+<p class="tab"><b>zip</b> archives created in this manner can be extracted with the program <b>funzip</b> that is provided in the <b>unzip</b> package, or by <b>gunzip</b> that is provided in the <a href="/unix/uzcat.htm">gzip</a> package (but some installations of <b>gunzip</b> may not support this if <b>zip</b> used the Zip64 extensions). For example:</p>
+<pre class="tab tcy">dd if=/dev/nrst0 ibs=16k | funzip | tar xvf -</pre>
+<p class="tab">The stream can also be saved to a file and <b>unzip</b> used.</p>
+<p class="tab">If Zip64 support for large files and archives is enabled and <b>zip</b> is used as a filter, <b>zip</b> creates a Zip64 archive that requires a PKZIP 4.5 or later compatible <b>unzip</b> to read the file. To avoid amgibuities in the <b>zip</b> file structure as defined in the current zip standard (PKWARE AppNote) where the decision to use Zip64 needs to be made before data is written for the entry, but for a stream the size of the data is not known at that point. If the data is known to be smaller than 4 GB, the option <b>-fz-</b> can be used to prevent use of Zip64, but <b>zip</b> will exit with an error if Zip64 was in fact needed. <b>zip</b> 3 and <b>unzip</b> 6 and later can read archives with Zip64 entries. Also, <b>zip</b> removes the Zip64 extensions if not needed when archive entries are copied (see the <b>-U</b> (<b>--copy</b>) option).</p>
+<p class="tab">When directing the output to another file, note that all options should be before the redirection including <b>-x</b>. For example:</p>
+<pre class="tab tcy">zip archive "*.h" "*.c" -x donotinclude.h orthis.h &gt; tofile</pre>
+<p class="tab">Please note that <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8aa7ca">[email&#160;protected]</a></b> lists do not work on macOS.</p>
+<h2 id="zipfiles">Zip files</h2>
+<p class="tab">When changing an existing zip archive, <b>zip</b> will write a temporary file with the new contents, and only replace the old one when the process of creating the new version has been completed without error.</p>
+<p class="tab">If the name of the <b>zip</b> archive does not contain an extension, the extension <b>.zip</b> is added. If the name already contains an extension other than <b>.zip</b>, the existing extension is kept unchanged. However, split archives (archives split over multiple files) require the <b>.zip</b> extension on the last split.</p>
+<h2 id="scanning">Scanning and reading files</h2>
+<p class="tab">When <b>zip</b> starts, it scans for files to process (if needed). If this scan takes longer than about 5 seconds, <b>zip</b> displays a "Scanning files" message and start displaying progress dots every 2 seconds or every so many entries processed, whichever takes longer. If there is more than 2 seconds between dots it could indicate that finding each file is taking time and could mean a slow network connection for example. (Actually the initial file scan is a two-step process where the directory scan is followed by a sort and these two steps are separated with a space in the dots. If updating an existing archive, a space also appears between the existing file scan and the new file scan.) The scanning files dots are not controlled by the <b>-ds</b> dot size option, but the dots are turned off by the <b>-q</b> quiet option. The <b>-sf</b> show files option can be used to scan for files and get the list of files scanned without actually processing them.</p>
+<p class="tab">If <b>zip</b> is not able to read a file, it issues a warning but continues. See the <b>-MM</b> option below for more on how <b>zip</b> handles patterns that are not matched and files that are not readable. If some files were skipped, a warning is issued at the end of the zip operation noting how many files were read and how many skipped.</p>
+<h2 id="modes">Command modes</h2>
+<p class="tab"><b>zip</b> now supports two distinct types of command modes, external and internal. The external modes (<b>add</b>, <b>update</b>, and <b>freshen</b>) read files from the file system (as well as from an existing archive) while the internal modes (<b>delete</b> and <b>copy</b>) operate exclusively on entries in an existing archive.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><b>add</b></td>
+<td>Update existing entries and add new files and create it if the archive does not exist. This option is the default mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>update</b> (<b>-u</b>)</td>
+<td>Update existing entries if newer on the file system and add new files. If the archive does not exist issue warning then create a new archive.</td>
+</tr>
+<tr class="tcw">
+<td><b>freshen</b> (<b>-f</b>)</td>
+<td>Update existing entries of an archive if newer on the file system. Does not add new files to the archive.</td>
+</tr>
+<tr class="tcw">
+<td><b>delete</b> (<b>-d</b>)</td>
+<td>Select entries in an existing archive and delete them.</td>
+</tr>
+<tr class="tcw">
+<td><b>copy</b> (<b>-U</b>)</td>
+<td>Select entries in an existing archive and copy them to a new archive. This new mode is similar to update but command line patterns select entries in the existing archive rather than files from the file system and it uses the <b>--out</b> option to write the resulting archive to a new file rather than update the existing archive, leaving the original archive unchanged.</td>
+</tr>
+</table>
+<p class="tab">The new File Sync option (<b>-FS</b>) is also considered a new mode, though it is similar to update. This mode synchronizes the archive with the files on the OS, only replacing files in the archive if the file time or size of the OS file is different, adding new files, and deleting entries from the archive where there is no matching file. As this mode can delete entries from the archive, consider making a backup copy of the archive.</p>
+<p class="tab">Also see <b>-DF</b> for creating difference archives.</p>
+<h2 id="split">Split archives</h2>
+<p class="tab"><b>zip</b> version 3.0 and later can create split archives. A split archive is a standard zip archive split over multiple files. (Note that split archives are not just archives split in to pieces, as the offsets of entries are now based on the start of each split. Concatenating the pieces together will invalidate these offsets, but unzip can usually deal with it. <b>zip</b> will usually refuse to process such a spliced archive unless the <b>-FF</b> fix option is used to fix the offsets.)</p>
+<p class="tab">One use of split archives is storing a large archive on multiple removable media. For a split archive with 20 split files the files are typically named (replace <b>ARCHIVE</b> with the name of your archive) <b>ARCHIVE.z01</b>, <b>ARCHIVE.z02</b>, ..., <b>ARCHIVE.z19</b>, <b>ARCHIVE.zip</b>. Note that the last file is the <b>.zip</b> file. In contrast, spanned archives are the original multi-disk archive generally requiring floppy disks and using volume labels to store disk numbers. <b>zip</b> supports split archives but not spanned archives, though a procedure exists for converting split archives of the right size to spanned archives. The reverse is also true, where each file of a spanned archive can be copied to files with the above names to create a split archive.</p>
+<p class="tab">Use <b>-s</b> to set the split size and create a split archive. The size is given as a number followed optionally by one of <b>k</b> (kB), <b>m</b> (MB), <b>g</b> (GB), or <b>t</b> (TB) (the default is <b>m</b>). The <b>-sp</b> option can be used to pause zip between splits to allow changing removable media, for example, but read the descriptions and warnings for both <b>-s</b> and <b>-sp</b> below.</p>
+<p class="tab">Though <b>zip</b> does not update split archives, <b>zip</b> provides the new option <b>-O</b> (<b>--output-file</b> or <b>--out</b>) to allow split archives to be updated and saved in a new archive. For example,</p>
+<pre class="tab tcy">zip inarchive.zip foo.c bar.c --out outarchive.zip</pre>
+<p class="tab">...reads archive <b>inarchive.zip</b>, even if split, adds the files <b>foo.c</b> and <b>bar.c</b>, and writes the resulting archive to <b>outarchive.zip</b>. If <b>inarchive.zip</b> is split then <b>outarchive.zip</b> defaults to the same split size. Be aware that if <b>outarchive.zip</b> and any split files that are created with it already exist, these are always overwritten as needed without warning. This may be changed in the future.</p>
+<h2 id="unicode">Unicode support</h2>
+<p class="tab">Though the <b>zip</b> standard requires storing paths in an archive using a specific <a href="/jargon/c/charcode.htm">character set</a>, in practice zips have stored paths in archives in whatever the local character set is. Problems can occur when an archive is created or updated on a system using one character set and then extracted on another system using a different character set. When compiled with Unicode support enabled on platforms that support wide characters, <b>zip</b> now stores, in addition to the standard local path for backward compatibility, the <a href="/jargon/u/unicode.htm">UTF-8</a> translation of the path. This provides a common universal character set for storing paths that allows these paths to be fully extracted on other systems that support Unicode and to match as close as possible on systems that don't.</p>
+<p class="tab">On Win32 systems where paths are internally stored as Unicode but represented in the local character set, it's possible that some paths will be skipped during a local character set directory scan. <b>zip</b> with Unicode support now can read and store these paths. Note that Win 9x systems and <a href="/jargon/f/fat.htm">FAT</a> file systems don't fully support Unicode.</p>
+<p class="tab">Be aware that console windows on Win32 and Unix, for example, sometimes don't accurately show all characters due to how each operating system switches in character sets for display. However, directory navigation tools should show the correct paths if the needed fonts are loaded.</p>
+<h2 id="clformat">Command line format</h2>
+<p class="tab">This version of <b>zip</b> has updated command line processing and support for long options.</p>
+<p class="tab">Short options take the form:</p>
+<pre class="tab tcy">-s[-][s[-]...][value][=value][ value]</pre>
+<p class="tab">...where <b>s</b> is a one or two character short option. A short option that takes a value is last in an argument and anything after it is taken as the value. If the option can be negated and "<b>-</b>" immediately follows the option, the option is negated. Short options can also be given as separate arguments</p>
+<pre class="tab tcy">-s[-][value][=value][ value] -s[-][value][=value][ value] ...</pre>
+<p class="tab">Short options in general take values either as part of the same argument or as the following argument. An optional <b>=</b> is also supported. So <b>-tt</b><i>mmddyyyy</i>, <b>-tt=</b><i>mmddyyyy</i>, and <b>-tt</b> <i>mmddyyyy</i> all work. The <b>-x</b> and <b>-i</b> options accept lists of values and use a slightly different format described below. See the <b>-x</b> and <b>-i</b> options.</p>
+<p class="tab">Long options take the form</p>
+<pre class="tab tcy">--longoption[-][=value][ value]</pre>
+<p class="tab">where the option starts with <b>--</b>, has a multicharacter name, can include a trailing dash to negate the option (if the option supports it), and can have a value (option argument) specified by preceding it with <b>=</b> (no spaces). Values can also follow the argument. So <b>--before-date=</b><i>mmddyyyy</i> and <b>--before-date</b> <i>mmddyyyy</i> both work.</p>
+<p class="tab">Long option names can be shortened to the shortest unique abbreviation. See the option descriptions below for which support long options. To avoid confusion, avoid abbreviating a negatable option with an embedded dash ("<b>-</b>") at the dash if you plan to negate it (the parser would consider a trailing dash, such as for the option <b>--some-option</b> using <b>--some-</b> as the option, as part of the name rather than a negating dash). This may be changed to force the last dash in <b>--some-</b> to be negating in the future.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">zip [<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="230e42626140476746664565444b49484f6f4e4c5251717077565575547b5a590263">[email&#160;protected]</a>$] [--<i>longoption</i> ...]  [-b <i>path</i>] 
+    [-n <i>suffixes</i>] [-t <i>date</i>] [-tt <i>date</i>] [<i>zipfile</i> [<i>file</i> ...]]  [-xi <i>list</i>]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:270px"><b>-a</b>, <b>--ascii</b></td>
+<td>On systems using <a href="/jargon/e/ebcdic.htm">EBCDIC</a>, this option translates files to <a href="/jargon/a/ascii.htm">ASCII</a> format.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b>, <b>--adjust-sfx</b></td>
+<td>Adjust self-extracting <a href="/jargon/e/execfile.htm">executable</a> archive. A self-extracting executable archive is created by prepending the "SFX" stub to an existing archive. The <b>-A</b> option tells <b>zip</b> to adjust the entry offsets stored in the archive to take into account this "preamble" data.</td>
+</tr>
+<tr class="tcw">
+<td><b>-AC</b>, <b>--archive-clear</b></td>
+<td>This option is a Windows-only option. Once archive is created (and tested if <b>-T</b> is used, which is recommended), clear the archive <a href="/jargon/b/bit.htm">bits</a> of files processed. Once the bits are cleared they are cleared permanently. You may want to use the <b>-sf</b> (show files) option to store the list of files processed in case the archive operation must be repeated. Also consider using the <b>-MM</b> (must match) option. Be sure to check out <b>-DF</b> as a possibly better way to do incremental backups.</td>
+</tr>
+<tr class="tcw">
+<td><b>-AS</b>, <b>--archive-set</b></td>
+<td>This option is a Windows-only option which only includes files that have the archive bit set. Directories are not stored when <b>-AS</b> is used, though by default the <a href="/jargon/p/path.htm">paths</a> of entries, including directories, are stored as usual and can be used by most unzips to recreate directories.<br><br> The archive bit is set by the operating system when a file is modified and, if used with <b>-AC</b>, <b>-AS</b> can provide an incremental backup capability. However, other applications can modify the archive bit and it may not be a reliable indicator of which files have changed since the last archive operation. Alternative ways to create incremental backups are using <b>-t</b> to use file dates, though this won't catch old files copied to directories being archived, and <b>-DF</b> to create a differential archive.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b>, <b>--binary</b></td>
+<td>Force files to be read as <a href="/jargon/b/binary.htm">binary</a> (default is text).</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b> <i>path</i>, <b>--temp-path</b> <i>path</i></td>
+<td>Use the specified path for the <a href="/jargon/t/tempfile.htm">temporary</a> zip archive. For example:<br><br><pre class="tcy">zip -b /tmp stuff *</pre> ...will put the temporary zip archive in the directory <b>/tmp</b>, copying over <b>stuff.zip</b> to the current directory when done. This option is useful when updating an existing archive and the file system containing this old archive does not have enough space to hold both old and new archives at the same time. It may also be useful when streaming in some cases to avoid the need for data descriptors. Note that using this option may require <b>zip</b> take additional time to copy the archive file when done to the destination file system.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--entry-comments</b></td>
+<td>Add one-line <a href="/jargon/c/comment.htm">comments</a> for each file. File operations (adding, updating) are done first, and the user is then prompted for a one-line comment for each file. Enter the comment followed by return, or just return for no comment.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--delete</b></td>
+<td>Remove (delete) entries from a <b>zip</b> archive. For example:<br><br><pre class="tcy">zip -d foo foo/tom/junk foo/harry/\* \*.o</pre> ...will remove the entry <b>foo/tom/junk</b>, all of the files that start with <b>foo/harry/</b>, and all of the files that end with <b>.o</b> (in any path). Note that shell pathname expansion has been inhibited with backslashes, so that <b>zip</b> can see the <a href="/jargon/a/asterisk.htm">asterisks</a>, enabling <b>zip</b> to match on the contents of the <b>zip</b> archive instead of the contents of the current directory. (The backslashes are not used on MSDOS-based platforms.) Can also use quotes to escape the asterisks, as in<br><br><pre class="tcy">zip -d foo foo/tom/junk "foo/harry/*" "*.o"</pre> Not escaping the asterisks on a system where the shell expands <a href="/jargon/w/wildcard.htm">wildcards</a> could result in the asterisks being converted to a list of files in the <a href="/jargon/c/currentd.htm">current directory</a> and that list used to delete entries from the archive.<br><br> Under MSDOS, <b>-d</b> is case sensitive when it matches names in the <b>zip</b> archive. This requires that file names be entered in upper case if they were zipped by PKZIP on an MSDOS system. See the option <b>-ic</b> to ignore case in the archive.</td>
+</tr>
+<tr class="tcw">
+<td><b>-db</b>, <b>--display-bytes</b></td>
+<td>Display running byte counts showing the bytes zipped and the bytes to go.</td>
+</tr>
+<tr class="tcw">
+<td><b>-dc</b>, <b>--display-counts</b></td>
+<td>Display a running count of entries zipped and entries still to be processed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-dd</b>, <b>--display-dots</b></td>
+<td>Display dots while each entry is zipped (except on ports that have their own progress indicator). See <b>-ds</b> below for setting dot size. The default is a dot every 10 MB of input file processed. The <b>-v</b> option also displays dots (previously at a much higher rate than this but now <b>-v</b> also defaults to 10 MB) and this rate is also controlled by <b>-ds</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-df</b>, <b>--datafork</b></td>
+<td>On MacOS, include only data-fork of files zipped into the archive. Good for exporting files to foreign operating-systems. Resource-forks will be ignored at all.</td>
+</tr>
+<tr class="tcw">
+<td><b>-dg</b>, <b>--display-globaldots</b></td>
+<td>Display progress dots for the archive instead of for each file. The command<br><br><pre class="tcy">zip -qdgds 10m</pre> ...will turn off most output except dots every 10 MB.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ds</b> <i>size</i>, <b>--dot-size</b> <i>size</i></td>
+<td>Set amount of input file processed for each dot displayed. See <b>-dd</b> to enable displaying dots. Setting this option implies <b>-dd</b>. Size is in the format <i>nm</i> where <i>n</i> is a number and <i>m</i> is a multiplier. Currently <i>m</i> can be <b>k</b> (<a href="/jargon/k/kilobit.htm">KB</a>), <b>m</b> (<a href="/jargon/m/megabyte.htm">MB</a>), <b>g</b> (<a href="/jargon/g/gigabyte.htm">GB</a>), or <b>t</b> (<a href="/jargon/t/terabyte.htm">TB</a>); so if <i>n</i> is 100 and <i>m</i> is <b>k</b>, <i>size</i> would be <b>100k</b> which is 100 KB. The default is 10 MB.<br><br> The <b>-v</b> option also displays dots and now defaults to 10 MB also. This rate is also controlled by this option. A <i>size</i> of <b>0</b> turns dots off.<br><br> This option does not control the dots from the "Scanning files" message as zip scans for input files. The dot size for that is fixed at 2 seconds or a fixed number of entries, whichever is longer.</td>
+</tr>
+<tr class="tcw">
+<td><b>-du</b>, <b>--display-usize</b></td>
+<td>Display the uncompressed size of each entry.</td>
+</tr>
+<tr class="tcw">
+<td><b>-dv</b>, <b>--display-volume</b></td>
+<td>Display the volume (disk) number each entry is being read from, if reading an existing archive, and where it's being written.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b>, <b>--no-dir-entries</b></td>
+<td>Do not create entries in the <b>zip</b> archive for directories. Directory entries are created by default so that their attributes can be saved in the archive. The <a href="/jargon/e/envivari.htm">environment variable</a> <b>ZIPOPT</b> can be used to change the default options. For example under Unix with <a href="/unix/ush.htm">sh</a>:<br><br><pre class="tcy">ZIPOPT="-D"; export ZIPOPT</pre> (The variable <b>ZIPOPT</b> can be used for any option, including <b>-i</b> and <b>-x</b> using a new option format detailed below, and can include several options.) The option <b>-D</b> is a shorthand for <b>-x "*/"</b> but the latter previously could not be set as default in the <b>ZIPOPT</b> environment variable as the contents of <b>ZIPOPT</b> gets inserted near the beginning of the command line and the file list had to end at the end of the line.<br><br> This version of <b>zip</b> does allow <b>-x</b> and <b>-i</b> options in <b>ZIPOPT</b> if the form<br><br><pre class="tcy">-x file file ... @</pre> ...is used, where the <b>@</b> (an <a href="/jargon/a/argument.htm">argument</a> that is just <b>@</b>) terminates the list.</td>
+</tr>
+<tr class="tcw">
+<td><b>-DF</b>, <b>--difference-archive</b></td>
+<td>Create an archive that contains all new and changed files since the original archive was created. For this to work, the input file list and current directory must be the same as during the original <b>zip</b> operation.<br><br> For example, if the existing archive was created using<br><br><pre class="tcy">zip -r foofull .</pre> from the <b>bar</b> directory, then the command<br><br><pre class="tcy">zip -r foofull . -DF --out foonew</pre> ...also from the <b>bar</b> directory creates the archive <b>foonew</b> with just the files not in <b>foofull</b> and the files where the size or file time of the files do not match those in foofull.<br><br> Note that the timezone environment variable TZ should be set according to the local timezone for this option to work correctly. A change in timezone since the original archive was created could result in no times matching and all files being included.<br><br> A possible approach to backing up a directory might be to create a normal archive of the contents of the directory as a full backup, then use this option to create incremental backups.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>, <b>--encrypt</b></td>
+<td>Encrypt the contents of the <b>zip</b> archive using a password that is entered on the <a href="/jargon/t/terminal.htm">terminal</a> in response to a prompt (this will not be echoed; if standard error is not a <a href="/jargon/t/tty.htm">tty</a>, <b>zip</b> will exit with an error). The password prompt is repeated to save the user from typing errors.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b>, <b>--longnames</b></td>
+<td>On OS/2, use the .LONGNAME Extended Attribute (if found) as the file name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--freshen</b></td>
+<td>Replace (freshen) an existing entry in the zip archive only if it has been modified more recently than the version already in the <b>zip</b> archive; unlike the update option (<b>-u</b>) this will not add files that are not already in the <b>zip</b> archive. For example:<br><br><pre class="tcy">zip -f foo</pre> This command should be run from the same directory from which the original <b>zip</b> command was run, since paths stored in <b>zip</b> archives are always relative.<br><br> Note that the timezone environment variable <b>TZ</b> should be set according to the local timezone for the <b>-f</b>, <b>-u</b> and <b>-o</b> options to work correctly.<br><br> The reasons behind this are somewhat subtle but have to do with the differences between the Unix-format file times (always in GMT) and most of the other operating systems (always local time) and the necessity to compare the two. A typical TZ value is "MET-1MEST" (Middle European time with automatic adjustment for "summertime" or Daylight Savings Time).<br><br> The format is <i>TTThhDDD</i>, where <i>TTT</i> is the time zone such as PST, <i>hh</i> is the difference between GMT and local time such as <b>-1</b> above, and <i>DDD</i> is the time zone when daylight savings time is in effect. Leave off the <i>DDD</i> if there is no daylight savings time. For the US Eastern time zone: <b>EST5EDT</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b>, <b>--fix</b>, <b>-FF</b>, <b>--fixfix</b></td>
+<td>Fix the <b>zip</b> archive. The <b>-F</b> option can be used if some portions of the archive are missing, but requires a reasonably intact central directory. The input archive is scanned as usual, but <b>zip</b> ignores some problems. The resulting archive should be valid, but any inconsistent entries will be left out.<br><br> When doubled as in <b>-FF</b>, the archive is scanned from the beginning and <b>zip</b> scans for special signatures to identify the limits between the archive members. The single <b>-F</b> is more reliable if the archive is not too much damaged, so try this option first.<br><br> If the archive is too damaged or the end has been truncated, you must use <b>-FF</b>. This option is a change from zip 2.32, where the <b>-F</b> option can read a truncated archive. The <b>-F</b> option now more reliably fixes archives with minor damage and the <b>-FF</b> option is needed to fix archives where <b>-F</b> might have been sufficient before.<br><br> Neither option will recover archives that have been incorrectly transferred in ascii mode instead of binary. After the repair, the <b>-t</b> option of <b>unzip</b> may show that some files have a bad <a href="/jargon/c/crc.htm">CRC</a>. Such files cannot be recovered; you can remove them from the archive using the <b>-d</b> option of <b>zip</b>.<br><br> Note that <b>-FF</b> may have trouble fixing archives that include an embedded <b>zip</b> archive that was stored (without compression) in the archive and, depending on the damage, it may find the entries in the embedded archive rather than the archive itself. Try <b>-F</b> first as it does not have this problem.<br><br> The format of the fix commands have changed. For example, to fix the damaged archive <b>foo.zip</b>,<br><br><pre class="tcy">zip -F foo --out foofix</pre> ...tries to read the entries normally, copying good entries to the new archive <b>foofix.zip</b>. If this doesn't work, as when the archive is <a href="/jargon/t/truncate.htm">truncated</a>, or if some entries you know are in the archive are missed, then try<br><br><pre class="tcy">zip -FF foo --out foofixfix</pre> ...and compare the resulting archive to the archive created by <b>-F</b>. The <b>-FF</b> option may create an inconsistent archive. Depending on what is damaged, you can then use the <b>-F</b> option to fix that archive.<br><br> A split archive with missing split files can be fixed using <b>-F</b> if you have the last split of the archive (the <b>.zip</b> file). If this file is missing, you must use <b>-FF</b> to fix the archive, which will prompt you for the splits you have.<br><br> Currently the fix options can't recover entries that have a bad <a href="/jargon/c/checksum.htm">checksum</a> or are otherwise damaged.</td>
+</tr>
+<tr class="tcw">
+<td><b>-FI</b>, <b>--fifo</b></td>
+<td>On Unix, normally <b>zip</b> skips reading any <a href="/jargon/f/fifo.htm">FIFOs</a> (named <a href="/jargon/p/pipe.htm">pipes</a>) encountered, as <b>zip</b> can hang if the FIFO is not being fed. This option tells <b>zip</b> to read the contents of any FIFO it finds.</td>
+</tr>
+<tr class="tcw">
+<td><b>-FS</b>, <b>--filesync</b></td>
+<td>Synchronize the contents of an archive with the files on the OS. Normally when an archive is updated, new files are added and changed files are updated but files that no longer exist on the OS are not deleted from the archive. This option enables a new mode that checks entries in the archive against the file system. If the file time and file size of the entry matches that of the OS file, the entry is copied from the old archive instead of being read from the file system and compressed. If the OS file has changed, the entry is read and compressed as usual. If the entry in the archive does not match a file on the OS, the entry is deleted. Enabling this option should create archives that are the same as new archives, but since existing entries are copied instead of compressed, updating an existing archive with <b>-FS</b> can be much faster than creating a new archive. Also consider using <b>-u</b> for updating an archive.<br><br> For this option to work, the archive should be updated from the same directory it was created in so the relative paths match. If few files are being copied from the old archive, it may be faster to create a new archive instead.<br><br> Note that the timezone environment variable <b>TZ</b> should be set according to the local timezone for this option to work correctly. A change in timezone since the original archive was created could result in no times matching and recompression of all files.<br><br> This option deletes files from the archive. If you need to preserve the original archive, make a copy of the archive first or use the <b>--out</b> option to output the updated archive to a new file. Even though it may be slower, creating a new archive with a new archive name is safer, avoids mismatches between archive and OS paths, and is preferred.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>, <b>--grow</b></td>
+<td>Grow (append to) the specified <b>zip</b> archive, instead of creating a new one. If this operation fails, zip attempts to restore the archive to its original state. If the restoration fails, the archive might become corrupted. This option is ignored when there's no existing archive or when at least one archive member must be updated or deleted.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>-?</b>, <b>--help</b></td>
+<td>Display the <b>zip</b> help information (this also appears if <b>zip</b> is run with no arguments).</td>
+</tr>
+<tr class="tcw">
+<td><b>-h2</b>, <b>--more-help</b></td>
+<td>Display extended help including more on command line format, pattern matching, and more obscure options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b> <i>files</i>, <b>--include</b> <i>files</i></td>
+<td>Include only the specified files, as in:<br><br><pre class="tcy">zip -r foo . -i \*.c</pre> ...which will include only the files that end in <b>.c</b> in the current directory and its subdirectories. (Note for PKZIP users: the equivalent command is<br><br><pre class="tcy">pkzip -rP foo *.c</pre> PKZIP does not allow <a href="/jargon/r/recursio.htm">recursion</a> in directories other than the current one.) The backslash avoids the shell file name substitution, so that the name matching is performed by <b>zip</b> at all directory levels. [This option is for Unix and other systems where "<b>\</b>" escapes the next character.] So to include <b>dir</b>, a directory directly under the current directory, use:<br><br><pre class="tcy">zip -r foo . -i dir/\*</pre> or:<br><br><pre class="tcy">zip -r foo . -i "dir/*"</pre> ...to match paths such as <b>dir/a</b> and <b>dir/b/file.c</b>. Note that currently the trailing <b>/</b> is needed for directories (as in:<br><br><pre class="tcy">zip -r foo . -i dir/</pre> ...to include directory dir).<br><br> The long option form of the first example is:<br><br><pre class="tcy">zip -r foo . --include \*.c</pre> ...and does the same thing as the short option form.<br><br> Though the command syntax used to require <b>-i</b> at the end of the command line, this version actually allows <b>-i</b> (or <b>--include</b>) anywhere. The list of files terminates at the next argument starting with <b>-</b>, the end of the command line, or the list terminator <b>@</b> (an argument that is just <b>@</b>). So the above can be given as:<br><br><pre class="tcy">zip -i \*.c @ -r foo .</pre> ...for example. There must be a space between the option and the first file of a list. For just one file you can use the single value form:<br><br><pre class="tcy">zip -i\*.c -r foo .</pre> (no space between option and value) or:<br><br><pre class="tcy">zip --include=\*.c -r foo .</pre> ...as additional examples. The single value forms are not recommended because they can be confusing and, in particular, the <b>-ifile</b> format can cause problems if the first letter of file combines with <b>i</b> to form a two-letter option starting with <b>i</b>. Use <b>-sc</b> to see how your command line will be parsed.<br><br> Also possible:<br><br><pre class="tcy">zip -r foo  . <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="537e3a133a3d303f2637367d3f2027">[email&#160;protected]</a></pre> ...which will only include the files in the current directory and its subdirectories that match the patterns in the file <b>include.lst</b>.<br><br> Files to <b>-i</b> and <b>-x</b> are patterns matching internal archive paths. See <b>-R</b> for more on patterns.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b>, <b>--no-image</b></td>
+<td>On Acorn RISC OS, this option instructs <b>zip</b> not to scan through Image files. When used, <b>zip</b> will not consider Image files (eg. DOS partitions or Spark archives when SparkFS is loaded) as directories but will store them as single files.<br><br> For example, if you have SparkFS loaded, zipping a Spark archive will result in a zipfile containing a directory (and its content) while using the '<b>I</b>' option will result in a zipfile containing a Spark archive. Obviously this second case will also be obtained (without the '<b>I</b>' option) if SparkFS isn't loaded.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ic</b>, <b>--ignore-case</b></td>
+<td>On VMS or Windows systems, ignore case when matching archive entries. This option is only available on systems where the case of files is ignored. On systems with case-insensitive file systems, case is normally ignored when matching files on the file system but is not ignored for <b>-f</b> (freshen), <b>-d</b> (delete), <b>-U</b> (copy), and similar modes when matching against archive entries (currently <b>-f</b> ignores case on VMS) because archive entries can be from systems where case does matter and names that are the same except for case can exist in an archive. The <b>-ic</b> option makes all matching case insensitive. This option can result in multiple archive entries matching a command line pattern.</td>
+</tr>
+<tr class="tcw">
+<td><b>-j</b>, <b>--junk-paths</b></td>
+<td>Store just the name of a saved file (without the path), and do not store directory names. By default, <b>zip</b> will store the full path, relative to the current directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-jj</b>, <b>--absolute-path</b></td>
+<td>On macOS, record Fullpath (+ Volname). The complete path including volume will be stored. By default the relative path will be stored.</td>
+</tr>
+<tr class="tcw">
+<td><b>-J</b>, <b>--junk-sfx</b></td>
+<td>Strip any prepended data (e.g., a SFX stub) from the archive.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b>, <b>--DOS-names</b></td>
+<td>Attempt to convert the names and paths to conform to MSDOS, store only the MSDOS attribute (just the user write attribute from Unix), and mark the entry as made under MSDOS (even though it was not); for compatibility with PKUNZIP under MSDOS which cannot handle certain names such as those with two dots.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--to-crlf</b></td>
+<td>Translate the Unix end-of-line character <a href="/jargon/l/lf.htm">LF</a> into the MSDOS convention <a href="/jargon/c/cr.htm">CR</a> LF. This option should not be used on binary files. This option can be used on Unix if the <b>zip</b> file is intended for PKUNZIP under MSDOS. If the input files already contain CR LF, this option adds an extra CR. This option is to ensure that <b>unzip -a</b> on Unix will get back an exact copy of the original file, to undo the effect of <b>zip -l</b>. See <b>-ll</b> for how binary files are handled.</td>
+</tr>
+<tr class="tcw">
+<td><b>-la</b>, <b>--log-append</b></td>
+<td>Append to existing <a href="/jargon/l/log.htm">logfile</a>. Default is to overwrite.</td>
+</tr>
+<tr class="tcw">
+<td><b>-lf</b> <i>logfilepath</i>,<br><b>--logfile-path</b> <i>logfilepath</i></td>
+<td>Open a logfile at the given path. By default any existing file at that location is overwritten, but the <b>-la</b> option will result in an existing file being opened and the new log information appended to any existing information. Only warnings and errors are written to the log unless the <b>-li</b> option is also given, then all information messages are also written to the log.</td>
+</tr>
+<tr class="tcw">
+<td><b>-li</b>, <b>--log-info</b></td>
+<td>Include information messages, such as file names being zipped, in the log. The default is to only include the command line, any warnings and errors, and the final status.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ll</b>, <b>--from-crlf</b></td>
+<td>Translate the MSDOS end-of-line CR LF into Unix LF. This option should not be used on binary files. This option can be used on MSDOS if the zip file is intended for <b>unzip</b> under Unix. If the file is converted and the file is later determined to be binary a warning is issued and the file is probably corrupted. In this release if <b>-ll</b> detects binary in the first buffer read from a file, <b>zip</b> now issues a warning and skips line end conversion on the file. This check seems to catch all binary files tested, but the original check remains and if a converted file is later determined to be binary that warning is still issued. A new algorithm is now being used for binary detection that should allow line end conversion of text files in UTF-8 and similar encodings.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--license</b></td>
+<td>Display the <b>zip</b> license.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b>, <b>--move</b></td>
+<td>Move the specified files into the <b>zip</b> archive; actually, this deletes the target directories/files after making the specified <b>zip</b> archive. If a directory becomes empty after removal of the files, the directory is also removed. No deletions are done until <b>zip</b> has created the archive without error. This option is useful for conserving <a href="/jargon/d/diskcapa.htm">disk space</a>, but is potentially dangerous so it is recommended to use it in combination with <b>-T</b> to test the archive before removing all input files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-MM</b>, <b>--must-match</b></td>
+<td>All input patterns must match at least one file and all input files found must be readable. Normally when an input pattern does not match a file the "name not matched" warning is issued and when an input file has been found but later is missing or not readable a missing or not readable warning is issued. In either case <b>zip</b> continues creating the archive, with missing or unreadable new files being skipped and files already in the archive remaining unchanged. After the archive is created, if any files were not readable, <b>zip</b> returns the OPEN error code (18 on most systems) instead of the normal success return (0 on most systems). With <b>-MM</b> set, <b>zip</b> exits as soon as an input pattern is not matched (whenever the "name not matched" warning would be issued) or when an input file is not readable. In either case <b>zip</b> exits with an OPEN error and no archive is created.<br><br> This option is useful when a known list of files is to be zipped so any missing or unreadable files will result in an error. It is less useful when used with wildcards, but <b>zip</b> will still exit with an error if any input pattern doesn't match at least one file and if any matched files are unreadable. If you want to create the archive anyway and only need to know if files were skipped, don't use <b>-MM</b> and just check the return code. Also <b>-lf</b> could be useful.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b> <i>suffixes</i>,<br><b>--suffixes</b> <i>suffixes</i></td>
+<td>Do not attempt to compress files named with the given suffixes. Such files are stored (0% compression) in the output zip file, so that zip doesn't waste its time trying to compress them. The suffixes are separated by either colons or semicolons. For example:<br><br><pre class="tcy">zip -rn .Z:.zip:.tiff:.gif:.snd  foo foo</pre> will copy everything from <b>foo</b> into <b>foo.zip</b>, but will store any files that end in <b>.Z</b>, <b>.zip</b>, <b>.tiff</b>, <b>.gif</b>, or <b>.snd</b> without trying to compress them (image and sound files often have their own specialized compression methods). By default, <b>zip</b> does not compress files with extensions in the list <b>.Z:.zip:.zoo:.arc:.lzh:.arj</b>. Such files are stored directly in the output archive. The environment variable <b>ZIPOPT</b> can be used to change the default options. For example under Unix with <a href="/unix/ucsh.htm">csh</a>:<br><br><pre class="tcy">setenv ZIPOPT "-n .gif:.zip"</pre> To attempt compression on all files, use:<br><br><pre class="tcy">zip -n : foo</pre> The maximum compression option <b>-9</b> also attempts compression on all files regardless of extension.<br><br> On Acorn RISC OS systems the suffixes are actually filetypes (3 <a href="/jargon/h/hex.htm">hex</a> digit format). By default, zip does not compress files with filetypes in the list DDC:D96:68E (i.e., Archives, CFS files and PackDir files).</td>
+</tr>
+<tr class="tcw">
+<td><b>-nw</b>, <b>--no-wild</b></td>
+<td>Do not perform internal wildcard processing (shell processing of wildcards is still done by the shell unless the arguments are escaped). Useful if a list of paths is being read and no wildcard substitution is desired.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b>, <b>--notes</b></td>
+<td>[Amiga, MacOS] Save Amiga or MacOS filenotes as zipfile comments. They can be restored using the <b>-N</b> option of <b>unzip</b>. If <b>-c</b> is used also, you are prompted for comments only for those files that do not have filenotes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--latest-time</b></td>
+<td>Set the "last modified" time of the <b>zip</b> archive to the latest (oldest) "last modified" time found among the entries in the <b>zip</b> archive. This option can be used without any other operations, if desired. For example:<br><br><pre class="tcy">zip -o foo</pre> ...will change the last modified time of <b>foo.zip</b> to the latest time of the entries in <b>foo.zip</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b> <i>output-file</i>,<br><b>--output-file</b> <i>output-file</i></td>
+<td>Process the archive changes as usual, but instead of updating the existing archive, output the new archive to output-file. Useful for updating an archive without changing the existing archive and the input archive must be a different file than the output archive.<br><br> This option can be used to create updated split archives. It can also be used with <b>-U</b> to copy entries from an existing archive to a new archive.<br><br> Another use is converting <b>zip</b> files from one split size to another. For instance, to convert an archive with 700 MB <a href="/jargon/c/compactd.htm">CD</a> splits to one with 2 GB <a href="/jargon/d/dvd.htm">DVD</a> splits, can use:<br><br><pre class="tcy">zip -s 2g cd-split.zip --out dvd-split.zip</pre> ...which uses copy mode. See <b>-U</b> below. Also:<br><br><pre class="tcy">zip -s 0 split.zip --out unsplit.zip</pre>
+<p>...will convert a split archive to a single-file archive.<br><br> Copy mode will convert stream entries (using data descriptors and which should be compatible with most unzips) to normal entries (which should be compatible with all unzips), except if standard encryption was used. For archives with encrypted entries, zipcloak will decrypt the entries and convert them to normal entries.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--paths</b></td>
+<td>Include relative file paths as part of the names of files stored in the archive. This option is the default. The <b>-j</b> option junks the paths and just stores the names of the files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b> <i>password</i>,<br><b>--password</b> <i>password</i></td>
+<td>Use <i>password</i> to <a href="/jargon/e/encrypt.htm">encrypt</a> zipfile entries (if any). <b>THIS IS INSECURE!</b> Many <a href="/jargon/m/multsyst.htm">multi-user</a> operating systems provide ways for any user to see the current command line of any other user; even on stand-alone systems there is always the threat of over-the-shoulder peeking. Storing the plaintext password as part of a command line in an automated <a href="/jargon/s/script.htm">script</a> is even worse. Whenever possible, use the non-echoing, interactive prompt to enter passwords. (And where security is truly important, use strong encryption such as Pretty Good Privacy instead of the relatively weak standard encryption provided by zipfile utilities.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--quiet</b></td>
+<td>Quiet mode; eliminate informational messages and comment prompts. (Useful, for example, in shell scripts and background tasks).</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--recurse-paths</b></td>
+<td>Travel the directory structure recursively; for example:<br><br><pre class="tcy">zip -r foo.zip foo</pre> or more concisely<br><br><pre class="tcy">zip -r foo foo</pre> In this case, all the files and directories in <b>foo</b> are saved in an archive named <b>foo.zip</b>, including files with names starting with "<b>.</b>", since the recursion does not use the shell's file-name substitution mechanism. If you want to include only a specific subset of the files in directory foo and its subdirectories, use the <b>-i</b> option to specify the pattern of files to be included. You should not use <b>-r</b> with the name "<b>.*</b>", since that matches "<b>..</b>" which will attempt to zip up the <a href="/jargon/p/parechil.htm">parent</a> directory (probably not what was intended).<br><br> Multiple source directories are allowed:<br><br><pre class="tcy">zip -r foo foo1 foo2</pre> ...which first zips up <b>foo1</b> and then <b>foo2</b>, going down each directory.<br><br> Note that while wildcards to <b>-r</b> are typically resolved while recursing down directories in the file system, any <b>-R</b>, <b>-x</b>, and <b>-i</b> wildcards are applied to internal archive pathnames once the directories are scanned. To have wildcards apply to files in subdirectories when recursing on Unix and similar systems where the shell does wildcard substitution, either escape all wildcards or put all arguments with wildcards in quotes. This lets <b>zip</b> see the wildcards and match files in subdirectories using them as it recurses.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--recurse-patterns</b></td>
+<td>Travel the directory structure recursively starting at the current directory; for example:<br><br><pre class="tcy">zip -R foo "*.c"</pre> In this case, all the files matching <b>*.c</b> in the tree starting at the current directory are stored into a zip archive named <b>foo.zip</b>. Note that <b>*.c</b> will match <b>file.c</b>, <b>a/file.c</b> and <b>a/b/.c</b>. More than one pattern can be listed as separate arguments. Note for PKZIP users: the equivalent command is<br><br><pre class="tcy">pkzip -rP foo *.c</pre> Patterns are relative file paths as they appear in the archive, or will after zipping, and can have optional wildcards in them. For example, given the current directory is foo and under it are directories <b>foo1</b> and <b>foo2</b> and in <b>foo1</b> is the file <b>bar.c</b>,<br><br><pre class="tcy">zip -R foo/*</pre> ...will zip up <b>foo</b>, <b>foo/foo1</b>, <b>foo/foo1/bar.c</b>, and <b>foo/foo2</b>.<br><br><pre class="tcy">zip -R */bar.c</pre> ...will zip up <b>foo/foo1/bar.c</b>. See the note for <b>-r</b> on escaping wildcards.</td>
+</tr>
+<tr class="tcw">
+<td><b>-RE</b>, <b>--regex</b></td>
+<td>[WIN32] Before <b>zip</b> 3.0, <a href="/jargon/r/regex.htm">regular expression</a> list matching was enabled by default on Windows platforms. Because of confusion resulting from the need to escape "<b>["</b> and "<b>]</b>" in names, it is now off by default for Windows so "<b>[</b>" and "<b>]</b>" are just normal characters in names. This option enables <b>[]</b> matching again.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>splitsize</i>,<br><b>--split-size</b> <i>splitsize</i></td>
+<td>Enable creating a split archive and set the split size. A split archive is an archive that could be split over many files. As the archive is created, if the size of the archive reaches the specified split size, that split is closed and the next split opened. In general all splits but the last will be the split size and the last will be whatever is left. If the entire archive is smaller than the split size a single-file archive is created.<br><br> Split archives are stored in numbered files. For example, if the output archive is named <b>archive</b> and three splits are required, the resulting archive will be in the three files <b>archive.z01</b>, <b>archive.z02</b>, and <b>archive.zip</b>. Do not change the numbering of these files or the archive will not be readable as these are used to determine the order the splits are read.<br><br> Split size is a number optionally followed by a multiplier. Currently the number must be an integer. The multiplier can currently be one of <b>k</b> (kilobytes), <b>m</b> (megabytes), <b>g</b> (gigabytes), or <b>t</b> (terabytes). As 64 k is the minimum split size, numbers without multipliers default to megabytes. For example, to create a split archive called foo with the contents of the bar directory with splits of 670 MB that might be useful for burning on CDs, the command:<br><br><pre class="tcy">zip -s 670m -r foo bar</pre> could be used.<br><br> Currently the old splits of a split archive are not excluded from a new archive, but they can be specifically excluded. If possible, keep the input and output archives out of the path being zipped when creating split archives.<br><br> Using <b>-s</b> without <b>-sp</b> as above creates all the splits where foo is being written, in this case the current directory. This split mode updates the splits as the archive is being created, requiring all splits to remain writable, but creates split archives that are readable by any <b>unzip</b> that supports split archives. See <b>-sp</b> below for enabling split pause mode that allows splits to be written directly to removable media.<br><br> The option <b>-sv</b> can be used to enable verbose splitting and provide details of how the splitting is being done. The <b>-sb</b> option can be used to ring the bell when zip pauses for the next split destination.<br><br> Split archives cannot be updated, but see the <b>-O</b> (<b>--out</b>) option for how a split archive can be updated as it is copied to a new archive. A split archive can also be converted into a single-file archive using a split size of 0 or negating the <b>-s</b> option:<br><br><pre class="tcy">zip -s 0 split.zip --out single.zip</pre> Also see <b>-U</b> (<b>--copy</b>) for more on using copy mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-sb</b>, <b>--split-bell</b></td>
+<td>If splitting and using split pause mode, ring the bell when <b>zip</b> pauses for each split destination.</td>
+</tr>
+<tr class="tcw">
+<td><b>-sc</b>, <b>--show-command</b></td>
+<td>Show the command line starting <b>zip</b> as processed and exit. The new command parser permutes the arguments, putting all options and any values associated with them before any non-option arguments, which allows an option to appear anywhere in the command line as long as any values that go with the option go with it. This option displays the command line as zip sees it, including any arguments from the environment such as from the <b>ZIPOPT</b> variable. Where allowed, options later in the command line can override options earlier in the command line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-sf</b>, <b>--show-files</b></td>
+<td>Show the files that would be operated on, then exit. For instance, if creating a new archive, this will list the files that would be added. If the option is negated (<b>-sf-</b>), output only to an open log file. Screen display is not recommended for large lists.</td>
+</tr>
+<tr class="tcw">
+<td><b>-so</b>, <b>--show-options</b></td>
+<td>Show all available options supported by <b>zip</b> as compiled on the current system. As this command reads the option table, it should include all options. Each line includes the short option (if defined), the long option (if defined), the format of any value that goes with the option, if the option can be negated, and a small description. The value format can be no value, required value, optional value, single character value, number value, or a list of values. The output of this option is not intended to show how to use any option but only show what options are available.</td>
+</tr>
+<tr class="tcw">
+<td><b>-sp</b>, <b>--split-pause</b></td>
+<td>If splitting is enabled with <b>-s</b>, enable split pause mode. This option creates split archives as <b>-s</b> does, but stream writing is used so each split can be closed as soon as it is written and zip will pause between each split to allow changing split destination or media.<br><br> Though this split mode allows writing splits directly to removable media, it uses stream archive format that may not be readable by some unzips. Before relying on splits created with <b>-sp</b>, test a split archive with the unzip you will be using.<br><br> To convert a stream split archive (created with <b>-sp</b>) to a standard archive see the <b>--out</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-su</b>, <b>--show-unicode</b></td>
+<td>As <b>-sf</b>, but also show <a href="/jargon/u/unicode.htm">Unicode</a> version of the path if exists.</td>
+</tr>
+<tr class="tcw">
+<td><b>-sU</b>, <b>--show-just-unicode</b></td>
+<td>As <b>-sf</b>, but only show Unicode version of the path if exists, otherwise show the standard version of the path.</td>
+</tr>
+<tr class="tcw">
+<td><b>-sv</b>, <b>--split-verbose</b></td>
+<td>Enable various verbose messages while splitting, showing how the splitting is being done.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b>, <b>--system-hidden</b></td>
+<td>Include system and hidden files. On MacOS, includes finder invisible files, which are ignored otherwise.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>mmddyyyy</i>,<br><b>--from-date</b> <i>mmddyyyy</i></td>
+<td>Do not operate on files modified prior to the specified date, where <i>mm</i> is the month (<b>00</b>-<b>12</b>), <i>dd</i> is the day of the month (<b>01</b>-<b>31</b>), and <i>yyyy</i> is the year. The ISO 8601 date format <i>yyyy</i><b>-</b><i>mm</i><b>-</b><i>dd</i> is also accepted. For example:<br><br><pre class="tcy">zip -rt 12071991 infamy foo</pre><pre class="tcy">zip -rt 1991-12-07 infamy foo</pre> ...will add all the files in foo and its subdirectories that were last modified on or after 7 December 1991, to the zip archive <b>infamy.zip</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-tt</b> <i>mmddyyyy</i>,<br><b>--before-date</b> <i>mmddyyyy</i></td>
+<td>Do not operate on files modified after or at the specified date, where <i>mm</i> is the month (<b>00</b>-<b>12</b>), <i>dd</i> is the day of the month (<b>01</b>-<b>31</b>), and <i>yyyy</i> is the year. The ISO 8601 date format <i>yyyy</i><b>-</b><i>mm</i><b>-</b><i>dd</i> is also accepted. For example:<br><br><pre class="tcy">zip -rtt 11301995 infamy foo</pre><pre class="tcy">zip -rtt 1995-11-30 infamy foo</pre> ...will add all the files in <b>foo</b> and its subdirectories that were last modified before 30 November 1995, to the zip archive <b>infamy.zip</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>, <b>--test</b></td>
+<td>Test the integrity of the new zip file. If the check fails, the old zip file is unchanged and (with the <b>-m</b> option) no input files are removed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-TT</b> <i>cmd</i>,<br><b>--unzip-command</b> <i>cmd</i></td>
+<td>Use command <i>cmd</i> instead of '<b>unzip -tqq</b>' to test an archive when the <b>-T</b> option is used. On Unix, to use a copy of <b>unzip</b> in the current directory instead of the standard system <b>unzip</b>, could use:<br><br><pre class="tcy">zip archive file1 file2 -T -TT "./unzip -tqq"</pre> In <i>cmd</i>, <b>{}</b> is replaced by the name of the temporary archive, otherwise the name of the archive is appended to the end of the command. The return code is checked for success (0 on Unix).</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--update</b></td>
+<td>Replace (update) an existing entry in the zip archive only if it has been modified more recently than the version already in the zip archive. For example:<br><br><pre class="tcy">zip -u stuff *</pre> ...will add any new files in the current directory, and update any files which have been modified since the zip archive <b>stuff.zip</b> was last created/modified (note that zip will not try to pack <b>stuff.zip</b> into itself when you do this).<br><br> Note that the <b>-u</b> option with no input file arguments acts like the <b>-f</b> (freshen) option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b>, <b>--copy-entries</b></td>
+<td>Copy entries from one archive to another. Requires the <b>--out</b> option to specify a different output file than the input archive. Copy mode is the reverse of <b>-d</b> (delete). When delete is being used with <b>--out</b>, the selected entries are deleted from the archive and all other entries are copied to the new archive, while copy mode selects the files to include in the new archive. Unlike <b>-u</b> (update), input patterns on the command line are matched against archive entries only and not the file system files. For instance,<br><br><pre class="tcy">zip inarchive "*.c" --copy --out outarchive</pre> ...copies entries with names ending in <b>.c</b> from inarchive to outarchive. The wildcard must be escaped on some systems to prevent the shell from substituting names of files from the file system which may have no relevance to the entries in the archive.<br><br> If no input files appear on the command line and <b>--out</b> is used, copy mode is assumed:<br><br><pre class="tcy">zip inarchive --out outarchive</pre> This option is useful for changing split size, for instance. Encrypting and decrypting entries is not yet supported using copy mode. Use <b>zipcloak</b> for that.</td>
+</tr>
+<tr class="tcw">
+<td><b>-UN</b> <i>v</i>, <b>--unicode</b> <i>v</i></td>
+<td>Determine what <b>zip</b> should do with Unicode file names. <b>zip</b> 3.0, in addition to the standard file path, now includes the UTF-8 translation of the path if the entry path is not entirely 7-bit ASCII. When an entry is missing the Unicode path, <b>zip</b> reverts back to the standard file path. The problem with using the standard path is this path is in the local character set of the <b>zip</b> that created the entry, which may contain characters that are not valid in the character set being used by the <b>unzip</b>. When <b>zip</b> is reading an archive, if an entry also has a Unicode path, <b>zip</b> now defaults to using the Unicode path to recreate the standard path using the current local character set.<br><br> This option can be used to determine what zip should do with this path if there is a mismatch between the stored standard path and the stored UTF-8 path (which can happen if the standard path was updated). In all cases, if there is a mismatch it is assumed that the standard path is more current and <b>zip</b> uses that. Values for <i>v</i> are<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>q</b></td>
+<td>quit if paths do not match</td>
+</tr>
+<tr class="tcw">
+<td><b>w</b></td>
+<td>warn, continue with standard path</td>
+</tr>
+<tr class="tcw">
+<td><b>i</b></td>
+<td>ignore, continue with standard path</td>
+</tr>
+<tr class="tcw">
+<td><b>n</b></td>
+<td>no Unicode, do not use Unicode paths</td>
+</tr>
+</table>
+The default is to warn and continue.<br>
+<br>
+Characters that are not valid in the current character set are escaped as <b>#U</b><i>xxxx</i> and <b>#L</b><i>xxxxxx</i>, where <i>x</i> is an ASCII character for a hex digit. The first is used if a 16-bit character number is sufficient to represent the Unicode character and the second if the character needs more than 16 bits to represent it's Unicode character code. Setting <b>-UN</b> to<br>
+<br>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>e</b></td>
+<td>escape</td>
+</tr>
+</table>
+as in:<br>
+<br>
+<pre class="tcy">zip archive -sU -UN=e</pre>
+...forces <b>zip</b> to escape all characters that are not printable 7-bit ASCII.<br>
+<br>
+Normally <b>zip</b> stores UTF-8 directly in the standard path field on systems where UTF-8 is the current character set and stores the UTF-8 in the new extra fields otherwise. The option<br>
+<br>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>u</b></td>
+<td>UTF-8</td>
+</tr>
+</table>
+as in<br>
+<br>
+<pre class="tcy">zip archive dir -r -UN=UTF8</pre>
+...forces <b>zip</b> to store UTF-8 as native in the archive. Note that storing UTF-8 directly is the default on Unix systems that support it. This option could be useful on Windows systems where the escaped path is too large to be a valid path and the UTF-8 version of the path is smaller, but native UTF-8 is not backward compatible on Windows systems.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Verbose mode or print diagnostic version info.<br><br> Normally, when applied to real operations, this option enables the display of a progress indicator during compression (see <b>-dd</b> for more on dots) and requests verbose diagnostic info about zipfile structure oddities.<br><br> However, when <b>-v</b> is the only command line argument a diagnostic screen is printed instead. This should now work even if stdout is redirected to a file, allowing easy saving of the information for sending with bug reports to Info-ZIP. The version screen provides the help screen header with program name, version, and release date, some pointers to the Info-ZIP home and distribution sites, and shows information about the target environment (compiler type and version, OS version, compilation date and the enabled optional features used to create the <b>zip</b> executable).</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--VMS-portable</b></td>
+<td>On VMS, save VMS file attributes. (Files are truncated at EOF.) When a <b>-V</b> archive is unpacked on a non-VMS system, some file types (notably Stream_LF text files and pure binary files like fixed-512) should be extracted intact. Indexed files and file types with embedded record sizes (notably variable-length record types) will probably be seen as corrupt elsewhere.</td>
+</tr>
+<tr class="tcw">
+<td><b>-VV</b>, <b>--VMS-specific</b></td>
+<td>On VMS, save VMS file attributes, and all allocated blocks in a file, including any data beyond EOF. Useful for moving ill-formed files among VMS systems. When a <b>-VV</b> archive is unpacked on a non-VMS system, almost all files will appear corrupt.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>, <b>--VMS-versions</b></td>
+<td>On VMS, append the version number of the files to the name, including multiple versions of files. Default is to use only the most recent version of a specified file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ww</b>, <b>--VMS-dot-versions</b></td>
+<td>On VMS, append the version number of the files to the name, including multiple versions of files, using the <b>.</b><i>nnn</i> format. Default is to use only the most recent version of a specified file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ws</b>, <b>--wild-stop-dirs</b></td>
+<td>Wildcards match only at a directory level. Normally <b>zip</b> handles paths as strings and given the paths<br><br><pre>/foo/bar/dir/file1.c/foo/bar/file2.c</pre> an input pattern such as<br><br><pre>/foo/bar/*</pre> Normally would match both paths, the <b>*</b> matching <b>dir/file1.c</b> and <b>file2.c</b>. Note that in the first case a directory boundary (<b>/</b>) was crossed in the match. With <b>-ws</b> no directory bounds will be included in the match, making wildcards local to a specific directory level. So, with <b>-ws</b> enabled, only the second path would be matched.<br><br> When using <b>-ws</b>, use <b>**</b> to match across directory boundaries as <b>*</b> does normally.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b> <i>files</i>, <b>--exclude</b> <i>files</i></td>
+<td>Explicitly exclude the specified files, as in:<br><br><pre class="tcy">zip -r foo foo -x \*.o</pre> ...which will include the contents of foo in <b>foo.zip</b> while excluding all the files that end in <b>.o</b>. The backslash avoids the shell file name substitution, so that the name matching is performed by zip at all directory levels.<br><br> Also possible:<br><br><pre class="tcy">zip -r foo foo <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95b8edd5f0edf6f9e0f1f0bbf9e6e1">[email&#160;protected]</a></pre> ...which will include the contents of <b>foo</b> in <b>foo.zip</b> while excluding all the files that match the patterns in the file <b>exclude.lst</b>.<br><br> The long option forms of the above are<br><br><pre class="tcy">zip -r foo foo --exclude \*.o</pre> and<br><br><pre class="tcy">zip -r foo foo --exclude @exclude.lst</pre> Multiple patterns can be specified, as in:<br><br><pre class="tcy">zip -r foo foo -x \*.o \*.c</pre> If there is no space between <b>-x</b> and the pattern, just one value is assumed (no list):<br><br><pre class="tcy">zip -r foo foo -x\*.o</pre> See <b>-i</b> for more on include and exclude.</td>
+</tr>
+<tr class="tcw">
+<td><b>-X</b>, <b>--no-extra</b></td>
+<td>Do not save extra file attributes (Extended Attributes on OS/2, uid/gid and file times on Unix). The <b>zip</b> format uses extra fields to include additional information for each entry. Some extra fields are specific to particular systems while others are applicable to all systems. Normally when <b>zip</b> reads entries from an existing archive, it reads the extra fields it knows, strips the rest, and adds the extra fields applicable to that system. With <b>-X</b>, zip strips all old fields and only includes the Unicode and Zip64 extra fields (currently these two extra fields cannot be disabled).<br><br> Negating this option, <b>-X-</b>, includes all the default extra fields, but also copies over any unrecognized extra fields.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b>, <b>--symlinks</b></td>
+<td>For UNIX and VMS (V8.3 and later), store symbolic links as such in the zip archive, instead of compressing and storing the file referred to by the link. This option can avoid multiple copies of files being included in the archive as <b>zip</b> recurses the <a href="/jargon/h/hierfile.htm">directory trees</a> and accesses files directly and by links.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b>, <b>--archive-comment</b></td>
+<td>Prompt for a multi-line comment for the entire zip archive. The comment is ended by a line containing just a period, or an end of file condition (<b>^D</b> on Unix, <b>^Z</b> on MSDOS, OS/2, and VMS). The comment can be taken from a file:<br><br><pre class="tcy">zip -z foo &lt; foowhat</pre></td>
+</tr>
+<tr class="tcw">
+<td><b>-Z</b> <i>cm</i>,<br><b>--compression-method</b> <i>cm</i></td>
+<td>Set the default compression method. Currently the main methods supported by zip are store and deflate. Compression method can be set to:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:150px"><b>store</b></td>
+<td>Setting the compression method to store forces zip to store entries with no compression. This method is generally faster than compressing entries, but results in no space savings. This method is the same as using -0 (compression level zero).</td>
+</tr>
+<tr class="tcw">
+<td><b>deflate</b></td>
+<td>This method is the default method for <b>zip</b>. If <b>zip</b> determines that storing is better than deflation, the entry will be stored instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>bzip2</b></td>
+<td>If bzip2 support is compiled in, this compression method also becomes available. Only some modern unzips currently support the bzip2 compression method, so test the unzip you will be using before relying on archives using this method (compression method 12).</td>
+</tr>
+</table>
+For example, to add <b>bar.c</b> to archive <b>foo</b> using bzip2 compression:<br>
+<br>
+<pre class="tcy">zip -Z bzip2 foo bar.c</pre>
+The compression method can be abbreviated:<br>
+<br>
+<pre class="tcy">zip -Zb foo bar.c</pre>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b><i>#</i></td>
+<td>Regulate the speed of compression using the specified digit <i>#</i>, between <b>0</b> and <b>9</b>, where <b>-0</b> indicates no compression (store all files), <b>-1</b> indicates the fastest compression speed (less compression) and <b>-9</b> indicates the slowest compression speed (optimal compression, ignores the suffix list). The default compression level is <b>-6</b>.<br><br> Though still being worked, the intention is this setting will control compression speed for all compression methods. Currently only deflation is controlled.</td>
+</tr>
+<tr class="tcw">
+<td><b>-!</b>, <b>--use-privileges</b></td>
+<td>On Windows, use privileges (if granted) to obtain all aspects of <a href="/jargon/w/winnt.htm">WinNT</a> security.</td>
+</tr>
+<tr class="tcw">
+<td><b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bf92ff">[email&#160;protected]</a></b>, <b>--names-stdin</b></td>
+<td>Take the list of input files from standard input. Only one file name per line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-$</b>, <b>--volume-label</b></td>
+<td>Include the volume label for the drive holding the first file to be compressed. If you want to include only the volume label or to force a specific drive, use the drive name as first file name, as in:<br><br><pre class="tcy">zip -$ foo a: c:bar</pre></td>
+</tr>
+</table>
+<h2 id="environment">Environment</h2>
+<p class="tab"><b>zip</b> uses the following <a href="/jargon/e/envivari.htm">environment variables</a>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>ZIPOPT</b></td>
+<td>Contains default options that will be used when running <b>zip</b>. The contents of this environment variable will get added to the command line just after the <b>zip</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>ZIP</b></td>
+<td>An alias for <b>ZIPOPT</b>, except on RISC OS and VMS.</td>
+</tr>
+</table>
+<p class="tab">On Risc and VMS, there are additional special environment variables; consult your documentation for details.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">zip stuff *</pre>
+<p class="tab">Creates the archive <b>stuff.zip</b> (assuming it does not exist) and puts all the files in the current directory in it, in compressed form (the <b>.zip</b> suffix is added automatically, unless the archive name contains a dot already; this allows the explicit specification of other suffixes).</p>
+<pre class="tcy tab">zip stuff .* *</pre>
+<p class="tab">The same as the above command, but also includes files beginning with a dot (except for the special directory names "<b>.</b>" and "<b>..</b>".</p>
+<pre class="tcy tab">zip -r foo foo</pre>
+<p class="tab">Zips the entire subdirectory <b>foo</b> into an archive, <b>foo.zip</b>, and records the name of the directory with each file.</p>
+<pre class="tcy tab">zip -j foo foo/*</pre>
+<p class="tab">Same as the above command, but unlike <b>-r</b>, the <b>-j</b> option will not record the name of the directory, just the names of the files themselves.</p>
+<pre class="tcy tab">zip -s 2g -r split.zip foo</pre>
+<p class="tab">Creates a split archive of the directory <b>foo</b> with splits no bigger than 2 GB each. If foo contained 5 GB of contents and the contents were stored in the split archive without compression (to make this example simple), this would create three splits, <b>split.z01</b> at 2 GB, <b>split.z02</b> at 2 GB, and <b>split.zip</b> at a little over 1 GB.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/jargon/c/compress.htm"><b>compress</b></a> &mdash; Compress a file or files.<br><a href="/unix/utar.htm"><b>tar</b></a> &mdash; Create, modify, list the contents of, and extract files from tar archives.<br><a href="/unix/unzip.htm"><b>unzip</b></a> &mdash; List, test and extract compressed files in a zip archive.<br><a href="/unix/uzcat.htm"><b>gzip, gunzip, zcat</b></a> &mdash; Create, modify, list the contents of, and extract files from GNU zip archives.<br><a href="/unix/zipinfo.htm"><b>zipinfo</b></a> &mdash; Display technical information about a zip file.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a838b89aec401',m:'CQOd.Wsio.QPOUQpI3IWQ9E1m8eo7DNjSEyG.xUbMUU-1661495374-0-Ad1X/vQ7m6hjL42WPcQQdocWl1YYCHYdHXBjpnwR7Jm4z3f8d81pe3VLc/x0Rt1DGmM0XkCJKqqw0HnKRpj6jyrLvg5KJsJi4XT5GfXxyjpILlUSFG4rMhGA/l4q8zTsAw==',s:[0xe6d0a0798c,0x3e3431433c],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux mkswap command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-08-16">08/16/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/mkswap.gif" width="300" height="300" alt="mkswap command" class="floatRight"><p class="intro"><b>mkswap</b> sets up a Linux <a href="/jargon/s/swapfile.htm">swap</a> area.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#description">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="description">Description</h2>
+<p class="tab"><b>mkswap</b> sets up a Linux swap area on a <a href="/jargon/d/device.htm">device</a> or in a <a href="/jargon/f/file.htm">file</a>.</p>
+<p class="tab">The <i>device</i> <a href="/jargon/a/argument.htm">argument</a> usually is a <a href="/jargon/d/disk.htm">disk</a> <a href="/jargon/p/partition.htm">partition</a> (something like <b>/dev/sdb7</b>), but can also be a file. The Linux <a href="/jargon/k/kernel.htm">kernel</a> does not look at partition IDs, but many installation <a href="/jargon/s/script.htm">scripts</a> assume that partitions of <a href="/jargon/h/hex.htm">hex</a> type <b>82</b> (<b>LINUX_SWAP</b>) are meant to be swap partitions. (<a href="/jargon/s/solaris.htm">Solaris</a> also uses this type. Be careful not to accidentally kill your Solaris partitions, if you have any, by mixing them up!)</p>
+<p class="tab">The <i>size</i> parameter is superfluous but included for <a href="/jargon/b/backcomp.htm">backward compatibility</a>. (It specifies the desired size of the swap area in 1024-<a href="/jargon/b/byte.htm">byte</a> <a href="/jargon/b/block.htm">blocks</a>. <b>mkswap</b> uses the entire partition or file if it's omitted. Specifying it is very dangerous: a typo can destroy your data. <b><i>REPEAT, BE VERY CAREFUL WHEN SPECIFYING PARTITION SIZES MANUALLY! A TYPO CAN DESTROY THE DATA ON YOUR DISK!</i></b>)</p>
+<p class="tab">After creating the swap area, you need the <a href="/unix/swapon.htm"><b>swapon</b></a> command to start using it. Usually, swap areas are listed in <b>/etc/fstab</b> so they can be taken into use at boot time by a <b>swapon -a</b> command in some boot script.</p>
+<h3 class="tab">Important information and warnings</h3>
+<p class="tab">The swap <a href="/jargon/h/header.htm">header</a> does not touch the first block. A <a href="/jargon/b/bootload.htm">boot loader</a> or disk label can be there, but it is not a recommended setup. The recommended setup is to use a separate partition for a Linux swap area.</p>
+<p class="tab"><b>mkswap</b>, like many others <a href="/unix/mkfs.htm"><b>mkfs</b></a>-like <a href="/jargon/u/utility.htm">utilities</a>, erases the first partition block to make any previous <a href="/jargon/f/filesyst.htm">filesystem</a> invisible.</p>
+<p class="tab">However, <b>mkswap</b> refuses to erase the first block on a device with a disk label (<b>SUN</b>, <b>BSD</b>, etc.) and on a whole disk (e.g., <b>/dev/sda</b>).</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">mkswap [<i>options</i>] <i>device</i> [<i>size</i>]
+</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-c</b>, <b>--check</b></td>
+<td>Check the device (if it's a block device) for bad blocks before creating the swap area. If any bad blocks are found, the count is printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--force</b></td>
+<td>Go ahead, even if the command is stupid. Forces the creation of a swap area larger than the file or partition where it resides.<br><br> Also, without this option, <b>mkswap</b> refuses to erase the first block on a device with a partition table and on a whole disk (e.g., <b>/dev/sda</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--label</b> <i>label</i></td>
+<td>Specify a label for the device, to allow swapon by label.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--pagesize</b> <i>size</i></td>
+<td>Specify the page size (in bytes) to use. This option is usually unnecessary; <b>mkswap</b> reads the size from the kernel.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b>, <b>--uuid</b> <i>UUID</i></td>
+<td>Specify the <i>UUID</i> to use. The default is to generate a <a href="/jargon/u/uuid.htm">UUID</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--swapversion 1</b></td>
+<td>Specify the swap-space version. (This option is currently pointless, as the old <b>-v 0</b> option has become obsolete and now only <b>-v 1</b> is supported. The kernel has not supported v0 swap-space format since 2.5.22 (June 2002). The new version v1 is supported since 2.1.117 (August 1998).)</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display help text and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Display version information and exit.</td>
+</tr>
+</table>
+<h3 class="tab">Notes</h3>
+<p class="tab">The maximum useful size of a swap area depends on the <a href="/jargon/a/architec.htm">architecture</a> and the kernel version. It is roughly 2 <a href="/jargon/g/gibibyte.htm">GiB</a> on <a href="/jargon/num/80386.htm">i386</a>, <a href="/jargon/p/powerpc.htm">PPC</a>, m68k and <a href="/jargon/a/arm.htm">ARM</a>, 1 GiB on <a href="/jargon/s/sparc.htm">sparc</a>, 512 MiB on mips, 128 GiB on <a href="/jargon/d/dec.htm">alpha</a>, and 3 <a href="/jargon/t/tebibyte.htm">TiB</a> on sparc64. For kernels after 2.3.3 (May 1999), there is no such limitation.</p>
+<p class="tab">Note that before version 2.1.117, the kernel allocated one byte for each page, while it now allocates two bytes, so that taking into use a swap area of 2 GiB might require 2 MiB of kernel memory.</p>
+<p class="tab">Presently, Linux allows 32 swap areas (this was 8 before Linux 2.4.10 (Sep 2001)). The areas in use are shown in the file <b>/proc/swaps</b> (since 2.1.25 (Sep 1997)).</p>
+<p class="tab"><b>mkswap</b> refuses areas smaller than 10 pages.</p>
+<p class="tab">If you don't know the page size your machine uses, you can look it up with &quot;<b><a href="/unix/ucat.htm">cat</a> /proc/cpuinfo</b>&quot; (you may not find it, as the contents of this file depend on architecture and kernel version). To set up a swap file, it is necessary to create that file before initializing it with <b>mkswap</b>, e.g., using a command like:</p>
+<pre class="tab tcy">dd if=/dev/zero of=swapfile bs=1024 count=65536</pre>
+<p class="tab">Note that a swap file must not contain any holes (so, using <a href="/unix/ucp.htm"><b>cp</b></a> to create the file, for example, is not acceptable).</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">mkswap /dev/sdc1</pre>
+<p class="tab">Prepares the partition <b>/dev/sdc1</b>, setting it up for use as a swap partition. This space can then be activated using the <a href="/unix/swapon.htm"><b>swapon</b></a> command.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/fdisk.htm"><b>fdisk</b></a> &mdash; A disk partitioning utility.<br><a href="/unix/swapon.htm"><b>swapon</b></a> &mdash; Enable a Linux swap area.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a831758e8c3f2',m:'ch3DjQQPlFC.RIcS5wPlquyGY3oZFask3woO4iTX8Kg-1661495356-0-AUpArz4mJzdhLuOV93QItx0B0cGUj8p9AfCnifN8xKF1st7gmvyWhCJgsBTLs+y8XlnC3OfTYv9eicTZRmdMX81qDB6b/rRPkoL1CTvBshcIctPpkNNSaEoGPanJGOnwBA==',s:[0x23c82d8b4d,0x713640ae46],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

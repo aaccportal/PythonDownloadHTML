@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux eqn, neqn and checkeq commands</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/eqn.gif" width="300" height="300" alt="eqn command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>eqn</b> and <b>neqn</b> commands are language processors to assist in describing equations. <b>eqn</b> is a preprocessor for <a href="/unix/utroff.htm">troff</a> and is intended for devices that print <b>troff</b>'s output. <b>neqn</b> is a preprocessor for <a href="/unix/unroff.htm">nroff</a> and is intended for use with terminals.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>eqn</b> compiles descriptions of equations embedded within <b>troff</b> input files into commands that are understood by <b>troff</b>. If no files are given on the command line, the <a href="/jargon/s/stdin.htm">standard input</a> is read. A file name of <b>-</b> causes the standard input to be read.</p>
+<p class="tab"><b>eqn</b> searches for the file <b>eqnrc</b> in the directories given with the <b>-M</b> option first, then in <b>/usr/lib/groff/site-tmac</b>, <b>/usr/share/groff/site-tmac</b>, and finally in the standard <a href="/jargon/m/macro.htm">macro</a> <a href="/jargon/d/director.htm">directory</a> <b>/usr/share/groff/1.22.1/tmac</b>. If it exists, <b>eqn</b> processes it before the other input files. The <b>-R</b> option prevents this.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">eqn [-rvCNR] [-d <i>xy</i>] [-T <i>name</i>] [-M <i>dir</i>] [-f <i>F</i>] [-s <i>n</i>] [-p <i>n</i>] [-m <i>n</i>] [<i>files</i>...]</pre>
+<pre class="tcy tab">neqn [<i>file</i>]</pre>
+<pre class="tcy tab">checkeq [<i>file</i>]</pre>
+<h2>Options</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>-d</b><i>xy</i></td>
+<td>Specify <a href="/jargon/d/delimite.htm">delimiters</a> <i>x</i> and <i>y</i> for the left and right end, respectively, of in-line equations. Any <b>delim</b> statements in the source file overrides this.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>Recognize <b>.EQ</b> and <b>.EN</b> even when followed by a character other than space or <a href="/jargon/n/newline.htm">newline</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b></td>
+<td>Don't allow newlines within delimiters. This option allows eqn to recover better from missing closing delimiters.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Print the version number.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>Only one size reduction.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b><i>n</i></td>
+<td>The minimum point-size is <i>n</i>. <b>eqn</b> does not reduce the size of <a href="/jargon/s/subscrip.htm">subscripts</a> or <a href="/jargon/s/superscr.htm">superscripts</a> to a smaller size than <i>n</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b><i>name</i></td>
+<td>The output is for device <i>name</i>. The only effect of this is to define a macro name with a value of 1. Often, <b>eqnrc</b> uses this to provide definitions appropriate for the output device. The default output device is <b>ps</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b><i>dir</i></td>
+<td>Search <i>dir</i> for <b>eqnrc</b> before the default directories.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b></td>
+<td>Don't load <b>eqnrc</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b><i>F</i></td>
+<td>This is equivalent to a <b>gfont F</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b><i>n</i></td>
+<td>This is equivalent to a <b>gsize</b> <i>n</i> command. This option is deprecated. <b>eqn</b> will normally set equations at whatever the current point size is when the equation is encountered.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b><i>n</i></td>
+<td>This says that subscripts and superscripts should be <i>n</i> points smaller than the surrounding text. This option is deprecated. Normally <b>eqn</b> makes sets subscripts and superscripts at 70% of the size of the surrounding text.</td>
+</tr>
+</table>
+<h2>Using newer versions of GNU eqn</h2>
+<p class="tab">Most of the new features of <a href="/jargon/g/gnu.htm">GNU</a> <b>eqn</b> are based on <b>TeX</b>. There are some references to the differences between <b>TeX</b> and GNU <b>eqn</b> below.</p>
+<h2>Automatic spacing</h2>
+<p class="tab"><b>eqn</b> gives each component of an equation a type, and adjusts the spacing between components using that type. Possible types are:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><b>ordinary</b></td>
+<td>an ordinary character such as '<b>1</b>' or '<b>x</b>'</td>
+</tr>
+<tr class="tcw">
+<td><b>operator</b></td>
+<td>a large operator such as '<b>&gt;</b>'</td>
+</tr>
+<tr class="tcw">
+<td><b>binary</b></td>
+<td>a binary operator such as '<b>+</b>'</td>
+</tr>
+<tr class="tcw">
+<td><b>relation</b></td>
+<td>a relation such as '<b>=</b>'</td>
+</tr>
+<tr class="tcw">
+<td><b>opening</b></td>
+<td>an opening bracket such as '<b>(</b>'</td>
+</tr>
+<tr class="tcw">
+<td><b>closing</b></td>
+<td>a closing bracket such as '<b>)</b>'</td>
+</tr>
+<tr class="tcw">
+<td><b>punctuation</b></td>
+<td>a punctuation character such as '<b>,</b>'</td>
+</tr>
+<tr class="tcw">
+<td><b>inner</b></td>
+<td>a subformula contained within brackets</td>
+</tr>
+<tr class="tcw">
+<td><b>suppress</b></td>
+<td>spacing that suppresses automatic spacing adjustment</td>
+</tr>
+</table>
+<p class="tab">Components of an equation get a type in one of two ways:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>type</b> <i>t e</i></td>
+<td>This yields an equation component containing <i>e</i>, but has type <i>t</i>, where <i>t</i> is one of the types mentioned above. For example, <b>times</b> is defined as<br> <br><pre class="tcy">type &quot;binary&quot; \(mu</pre> The name of the type doesn't have to be quoted, but quoting protects from macro expansion.</td>
+</tr>
+<tr class="tcw">
+<td><b>chartype</b> <i>t text</i></td>
+<td>Unquoted groups of characters are split up into individual characters, and the type of each character is looked up; this changes the type that is stored for each character; it says that the characters in <i>text</i> from now on have type <i>t</i>. For example,<br> <br><pre class="tcy">chartype &quot;punctuation&quot; .,;:</pre> would make the characters '<b>.,;:</b>' have type punctuation whenever they subsequently appeared in an equation. The type <i>t</i> can also be letter or digit; in these cases <b>chartype</b> changes the font type of the characters. See the <a href="#Fonts">Fonts subsection</a>.</td>
+</tr>
+</table>
+<h2>New primitives</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td width="200"><p><i>e1</i> <b>smallover</b> <i>e2</i></p></td>
+<td>This is similar to <b>over</b>; <b>smallover</b> reduces the size of <i>e1</i> and <i>e2</i>; it also puts less vertical space between <i>e1</i> or <i>e2</i> and the fraction bar. The <b>over</b> primitive corresponds to the TeX <b>\over</b> primitive in display styles; <b>smallover</b> corresponds to <b>\over</b> in non-display styles.</td>
+</tr>
+<tr class="tcw">
+<td><b>vcenter</b> <i>e</i></td>
+<td>This vertically centers <i>e</i> about the math axis. The math axis is the vertical position about which characters such as '+' and '-' are centered; also it is the vertical position used for the bar of fractions. For example, <b>sum</b> is defined as<br> <br><pre class="tcy">{ type &quot;operator&quot; vcenter size +5 \(*S }</pre></td>
+</tr>
+<tr class="tcw">
+<td><i>e1</i> <b>accent</b> <i>e2</i></td>
+<td>This sets <i>e2</i> as an accent over <i>e1</i>. <i>e2</i> is assumed to be at the correct height for a lowercase letter; <i>e2</i> is moved down according if <i>e1</i> is taller or shorter than a lowercase letter. For example, <b>hat</b> is defined as<br> <br><pre class="tcy">accent { &quot;^&quot; }</pre> <b>dotdot</b>, <b>dot</b>, <b>tilde</b>, <b>vec</b>, and <b>dyad</b> are also defined using the accent primitive.</td>
+</tr>
+<tr class="tcw">
+<td><i>e1</i> <b>uaccent</b> <i>e2</i></td>
+<td>This sets <i>e2</i> as an accent under <i>e1</i>. <i>e2</i> is assumed to be at the correct height for a character without a descender; <i>e2</i> is moved down if <i>e1</i> has a descender. An under-tilde (&quot;utilde&quot;) is pre-defined using uaccent as a tilde accent below the baseline.</td>
+</tr>
+<tr class="tcw">
+<td><b>split</b> <i>"text"</i></td>
+<td>This has the same effect as<br> <br><pre class="tcy">text</pre> but <i>text</i> is not subject to macro expansion because it is quoted; text is split up and the spacing between individual characters is adjusted.</td>
+</tr>
+<tr class="tcw">
+<td><b>nosplit</b> <i>text</i></td>
+<td>This has the same effect as<br> <br><pre class="tcy">&quot;text&quot;</pre> but because <i>text</i> is not quoted, it is subject to macro expansion; text is not split up and the spacing between individual characters is not adjusted.</td>
+</tr>
+<tr class="tcw">
+<td><i>e</i> <b>opprime</b></td>
+<td>This is a variant of <b>prime</b> that acts as an operator on <i>e</i>. It produces a different result from <b>prime</b> in a case such as <b>A opprime sub 1</b>: with <b>opprime</b>, the <b>1</b> is tucked under the prime as a subscript to the <b>A</b> (as is conventional in mathematical typesetting), whereas with <b>prime</b>, the <b>1</b> is a subscript to the prime character. The precedence of <b>opprime</b> is the same as that of <b>bar</b> and <b>under</b>, which is higher than that of everything except <b>accent</b> and <b>uaccent</b>. In unquoted text a <b>'</b> that is not the first character is treated like <b>opprime</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>special</b> <i>text e</i></td>
+<td>This constructs a new object from e using a <b>troff</b> macro named <b>text</b>. When the macro is called, the string <b>0s</b> contains the output for <i>e</i>, and the number registers <b>0w</b>, <b>0h</b>, <b>0d</b>, <b>0skern</b>, and <b>0skew</b> contain the <b>width</b>, <b>height</b>, <b>depth</b>, <b>subscript kern</b>, and <b>skew</b> of <i>e</i>. The <b>subscript kern</b> of an object says how much a subscript on that object should be tucked in; the <b>skew</b> of an object says how far to the right of the center of the object an accent over the object should be placed. The macro must modify <b>0s</b> so that it will output the desired result with its origin at the current point, and increase the current horizontal position by the width of the object. The number registers must also be modified so that they correspond to the result.<br> <br>For example, suppose you wanted a construct that 'cancels' an expression by drawing a diagonal line through it. <pre class="tcy">.EQdefine cancel 'special Ca'.EN.de Ca.  ds 0s \\Z'\\*(0s'\\v'\\n(0du'\\D'l \\n(0wu -\\n(0hu-\\n(0du'\\v'\\n(0hu'..</pre> <br>Then you could cancel an expression <i>e</i> with <b>cancel {</b> <i>e</i><b>}</b><br> <br>Here's a more complicated construct that draws a box round an expression: <pre class="tcy">.EQdefine box 'special Bx'.EN.de Bx.  ds 0s \\Z'\h'1n'\\*(0s'\\Z'\\v'\\n(0du+1n'\\D'l \\n(0wu+2n 0'\\D'l 0 -\\n(0hu-\\n(0du-2n'\\D'l -\\n(0wu-2n 0'\\D'l 0 \\n(0hu+\\n(0du+2n'\'\\h'\\n(0wu+2n'.  nr 0w +2n.  nr 0d +1n.  nr 0h +1n..</pre> </td>
+</tr>
+<tr class="tcw">
+<td><b>space</b> <i>n</i></td>
+<td>A positive value of the integer <i>n</i> (in hundredths of an em) sets the vertical spacing before the equation, a negative value sets the spacing after the equation, replacing the default values. This primitive provides an interface to <b>groff</b>'s <b>\x</b> escape (but with opposite sign).<br><br>This keyword has no effect if the equation is part of a pic picture.</td>
+</tr>
+</table>
+<h2>Extended primitives</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td width="190"><p><b>col</b> <i>n</i> <b>{</b> ... <b>}</b></p>
+<p><b>ccol</b> <i>n</i> <b>{</b> ... <b>}</b></p>
+<p><b>lcol</b> <i>n</i> <b>{</b> ... <b>}</b></p>
+<p><b>rcol</b> <i>n</i> <b>{</b> ... <b>}</b></p>
+<p><b>pile</b> <i>n</i> <b>{</b> ... <b>}</b></p>
+<p><b>cpile</b> <i>n</i> <b>{</b> ... <b>}</b></p>
+<p><b>lpile</b> <i>n</i> <b>{</b> ... <b>}</b></p>
+<p><b>rpile</b> <i>n</i> <b>{</b> ... <b>}</b></p>
+</td>
+<td>The integer value <i>n</i> (in hundredths of an em) increases the vertical spacing between rows, using <b>groff</b>'s <b>\x</b> escape. Negative values are possible but have no effect. If there is more than a single value given in a matrix, the biggest one is used.</td>
+</tr>
+</table>
+<h2>Customization</h2>
+<p class="tab">The appearance of equations is controlled by a large number of parameters. These can be set using the <b>set</b> command.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:80px"><b>set</b> <i>p n</i></td>
+<td><p>This sets parameter <i>p</i> to value <i>n</i>; <i>n</i> is an integer. For example,</p><pre class="tcy">set x_height 45</pre>
+<p>says that <b>eqn</b> should assume an x height of 0.45 ems.</p>
+</td>
+</tr>
+</table>
+<p class="tab">Possible parameters are as follows. Values are in units of hundredths of an em unless otherwise stated. These descriptions are intended to be expository rather than definitive.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>minimum_size</b></td>
+<td><b>eqn</b> does not set anything at a smaller point-size than this. The value is in points.</td>
+</tr>
+<tr class="tcw">
+<td><b>fat_offset</b></td>
+<td>The <b>fat</b> primitive emboldens an equation by overprinting two copies of the equation horizontally offset by this amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>over_hang</b></td>
+<td>A fraction bar will be longer by twice this amount than the maximum of the widths of the numerator and denominator; in other words, it overhangs the numerator and denominator by at least this amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>accent_width</b></td>
+<td>When <b>bar</b> or <b>under</b> is applied to a single character, the line is this long. Normally, <b>bar</b> or <b>under</b> produces a line whose length is the width of the object that it applies; in the case of a single character, this tends to produce a line that looks too long.</td>
+</tr>
+<tr class="tcw">
+<td><b>delimiter_factor</b></td>
+<td>Extensible delimiters produced with the left and right primitives have a combined height and depth of at least this many thousandths of twice the maximum amount by which the sub-equation that the delimiters enclose extends away from the axis.</td>
+</tr>
+<tr class="tcw">
+<td><b>delimiter_shortfall</b></td>
+<td>Extensible delimiters produced with the left and right primitives have a combined height and depth not less than the difference of twice the maximum amount by which the sub-equation that the delimiters enclose extends away from the axis and this amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>null_delimiter_space</b></td>
+<td>This much horizontal space is inserted on each side of a fraction.</td>
+</tr>
+<tr class="tcw">
+<td><b>script_space</b></td>
+<td>The width of subscripts and superscripts is increased by this amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>thin_space</b></td>
+<td>This amount of space is automatically inserted after punctuation characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>medium_space</b></td>
+<td>This amount of space is automatically inserted on either side of binary operators.</td>
+</tr>
+<tr class="tcw">
+<td><b>thick_space</b></td>
+<td>This amount of space is automatically inserted on either side of relations.</td>
+</tr>
+<tr class="tcw">
+<td><b>x_height</b></td>
+<td>The height of lowercase letters without ascenders such as 'x'.</td>
+</tr>
+<tr class="tcw">
+<td><b>axis_height</b></td>
+<td>The height above the baseline of the center of characters such as '+' and '-'. It is important that this value is correct for the font you are using.</td>
+</tr>
+<tr class="tcw">
+<td><b>default_rule_thickness</b></td>
+<td>This should set to the thickness of the <b>\(ru</b> character, or the thickness of horizontal lines produced with the <b>\D</b> escape sequence.</td>
+</tr>
+<tr class="tcw">
+<td><b>num1</b></td>
+<td>The <b>over</b> command shifts up the numerator by at least this amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>num2</b></td>
+<td>The <b>smallover</b> command shifts up the numerator by at least this amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>denom1</b></td>
+<td>The <b>over</b> command shifts down the denominator by at least this amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>denom2</b></td>
+<td>The <b>smallover</b> command shifts down the denominator by at least this amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>sup1</b></td>
+<td>Normally superscripts are shifted up by at least this amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>sup2</b></td>
+<td>Superscripts within superscripts or upper limits or numerators of smallover fractions are shifted up by at least this amount. This is usually less than <b>sup1</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>sup3</b></td>
+<td>Superscripts within denominators or square roots or subscripts or lower limits are shifted up by at least this amount. This is usually less than <b>sup2</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>sub1</b></td>
+<td>Subscripts are normally shifted down by at least this amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>sub2</b></td>
+<td>When there is both a subscript and a superscript, the subscript will be shifted down by at least this amount.</td>
+</tr>
+<tr class="tcw">
+<td><b>sup_drop</b></td>
+<td>The baseline of a superscript is no more than this much amount below the top of the object on which the superscript is set.</td>
+</tr>
+<tr class="tcw">
+<td><b>sub_drop</b></td>
+<td>The baseline of a subscript is at least this much below the bottom of the object on which the subscript is set.</td>
+</tr>
+<tr class="tcw">
+<td><b>big_op_spacing1</b></td>
+<td>The baseline of an upper limit is at least this much above the top of the object on which the limit is set.</td>
+</tr>
+<tr class="tcw">
+<td><b>big_op_spacing2</b></td>
+<td>The baseline of a lower limit is at least this much below the bottom of the object on which the limit is set.</td>
+</tr>
+<tr class="tcw">
+<td><b>big_op_spacing3</b></td>
+<td>The bottom of an upper limit is at least this much above the top of the object on which the limit is set.</td>
+</tr>
+<tr class="tcw">
+<td><b>big_op_spacing4</b></td>
+<td>The top of a lower limit is at least this much below the bottom of the object on which the limit is set.</td>
+</tr>
+<tr class="tcw">
+<td><b>big_op_spacing5</b></td>
+<td>This much vertical space is added above and below limits.</td>
+</tr>
+<tr class="tcw">
+<td><b>baseline_sep</b></td>
+<td>The baselines of the rows in a pile or matrix will normally be this far apart. In most cases this should be equal to the sum of <b>num1</b> and <b>denom1</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>shift_down</b></td>
+<td>The midpoint between the top baseline and the bottom baseline in a matrix or pile will be shifted down by this much from the axis. In most cases this should be equal to <b>axis_height</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>column_sep</b></td>
+<td>This much space is added between columns in a matrix.</td>
+</tr>
+<tr class="tcw">
+<td><b>matrix_side_sep</b></td>
+<td>This much space is added at each side of a matrix.</td>
+</tr>
+<tr class="tcw">
+<td><b>draw_lines</b></td>
+<td>If this is non-zero, lines are drawn using the <b>\D</b> escape sequence, rather than with the <b>\l</b> escape sequence and the <b>\(ru</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>body_height</b></td>
+<td>The amount by which the height of the equation exceeds this is added as extra space before the line containing the equation (using <b>\x</b>). The default value is <b>85</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>body_depth</b></td>
+<td>The amount by which the depth of the equation exceeds this is added as extra space after the line containing the equation (using <b>\x</b>). The default value is <b>35</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>nroff</b></td>
+<td>If this is non-zero, then <b>ndefine</b> behaves like <b>define</b> and <b>tdefine</b> is ignored, otherwise <b>tdefine</b> behaves like <b>define</b> and <b>ndefine</b> is ignored. The default value is <b>0</b> This is often changed to <b>1</b> by the <b>eqnrc</b> file for the <b>ascii</b>, <b>latin1</b>, <b>utf8</b>, and <b>cp1047</b> devices.</td>
+</tr>
+</table>
+<h2>Macros</h2>
+<p class="tab">Macros can take arguments. In a macro body, <b>$</b><i>n</i> where <i>n</i> is between <b>1</b> and <b>9</b>, is replaced by the <i>n</i>-th argument if the macro is called with arguments; if there are fewer than <i>n</i> arguments, it is replaced by nothing. A word containing a left parenthesis where the part of the word before the left parenthesis is defined using the <b>define</b> command is recognized as a macro call with arguments; characters following the left parenthesis up to a matching right parenthesis are treated as comma-separated arguments; commas inside nested parentheses do not terminate an argument.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:260px"><b>sdefine</b> <i>name X anything X</i></td>
+<td>This is like the <b>define</b> command, but <i>name</i> is not recognized if called with arguments.</td>
+</tr>
+<tr class="tcw">
+<td><p><b>include</b> <i>&quot;file&quot;</i></p>
+<p><b>copy</b> <i>&quot;file&quot;</i></p>
+</td>
+<td>Include the contents of <i>file</i> (<b>include</b> and <b>copy</b> are synonyms). Lines of file beginning with <b>.EQ</b> or <b>.EN</b> is ignored.</td>
+</tr>
+<tr class="tcw">
+<td><b>ifdef</b> <i>name X anything X</i></td>
+<td>If <i>name</i> was defined by <b>define</b> (or was automatically defined because <i>name</i> is the output device) process <i>anything</i>; otherwise ignore <i>anything</i>. <i>X</i> can be any character not appearing in <i>anything</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>undef</b> <i>name</i></td>
+<td>Remove definition of <i>name</i>, making it undefined.</td>
+</tr>
+</table>
+<p class="tab">Besides the macros mentioned above, the following definitions are available: <b>Alpha</b>, <b>Beta</b>, ..., <b>Omega</b> (this is the same as ALPHA, BETA, ..., OMEGA), <b>ldots</b> (three dots on the base line), and <b>dollar</b>.</p>
+<h2 id="Fonts">Fonts</h2>
+<p class="tab"><b>eqn</b> normally uses at least two fonts to set an equation: an italic font for letters, and a roman font for everything else. The existing <b>gfont</b> command changes the font that is used as the italic font. By default, this is <b>I</b>. The font that is used as the roman font can be changed using the new <b>grfont</b> command.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>grfont</b> <i>f</i></td>
+<td>Set the roman font to <b>f</b>.</td>
+</tr>
+</table>
+<p class="tab">The italic primitive uses the current italic font set by <b>gfont</b>; the roman primitive uses the current roman font set by <b>grfont</b>. There is also a new <b>gbfont</b> command, which changes the font used by the <b>bold</b> primitive. If you only use the <b>roman</b>, <b>italic</b> and <b>bold</b> primitives to changes fonts within an equation, you can change all the fonts used by your equations using only <b>gfont</b>, <b>grfont</b> and <b>gbfont</b> commands.</p>
+<p class="tab">You can control which characters are treated as letters (and therefore set in italics) using the <b>chartype</b> command described above. A type of letter causes a character to be set in italic type. A type of digit causes a character to be set in roman type.</p>
+<h2>Files</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:380px"><b>/usr/share/groff/1.19.2/tmac/eqnrc</b></td>
+<td><b>eqn</b>'s Initialization file.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">eqn myfile.txt</pre>
+<p class="tab">Process a troff file.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/unroff.htm"><b>nroff</b></a> &mdash; Format documents for terminal display or line-printer.<br><a href="/unix/utbl.htm"><b>tbl</b></a> &mdash; Preprocessor which formats tables for <b>nroff</b> or <b>troff</b>.<br><a href="/unix/utroff.htm"><b>troff</b></a> &mdash; Typeset or format documents for terminal display or line-printer.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a831dfb4b84a4',m:'AtrF._EfUHfch7.HHYvMUcgbPpuVqJrzR.zJzUcMe6o-1661495357-0-Ae+xHhb0O6EUlRyrMYXYOt91wek0M074QVVgoOuuNKNz0RoLM0pHSpkSHyu6mQpys0hlVR2M+n6ZccjdVm1azxzcg9DSOXmPZbMODUc+38r4u58mc6B+koO/SK154niQjA==',s:[0xaf5983d746,0x6626f69fcb],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

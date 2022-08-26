@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux pgrep and pkill command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/pgrep.gif" width="300" height="300" alt="pgrep command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>pgrep</b> command searches for <a href="/jargon/p/process.htm">processes</a> currently running on the system, based on a complete or partial process name, or other specified attributes.</p>
+<p>The <b>pkill</b> command sends a <a href="/unix/signals.htm">signal</a> to one or more processes, using the same flexible selection methods as <b>pgrep</b>.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> versions of <b>pgrep</b> and <b>pkill</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>pgrep</b> looks through the currently running processes and lists the <a href="/jargon/p/pid.htm">process IDs</a> which matches the selection criteria to stdout. All the criteria have to match. For example,</p>
+<pre class="tab tcy">pgrep -u root ssh</pre>
+<p class="tab">...will only list the processes that are called <b>sshd</b> and are <a href="/jargon/o/owner.htm">owned</a> by <a href="/jargon/r/root.htm"><b>root</b></a>. On the other hand,</p>
+<pre class="tab tcy">pgrep -u root,daemon</pre>
+<p class="tab">...will list the processes owned by <b>root</b> OR <b>daemon</b>.</p>
+<p class="tab"><b>pkill</b> sends the specified signal (by default SIGTERM) to each process instead of listing them on standard output.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">pgrep [<i>options</i>] <i>pattern</i></pre>
+<pre class="tcy tab">pkill [<i>options</i>] <i>pattern</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px"><b>-signal</b>, <b>--signal</b> <i>signal</i></td>
+<td>(<b>pkill</b> only.) Defines the signal to send to each matched process. Either the numeric or the symbolic signal name can be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--count</b></td>
+<td>(<b>pgrep</b> only.) Suppress normal output; instead print a count of matching processes. When count does not match anything, e.g., returns zero, the command returns non-zero value.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--delimiter</b> <i>delimiter</i></td>
+<td>(<b>pgrep</b> only.) Sets the string used to <a href="/jargon/d/delimite.htm">delimit</a> each process ID in the output (by default a <a href="/jargon/n/newline.htm">newline</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--full</b></td>
+<td>The pattern is normally only matched against the process name. When <b>-f</b> is set, the full <a href="/jargon/c/commandi.htm">command line</a> is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>, <b>--pgroup</b> <i>pgrp</i><b>,</b>...</td>
+<td>Only match processes in the process group IDs listed. Process group <b>0</b> is translated into <b>pgrep</b>'s or <b>pkill</b>'s own process group.</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b>, <b>--group</b> <i>gid</i><b>,</b>...</td>
+<td>Only match processes whose real group ID is listed. Either the numerical or symbolical value may be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--list-name</b></td>
+<td>(<b>pgrep</b> only.) List the process name and the process ID.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--newest</b></td>
+<td>Select only the newest (most recently started) of the matching processes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--oldest</b></td>
+<td>Select only the oldest (least recently started) of the matching processes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b>, <b>--parent</b> <i>ppid</i><b>,</b>...</td>
+<td>Only match processes whose parent process ID is listed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--session</b> <i>sid</i><b>,</b>...</td>
+<td>Only match processes whose process session ID is listed. Session ID <b>0</b> is translated into <b>pgrep</b>'s or <b>pkill</b>'s own session ID.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--terminal</b> <i>term</i><b>,</b>...</td>
+<td>Only match processes whose controlling terminal is listed. The terminal name should be specified without the "<b>/dev/</b>" prefix.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--euid</b> <i>euid</i><b>,</b>...</td>
+<td>Only match processes whose effective <a href="/jargon/u/username.htm">user ID</a> is listed. Either the numerical or symbolical value may be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b>, <b>--uid</b> <i>uid</i><b>,</b>...</td>
+<td>Only match processes whose real user ID is listed. Either the numerical or symbolical value may be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--inverse</b></td>
+<td>Negates the matching. This option usually used in <b>pgrep</b> context. In <b>pkill</b> context, the short option is disabled to avoid accidental usage of the option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b>, <b>--exact</b></td>
+<td>Only match processes whose name (or command line if <b>-f</b> is specified) exactly match the pattern.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b>, <b>--pidfile</b> <i>file</i></td>
+<td>Read PID's from <i>file</i>. This option is perhaps more useful for <b>pkill</b> than <b>pgrep</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--logpidfile</b></td>
+<td>Fail if pidfile (see <b>-F</b>) not locked.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Display version information and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><i>pattern</i></td>
+<td>Specifies an extended <a href="/jargon/r/regex.htm">regular expression</a> for matching against the process names or command lines.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">pgrep -u root named</pre>
+<p class="tab">Find the process ID of the <b>named</b> (name <a href="/jargon/d/daemon.htm">daemon</a>) process.</p>
+<pre class="tcy tab">pkill -HUP syslogd</pre>
+<p class="tab">Send the <b>HUP</b> signal to <b>syslogd</b>, which forces it to re-read its configuration file.</p>
+<pre class="tcy tab">renice +4 $(pgrep firefox)</pre>
+<p class="tab">Make all <b>firefox</b> processes run <a href="/unix/renice.htm">nicer</a> by a value of <b>4</b>. This command illustrates the way <b>pgrep</b>'s output can be passed to other utilities as input. In this case, the command <b>pgrep firefox</b> is passed as an argument to <b>renice</b> because it is enclosed in <b>$( )</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ups.htm"><b>ps</b></a> &mdash; Report the status of a process or processes.<br><a href="/unix/killall.htm"><b>killall</b></a> &mdash; Kill processes by name.<br><a href="/unix/ukill.htm"><b>kill</b></a> &mdash; Send a signal to a process, affecting its behavior or killing it.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8332a995c3d9',m:'KRs6K9hErNSRNpHb3SOpGAkFrz0epU1TsPQG6Y9uZog-1661495360-0-AU0bblfljsl77fl9jL14UYcB5eUDr4ablAW9HuJkNCz40YY/OjRxSoZJZR+TyMLZwa9NLrp21P3d8o0bjHS+n3aC2i+Muuu9faQ+RNazpctmkQDe+sWfOf9mPO7Hdzjnnw==',s:[0x8a3d41558f,0xf4ff3f2e43],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

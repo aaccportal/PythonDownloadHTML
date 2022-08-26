@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux sfdisk command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/sfdisk.gif" width="300" height="300" alt="sfdisk command" class="floatRight">
+<p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>sfdisk</b> command is a <a href="/jargon/p/partition.htm">partition</a> table editor. It is similar to <a href="/unix/fdisk.htm"><b>fdisk</b></a> and <a href="/unix/cfdisk.htm"><b>cfdisk</b></a>, but with additional features. Additionally, unlike those two programs, <b>sfdisk</b> can run non-<a href="/jargon/i/interact.htm">interactively</a>.</p>
+<p>This page describes the <a href="/jargon/l/linux.htm">Linux</a> version of <b>sfdisk</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#input">Input Format</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>sfdisk</b> has four (main) uses: it can list the size of a partition, list the partitions on a device, check the partitions on a device, and - this one is very dangerous! - it can repartition a device.</p>
+<p class="tab"><b>sfdisk</b> doesn't understand the GPT (GUID Partition Table) format and it is not designed for large partitions. In these cases use the more advanced GNU <b>parted</b>.</p>
+<h3 class="tab">Listing partition sizes</h3>
+<p class="tab">The following command:</p>
+<pre class="tab tcy">sfdisk -s <i>partition</i>
+</pre>
+<p class="tab">gives the size of <i>partition</i> in blocks. This may be useful in connection with programs like <a href="/unix/mkswap.htm">mkswap</a>. Here <i>partition</i> is usually something like <b>/dev/hda1</b> or <b>/dev/sdb12</b>, but may also be an entire disk, like <b>/dev/xda</b>. The following example command, and output, shows the size of partition <b>/dev/hda9</b>:</p>
+<pre class="tab tcy">sfdisk -s /dev/hda9</pre>
+<pre class="tab">81599</pre>
+<p class="tab">If the <i>partition</i> <a href="/jargon/a/argument.htm">argument</a> is omitted, <b>sfdisk</b> lists the sizes of all disks, and the total:</p>
+<pre class="tab tcy">sfdisk -s
+</pre>
+<pre class="tab">/dev/hda: 208896
+/dev/hdb: 1025136
+/dev/hdc: 1031063
+/dev/sda: 8877895
+/dev/sdb: 1758927
+total: 12901917 blocks</pre>
+<h3 class="tab">Listing partitions</h3>
+<p class="tab">The second type of invocation:</p>
+<pre class="tab tcy">sfdisk -l <i>device</i></pre>
+<p class="tab">lists the partitions on the specified <i>device</i>. If the <i>device</i> argument is omitted, the partitions on all hard disks are listed. The following example lists the partitions on device <b>/dev/hdc</b>:</p>
+<pre class="tab tcy">sfdisk -l /dev/hdc
+</pre>
+<pre class="tab">Disk /dev/hdc: 16 heads, 63 sectors, 2045 cylinders
+Units = cylinders of 516096 bytes, blocks of 1024 bytes, counting from 0
+   Device Boot Start     End   #cyls   #blocks   Id  System
+/dev/hdc1          0+    406     407-   205096+  83  Linux native
+/dev/hdc2        407     813     407    205128   83  Linux native
+/dev/hdc3        814    2044    1231    620424   83  Linux native
+/dev/hdc4          0       -       0         0    0  Empty</pre>
+<p class="tab">The trailing <b>-</b> and <b>+</b> signs indicate that rounding has taken place, and that the actual value is slightly less or more. To see the exact values, ask for a listing with <a href="/jargon/s/sector.htm">sectors</a> as the unit (using the "<b>-u S</b>" option).</p>
+<h3 class="tab">Checking partitions</h3>
+<p class="tab">The third type of invocation:</p>
+<pre class="tab tcy">sfdisk -V <i>device</i></pre>
+<p class="tab">will apply various consistency checks to the partition tables on <i>device</i>. It either prints "OK", or complains. The <b>-V</b> option can be used together with <b>-l</b>. For example, in a <a href="/jargon/s/shell.htm">shell</a> <a href="/jargon/s/script.htm">script</a> you could use</p>
+<pre class="tab tcy">sfdisk -V -q <i>device</i>
+</pre>
+<p class="tab">which would only return the status of <i>device</i>.</p>
+<h3 class="tab">Creating partitions</h3>
+<p class="tab">The fourth type of invocation:</p>
+<pre class="tab tcy">sfdisk device
+</pre>
+<p class="tab"> causes <b>sfdisk</b> to read the specification for the desired partitioning of device from <a href="/jargon/s/stdin.htm">standard input</a>, and then to change the partition tables on that disk. Thus it is possible to use <b>sfdisk</b> from a shell script. When <b>sfdisk</b> determines that its standard input is a <a href="/jargon/t/terminal.htm">terminal</a>, it will be conversational; otherwise it will abort on any error.</p>
+<p class="tabb"><i>BE EXTREMELY CAREFUL. ONE TYPING MISTAKE AND ALL YOUR DATA IS LOST!</i></p>
+<p class="tab">As a precaution, you can save the sectors changed by <b>sfdisk</b>:</p>
+<pre class="tab tcy">% sfdisk /dev/hdd -O hdd-partition-sectors.save</pre>
+<p class="tab">Then, if you discover you did something stupid before anything else is written to disk, it may be possible to recover the old situation with:</p>
+<pre class="tab tcy">% sfdisk /dev/hdd -I hdd-partition-sectors.save</pre>
+<p class="tab">This command is not the same as saving the old partition table: a readable version of the old partition table can be saved using the <b>-d</b> option. However, if you create logical partitions, the sectors describing them are located somewhere on disk, possibly on sectors that were not part of the partition table before. Thus, the information the <b>-O</b> option saves is not a binary version of the output of <b>-d</b>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">sfdisk [<i>options</i>] <i>device</i></pre>
+<pre class="tcy tab">sfdisk -s [<i>partition</i>]</pre>
+<h2>Options</h2>
+<p class="tab"><b>sfdisk</b> accepts the following command-line options:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>-v</b>, <b>--version</b></td>
+<td>Print version number of <b>sfdisk</b> and exit immediately.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Print a usage message and exit immediately.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>, <b>--list-types</b></td>
+<td>Print the recognized types (system Id's).</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--show-size</b></td>
+<td>List the size of a partition.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>, <b>--show-geometry</b></td>
+<td>List the <a href="/jargon/k/kernel.htm">kernel</a>'s idea of the geometry of the indicated disk(s).</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b>,<br> <b>--show-pt-geometry</b></td>
+<td>List the geometry of the indicated disks guessed by looking at the partition table.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--list</b></td>
+<td>List the partitions of a device.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--dump</b></td>
+<td>Dump the partitions of a device in a format that is usable as input to <b>/fBsfdisk/fR</b>. For example, the following sequence of commands:<br><br><pre class="tcy">sfdisk -d /dev/hda &gt; hda.out</pre><pre class="tcy">sfdisk /dev/hda &lt; hda.out</pre> will correct the bad last extended partition that the OS/2 fdisk creates. </td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--verify</b></td>
+<td>Test whether partitions seem correct. See the third invocation type above.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--increment</b></td>
+<td>Number cylinders etc. starting from <b>1</b> instead of <b>0</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b> <i>number</i></td>
+<td>Change only the single partition indicated. For example, the following <b>sfdisk</b> command, and the listed input:<br><br><pre class="tcy">sfdisk /dev/hdb -N5</pre><pre class="tcy">,,,*</pre> will make the fifth partition on <b>/dev/hdb</b> bootable ("active") and change nothing else. (Probably this fifth partition is called <b>/dev/hdb5</b>, but you are free to call it something else, like "<b>/my_equipment/disks/2/5</b>" or so). </td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b>, <b>--activate</b> <i>number</i></td>
+<td>Make the indicated partition(s) active, and all others inactive.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--id</b> <i>number</i> [<i>Id</i>]</td>
+<td>If no <i>Id</i> argument given: print the partition Id of the indicated partition. If an <i>Id</i> argument is present: change the type (Id) of the indicated partition to the given value. This option has two longer forms, <b>--print-id</b> and <b>--change-id</b>. For example:<br><br><pre class="tcy">sfdisk --print-id /dev/hdb 5</pre><pre>6</pre><pre class="tcy">sfdisk --change-id /dev/hdb 5 83</pre><pre>OK</pre> first reports that <b>/dev/hdb5</b> has Id <b>6</b>, and then changes that into <b>83</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--unit</b> <i>letter</i></td>
+<td>Interpret the input and show the output in the units specified by letter. This letter can be one of <b>S</b>, <b>C</b>, <b>B</b> or <b>M</b>, meaning <b>S</b>ectors, <b>C</b>ylinders, <b>B</b>locks and <b>M</b>egabytes, respectively. The default is cylinders, at least when the geometry is known.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b>, <b>--show-extended</b></td>
+<td>Also, list non-primary extended partitions on output, and expect descriptors for them on input.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b>,<br> <b>--cylinders</b> <i>cylinders</i></td>
+<td>Specify the number of cylinders, possibly overriding what the kernel thinks.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b>, <b>--heads</b> <i>heads</i></td>
+<td>Specify the number of heads, possibly overriding what the kernel thinks.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b>, <b>--sectors</b> <i>sectors</i></td>
+<td>Specify the number of sectors, possibly overriding what the kernel thinks.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--force</b></td>
+<td>Do what I say, even if it's stupid.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--quiet</b></td>
+<td>Suppress warning messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--Linux</b></td>
+<td>Do not complain about things irrelevant for Linux.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b>, <b>--DOS</b></td>
+<td>For DOS-compatibility: waste a little space. More precisely: if a partition cannot contain sector 0, e.g., because that is the <a href="/jargon/m/mbr.htm">MBR</a> of the device, or contains the partition table of an extended partition, then <b>sfdisk</b> would make it start the next sector. However, when this option is given it skips to the start of the next track, wasting for example 33 sectors (in case of 34 sectors/track), like certain versions of DOS do. Certain Disk Managers and boot loaders (such as OSBS, but not <a href="/jargon/l/lilo.htm">LILO</a> or the OS/2 Boot Manager) also live in this empty space, so maybe you want this option if you use one.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b>, <b>--DOS-extended</b></td>
+<td>Take the starting sector numbers of "inner" extended partitions to be relative to the starting cylinder boundary of the outer one (like some versions of DOS do), rather than relative to the actual starting sector (like Linux does). The fact that there is a difference here means that one should always let extended partitions start at cylinder boundaries if DOS and Linux should interpret the partition table in the same way. Of course, one can only know where cylinder boundaries are when one knows what geometry DOS uses for this disk.</td>
+</tr>
+<tr class="tcw">
+<td><b>--IBM</b>, <b>--leave-last</b></td>
+<td>Certain IBM diagnostic programs assume that they can use the last cylinder on a disk for disk-testing purposes. If you think you might ever run such programs, use this option to tell sfdisk that it should not allocate the last cylinder. Sometimes the last cylinder contains a bad sector table.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Go through all the motions, but do not actually write to disk.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--re-read</b></td>
+<td>Only execute the BLKRRPART ioctl (to make the kernel re-read the partition table). This can be useful for checking in advance that the final BLKRRPART will be successful, and also when you changed the partition table "by hand" (e.g., using dd from a backup). If the kernel complains ("device busy for revalidation (usage = 2)") then something still uses the device, and you still have to unmount some file system, or say swapoff to some swap partition.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-reread</b></td>
+<td>When starting a repartitioning of a disk, <b>sfdisk</b> checks that this disk is not mounted, or in use as a <a href="/jargon/s/swapfile.htm">swap</a> device, and refuses to continue if it is. This option suppresses the test. On the other hand, the <b>-f</b> option would force <b>sfdisk</b> to continue even when this test fails.</td>
+</tr>
+<tr class="tcw">
+<td><b>--in-order</b></td>
+<td><b><i>THIS IS A DANGEROUS OPTION</i></b>. Not yet been documented.</td>
+</tr>
+<tr class="tcw">
+<td><b>--not-in-order</b></td>
+<td><b><i>THIS IS A DANGEROUS OPTION</i></b>. Not yet been documented.</td>
+</tr>
+<tr class="tcw">
+<td><b>--inside-outer</b></td>
+<td><b><i>THIS IS A DANGEROUS OPTION</i></b>. Affects chaining order.</td>
+</tr>
+<tr class="tcw">
+<td><b>--not-inside-outer</b></td>
+<td><b><i>THIS IS A DANGEROUS OPTION</i></b>. Affects chaining order.</td>
+</tr>
+<tr class="tcw">
+<td><b>--nested</b></td>
+<td><b><i>THIS IS A DANGEROUS OPTION</i></b>. Every partition is contained in the surrounding partitions and is disjoint from all others.</td>
+</tr>
+<tr class="tcw">
+<td><b>--chained</b></td>
+<td><b><i>THIS IS A DANGEROUS OPTION</i></b>. Every data partition is contained in the surrounding partitions and disjoint from all others, but extended partitions may lie outside (insofar as allowed by all_logicals_inside_outermost_extended).</td>
+</tr>
+<tr class="tcw">
+<td><b>--onesector</b></td>
+<td><b><i>THIS IS A DANGEROUS OPTION</i></b>. All data partitions are mutually disjoint; extended partitions each use one sector only (except perhaps for the outermost one).</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b> <i>file</i></td>
+<td>Before writing the new partition, output the sectors that are going to be overwritten to <i>file</i> (where hopefully file resides on another disk, or on a floppy).</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> <i>file</i></td>
+<td>After destroying your filesystems with an unfortunate <b>sfdisk</b> command, you were able to restore the old situation if only you had preserved it using the <b>-O</b> flag.</td>
+</tr>
+</table>
+<h2>Technical Details And Background Theory</h2>
+<p class="tab">Block 0 of a disk (the Master Boot Record) contains among other things four partition descriptors. The partitions described here are called primary partitions.</p>
+<p class="tab">A partition descriptor has 6 fields:</p>
+<pre class="tab">struct partition {
+	unsigned char bootable;        /* 0 or 0x80 */
+	hsc begin_hsc;
+	unsigned char id;
+	hsc end_hsc;
+	unsigned int starting_sector;
+	unsigned int nr_of_sectors;
+}</pre>
+<p class="tab">The two <b>hsc</b> fields indicate head, sector and cylinder of the begin and the end of the partition. Since each <b>hsc</b> field only takes 3 bytes, only 24 bits are available, which does not suffice for big disks (say &gt; 8 <a href="/jargon/g/gigabyte.htm">GB</a>). In fact, due to the wasteful representation (that uses a byte for the number of heads, which is often 16), problems already start with 0.5 GB. However, Linux does not use these fields, and problems can arise only at boot time, before Linux starts. For more details, see your LILO documentation.</p>
+<p class="tab">Each partition has a type, its "Id", and if this type is <b>5</b> or <b>f</b> ("extended partition") the starting sector of the partition again contains 4 partition descriptors. <a href="/jargon/m/msdos.htm">MSDOS</a> only uses the first two of these: the first one an actual data partition, and the second one again an extended partition (or empty). In this way one gets a chain of extended partitions. Other operating systems have slightly different conventions. Linux also accepts type <b>85</b> as equivalent to <b>5</b> and <b>f</b> - this can be useful if one wants to have extended partitions under Linux past the 1024 <a href="/jargon/c/cylinder.htm">cylinder</a> boundary, without DOS <b>FDISK</b> hanging. If there is no good reason, only use <b>5</b>, which is understood by other systems.</p>
+<p class="tab">Partitions that are not primary or extended are called logical. Often, one cannot boot from logical partitions (because finding them is more involved than only looking at the MBR). Note that of an extended partition only the Id and the start are used. There are various conventions about what to write in the other fields. One should not try to use extended partitions for data storage or swap.</p>
+<h2 id="input">Input Format</h2>
+<p class="tab"><b>sfdisk</b> reads lines of the form</p>
+<pre class="tab">&lt;start&gt; &lt;size&gt; &lt;id&gt; &lt;bootable&gt; &lt;c,h,s&gt; &lt;c,h,s&gt;</pre>
+<p class="tab">where each line fills one partition descriptor.</p>
+<p class="tab">Fields are separated by whitespace, or comma or semicolon possibly followed by <a href="/jargon/w/whitspac.htm">whitespace</a>; initial and trailing whitespace is ignored. Numbers can be <a href="/jargon/o/octal.htm">octal</a>, <a href="/jargon/d/decimal.htm">decimal</a> or hexadecimal; decimal is default. When a field is absent or empty, a default value is used.</p>
+<p class="tab">The <b>&lt;c,h,s&gt;</b> parts can (and probably should) be omitted - <b>sfdisk</b> computes them from <b>&lt;start&gt;</b> and <b>&lt;size&gt;</b> and the disk geometry as given by the kernel or specified using the <b>-H</b>, <b>-S</b>, <b>-C</b> flags.</p>
+<p class="tab">Bootable is specified as [<b>*</b>|<b>-</b>], with as default not-bootable. The value of this field is irrelevant for Linux - when Linux runs it was alread booted - but might play a role for certain boot loaders and for other operating systems. For example, when there's several primary DOS partitions, DOS assigns C: to the first among these that is bootable.</p>
+<p class="tab"><i>Id</i> is given in hex, without the <b>0x</b> prefix, or is [<b>E</b>|<b>S</b>|<b>L</b>|<b>X</b>], where <b>L</b> (<b>LINUX_NATIVE</b> (<b>83</b>)) is the default, <b>S</b> is <b>LINUX_SWAP</b> (<b>82</b>), <b>E</b> is <b>EXTENDED_PARTITION</b> (<b>5</b>), and <b>X</b> is <b>LINUX_EXTENDED</b> (<b>85</b>).</p>
+<p class="tab">The default value of start is the first nonassigned sector/cylinder/...</p>
+<p class="tab">The default value of size is as much as possible (until next partition or end-of-disk).</p>
+<p class="tab">However, for the four partitions inside an extended partition, the defaults are: Linux partition, Extended partition, Empty, Empty.</p>
+<p class="tab">But when the <b>-N</b> option (change a single partition only) is given, the default for each field is its previous value.</p>
+<p class="tab">A '<b>+</b>' can be specified instead of a number for size, which means as much as possible. This is useful with the <b>-N</b> option.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">sfdisk /dev/hdc &lt;&lt; EOF</pre>
+<pre class="tcy tab">0,407
+,407
+;
+;
+EOF</pre>
+<p class="tab">This command (and the listed input) partitions <b>/dev/hdc</b> as indicated above.</p>
+<pre class="tcy tab">sfdisk /dev/hdb &lt;&lt; EOF</pre>
+<pre class="tcy tab">,3,L
+,60,L
+,19,S
+,,E
+,130,L
+,130,L
+,130,L
+,,L
+EOF</pre>
+<p class="tab">This command (and the listed input) will partition <b>/dev/hdb</b> into two Linux partitions of <b>3</b> and <b>60</b> cylinders, a swap space of <b>19</b> cylinders, and an extended partition covering the rest. Inside the extended partition there are four Linux logical partitions, three of 130 cylinders and one covering the rest.</p>
+<p class="tab">With the <b>-x</b> option, the number of input lines must be a multiple of 4: you have to list the two empty partitions you never want using two blank lines. Without the <b>-x</b> option, you give one line for the partitions inside an extended partition, instead of four, and terminate with end-of-file (<b>^D</b>). And <b>sfdisk</b> will assume your input line represents the first of four, that the second one is extended, and the 3rd and 4th are empty.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/cfdisk.htm"><b>cfdisk</b></a> &mdash; A more user-friendly version of the fdisk disk partitioning utility.<br><a href="/unix/fdisk.htm"><b>fdisk</b></a> &mdash; A disk partitioning utility.<br><a href="/unix/mkfs.htm"><b>mkfs</b></a> &mdash; Build a Linux file system, usually a hard disk partition.<br><a href="/unix/parted.htm"><b>parted</b></a> &mdash; A disk partition manipulation program.<br><a href="/unix/partprob.htm"><b>partprobe</b></a> &mdash; Inform the operating system about changes to the partition table.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a834ddc44c3f7',m:'UZQMNhDfNXkmT6HC.lSDXFwNN7wEdBqTniyKLpXOlU8-1661495364-0-ARuZK+4VfpMAmmzSY4LrECSIhvsQlRLu6H8lGrHhstNnAdOCxhwuf1jN1x2oZuPiiiJpGCtdEYiRfMwPdUgsKBPqb0lGEamEwTie14NV8CQmR8ne4z61raaqxQDnwzrSJQ==',s:[0x8a3d41558f,0x16f2d61be8],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

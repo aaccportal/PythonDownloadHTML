@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true"> 
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux screen command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/screen.gif" width="300" height="300" alt="screen command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>screen</b> command launches a screen manager with VT100/<a href="/jargon/a/ansi.htm">ANSI</a> <a href="/jargon/t/terminal.htm">terminal</a> emulation.</p>
+<p>Using <b>screen</b>, you can create multiple terminal sessions, switch between them, and display them next to each other, all within a single terminal window.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>screen</b> is a full-screen window manager that <a href="/jargon/m/multiple.htm">multiplexes</a> a physical terminal between several processes (often interactive shells). Each virtual terminal provides the functions of a <a href="/jargon/d/dec.htm">DEC</a> VT100 terminal and, in addition, several control functions from the ISO 6429 (ECMA 48, ANSI X3.64) and ISO 2022 standards (e.g., insert/delete line and support for multiple <a href="/jargon/c/charcode.htm">character</a> sets). There is a scrollback history <a href="/jargon/b/buffer.htm">buffer</a> for each virtual terminal and a <a href="/jargon/c/copy.htm">copy</a>-and-<a href="/jargon/p/paste.htm">paste</a> mechanism that allows moving text regions between windows.</p>
+<p class="tab">When <b>screen</b> is called, it creates a single window with a <a href="/jargon/s/shell.htm">shell</a> in it (or the specified command) and then gets out of your way so that you can use the program as you normally would. Then, at any time, you can create new (full-screen) windows with other programs in them (including more shells), <a href="/jargon/k/kill.htm">kill</a> existing windows, view a list of windows, turn <a href="/jargon/o/output.htm">output</a> <a href="/jargon/l/log.htm">logging</a> on and off, copy-and-paste text between windows, view the scrollback history, switch between windows in whatever manner you want, etc. All windows run their programs completely independent of each other. Programs continue to run when their window is currently not visible and even when the whole <b>screen</b> session is detached from the user's terminal. When a program terminates, <b>screen</b> (per default) kills the window that contained it. If this window was in the foreground, the display switches to the previous window; if none are left, <b>screen</b> exits.</p>
+<p class="tab">Everything you type is sent to the program running in the current window. The only exception to this is the one keystroke that is used to initiate a command to the window manager. By default, each command begins with a <b>control-a</b> (abbreviated <b>C-a</b> from now on), and is followed by one other keystroke. The command character and all the key bindings can be fully customized to be anything you like, though they are always two <a href="/jargon/c/charact.htm">characters</a> in length.</p>
+<p class="tab"><b>screen</b> does not understand the <a href="/jargon/p/prefix.htm">prefix</a> "<b>C-</b>" to mean control. Please use the caret notation ("<b>^A</b>" instead of "<b>C-a</b>") as arguments to e.g., the escape command or the <b>-e</b> option. <b>screen</b> also prints out control characters in caret notation.</p>
+<p class="tab">The standard way to create a new window is to type "<b>C-a c</b>". This creates a new window running a shell and switches to that window immediately, regardless of the state of the process running in the current window. Similarly, you can create a new window with a custom command in it by first binding the command to a keystroke (in your <b>.screenrc</b> file or at the "<b>C-a :</b>" <a href="/jargon/c/commandi.htm">command line</a>) and then using it like the "<b>C-a c</b>" command. Also, new windows can be created by running a command like:</p>
+<pre class="tab tcy">screen emacs prog.c</pre>
+<p class="tab">from a shell <a href="/jargon/p/prompt.htm">prompt</a> within a previously created window. This will not run another copy of <b>screen</b>, but will instead supply the command name and its arguments to the window manager (specified in the <b>$STY</b> <a href="/jargon/e/envivari.htm">environment variable</a>) who uses it to create the new window. The above example would start the <a href="/unix/uemacs.htm">emacs</a> editor (editing <b>prog.c</b>) and switch to its window. Note that you cannot transport environment variables from the invoking shell to the application (<b>emacs</b> in this case), because it is forked from the parent <b>screen</b> process, not from the invoking shell.</p>
+<p class="tab">If "<b>/var/run/utmp</b>" is <a href="/jargon/w/write.htm">writable</a> by <b>screen</b>, an appropriate record will be written to this file for each window, and removed when the window is <a href="/jargon/t/terminat.htm">terminated</a>. This is useful for working with "<a href="/unix/talk.htm">talk</a>", "<a href="/unix/uscript.htm">script</a>", "<a href="/jargon/s/shutdown.htm">shutdown</a>", "<b>rsend</b>", "<b>sccs</b>" and other similar programs that use the <b>utmp</b> file to determine who you are. As long as <b>screen</b> is active on your terminal, the terminal's own record is removed from the <b>utmp</b> file. See also "<b>C-a L</b>".</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">screen [ -<i>options</i> ] [ <i>cmd</i> [ <i>args</i> ] ]</pre>
+<pre class="tcy tab">screen -r [[<i>pid</i>.]<i>tty</i>[.<i>host</i>]]</pre>
+<pre class="tcy tab">screen -r <i>sessionowner</i>/[[<i>pid</i>.]<i>tty</i>[.<i>host</i>]]</pre>
+<h2 id="Command-Line-Options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-a</b></td>
+<td>include all capabilities (with some minor exceptions) in each window's termcap, even if screen must redraw parts of the display to implement a function.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b></td>
+<td>Adapt the sizes of all windows to the size of the current terminal. By default, <b>screen</b> tries to restore its old window sizes when attaching to resizable terminals (those with "WS" in its description, e.g., suncmd or some <a href="/unix/uxterm.htm">xterm</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b> <i>file</i></td>
+<td>override the default configuration file from "<b>$HOME/.screenrc</b>" to file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>|<b>-D</b> <i>[pid.tty.host]</i></td>
+<td>does not start <b>screen</b>, but detaches the elsewhere running <b>screen</b> session. It has the same effect as typing "<b>C-a d</b>" from <b>screen</b>'s controlling terminal. <b>-D</b> is the equivalent to the power detach key. If no session can be detached, this option is ignored. In combination with the <b>-r</b>/<b>-R</b> option more powerful effects can be achieved:</td>
+</tr>
+<tr class="tcw">
+<td><b>-d -r</b></td>
+<td>Reattach a session and if necessary detach it first.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d -R</b></td>
+<td>Reattach a session and if necessary detach or even create it first.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d -RR</b></td>
+<td>Reattach a session and if necessary detach or create it. Use the first session if more than one session is available.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D -r</b></td>
+<td>Reattach a session. If necessary detach and <a href="/jargon/s/signoff.htm">logout</a> remotely first.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D -R</b></td>
+<td>Attach here and now. In detail this means: If a session is running, then reattach. If necessary detach and logout remotely first. If it was not running create it and notify the user. This is the author's favorite.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D -RR</b></td>
+<td>Attach here and now. Note: It is always a good idea to check the status of your sessions by means of "<b>screen -list</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b> <i>xy</i></td>
+<td>specifies the command character to be <i>x</i> and the character generating a literal command character to <i>y</i> (when typed after the command character). The default is "<b>C-a</b>" and '<b>a</b>', which can be specified as "<b>-e^Aa</b>". When creating a screen session, this option sets the default command character. In a multiuser session all users added starts off with this command character. But when attaching to an already running session, this option changes only the command character of the attaching user. This option is equivalent to either the commands "<b>defescape</b>" or "<b>escape</b>" respectively.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>-fn</b>, and <b>-fa</b></td>
+<td>turns flow-control <b>on</b>, <b>off</b>, or "automatic switching mode". This can also be defined through the "<b>defflow</b>" <b>.screenrc</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b> <i>num</i></td>
+<td>Specifies the history scrollback buffer to be <i>num</i> lines high.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td> causes the interrupt key (usually <b>C-c</b>) to interrupt the display immediately when flow-control is <b>on</b>. See the "<b>defflow</b>" <b>.screenrc</b> command for details. The use of this option is discouraged.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b> and <b>-ln</b></td>
+<td>turns login mode <b>on</b> or <b>off</b> (for <b>/var/run/utmp</b> updating). This can also be defined through the "<b>deflogin</b>" <b>.screenrc</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ls</b> and <b>-list</b></td>
+<td>does not start <b>screen</b>, but prints a list of <b>pid.tty.host</b> strings and creation <a href="/jargon/t/timestam.htm">timestamps</a> identifying your <b>screen</b> sessions. Sessions marked '<b>detached</b>' can be resumed with "<b>screen -r</b>". Those marked '<b>attached</b>' are running and have a controlling terminal. If the session runs in <a href="/jargon/m/multsyst.htm">multiuser</a> mode, it is marked '<b>multi</b>'. Sessions marked as '<b>unreachable</b>' either live on a different <a href="/jargon/h/hostcomp.htm">host</a> or are '<b>dead</b>'. An unreachable session is considered dead, when its name matches either the name of the local host, or the specified parameter, if any. See the <b>-r</b> flag for a description how to construct matches. Sessions marked as '<b>dead</b>' should be thoroughly checked and removed. Ask your system administrator if you are not sure. Remove sessions with the <b>-wipe</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b></td>
+<td>tells <b>screen</b> to turn on automatic output logging for the windows.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b></td>
+<td>causes <b>screen</b> to ignore the <b>$STY</b> environment variable. With "<b>screen -m</b>" creation of a new session is enforced, regardless whether <b>screen</b> is called from within another <b>screen</b> session or not. This flag has a special meaning in connection with the '<b>-d</b>' option:</td>
+</tr>
+<tr class="tcw">
+<td><b>-d -m</b></td>
+<td>Start screen in "<b>detached</b>" mode. This creates a new session but doesn't attach to it. This is useful for system startup scripts.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D -m</b></td>
+<td>This also starts screen in "<b>detached</b>" mode, but doesn't fork a new process. The command exits if the session terminates.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b></td>
+<td>selects a more optimal output mode for your terminal rather than true VT100 emulation (only affects auto-margin terminals without 'LP'). This can also be set in your .screenrc by specifying 'OP' in a "termcap" command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>number_or_name</i></td>
+<td>Preselect a window. This is useful when you want to reattach to a specific window or you want to send a command via the "<b>-X</b>" option to a specific window. As with <b>screen</b>'s <b>select</b> command, "<b>-</b>" selects the blank window. As a special case for reattach, "<b>=</b>" brings up the windowlist on the blank window.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b></td>
+<td>Suppress printing of error messages. In combination with "<b>-ls</b>" the exit value is as follows: <b>9</b> indicates a directory without sessions. <b>10</b> indicates a directory with running but not attachable sessions. <b>11</b> (or more) indicates <b>1</b> (or more) usable sessions. In combination with "<b>-r</b>" the exit value is as follows: <b>10</b> indicates that there is no session to resume. <b>12</b> (or more) indicates that there are <b>2</b> (or more) sessions to resume and should specify which one to choose. In all other cases "<b>-q</b>" has no effect.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b> <i>[pid.tty.host]</i><br><br><b>-r</b> <i>sessionowner/ [pid.tty.host]</i></td>
+<td>resumes a detached <b>screen</b> session. No other options (except combinations with <b>-d/-D</b>) may be specified, though an optional prefix of <i>[pid.]tty.host</i> may be needed to distinguish between multiple detached <b>screen</b> sessions. The second form is used to connect to another user's <b>screen</b> session which runs in multiuser mode. This indicates that <b>screen</b> should look for sessions in another user's directory. This requires <a href="/jargon/s/suid.htm">setuid</a>-<a href="/jargon/r/root.htm">root</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b></td>
+<td>attempts to resume the youngest (in terms of creation time) detached <b>screen</b> session it finds. If successful, all other command-line options are ignored. If no detached session exists, starts a new session using the specified options, as if <b>-R</b> had not been specified. The option is set by default if screen is run as a login-shell (actually screen uses "<b>-xRR</b>" in that case). For combinations with the <b>-d</b>/<b>-D</b> option see there. Note: Time-based session selection is a <a href="/jargon/d/debian.htm">Debian</a> addition.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>sets the default <a href="/jargon/s/shell.htm">shell</a> to the program specified, instead of the value in the environment variable <b>$SHELL</b> (or "<b>/bin/sh</b>" if not defined). This can also be defined through the "<b>shell</b>" <b>.screenrc</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b> <i>sessionname</i></td>
+<td>When creating a new session, this option can specify a meaningful name for the session. This name identifies the session for "<b>screen -list</b>" and "<b>screen -r</b>" actions. It substitutes the default <b>[tty.host]</b> <a href="/jargon/s/suffix.htm">suffix</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>name</i></td>
+<td>sets the title (a.k.a.) for the default shell or specified program. See also the "<b>shelltitle</b>" <b>.screenrc</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b></td>
+<td>Run screen in <a href="/jargon/u/utf.htm">UTF</a>-8 mode. This option tells the screen the terminal sends and understands UTF-8 encoded characters. It also sets the default encoding for new windows to '<b>utf8</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Print <a href="/jargon/v/version.htm">version</a> number.</td>
+</tr>
+<tr class="tcw">
+<td><b>-wipe</b> <i>[match]</i></td>
+<td>does the same as "<b>screen -ls</b>", but removes destroyed sessions instead of marking them as 'dead'. An unreachable session is considered dead, when its name matches either the name of the local host, or the explicitly given parameter, if any. See the <b>-r</b> flag for a description how to construct matches.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b></td>
+<td>Attach to a not detached <b>screen</b> session. (Multi display mode). <b>Screen</b> refuses to attach from within itself. But when cascading multiple screens, loops are not detected; careful!</td>
+</tr>
+<tr class="tcw">
+<td><b>-X</b></td>
+<td>Send the specified command to a running <b>screen</b> session. You can use the <b>-d</b> or <b>-r</b> option to tell screen to look only for attached or detached screen sessions. Note that this command doesn't work if the session is <a href="/jargon/p/password.htm">password</a> protected.</td>
+</tr>
+</table>
+<h2>Getting Started</h2>
+<p class="tab">Before you begin to use <b>screen</b>, you need to make sure you have correctly selected your terminal type, as you would for any other <b>termcap</b>/<b>terminfo</b> program. You can do this using <b>tset</b> for example.</p>
+<p class="tab">If you're impatient and want to get started, remember this one command: &quot;<b>C-a ?</b>&quot;. Typing these two characters display a list of the available <b>screen</b> commands and their <a href="/jargon/b/bind.htm">bindings</a>. Each keystroke is discussed in the <a href="#Default-Key-Bindings">Default Key Bindings section</a>. The <a href="#Customization">Customization section</a> deals with the contents of your <b>.screenrc</b>.</p>
+<p class="tab">If your terminal is a &quot;true&quot; auto-margin terminal (it doesn't allow the last position on the screen to be updated without scrolling the screen) consider using a version of your terminal's <b>termcap</b> with automatic margins turned off. This ensures an accurate and optimal update of the screen in all circumstances. Most terminals have &quot;magic&quot; margins (automatic margins plus usable last column). This is the VT100 style type and perfectly suited for <b>screen</b>. If all you've got is a &quot;true&quot; auto-margin terminal, <b>screen</b> is content to use it, but updating a character put into the last position on the screen may not be possible until the screen scrolls or the character is moved into a safe position in some other way. This delay can be shortened using a terminal with insert-character capability.</p>
+<h2 id="Default-Key-Bindings">Default key bindings</h2>
+<p class="tab">As mentioned, each <b>screen</b> command consists of a "<b>C-a</b>" followed by one other character. For your convenience, all commands that are bound to <a href="/jargon/l/lowercas.htm">lowercase</a> letters are also bound to their control character counterparts (with the exception of "<b>C-a a</b>"; see below), thus, "<b>C-a c</b>" and "<b>C-a C-c</b>" can create a window. See the <a href="#Customization">Customization section</a> for a description of the command.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:160px"><b>C-a '</b></td>
+<td style="width:140px">(select)</td>
+<td>Prompt for a window name or number to use.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a "</b></td>
+<td>(windowlist -b)</td>
+<td>Present a list of all windows for selection.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a 0</b><br> ...<br><b>C-a 9</b><br><br> C-a -</td>
+<td>(select 0)<br> ...<br> (select 9)<br><br> (select -)</td>
+<td>Switch to window number 0 - 9, or to the blank window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a tab</b></td>
+<td>(focus)</td>
+<td>Switch the input focus to the next region. See also split, remove, only.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a C-a</b></td>
+<td>(other)</td>
+<td>Toggle to the window displayed previously. Note that this binding defaults to the command character typed twice, unless overridden. For instance, if you use the option "<b>-e]x</b>", this command becomes "<b>]]</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a a</b></td>
+<td>(meta)</td>
+<td>Send the command character (<b>C-a</b>) to window. See escape command.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a A</b></td>
+<td>(title)</td>
+<td>Allow the user to enter a name for the current window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a b<br><br> C-a C-b</b></td>
+<td>(break)</td>
+<td>Send a <a href="/jargon/b/break.htm">break</a> to window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a B</b></td>
+<td>(pow_break)</td>
+<td>Reopen the terminal line and send a break.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a c<br><br> C-a C-c</b></td>
+<td>(screen)</td>
+<td>Create a new window with a shell and switch to that window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a C</b></td>
+<td>(clear)</td>
+<td>Clear the screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a d<br><br> C-a C-d</b></td>
+<td>(detach)</td>
+<td>Detach screen from this terminal.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a D D</b></td>
+<td>(pow_detach)</td>
+<td>Detach and logout.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a f<br><br> C-a C-f</b></td>
+<td>(flow)</td>
+<td>Toggle flow <b>on</b>, <b>off</b> or <b>auto</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a F</b></td>
+<td>(fit)</td>
+<td>Resize the window to the current region size.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a C-g</b></td>
+<td>(vbell)</td>
+<td>Toggles screen's visual bell mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a h</b></td>
+<td>(hardcopy)</td>
+<td>Write a hardcopy of the current window to the file "<b>hardcopy.n</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a H</b></td>
+<td>(log)</td>
+<td>Begins/ends logging of the current window to the file "<b>screenlog.n</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a i<br><br> C-a C-i</b></td>
+<td>(info)</td>
+<td>Show info about this window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a k<br><br> C-a C-k</b></td>
+<td>(kill)</td>
+<td>Destroy current window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a l<br><br> C-a C-l</b></td>
+<td>(redisplay)</td>
+<td>Fully refresh current window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a L</b></td>
+<td>(login)</td>
+<td>Toggle this windows login slot. Available only if screen is configured to update the <b>utmp</b> database.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a m<br><br> C-a C-m</b></td>
+<td>(lastmsg)</td>
+<td>Repeat the last message displayed in the message line.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a M</b></td>
+<td>(monitor)</td>
+<td>Toggles monitoring of the current window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a space<br><br> C-a n<br><br> C-a C-n</b></td>
+<td>(next)</td>
+<td>Switch to the next window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a N</b></td>
+<td>(number)</td>
+<td>Show the number (and title) of the current window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a backspace<br><br> C-a h<br><br> C-a p<br><br> C-a C-p</b></td>
+<td>(prev)</td>
+<td>Switch to the previous window (opposite of <b>C-a n</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a q<br><br> C-a C-q</b></td>
+<td>(xon)</td>
+<td>Send a <b>control-q</b> to the current window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a Q</b></td>
+<td>(only)</td>
+<td>Delete all regions but the current one. See also <b>split</b>, <b>remove</b>, <b>focus</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a r<br><br> C-a C-r</b></td>
+<td>(wrap)</td>
+<td>Toggle the current window's line-wrap setting (turn the current window's automatic margins <b>on</b> and <b>off</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a s<br><br> C-a C-s</b></td>
+<td>(xoff)</td>
+<td>Send a <b>control-s</b> to the current window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a S</b></td>
+<td>(split)</td>
+<td>Split the current region horizontally into two new ones. See also <b>only</b>, <b>remove</b>, <b>focus</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a t<br><br> C-a C-t</b></td>
+<td>(time)</td>
+<td>Show system information.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a v</b></td>
+<td>(version)</td>
+<td>Display the version and compilation date.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a C-v</b></td>
+<td>(digraph)</td>
+<td>Enter digraph.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a w<br><br> C-a C-w</b></td>
+<td>(windows)</td>
+<td>Show a list of window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a W</b></td>
+<td>(width)</td>
+<td>Toggle <b>80</b>/<b>132</b> columns.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a x<br><br> C-a C-x</b></td>
+<td>(lockscreen)</td>
+<td>Lock this terminal.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a X</b></td>
+<td>(remove)</td>
+<td>Kill the current region. See also <b>split</b>, <b>only</b>, <b>focus</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a z<br><br> C-a C-z</b></td>
+<td>(suspend)</td>
+<td>Suspend screen. Your system must support <a href="/jargon/b/bsd.htm">BSD</a>-style job-control.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a Z</b></td>
+<td>(reset)</td>
+<td>Reset the virtual terminal to its "power-on" values.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a .</b></td>
+<td>(dumptermcap)</td>
+<td>Write out a "<b>.termcap</b>" file.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a ?</b></td>
+<td>(help)</td>
+<td>Show key bindings.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a C-\</b></td>
+<td>(quit)</td>
+<td>Kill all windows and terminate screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a :</b></td>
+<td>(colon)</td>
+<td>Enter command line mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a [<br><br> C-a C-[<br><br> C-a esc</b></td>
+<td>(copy)</td>
+<td>Enter copy/scrollback mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a ]</b></td>
+<td>(paste .)</td>
+<td>Write the contents of the paste buffer to the stdin queue of the current window.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a {<br><br> C-a }</b></td>
+<td>(history)</td>
+<td>Copy and paste a previous (command) line.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a &gt;</b></td>
+<td>(writebuf)</td>
+<td>Write paste buffer to a file.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a &lt;</b></td>
+<td>(readbuf)</td>
+<td>Reads the screen-exchange file into the paste buffer.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a =</b></td>
+<td>(removebuf)</td>
+<td>Removes the file used by C-a &lt; and C-a &gt;.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a ,</b></td>
+<td>(license)</td>
+<td>Shows where screen comes from, where it went to and why you can use it.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a _</b></td>
+<td>(silence)</td>
+<td>Start/stop monitoring the current window for inactivity.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a |</b></td>
+<td>(split -v)</td>
+<td>Split the current region vertically into two new ones.</td>
+</tr>
+<tr class="tcw">
+<td><b>C-a * </b></td>
+<td>(displays)</td>
+<td>Show a listing of all currently attached displays.</td>
+</tr>
+</table>
+<h2 id="Customization">Customization</h2>
+<p class="tab">The "socket directory" defaults either to <b>$HOME/.screen</b> or to <b>/tmp/screens</b> or preferably to <b>/var/run/screen</b> chosen at compile-time. If <b>screen</b> is installed setuid-root, then the administrator should compile <b>screen</b> with an adequate (not NFS mounted) socket directory. If <b>screen</b> is not running setuid-root, the user can specify any <a href="/unix/uchmod.htm">mode</a> 700 directory in the environment variable <b>$SCREENDIR</b>.</p>
+<p class="tab">When <b>screen</b> is invoked, it executes initialization commands from the files "<b>/etc/screenrc</b>" and "<b>.screenrc</b>" in the user's <a href="/jargon/h/homedir.htm">home directory</a>. These are the "programmer's defaults" that can be overridden in the following ways: for the global <b>screenrc</b> file <b>screen</b> searches for the environment variable <b>$SYSSCREENRC</b> (this override feature may be disabled at <a href="/jargon/c/compile.htm">compile</a>-time). The user specific screenrc file is searched in <b>$SCREENRC</b>, then <b>$HOME/.screenrc</b>. The command line option <b>-c</b> takes precedence over the above user <b>screenrc</b> files.</p>
+<p class="tab">Commands in these files are used to set options, bind functions to keys, and to automatically establish one or more windows at the beginning of your <b>screen</b> session. Commands are listed one per line, with empty lines being ignored. A command's arguments are separated by <a href="/jargon/t/tab.htm">tabs</a> or spaces, and may be surrounded by single or double quotes. A '<b>#</b>' turns the rest of the line into a comment, except in quotes. Unintelligible lines are warned about and ignored. Commands may contain references to environment variables. The syntax is the shell-like "<b>$VAR</b> " or "<b>${VAR}</b>". Note that this causes incompatibility with previous <b>screen</b> versions, as now the '<b>$</b>'-character has to be protected with '<b>\</b>' if no <a href="/jargon/v/variable.htm">variable</a> substitution shall be performed. A <a href="/jargon/s/string.htm">string</a> in single-quotes is also protected from variable substitution.</p>
+<p class="tab">Two configuration files are shipped as examples with your <b>screen</b> distribution: "<b>etc/screenrc</b>" and "<b>etc/etcscreenrc</b>". They contain a number of useful examples for various commands.</p>
+<p class="tab">Customization can also be done 'on-line'. To enter the command mode type '<b>C-a :</b>'. Note that commands starting with "def" change default values, while others change current settings.</p>
+<p class="tab">The following commands are available:</p>
+<pre class="tcy tab">acladd <i>usernames [crypted-pw]</i></pre>
+<pre class="tcy tab">addacl <i>usernames</i></pre>
+<p class="tab">Enable users to fully access this <b>screen</b> session. <a href="/jargon/u/username.htm">Usernames</a> can be one user or a comma separated list of users. This command enables to attach to the <b>screen</b> session and performs the equivalent of '<b>aclchg usernames +rwx "#?"</b>' being executed. To add a user with restricted access, use the '<b>aclchg</b>' command below. If an optional second <a href="/jargon/p/paramete.htm">parameter</a> is supplied, it should be a crypted password for the named user(s). '<b>Addacl</b>' is a synonym to '<b>acladd</b>'. <i>Multi user mode only.</i></p>
+<pre class="tcy tab">aclchg <i>usernames permbits list</i></pre>
+<pre class="tcy tab">chacl <i>usernames permbits list</i></pre>
+<p class="tab">Change <a href="/jargon/p/permissi.htm">permissions</a> for a comma separated list of users. Permission <a href="/jargon/b/bit.htm">bits</a> are represented as '<b>r</b>', '<b>w</b>' and '<b>x</b>'. Prefixing '<b>+</b>' grants the permission, '<b>-</b>' removes it. The third parameter is a comma separated list of commands and/or windows (specified either by number or title). The special list '<b>#</b>' refers to all windows, '<b>?</b>' to all commands. If usernames consists of a single '<b>*</b>', all known users are affected. A command can be executed when the user has the '<b>x</b>' bit for it. The user can type input to a window when he has its '<b>w</b>' bit set and no other user obtains a writelock for this window. Other bits are currently ignored. To withdraw the writelock from another user in window 2: '<b>aclchg username -w+w 2</b>'. To allow read-only access to the session: '<b>aclchg username -w "#"</b>'. As soon as a user's name is known to <b>screen</b> he can attach to the session and (per default) has full permissions for all command and windows. Execution permission for the <b>acl</b> commands, '<b>at</b>' and others should also be removed or the user can regain write permission. Rights of the special username nobody cannot be changed (see the "<a href="/unix/usu.htm">su</a>" command). '<b>Chacl</b>' is a synonym to '<b>aclchg</b>'. <i>Multi user mode only.</i></p>
+<pre class="tcy tab">acldel <i>username</i></pre>
+<p class="tab">Remove a user from <b>screen</b>'s access control list. If currently attached, all the user's displays are detached from the session. He cannot attach again. <i>Multi user mode only</i>.</p>
+<pre class="tcy tab">aclgrp <i>username</i> [<i>groupname</i>]</pre>
+<p class="tab">Creates groups of users that share common access rights. The name of the group is the username of the group leader. Each member of the group inherits the permissions that are granted to the group leader. That means if a user fails an access check, another check is made for the group leader. A user is removed from all groups the special value "<b>none</b>" is used for groupname. If the second parameter is omitted, all groups the user is in are listed.</p>
+<pre class="tcy tab">aclumask [[<i>users</i>]+<i>bits</i> |[<i>users</i>]-<i>bits</i> .... ]</pre>
+<pre class="tcy tab">umask [[<i>users</i>]+<i>bits</i> |[<i>users</i>]-<i>bits</i> .... ]</pre>
+<p class="tab">This specifies the access other users have to windows that is created by the caller of the command. <i>Users</i> may be none, one or a comma separated list of known usernames. If no users are specified, a list of all currently known users is assumed. <i>Bits</i> is any combination of access control bits allowed defined with the "<b>aclchg</b>" command. The special username "<b>?</b>" predefines the access that not yet known users will be granted to any window initially. The special username "<b>??</b>" predefines the access that not yet known users are granted to any command. Rights of the special username nobody cannot be changed (see the "<b>su</b>" command). '<b>Umask</b>' is a synonym to '<b>aclumask</b>'.</p>
+<pre class="tcy tab">activity <i>message</i></pre>
+<p class="tab">When any activity occurs in a background window that is being monitored, <b>screen</b> displays a notification in the message line. The notification message can be re-defined by means of the "<b>activity</b>" command. Each occurrence of '<b>%</b>' in <i>message</i> is replaced by the number of the window where activity has occurred, and each occurrence of '<b>^G</b>' is replaced by the definition for bell in your termcap (usually an audible bell). The default message is '<b>Activity in window %n</b>'.</p>
+<p class="tab">Note that monitoring is off for all windows by default, but can be altered by use of the "<b>monitor</b>" command (<b>C-a M</b>).</p>
+<pre class="tcy tab">allpartial <i>on</i>|<i>off</i></pre>
+<p class="tab">If set to on, only the current <a href="/jargon/c/cursor.htm">cursor</a> line is refreshed on window change. This affects all windows and is useful for slow terminal lines. The previous setting of full/partial refresh for each window is restored with "<b>allpartial off</b>". This is a global flag that immediately takes effect on all windows overriding the "<b>partial</b>" settings. It does not change the default redraw behavior of newly created windows.</p>
+<pre class="tcy tab">altscreen <i>on</i>|<i>off</i></pre>
+<p class="tab">If set to on, "alternate screen" support is enabled in virtual terminals, like in xterm. Initial setting is '<b>off</b>'.</p>
+<pre class="tcy tab">at [<i>identifier</i>][<i>#</i>|<i>*</i>|<i>%</i>] <i>command</i> [<i>args</i> ... ]</pre>
+<p class="tab">Execute a command at other displays or windows as if it had been entered there. "<b>At</b>" changes the context (the 'current window' or 'current display' setting) of the command. If the first parameter describes a non-unique context, the command will be executed multiple times. If the first parameter is of the form '<b>identifier*</b>' then identifier is matched against user names. The command is executed once for each display of the selected user(s). If the first parameter is of the form '<b>identifier%</b>' identifier is matched against displays. Displays are named after the ttys they attach. The prefix '<b>/dev/</b>' or '<b>/dev/tty</b>' may be omitted from the identifier. If identifier has a '<b>#</b>' or nothing appended it is matched against window numbers and titles. Omitting an identifier in front of the '<b>#</b>', '<b>*</b>' or '<b>%</b>'-character selects all users, displays or windows because a prefix-match is performed. Note that on the affected display(s) a short message will describe what happened. Permission is checked for initiator of the "<b>at</b>" command, not for the owners of the affected display(s). Note that the '<b>#</b>' character works as a comment introducer when it is preceded by whitespace. This can be escaped by prefixing a '<b>\</b>'. Permission is checked for the initiator of the "<b>at</b>" command, not for the owners of the affected display(s).</p>
+<p class="tab">Caveat: When matching against windows, the command is executed at least once per window. Commands that change the internal arrangement of windows (like "<b>other</b>") may be called again. In shared windows the command will be repeated for each attached display. Beware, when issuing toggle commands like "<b>login</b>". Some commands (e.g., "<b>process</b>") require that a display is associated with the target windows. These commands may not work correctly under "<b>at</b>" looping over windows.</p>
+<pre class="tcy tab">attrcolor <i>attrib</i> [<i>attribute</i>/<i>color-modifier</i>]</pre>
+<p class="tab">This command can highlight attributes by changing the color of the text. If the attribute attrib is in use, the specified attribute/color modifier is also applied. If no modifier is given, the current one is deleted. See the <a href="#String-Escapes">String Escapes section</a> for the syntax of the modifier. <b>screen</b> understands two pseudo-attributes, "<b>i</b>" stands for high-intensity foreground color and "<b>I</b>" for high-intensity background color.</p>
+<h3 class="tab">Examples</h3>
+<pre class="tab tcy">attrcolor b "R"</pre>
+<p class="tab">Change the color to bright red if bold text is to be printed.</p>
+<pre class="tab tcy">attrcolor u "-u b"</pre>
+<p class="tab">Use blue text instead of underline.</p>
+<pre class="tab tcy">attrcolor b ".I"</pre>
+<p class="tab">Use bright colors for bold text. Most terminal emulators do this already.</p>
+<pre class="tab tcy">attrcolor i "+b"</pre>
+<p class="tab">Make bright colored text also bold.</p>
+<pre class="tcy tab">autodetach <i>on</i>|<i>off</i></pre>
+<p class="tab">Sets whether <b>screen</b> automatically detaches upon hangup, which saves all your running programs until they are resumed with a <b>screen -r</b> command. When turned off, a <b>hangup</b> <a href="/unix/signals.htm">signal</a> will terminate <b>screen</b> and all the processes it contains. Autodetach is <b>on</b> by default.</p>
+<pre class="tcy tab">autonuke <i>on</i>|<i>off</i></pre>
+<p class="tab">Sets whether a clear <b>screen</b> sequence should nuke all the output not written to the terminal. See also "<b>obuflimit</b>".</p>
+<pre class="tcy tab">backtick <i>id lifespan autorefresh cmd args</i>...</pre>
+<pre class="tcy tab">backtick <i>id</i></pre>
+<p class="tab">Program the <b>backtick</b> command with the numerical ID <i>id</i>. The output of such a command is used for substitution of the "<b>%'</b>" string escape. The specified lifespan is the number of seconds the output is considered valid. After this time, the command is run again if a corresponding string escape is encountered. The autorefresh parameter triggers an automatic refresh for caption and hardstatus strings after the specified number of seconds. Only the last line of output is used for substitution.</p>
+<p class="tab">If both the <i>lifespan</i> and the <i>autorefresh</i> parameters are <b>zero</b>, the backtick program is expected to stay in the background and generate output once in a while. In this case, the command is executed right away and <b>screen</b> stores the last line of output. If a new line gets printed <b>screen</b> automatically refreshes the hardstatus or the captions. The second form of the command deletes the backtick command with the numerical ID <i>id</i>.</p>
+<pre class="tcy tab">bce [<i>on</i>|<i>off</i>]</pre>
+<p class="tab">Change <b>background-color-erase</b> setting. If "<b>bce</b>" is set to <b>on</b>, all characters cleared by an erase/insert/scroll/clear operation will be displayed in the current background color. Otherwise, the default background color is used.</p>
+<pre class="tcy tab">bell_msg [<i>message</i>]</pre>
+<p class="tab">When a bell character is sent to a background window, <b>screen</b> displays a notification in the message line. The notification message can be re-defined by this command. Each occurrence of '<b>%</b>' in message is replaced by the number of the window where a bell is sent, and each occurrence of '<b>^G</b>' is replaced by the definition for bell in your termcap (usually an audible bell). The default message is '<b>Bell in window %n</b>'.</p>
+<p class="tab">An empty message can be supplied to the "<b>bell_msg</b>" command to suppress output of a message line (<b>bell_msg ""</b>). Without parameter, the current message is shown.</p>
+<pre class="tcy tab">bind [-c <i>class</i>] <i>key</i> [<i>command</i> [<i>args</i>]]</pre>
+<p class="tab">Bind a command to a key. By default, most of the commands provided by <b>screen</b> are bound to one or more keys as indicated in the <a href="#Default-Key-Bindings">Default Key Bindings section</a>, e.g., the command to create a new window is bound to "<b>C-c</b>" and "<b>c</b>". The "<b>bind</b>" command can redefine the key bindings and to define new bindings. The key argument is either a single character, a two-character sequence of the form "<b>^x</b>" (meaning "<b>C-x</b>"), a backslash followed by an octal number (specifying the <a href="/jargon/a/ascii.htm">ASCII</a> code of the character), or a backslash followed by a second character, such as "<b>\^</b>" or "<b>\\</b>". The argument can also be quoted, if you like. If no further argument is given, any previously established binding for this key is removed. The command argument can be any command listed in this section.</p>
+<p class="tab">If a command class is specified via the "<b>-c</b>" option, the key is bound for the specified class. Use the "<b>command</b>" command to activate a class. Command classes can create multiple command keys or multi-character bindings.</p>
+<h3 class="tab">Examples</h3>
+<pre class="tab tcy">bind ' ' windows</pre>
+<pre class="tab tcy">bind ^k</pre>
+<pre class="tab tcy">bind k</pre>
+<pre class="tab tcy">bind K kill</pre>
+<pre class="tab tcy">bind ^f screen telnet foobar</pre>
+<pre class="tab tcy">bind \033 screen -ln -t root -h 1000 9 su</pre>
+<p class="tab">would bind the space key to the command that displays a list of windows (so that the command usually invoked by "<b>C-a C-w</b>" would also be available as "<b>C-a space</b>"). The next three lines remove the default kill binding from "<b>C-a C-k</b>" and "<b>C-a k</b>". "<b>C-a K</b>" is then bound to the kill command. Then it binds "<b>C-f</b>" to the command "create a window with a TELNET connection to foobar", and bind "escape" to the command that creates an non-login window with a.k.a. "root" in slot #9, with a superuser shell and a scrollback buffer of 1000 lines.</p>
+<pre class="tab tcy">bind -c demo1 0 select 10</pre>
+<pre class="tab tcy">bind -c demo1 1 select 11</pre>
+<pre class="tab tcy">bind -c demo1 2 select 12</pre>
+<pre class="tab tcy">bindkey "^B" command -c demo1</pre>
+<p class="tab">makes "<b>C-b 0</b>" select window 10, "<b>C-b 1</b>" window 11, etc.</p>
+<pre class="tab tcy">bind -c demo2 0 select 10</pre>
+<pre class="tab tcy">bind -c demo2 1 select 11</pre>
+<pre class="tab tcy">bind -c demo2 2 select 12</pre>
+<pre class="tab tcy">bind - command -c demo2</pre>
+<p class="tab">makes "<b>C-a - 0</b>" select window 10, "<b>C-a - 1</b>" window 11, etc.</p>
+<pre class="tcy tab">bindkey [-d] [-m] [-a] [[-k|-t] <i>string</i> [<i>cmd</i> <i>args</i>]]</pre>
+<p class="tab">This command manages <b>screen</b>'s input translation tables. Every entry in one of the tables tells <b>screen</b> how to react if a certain sequence of characters is encountered. There are three tables: one that should contain actions programmed by the user, one for the default actions used for terminal emulation and one for screen's copy mode to do cursor movement. If the <b>-d</b> option is given, bindkey modifies the default table, <b>-m</b> changes the copy mode table and with neither option the user table is selected. The argument string is the sequence of characters that an action is bound. This can either be a fixed string or a termcap keyboard capability name (selectable with the <b>-k</b> option). Some keys on a VT100 terminal can send a different string if application mode is turned on (e.g the cursor keys). Such keys have two entries in the translation table. You can select the application mode entry by specifying the <b>-a</b> option. The <b>-t</b> option tells <b>screen</b> not to do inter-character timing. One cannot turn off the timing if a termcap capability is used. <i>Cmd</i> can be any of screen's commands with an arbitrary number of <i>args</i>. If <i>cmd</i> is omitted the key-binding is removed from the table.</p>
+<p class="tab">Here are examples of keyboard bindings:</p>
+<pre class="tab tcy">bindkey -d</pre>
+<p class="tab">Show all of the default key bindings. The application mode entries are marked with [A].</p>
+<pre class="tab tcy">bindkey -k k1 select 1</pre>
+<p class="tab">Make the "F1" key switch to window one.</p>
+<pre class="tab tcy">bindkey -t foo stuff barfoo</pre>
+<p class="tab">Make "foo" an abbreviation of the word "barfoo". Timeout is disabled so that users can type slowly.</p>
+<pre class="tab tcy">bindkey "\024" mapdefault</pre>
+<p class="tab">This key-binding makes "<b>^T</b>" an escape character for key-bindings. If you did the above "stuff barfoo" binding, you can enter the word "<b>foo</b>" by typing "<b>^Tfoo</b>". If you want to insert a "<b>^T</b>" you have to press the key twice (i.e., escape the escape binding).</p>
+<pre class="tab tcy">bindkey -k F1 command</pre>
+<p class="tab">Make the F11 (not F1!) key an alternative <b>screen</b> escape (besides <b>^A</b>).</p>
+<pre class="tcy tab">break [<i>duration</i>]</pre>
+<p class="tab">Send a break signal for duration*0.25 seconds to this window. For non-Posix systems the time interval may be rounded up to full seconds. Most useful if a character device is attached to the window rather than a shell process (See also the <a href="#Window-Types">section "Window Types"</a>). The maximum duration of a break signal is limited to 15 seconds.</p>
+<pre class="tcy tab">blanker</pre>
+<p class="tab">Activate the <b>screen</b> blanker. First the <b>screen</b> is cleared. If no blanker program is defined, the cursor is turned off, otherwise, the program is started and its output is written to the screen. The <b>screen</b> blanker is killed with the first keypress, the read key is discarded. This command is normally used together with the "idle" command.</p>
+<pre class="tcy tab">blankerprg [<i>program args</i>]</pre>
+<p class="tab">Defines a blanker program. Disables the blanker program if no arguments are given.</p>
+<pre class="tcy tab">breaktype [<i>tcsendbreak</i>|<i>TIOCSBRK</i> |<i>TCSBRK</i>]</pre>
+<p class="tab">Choose one of the available methods of generating a break signal for terminal devices. This command should affect the current window only. But it still behaves identical to "<b>defbreaktype</b>". This will be changed in the future. Calling "<b>breaktype</b>" with no parameter displays the break method for the current window.</p>
+<pre class="tcy tab">bufferfile [<i>exchange-file</i>]</pre>
+<p class="tab">Change the file name used for reading and writing with the paste buffer. If the optional argument to the "<b>bufferfile</b>" command is omitted, the default setting ("<b>/tmp/screen- exchange</b>") is reactivated. The following example will paste the system's password file into the <b>screen</b> window (using the paste buffer, where a copy remains):</p>
+<pre class="tab tcy">C-a : bufferfile /etc/passwd</pre>
+<pre class="tab tcy">C-a &lt; C-a ]</pre>
+<pre class="tab tcy">C-a : bufferfile</pre>
+<pre class="tcy tab">c1 [on|off]</pre>
+<p class="tab">Change c1 code processing. "<b>C1 on</b>" tells <b>screen</b> to treat the input characters between 128 and 159 as control functions. Such an 8-bit code is normally the same as ESC followed by the corresponding 7-bit code. The default setting is to process c1 codes and can be changed with the "<b>defc1</b>" command. Users with fonts that have usable characters in the <b>c1</b> positions may want to turn this off.</p>
+<pre class="tcy tab">caption always|splitonly [<i>string</i>]</pre>
+<pre class="tcy tab">caption string [<i>string</i>]</pre>
+<p class="tab">This command controls the display of the window captions. Normally a caption is only used if more than one window is shown on the display (split <b>screen</b> mode). But if the type is set to always <b>screen</b> shows a caption even if only one window is displayed. The default is <i>splitonly</i>.</p>
+<p class="tab">The second form changes the text used for the caption. You can use all escapes from the <a href="#String-Escapes">String Escapes section</a>. <b>screen</b> uses a default of '<b>%3n %t</b>'.</p>
+<p class="tab">You can mix both forms by providing a string as an additional argument.</p>
+<pre class="tcy tab">charset <i>set</i></pre>
+<p class="tab">Change the current character set slot designation and charset mapping. The first four character of set are treated as charset designators while the fifth and sixth character must be in range '<b>0</b>' to '<b>3</b>' and set the GL/GR charset mapping. On every position a '<b>.</b>' may be used to indicate that the corresponding charset/mapping should not be changed (set is padded to six characters internally by appending '<b>.</b>' chars). New windows have "BBBB02" as default charset, unless a "<b>encoding</b>" command is active. The current setting can be viewed with the "<b>info</b>" command.</p>
+<pre class="tcy tab">chdir [<i>directory</i>]</pre>
+<p class="tab">Change the current directory of <b>screen</b> to the specified directory or, if called without an argument, to your home directory (the value of the environment variable <b>$HOME</b>). All windows that are created by means of the "<b>screen</b>" command from within "<b>.screenrc</b>" or by means of "<b>C-a : screen ...</b>" or "<b>C-a c</b>" use this as their default directory. Without a <b>chdir</b> command, this would be the directory from which <b>screen</b> was invoked. Hardcopy and log files are always written to the window's default directory, not the current directory of the process running in the window. You can use this command multiple times in your <b>.screenrc</b> to start various windows in different default directories, but the last chdir value affects all the windows you create interactively.</p>
+<pre class="tcy tab">clear</pre>
+<p class="tab">Clears the current window and saves its image to the scrollback buffer.</p>
+<pre class="tcy tab">colon [<i>prefix</i>]</pre>
+<p class="tab">Allows you to enter "<b>.screenrc</b>" command lines. Useful for on-the-fly modification of key bindings, specific window creation and changing settings. Note that the "<b>set</b>" keyword no longer exists! Usually commands affect the current window rather than default settings for future windows. Change defaults with commands starting with '<b>def...</b>'.</p>
+<p class="tab">If you consider this as the '<a href="/unix/uex.htm">Ex</a> command mode' of screen, you may regard "<b>C-a esc</b>" (copy mode) as its '<a href="/unix/uvi.htm">Vi</a> command mode'.</p>
+<pre class="tcy tab">command [-c <i>class</i>]</pre>
+<p class="tab">This command has the same effect as typing the <b>screen</b> escape character (<b>^A</b>). It is probably only useful for key bindings. If the "<b>-c</b>" option is given, select the specified command class. See also "<b>bind</b>" and "<b>bindkey</b>".</p>
+<pre class="tcy tab">compacthist [on|off]</pre>
+<p class="tab">This tells <b>screen</b> whether to suppress trailing blank lines when scrolling up text into the history buffer.</p>
+<pre class="tcy tab">console [on|off]</pre>
+<p class="tab">Grabs or un-grabs the machines console output to a window. Note: Only the owner of <b>/dev/console</b> can grab the console output. This command is only available if the machine supports the ioctl TIOCCONS.</p>
+<pre class="tcy tab">copy</pre>
+<p class="tab">Enter copy/scrollback mode. This allows you to copy text from the current window and its history into the paste buffer. In this mode a vi-like 'full screen editor' is active:</p>
+<p class="tab">Movement keys:</p>
+<p class="tab"><b>h</b>, <b>j</b>, <b>k</b>, <b>l</b> move the cursor line by line or column by column.</p>
+<p class="tab"><b>0</b>, <b>^</b> and <b>$</b> move to the leftmost column, to the first or last non-whitespace character on the line.</p>
+<p class="tab"><b>H</b>, <b>M</b> and <b>L</b> move the cursor to the leftmost column of the top, center or bottom line of the window.</p>
+<p class="tab"><b>+</b> and <b>-</b> positions one line up and down.</p>
+<p class="tab"><b>G</b> moves to the specified absolute line (default: end of buffer).</p>
+<p class="tab"><b>|</b> moves to the specified absolute column.</p>
+<p class="tab"><b>w</b>, <b>b</b>, <b>e</b> move the cursor word by word.</p>
+<p class="tab"><b>B</b>, <b>E</b> move the cursor WORD by WORD (as in vi).</p>
+<p class="tab"><b>C-u</b> and <b>C-d</b> scroll the display up/down by the specified amount of lines while preserving the cursor position. (Default: half screen-full).</p>
+<p class="tab"><b>C-b</b> and <b>C-f</b> scroll the display up/down a full screen.</p>
+<p class="tab"><b>g</b> moves to the beginning of the buffer.</p>
+<p class="tab"><b>%</b> jumps to the specified percentage of the buffer.</p>
+<p class="tab">Note: <a href="/unix/uemacs.htm">Emacs</a> style movement keys can be customized by a <b>.screenrc</b> command (e.g., markkeys "<b>h=^B:l=^F:$=^E</b>"). There is no simple method for a full emacs-style keymap, as this involves multi-character codes.</p>
+<p class="tab">Marking:</p>
+<p class="tab">The copy range is specified by setting two marks. The text between these marks will be highlighted. Press <b>space</b> to set the first or second mark respectively. <b>Y</b> and <b>y</b> used to mark one whole line or to mark from start of line. <b>W</b> marks exactly one word. Repeat count:</p>
+<p class="tab">Any of these commands can be prefixed with a repeat count number by pressing digits <b>0..9</b> which is taken as a repeat count.</p>
+<p class="tab">Example: "<b>C-a C-[ H 10 j 5 Y</b>" will copy lines 11 to 15 into the paste buffer.</p>
+<p class="tab">Searching:</p>
+<p class="tab"><b>/</b>: Vi-like search forward.</p>
+<p class="tab"><b>?</b>: Vi-like search backward.</p>
+<p class="tab"><b>C-a s</b>: Emacs style incremental search forward.</p>
+<p class="tab"><b>C-r</b>: Emacs style reverse i-search.</p>
+<p class="tab">Specials:</p>
+<p class="tab">However, there are some keys that act differently than in vi. Vi does not allow one to yank rectangular blocks of text, but <b>screen</b> does. Press <b>c</b> or <b>C</b> to set the left or right margin respectively. If no repeat count is given, both default to the current cursor position.</p>
+<p class="tab">Example: Try this on a rather full text screen: "<b>C-a [ M 20 l SPACE c 10 l 5 j C SPACE</b>".</p>
+<p class="tab">This moves one to the middle line of the screen, moves in 20 columns left, marks the beginning of the paste buffer, sets the left column, moves 5 columns down, sets the right column, and then marks the end of the paste buffer. Now try: "<b>C-a [ M 20 l SPACE 10 l 5 j SPACE</b>" and notice the difference in the amount of text copied.</p>
+<p class="tab"><b>J</b> joins lines. It toggles between 4 modes: lines separated by a <a href="/jargon/n/newline.htm">newline</a> character (012), lines glued seamless, lines separated by a single <a href="/jargon/w/whitspac.htm">whitespace</a> and comma separated lines. Note that you can prepend the newline character with a <a href="/jargon/c/cr.htm">carriage return</a> character, by issuing a "<b>crlf on</b>".</p>
+<p class="tab"><b>v</b> is for all the vi users with "<b>:set numbers</b>" - it toggles the left margin between column 9 and 1. Press <b>a</b> before the final space key to toggle in append mode. Thus the contents of the paste buffer are not overwritten, but is appended to. A toggles in append mode and sets a (second) mark.</p>
+<p class="tab"><b>&gt;</b> sets the (second) mark and writes the contents of the paste buffer to the screen-exchange file (<b>/tmp/screen-exchange</b> per default) once copy-mode is finished.</p>
+<p class="tab">This example demonstrates how to dump the whole scrollback buffer to that file: "<b>C-A [ g SPACE G $ &gt;</b>".</p>
+<p class="tab"><b>C-g</b> gives information about the current line and column.</p>
+<p class="tab"><b>x</b> exchanges the first mark and the current cursor position. You can use this to adjust an already placed mark.</p>
+<p class="tab"><b>@</b> does nothing. Does not even exit copy mode.</p>
+<p class="tab">All keys not described here exit copy mode.</p>
+<pre class="tcy tab">copy_reg [<i>key</i>]</pre>
+<p class="tab">No longer exists, use "<b>readreg</b>" instead.</p>
+<pre class="tcy tab">crlf [on|off]</pre>
+<p class="tab">This affects the copying of text regions with the '<b>C-a [</b>' command. If it is set to '<b>on</b>', lines will be separated by the two character sequence '<b>CR</b>' - '<b>LF</b>'. Otherwise, (default) only '<b>LF</b>' is used. When no parameter is given, the state is toggled.</p>
+<pre class="tcy tab">debug {on|off}</pre>
+<p class="tab">Turns runtime debugging <i>on</i> or <i>off</i>. If <b>screen</b> is compiled with option <b>-DDEBUG</b> debugging available and is turned on per default. Note that this command only affects debugging output from the main "SCREEN" process correctly. Debug output from attacher processes can only be turned off once and forever.</p>
+<pre class="tcy tab">defc1 {on|off}</pre>
+<p class="tab">Same as the <b>c1</b> command except that the default setting for new windows is changed. Initial setting is '<b>on</b>'.</p>
+<pre class="tcy tab">defautonuke {on|off}</pre>
+<p class="tab">Same as the <b>autonuke</b> command except that the default setting for new displays is changed. Initial setting is '<b>off</b>'. Note that you can use the special 'AN' terminal capability if you want to have a dependency on the terminal type.</p>
+<pre class="tcy tab">defbce {on|off}</pre>
+<p class="tab">Same as the <b>bce</b> command except that the default setting for new windows is changed. Initial setting is '<b>off</b>'.</p>
+<pre class="tcy tab">defbreaktype [tcsendbreak|TIOCSBRK|TCSBRK]</pre>
+<p class="tab">Choose one of the available methods of generating a break signal for terminal devices. The preferred methods are <i>tcsendbreak</i> and <i>TIOCSBRK</i>. The third, <i>TCSBRK</i>, blocks the complete <b>screen</b> session for the duration of the break, but it may be the only way to generate long breaks. <i>Tcsendbreak</i> and <i>TIOCSBRK</i> may or may not produce long breaks with spikes (e.g., 4 per second). This is not only system-dependent, this also differs between serial board drivers. Calling "<b>defbreaktype</b>" with no parameter displays the current setting.</p>
+<pre class="tcy tab">defcharset [<i>set</i>]</pre>
+<p class="tab">Like the <b>charset</b> command except that the default setting for new windows is changed. Shows current default if called without argument.</p>
+<pre class="tcy tab">defescape <i>xy</i></pre>
+<p class="tab">Set the default command characters. This is equivalent to the "<b>escape</b>" command except that it is useful multiuser sessions only. In a multiuser session "<b>escape</b>" changes the command character of the calling user, where "<b>defescape</b>" changes the default tcommand characters for users that are added later.</p>
+<pre class="tcy tab">defflow {on|off|auto} [<i>interrupt</i>]</pre>
+<p class="tab">Same as the <b>flow</b> command except that the default setting for new windows is changed. Initial setting is '<b>auto</b>'. Specifying "<b>defflow auto interrupt</b>" is the same as the command-line options <b>-fa</b> and <b>-i</b>.</p>
+<pre class="tcy tab">defgr {on|off}</pre>
+<p class="tab">Same as the <b>gr</b> command except that the default setting for new windows is changed. Initial setting is '<b>off</b>'.</p>
+<pre class="tcy tab">defhstatus [<i>status</i>]</pre>
+<p class="tab">The hardstatus line that all new windows get is set to status. This command is useful to make the hardstatus of every window display the window number or title or the like. Status may contain the same directives as in the window messages, but the directive escape character is '<b>^E</b>' (octal 005) instead of '<b>%</b>'. This was done to make a misinterpretation of program generated hardstatus lines impossible. If the parameter status is omitted, the current default string is displayed. Per default the hardstatus line of new windows is empty.</p>
+<pre class="tcy tab">defencoding <i>enc</i></pre>
+<p class="tab">Same as the <b>encoding</b> command except that the default setting for new windows is changed. Initial setting is the encoding taken from the terminal.</p>
+<pre class="tcy tab">deflog {on|off}</pre>
+<p class="tab">Same as the <b>log</b> command except that the default setting for new windows is changed. Initial setting is '<b>off</b>'.</p>
+<pre class="tcy tab">deflogin {on|off}</pre>
+<p class="tab">Same as the <b>login</b> command except that the default setting for new windows is changed. This is initialized with '<b>on</b>' as distributed (see <b>config.h.in</b>).</p>
+<pre class="tcy tab">defmode <i>mode</i></pre>
+<p class="tab">The mode of each newly allocated pseudo-tty is set to <i>mode</i>. <i>Mode</i> is an octal number. When no "<b>defmode</b>" command is given, mode 0622 is used.</p>
+<pre class="tcy tab">defmonitor {on|off}</pre>
+<p class="tab">Same as the <b>monitor</b> command except that the default setting for new windows is changed. Initial setting is '<b>off</b>'.</p>
+<pre class="tcy tab">defnonblock {on|off|numsecs}</pre>
+<p class="tab">Same as the <b>nonblock</b> command except that the default setting for displays is changed. Initial setting is '<b>off</b>'.</p>
+<pre class="tcy tab">defobuflimit <i>limit</i></pre>
+<p class="tab">Same as the <b>obuflimit</b> command except that the default setting for new displays is changed. Initial setting is 256 bytes. Note that you can use the special 'OL' terminal capability if you want to have a dependency on the terminal type.</p>
+<pre class="tcy tab">defscrollback <i>num</i></pre>
+<p class="tab">Same as the <b>scrollback</b> command except that the default setting for new windows is changed. Initial setting is <b>100</b>.</p>
+<pre class="tcy tab">defshell <i>command</i></pre>
+<p class="tab">Synonym for the <b>shell</b> command.</p>
+<pre class="tcy tab">defsilence {on|off}</pre>
+<p class="tab">Same as the <b>silence</b> command except that the default setting for new windows is changed. Initial setting is '<b>off</b>'.</p>
+<pre class="tcy tab">defslowpaste <i>msec</i>"</pre>
+<p class="tab">Same as the <b>slowpaste</b> command except that the default setting for new windows is changed. Initial setting is <b>0</b> milliseconds, meaning '<b>off</b>'.</p>
+<pre class="tcy tab">defutf8 {on|off}</pre>
+<p class="tab">Same as the <b>utf8</b> command except that the default setting for new windows is changed. Initial setting is '<b>on</b>' if <b>screen</b> was started with "<b>-U</b>", otherwise '<b>off</b>'.</p>
+<pre class="tcy tab">defwrap {on|off}</pre>
+<p class="tab">Same as the <b>wrap</b> command except that the default setting for new windows is changed. Initially line-wrap is <b>on</b> and can be toggled with the "<b>wrap</b>" command ("<b>C-a r</b>") or by means of "<b>C-a : wrap on|off</b>".</p>
+<pre class="tcy tab">defwritelock {on|off|auto}</pre>
+<p class="tab">Same as the <b>writelock</b> command except that the default setting for new windows is changed. Initially writelocks will <b>off</b>.</p>
+<pre class="tcy tab">defzombie [<i>keys</i>]</pre>
+<p class="tab">Synonym to the <b>zombie</b> command. Both currently change the default.</p>
+<pre class="tcy tab">detach [-h]</pre>
+<p class="tab">Detach the <b>screen</b> session (disconnect it from the terminal and put it into the background). This returns you to the shell where you invoked screen. A detached <b>screen</b> can be resumed by invoking <b>screen</b> with the <b>-r</b> option (see also the <a href="#Command-Line-Options">section "Command-Line Options"</a>). The <b>-h</b> option tells <b>screen</b> to immediately close the connection to the terminal ("<a href="/unix/signals.htm">hangup</a>").</p>
+<pre class="tcy tab">dinfo</pre>
+<p class="tab">Show what <b>screen</b> thinks about your terminal. Useful if you want to know why features like color or the alternate charset don't work.</p>
+<pre class="tcy tab">displays</pre>
+<p class="tab">Shows a tabular listing of all currently connected user front-ends (displays). This is most useful for multiuser sessions.</p>
+<pre class="tcy tab">digraph [<i>preset</i>]</pre>
+<p class="tab">This command prompts the user for a digraph sequence. The next two characters typed are looked up in a builtin table and the resulting character is inserted in the input stream. For example, if the user enters '<b>a"</b>', an a-<a href="/spechtm.htm">umlaut</a> will be inserted. If the first character entered is a <b>0</b> (zero), <b>screen</b> treats the following characters (up to three) as an <a href="/jargon/o/octal.htm">octal</a> number instead. The optional argument preset is treated as user input, thus one can create an "umlaut" key. For example, the command "<b>bindkey ^K digraph '"'</b>" enables the user to generate an a-umlaut by typing <b>Ctrl-K a</b>.</p>
+<pre class="tcy tab">dumptermcap</pre>
+<p class="tab">Write the termcap entry for the virtual terminal optimized for the currently active window to the file &quot;<b>.termcap</b>&quot; in the user's &quot;<b>$HOME/.screen</b>&quot; directory (or wherever screen stores its sockets). This termcap entry is identical to the value of the environment variable <b>$TERMCAP</b> that is set up by <b>screen</b> for each window. For terminfo based systems you need to run a converter like <b>captoinfo</b> and then compile the entry with <b>tic</b>.</p>
+<pre class="tcy tab">echo [-n] <i>message</i></pre>
+<p class="tab">The <b>echo</b> command may be used to annoy/amuse <b>screen</b> users with a '<a href="/jargon/m/motd.htm">message of the day</a>'. Often installed in a global <b>/etc/screenrc</b>. The option &quot;<b>-n</b>&quot; may be used to suppress the line feed. See also &quot;<b>sleep</b>&quot;. <b>Echo</b> is also useful for online checking of environment variables.</p>
+<pre class="tcy tab">encoding <i>enc</i> [<i>enc</i>]</pre>
+<p class="tab">Tell <b>screen</b> how to interpret the input/output. The first argument sets the encoding of the current window. Each window can emulate a different encoding. The optional second parameter overwrites the encoding of the connected terminal. It should never be needed as <b>screen</b> uses the locale setting to detect the encoding. There is also a way to select a terminal encoding depending on the terminal type using the &quot;<b>KJ</b>&quot; termcap entry.</p>
+<p class="tab">Supported encodings are <b>eucJP</b>, <b>SJIS</b>, <b>eucKR</b>, <b>eucCN</b>, <b>Big5</b>, <b>GBK</b>, <b>KOI8-R</b>, <b>CP1251</b>, <b>UTF-8</b>, <b>ISO8859-2</b>, <b>ISO8859-3</b>, <b>ISO8859-4</b>, <b>ISO8859-5</b>, <b>ISO8859-6</b>, <b>ISO8859-7</b>, <b>ISO8859-8</b>, <b>ISO8859-9</b>, <b>ISO8859-10</b>, <b>ISO8859-15</b>, <b>jis</b>.</p>
+<p class="tab">See also "<b>defencoding</b>", which changes the default setting of a new window.</p>
+<pre class="tcy tab">escape <i>xy</i></pre>
+<p class="tab">Set the command character to <b>x</b> and the character generating a literal command character (by triggering the "<b>meta</b>" command) to <b>y</b> (similar to the <b>-e</b> option). Each argument is either a single character, a two-character sequence of the form "<b>^x</b>" (meaning "<b>C-x</b>"), a backslash followed by an octal number (specifying the <a href="/jargon/a/ascii.htm">ASCII</a> code of the character), or a backslash followed by a second character, such as "<b>\^</b>" or "<b>\\</b>". The default is "<b>^Aa</b>".</p>
+<pre class="tcy tab">eval <i>command1</i> [<i>command2</i> ...]</pre>
+<p class="tab"><a href="/jargon/p/parse.htm">Parses</a> and executes each argument as separate command.</p>
+<pre class="tcy tab">exec [[<i>fdpat</i>] <i>newcommand</i> [<i>args</i> ...]]</pre>
+<p class="tab">Run a <a href="/jargon/u/unix.htm">unix</a> subprocess (specified by an executable path newcommand and its optional arguments) in the current window. The flow of data between newcommands <a href="/jargon/s/stdin.htm">stdin</a>/stdout/stderr, the process originally started in the window (let us call it "application-process") and <b>screen</b> itself (window) is controlled by the file descriptor pattern <b>fdpat</b>. This pattern is a three character sequence representing stdin, stdout and stderr of <b>newcommand</b>. A <a href="/jargon/p/period.htm">dot</a> (<b>.</b>) connects the file descriptor to screen. An <a href="/jargon/e/exclamation-mark.htm">exclamation mark</a> (<b>!</b>) causes the file descriptor to be connected to the application-process. A <a href="/jargon/c/colon.htm">colon</a> (<b>:</b>) combines both. User input goes to newcommand unless newcommand receives the application process' output (<b>fdpat</b>'s first character is '<b>!</b>' or '<b>:</b>') or a <a href="/jargon/p/pipe.htm">pipe symbol</a> (<b>|</b>) is added (as a fourth character) to the end of <b>fdpat</b>. Invoking '<b>exec</b>' without arguments shows name and arguments of the currently running sub-process in this window. Only one subprocess a time can be running in each window. When a subprocess is running the '<b>kill</b>' command affects it instead of the windows process. Refer to the <a href="/jargon/p/postscri.htm">postscript</a> file 'doc/fdpat.ps' in your <b>screen</b> installation for a confusing illustration of all 21 possible combinations. Each drawing shows the digits <b>2</b>,<b>1</b>,<b>0</b> representing the three file descriptors of newcommand. The box marked '<b>W</b>' is the usual pty with the application process on its secondary side. The box marked '<b>P</b>' is the secondary pty that now has screen at its primary side.</p>
+<h3 class="tab">Abbreviations</h3>
+<p class="tab">Whitespace between the word '<b>exec</b>' and <b>fdpat</b> and the command can be omitted. Trailing dots and a <b>fdpat</b> consisting only of dots can be omitted. A simple '<b>|</b>' is synonymous for the pattern '<b>!..|</b>'; the word <b>exec</b> can be omitted here and can always be replaced by '<b>!</b>'.</p>
+<h3 class="tab">Examples</h3>
+<pre class="tab tcy">exec ... /bin/sh</pre>
+<pre class="tab tcy">exec /bin/sh</pre>
+<pre class="tab tcy">!/bin/sh</pre>
+<p class="tab">Creates another shell in the same window, while the original shell is still running. Output of both shells is displayed and user input is sent to the new <b>/bin/sh</b>.</p>
+<pre class="tab tcy">exec !.. stty 19200</pre>
+<pre class="tab tcy">exec ! stty 19200</pre>
+<pre class="tab tcy">!!stty 19200</pre>
+<p class="tab">Set the speed of the window's tty. If your stty command operates on stdout, then add another '<b>!</b>'.</p>
+<pre class="tab tcy">exec !..| less</pre>
+<pre class="tab tcy">|less</pre>
+<p class="tab">This adds a pager to the window output. The special character '<b>|</b>' is needed to give the user control over the pager although it gets its input from the window's process. This works, because less listens on stderr (a behavior that <b>screen</b> would not expect without the '<b>|</b>') when its stdin is not a tty. Newer versions of <a href="/unix/uless.htm">less</a> fail miserably here; good old <a href="/unix/upg.htm">pg</a> still works.</p>
+<pre class="tab tcy">!:sed -n s/.*Error.*/\007/p</pre>
+<p class="tab">Sends window output to both, the user and the <a href="/unix/used.htm">sed</a> command. The <b>sed</b> inserts an additional bell character (oct. 007) to the window output seen by screen. This causes "Bell in window x" messages, whenever the string "Error" appears in the window.</p>
+<pre class="tcy tab">fit</pre>
+<p class="tab">Change the window size to the size of the current region. This command is needed because <b>screen</b> doesn't adapt the window size automatically if the window is displayed more than once.</p>
+<pre class="tcy tab">flow [on|off|auto]</pre>
+<p class="tab">Sets the flow-control mode for this window. Without parameters it cycles the current window's flow-control setting from &quot;<b>automatic</b>&quot; to &quot;<b>on</b>&quot; to &quot;<b>off</b>&quot;. See the discussion on "FLOW-CONTROL" later in this page for full details and note, that this is subject to change in future releases. Default is set by '<b>defflow</b>'.</p>
+<pre class="tcy tab">focus [up|down|top|bottom]</pre>
+<p class="tab">Move the input focus to the next region. This is done in a cyclic way so that the top region is selected after the bottom one. If no subcommand is given it defaults to '<b>down</b>'. '<b>up</b>' cycles in the opposite order, '<b>top</b>' and '<b>bottom</b>' go to the top and bottom region respectively.</p>
+<p class="tab">Useful bindings are (<b>j</b> and <b>k</b> as in <a href="/unix/uvi.htm">vi</a>):</p>
+<pre class="tab tcy">bind j focus down</pre>
+<pre class="tab tcy">bind k focus up</pre>
+<pre class="tab tcy">bind t focus top</pre>
+<pre class="tab tcy">bind b focus bottom</pre>
+<p class="tab">Note that <b>k</b> is traditionally bound to the <a href="/jargon/k/kill.htm">kill</a> command.</p>
+<pre class="tcy tab">gr {on|off}</pre>
+<p class="tab">Turn GR charset switching on/off. Whenever <b>screen</b> sees an input character with the 8th bit set, it uses the charset stored in the GR slot and print the character with the 8th bit stripped. The default (see also &quot;<b>defgr</b>&quot;) is not to process GR switching because otherwise the ISO88591 charset would not work.</p>
+<pre class="tcy tab">hardcopy [-h] [<i>file</i>]</pre>
+<p class="tab">Writes out the currently displayed image to the file file, or, if no file name is specified, to <b>hardcopy.n</b> in the default directory, where <b>n</b> is the number of the current window. This either appends or overwrites the file if it exists. If the option <b>-h</b> is specified, dump also the contents of the scrollback buffer.</p>
+<pre class="tcy tab">hardcopy_append {on|off}</pre>
+<p class="tab">If set to &quot;<b>on</b>&quot;, <b>screen</b> appends to the &quot;<b>hardcopy.n</b>&quot; files created by the command &quot;<b>C-a h</b>&quot;, otherwise these files are overwritten each time. Default is '<b>off</b>'.</p>
+<pre class="tcy tab">hardcopydir <i>directory</i></pre>
+<p class="tab">Defines a directory where hardcopy files will be placed. If unset, hardcopies are dumped in <b>screen</b>'s current working directory.</p>
+<pre class="tcy tab">hardstatus [on|off]</pre>
+<pre class="tcy tab">hardstatus [always] lastline|message|ignore [<i>string</i>]</pre>
+<pre class="tcy tab">hardstatus string [<i>string</i>]</pre>
+<p class="tab">This command configures the use and emulation of the terminal's hardstatus line. The first form toggles whether <b>screen</b> uses the hardware status line to display messages. If the flag is set to '<b>off</b>', these messages are overlaid in reverse video mode at the display line. The default setting is '<b>on</b>'.</p>
+<p class="tab">The second form tells <b>screen</b> what to do if the terminal doesn't have a hardstatus line (i.e., the termcap/terminfo capabilities "hs", "ts", "fs" and "ds" are not set). If the type "<b>lastline</b>" is used, <b>screen</b> reserves the last line of the display for the hardstatus. "<b>message</b>" uses screen's message mechanism and "<b>ignore</b>" tells <b>screen</b> never to display the hardstatus. If you prepend the word "<b>always</b>" to the type (e.g., "<b>alwayslastline</b>"), <b>screen</b> uses the type even if the terminal supports a hardstatus.</p>
+<p class="tab">The third form specifies the contents of the hardstatus line. '<b>%h</b>' is used as default string, i.e., the stored hardstatus of the current window (settable via "<b>ESC]0;&lt;string&gt;^G</b>" or "<b>ESC_&lt;string&gt;ESC\</b>") is displayed. You can customize this to any string you like including the escapes from the <a href="#String-Escapes">String Escapes section</a>. If you leave out the argument string, the current string is displayed.</p>
+<p class="tab">You can mix the second and third form by providing the string as additional argument.</p>
+<pre class="tcy tab">height [-w|-d] [<i>lines</i> [<i>cols</i>]]</pre>
+<p class="tab">Set the display height to a specified number of lines. When no argument is given it toggles between 24 and 42 lines display. You can also specify a width if you want to change both values. The <b>-w</b> option tells <b>screen</b> to leave the display size unchanged and set the window size, <b>-d</b> tells <b>screen</b> to do vice versa.</p>
+<pre class="tcy tab">help [-c <i>class</i>]</pre>
+<p class="tab">Not really an online help, but displays a help screen showing you all the key bindings. The first pages list all the internal commands followed by their current bindings. Subsequent pages display the custom commands, one command per key. Press <b>space</b> when you're done reading each page, or <b>return</b> to exit early. All other characters are ignored. If the "<b>-c</b>" option is given, display all bound commands for the specified command class. See also "DEFAULT KEY BINDINGS" section.</p>
+<pre class="tcy tab">history</pre>
+<p class="tab">Usually users work with a shell that allows easy access to previous commands. For example, <a href="/unix/ucsh.htm">csh</a> has the command "<b>!!</b>" to repeat the last command executed. <b>screen</b> lets you to have a primitive way of re-calling "the command that started ...": You type the first letter of that command, then hit '<b>C-a {</b>' and <b>screen</b> tries to find a previous line that matches with the 'prompt character' to the left of the cursor. This line is pasted into this window's input <a href="/jargon/q/queue.htm">queue</a>. Thus you have a crude command history (made up by the visible window and its scrollback buffer).</p>
+<pre class="tcy tab">hstatus <i>status</i></pre>
+<p class="tab">Change the window's hardstatus line to the string status.</p>
+<pre class="tcy tab">idle [<i>timeout</i> [<i>cmd args</i>]]</pre>
+<p class="tab">Sets a command that is run after the specified number of seconds inactivity is reached. This command will normally be the "<b>blanker</b>" command to create a <b>screen</b> blanker, but it can be any <b>screen</b> command. If no command is specified, only the timeout is set. A timeout of zero (or the special timeout <b>off</b>) disables the timer. If no arguments are given, the current settings are displayed.</p>
+<pre class="tcy tab">ignorecase [on|off]</pre>
+<p class="tab">Tell <b>screen</b> to ignore the case of characters in searches. Default is '<b>off</b>'.</p>
+<pre class="tcy tab">info</pre>
+<p class="tab">Uses the message line to display some information about the current window: the cursor position in the form "(column,row)" starting with "(1,1)", the terminal width and height plus the size of the scrollback buffer in lines, like in "(80,24)+50", the current state of window XON/XOFF flow control is shown like this (See also section FLOW CONTROL):</p>
+<p class="tabb">+flow</p>
+<p class="tab">automatic flow control, currently on.</p>
+<p class="tabb">-flow</p>
+<p class="tab">automatic flow control, currently off.</p>
+<p class="tabb">+(+)flow</p>
+<p class="tab">flow control enabled. Agrees with automatic control.</p>
+<p class="tabb">-(+)flow</p>
+<p class="tab">flow control disabled. Disagrees with automatic control.</p>
+<p class="tabb">+(-)flow</p>
+<p class="tab">flow control enabled. Disagrees with automatic control.</p>
+<p class="tabb">-(-)flow</p>
+<p class="tab">flow control disabled. Agrees with automatic control.</p>
+<p class="tab">The current line wrap setting ('<b>+wrap</b>' indicates enabled, '<b>-wrap</b>' not) is also shown. The flags '<b>ins</b>', '<b>org</b>', '<b>app</b>', '<b>log</b>', '<b>mon</b>' or '<b>nored</b>' are displayed when the window is in insert mode, origin mode, application-keypad mode, has output logging, activity monitoring or partial redraw enabled.</p>
+<p class="tab">The currently active character set (G0, G1, G2, or G3) and in square brackets the terminal character sets that are currently designated as G0 through G3 is shown. If the window is in UTF-8 mode, the string "UTF-8" is shown instead.</p>
+<p class="tab">Additional modes depending on the type of the window are displayed at the end of the status line (See also section "WINDOW TYPES"). If the state machine of the terminal emulator is in a non-default state, the info line is started with a string identifying the current state. For system information use the "<b>time</b>" command.</p>
+<pre class="tcy tab">ins_reg [<i>key</i>]</pre>
+<p class="tab">No longer exists, use "<b>paste</b>" instead.</p>
+<pre class="tcy tab">kill</pre>
+<p class="tab">Kill current window. If there is an '<b>exec</b>' command running then it is killed. Otherwise, the process (shell) running in the window receives a <a href="/unix/signals.htm">HANGUP</a> condition, the window structure is removed and <b>screen</b> (your display) switches to another window. When the last window is destroyed, <b>screen</b> exits. After a kill <b>screen</b> switches to the previously displayed window. Note: Emacs users should keep this command in mind, when killing a line. It is recommended not to use "<b>C-a</b>" as the <b>screen</b> escape key or to rebind kill to "<b>C-a K</b>".</p>
+<pre class="tcy tab">lastmsg</pre>
+<p class="tab">Redisplay the last contents of the message/status line. Useful if you're typing when a message appears, because the message goes away when you press a key (unless your terminal has a hardware status line). Refer to the commands "<b>msgwait</b>" and "<b>msgminwait</b>" for fine tuning.</p>
+<pre class="tcy tab">license</pre>
+<p class="tab">Display the disclaimer page. This is done whenever <b>screen</b> is started without options, which should be often. See also the "<b>startup_message</b>" command.</p>
+<pre class="tcy tab">lockscreen</pre>
+<p class="tab">Lock this display. Call a screenlock program (<b>/local/bin/lck</b> or <b>/usr/bin/lock</b> or a built-in if no other is available). <b>screen</b> does not accept any command keys until this program terminates. Meanwhile processes in the windows may continue, as the windows are in the 'detached' state. The screenlock program may be changed through the environment variable <b>$LOCKPRG</b> (which must be set in the shell from which <b>screen</b> is started) and is executed with the user's uid and gid. Warning: When you leave other shells unlocked and you have no password set on the screen, the lock is void: One could easily re-attach from an unlocked shell. This feature should rather be called '<b>lockterminal</b>'.</p>
+<pre class="tcy tab">log [on|off]</pre>
+<p class="tab">Start/stop writing output of the current window to a file "<b>screenlog.n</b>" in the window's default directory, where n is the number of the current window. This file name can be changed with the '<b>logfile</b>' command. If no parameter is given, the state of logging is toggled. The session log is appended to the previous contents of the file if it already exists. The current contents and the contents of the scrollback history are not included in the session log. Default is '<b>off</b>'.</p>
+<pre class="tcy tab">logfile <i>file name</i></pre>
+<pre class="tcy tab">logfile flush <i>secs</i></pre>
+<p class="tab">Defines the name the log files will get. The default is "<b>screenlog.%n</b>". The second form changes the number of seconds <b>screen</b> will wait before flushing the logfile buffer to the file-system. The default value is 10 seconds.</p>
+<pre class="tcy tab">login [on|off]</pre>
+<p class="tab">Adds or removes the entry in the utmp database file for the current window. This controls if the window is 'logged in'. When no parameter is given, the login state of the window is toggled. Additionally to that toggle, it is convenient having a 'log in' and a 'log out' key. For example, '<b>bind I login on</b>' and '<b>bind O login off</b>' will map these keys to be <b>C-a I</b> and <b>C-a O</b>. The default setting (in <b>config.h.in</b>) should be "<b>on</b>" for a <b>screen</b> that runs under suid-root. Use the "<b>deflogin</b>" command to change the default login state for new windows. Both commands are only present when <b>screen</b> is compiled with <b>utmp</b> support.</p>
+<pre class="tcy tab">logtstamp [on|off]</pre>
+<pre class="tcy tab">logtstamp after [<i>secs</i>]</pre>
+<pre class="tcy tab">logtstamp string [<i>string</i>]</pre>
+<p class="tab">This command controls logfile time-stamp mechanism of screen. If time-stamps are turned "<b>on</b>", <b>screen</b> adds a string containing the current time to the logfile after two minutes of inactivity. When output continues and more than another two minutes have passed, a second time-stamp is added to document the restart of the output. You can change this timeout with the second form of the command. The third form is used for customizing the time-stamp string ('<b>-- %n:%t -- time-stamp -- %M/%d/%y %c:%s --\n</b>' by default).</p>
+<pre class="tcy tab">mapdefault</pre>
+<p class="tab">Tell <b>screen</b> that the next input character should only be looked up in the default bindkey table. See also "<b>bindkey</b>".</p>
+<pre class="tcy tab">mapnotnext</pre>
+<p class="tab">Like <b>mapdefault</b>, but doesn't look in the default bindkey table.</p>
+<pre class="tcy tab">maptimeout [<i>timo</i>]</pre>
+<p class="tab">Set the inter-character timer for input sequence detection to a timeout of <i>timo</i> ms. The default timeout is 300ms. Maptimeout with no arguments shows the current setting. See also "bindkey".</p>
+<pre class="tcy tab">markkeys <i>string</i></pre>
+<p class="tab">This is a method of changing the keymap used for copy/history mode. The string is made up of <b>oldchar=newchar</b> pairs which are separated by '<b>:</b>'. Example: The string "<b>B=^B:F=^F</b>" changes the keys '<b>C-b</b>' and '<b>C-f</b>' to the <a href="/unix/uvi.htm">vi</a> style binding (scroll up/down fill page). This happens to be the default binding for '<b>B</b>' and '<b>F</b>'. The command "<b>markkeys h=^B:l=^F:$=^E</b>" would set the mode for an emacs-style binding. If your terminal sends characters, that cause you to abort copy mode, then this command may help by binding these characters to do nothing. The no-op character is '<b>@</b>' and is used like this: "<b>markkeys @=L=H</b>" if you do not want to use the '<b>H</b>' or '<b>L</b>' commands any longer. As shown in this example, multiple keys can be assigned to one function in a single statement.</p>
+<pre class="tcy tab">maxwin <i>num</i></pre>
+<p class="tab">Set the maximum window number <b>screen</b> creates. Doesn't affect already existing windows. The number may only be decreased.</p>
+<pre class="tcy tab">meta</pre>
+<p class="tab">Insert the command character (<b>C-a</b>) in the current window's input stream.</p>
+<pre class="tcy tab">monitor [on|off]</pre>
+<p class="tab">Toggles activity monitoring of windows. When monitoring is turned on and an affected window is switched into the background, you will receive the activity notification message in the status line at the first sign of output and the window is also marked with an '<b>@</b>' in the window-status display. Monitoring is initially off for all windows.</p>
+<pre class="tcy tab">msgminwait <i>sec</i></pre>
+<p class="tab">Defines the time <b>screen</b> delays a new message when one message is currently displayed. The default is 1 second.</p>
+<pre class="tcy tab">msgwait <i>sec</i></pre>
+<p class="tab">Defines the time a message is displayed if <b>screen</b> is not disturbed by other activity. The default is 5 seconds.</p>
+<pre class="tcy tab">multiuser {on|off}</pre>
+<p class="tab">Switch between singleuser and multiuser mode. Standard <b>screen</b> operation is singleuser. In multiuser mode the commands '<b>acladd</b>', '<b>aclchg</b>', '<b>aclgrp</b>' and '<b>acldel</b>' can enable (and disable) other users accessing this <b>screen</b> session.</p>
+<pre class="tcy tab">nethack {on|off}</pre>
+<p class="tab">Changes the kind of error messages used by screen. If you are familiar with the game "<a href="https://www.nethack.org/" class="external">nethack</a>", you may enjoy the nethack-style messages which often blurs the facts a little, but are much funnier to read. Anyway, standard messages often tend to be unclear as well. This option is only available if <b>screen</b> was compiled with the NETHACK flag defined. The default setting is then determined by the presence of the environment variable <b>$NETHACK-OPTIONS</b> and the file <b>~/.nethackrc</b> - if either one is present, the default is on.</p>
+<pre class="tcy tab">next</pre>
+<p class="tab">Switch to the next window. This command can be used repeatedly to cycle through the list of windows.</p>
+<pre class="tcy tab">nonblock [on|off|numsecs]</pre>
+<p class="tab">Tell <b>screen</b> how to deal with user interfaces (displays) that cease to accept output. This can happen if a user presses <b>^S</b> or a TCP/modem connection gets cut but no hangup is received. If <b>nonblock</b> is <b>off</b> (this is the default) <b>screen</b> waits until the display restarts to accept the output. If <b>nonblock</b> is <b>on</b>, <b>screen</b> waits until the timeout is reached (on is treated as 1s). If the display still doesn't receive characters, screen will consider it "blocked" and stop sending characters to it. If at some time it restarts to accept characters, <b>screen</b> will unblock the display and redisplay the updated window contents.</p>
+<pre class="tcy tab">number [<i>n</i>]</pre>
+<p class="tab">Change the current window's number. If the given number <b>n</b> is already used by another window, both windows exchange their numbers. If no argument is specified, the current window number (and title) is shown.</p>
+<pre class="tcy tab">obuflimit [<i>limit</i>]</pre>
+<p class="tab">If the output buffer contains more bytes than the specified <i>limit</i>, no more data will be read from the windows. The default value is 256. If you have a fast display (like <a href="/unix/uxterm.htm">xterm</a>), you can set it to some higher value. If no argument is specified, the current setting is displayed.</p>
+<pre class="tcy tab">only</pre>
+<p class="tab">Kill all regions but the current one.</p>
+<pre class="tcy tab">other</pre>
+<p class="tab">Switch to the window displayed previously. If this window does no longer exist, other has the same effect as next.</p>
+<pre class="tcy tab">partial {on|off}</pre>
+<p class="tab">Defines whether the display should be refreshed (as with redisplay) after switching to the current window. This command only affects the current window. To immediately affect all windows use the allpartial command. Default is '<b>off</b>', of course. This default is fixed, as there is currently no <b>defpartial</b> command.</p>
+<pre class="tcy tab">password [<i>crypted_pw</i>]</pre>
+<p class="tab">Present a crypt-ed password in your "<b>.screenrc</b>" file and <b>screen</b> ask for it, whenever someone attempts to resume a detached. This is useful if you have privileged programs running under <b>screen</b> and you want to protect your session from reattach attempts by another user masquerading as your uid (i.e., any <a href="/jargon/r/root.htm">superuser</a>). If no crypted password is specified, <b>screen</b> prompts twice for typing a password and places its encryption in the paste buffer. Default is '<b>none</b>', this disables password checking.</p>
+<pre class="tcy tab">paste [<i>registers</i> [<i>dest_reg</i>]]</pre>
+<p class="tab">Write the (concatenated) contents of the specified registers to the <a href="/jargon/s/stdin.htm">stdin</a> queue of the current window. The register '<b>.</b>' is treated as the paste buffer. If no parameter is given the user is prompted for a single register to paste. The paste buffer can be filled with the <b>copy</b>, <b>history</b> and <b>readbuf</b> commands. Other registers can be filled with the <b>register</b>, <b>readreg</b> and <b>paste</b> commands. If <b>paste</b> is called with a second argument, the contents of the specified registers is pasted into the named destination register rather than the window. If '<b>.</b>' is used as the second argument, the displays paste buffer is the destination. Note, that "<b>paste</b>" uses a wide variety of resources: Whenever a second argument is specified no current window is needed. When the source specification only contains registers (not the paste buffer) then there need not be a current display (terminal attached), as the registers are a global resource. The paste buffer exists once for every user.</p>
+<pre class="tcy tab">pastefont [on|off]</pre>
+<p class="tab">Tell <b>screen</b> to include font information in the paste buffer. The default is not to do so. This command is especially useful for multi character fonts like kanji.</p>
+<pre class="tcy tab">pow_break</pre>
+<p class="tab">Reopen the window's terminal line and send a break condition. See '<b>break</b>'.</p>
+<pre class="tcy tab">pow_detach</pre>
+<p class="tab">Power detach. Mainly the same as <b>detach</b>, but also sends a HANGUP <a href="/unix/signals.htm">signal</a> to the parent process of screen. CAUTION: This results in a logout, when <b>screen</b> was started from your login shell.</p>
+<pre class="tcy tab">pow_detach_msg [<i>message</i>]</pre>
+<p class="tab">The message specified here is output whenever a 'Power detach' was performed. It may be used as a replacement for a logout message or to reset <a href="/jargon/b/baud.htm">baud</a> rate, etc. Without parameter, the current message is shown.</p>
+<pre class="tcy tab">prev</pre>
+<p class="tab">Switch to the window with the next lower number. This command can be used repeatedly to cycle through the list of windows.</p>
+<pre class="tcy tab">printcmd [<i>cmd</i>]</pre>
+<p class="tab">If <i>cmd</i> is not an empty string, <b>screen</b> will not use the terminal capabilities "po/pf" if it detects an <a href="/jargon/a/ansi.htm">ANSI</a> print sequence <b>ESC [ 5 i</b>, but <a href="/jargon/p/pipe.htm">pipe</a> the output into <i>cmd</i>. This should normally be a command like "<b>lpr</b>" or "<b>'cat &gt; /tmp/scrprint'</b>". <b>printcmd</b> without a command displays the current setting. The ANSI sequence <b>ESC \</b> ends printing and closes the pipe. Warning: Be careful with this command! If other user have write access to your terminal, they are able to fire off print commands.</p>
+<pre class="tcy tab">process [<i>key</i>]</pre>
+<p class="tab">Stuff the contents of the specified register into <b>screen</b>'s input queue. If no argument is given you are prompted for a register name. The text is parsed as if it had been typed in from the user's keyboard. This command can bind multiple actions to a single key.</p>
+<pre class="tcy tab">quit</pre>
+<p class="tab"><a href="/jargon/k/kill.htm">Kill</a> all windows and terminate screen. Note that on VT100-style terminals the keys <b>C-4</b> and <b>C-\</b> are identical. This makes the default bindings dangerous: Be careful not to type <b>C-a C-4</b> when selecting window no. 4. Use the empty <b>bind</b> command (as in "<b>bind '^\'</b>") to remove a key binding/</p>
+<pre class="tcy tab">readbuf [-e <i>encoding</i>] [<i>file name</i>]</pre>
+<p class="tab">Reads the contents of the specified file into the paste buffer. You can tell <b>screen</b> the encoding of the file via the <b>-e</b> option. If no file is specified, the screen-exchange file name is used. See also "<b>bufferfile</b>" command.</p>
+<pre class="tcy tab">readreg [-e <i>encoding</i>] [<i>register</i> [<i>file name</i>]]</pre>
+<p class="tab">Does one of two things, dependent on number of arguments: with zero or one arguments it duplicates the paste buffer contents into the register specified or entered at the prompt. With two arguments it reads the contents of the named file into the register, as <b>readbuf</b> reads the screen-exchange file into the paste buffer. You can tell <b>screen</b> the encoding of the file via the <b>-e</b> option. The following example will paste the system's password file into the <b>screen</b> window (using register <b>p</b>, where a copy remains):</p>
+<pre class="tab tcy">C-a : readreg p /etc/passwd</pre>
+<pre class="tab tcy">C-a : paste p</pre>
+<pre class="tcy tab">redisplay</pre>
+<p class="tab">Redisplay the current window. Needed to get a full redisplay when in partial redraw mode.</p>
+<pre class="tcy tab">register [-e <i>encoding</i>] <i>key string</i></pre>
+<p class="tab">Save the specified string to the register key. The encoding of the string can be specified via the <b>-e</b> option. See also the "<b>paste</b>" command.</p>
+<pre class="tcy tab">remove</pre>
+<p class="tab">Kill the current region. This is a no-op if there is only one region.</p>
+<pre class="tcy tab">removebuf</pre>
+<p class="tab">Unlinks the screen-exchange file used by the commands "<b>writebuf</b>" and "<b>readbuf</b>".</p>
+<pre class="tcy tab">reset</pre>
+<p class="tab">Reset the virtual terminal to its "power-on" values. Useful when strange settings (like scroll regions or graphics character set) are left over from an application.</p>
+<pre class="tcy tab">resize</pre>
+<p class="tab">Resize the current region. The space will be removed from or added to the region below or if there's not enough space from the region above.</p>
+<p class="tabb">resize +N</p>
+<p class="tab">increase current region height by <b>N</b></p>
+<p class="tabb">resize -N</p>
+<p class="tab">decrease current region height by <b>N</b></p>
+<p class="tabb">resize N</p>
+<p class="tab">set current region height to <b>N</b></p>
+<p class="tabb">resize =</p>
+<p class="tab">make all windows equally high</p>
+<p class="tabb">resize max</p>
+<p class="tab">maximize current region height</p>
+<p class="tabb">resize min</p>
+<p class="tab">minimize current region height</p>
+<pre class="tcy tab">screen [-<i>opts</i>] [<i>n</i>] [<i>cmd</i> [<i>args</i>]]</pre>
+<p class="tab">Establish a new window. The flow-control options (<b>-f</b>, <b>-fn</b> and <b>-fa</b>), title (a.k.a.) option (<b>-t</b>), login options (<b>-l</b> and <b>-ln</b>), terminal type option (<b>-T &lt;term&gt;</b>), the all- capability-flag (<b>-a</b>) and scrollback option (<b>-h &lt;num&gt;</b>) may be specified with each command. The option (<b>-M</b>) turns monitoring on for this window. The option (<b>-L</b>) turns output logging on for this window. If an optional number <b>n</b> in the range <b>0..MAXWIN-1</b> is given, the window number n is assigned to the newly created window (or, if this number is already in-use, the next available number). If a command is specified after "<b>screen</b>", this command (with the given arguments) is started in the window; otherwise, a shell is created. Thus, if your "<b>.screenrc</b>" contains the lines</p>
+<pre class="tab"># example for .screenrc:
+screen 1
+screen -fn -t foobar -L 2 telnet foobar</pre>
+<p class="tab"><b>screen</b> creates a shell window (in window #1) and a window with a <a href="/jargon/t/telnet.htm">TELNET</a> connection to the machine foobar (with no flow-control using the title "foobar" in window #2) and writes a logfile ("<b>screenlog.2</b>") of the telnet session. Note, that unlike previous versions of <b>screen</b> no additional default window is created when "<b>screen</b>" commands are included in your "<b>.screenrc</b>" file. When the initialization is completed, <b>screen</b> switches to the last window specified in your <b>.screenrc</b> file or, if none, opens a default window #0. <b>screen</b> has built-in some functionality of "<a href="/unix/ucu.htm">cu</a>" and "<a href="/unix/utelnet.htm">telnet</a>". See also section "WINDOW TYPES".</p>
+<pre class="tcy tab">scrollback <i>num</i></pre>
+<p class="tab">Set the size of the scrollback buffer for the current windows to <i>num</i> lines. The default scrollback is 100 lines. See also the "<b>defscrollback</b>" command and use "<b>C-a i</b>" to view the current setting.</p>
+<pre class="tcy tab">select [<i>WindowID</i>]</pre>
+<p class="tab">Switch to the window identified by <i>WindowID</i>. This is prefix of a window title (alphanumeric window name) or a window number. The parameter is optional and if omitted, you get prompted for an identifier. When a new window is established, the first available number is assigned to this window. Thus, the first window can be activated by "<b>select 0</b>". The number of windows is limited at compile-time by the <b>MAXWIN</b> configuration parameter (which defaults to 40 in Debian). There are two special <i>WindowID</i>s, "<b>-</b>" selects the internal blank window and "<b>.</b>" selects the current window. The latter is useful if used with screen's "<b>-X</b>" option.</p>
+<pre class="tcy tab">sessionname [<i>name</i>]</pre>
+<p class="tab">Rename the current session. Note, that for "<b>screen -list</b>" the name shows up with the process-id prepended. If the argument "<i>name</i>" is omitted, the name of this session is displayed. Caution: Among other problems, the <b>$STY</b> environment variable still reflects the old name. Use of this command is strongly discouraged. Use the "<b>-S</b>" command line option if you need this feature. The default is constructed from the tty and hostnames.</p>
+<pre class="tcy tab">setenv [<i>var</i> [<i>string</i>]]</pre>
+<p class="tab">Set the environment variable <i>var</i> to value <i>string</i>. If only <i>var</i> is specified, the user will be prompted to enter a value. If no parameters are specified, the user will be prompted for both variable and value. The environment is inherited by all subsequently forked shells.</p>
+<pre class="tcy tab">setsid [on|off]</pre>
+<p class="tab">Normally <b>screen</b> uses different sessions and process groups for the windows. If <b>setsid</b> is turned <i>off</i>, this is not done anymore and all windows will be in the same process group as the <b>screen</b> backend process. This also breaks job-control, so be careful. The default is <i>on</i>, of course. This command is probably useful only in rare circumstances.</p>
+<pre class="tcy tab">shell <i>command</i></pre>
+<p class="tab">Set the <i>command</i> to be used to create a new <b>shell</b>. This overrides the value of the environment variable <b>$SHELL</b>. This is useful if you'd like to run a tty-enhancer that is expecting to execute the program specified in <b>$SHELL</b>. If the command begins with a '<b>-</b>' character, the shell will be started as a login-shell.</p>
+<pre class="tcy tab">shelltitle <i>title</i></pre>
+<p class="tab">Set the title for all shells created during startup or by the <b>C-A C-c</b> command. For details about what a title is, see the discussion entitled "TITLES (naming windows)".</p>
+<pre class="tcy tab">silence [on|off|sec]</pre>
+<p class="tab">Toggles silence monitoring of windows. When <b>silence</b> is turned on and an affected window is switched into the background, you will receive the silence notification message in the status line after a specified period of inactivity (silence). The default timeout can be changed with the '<b>silencewait</b>' command or by specifying many seconds instead of '<b>on</b>' or '<b>off</b>'. Silence is initially off for all windows.</p>
+<pre class="tcy tab">silencewait <i>sec</i></pre>
+<p class="tab">Define the time that all windows monitored for silence should wait before displaying a message. Default 30 seconds.</p>
+<pre class="tcy tab">sleep <i>num</i></pre>
+<p class="tab">This command will pause the execution of a <b>.screenrc</b> file for <i>num</i> seconds. Keyboard activity will end the sleep. It may be used to give users a chance to read the messages output by "<b>echo</b>".</p>
+<pre class="tcy tab">slowpaste <i>msec</i></pre>
+<p class="tab">Define the speed at which text is inserted into the current window by the paste ("<b>C-a ]</b>") command. If the <b>slowpaste</b> value is nonzero text is written character by character. <b>screen</b> makes a pause of <i>msec</i> milliseconds after each single character write to allow the application to process its input. Only use <b>slowpaste</b> if your underlying system exposes flow control problems while pasting large amounts of text.</p>
+<pre class="tcy tab">source <i>file</i></pre>
+<p class="tab">Read and execute commands from file <i>file</i>. Source commands may be nested to a maximum recursion level of ten. If <i>file</i> is not an absolute path and <b>screen</b> is already processing a <b>source</b> command, the parent directory of the running <b>source</b> command file is used to search for the new command file before screen's current directory.</p>
+<p class="tab">Note that termcap/terminfo/termcapinfo commands only work at startup and reattach time, so they must be reached via the default <b>screenrc</b> files to have an effect.</p>
+<pre class="tcy tab">sorendition [<i>attr</i> [<i>color</i>]]</pre>
+<p class="tab">Change the way <b>screen</b> does highlighting for text marking and printing messages. See the "STRING ESCAPES" section for the syntax of the modifiers. The default is currently "<b>=s dd</b>" (standout, default colors).</p>
+<pre class="tcy tab">split [-v]</pre>
+<p class="tab">Split the current region into two new ones. All regions on the display are resized to make room for the new region. The blank window is displayed on the new region. Splits are made horizontally unless <b>-v</b> is used. Use the "<b>remove</b>" or the "<b>only</b>" command to delete regions. Use "<b>focus</b>" to toggle between regions.</p>
+<pre class="tcy tab">startup_message {on|off}</pre>
+<p class="tab">Select whether you want to see the Copyright notice during startup. Default is '<i>on</i>'.</p>
+<pre class="tcy tab">stuff <i>string</i></pre>
+<p class="tab">Stuff the string <i>string</i> in the input buffer of the current window. This is like the "<b>paste</b>" command but with much less overhead. You cannot paste large buffers with the "<b>stuff</b>" command. It is most useful for key bindings. See also "<b>bindkey</b>".</p>
+<pre class="tcy tab">su [<i>username</i> [<i>password</i> [<i>password2</i>]]</pre>
+<p class="tab">Substitute the user of a display. The command prompts for all parameters that are omitted. If passwords are specified as parameters, they have to be specified un-crypted. The first password is matched against the systems <b>passwd</b> database, the second password is matched against the <b>screen</b> password as set with the commands "<b>acladd</b>" or "<b>password</b>". "<b>Su</b>" may be useful for the <b>screen</b> administrator to test multiuser setups. When the identification fails, the user has access to the commands available for user <b>nobody</b>. These are "<b>detach</b>", "<b>license</b>", "<b>version</b>", "<b>help</b>" and "<b>displays</b>".</p>
+<pre class="tcy tab">suspend</pre>
+<p class="tab">Suspend screen. The windows are in the 'detached' state, while <b>screen</b> is suspended. This feature relies on the shell being able to do job control.</p>
+<pre class="tcy tab">term <i>term</i></pre>
+<p class="tab">In each window's environment <b>screen</b> opens, the <b>$TERM</b> variable is set to "<b>screen</b>" by default. But when no description for "<b>screen</b>" is installed in the local termcap or terminfo data base, you set <b>$TERM</b> to (for example) "<b>vt100</b>". This won't do much harm, as <b>screen</b> is VT100/ANSI compatible. The use of the "<b>term</b>" command is discouraged for non-default purpose. That is, one may want to specify special <b>$TERM</b> settings (e.g., <b>vt100</b>) for the next "<b>screen rlogin othermachine</b>" command. Use the command "<b>screen -T vt100 rlogin othermachine</b>" rather than setting and resetting the default.</p>
+<pre class="tcy tab">termcap <i>term terminal-tweaks</i> [<i>window-tweaks</i>]</pre>
+<pre class="tcy tab">terminfo <i>term terminal-tweaks</i> [<i>window-tweaks</i>]</pre>
+<pre class="tcy tab">termcapinfo <i>term terminal-tweaks</i> [<i>window-tweaks</i>]</pre>
+<p class="tab">Use this command to modify your terminal's termcap entry without going through all the hassles involved in creating a custom termcap entry. Plus, you can optionally customize the termcap generated for the windows. You have to place these commands in one of the <b>screenrc</b> startup files, as they are meaningless once the terminal emulator is booted. If your system works uses the terminfo database rather than termcap, <b>screen</b> will understand the '<b>terminfo</b>' command, which has the same effects as the '<b>termcap</b>' command. Two separate commands are provided, as there are subtle syntactic differences, e.g., when parameter interpolation (using '<b>%</b>') is required. Note that termcap names of the capabilities have to be used with the '<b>terminfo</b>' command. In many cases, where the arguments are valid in both <b>terminfo</b> and <b>termcap</b> syntax, you can use the command '<b>termcapinfo</b>', which is a shorthand for a pair of '<b>termcap</b>' and '<b>terminfo</b>' commands with identical arguments.</p>
+<p class="tab">The first argument specifies which terminal(s) should be affected by this definition. You can specify multiple terminal names by separating them with '<b>|</b>'s. Use '<b>*</b>' to match all terminals and '<b>vt*</b>' to match all terminals that begin with "<b>vt</b>".</p>
+<p class="tab">Each tweak argument contains one or more termcap defines (separated by '<b>:</b>'s) to be inserted at the start of the appropriate termcap entry, enhancing it or overriding existing values. The first tweak modifies your terminal's termcap, and contains definitions your terminal uses to perform certain functions. Specify a null string to leave this unchanged (e.g., <b>''</b>). The second (optional) tweak modifies all the window termcaps, and should contain definitions that <b>screen</b> understands.</p>
+<h3 class="tab">Examples</h3>
+<pre class="tab tcy">termcap xterm* LP:<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a2cad1e2">[email&#160;protected]</a></pre>
+<p class="tab">Informs <b>screen</b> that all terminals that begin with '<b>xterm</b>' have firm auto-margins that allow the last position on the <b>screen</b> to be updated (<b>LP</b>), but they don't really have a status line (no '<b>hs</b>' - append '<b>@</b>' to turn entries off). Note that we assume '<b>LP</b>' for all terminal names that start with "vt", but only if you don't specify a termcap command for that terminal.</p>
+<pre class="tab tcy">termcap vt* LP</pre>
+<pre class="tab tcy">termcap vt102|vt220 Z0=\E[?3h:Z1=\E[?3l</pre>
+<p class="tab">Specifies the firm-margined '<b>LP</b>' capability for all terminals that begin with '<b>vt</b>', and the second line also adds the escape-sequences to switch into (<b>Z0</b>) and back out of (<b>Z1</b>) 132-character-per-line mode if this is a <b>VT102</b> or <b>VT220</b>. You must specify <b>Z0</b> and <b>Z1</b> in your termcap to use the width-changing commands.</p>
+<pre class="tab tcy">termcap vt100 "" l0=PF1:l1=PF2:l2=PF3:l3=PF4</pre>
+<p class="tab">This leaves your <b>vt100</b> termcap alone and adds the function key labels to each window's termcap entry.</p>
+<pre class="tab tcy">termcap h19|z19 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b2a260b">[email&#160;protected]</a>:im=\<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="521712">[email&#160;protected]</a>:ei=\EO dc=\E[P</pre>
+<p class="tab">Takes a <b>h19</b> or <b>z19</b> termcap and turns off auto-margins (<b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="18797558">[email&#160;protected]</a></b>) and enables the insert mode (<b>im</b>) and end-insert (<b>ei</b>) capabilities (the '<b>@</b>' in the '<b>im</b>' string is after the '<b>=</b>', so it is part of the string). Having the '<b>im</b>' and '<b>ei</b>' definitions put into your terminal's termcap causes <b>screen</b> to automatically advertise the character-insert capability in each window's termcap. Each window also gets the delete-character capability (<b>dc</b>) added to its termcap, which <b>screen</b> will translate into a line-update for the terminal (we're pretending it doesn't support character deletion).</p>
+<p class="tab">If you would like to fully specify each window's <b>termcap</b> entry, instead set the <b>$SCREENCAP</b> variable before running screen. See the discussion on the "VIRTUAL TERMINAL" in this manual, and the <b>termcap</b>(5) man page for more information on termcap definitions.</p>
+<pre class="tcy tab">time [<i>string</i>]</pre>
+<p class="tab">Uses the message line to display the time of day, the hostname, and the load averages over 1, 5, and 15 minutes (if this is available on your system). For window specific information use "<b>info</b>".</p>
+<p class="tab">If a string is specified, it changes the format of the time report like it is described in the "STRING ESCAPES" section. <b>screen</b> uses a default of "<b>%c:%s %M %d %H%? %l%?</b>".</p>
+<pre class="tcy tab">title [<i>windowtitle</i>]</pre>
+<p class="tab">Set the name of the current window to <i>windowtitle</i>. If no name is specified, screen prompts for one. This command was known as '<b>aka</b>' in previous releases.</p>
+<pre class="tcy tab">unsetenv <i>var</i></pre>
+<p class="tab">Unset an <a href="/jargon/e/envivari.htm">environment variable</a>.</p>
+<pre class="tcy tab">utf8 [on|off [on|off]]</pre>
+<p class="tab">Change the <a href="/jargon/c/charcode.htm">encoding</a> used in the current window. If <b>utf8</b> is enabled, the strings sent to the window will be UTF-8 encoded and vice versa. Omitting the parameter toggles the setting. If a second parameter is given, the display's encoding is also changed (this should rather be done with <b>screen</b>'s "<b>-U</b>" option). See also "<b>defutf8</b>", which changes the default setting of a new window.</p>
+<pre class="tcy tab">vbell [on|off]</pre>
+<p class="tab">Sets the visual bell setting for this window (the screen gives a visual indicator where it would usually sound a bell). Omitting the parameter toggles the setting. If <b>vbell</b> is switched <i>on</i>, but your terminal does not support a visual bell, a 'vbell-message' is displayed in the status line when the bell character (<b>^G</b>) is received. Visual bell support of a terminal is defined by the <b>termcap</b> variable '<b>vb</b>' (<b>terminfo</b>: '<b>flash</b>'). Per default, <b>vbell</b> is <i>off</i>, thus the audible bell is used. See also '<b>bell_msg</b>'.</p>
+<pre class="tcy tab">vbell_msg [<i>message</i>]</pre>
+<p class="tab">Sets the visual bell message. The message is printed to the status line if the window receives a bell character (<b>^G</b>), vbell is set to "<b>on</b>", but the terminal does not support a visual bell. The default message is "<b>Wuff, Wuff!!</b>". Without parameter, the current message is shown.</p>
+<pre class="tcy tab">vbellwait <i>sec</i></pre>
+<p class="tab">Define a delay in <i>sec</i>onds after each display of screen's visual bell message. The default is 1 second.</p>
+<pre class="tcy tab">verbose [on|off]</pre>
+<p class="tab">If <b>verbose</b> is switched <i>on</i>, the command name is echoed, whenever a window is created (or resurrected from <b>zombie</b> state). Default is <i>off</i>. Without parameter, the current setting is shown.</p>
+<pre class="tcy tab">version</pre>
+<p class="tab">Print the current <a href="/jargon/v/version.htm">version</a> and the <a href="/jargon/c/compile.htm">compile</a> date in the status line.</p>
+<pre class="tcy tab">wall <i>message</i></pre>
+<p class="tab">Write a message to all displays. The message appears in the terminal's status line.</p>
+<pre class="tcy tab">width [-w|-d] [<i>cols</i> [<i>lines</i>]]</pre>
+<p class="tab">Toggle the window width between 80 and 132 columns or set it to <i>cols</i> columns if an argument is specified. This requires a capable terminal and the termcap entries "<b>Z0</b>" and "<b>Z1</b>". See the "<b>termcap</b>" command for more information. You can also specify a new height if you want to change both values. The <b>-w</b> option tells <b>screen</b> to leave the display size unchanged and set the window size, <b>-d</b> vice versa.</p>
+<pre class="tcy tab">windowlist [-b] [-m]</pre>
+<pre class="tcy tab">windowlist string [<i>string</i>]</pre>
+<pre class="tcy tab">windowlist title [<i>title</i>]</pre>
+<p class="tab">Display all windows in a <a href="/jargon/t/table.htm">table</a> for visual window selection. The desired window can be selected via the standard movement keys (see the "<b>copy</b>" command) and activated via the return key. If the <b>-b</b> option is given, <b>screen</b> switches to the blank window before presenting the list, so that the current window is also selectable. The <b>-m</b> option changes the order of the windows, instead of sorting by window numbers <b>screen</b> uses its internal most-recently-used list.</p>
+<p class="tab">The table format can be changed with the <b>string</b> and <b>title</b> option, the title is displayed as table heading, while the lines are made using the string setting. The default setting is &quot;<b>Num Name%=Flags</b>&quot; for the title and &quot;<b>%3n %t%=%f</b>&quot; for the lines. See the &quot;STRING ESCAPES&quot; section for more codes (e.g., color settings).</p>
+<pre class="tcy tab">windows</pre>
+<p class="tab">Uses the message line to display a list of all the windows. Each window is listed by number with the name of process that was started in the window (or its <b>title</b>); the current window is marked with a '<b>*</b>'; the previous window is marked with a '<b>-</b>'; all the windows that are "logged in" are marked with a '<b>$</b>'; a background window with a bell is marked with a '<b>!</b>'; a background window that is being monitored and has had activity occur is marked with an '<b>@</b>'; a window which has output logging turned on is marked with '<b>(L)</b>'; windows occupied by other users are marked with '<b>&amp;</b>'; windows in the <b>zombie</b> state are marked with '<b>Z</b>'. If this list is too long to fit on the terminal's status line only the portion around the current window is displayed.</p>
+<pre class="tcy tab">wrap [on|off]</pre>
+<p class="tab">Sets the line-wrap setting for the current window. When line-wrap is <i>on</i>, the second consecutive printable character output at the last column of a line wraps to the start of the following line. As an added feature, backspace (<b>^H</b>) will also wrap through the left margin to the previous line. Default is '<i>on</i>'.</p>
+<pre class="tcy tab">writebuf [-e <i>encoding</i>] [<i>file name</i>]</pre>
+<p class="tab">Writes the contents of the paste buffer to the specified file, or the public accessible screen-exchange file if no file name is given. This is thought of as a primitive means of communication between <b>screen</b> users on the same host. If an encoding is specified the paste buffer is recoded on the fly to match the encoding. The file name can be set with the bufferfile command and defaults to "<b>/tmp/screen-exchange</b>".</p>
+<pre class="tcy tab">writelock [on|off|auto]</pre>
+<p class="tab">In addition to access control lists, not all users can write to the same window at once. Per default, <b>writelock</b> is in '<b>auto</b>' mode and grants exclusive input permission to the user who is the first to switch to the particular window. When he leaves the window, other users may obtain the writelock (automatically). The <b>writelock</b> of the current window is disabled by the command "<b>writelock off</b>". If the user issues the command "<b>writelock on</b>" he keeps the exclusive write permission while switching to other windows.</p>
+<pre class="tcy tab">xoff</pre>
+<pre class="tcy tab">xon</pre>
+<p class="tab">Insert a <b>Ctrl-s</b> / <b>Ctrl-q</b> character to the <a href="/jargon/s/stdin.htm">stdin</a> queue of the current window.</p>
+<pre class="tcy tab">zmodem [off|auto|catch|pass]</pre>
+<pre class="tcy tab">zmodem sendcmdM [<i>string</i>]</pre>
+<pre class="tcy tab">zmodem recvcmd [<i>string</i>]</pre>
+<p class="tab">Define <a href="/jargon/z/zmodem.htm">zmodem</a> support for <b>screen</b>. <b>screen</b> understands two different modes when it detects a <b>zmodem</b> request: "<b>pass</b>" and "<b>catch</b>". If the mode is set to "<b>pass</b>", <b>screen</b> will relay all data to the attacher until the end of the transmission is reached. In "<b>catch</b>" mode <b>screen</b> acts as a <b>zmodem</b> endpoint and starts the corresponding <b>rz</b>/<b>sz</b> commands. If the mode is set to "<b>auto</b>", <b>screen</b> uses "<b>catch</b>" if the window is a <a href="/jargon/t/tty.htm">tty</a> (e.g., a <a href="/jargon/s/serial.htm">serial</a> line), otherwise it uses "<b>pass</b>". You can define the templates <b>screen</b> uses in "<b>catch</b>" mode via the second and the third form. Note also that this is an experimental feature.</p>
+<pre class="tcy tab">zombie [<i>keys</i>[<i>onerror</i>]]</pre>
+<pre class="tcy tab">defzombie [<i>keys</i>]</pre>
+<p class="tab">Per default <b>screen</b> windows are removed from the window list as soon as the windows process (e.g., <b>shell</b>) exits. When a string of two keys is specified to the <b>zombie</b> command, '<b>dead</b>' windows remain in the list. The <b>kill</b> command may be used to remove such a window. Pressing the first key in the dead window has the same effect. When pressing the second key, <b>screen</b> attempts to resurrect the window. The process that was initially running in the window will be launched again. Calling <b>zombie</b> without parameters clears the <b>zombie</b> setting, thus making windows disappear when their process exits.</p>
+<p class="tab">As the <b>zombie</b>-setting is manipulated <a href="/jargon/g/global.htm">globally</a> for all windows, this command should only be called <b>defzombie</b>. Until we need this as a per window setting, the commands <b>zombie</b> and <b>defzombie</b> are synonymous.</p>
+<p class="tab">Optionally you can put the word "<b>onerror</b>" after the keys. This causes <b>screen</b> to monitor exit status of the process running in the window. If it exits normally ('0'), the window disappears. Any other exit value causes the window to become a zombie.</p>
+<h2>The message line</h2>
+<p class="tab"><b>screen</b> displays informational messages and other diagnostics in a message line. While this line is distributed to appear at the bottom of the screen, it can be defined to appear at the top of the screen during <a href="/jargon/c/compile.htm">compilation</a>. If your <a href="/jargon/t/terminal.htm">terminal</a> has a status line defined in its <b>termcap</b>, <b>screen</b> uses this for displaying its messages, otherwise a line of the current <b>screen</b> will be temporarily <a href="/jargon/o/overwrit.htm">overwritten</a> and output will be momentarily interrupted. The message line is automatically removed after a few seconds delay, but it can also be removed early (on terminals without a status line) by beginning to type.</p>
+<p class="tab">The message line facility can be used by an application running in the current window by means of the <a href="/jargon/a/ansi.htm">ANSI</a> Privacy message control sequence. For instance, from in the <a href="/jargon/s/shell.htm">shell</a>, try something like:</p>
+<pre class="tab tcy">echo '&lt;esc&gt;^Hello world from window '$WINDOW'&lt;esc&gt;\\'</pre>
+<p class="tab">where '<b>&lt;esc&gt;</b>' is an escape, '<b>^</b>' is a literal up-arrow, and '<b>\\</b>' turns into a single backslash.</p>
+<h2 id="Window-Types">Window types</h2>
+<p class="tab"><b>screen</b> provides three different window types. New windows are created with <b>screen</b>'s <b>screen</b> command (see <b>screen</b> in "CUSTOMIZATION"). The first <a href="/jargon/p/paramete.htm">parameter</a> to the <b>screen</b> command defines which type of window is created. The different window types are all special cases of the normal type. They were added to allow screen to be used efficiently as a console <a href="/jargon/m/multiple.htm">multiplexer</a> with 100 or more windows.</p>
+<ol>
+<li>The normal window contains a shell (default, if no parameter is given) or any other system command that could be executed from a shell (e.g., <a href="/jargon/s/slogin.htm">slogin</a>, etc.).<br><br></li>
+<li>If a <a href="/jargon/t/tty.htm">tty</a> (character special device) name (e.g., "<b>/dev/ttya</b>") is specified as the first parameter, then the window is directly connected to this device. This window type is similar to "<b>screen cu -l /dev/ttya</b>". Read and write access is required on the device node, an exclusive open is attempted on the node to mark the connection line as busy. An optional parameter is allowed consisting of a comma separated list of flags in the notation used by <a href="/unix/ustty.htm">stty</a>:<br><br><b>&lt;baud_rate&gt;</b><br><br> Usually <b>300</b>, <b>1200</b>, <b>9600</b> or <b>19200</b>. This affects transmission and receive speed.<br><br><b>cs8</b> or <b>cs7</b><br><br> Specify the transmission of eight (or seven) <a href="/jargon/b/bit.htm">bits</a> per <a href="/jargon/b/byte.htm">byte</a>.<br><br><b>ixon</b> or <b>-ixon</b><br><br> Enables (or disables) software flow-control (<b>Ctrl-S</b>/<b>Ctrl-Q</b>) for sending data.<br><br><b>ixoff</b> or <b>-ixoff</b><br><br> Enables (or disables) software flow-control for receiving data.<br><br><b>istrip</b> or <b>-istrip</b><br><br> Clear (or keep) the eighth bit in each received byte.<br><br> You may want to specify as many of these options as applicable. Unspecified options cause the terminal driver to make up the parameter values of the connection. These values are system dependent and may be in defaults or values saved from a previous connection.<br><br> For tty windows, the info command shows some of the modem control lines in the status line. These may include '<b>RTS</b>', '<b>CTS</b>', '<b>DTR</b>', '<b>DSR</b>', '<b>CD</b>' and more. This depends on the available <b>ioctl()</b>'s and system <a href="/jargon/h/header.htm">header</a> files and the on the physical capabilities of the serial board. Signals that are logical low (inactive) have their name preceded by an exclamation mark (<b>!</b>), otherwise the signal is logical high (active). Signals not supported by the hardware but available to the <b>ioctl()</b> interface are usually shown low.<br><br> When the <b>CLOCAL</b> status bit is <b>true</b>, the whole set of <a href="/jargon/m/modem.htm">modem</a> signals is placed inside curly braces (<b>{</b> and <b>}</b>). When the <b>CRTSCTS</b> or <b>TIOCSOFTCAR</b> bit is set, the signals '<b>CTS</b>' or '<b>CD</b>' are shown in parenthesis, respectively.<br><br> For tty windows, the command break causes the Data transmission line (TxD) to go low for a specified period. This is expected to be interpreted as break signal on the other side. No data is sent and no modem control line is changed when a break is issued.<br><br></li>
+<li>If the first parameter is "<b>//telnet</b>", the second parameter is expected to be a <a href="/jargon/h/hostname.htm">hostname</a>, and an optional third parameter may specify a <a href="/jargon/t/tcpip.htm">TCP</a> port number (default decimal 23). <b>screen</b> will connect to a server listening on the remote host and use the <a href="/jargon/t/telnet.htm">telnet</a> <a href="/jargon/p/protocol.htm">protocol</a> to communicate with that server.<br><br> For telnet windows, the command info shows details about the connection in square brackets (<b>[</b> and <b>]</b>) at the end of the status line:<br><br><b>b</b>: BINARY. The connection is in binary mode.<br><br><b>e</b>: ECHO. Local echo is disabled.<br><br><b>c</b>: SGA. The connection is in 'character mode' (default: 'line mode').<br><br> <b>t</b>: TTYPE. The terminal type is requested by the remote host. Screen sends the name "screen" unless instructed otherwise (see also the command 'term').<br><br><b>w</b>: NAWS. The remote site is notified about window size changes.<br><br> <b>f</b>: LFLOW. The remote host sends flow control information. Ignored at the moment.<br><br> Additional flags for <a href="/jargon/d/debug.htm">debugging</a> are <b>x</b>, <b>t</b> and <b>n</b> (<b>XDISPLOC</b>, <b>TSPEED</b> and <b>NEWENV</b>).<br><br> For <a href="/jargon/t/telnet.htm">telnet</a> windows, the command break sends the telnet code <b>IAC BREAK</b> (decimal 243) to the remote host.<br><br> This window type is only available if screen was compiled with the <b>BUILTIN_TELNET</b> option defined.</li>
+</ol>
+<h2 id="String-Escapes">String escapes</h2>
+<p class="tab"><b>screen</b> provides an escape mechanism to insert information like the current time into messages or <a href="/jargon/f/filename.htm">file names</a>. The escape character is '<b>%</b>' with one exception: inside of a window's hardstatus '<b>^%</b>' ('<b>^E</b>') is used instead.</p>
+<p class="tab">Here is the full list of supported escapes:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>%</b></td>
+<td>the escape character itself</td>
+</tr>
+<tr class="tcw">
+<td><b>a</b></td>
+<td>either '<b>am</b>' or '<b>pm</b>'</td>
+</tr>
+<tr class="tcw">
+<td><b>A</b></td>
+<td>either '<b>AM</b>' or '<b>PM</b>'</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td>current time <b>HH:MM</b> in 24h format</td>
+</tr>
+<tr class="tcw">
+<td><b>C</b></td>
+<td>current time <b>HH:MM</b> in 12h format</td>
+</tr>
+<tr class="tcw">
+<td><b>d</b></td>
+<td>day number</td>
+</tr>
+<tr class="tcw">
+<td><b>D</b></td>
+<td>weekday name</td>
+</tr>
+<tr class="tcw">
+<td><b>f</b></td>
+<td>flags of the window</td>
+</tr>
+<tr class="tcw">
+<td><b>F</b></td>
+<td>sets <b>%?</b> to <b>true</b> if the window has the focus</td>
+</tr>
+<tr class="tcw">
+<td><b>h</b></td>
+<td>hardstatus of the window</td>
+</tr>
+<tr class="tcw">
+<td><b>H</b></td>
+<td>hostname of the system</td>
+</tr>
+<tr class="tcw">
+<td><b>l</b></td>
+<td>current <a href="/jargon/l/load.htm">load</a> of the system</td>
+</tr>
+<tr class="tcw">
+<td><b>m</b></td>
+<td>month number</td>
+</tr>
+<tr class="tcw">
+<td><b>M</b></td>
+<td>month name</td>
+</tr>
+<tr class="tcw">
+<td><b>n</b></td>
+<td>window number</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b></td>
+<td>seconds</td>
+</tr>
+<tr class="tcw">
+<td><b>t</b></td>
+<td>window title</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b></td>
+<td>all other users on this window</td>
+</tr>
+<tr class="tcw">
+<td><b>w</b></td>
+<td>all window numbers and names. With '<b>-</b>' qualifier: up to the current window; with '<b>+</b>' qualifier: starting with the window after the current one.</td>
+</tr>
+<tr class="tcw">
+<td><b>W</b></td>
+<td>all window numbers and names except the current one</td>
+</tr>
+<tr class="tcw">
+<td><b>y</b></td>
+<td>last two digits of the year number</td>
+</tr>
+<tr class="tcw">
+<td><b>Y</b></td>
+<td>full year number</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>the part to the next '<b>%?</b>' is displayed only if a '<b>%</b>' escape inside the part expands to a non-empty string</td>
+</tr>
+<tr class="tcw">
+<td><b>:</b></td>
+<td>else part of '<b>%?</b>'</td>
+</tr>
+<tr class="tcw">
+<td><b>=</b></td>
+<td>pad the string to the display's width (like <a href="https://tug.org/" class="external">TeX</a>'s <b>hfill</b>). If a number is specified, pad to the percentage of the window's width. A '<b>0</b>' qualifier tells <b>screen</b> to treat the number as absolute position. You can specify to pad relative to the last absolute pad position by adding a '<b>+</b>' qualifier or to pad relative to the right margin using '<b>-</b>'. The padding truncates the string if the specified position lies before the current position. Add the '<b>L</b>' qualifier to change this.</td>
+</tr>
+<tr class="tcw">
+<td><b>&lt;</b></td>
+<td>same as '<b>%=</b>' but do <a href="/jargon/t/truncate.htm">truncation</a>, do not fill with spaces</td>
+</tr>
+<tr class="tcw">
+<td><b>&gt;</b></td>
+<td>mark the current text position for the next truncation. When <b>screen</b> needs to do truncation, it tries to do it in a way that the marked position gets moved to the specified percentage of the output area. The area starts from the last absolute pad position and ends with the position specified by the truncation operator. The '<b>L</b>' qualifier tells screen to mark the truncated parts with '<b>...</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>{</b></td>
+<td>attribute/color modifier string terminated by the next &quot;<b>}</b>&quot;</td>
+</tr>
+<tr class="tcw">
+<td><b>'</b></td>
+<td>Substitute with the output of a 'backtick' command. The length qualifier is misused to identify one of the commands.</td>
+</tr>
+</table>
+<p class="tab">The '<b>c</b>' and '<b>C</b>' escape may be qualified with a '<b>0</b>' to make <b>screen</b> use zero instead of space as fill character. The '<b>0</b>' qualifier also makes the '<b>=</b>' escape use absolute positions. The '<b>n</b>' and '<b>=</b>' escapes understand a length qualifier (e.g., '<b>%3n</b>'), '<b>D</b>' and '<b>M</b>' can be prefixed with '<b>L</b>' to generate long names, '<b>w</b>' and '<b>W</b>' also show the window flags if '<b>L</b>' is given.</p>
+<p class="tab">An attribute/color modifier is used to change the attributes or the color settings. Its format is "<b>[attribute modifier] [color description]</b>". The attribute modifier must be prefixed by a change type indicator if it can be confused with a color description. The following change types are known:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>+</b></td>
+<td>add the specified set to the current attributes</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>remove the set from the current attributes</td>
+</tr>
+<tr class="tcw">
+<td><b>!</b></td>
+<td>invert the set in the current attributes</td>
+</tr>
+<tr class="tcw">
+<td><b>=</b></td>
+<td>change the current attributes to the specified set</td>
+</tr>
+</table>
+<p class="tab">The attribute set can either be specified as a <a href="/jargon/h/hex.htm">hexadecimal</a> number or a combination of the following letters:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>d</b></td>
+<td>dim</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b></td>
+<td>underline</td>
+</tr>
+<tr class="tcw">
+<td><b>b</b></td>
+<td>bold</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b></td>
+<td>reverse</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b></td>
+<td>standout</td>
+</tr>
+<tr class="tcw">
+<td><b>B</b></td>
+<td>blinking</td>
+</tr>
+</table>
+<p class="tab">Colors are coded either as a hexadecimal number or two letters specifying the desired background and foreground color (in that order). The following colors are known:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>k</b></td>
+<td>black</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b></td>
+<td>red</td>
+</tr>
+<tr class="tcw">
+<td><b>g</b></td>
+<td>green</td>
+</tr>
+<tr class="tcw">
+<td><b>y</b></td>
+<td>yellow</td>
+</tr>
+<tr class="tcw">
+<td><b>b</b></td>
+<td>blue</td>
+</tr>
+<tr class="tcw">
+<td><b>m</b></td>
+<td>magenta</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td>cyan</td>
+</tr>
+<tr class="tcw">
+<td><b>w</b></td>
+<td>white</td>
+</tr>
+<tr class="tcw">
+<td><b>d</b></td>
+<td>default color</td>
+</tr>
+<tr class="tcw">
+<td><b>.</b></td>
+<td>leave color unchanged</td>
+</tr>
+</table>
+<p class="tab">The capitalized versions of the letter specify bright colors. You can also use the pseudo-color '<b>i</b>' to set the brightness and leave the color unchanged. A one digit/letter color description is treated as foreground or background color dependent on the current attributes: if reverse mode is set, the background color is changed instead of the foreground color. If you don't like this, prefix the color with a "<b>.</b>". If you want the same behavior for two-letter color descriptions, also prefix them with a "<b>.</b>".</p>
+<p class="tab">As a special case, "<b>%{-}</b>" restores the attributes and colors that were set before the last change was made (i.e., pops one level of the color-change stack).</p>
+<p class="tab">Examples:</p>
+<p class="tab">"<b>G</b>" sets color to bright green</p>
+<p class="tab">"<b>+b r</b>" used bold red</p>
+<p class="tab">"<b>= yd</b>" clears all attributes, write in default color on yellow background.</p>
+<p class="tabb">%-Lw%{= BW}%50&gt;%n%f* %t%{-}%+Lw%&lt;</p>
+<p class="tab">The available windows centered at the current window and truncated to the available width. The current window is displayed white on blue. This can be used with "hardstatus alwayslastline".</p>
+<p class="tabb">%?%F%{.R.}%?%3n %t%? [%h]%?</p>
+<p class="tab">The window number and title and the window's hardstatus, if one is set. Also, use a red background if this is the active focus. Useful for "caption string".</p>
+<h2>Flow control</h2>
+<p class="tab">Each window has a flow-control setting that determines how <b>screen</b> deals with the <b>XON</b> and <b>XOFF</b> characters (and perhaps the interrupt character). When flow-control is turned <b>off</b>, <b>screen</b> ignores the <b>XON</b> and <b>XOFF</b> characters, which allows the user to send them to the current program by typing them (useful for the <a href="/unix/uemacs.htm">emacs</a> editor, for instance). The trade-off is that it takes longer for output from a "normal" program to pause in response to an <b>XOFF</b>. With flow-control turned on, <b>XON</b> and <b>XOFF</b> characters are used to immediately pause the output of the current window. You can still send these characters to the current program, but you must use the appropriate two-character screen commands (often "<b>C-a q</b>" (<b>xon</b>) and "<b>C-a s</b>" (<b>xoff</b>)). The <b>xon</b>/<b>xoff</b> commands are also useful for typing <b>C-s</b> and <b>C-q</b> past a terminal that intercepts these characters.</p>
+<p class="tab">Each window has an initial flow-control value set with either the <b>-f</b> option or the "<b>defflow</b>" <b>.screenrc</b> command. Per default the windows are set to automatic flow-switching. It can then be toggled between the three states '<b>fixed on</b>', '<b>fixed off</b>' and '<b>automatic</b>' interactively with the "<b>flow</b>" command bound to "<b>C-a f</b>".</p>
+<p class="tab">The automatic flow-switching mode deals with flow control using the TIOCPKT mode (like "<a href="/unix/urlogin.htm">rlogin</a>" does). If the tty driver does not support TIOCPKT, screen tries to find out the right mode based on the current setting of the application keypad - when it is enabled, flow-control is turned off and visa versa. Of course, you can still manipulate flow-control manually when needed.</p>
+<p class="tab">If you're running with flow-control enabled and find that pressing the interrupt key (usually <b>C-c</b>) does not interrupt the display until another 6-8 lines have scrolled by, try running screen with the "interrupt" option (add the "interrupt" flag to the "flow" command in your <b>.screenrc</b>, or use the <b>-i</b> command-line option). This causes the output that screen has accumulated from the interrupted program to be flushed. One disadvantage is that the virtual terminal's memory contains the non-flushed version of the output, which in rare cases can cause minor inaccuracies in the output. For example, if you switch screens and return, or update the screen with "<b>C-a l</b>" you would see the version of the output you would have gotten without "interrupt" being on. Also, you might need to turn off flow-control (or use auto-flow mode to turn it off automatically) when running a program that expects you to type the interrupt character as input, as it is possible to interrupt the output of the virtual terminal to your physical terminal when flow-control is enabled. If this happens, a simple refresh of the screen with "<b>C-a l</b>" will restore it. Give each mode a try, and use whichever mode you find more comfortable.</p>
+<h3 class="tab">Titles</h3>
+<p class="tab">You can customize each window's name in the window display (viewed with the "<b>windows</b>" command (<b>C-a w</b>)) by setting it with one of the <b>title</b> commands. Normally the name displayed is the actual command name of the program created in the window. However, it is sometimes useful to distinguish various programs of the same name or to change the name on-the-fly to reflect the current state of the window.</p>
+<p class="tab">The default name for all shell windows can be set with the "<b>shelltitle</b>" command in the <b>.screenrc</b> file, while all other windows are created with a "<b>screen</b>" command and thus can have their name set with the <b>-t</b> option. Interactively, there is the title-string escape-sequence (<b>&lt;esc&gt;kname&lt;esc&gt;\</b>) and the "<b>title</b>" command (<b>C-a A</b>). The former can be output from an application to control the window's name under software control, and the latter prompts for a name when typed. You can also bind pre-defined names to keys with the "<b>title</b>" command to set things quickly without prompting.</p>
+<p class="tab">Finally, <b>screen</b> has a shell-specific heuristic that is enabled by setting the window's name to "<b>search|name</b>" and arranging to have a null title escape-sequence output as a part of your prompt. The search portion specifies an end-of-prompt search string, while the name portion specifies the default shell name for the window. If the name ends in a '<b>:</b>' <b>screen</b> adds what it believes to be the current command running in the window to the end of the window's shell name (e.g., "<b>name:cmd</b>"). Otherwise, the current command name supersedes the shell name while it is running.</p>
+<p class="tab">Here's how it works: you must modify your shell prompt to output a null title-escape-sequence (<b>&lt;esc&gt;k&lt;esc&gt;\</b>) as a part of your prompt. The last part of your prompt must be the same as the string you specified for the search portion of the title. Once this is set up, <b>screen</b> uses the title-escape-sequence to clear the previous command name and get ready for the next command. Then, when a <a href="/jargon/n/newline.htm">newline</a> is received from the shell, a search is made for the end of the prompt. If found, it will grab the first word after the matched string and use it as the command name. If the command name begins with either '<b>!</b>', '<b>%</b>', or '<b>^</b>' screen uses the first word on the following line (if found) in preference to the just-found name. This helps <b>csh</b> users get better command names when using job control or history recall commands.</p>
+<p class="tab">Here's some <b>.screenrc</b> examples:</p>
+<pre class="tab tcy">screen -t top 2 nice top</pre>
+<p class="tab">Adding this line to your <b>.screenrc</b> would start a <a href="/unix/unice.htm">nice</a>-d version of the "<a href="/unix/top.htm">top</a>" command in window 2 named "top" rather than "nice".</p>
+<pre class="tab tcy">shelltitle '&gt; |csh'</pre>
+<pre class="tab tcy">screen 1</pre>
+<p class="tab">These commands would start a shell with the given <b>shelltitle</b>. The title specified is an auto-title that would expect the prompt and the typed command to look something like the following:</p>
+<p class="tab"><b>/usr/joe/src/dir&gt; trn</b> (it looks after the '<b>&gt;</b> ' for the command name). The window status would show the name "trn" while the command was running, and revert to "csh" upon completion.</p>
+<pre class="tab tcy">bind R screen -t '% |root:' su</pre>
+<p class="tab">Having this command in your <b>.screenrc</b> would bind the key sequence "<b>C-a R</b>" to the "<a href="/unix/usu.htm">su</a>" command and give it an auto-title name of "<b>root:</b>". For this auto-title to work, the screen could look something like this:</p>
+<pre class="tab tcy">% !em</pre>
+<pre class="tab tcy">emacs file.c</pre>
+<p class="tab">Here the user typed the <a href="/unix/ucsh.htm">csh</a> history command "<b>!em</b>" which ran the previously entered "<b>emacs</b>" command. The window status would show "<b>root:emacs</b>" during the execution of the command, and revert to "<b>root:</b>" at its completion.</p>
+<pre class="tab tcy">bind o title</pre>
+<pre class="tab tcy">bind E title ""</pre>
+<pre class="tab tcy">bind u title (unknown)</pre>
+<p class="tab">The first binding doesn't have any arguments, so it would prompt you for a title when you type "<b>C-a o</b>". The second binding would clear an auto-title's current setting (<b>C-a E</b>). The third binding would set the current window's title to "<b>(unknown)</b>" (<b>C-a u</b>).</p>
+<p class="tab">One thing to keep in mind when adding a null title-escape-sequence to your prompt is that some shells (like the <b>csh</b>) count all the non-control characters as part of the prompt's length. If these invisible characters aren't a multiple of 8 then backspacing over a tab results in an incorrect display. One way to get around this is to use a prompt like this:</p>
+<pre class="tab tcy">set prompt='^[[0000m^[k^[\% '</pre>
+<p class="tab">The escape-sequence "<b>&lt;esc&gt;[0000m</b>" not only normalizes the character attributes, but all the zeros round the length of the invisible characters up to 8. <a href="/unix/ubash.htm">Bash</a> users will probably want to echo the escape sequence in the <b>PROMPT_COMMAND</b>, like this:</p>
+<pre class="tab tcy">PROMPT_COMMAND='echo -n -e "\033k\033\134"'</pre>
+<h2>The virtual terminal</h2>
+<p class="tab">Each window in a <b>screen</b> session emulates a VT100 terminal, with some extra functions added. The VT100 emulator is hard-coded, no other terminal types can be emulated. Usually screen tries to emulate as much of the VT100/<a href="/jargon/a/ansi.htm">ANSI</a> standard as possible. But if your terminal lacks certain capabilities, the emulation may not be complete. In these cases <b>screen</b> has to tell the applications that some of the features are missing. This is no problem on machines using <b>termcap</b>, because screen can use the <b>$TERMCAP</b> variable to customize the standard screen <b>termcap</b>.</p>
+<p class="tab">But if you do a <a href="/unix/urlogin.htm">rlogin</a> on another machine or your machine supports only <b>terminfo</b> this method fails. Because of this, screen offers a way to deal with these cases. Here is how it works:</p>
+<p class="tab">When <b>screen</b> tries to figure out a terminal name for itself, it first looks for an entry named "<b>screen.&lt;term&gt;</b>", where <b>&lt;term&gt;</b> is the contents of your <b>$TERM</b> variable. If no such entry exists, screen tries "<b>screen</b>" (or "<b>screen-w</b>" if the terminal is wide (132 cols or more)). If even this entry cannot be found, "<b>vt100</b>" is used as a substitute.</p>
+<p class="tab">The idea is that if you have a terminal which doesn't support an important feature (e.g., delete char or clear to EOS) you can build a new <b>termcap</b>/<b>terminfo</b> entry for screen (named "<b>screen.&lt;dumbterm&gt;</b>") where this capability is disabled. If this entry is installed on your machines you can do a <b>rlogin</b> and still keep the correct <b>termcap</b>/<b>terminfo</b> entry. The terminal name is put in the <b>$TERM</b> variable of all new windows. Screen also sets the <b>$TERMCAP</b> variable reflecting the capabilities of the virtual terminal emulated. Notice that, however, on machines using the terminfo database this variable has no effect. Furthermore, the variable <b>$WINDOW</b> is set to the window number of each window.</p>
+<p class="tab">The actual set of capabilities supported by the virtual terminal depends on the capabilities supported by the physical terminal. If, for instance, the physical terminal does not support underscore mode, screen does not put the '<b>us</b>' and '<b>ue</b>' capabilities into the window's <b>$TERMCAP</b> variable, accordingly. However, a minimum number of capabilities must be supported by a terminal to run <b>screen</b>; namely scrolling, clear screen, and direct cursor addressing (also, <b>screen</b> does not run on hardcopy terminals or on terminals that over-strike).</p>
+<p class="tab">Also, you can customize the <b>$TERMCAP</b> value used by screen using the &quot;<b>termcap</b>&quot; <b>.screenrc</b> command, or by defining the variable <b>$SCREENCAP</b> before startup. When the is latter defined, its value is copied verbatim to each window's <b>$TERMCAP</b> variable. This can either be the full terminal definition, or a file name where the terminal &quot;<b>screen</b>&quot; (and/or &quot;<b>screen-w</b>&quot;) is defined.</p>
+<p class="tab">Note that screen honors the "<b>terminfo</b>" <b>.screenrc</b> command if the system uses the terminfo database rather than <b>termcap</b>.</p>
+<p class="tab">When the boolean '<b>G0</b>' capability is present in the termcap entry for the terminal on which screen is called, the terminal emulation of screen supports multiple character sets. This allows an application to make use of, for instance, the VT100 graphics character set or national character sets. The following control functions from ISO 2022 are supported: <b>lock shift G0</b> (SI), <b>lock shift G1</b> (SO), <b>lock shift G2</b>, <b>lock shift G3</b>, <b>single shift G2</b>, and <b>single shift G3</b>. When a virtual terminal is created or reset, the <a href="/jargon/a/ascii.htm">ASCII</a> character set is designated as <b>G0</b> through <b>G3</b>. When the '<b>G0</b>' capability is present, <b>screen</b> evaluates the capabilities '<b>S0</b>', '<b>E0</b>', and '<b>C0</b>' if present. '<b>S0</b>' is the sequence the terminal uses to enable and start the graphics character set rather than SI. '<b>E0</b>' is the corresponding replacement for SO. '<b>C0</b>' gives a character by character translation string that is used during semi-graphics mode. This string is built like the '<b>acsc</b>' terminfo capability.</p>
+<p class="tab">When the '<b>po</b>' and '<b>pf</b>' capabilities are present in the terminal's <b>termcap</b> entry, applications running in a <b>screen</b> window can send output to the printer port of the terminal. This allows a user to have an application in one window sending output to a printer connected to the terminal, while all other windows are still active (the printer port is enabled and disabled again for each chunk of output). As a side-effect, programs running in different windows can send output to the printer simultaneously. Data sent to the printer is not displayed in the window. The <b>info</b> command displays a line starting '<b>PRIN</b>' while the printer is active.</p>
+<p class="tab">Screen maintains a <b>hardstatus</b> line for every window. If a window gets selected, the display's <b>hardstatus</b> will be updated to match the window's <b>hardstatus</b> line. If the display has no <b>hardstatus</b>, the line will be displayed as a standard screen message. The <b>hardstatus</b> line can be changed with the <a href="/jargon/a/ansi.htm">ANSI</a> Application Program Command (APC): "<b>ESC_&lt;string&gt;ESC\</b>". As a convenience for xterm users the sequence "<b>ESC]0..2;&lt;string&gt;^G</b>" is also accepted.</p>
+<p class="tab">Some capabilities are only put into the <b>$TERMCAP</b> variable of the virtual terminal if they can be efficiently implemented by the physical terminal. For instance, '<b>dl</b>' (delete line) is only put into the <b>$TERMCAP</b> variable if the terminal supports either delete line itself or scrolling regions. Note that this may provoke confusion, when the session is reattached on a different terminal, as the value of <b>$TERMCAP</b> cannot be modified by parent processes.</p>
+<p class="tab">The "alternate screen" capability is not enabled by default. Set the altscreen <b>.screenrc</b> command to enable it.</p>
+<p class="tab">The following is a list of control sequences recognized by screen. "<b>(V)</b>" and "<b>(A)</b>" indicate VT100-specific and ANSI- or ISO-specific functions, respectively.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:150px"><b>ESC E</b></td>
+<td></td>
+<td>Next Line.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC D</b></td>
+<td></td>
+<td>Index.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC M</b></td>
+<td></td>
+<td>Reverse Index.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC H</b></td>
+<td></td>
+<td>Horizontal Tab Set.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC Z</b></td>
+<td></td>
+<td>Send VT100 Identification String.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC 7</b></td>
+<td style="width:200px">(V)</td>
+<td>Save Cursor and Attributes.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC 8</b></td>
+<td>(V)</td>
+<td>Restore Cursor and Attributes.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [s</b></td>
+<td>(A)</td>
+<td>Save Cursor and Attributes.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [u</b></td>
+<td>(A)</td>
+<td>Restore Cursor and Attributes.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC c</b></td>
+<td></td>
+<td>Reset to Initial State.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC g</b></td>
+<td></td>
+<td>Visual Bell.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC Pn p</b></td>
+<td></td>
+<td>Cursor Visibility.<br><br> Pn = 6: Invisible.<br><br> Pn = 7: Visible.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC =</b></td>
+<td>(V)</td>
+<td>Application Keypad Mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC &gt;</b></td>
+<td>(V)</td>
+<td>Numeric Keypad Mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC # 8</b></td>
+<td>(V)</td>
+<td>Fill Screen with E's.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC \</b></td>
+<td>(A)</td>
+<td>String Terminator.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC ^</b></td>
+<td>(A)</td>
+<td>Privacy Message String (Message Line).</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC !</b></td>
+<td></td>
+<td>Global Message String (Message Line).</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC k</b></td>
+<td></td>
+<td>A.k.a. Definition String.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC P</b></td>
+<td>(A)</td>
+<td>Device Control String. Outputs a string directly to the host terminal without interpretation.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC _</b></td>
+<td>(A)</td>
+<td>Application Program Command (Hardstatus).</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC ] 0 ; string ^G</b></td>
+<td>(A)</td>
+<td>Operating System Command (Hardstatus, xterm title hack).</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC ] 83 ; cmd ^G</b></td>
+<td>(A)</td>
+<td>Execute screen command. This only works if multi-user support is compiled into screen. The pseudo-user ":window:" is used to check the access control list. Use "addacl :window: -rwx #?" to create a user with no rights and allow only the needed commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>Control-N</b></td>
+<td>(A)</td>
+<td>Lock Shift G1 (SO).</td>
+</tr>
+<tr class="tcw">
+<td><b>Control-O</b></td>
+<td>(A)</td>
+<td>Lock Shift G0 (SI).</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC n</b></td>
+<td>(A)</td>
+<td>Lock Shift G2.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC o</b></td>
+<td>(A)</td>
+<td>Lock Shift G3.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC N</b></td>
+<td>(A)</td>
+<td>Single Shift G2.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC O</b></td>
+<td>(A)</td>
+<td>Single Shift G3.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC ( Pcs</b></td>
+<td>(A)</td>
+<td>Designate character set as G0.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC ) Pcs</b></td>
+<td>(A)</td>
+<td>Designate character set as G1.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC * Pcs</b></td>
+<td>(A)</td>
+<td>Designate character set as G2.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC + Pcs</b></td>
+<td>(A)</td>
+<td>Designate character set as G3.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn ; Pn H</b></td>
+<td></td>
+<td>Direct Cursor Addressing.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn ; Pn f</b></td>
+<td></td>
+<td>Same as above.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn J</b></td>
+<td></td>
+<td>Erase in Display.<br><br> Pn = None or 0: From Cursor to End of Screen.<br><br> Pn = 1: From Beginning of Screen to Cursor.<br><br> Pn = 2: Entire Screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn K</b></td>
+<td></td>
+<td>Erase in Line.<br><br> Pn = None or 0 From Cursor to End of Line.<br><br> 1 From Beginning of Line to Cursor.<br><br> 2 Entire Line.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn X</b></td>
+<td></td>
+<td>Erase character.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn A</b></td>
+<td></td>
+<td>Cursor up.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn B</b></td>
+<td></td>
+<td>Cursor down.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn C</b></td>
+<td></td>
+<td>Cursor right.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn D</b></td>
+<td></td>
+<td>Cursor left.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn E</b></td>
+<td></td>
+<td>Cursor next line.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn F</b></td>
+<td></td>
+<td>Cursor previous line.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn G</b></td>
+<td></td>
+<td>Cursor horizontal position.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn '</b></td>
+<td></td>
+<td>Same as above.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn d</b></td>
+<td></td>
+<td>Cursor vertical position.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Ps ;...; Ps m</b></td>
+<td>see values at right</td>
+<td>Select Graphic Rendition.<br><br> Ps = None or 0: Default Rendition.<br><br> Ps = 1: Bold.<br><br> Ps = 2: (A) Faint.<br><br> Ps = 3: (A) Standout Mode (ANSI: Italicized).<br><br> Ps = 4: Underlined.<br><br> Ps = 5: Blinking.<br><br> Ps = 7: Negative Image.<br><br> Ps = 22: (A) Normal Intensity.<br><br> Ps = 23: (A) Standout Mode off (ANSI: Italicized off).<br><br> Ps = 24: (A) Not Underlined.<br><br> Ps = 25: (A) Not Blinking.<br><br> Ps = 27: (A) Positive Image.<br><br> Ps = 30: (A) Foreground Black.<br><br> Ps = 31: (A) Foreground Red.<br><br> Ps = 32: (A) Foreground Green.<br><br> Ps = 33: (A) Foreground Yellow.<br><br> Ps = 34: (A) Foreground Blue.<br><br> Ps = 35: (A) Foreground Magenta.<br><br> Ps = 36: (A) Foreground Cyan.<br><br> Ps = 37: (A) Foreground White.<br><br> Ps = 39: (A) Foreground Default.<br><br> Ps = 40: (A) Background Black.<br><br> ...<br><br> Ps = 49: (A) Background Default.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn g</b></td>
+<td></td>
+<td>Tab Clear.<br><br> Pn = None or 0: Clear Tab at Current Position.<br><br> Pn = 3: Clear All Tabs.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn ; Pn r</b></td>
+<td>(V)</td>
+<td>Set Scrolling Region.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn I</b></td>
+<td>(A)</td>
+<td>Horizontal Tab.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn Z</b></td>
+<td>(A)</td>
+<td>Backward Tab.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn L</b></td>
+<td>(A)</td>
+<td>Insert Line.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn M</b></td>
+<td>(A)</td>
+<td>Delete Line.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn @</b></td>
+<td>(A)</td>
+<td>Insert Character.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn P</b></td>
+<td>(A)</td>
+<td>Delete Character.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn S</b></td>
+<td></td>
+<td>Scroll Scrolling Region Up.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn T</b></td>
+<td></td>
+<td>Scroll Scrolling Region Down.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Pn ^&gt;</b></td>
+<td></td>
+<td>Same as above.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Ps ;...; Ps h</b></td>
+<td></td>
+<td>Set Mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ Ps ;...; Ps l</b></td>
+<td>see values at right</td>
+<td>Reset Mode.<br><br> Ps = 4: (A) Insert Mode.<br><br> Ps = 20: (A) Automatic Linefeed Mode.<br><br> Ps = 34: Normal Cursor Visibility.<br><br> Ps = ?1: (V) Application Cursor Keys.<br><br> Ps = ?3: (V) Change Terminal Width to 132 columns.<br><br> Ps = ?5: (V) Reverse Video.<br><br> Ps = ?6: (V) Origin Mode.<br><br> Ps = ?7: (V) Wrap Mode.<br><br> Ps = ?9: X10 mouse tracking.<br><br> Ps = ?25: (V) Visible Cursor.<br><br> Ps = ?47: Alternate Screen (old xterm code).<br><br> Ps = ?1000: (V) VT200 mouse tracking.<br><br> Ps = ?1047: Alternate Screen (new xterm code).<br><br> Ps = ?1049: Alternate Screen (new xterm code).</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ 5 i</b></td>
+<td>(A)</td>
+<td>Start relay to printer (ANSI media copy).</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ 4 i</b></td>
+<td>(A)</td>
+<td>Stop relay to printer (ANSI media copy).</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ 8 ; Ph ; Pw t</b></td>
+<td></td>
+<td>Resize the window to 'Ph' lines and 'Pw' columns (SunView special).</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ c</b></td>
+<td></td>
+<td>Send VT100 identification string.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ x</b></td>
+<td></td>
+<td>Send terminal parameter report.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ &gt; c</b></td>
+<td></td>
+<td>Send VT220 secondary device attributes string.</td>
+</tr>
+<tr class="tcw">
+<td><b>ESC [ 6 n</b></td>
+<td></td>
+<td>Send cursor position report.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">screen</pre>
+<p class="tab">Typing <b>screen</b> without any options starts a new screen, often with no messages or notice indicating that a new screen has started. To view the available commands press <b>C-a</b> (<a href="/jargon/c/ctrl-a.htm"><kbd>Ctrl</kbd>+<kbd>A</kbd></a>) and then let go and press a <b>?</b> to see available options. To switch between active screens press <b>C-a</b> multiple times.</p>
+<p class="tab">If you want to start another screen press <b>C-a and then C</b> to start a new window.</p>
+<p class="tab">If you want to close a screen window press <b>C-a and then K</b>. When entered correctly you'll be prompted if you want to quit the window.</p>
+<p class="tab">To detach from a screen press <b>C-a and then d</b>. This will keep the screen active, even when logging off and can be reattached the next time you connect.</p>
+<pre class="tcy tab">screen -ls</pre>
+<p class="tab">To view attached and detached screens type the above command. This gives you output similar to the example below:</p>
+<pre class="tab">There is a screen on:
+8254.pts-0.host (Detached)
+1 Socket in /var/run/screen/S-hope.</pre>
+<p class="tab">This is useful for when you lose your session or logout while waiting on a process to complete. To re-attach to a detached screen type <b>screen -r &lt;screen name&gt;</b>. Using the above example we'd type screen <b>-r 8254.pts-0.host</b>.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8348b83fc429',m:'2SPW63zElVGQ16Ljq07n.Yu2GAkWlQgOx_Vt1uCVgCU-1661495363-0-AVfHYYPdlq0/AhYWYpbWK4TUK5k1B0t6RAB1B3kGeDkptiaSmrecUnBHLHD2OkqdvcjQhdSt3rnKJ3YlMkSyU0UC+JpSuTTR4NXqLQjAYLDMjCmLqicOY95TVLiaE311RQ==',s:[0x90b3447e7f,0xed2da54040],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

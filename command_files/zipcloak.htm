@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux zipcloak command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/zipcloak.gif" width="300" height="300" alt="zipcloak command" class="floatRight"><p class="intro"><b>zipcloak</b> <a href="/jargon/e/encrypt.htm">encrypts</a> files within an existing <a href="/jargon/z/zip.htm">zip</a> <a href="/jargon/a/archive.htm">archive</a>.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>zipcloak</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#removing">Removing encryption from the archive</a></li>
+<li><a href="#outputting">Outputting the encrypted archive to a new file</a></li>
+<li><a href="#technical">Technical description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">Archives created with the <a href="/unix/zip.htm"><b>zip</b></a> utility can be encrypted in two ways: using <b>zip</b>'s <b>--encrypt</b> option at archive time, or after the zipfile is created using the <b>zipcloak</b> utility.</p>
+<p class="tab">Let's say you have a zipfile <b>archive.zip</b> which contains two files, <b>file1</b> and <b>file2</b>, and you'd like to encrypt its contents so that only users who know the password can extract its contents. You can do this with <b>zipcloak</b> using the following command:</p>
+<pre class="tab tcy">zipcloak archive.zip</pre>
+<p class="tab"><b>zipcloak</b> prompts you for a password, and then ask you to confirm it:</p>
+<pre class="tab">Enter password: 
+Verify password:</pre>
+<p class="tab">...if the passwords match, it encrypts each file in the archive:</p>
+<pre class="tab">encrypting: file1
+encrypting: file2</pre>
+<p class="tab">...and now, when you try to <a href="/unix/unzip.htm"><b>unzip</b></a> the archive, it prompts you for the password before allowing you to extract the files it contains:</p>
+<pre class="tab tcy">unzip archive.zip</pre>
+<pre class="tab">Archive:  archive.zip
+[archive.zip] file1 password:</pre>
+<p class="tab">Although it asks for "<b>file1 password</b>", you only need to enter the password once to decrypt and extract all of the files in the archive.</p>
+<h2 id="removing">Removing encryption from the archive</h2>
+<p class="tab">Later, if you want to remove the encryption from the zipfile, you can use the <b>-d</b> option of <b>zipcloak</b>, like this:</p>
+<pre class="tab tcy">zipcloak -d archive.zip</pre>
+<p class="tab"><b>zipcloak</b> will then ask you for the password that was used to encrypt the zipfile:</p>
+<pre class="tab">Enter password:</pre>
+<p class="tab">...and if you enter it correctly, <b>zipcloak</b> removes the encryption from the files in the archive:</p>
+<pre class="tab">decrypting: file1
+decrypting: file2</pre>
+<p class="tab">...and return you to the command prompt.</p>
+<h2 id="outputting">Outputting the encrypted archive to a new file</h2>
+<p class="tab">You also have the option of leaving the original archive unencrypted, and creating a new encrypted version of the archive instead. Let's say your original, unencrypted archive is named <b>archive.zip</b>, and you want to create an encrypted version of the archive called <b>encrypted.zip</b>, leaving the original file unchanged. You could use <b>zipcloak</b>'s <b>-O</b> option to accomplish this. Run this command:</p>
+<pre class="tab tcy">zipcloak archive.zip -O encrypted.zip</pre>
+<p class="tab">...and <b>zipcloak</b> will operate as usual, except that instead of encrypting the original archive, it creates a new, encrypted version of the archive named <b>encrypted.zip</b>.</p>
+<h2 id="technical">Technical description</h2>
+<p class="tab"><b>zipcloak</b> encrypts all unencrypted entries in the specified zipfile, which is the default action.</p>
+<p class="tab">The <b>-d</b> option is used to decrypt encrypted entries in the zipfile.</p>
+<div class="tip tab" role="note">
+<span class="title note">Warning</span>
+<p><b>zipcloak</b> uses original zip encryption, which is considered weak in comparison to modern <a href="/jargon/a/algorith.htm">algorithms</a>.</p>
+</div>
+<p class="tab">The encryption code of this program is not copyrighted and is in the <a href="/jargon/p/publdoma.htm">public domain</a>. It was originally written in Europe and can be freely distributed from any country including the United States. (Previously, if this program was imported into the U.S., it could not be re-exported from the U.S. to another country. See the file <b>README.CR</b> included in the source distribution for more information.) Otherwise, the <a href="http://www.info-zip.org/license.html" class="external">Info-ZIP license</a> applies.</p>
+<p class="tab">Please note that archives larger than 2 <a href="/jargon/g/gigabyte.htm">gigabytes</a> are not supported by <b>zipcloak</b>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">zipcloak [-d] [-b <i>path</i>] [-h] [-v] [-L] <i>zipfile</i>
+</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tbody>
+<tr class="tcw">
+<td style="width:200px"><b>-b</b> <i>path</i><br><br><b>--temp-path</b> <i>path</i></td>
+<td>Use the directory given by path for the temporary zip file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b><br><br><b>--decrypt</b></td>
+<td>Decrypt encrypted entries (copy if given wrong password).</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b><br><br><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b><br><br><b>--license</b></td>
+<td>Display software licensing information, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b> <i>newfile</i><br><br><b>--output-file</b> <i>newfile</i></td>
+<td>Write output to new archive <i>newfile</i>, leaving original archive as is.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b><br><br><b>--quiet</b></td>
+<td>Operate quietly, suppressing some informational messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b><br><br><b>--version</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">zipcloak myarchive.zip</pre>
+<p class="tab">Encrypt the <b>myarchive.zip</b> file. The <b>zipcloak</b> command prompts you to enter a password, then ask you to confirm it; if they match, it will encrypt the file so that it cannot be decrypted without that password.</p>
+<pre class="tcy tab">zipcloak myarchive.zip -O encrypted.zip</pre>
+<p class="tab">Encrypt the contents of archive <b>myarchive.zip</b>, but write the encrypted archive to a new file, <b>encrypted.zip</b>, and leave <b>myarchive.zip</b> unencrypted.</p>
+<pre class="tcy tab">zipcloak -d myarchive.zip</pre>
+<p class="tab">Remove any encryption previously placed on <b>myarchive.zip</b> using <b>zipcloak</b>. You will be prompted for the password before it removes the encryption.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab norm"><a href="/unix/unzip.htm"><b>unzip</b></a> &mdash; List, test and extract compressed files in a zip archive.<br><a href="/unix/zip.htm"><b>zip</b></a> &mdash; A compression and archiving utility.<br><a href="/unix/zipnote.htm"><b>zipnote</b></a> &mdash; View, add, or modify a zip file's comments.<br><a href="/unix/zipsplit.htm"><b>zipsplit</b></a> &mdash; Split a single zip archive into a set of smaller zip files.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a838c2d5284a4',m:'tNdtfocNASQNmrLr8crEpzWGYIapQgY.Kj75zAz5WPI-1661495374-0-AZhXnxUrrBYUyD3xc2E8FKN26L8uTkRDJpTKJ2YlNb5pZIH4leymMdSVQHW4vhE3ffLFeKjakBTloCf0EXYbpFDqrs603vrtfdBZN1E2mOII9sFPa5m4Ssv9pm4aUU87wCebuvTPn0o1TjAMeqg2D+A=',s:[0x1c0763584e,0x88ce0f91a1],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

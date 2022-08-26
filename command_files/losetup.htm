@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux losetup command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/losetup.gif" width="300" height="300" alt="losetup command" class="floatRight"><p class="intro">On Linux operating systems, the <b>losetup</b> command sets up and controls loop devices.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#encryption">Encryption</a></li>
+<li><a href="#exit-status">Exit status</a></li>
+<li><a href="#limitations">Limitations</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">losetup <i>loopdev</i></pre>
+<pre class="tcy tab">losetup -a</pre>
+<pre class="tcy tab">losetup -j <i>file</i> [-o <i>offset</i>]</pre>
+<pre class="tcy tab">losetup -d <i>loopdev</i>...</pre>
+<pre class="tcy tab">losetup -f</pre>
+<pre class="tcy tab">losetup [{-e|-E} <i>encryption</i>] [-o <i>offset</i>] [--sizelimit <i>size</i>] [-p <i>pfd</i>] 
+        [-r] {-f[--show]|<i>loopdev</i>} <i>file</i></pre>
+<pre class="tcy tab">losetup -c <i>loopdev</i></pre>
+<p class="tab"><b>losetup</b> is used to associate loop devices with regular files or block devices, to detach loop devices and to <a href="/jargon/q/query.htm">query</a> the status of a loop device.</p>
+<p class="tab">A loop device, also known as <i>vnd</i> (vnode disk) or <i>lofi</i> (loopback file interface), is a pseudo-device that makes a file accessible as a block device.</p>
+<p class="tab">If only the loopdev argument is given, the status of the corresponding loop device is shown.</p>
+<h2 id="options">Options</h2>
+<p class="tab">The size and offset arguments may be followed by <a href="/jargon/b/binary.htm">binary</a> (2^N) suffixes KiB, MiB, GiB, TiB, PiB, and EiB (the &quot;iB&quot; is optional, e.g., &quot;K&quot; has the same meaning as &quot;KiB&quot;), or <a href="/jargon/d/decimal.htm">decimal</a> (10^N) suffixes KB, MB, GB, PB, and EB.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:280px"><b>-a</b>, <b>--all</b></td>
+<td>Show status of all loop devices.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>,<br> <b>--set-capacity</b> <i>loopdev</i></td>
+<td>Force loop driver to reread size of the file associated with the specified loop device.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>,<br> <b>--detach</b> <i>loopdev...</i></td>
+<td>Detach the file or device associated with the specified loop device(s).</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>,<br> <b>-E</b>,<br> <b>--encryption</b> <i>encryption_type</i></td>
+<td>Enable data encryption with specified name or number.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--find</b></td>
+<td>Find the first unused loop device. If a file argument is present, use this device. Otherwise, print its name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Print help.</td>
+</tr>
+<tr class="tcw">
+<td><b>-j</b>, <b>--associated</b> <i>file</i></td>
+<td>Show status of all loop devices associated with given file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b>, <b>--keybits</b> <i>num</i></td>
+<td>Set the number of bits to use in key to <i>num</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b>, <b>--nohashpass</b></td>
+<td>Do not hash the password. By default, Debian systems run the password through a hash function, non-Debian systems may not.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--offset</b> <i>offset</i></td>
+<td>The data start is moved <i>offset</i> bytes into the specified file or device</td>
+</tr>
+<tr class="tcw">
+<td><b>--sizelimit</b> <i>size</i></td>
+<td>The data end is set to no more than <i>size</i> bytes after the data start</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--read-only</b></td>
+<td>Set up read-only loop device</td>
+</tr>
+<tr class="tcw">
+<td><b>--show</b></td>
+<td>Print device name if the <b>-f</b> option and a file argument are present. The short form of this option (<b>-s</b>) is deprecated. This short form could be in collision with Loop-<a href="/jargon/a/aes.htm">AES</a> implementation, where the same option is used for <b>--sizelimit</b>.</td>
+</tr>
+</table>
+<h2 id="encryption">Encryption</h2>
+<p class="tab">It is possible to specify transfer functions (for <a href="/jargon/e/encrypt.htm">encryption</a>/decryption or other purposes) using one of the -E and -e options. There are two mechanisms to specify the desired encryption: by number and by name. If an encryption is specified by number, then one has to make sure the Linux kernel knows about the encryption with that number, probably by patching the kernel. Standard numbers that are always present are 0 (no encryption) and 1 (<a href="/jargon/x/xoropera.htm">XOR</a> encryption). When the cryptoloop module is loaded (or compiled in), it uses number 18. This cryptoloop module takes the name of an arbitrary encryption type and finds the module that knows how to perform that encryption.</p>
+<h2 id="exit-status">Exit status</h2>
+<p class="tab"><b>losetup</b> returns an <a href="/jargon/e/exit-status.htm">exit status</a> of <b>0</b> on success, and nonzero on failure. When <b>losetup</b> displays the status of a loop device, it returns <b>1</b> if the device is not configured, and <b>2</b> if an error occurred that prevented losetup from determining the status of the device.</p>
+<h2 id="limitations">Limitations</h2>
+<p class="tab"><a href="/jargon/d/des.htm">DES</a> encryption is painfully slow. On the other hand, the simple <a href="/jargon/x/xoropera.htm">XOR</a> method is terribly weak. Both are considered insecure compared to newer algorithms. Additionally, some <a href="/jargon/c/cipher.htm">ciphers</a> may require a license for you to be allowed to use them.</p>
+<p class="tab">Cryptoloop is deprecated in favor of dm-crypt. For more details see <i>cryptsetup</i>.</p>
+<h2 id="examples">Examples</h2>
+<p class="tab">If you are using the loadable loop device module, you must have the module loaded first with the command:</p>
+<pre class="tcy tab">modprobe loop</pre>
+<p class="tab">Encryption modules may also be needed.</p>
+<pre class="tcy tab">modprobe des</pre>
+<pre class="tcy tab">modprobe cryptoloop</pre>
+<p class="tab">The following commands are an example of using the loop device:</p>
+<pre class="tcy tab">dd if=/dev/zero of=/file bs=1k count=100</pre>
+<pre class="tcy tab">losetup -e des /dev/loop0 /file</pre>
+<pre class="tab">Password:
+Init (up to 16 hex digits):
+</pre>
+<pre class="tcy tab">mkfs -t ext2 /dev/loop0 100</pre>
+<pre class="tcy tab">mount -t ext2 /dev/loop0 /mnt</pre>
+<pre class="tab">...</pre>
+<pre class="tcy tab">umount /dev/loop0</pre>
+<pre class="tcy tab">losetup -d /dev/loop0</pre>
+<p class="tab">If you are using the loadable module, you may remove the module with the command:</p>
+<pre class="tcy tab">rmmod loop</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/dd.htm"><b>dd</b></a> &mdash; Copy and convert the encoding of files.<br><a href="/unix/mkfs.htm"><b>mkfs</b></a> &mdash; Build a Linux file system, usually a hard disk partition.<br><a href="/unix/umount.htm"><b>mount</b></a> &mdash; Mount a file system so that its data may be accessed.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a830a48a084f8',m:'RNykQUoeGlrzeEztVih0gmQpSoVWixUawiJ41QPgP4E-1661495353-0-Ac/xOC2sKC1RJGrYZ6jVGATceECP5FURs4mEyMDbESP12PthWo3i4r+xFN4hYA6Sq470TC7iFmRyjHHIq1BtFWWACR3+wHskMOTEwT8I66yJhQOxypPveW/dUBRaRMJM7NHr8yQJj/vwhiicRKtJke0=',s:[0xc460bf2553,0xed2da54040],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

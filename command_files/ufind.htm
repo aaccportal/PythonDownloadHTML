@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux find command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/find.gif" width="300" height="300" alt="find command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>find</b> command searches for files and <a href="/jargon/d/director.htm">directories</a> in a <a href="/jargon/f/filesyst.htm">file system</a>.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>find</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#suppressing">Suppressing Error Messages When Using find</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>find</b> locates files on your system. Within each directory tree specified by the given <i>path</i>s, it evaluates the given <i>expression</i> from left to right, according to the rules of precedence (see "<a href="#Operators">Operators</a>", below) until the outcome is known. The outcome is "known" when the left side of the expression is determined to be FALSE for AND operations, or TRUE for OR operations. At that point <b>find</b> moves on to the next <i>path</i> until all <i>path</i>s are searched.</p>
+<p class="tab"><b>find</b> is a fundamental and extremely powerful tool for working with the files on your linux system. It can be used on its own to locate files, or in conjunction with other programs to perform operations on those files.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">find [-H] [-L] [-P] [-D <i>debugopts</i>] [-O<i>level</i>] [<i>path</i>...] [<i>expression</i>]</pre>
+<h2>Options</h2>
+<p class="tab">The <b>-H</b>, <b>-L</b> and <b>-P</b> options control the treatment of <a href="/jargon/s/symblink.htm">symbolic links</a>. <a href="/jargon/a/argument.htm">Arguments</a> following these are taken to be names of files or directories to be examined, up to the first argument that begins with "<b>-</b>", or the argument "<b>(</b>" or "<b>!</b>". That argument and any following arguments are taken to be the expression describing what is being searched. If no <i>path</i>s are given, the current directory is used. If no <i>expression</i> is given, the expression <b>-print</b> is used (but consider using <b>-print0</b> instead. More information on this below).</p>
+<p class="tab">The arguments in the <i>expression</i> list are also referred to as "options," but the five "real" options <b>-H</b>, <b>-L</b>, <b>-P</b>, <b>-D</b> and <b>-O</b> must appear before the first path name, if they are used at all. A double-dash ("<b>--</b>") can also be used to signal that any remaining arguments are not options (though ensuring that all start points begin with either "<b>./</b>" or "<b>/</b>" is generally safer if you use <a href="/jargon/w/wildcard.htm">wildcards</a> in the list of start points).</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>-P</b></td>
+<td>Never follow symbolic links. This is the default. When <b>find</b> examines or prints information a file, and the file is a symbolic link, the information used is taken from the properties of the symbolic link itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b></td>
+<td>Follow symbolic links. When <b>find</b> examines or prints information about files, the information used is taken from the properties of the file that the link points, not from the link itself (unless it is a broken symbolic link or find cannot examine the file that the link points). Use of this option implies <b>-noleaf</b>. If you later use the <b>-P</b> option, <b>-noleaf</b> is still in effect. If <b>-L</b> is in effect and find discovers a symbolic link to a subdirectory during its search, the subdirectory pointed to by the symbolic link is searched.<br><br> When the <b>-L</b> option is in effect, the <b>-type</b> predicate always matches against the type of the file that a symbolic link points to rather than the link itself (unless the symbolic link is broken). Using <b>-L</b> causes the <b>-lname</b> and <b>-ilname</b> predicates always to return false.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b></td>
+<td>Do not follow symbolic links, except while processing the command line arguments. When <b>find</b> examines or prints information about files, the information used is taken from the properties of the symbolic link itself. The only exception to this behaviour is when a file specified on the command line is a symbolic link, and the link can be resolved. For that situation, the information used is taken from whatever the link points to (that is, the link is followed). The information about the link itself is used as a fallback if the file pointed to by the symbolic link cannot be examined. If <b>-H</b> is in effect and one of the paths specified on the command line is a symbolic link to a directory, the contents of that directory are examined (though specifying <b>-maxdepth 0</b> would prevent this).</td>
+</tr>
+</table>
+<p class="tab">If more than one of <b>-H</b>, <b>-L</b> and <b>-P</b> is specified, each overrides the others; the last one appearing on the command line takes effect. Since it is the default, the <b>-P</b> option should be considered to be in effect unless either <b>-H</b> or <b>-L</b> is specified. <a href="/jargon/g/gnu.htm">GNU</a> <b>find</b> frequently <a href="/jargon/s/stat.htm"><b>stat</b></a>s files during the processing of the command line itself, before any searching has begun. These options also affect how those arguments are processed. Specifically, there are many tests that compare files listed on the command line against a file we are currently considering. In each case, the file specified on the command line is examined and some of its properties is saved. If the named file is in fact a symbolic link, and the <b>-P</b> option is in effect (or if neither <b>-H</b> nor <b>-L</b> were specified), the information used for the comparison is taken from the properties of the symbolic link. Otherwise, it is taken from the properties of the file the link points to. If <b>find</b> cannot follow the link (for example, because it has insufficient privileges or the link points to a nonexistent file) the properties of the link itself is used.</p>
+<p class="tab">When the <b>-H</b> or <b>-L</b> options are in effect, any symbolic links listed as the argument of <b>-newer</b> is dereferenced, and the <a href="/jargon/t/timestam.htm">timestamp</a> is taken from the file that the symbolic link points. The same consideration applies to <b>-newerXY</b>, <b>-anewer</b> and <b>-cnewer</b>.</p>
+<p class="tab">The <b>-follow</b> option has a similar effect to <b>-L</b>, though it takes effect at the point where it appears (that is, if <b>-L</b> is not used but <b>-follow</b> is, any symbolic links appearing after <b>-follow</b> on the command line is dereferenced, and those before it won't).</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>-D</b> <i>debugoptions</i></td>
+<td><p>Print diagnostic information; this can be helpful to diagnose problems with why <b>find</b> is not doing what you want. The list of debug options should be comma separated. Compatibility of the debug options is not guaranteed between releases of <b>findutils</b>. For a complete list of valid debug options, see the output of <b>find -D help</b>. Valid debug options include:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:70px"><b>help</b></td>
+<td>Explain the debugging options.</td>
+</tr>
+<tr class="tcw">
+<td><b>tree</b></td>
+<td>Show the expression tree in its original and optimised form.</td>
+</tr>
+<tr class="tcw">
+<td><b>stat</b></td>
+<td>Print messages as files are examined with the <b>stat</b> and <b>lstat</b> system calls. The find program tries to minimize such calls.</td>
+</tr>
+<tr class="tcw">
+<td><b>opt</b></td>
+<td>Prints diagnostic information relating to the optimisation of the expression tree; see the <b>-O</b> <i>option</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>rates</b></td>
+<td>Prints a summary indicating how often each predicate succeeded or failed.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b><i>level</i></td>
+<td><p>Enables <a href="/jargon/q/query.htm">query</a> optimisation. The <b>find</b> program reorders tests to speed up execution while preserving the overall effect; that is, predicates with side effects are not reordered relative to each other. The optimisations performed at each optimisation level are as follows.</p>
+<p>There must not be a space in between <b>-O</b> and the decimal representing the optimization level. The decimals and their meanings are as follows:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>0</b></td>
+<td>Equivalent to optimisation level 1.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>This is the default optimisation level and corresponds to the traditional behaviour. Expressions are reordered so that tests based only on the names of files (for example, -name and -regex) are performed first.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>Any <b>-type</b> or <b>-xtype</b> tests are performed after any tests based only on the names of files, but before any tests that require information from the <a href="/jargon/i/inode.htm">inode</a>. On many modern versions of Unix, file types are returned by <b>readdir()</b> and so these predicates are faster to evaluate than predicates which need to stat the file first.</td>
+</tr>
+<tr class="tcw">
+<td><b>3</b></td>
+<td>At this optimisation level, the full cost-based query optimiser is enabled. The order of tests is modified so that cheap (i.e., fast) tests are performed first and more expensive ones are performed later, if necessary. Within each cost band, predicates are evaluated earlier or later according to whether they are likely to succeed or not. For <b>-o</b>, predicates that are likely to succeed are evaluated earlier, and for <b>-a</b>, predicates that are likely to fail are evaluated earlier.</td>
+</tr>
+</table>
+The cost-based optimiser has a fixed idea of how likely any given test is to succeed. In some cases, the probability takes account of the specific nature of the test (for example, <b>-type f</b> is assumed to be more likely to succeed than <b>-type c</b>). The cost-based optimiser is currently being evaluated. If it does not actually improve the performance of <b>find</b>, it is removed again. Conversely, optimisations that prove to be reliable, robust and effective may be enabled at lower optimisation levels over time. However, the default behaviour (i.e., optimisation level 1) isn't changed in the 4.3.x release series. The <b>findutils</b> test suite runs all the tests on find at each optimisation level and ensures that the result is the same.</td>
+</tr>
+</table>
+<h2>Expressions</h2>
+<p class="tab">The <i>expression</i> is made up of options (which affect overall operation rather than the processing of a specific file, and always return <b>true</b>), tests (which return a <b>true</b> or <b>false</b> value), and actions (which have side effects and return a true or false value), all separated by operators. <b>-and</b> is assumed where the operator is omitted.</p>
+<p class="tab">If the expression contains no actions other than <b>-prune</b>, <b>-print</b> is performed on all files for which the expression is true.</p>
+<h2>Expression Options</h2>
+<p class="tab">All options always return true. Except for <b>-daystart</b>, <b>-follow</b> and <b>-regextype</b>, the options affect all tests, including tests specified before the option. This is because the options are processed when the command line is parsed, while the tests don't do anything until files are examined. The <b>-daystart</b>, <b>-follow</b> and <b>-regextype</b> options are different in this respect, and have an effect only on tests which appear later in the command line. Therefore, for clarity, it is best to place them at the beginning of the expression. A warning is issued if you don't do this.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>-d</b></td>
+<td>A synonym for <b>-depth</b>, for compatibility with <a href="/jargon/b/bsd.htm">FreeBSD, NetBSD, OpenBSD</a>, and <a href="/jargon/m/macosx.htm">MacOS X</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-daystart</b></td>
+<td>Measure times (for <b>-amin</b>, <b>-atime</b>, <b>-cmin</b>, <b>-ctime</b>, <b>-mmin</b>, and <b>-mtime</b>) from the beginning of today rather than from 24 hours ago. This option only affects tests which appear later on the command line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-depth</b></td>
+<td>Process each directory's contents before the directory itself. The <b>-delete</b> action also implies <b>-depth</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-follow</b></td>
+<td>This option is an older way to do the same thing as <b>-L</b>. It is now deprecated;use the <b>-L</b> option instead.<br><br> This option dereferences symbolic links and implies <b>-noleaf</b>. The <b>-follow</b> option affects only those tests which appear after it on the command line. Unless the <b>-H</b> or <b>-L</b> option is specified, the position of the <b>-follow</b> option changes the behaviour of the <b>-newer</b> predicate; any files listed as the argument of <b>-newer</b> is dereferenced if they are symbolic links. The same consideration applies to <b>-newerXY</b>, <b>-anewer</b> and <b>-cnewer</b>. Similarly, the <b>-type</b> predicate always matches against the type of the file that a symbolic link points to rather than the link itself. Using <b>-follow</b> causes the <b>-lname</b> and <b>-ilname</b> predicates always to return <b>false</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-help</b>, <b>--help</b></td>
+<td>Print a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ignore_readdir_race</b></td>
+<td>Normally, <b>find</b> gives an error message when it cannot <a href="/unix/stat.htm"><b>stat</b></a> a file. If you give this option and a file is deleted between the time <b>find</b> reads the name of the file from the directory and the time it tries to <b>stat</b> the file, no error message is issued. This also applies to <i>path</i>s given on the command line. This option takes effect at the time the command line is read, which means that you cannot search one part of the filesystem with this option on and part of it with this option off.</td>
+</tr>
+<tr class="tcw">
+<td><b>-maxdepth</b> <i>levels</i></td>
+<td>Descend at most <i>levels</i> (a non-negative <a href="/jargon/i/integer.htm">integer</a>) levels of directories below the command line arguments. <b>-maxdepth 0</b> means only apply the tests and actions to the <i>path</i>s specified on the command line, and do not descend into subdirectories at all.</td>
+</tr>
+<tr class="tcw">
+<td><b>-mindepth</b> <i>levels</i></td>
+<td>Do not apply any tests or actions at levels less than <i>levels</i> (a non-negative integer). <b>-mindepth 1</b> means process all files except the command line arguments.</td>
+</tr>
+<tr class="tcw">
+<td><b>-mount</b></td>
+<td>Don't descend directories on other <a href="/jargon/f/filesyst.htm">filesystems</a>. An alternate name for <b>-xdev</b>. This option is provided for compatibility with some other versions of <b>find</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-noignore_readdir_race</b></td>
+<td>Turns off the effect of <b>-ignore_readdir_race</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-noleaf</b></td>
+<td>Do not optimize by assuming that directories contain 2 fewer subdirectories than their <a href="/jargon/h/hardlink.htm">hard link</a> count. This option is needed when searching filesystems that do not follow the Unix directory-link convention, such as <a href="/jargon/c/cdrom.htm">CD-ROM</a> or <a href="/jargon/m/msdos.htm">MS-DOS</a> filesystems, or AFS volume <a href="/jargon/m/mount.htm">mount</a> points. Each directory on a normal Unix filesystem has at least 2 <a href="/jargon/h/hardlink.htm">hard links</a>: its name and its '<b>.</b>' entry. Additionally, its subdirectories (if any) each have a '<b>..</b>' entry linked to that directory. When find is examining a directory, after it has statted 2 fewer subdirectories than the directory's link count, it knows that the rest of the entries in the directory are non-directories ('leaf' files in the directory tree). If only the files' names need to be examined, there is no need to <b>stat</b> them; this gives a significant increase in the search speed.<br><br> If you are using a standard linux filesystem, you don't need to use this option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-regextype</b> <i>type</i></td>
+<td>Changes the <a href="/jargon/r/regex.htm">regular expression</a> syntax understood by <b>-regex</b> and <b>-iregex</b> tests which occur later on the command line. Currently-implemented types are <b><a href="/unix/uemacs.htm">emacs</a></b> (this is the default), <b><a href="/jargon/p/posix.htm">posix</a>-<a href="/unix/uawk.htm">awk</a></b>, <b>posix-basic</b>, <b>posix-<a href="/unix/uegrep.htm">egrep</a></b> and <b>posix-extended</b>.<br><br> If you're using a specific style of regular expression syntax, you may need to specify this option. Otherwise, it should be unnecessary.</td>
+</tr>
+<tr class="tcw">
+<td><b>-version</b>, <b>--version</b></td>
+<td>Print the <b>find</b> version number and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-warn</b>, <b>-nowarn</b></td>
+<td>Turn warning messages <b>on</b> or <b>off</b>. These warnings apply only to the command line usage, not to any conditions that find might encounter when it searches directories. The default behaviour corresponds to <b>-warn</b> if standard input is a <a href="/jargon/t/tty.htm">tty</a>, and to <b>-nowarn</b> otherwise.</td>
+</tr>
+<tr class="tcw">
+<td><b>-xdev</b></td>
+<td>Don't descend directories on other filesystems.</td>
+</tr>
+</table>
+<h2>Tests</h2>
+<p class="tab">Some tests, for example, <b>-newerXY</b> and <b>-samefile</b>, allow comparison between the file currently being examined and some reference file specified on the command line. When these tests are used, the interpretation of the reference file is determined by the options <b>-H</b>, <b>-L</b> and <b>-P</b> and any previous <b>-follow</b>, but the reference file is only examined once, at the time the command line is parsed. If the reference file cannot be examined (for example, the <b>stat</b> system call fails for it), an error message is issued, and <b>find</b> exits with a nonzero status.</p>
+<p class="tab">Where <i>n</i> is used as a numeric argument, it can be specified as:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:40px"><b>+</b><i>n</i></td>
+<td>For greater than <i>n</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b><i>n</i></td>
+<td>For less than <i>n</i>.</td>
+</tr>
+<tr class="tcw">
+<td><i>n</i></td>
+<td>For exactly <i>n</i>.</td>
+</tr>
+</table>
+<p class="tab">Tests are as follows:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>-amin</b> <i>n</i></td>
+<td>Returns true is a file was last accessed <i>n</i> minutes ago.</td>
+</tr>
+<tr class="tcw">
+<td><b>-anewer</b> <i>file</i></td>
+<td>Returns true if a file was last accessed more recently than <i>file</i> was modified. If <i>file</i> is a symbolic link and the <b>-H</b> option or the <b>-L</b> option is in effect, the access time of the file it points to is always used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-atime</b> <i>n</i></td>
+<td>Returns true if a file was last accessed <i>n</i> * 24 hours ago. When <b>find</b> figures out how many 24-hour periods ago the file was last accessed, any fractional part is ignored, so to match <b>-atime +1</b>, a file has to be accessed at least two days ago.</td>
+</tr>
+<tr class="tcw">
+<td><b>-cmin</b> <i>n</i></td>
+<td>Returns true if a file's status was last changed <i>n</i> minutes ago.</td>
+</tr>
+<tr class="tcw">
+<td><b>-cnewer</b> <i>file</i></td>
+<td>Returns true if a file's status was last changed more recently than <i>file</i> was modified. If <i>file</i> is a symbolic link and the <b>-H</b> option or the <b>-L</b> option is in effect, the status-change time of the file it points to is always used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ctime</b> <i>n</i></td>
+<td>Returns true if a file's status was last changed n*24 hours ago. See the comments for -atime to understand how rounding affects the interpretation of file status change times.</td>
+</tr>
+<tr class="tcw">
+<td><b>-empty</b></td>
+<td>Returns true if a file is empty (contains nothing) and is either a regular file or a directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-executable</b></td>
+<td>Matches files that are executable and directories that are searchable (in a file name resolution sense). This takes into account access control lists and other permissions artefacts which the <b>-perm</b> test ignores. This test makes use of the <b>access</b> system call, and so can be fooled by <a href="/jargon/n/nfs.htm">NFS</a> servers which do UID mapping (or <a href="/jargon/r/root.htm">root</a>-squashing) since many systems implement <b>access</b> in the client's kernel and so cannot make use of the UID mapping information held on the server. Because this test is based only on the result of the access system call, there is no guarantee that a file for which this test succeeds can actually be executed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-false</b></td>
+<td>When used as part of an expression, <b>-false</b> always evaluates as false.</td>
+</tr>
+<tr class="tcw">
+<td><b>-fstype</b> <i>type</i></td>
+<td>Returns true if a file is on a filesystem of type <i>type</i>. The valid filesystem types vary among different versions of Unix; an incomplete list of filesystem types that are accepted on some version of Unix or another is: <b>ufs</b>, <b>4.2</b>, <b>4.3</b>, <b>nfs</b>, <b>tmp</b>, <b>mfs</b>, <b>S51K</b>, <b>S52K</b>. You can use <b>-printf</b> with the <b>%F</b> directive to see the types of your filesystems.</td>
+</tr>
+<tr class="tcw">
+<td><b>-gid</b> <i>n</i></td>
+<td>Returns true if a file's numeric group ID is <i>n</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-group</b> <i>gname</i></td>
+<td>Returns true if a file belongs to group <i>gname</i> (numeric group IDs are allowed).</td>
+</tr>
+<tr class="tcw">
+<td><b>-ilname</b> <i>pattern</i></td>
+<td>Like <b>-lname</b>, but the match is case insensitive. If the <b>-L</b> option or the <b>-follow</b> option is in effect, this test returns <b>false</b> unless the symbolic link is broken.</td>
+</tr>
+<tr class="tcw">
+<td><b>-iname</b> <i>pattern</i></td>
+<td>Like <b>-name</b>, but the match is case insensitive. For example, the patterns '<b>fo*</b>' and '<b>F??</b>' match the file names '<b>Foo</b>', '<b>FOO</b>', '<b>foo</b>', '<b>fOo</b>', etc. In these patterns, unlike file name expansion by the <a href="/jargon/s/shell.htm">shell</a>, an initial '<b>.</b>' can be matched by '<b>*</b>'. That is, find <b>-name *bar</b> matches the file '<b>.foobar</b>'. Please note that always quote patterns, otherwise the shell expands any <a href="/jargon/w/wildcard.htm">wildcard</a> <a href="/jargon/c/charact.htm">characters</a> in them.</td>
+</tr>
+<tr class="tcw">
+<td><b>-inum</b> <i>n</i></td>
+<td>Returns true if a file has inode number <i>n</i>. It is normally easier to use the <b>-samefile</b> test instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ipath</b> <i>pattern</i></td>
+<td>Behaves in the same way as <b>-iwholename</b>. This option is deprecated, so no longer use it.</td>
+</tr>
+<tr class="tcw">
+<td><b>-iregex</b> <i>pattern</i></td>
+<td>Like <b>-regex</b>, but the match is <a href="/jargon/c/casesens.htm">case-insensitive</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-iwholename</b> <i>pattern</i></td>
+<td>Like <b>-wholename</b>, but the match is case-insensitive.</td>
+</tr>
+<tr class="tcw">
+<td><b>-links</b> <i>n</i></td>
+<td>Returns true if a file has <i>n</i> links.</td>
+</tr>
+<tr class="tcw">
+<td><b>-lname</b> <i>pattern</i></td>
+<td>Returns true if a file is a symbolic link whose contents match shell pattern <i>pattern</i>. The <a href="/jargon/m/metachar.htm">metacharacters</a> do not treat '<b>/</b>' or '<b>.</b>' specially. If the <b>-L</b> option or the <b>-follow</b> option is in effect, this test returns false unless the symbolic link is broken.</td>
+</tr>
+<tr class="tcw">
+<td><b>-mmin</b> <i>n</i></td>
+<td>Returns true if the file's data was last modified <i>n</i> minutes ago.</td>
+</tr>
+<tr class="tcw">
+<td><b>-mtime</b> <i>n</i></td>
+<td>Returns true if a file's data was last modified <i>n</i> * 24 hours ago. See the <b>-atime</b> option to understand how rounding affects the interpretation of file modification times.</td>
+</tr>
+<tr class="tcw">
+<td><b>-name</b> <i>pattern</i></td>
+<td>Returns true if the base of a file name (the path with the leading directories removed) matches shell pattern <i>pattern</i>. The metacharacters ('<b>*</b>', '<b>?</b>', and '<b>[ ]</b>') match a '<b>.</b>' at the start of the base name. To ignore a directory and the files under it, use <b>-prune</b>; see an example in the description of <b>-path</b>. Braces are not recognised as being special, despite the fact that some shells including bash imbue braces with a special meaning in shell patterns. The file name matching is performed with the use of the <b>fnmatch</b> library function. Don't forget to enclose the pattern in quotes to protect it from expansion by the shell.</td>
+</tr>
+<tr class="tcw">
+<td><b>-newer</b> <i>file</i></td>
+<td>Returns true if a file was modified more recently than the file <i>file</i>. If <i>file</i> is a symbolic link and the <b>-H</b> option or the <b>-L</b> option is in effect, the modification time of the file it points to is always used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-newerXY</b> <i>reference</i></td>
+<td><p>Compares the <a href="/jargon/t/timestam.htm">timestamp</a> of the current file with <i>reference</i>. The <i>reference</i> argument is normally the name of a file (and one of its timestamps is used for the comparison) but it may also be a string describing an absolute time. <b>X</b> and <b>Y</b> are placeholders for other letters, and these letters select which time belonging to how reference is used for the comparison.</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>a</b></td>
+<td>The access time of the file <i>reference</i></td>
+</tr>
+<tr class="tcw">
+<td><b>B</b></td>
+<td>The birth time of the file <i>reference</i></td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td>The inode status change time of <i>reference</i></td>
+</tr>
+<tr class="tcw">
+<td><b>m</b></td>
+<td>The modification time of the file <i>reference</i></td>
+</tr>
+<tr class="tcw">
+<td><b>t</b></td>
+<td><i>reference</i> is interpreted directly as a time</td>
+</tr>
+</table>
+Some combinations are invalid; for example, it's invalid for <b>X</b> to be <b>t</b>. Some combinations are not implemented on all systems; for example, <b>B</b> is not supported on all systems. If an invalid or unsupported combination of <b>XY</b> is specified, a fatal error results. Time specifications are interpreted as for the argument to the <b>-d</b> option of GNU <a href="/unix/udate.htm">date</a>. If you try to use the birth time of a <i>reference</i> file, and the birth time cannot be determined, a fatal error message results. If you specify a test which refers to the birth time of files being examined, this test fails for any files where the birth time is unknown.</td>
+</tr>
+<tr class="tcw">
+<td><b>-nogroup</b></td>
+<td>Returns tue if no existing group corresponds to file's numeric group ID.</td>
+</tr>
+<tr class="tcw">
+<td><b>-nouser</b></td>
+<td>Returns true if no existing user corresponds to file's numeric user ID.</td>
+</tr>
+<tr class="tcw">
+<td><b>-path</b> <i>pattern</i></td>
+<td>Returns true if a file name matches shell pattern <i>pattern</i>. The metacharacters do not treat '<b>/</b>' or '<b>.</b>' specially; so, for example,<br><br><br><pre class="tcy">find . -path "./sr*sc"</pre> prints an entry for a directory called '<b>./src/misc</b>' (if one exists). To ignore a whole directory tree, use <b>-prune</b> rather than checking every file in the tree. For example, to skip the directory '<b>src/emacs</b>' and all files and directories under it, and print the names of the other files found, do something like this:<br><br><br><pre class="tcy">find . -path ./src/emacs -prune -o -print</pre> Note that the pattern match test applies to the whole file name, starting from one of the start points named on the command line. It would only make sense to use an <a href="/jargon/a/absopath.htm">absolute pathname</a> here if the relevant start point is also an absolute path. This means that this command never matches anything:<br><br><br><pre class="tcy">find bar -path /foo/bar/myfile -print</pre> The predicate <b>-path</b> is also supported by <a href="/jargon/h/hp-ux.htm">HP-UX</a> <b>find</b> and is in a forthcoming version of the <a href="/jargon/p/posix.htm">POSIX</a> standard.</td>
+</tr>
+<tr class="tcw">
+<td><b>-perm</b> <i>mode</i></td>
+<td>Returns true if a file's <a href="/jargon/p/permissi.htm">permission</a> <a href="/jargon/b/bit.htm">bits</a> are exactly <i>mode</i> (<a href="/jargon/o/octal.htm">octal</a> or symbolic). Since an exact match is required, if you want to use this form for symbolic modes, you may have to specify a rather complex mode string. For example, <b>-perm g=w</b> only matches files which have mode <b>0020</b> (that is, ones for which group write permission is the only permission set). It is more likely that you want to use the '<b>/</b>' or '<b>-</b>' forms, for example, <b>-perm -g=w</b>, which matches any file with group write permission.</td>
+</tr>
+<tr class="tcw">
+<td><b>-perm -</b><i>mode</i></td>
+<td>Returns true if all of the permission bits of <i>mode</i> are set for the file. Symbolic <i>mode</i>s are accepted in this form, and this is usually the way where would want to use them. You must specify '<b>u</b>', '<b>g</b>' or '<b>o</b>' if you use a symbolic mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-perm</b> /<i>mode</i></td>
+<td>Returns true if any of the permission bits of <i>mode</i> are set for the file. Symbolic <i>mode</i>s are accepted in this form. You must specify '<b>u</b>', '<b>g</b>' or '<b>o</b>' if you use a symbolic mode. If no permission bits in mode are set, this test matches any file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-perm +</b><i>mode</i></td>
+<td>Deprecated; this is the old way of searching for files with any of the permission bits in <i>mode</i>. Use <b>-perm /mode</b> instead. Trying to use the '<b>+</b>' syntax with symbolic modes yield unexpected results.</td>
+</tr>
+<tr class="tcw">
+<td><b>-readable</b></td>
+<td>Matches files that are readable. This takes into account <a href="/jargon/a/acl.htm">access control lists</a> and other permissions factors which the <b>-perm</b> test ignores. This test makes use of the access system call, and so can be fooled by <a href="/jargon/n/nfs.htm">NFS</a> servers which do UID mapping (or root-squashing) since many systems implement <b>access</b> in the client's <a href="/jargon/k/kernel.htm">kernel</a> and so cannot make use of the UID mapping information held on the server.</td>
+</tr>
+<tr class="tcw">
+<td><b>-regex</b> <i>pattern</i></td>
+<td>Returns true if a file name matches the <a href="/jargon/r/regex.htm">regular expression</a> <i>pattern</i>. This is a match on the whole path, not just the file name. For example, to match a file named '<b>./fubar3</b>', you can use the regular expression '<b>.*bar.</b>' or '<b>.*b.*3</b>', but not '<b>f.*r3</b>' (because the complete path does not begin with an <b>f</b>). The regular expressions understood by <b>find</b> are by default <a href="/unix/uemacs.htm">Emacs</a> regular expressions, but this can be changed with the <b>-regextype</b> option (see above).</td>
+</tr>
+<tr class="tcw">
+<td><b>- samefile</b> <i>name</i></td>
+<td>Returns true if a file refers to the same <a href="/jargon/i/inode.htm">inode</a> as <i>name</i>. When <b>-L</b> is in effect, this can include symbolic links.</td>
+</tr>
+<tr class="tcw">
+<td><b>-size</b> [<b>-</b>|<b>+</b>]<i>n</i>[<b>cwbkMG</b>]</td>
+<td><p>Returns true if a file uses <i>n</i> units of space on the disk. If preceded by a minus sign ("<b>-</b>"), matches files which use less space; if preceded by a plus sign ("<b>+</b>"), matches files which use more. The following suffixes can abbreviate units:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>b</b></td>
+<td>for 512-byte <a href="/jargon/b/block.htm">blocks</a> (this is the default if no suffix is used)</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td>for <a href="/jargon/b/byte.htm">bytes</a></td>
+</tr>
+<tr class="tcw">
+<td><b>w</b></td>
+<td>for two-byte <a href="/jargon/w/word.htm">words</a></td>
+</tr>
+<tr class="tcw">
+<td><b>k</b></td>
+<td>for <a href="/jargon/k/kilobyte.htm">Kilobytes</a> (units of 1024 bytes)</td>
+</tr>
+<tr class="tcw">
+<td><b>M</b></td>
+<td>for <a href="/jargon/m/megabyte.htm">Megabytes</a> (units of 1048576 bytes)</td>
+</tr>
+<tr class="tcw">
+<td><b>G</b></td>
+<td>for <a href="/jargon/g/gigabyte.htm">Gigabytes</a> (units of 1073741824 bytes)</td>
+</tr>
+</table>
+The size does not count indirect blocks, but it does count blocks in sparse files that are not actually allocated. Please note that the '<b>%k</b>' and '<b>%b</b>' format specifiers of <b>-printf</b> handle sparse files differently. The '<b>b</b>' suffix always denotes 512-byte blocks and never 1 Kilobyte blocks, which is different than the behaviour of <b>-ls</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-true</b></td>
+<td>When used in an expression, <b>-true</b> always returns <b>true</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-type</b> <i>c</i></td>
+<td><p>Returns true if a file is of type <i>c</i>:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>b</b></td>
+<td>block (buffered) special files</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td>character (unbuffered) special files</td>
+</tr>
+<tr class="tcw">
+<td><b>d</b></td>
+<td>directories</td>
+</tr>
+<tr class="tcw">
+<td><b>p</b></td>
+<td>named pipes <a href="/jargon/f/fifo.htm">FIFO</a>s (first in first out)</td>
+</tr>
+<tr class="tcw">
+<td><b>f</b></td>
+<td>regular files</td>
+</tr>
+<tr class="tcw">
+<td><b>l</b></td>
+<td>symbolic links. This is never true if the <b>-L</b> option or the <b>-follow</b> option was specified, unless the symbolic link is broken. If you want to search for symbolic links when <b>-L</b> is in effect, use <b>-xtype</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b></td>
+<td>sockets</td>
+</tr>
+<tr class="tcw">
+<td><b>D</b></td>
+<td>doors (a <a href="/jargon/s/solaris.htm">Solaris</a> file type)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-uid</b> <i>n</i></td>
+<td>Returns true if a file's numeric user ID is <i>n</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-used</b> <i>n</i></td>
+<td>Returns true if a file was last accessed <i>n</i> days after its status was last changed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-user</b> <i>uname</i></td>
+<td>Returns true if a file is owned by user <i>uname</i> (numeric user IDs are allowed).</td>
+</tr>
+<tr class="tcw">
+<td><b>-wholename</b> <i>pattern</i></td>
+<td>Functionally the same as <b>-path</b>. This alternative is less portable than <b>-path</b>, however; for greatest compliance across different types of systems, use <b>-path</b> instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>-writable</b></td>
+<td>Matches files that are writable. This takes into account access control lists and other permissions factors which the <b>-perm</b> test ignores. This test makes use of the <b>access</b> system call, and so can be fooled by NFS servers which do UID mapping (or root-squashing) since many systems implement access in the client's kernel and so cannot make use of the UID mapping information held on the <a href="/jargon/s/server.htm">server</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-xtype</b> <i>c</i></td>
+<td>The same as <b>-type</b> unless the file is a symbolic link. For symbolic links: if the <b>-H</b> or <b>-P</b> option was specified, returns true if the file is a link to a file of type <i>c</i>; if the <b>-L</b> option is given, returns true if <i>c</i> is '<b>l</b>'. In other words, for symbolic links, <b>-xtype</b> checks the type of the file that <b>-type</b> does not check.</td>
+</tr>
+</table>
+<h2>Actions</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>-delete</b></td>
+<td>Delete matched files; returns true if removal succeeded. If the removal failed, an error message is issued. If <b>-delete</b> fails, <b>find</b>'s exit status is nonzero (when it eventually exits). Use of <b>-delete</b> automatically turns on the <b>-depth</b> option.<br><br> Don't forget that the <b>find</b> command line is evaluated as an <a href="/jargon/e/expressi.htm">expression</a>, so putting <b>-delete</b> first makes <b>find</b> try to delete everything below the starting points you specified. When testing a <b>find</b> command line that you later intend to use with <b>-delete</b>, explicitly specify <b>-depth</b> to avoid later surprises. Because <b>-delete</b> implies <b>-depth</b>, you cannot usefully use <b>-prune</b> and <b>-delete</b> together.</td>
+</tr>
+<tr class="tcw">
+<td><b>-exec</b> <i>command</i> <b>;</b></td>
+<td>Execute <i>command</i> on each matched file; returns true if <b>0</b> is returned as the exit status of <i>command</i>. All following arguments to <b>find</b> are taken to be arguments to the command until a semicolon ('<b>;</b>') is encountered. The string '<b>{}</b>' is replaced by the current file name being processed everywhere it occurs in the arguments to the command, not just in arguments where it is alone, as in some versions of <b>find</b>. Both of these constructions might need to be escaped (with a '<b>\</b>') or quoted to protect them from expansion by the shell. The specified command is run once for each matched file. The command is executed in the starting directory. There are unavoidable security problems surrounding use of <b>-exec</b>; use the <b>-execdir</b> option instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>-exec</b> <i>command</i> <b>{} +</b></td>
+<td>This variant of the <b>-exec</b> action runs the specified command on the selected files, but the command line is built by appending each selected file name at the end; the total number of invocations of the command is much less than the number of matched files. The command line is built-in much the same way that <a href="/unix/xargs.htm"><b>xargs</b></a> builds its command lines. Only one instance of '<b>{}</b>' is allowed in the command. The command is executed in the starting directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-execdir</b> <i>command</i> <b>;</b><br><br><b>-execdir</b> <i>command</i> <b>{} +</b></td>
+<td>Like <b>-exec</b>, but the specified command is run from the subdirectory containing the matched file, which is not normally the directory where you started <b>find</b>. This a much more secure method for invoking commands, as it avoids "race conditions" (where the behavior is determined by an unpredictable order of system operations) during resolution of the paths to the matched files. As with the <b>-exec</b> action, the '<b>+</b>' form of <b>-execdir</b> builds a command line to process more than one matched file, but any given invocation of command only lists files that exist in the same subdirectory. If you use this option, you must ensure the <b>$PATH</b> environment variable does not reference '<b>.</b>'; otherwise, an attacker can run any commands they like by leaving an appropriately-named file in a directory where you run <b>-execdir</b>. The same applies to having entries in <b>$PATH</b> that are empty or not absolute directory names.</td>
+</tr>
+<tr class="tcw">
+<td><b>-fls</b> <i>file</i></td>
+<td>Returns true; behaves like <b>-ls</b>, but writes to <i>file</i> like <b>-fprint</b>. The output file is always created, even if no match is found.</td>
+</tr>
+<tr class="tcw">
+<td><b>-fprint</b> <i>file</i></td>
+<td>Returns true; prints the full file name into file <i>file</i>. If <i>file</i> does not exist when <b>find</b> is run, it is created; if it does exist, it is <a href="/jargon/t/truncate.htm">truncated</a>. The file names "<b>/dev/stdout</b>" and "<b>/dev/stderr</b>" are handled specially; they refer to the standard output and standard error output, respectively. The output file is always created, even if the predicate is never matched.</td>
+</tr>
+<tr class="tcw">
+<td><b>-fprint0</b> <i>file</i></td>
+<td>Returns true; like <b>-print0</b> but writes to <i>file</i> like <b>-fprint</b>. The output file is always created, even if no match is found.</td>
+</tr>
+<tr class="tcw">
+<td><b>-fprintf</b> <i>file format</i></td>
+<td>Returns true; like <b>-printf</b>, but writes to <i>file</i> like <b>-fprint</b>. The output file is always created, even if the predicate is never matched.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ls</b></td>
+<td>Returns true; lists current file in <b>ls -dils</b> format (see <a href="/unix/uls.htm"><b>ls</b></a> for details) on standard output. The block counts are of 1K blocks, unless the <a href="/jargon/e/envivari.htm">environment variable</a> <b>POSIXLY_CORRECT</b> is set, in which case 512-byte blocks are used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ok</b> <i>command</i> <b>;</b></td>
+<td>Like <b>-exec</b>, but asks the user first. If the user agrees, <b>find</b> runs the command. Otherwise, it returns false. If the command is run, its standard input is redirected from <b>/dev/null</b>.<br><br> The response to the prompt is matched against a pair of regular expressions to determine if it's an affirmative or negative response. This regular expression is obtained from the system if the '<b>POSIXLY_CORRECT</b>' environment variable is set, or otherwise from <b>find</b>'s message translations. If the system has no suitable definition, <b>find</b>'s own definition is used. In either case, the interpretation of the regular expression itself is affected by the environment variables '<b>LC_CTYPE</b>' (character classes) and '<b>LC_COLLATE</b>' (character ranges and equivalence classes).</td>
+</tr>
+<tr class="tcw">
+<td><b>-okdir</b> <i>command</i> <b>;</b></td>
+<td>Like <b>-execdir</b> but asks the user first in the same way as for <b>-ok</b>. If the user does not agree, returns false. If the command is run, its standard input is redirected from <b>/dev/null</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-print</b></td>
+<td>Returns true; prints the full file name on the standard output, followed by a <a href="/jargon/n/newline.htm">newline</a>. If you are <a href="/jargon/p/pipe.htm">piping</a> the output of <b>find</b> into another program and there is the faintest possibility that the files which you are searching for might contain a newline, then consider using the <b>-print0</b> option instead of <b>-print</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-print0</b></td>
+<td>Returns true; prints the full file name on the standard output, followed by a <a href="/jargon/n/null.htm">null</a> character (instead of the newline character that <b>-print</b> uses). This allows file names that contain newlines or other types of <a href="/jargon/w/whitspac.htm">white space</a> to be correctly interpreted by programs that process the <b>find</b> output. This option corresponds to the <b>-0</b> option of <a href="/unix/xargs.htm"><b>xargs</b></a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-printf</b> <i>format</i></td>
+<td><p>Returns true; prints <i>format</i> on the standard output, interpreting '<b>\</b>' escapes and '<b>%</b>' directives. Field widths and precisions can be specified as with the '<a href="/unix/uprintf.htm">printf</a>' <a href="/jargon/c/c.htm">C</a> <a href="/jargon/f/function.htm">function</a>. Please note that many of the fields are printed as <b>%s</b> rather than <b>%d</b>, and this may mean that flags don't work as you might expect. This also means that the '<b>-</b>' flag does work (it forces fields to be left-aligned). Unlike <b>-print</b>, <b>-printf</b> does not add a newline at the end of the string. The escapes and directives are:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:70px"><b>\a</b></td>
+<td>Alarm bell.</td>
+</tr>
+<tr class="tcw">
+<td><b>\b</b></td>
+<td>Backspace.</td>
+</tr>
+<tr class="tcw">
+<td><b>\c</b></td>
+<td>Stop printing using <i>format</i> immediately and flush the remaining output.</td>
+</tr>
+<tr class="tcw">
+<td><b>\f</b></td>
+<td>Form feed.</td>
+</tr>
+<tr class="tcw">
+<td><b>\n</b></td>
+<td>Newline.</td>
+</tr>
+<tr class="tcw">
+<td><b>\r</b></td>
+<td><a href="/jargon/c/cr.htm">Carriage return</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>\t</b></td>
+<td>Horizontal tab.</td>
+</tr>
+<tr class="tcw">
+<td><b>\v</b></td>
+<td>Vertical tab.</td>
+</tr>
+<tr class="tcw">
+<td><b>\0</b></td>
+<td>The <a href="/jargon/a/ascii.htm">ASCII</a> <a href="/jargon/n/null.htm">NUL</a> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\\</b></td>
+<td>A literal backslash ('<b>\</b>').</td>
+</tr>
+<tr class="tcw">
+<td><b>\</b><i>NNN</i></td>
+<td>The character whose ASCII code is <i>NNN</i> (where <i>NNN</i> is an <a href="/jargon/o/octal.htm">octal</a> value).</td>
+</tr>
+</table>
+<p>A '<b>\</b>' character followed by any other character is treated as an ordinary character, so they both are printed.</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>%%</b></td>
+<td>A literal percent sign.</td>
+</tr>
+<tr class="tcw">
+<td><b>%a</b></td>
+<td>The file's last access time in the format returned by the C <b>ctime</b> function.</td>
+</tr>
+<tr class="tcw">
+<td><b>%A</b><i>k</i></td>
+<td><p>The file's last access time in the format specified by <i>k</i>, which is either '<b>@</b>' or a directive of the C '<a href="/unix/strftime.htm">strftime</a>' function. The possible values for <i>k</i> are listed below; some of them might not be available on all systems, due to differences in <b>strftime</b> between systems.</p>
+<p>Values for <i>k</i> can be one of the following:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>@</b></td>
+<td>seconds since Jan. 1, 1970, 00:00 GMT, with fractional part.</td>
+</tr>
+</table>
+<p>Time fields:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>H</b></td>
+<td>hour (<b>00</b>..<b>23</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>I</b></td>
+<td>hour (<b>01</b>..<b>12</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>k</b></td>
+<td>hour ( <b>0</b>..<b>23</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>l</b></td>
+<td>hour ( <b>1</b>..<b>12</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>M</b></td>
+<td>minute (<b>00</b>..<b>59</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>p</b></td>
+<td>locale's <b>AM</b> or <b>PM</b></td>
+</tr>
+<tr class="tcw">
+<td><b>r</b></td>
+<td>time, 12-hour (<b>hh:mm:ss</b> [<b>AP</b>]<b>M</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>S</b></td>
+<td>Second (<b>00.00</b> .. <b>61.00</b>). There is a fractional part.</td>
+</tr>
+<tr class="tcw">
+<td><b>T</b></td>
+<td>time, 24-hour (<b>hh:mm:ss</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b></td>
+<td>Date and time, separated by '<b>+</b>', for example, '<b>2004-04-28+22:22:05.0</b>'. This is a <a href="/jargon/g/gnu.htm">GNU</a> extension. The time is given in the current time zone (which may be affected by setting the <b>TZ</b> environment variable). The seconds field includes a fractional part.</td>
+</tr>
+<tr class="tcw">
+<td><b>X</b></td>
+<td>locale's time representation (<b>H:M:S</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>Z</b></td>
+<td>time zone (e.g., <b>EDT</b>), or nothing if no time zone is determinable</td>
+</tr>
+</table>
+<p>Date fields:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td><b>a</b></td>
+<td>locale's abbreviated weekday name (<b>Sun</b>..<b>Sat</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>A</b></td>
+<td>locale's full weekday name, variable length (<b>Sunday</b>..<b>Saturday</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>b</b></td>
+<td>locale's abbreviated month name (<b>Jan</b>..<b>Dec</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>B</b></td>
+<td>locale's full month name, variable length (<b>January</b>..<b>December</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td>locale's date and time (<b>Sat Nov 04 12:02:33 EST 1989</b>). The format is the same as for <b>ctime</b> and so to preserve compatibility with that format, there is no fractional part in the seconds field.</td>
+</tr>
+<tr class="tcw">
+<td><b>d</b></td>
+<td>day of month (<b>01</b>..<b>31</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>D</b></td>
+<td>date (<b>mm/dd/yy</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>h</b></td>
+<td>same as <b>b</b></td>
+</tr>
+<tr class="tcw">
+<td><b>j</b></td>
+<td>day of year (<b>001</b>..<b>366</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>m</b></td>
+<td>month (<b>01</b>..<b>12</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>U</b></td>
+<td>week number of year with Sunday as first day of week (<b>00</b>..<b>53</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>w</b></td>
+<td>day of week (<b>0</b>..<b>6</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>W</b></td>
+<td>week number of year with Monday as first day of week (<b>00</b>..<b>53</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>x</b></td>
+<td>locale's date representation (<b>mm/dd/yy</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>y</b></td>
+<td>last two digits of year (<b>00</b>..<b>99</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>Y</b></td>
+<td>year (<b>1970</b>..)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td style="width:50px"><b>%b</b></td>
+<td>The amount of <a href="/jargon/d/diskcapa.htm">disk space</a> used for this file in 512-byte blocks. Since disk space is allocated in multiples of the filesystem block size this is usually greater than <b>%s</b>/512, but it can also be smaller if the file is a sparse file.</td>
+</tr>
+<tr class="tcw">
+<td><b>%c</b></td>
+<td>File's last status change time in the format returned by the C '<b>ctime</b>' function.</td>
+</tr>
+<tr class="tcw">
+<td><b>%C</b><i>k</i></td>
+<td>File's last status change time in the format specified by <i>k</i>, which is the same as for <b>%A</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%d</b></td>
+<td>File's depth in the directory tree; <b>0</b> means the file is a command line argument.</td>
+</tr>
+<tr class="tcw">
+<td><b>%D</b></td>
+<td>The device number on which the file exists (the <b>st_dev</b> field of struct <b>stat</b>), in decimal.</td>
+</tr>
+<tr class="tcw">
+<td><b>%f</b></td>
+<td>File's name with any leading directories removed (only the last element).</td>
+</tr>
+<tr class="tcw">
+<td><b>%F</b></td>
+<td>Type of the filesystem the file is <b>on</b>; this value can be used for <b>-fstype</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%g</b></td>
+<td>File's group name, or numeric group ID if the group has no name.</td>
+</tr>
+<tr class="tcw">
+<td><b>%G</b></td>
+<td>File's numeric group ID.</td>
+</tr>
+<tr class="tcw">
+<td><b>%h</b></td>
+<td>Leading directories of file's name (all but the last element). If the file name contains no slashes (since it's in the current directory) the <b>%h</b> specifier expands to "<b>.</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>%H</b></td>
+<td>Command line argument under which file was found.</td>
+</tr>
+<tr class="tcw">
+<td><b>%i</b></td>
+<td>File's <a href="/jargon/i/inode.htm">inode</a> number (in decimal).</td>
+</tr>
+<tr class="tcw">
+<td><b>%k</b></td>
+<td>The amount of disk space used for this file in 1K blocks. Since disk space is allocated in multiples of the filesystem block size this is usually greater than <b>%s</b>/1024, but it can also be smaller if the file is a sparse file.</td>
+</tr>
+<tr class="tcw">
+<td><b>%l</b></td>
+<td>Object of symbolic link (empty string if file is not a symbolic link).</td>
+</tr>
+<tr class="tcw">
+<td><b>%m</b></td>
+<td>File's permission bits (in <a href="/jargon/o/octal.htm">octal</a>). This option uses the 'traditional' numbers which most Unix implementations use, but if your particular implementation uses an unusual ordering of octal permissions bits, you see a difference between the actual value of the file's mode and the output of <b>%m</b>. Normally you want to have a leading zero on this number, and to do this, use the <b>#</b> flag (as in, for example, '<b>%#m</b>').</td>
+</tr>
+<tr class="tcw">
+<td><b>%M</b></td>
+<td>File's permissions (in symbolic form, as for <a href="/unix/uls.htm">ls</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>%n</b></td>
+<td>Number of <a href="/jargon/h/hardlink.htm">hard links</a> to file.</td>
+</tr>
+<tr class="tcw">
+<td><b>%p</b></td>
+<td>File's name.</td>
+</tr>
+<tr class="tcw">
+<td><b>%P</b></td>
+<td>File's name with the name of the command line argument under which it was found removed.</td>
+</tr>
+<tr class="tcw">
+<td><b>%s</b></td>
+<td>File's size in bytes.</td>
+</tr>
+<tr class="tcw">
+<td><b>%S</b></td>
+<td>File's sparseness. This is calculated as (<b>BLOCKSIZE*st_blocks</b> / <b>st_size</b>). The exact value you get for an ordinary file of a certain length is system-dependent. However, normally sparse files have values less than 1.0, and files which use indirect blocks may have a value that is greater than 1.0. The value used for BLOCKSIZE is system-dependent, but is usually 512 bytes. If the file size is zero, the value printed is undefined. On systems which lack support for <b>st_blocks</b>, a file's sparseness is assumed to be 1.0.</td>
+</tr>
+<tr class="tcw">
+<td><b>%t</b></td>
+<td>File's last modification time in the format returned by the C '<b>ctime</b>' function.</td>
+</tr>
+<tr class="tcw">
+<td><b>%T</b><i>k</i></td>
+<td>File's last modification time in the format specified by <i>k</i>, which is the same as for <b>%A</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%u</b></td>
+<td>File's username, or numeric user ID if the user has no name.</td>
+</tr>
+<tr class="tcw">
+<td><b>%U</b></td>
+<td>File's numeric user ID.</td>
+</tr>
+<tr class="tcw">
+<td><b>%y</b></td>
+<td>File's type (like in <b>ls -l</b>). <b>U</b>=unknown type (although this shouldn't happen)</td>
+</tr>
+<tr class="tcw">
+<td><b>%Y</b></td>
+<td>File's type (like <b>%y</b>), plus follow symlinks: <b>L</b>=loop, <b>N</b>=nonexistent</td>
+</tr>
+</table>
+<p>A '<b>%</b>' character followed by any other character is discarded, but the other character is printed (but don't rely on this, as further format characters may be introduced). A '<b>%</b>' at the end of the format argument causes undefined behaviour since there is no following character. In some locales, it may hide your door keys, while in others it may remove the final page from the novel you are reading.</p>
+<p>The <b>%m</b> and <b>%d</b> directives support the <b>#</b> , <b>0</b> and <b>+</b> flags, but the other directives do not, even if they print numbers. Numeric directives that do not support these flags include <b>G</b>, <b>U</b>, <b>b</b>, <b>D</b>, <b>k</b> and <b>n</b>. The '<b>-</b>' format flag is supported and changes the alignment of a field from right-justified (which is the default) to left-justified.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-prune</b></td>
+<td><b>True</b>; if the file is a directory, do not descend into it. If <b>-depth</b> is given, <b>false</b>; no effect. Because <b>-delete</b> implies <b>-depth</b>, you cannot usefully use <b>-prune</b> and <b>-delete</b> together.</td>
+</tr>
+<tr class="tcw">
+<td><b>-quit</b></td>
+<td>Exit immediately. No child processes are left running, but no more paths specified on the command line are processed. For example, <b>find /tmp/foo /tmp/bar -print -quit</b> prints only <b>/tmp/foo</b>. Any command lines which were built up with <b>-execdir ... {} +</b> are invoked before <b>find</b> exits. The exit status may or may not be zero, depending on whether an error has already occurred.</td>
+</tr>
+</table>
+<h2>Handling Unusual File Names</h2>
+<p class="tab">Many of the actions of <b>find</b> result in the printing of data that is under the control of other users. This includes file names, sizes, modification times and so forth. File names are a potential problem since they can contain any character except '<b>\0</b>' and '<b>/</b>'. Unusual characters in file names can do unexpected and often undesirable things to your terminal (for example, changing the settings of your function keys on some terminals). Unusual characters are handled differently by various actions, as described below:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170"><b>-print0</b>, <b>-fprint0</b></td>
+<td>Always print the exact file name, unchanged, even if the output is going to a terminal.</td>
+</tr>
+<tr class="tcw">
+<td><b>-ls</b>, <b>-fls</b></td>
+<td>Unusual characters are always escaped. White space, backslash, and double quote characters are printed using C-style escaping (for example, '<b>\f</b>', '<b>\"</b>'). Other unusual characters are printed using an octal escape. Other printable characters (for <b>-ls</b> and <b>-fls</b> these are the characters between octal 041 and 0176) are printed as is.</td>
+</tr>
+<tr class="tcw">
+<td><b>-printf</b>, <b>-fprintf</b></td>
+<td>If the output is not going to a terminal, it is printed as is. Otherwise, the result depends on which directive is in use. The directives <b>%D</b>, <b>%F</b>, <b>%g</b>, <b>%G</b>, <b>%H</b>, <b>%Y</b>, and <b>%y</b> expand to values that are not under control of files' owners, and so are printed as is. The directives <b>%a</b>, <b>%b</b>, <b>%c</b>, <b>%d</b>, <b>%i</b>, <b>%k</b>, <b>%m</b>, <b>%M</b>, <b>%n</b>, <b>%s</b>, <b>%t</b>, <b>%u</b> and <b>%U</b> have values that are under the control of files' owners but which cannot be used to send arbitrary data to the terminal, and so these are printed as is. The directives <b>%f</b>, <b>%h</b>, <b>%l</b>, <b>%p</b> and <b>%P</b> are quoted. This quoting is performed in the same way as for GNU <a href="/jargon/l/ls.htm">ls</a>. This is not the same quoting mechanism as the one used for <b>-ls</b> and <b>-fls</b>. If you can decide what format to use for the output of find then it is normally better to use '<b>\0</b>' as a terminator than to use newline, as file names can contain white space and newline characters. The setting of the '<b>LC_CTYPE</b>' environment variable is used to determine which characters need to be quoted.</td>
+</tr>
+<tr class="tcw">
+<td><b>-print</b>, <b>-fprint</b></td>
+<td>Quoting is handled in the same way as for <b>-printf</b> and <b>-fprintf</b>. If you are using find in a script or in a situation where the matched files might have arbitrary names, consider using <b>-print0</b> instead of <b>-print</b>.</td>
+</tr>
+</table>
+<p class="tab">The <b>-ok</b> and <b>-okdir</b> actions print the current file name as is.</p>
+<h2 id="Operators">Operators</h2>
+<p class="tab">The following <b>find</b> operators are listed in order of increasing precedence:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>(</b> <i>expr</i> <b>)</b></td>
+<td>Force precedence. Since parentheses are special to the shell, you normally need to quote them. For instance, you probably need to specify '<b>\(...\)</b>' instead of '<b>(...)</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>!</b> <i>expr</i></td>
+<td>Returns true if <i>expr</i> is false. This character also needs protection from interpretation by the shell.</td>
+</tr>
+<tr class="tcw">
+<td><b>-not</b> <i>expr</i></td>
+<td>Same as <b>!</b> <i>expr</i>, but not POSIX compliant.</td>
+</tr>
+<tr class="tcw">
+<td><i>expr1 expr2</i></td>
+<td>Two expressions in a row are taken to be joined with an implied "and"; in other words, <i>expr2</i> is not evaluated if <i>expr1</i> is false.</td>
+</tr>
+<tr class="tcw">
+<td><i>expr1</i> <b>-a</b> <i>expr2</i></td>
+<td>Same as <i>expr1 expr2</i>.</td>
+</tr>
+<tr class="tcw">
+<td><i>expr1</i> <b>-and</b> <i>expr2</i></td>
+<td>Same as <i>expr1 expr2</i>, but not POSIX compliant.</td>
+</tr>
+<tr class="tcw">
+<td><i>expr1</i> <b>-o</b> <i>expr2</i></td>
+<td>Boolean OR; in other words, <i>expr2</i> is not evaluated if <i>expr1</i> is true.</td>
+</tr>
+<tr class="tcw">
+<td><i>expr1</i> <b>-or</b> <i>expr2</i></td>
+<td>Same as <i>expr1</i> <b>-o</b> <i>expr2</i>, but not POSIX compliant.</td>
+</tr>
+<tr class="tcw">
+<td><i>expr1</i> <b>,</b> <i>expr2</i></td>
+<td>Separating two expressions with a comma treats them as a list: both <i>expr1</i> and <i>expr2</i> are always evaluated. The value of <i>expr1</i> is discarded in the return value; the value of the list is the value of <i>expr2</i>. The comma operator can be useful for searching for different types of thing, but traversing the filesystem hierarchy only once. The <b>-fprintf</b> action can list the various matched items into different output files.</td>
+</tr>
+</table>
+<h2>Environment Variables</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>LANG</b></td>
+<td>Provides a default value for the internationalization variables that are unset or null.</td>
+</tr>
+<tr class="tcw">
+<td><b>LC_ALL</b></td>
+<td>If set to a non-empty string value, this variable's value overrides the values of all the other internationalization variables.</td>
+</tr>
+<tr class="tcw">
+<td><b>LC_COLLATE</b></td>
+<td>The POSIX standard specifies that this variable affect the pattern matching to be used for the <b>-name</b> option. GNU <b>find</b> uses the <b>fnmatch</b> library function, and so support for '<b>LC_COLLATE</b>' depends on the system library. This variable also affects the interpretation of the response to <b>-ok</b>; while the '<b>LC_MESSAGES</b>' variable selects the actual pattern used to interpret the response to <b>-ok</b>, the interpretation of any bracket expressions in the pattern is affected by '<b>LC_COLLATE</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>LC_CTYPE</b></td>
+<td>This variable affects the treatment of character classes used in regular expressions and also with the <b>-name</b> test, if the system's <b>fnmatch</b> library function supports this. This variable also affects the interpretation of any character classes in the regular expressions used to interpret the response to the prompt issued by <b>-ok</b>. The '<b>LC_CTYPE</b>' environment variable also affects which characters are considered to be unprintable when file names are printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>LC_MESSAGES</b></td>
+<td>Determines the locale to be used for internationalised messages. If the '<b>POSIXLY_CORRECT</b>' environment variable is set, this also determines the interpretation of the response to the prompt made by the <b>-ok</b> action.</td>
+</tr>
+<tr class="tcw">
+<td><b>NLSPATH</b></td>
+<td>Determines the location of the internationalisation message catalogues.</td>
+</tr>
+<tr class="tcw">
+<td><b>PATH</b></td>
+<td>Affects the directories that are searched to find the executables invoked by <b>-exec</b>, <b>-execdir</b>, <b>-ok</b> and <b>-okdir</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>POSIXLY_CORRECT</b></td>
+<td>Determines the block size used by <b>-ls</b> and <b>-fls</b>. If <b>POSIXLY_CORRECT</b> is set, blocks are units of 512 bytes. Otherwise, they are units of 1024 bytes.<br><br> Setting this variable also turns off warning messages (that is, implies <b>-nowarn</b>) by default, because POSIX requires that apart from the output for <b>-ok</b>, all messages printed on stderr are diagnostics and must result in a non-zero exit status.<br><br> When <b>POSIXLY_CORRECT</b> is not set, <b>-perm +zzz</b> is treated just like <b>-perm /zzz</b> if <b>+zzz</b> is not a valid symbolic mode. When <b>POSIXLY_CORRECT</b> is set, such constructs are treated as an error.<br><br> When <b>POSIXLY_CORRECT</b> is set, the response to the prompt made by the <b>-ok</b> action is interpreted according to the system's message catalogue, instead of according to find's own message translations.</td>
+</tr>
+<tr class="tcw">
+<td><b>TZ</b></td>
+<td>Affects the time zone used for some of the time-related format directives of <b>-printf</b> and <b>-fprintf</b>.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">find</pre>
+<p class="tab">When using linux, running the <b>find</b> command without any options locating and print a list of every file in and beneath the current directory. This includes all files in all subdirectories of the current directory.</p>
+<pre class="tcy tab">find .</pre>
+<p class="tab">Same as the above command. The "<b>.</b>" explicitly tells <b>find</b> that you want the search to begin in the current directory.</p>
+<pre class="tcy tab">find . /home/jeff /home/stacy</pre>
+<p class="tab">Locate and print all files and directories in and beneath three different starting directories: the current directory, <b>/home/jeff</b>, and <b>/home/stacy</b>.</p>
+<pre class="tcy tab">find /usr/bin /usr/lib -name '*zip*'</pre>
+<p class="tab">Locate and print all files and directories in and beneath either of the directories <b>/usr/bin</b> and <b>/usr/lib</b> which contains the text "<b>zip</b>" anywhere in the file or directory name.</p>
+<pre class="tcy tab">find /home/jeff/fruit | grep 'apple'</pre>
+<p class="tab">This command tells <b>find</b> to locate and print a complete list of all files in and beneath the directory <b>/home/jeff/fruit</b>, and to <a href="/jargon/p/pipe.htm">pipe</a> this listing to <b>grep</b>, which filters out any file name which does not contain the text "<b>apple</b>".</p>
+<pre class="tcy tab">find . -name 'apple'</pre>
+<p class="tab">Locate and print a list of any file in or below the current directory whose name is exactly "<b>apple</b>", all lowercase letters.</p>
+<pre class="tcy tab">find . -iname 'apple'</pre>
+<p class="tab">Locate and print a list of any file in or below the current directory whose name is "<b>apple</b>", but match the letters case-insensitively. Therefore, files or directories named "<b>Apple</b>", "<b>ApplE</b>", and "<b>ApPLe</b>" are listed by this command.</p>
+<pre class="tcy tab">find . -name 'apple' -type f</pre>
+<p class="tab">Locate and print a list of files in or below the current directory whose name is "<b>apple</b>"; do not display directories, sockets, or other non-regular file types.</p>
+<pre class="tcy tab">find . -name 'apple' -type d</pre>
+<p class="tab">Locate a print a list of directories in or below the current directory whose name is "<b>apple</b>"; do not display regular files, or file types other than directory entries.</p>
+<pre class="tcy tab">find . -group dev</pre>
+<p class="tab">Locate and print a list of any file in or below the current directory whose owning group is the <b>dev</b> group.</p>
+<pre class="tcy tab">find . -L</pre>
+<p class="tab">Locate and print a list of any file in or below the current directory, and follow <a href="/jargon/s/symblink.htm">symbolic links</a>. In other words, display information about the file a symbolic link links to, rather than information about the symlink itself.</p>
+<pre class="tcy tab">find . -atime +1</pre>
+<p class="tab">Locate and print a list of any file in or below the current directory that was last accessed more than <b>1</b> day ago.</p>
+<pre class="tcy tab">find . -atime -1</pre>
+<p class="tab">Locate and print a list of any file in or below the current directory that was last accessed less than <b>1</b> day ago.</p>
+<pre class="tcy tab">find . -amin +5</pre>
+<p class="tab">Locate and print a list of any file in or below the current directory that was modified more than <b>5</b> minutes ago.</p>
+<pre class="tcy tab">find . -amin -5</pre>
+<p class="tab">Locate and print a list of any file in or below the current directory that was modified fewer than <b>5</b> minutes ago.</p>
+<pre class="tcy tab">find . -perm 754</pre>
+<p class="tab">Locate and print a list of any file in or below the current directory whose <a href="/jargon/o/octal.htm">octal</a> permission bits are <b>755</b> (user can read, write, and execute; owning group members can read and execute; others can read only). For more information about permission bits, see <a href="/unix/uchmod.htm"><b>chmod</b></a>.</p>
+<pre class="tcy tab">find . -perm u=rwx,g=rx,o=r</pre>
+<p class="tab">Same as the above command, but uses a symbolic representation of the permission bits. Note that the symbolic notation uses a comma separator and contains no spaces.</p>
+<pre class="tcy tab">find . -size +1M -type f</pre>
+<p class="tab">Locate and print a list of any regular file in or below the current directory whose size is greater than <b>1</b> megabyte.</p>
+<pre class="tcy tab">find . -size -5G -type f</pre>
+<p class="tab">Locate and print a list of any regular file in or below the current directory whose size is less than <b>5</b> gigabytes.</p>
+<pre class="tcy tab">find . -user jeff</pre>
+<p class="tab">Locate and print a list of any file or directory in or below the current directory owned by the user <b>jeff</b>.</p>
+<pre class="tcy tab">find . -size +1G -exec mv '{}' ~/bigfiles \;</pre>
+<p class="tab">Locate any files in or below the current directory whose size is greater than <b>1</b> gigabyte, and <b>exec</b>ute the <b>mv</b> command on them, moving them into the directory <b>bigfiles</b> in your home directory. The <b>{}</b> indicates where in the command the name of the matched file should be placed; it must be enclosed in quotes to protect it from being misinterpreted by the shell. Similarly, the semicolon which ends the command must be escaped with a backslash ("<b>\;</b>").</p>
+<pre class="tcy tab">find . -size +1G -print0 | xargs -0 -I '{}' mv '{}' ~/bigfiles</pre>
+<p class="tab">Locate any files in or below the current directory whose size is greater than <b>1</b> gigabyte, then pipe that list to the <b>xargs</b> command, which uses the <a href="/unix/umv.htm"><b>mv</b></a> command to move each one of those files into the directory <b>bigfiles</b> in your home directory. This is similar to the above command, but better for several reasons. First, it uses the <b>-print0</b> option to tell <b>find</b> to create its list separating each file name with a <a href="/jargon/n/null.htm">null</a> character rather than a <a href="/jargon/n/newline.htm">newline</a>; this makes the list difficult for a human to read, but has the advantage of making it easier for another program to parse. Always use <b>-print0</b> when piping output to <b>xargs</b>.</p>
+<p class="tab">Using <b>xargs</b> to execute commands on every file found is generally better than using <b>find</b>'s <b>-exec</b> option because of the more efficient way <b>xargs</b> threads each command that it spawns.</p>
+<p class="tab">The <b>-0</b> argument to <b>xargs</b> tells it to expect the null character as the file name separator (which we specified with <b>find</b>'s <b>-print0</b> option).</p>
+<p class="tab">The <b>-I '{}'</b> option tells <b>xargs</b> to replace "<b>{}</b>" with the name of each file it finds. We then form our command using <b>{}</b> where we want the file name to appear. We enclose it in single quotes to protect it from the shell.</p>
+<p class="tab"><b>xargs</b> does not expect a semicolon at the end of the command, unlike <b>find -exec</b>, so it is not included in this command.</p>
+<pre class="tcy tab">find . -size +1G -ok mv '{}' ~/bigfiles \;</pre>
+<p class="tab">Using <b>-ok</b> is the same as using <b>-exec</b>, but you are asked for confirmation before each command is executed.</p>
+<pre class="tcy tab">find . -name '*.jpg' -o -name '*.gif'</pre>
+<p class="tab">Locate any files in or below the current directory whose suffix is "<b>.jpg</b>" or "<b>.gif</b>". The <b>-o</b> option functions as a <a href="/jargon/b/boolean.htm">boolean</a> OR operator; if either of the conditions are true, the file is included in the list.</p>
+<pre class="tcy tab">find . -maxdepth 2 -name '*.jpg'</pre>
+<p class="tab">Locate any files in or below the current directory whose suffix is "<b>.jpg</b>", but limit subdirectory traversal to <b>2</b> levels beneath the current directory. Any subdirectories 3 or more levels deep aren't searched.</p>
+<pre class="tcy tab">find . ! -name '*.jpg'</pre>
+<p class="tab">Locate any files in or below the current directory whose suffix is <i>not</i> "<b>.jpg</b>". The <a href="/jargon/e/exclamation-mark.htm">exclamation mark</a> ("<b>!</b>") functions as a boolean NOT operator; it lists only files for which the condition is false.</p>
+<pre class="tcy tab">find /tmp -name core -type f -print0 | xargs -0 /bin/rm -f</pre>
+<p class="tab">Find files named <b>core</b> in or below the directory <b>/tmp</b> and delete them. The <b>-name</b> test comes before the <b>-type</b> test to avoid having to call <a href="/unix/stat.htm"><b>stat</b></a> on every file.</p>
+<pre class="tcy tab">find $HOME -mtime 0</pre>
+<p class="tab">Search for files in your home directory which were modified in the last twenty-four hours. This command works this way because the time since each file was last modified is divided by 24 hours and any remainder is discarded. That means that to match <b>-mtime 0</b>, a file has to have a modification in the past that is less than 24 hours ago.</p>
+<pre class="tcy tab">find /sbin /usr/sbin -executable ! -readable</pre>
+<p class="tab">Search for files in your superuser binary directories, <b>/sbin</b> and <b>/usr/sbin</b>, which are executable but not readable.</p>
+<h2 id="suppressing">Suppressing Error Messages When Using find</h2>
+<p class="tab">One last tip for using <b>find</b>: you receive an error message if <b>find</b> encounters a file or directory you don't have access to view. The error message looks like this:</p>
+<pre class="tab">find: &#96;./tmp/sysfile-PKdhtXMmr18n': Permission denied</pre>
+<p class="tab">You might not want these messages in your output; they can make it difficult to parse your actual <b>find</b> results.</p>
+<p class="tab">For these examples, we'll assume you're using <a href="/unix/ubash.htm"><b>bash</b></a> as your shell, which is the default under linux. Let's say your command is this simple one:</p>
+<pre class="tcy tab">find .</pre>
+<p class="tab">If the results of this command are giving you "<b>Permission denied</b>" errors, the simplest way to filter them out is to send them all to <b>/dev/null</b>, which is the device on linux which points to nowhere. Your command would look like this:</p>
+<pre class="tcy tab">find . 2&gt;/dev/null</pre>
+<p class="tab">Here, <b>2&gt;</b> is a special operator in <b>bash</b> which means "redirect standard error". This effectively hides all error messages from <b>find</b>'s output.</p>
+<p class="tab">You might not want to hide <i>every</i> error message, though. What if there's another error of some kind? You don't want to suppress those messages too. In that case, you can use this command instead:</p>
+<pre class="tcy tab">find . 2&gt;&amp;1 | grep -v 'Permission denied'</pre>
+<p class="tab">Here, <b>2&gt;</b> tells <b>bash</b> to redirect standard error, and <b>&amp;1</b> tells it to use standard output as the destination. This redirects all error messages issued by <b>find</b> to standard output; this looks the same on your terminal screen, but by merging them with standard output, we have made them filterable by <b>grep</b>. So we then pipe the output of <b>find</b> to <b>grep</b>, which matches the inverse (<b>-v</b>) of our string, <b>'Permission denied'</b>. The result is that it displays any line which <i>does not</i> contain that string. This allows you to view your results without any pesky "Permission denied" error messages.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uchmod.htm"><b>chmod</b></a> &mdash; Change the permissions of files or directories.<br><a href="/unix/ucpio.htm"><b>cpio</b></a> &mdash; Copy files to or from archives.<br><a href="/unix/ulocate.htm"><b>locate</b></a> &mdash; Search a local database to find files by name.<br><a href="/unix/uls.htm"><b>ls</b></a> &mdash; List the contents of a directory or directories.<br><a href="/unix/ush.htm"><b>sh</b></a> &mdash; The Bourne shell command interpreter.<br><a href="/unix/uwhereis.htm"><b>whereis</b></a> &mdash; Locate the binary, source, and manual page files for a command.<br><a href="/unix/uwhich.htm"><b>which</b></a> &mdash; Locate the binary of a command.<br><a href="/unix/xargs.htm"><b>xargs</b></a> &mdash; Build and execute complex commands, and execute them on multiple files.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82e4ef99848c',m:'DnkEgA.h5ZhauUGF.58yxHUXxRo.E9hqEnNhO_0qq5E-1661495348-0-AcsnrNczVK+ROlC9R/NnE6JTPEZ5Ybpw6DRqpeSEXj2/WpQwwzpYETyZHmhKC1i1NIfKDgYGeI35zPz13YMnxF31iUar+l4c8//sggJLXiRh+EbiOCzi9x8MUXFrBMc8Zw==',s:[0xaf5983d746,0x1a36c4b724],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

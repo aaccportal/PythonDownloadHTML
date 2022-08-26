@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux rn command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/rn.gif" width="300" height="300" alt="rn command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>rn</b> is a <a href="/jargon/n/newsgrou.htm">newsgroup</a> reader.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#examples">Examples</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">rn</pre>
+<h2 id="commands">Commands</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>a</b>-<b>z</b>, <b>0</b>-<b>9</b></td>
+<td>Select/deselect the indicated item by its letter or number. Many of the alpha letters are omitted for the following commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>SPACE</b></td>
+<td>Perform the default command (usually &gt; or Z).</td>
+</tr>
+<tr class="tcw">
+<td><a href="/jargon/c/cr.htm">CR</a></td>
+<td>Enter item(s). Selects the current item if nothing is selected.</td>
+</tr>
+<tr class="tcw">
+<td><a href="/jargon/t/tab.htm">TAB</a></td>
+<td>Start reading selected items.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>Set a range, as in <b>d - f</b>. Repeats the last marking action.</td>
+</tr>
+<tr class="tcw">
+<td>@</td>
+<td><a href="/jargon/t/toggle.htm">Toggle</a> the selection of all visible items.</td>
+</tr>
+<tr class="tcw">
+<td><b>.</b></td>
+<td>Toggle the current item's selection.</td>
+</tr>
+<tr class="tcw">
+<td><b>k</b>, <b>'</b>,<b>'</b></td>
+<td>Mark the current group to kill all unread articles.</td>
+</tr>
+<tr class="tcw">
+<td><b>E</b></td>
+<td>Toggle exclusion of non-selected items from the selection list.</td>
+</tr>
+<tr class="tcw">
+<td><b>n</b>, <b>]</b>, <b>down</b></td>
+<td>Move down to the next item.</td>
+</tr>
+<tr class="tcw">
+<td><b>p</b>, <b>[</b>, <b>up</b></td>
+<td>Move up to the previous item.</td>
+</tr>
+<tr class="tcw">
+<td><b>&lt;</b>, <b>&gt;</b>, <b>right</b></td>
+<td>Go to previous/next page.</td>
+</tr>
+<tr class="tcw">
+<td><b>^</b>, <b>$</b></td>
+<td>Go to first/last page.</td>
+</tr>
+<tr class="tcw">
+<td><b>O</b></td>
+<td>Set the selector's order.</td>
+</tr>
+<tr class="tcw">
+<td><b>R</b></td>
+<td>Reverse the current sort order.</td>
+</tr>
+<tr class="tcw">
+<td><b>U</b></td>
+<td>Switch between selecting empty/non-empty items.</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td>Catch up a group, marking the articles as read without chasing xrefs.</td>
+</tr>
+<tr class="tcw">
+<td><b>=</b></td>
+<td>Refresh the article counts in the selector (will re-grab active).</td>
+</tr>
+<tr class="tcw">
+<td><b>^N</b></td>
+<td>Switch to the next news source (the numbered GROUPs in <b>~/.rn/access</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>^P</b></td>
+<td>Switch to the previous news source.</td>
+</tr>
+<tr class="tcw">
+<td><b>^K</b></td>
+<td>Edit the global KILL file.</td>
+</tr>
+<tr class="tcw">
+<td><b>^E</b></td>
+<td>Edit the current universal configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>\</b></td>
+<td>Escape next char as a command. A selector command is tried first, then a newsgroup-list command (force the latter with another <b>\</b>). E.g. <b>\a</b> adds groups, <b>\\h</b> gets you newsgroup-list help.</td>
+</tr>
+<tr class="tcw">
+<td>&amp;</td>
+<td>Start the option selector or set command-line switches.</td>
+</tr>
+<tr class="tcw">
+<td><b>&amp;&amp;</b></td>
+<td>View or set <a href="/jargon/m/macro.htm">macro</a> definitions.</td>
+</tr>
+<tr class="tcw">
+<td><b>:</b><i>cmd</i></td>
+<td>Perform command <i>cmd</i> on all the selected groups.</td>
+</tr>
+<tr class="tcw">
+<td><b>::</b><i>cmd</i></td>
+<td>Perform command <i>cmd</i> on all non-selected groups.</td>
+</tr>
+<tr class="tcw">
+<td><b>:.</b><i>cmd</i></td>
+<td>Perform command <i>cmd</i> on the current group.</td>
+</tr>
+<tr class="tcw">
+<td><b>::.</b><i>cmd</i></td>
+<td>Perform command <i>cmd</i> on the all but the current.</td>
+</tr>
+<tr class="tcw">
+<td><b>!</b><i>cmd</i></td>
+<td>Run command <i>cmd</i> in a subshell.</td>
+</tr>
+<tr class="tcw">
+<td><b>h</b>, <b>?</b></td>
+<td>Display this help message.</td>
+</tr>
+<tr class="tcw">
+<td><b>'</b>, <b>Esc</b></td>
+<td>Leave the selector and return to the original group selector.</td>
+</tr>
+<tr class="tcw">
+<td><b>q</b></td>
+<td>Quit current level. At top level, leave <b>rn</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Q</b></td>
+<td>Quit the current level. At top level, go to the next selector.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">rn</pre>
+<p class="tab">Run the <b>rn</b> utility, which lets you read newsgroups.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8342cc3c84b0',m:'15F4qfHCOw6MwRCVh8M2rZa5az8JzAtYzpGooNOd0SM-1661495363-0-Afc7LSOY5QgLUT+Q17LopgyCf03j7kw5VG9m1xqHb5XEQAANdPhTg+dgAPATLDbWdBeA6C/GuzoeSyoFCCtqbjtgcy8KPLiDuKljqLF2esAyjr1zAUyyJ4oLxNe3yQ607g==',s:[0x6472c3bd75,0x27f176431e],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

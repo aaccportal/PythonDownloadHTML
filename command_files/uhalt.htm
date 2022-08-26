@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux halt, poweroff and reboot commands</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/halt.gif" width="300" height="300" alt="halt command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>halt</b>, <b>poweroff</b>, and <b>reboot</b> commands stop, power down, or reboot the system, respectively.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> versions of <b>halt</b>, <b>poweroff</b>, and <b>reboot</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>halt</b>, <b>poweroff</b>, and <b>reboot</b> are commands you can run as <a href="/jargon/r/root.htm">root</a> to stop the system hardware.</p>
+<ul>
+<li><b>halt</b> instructs the hardware to stop all CPU functions.</li>
+<li><b>poweroff</b> sends an <a href="/jargon/a/acpi.htm">ACPI</a> signal which instructs the system to power down.</li>
+<li><b>reboot</b> instructs the system to <a href="/jargon/r/reboot.htm">reboot</a>.</li>
+</ul>
+<p class="tab">These commands require superuser <a href="/jargon/p/permissi.htm">privileges</a>. If you are not logged in as root, you need to prefix the command with <a href="/unix/sudo.htm"><b>sudo</b></a> or the signal isn't sent.</p>
+<h3 class="tab">Technical description</h3>
+<p class="tab">These programs allow a system administrator to reboot, halt or poweroff the system.</p>
+<p class="tab">When called with <b>--force</b> or when in <a href="/jargon/r/runlevel.htm">runlevel</a> 0 or 6, this tool invokes the <b>reboot</b> system call itself (with REBOOTCOMMAND argument passed) and directly reboots the system. Otherwise, this invokes the <b>shutdown</b> tool with the appropriate arguments without passing REBOOTCOMMAND argument.</p>
+<p class="tab">Before invoking <b>reboot</b>, a shutdown time record is first written to <b>/var/log/wtmp</b></p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">reboot [<i>OPTION</i>]... [<i>REBOOTCOMMAND</i>]</pre>
+<pre class="tcy tab">halt [<i>OPTION</i>]...</pre>
+<pre class="tcy tab">poweroff [<i>OPTION</i>]...</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:190px"><b>-f</b>, <b>--force</b></td>
+<td>Does not invoke <b>shutdown</b> and instead performs the actual action you would expect from the name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--poweroff</b></td>
+<td>Instructs the halt command to instead behave as poweroff.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>, <b>--wtmp-only</b></td>
+<td>Does not call <b>shutdown</b> or the <b>reboot</b> system call and instead only writes the shutdown record to <b>/var/log/wtmp</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--verbose</b></td>
+<td>Outputs slightly more <a href="/jargon/v/verbose.htm">verbose</a> messages when rebooting, which can be useful for <a href="/jargon/d/debuggin.htm">debugging</a> problems with shutdown.</td>
+</tr>
+</table>
+<h2 id="environment">Environment</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>RUNLEVEL</b></td>
+<td><b>reboot</b> will read the current runlevel from this <a href="/jargon/e/envivari.htm">environment variable</a> if set in preference to reading from <b>/var/run/utmp</b>.</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>/var/run/utmp</b></td>
+<td>File where the current runlevel will be read from; this file also be updated with the runlevel record being replaced by a shutdown time record.</td>
+</tr>
+<tr class="tcw">
+<td><b>/var/log/wtmp</b></td>
+<td>A new runlevel record for the shutdown time will be appended to this file.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">halt</pre>
+<p class="tab">If you are logged in as root, issuing the <b>halt</b> command will cease all CPU function on the system. On most systems, this will drop you into single-user mode and then power off the machine.</p>
+<pre class="tcy tab">sudo halt</pre>
+<p class="tab">If you're not logged in as root, prefix the <b>halt</b> command with <b>sudo</b> to run the command as the superuser.</p>
+<pre class="tcy tab">poweroff</pre>
+<p class="tab">If you are logged in as root, issuing the <b>poweroff</b> command sends an ACPI hardware signal which will instruct the system to commence with a complete and immediate shutdown. This is roughly equivalent to pressing the power button on a typical desktop computer.</p>
+<pre class="tcy tab">sudo poweroff</pre>
+<p class="tab">Execute the <b>poweroff</b> command as root.</p>
+<pre class="tcy tab">reboot</pre>
+<p class="tab">If you are logged in as root, issuing the <b>reboot</b> command will immediately initiate a reboot sequence. The system shuts down and then commence a <a href="/jargon/w/warmboot.htm">warm boot</a>.</p>
+<pre class="tcy tab">sudo reboot</pre>
+<p class="tab">Execute the <b>reboot</b> command as root.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ushutdow.htm"><b>shutdown</b></a> &mdash; Schedule a time for the system to be powered down.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a833a299cc41a',m:'kuDiH157Fa516IxVTziQUeV8w10SOimZQqQfWjcgKYI-1661495361-0-AVMhyivpRTy47ZMozze71GYdCEw8GGOq+BCSLf9zW3yKnweW0DZPz8zGm3Dq9lSA/oQGMlyoT4xgU4As0OY3S9/IWnVGXm8DcXEx8VMK4++o8pYg1pX+E3O0kxijLP7eMQ==',s:[0xf6225b1849,0x61f698b2ab],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

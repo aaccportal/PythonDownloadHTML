@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux xxd command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2022-07-31">07/31/2022</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/xxd.png" width="300" height="300" alt="Linux and unix xxd command" class="floatRight">
+<p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>xxd</b> command displays a file as its <a href="/jargon/h/hex.htm">hexadecimal</a> values and <a href="/jargon/a/ascii.htm">ASCII</a> representation and allows edits to that. <b>xxd</b> was developed by Juergen Weigert in 1990.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#description">What is xxd?</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a>
+<ul>
+<li><a href="#print_first_bytes">How to print the first 20 bytes of a file.</a></li>
+<li><a href="#print_last_bytes">How to print the last 20 bytes of a file.</a></li>
+<li><a href="#print_bits">How to print the first 5 bytes of a file as bits.</a></li>
+<li><a href="#nonprinting">How to inspect a text file for nonprinting characters.</a></li>
+<li><a href="#edit_binary">How to edit binary.</a></li>
+<li><a href="#single_byte">How to create a text file.</a></li>
+</ul>
+</li>
+<li><a href="#vim">How to use xxd in vim.</a>
+<ul>
+<li><a href="#vim_whole_file">How to convert the whole file.</a></li>
+<li><a href="#vim_current_line">How to convert the current line.</a></li>
+<li><a href="#vim_marked_locations">How to convert between marked locations.</a></li>
+</ul>
+</li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="description">What is xxd?</h2>
+<p class="tab">The <b>xxd</b> program takes a <a href="/jargon/f/file.htm">file</a> or <a href="/jargon/s/stdin.htm">standard input</a> and outputs a hex <a href="/jargon/d/dump.htm">dump</a> that uses only <a href="/jargon/a/ascii.htm">ASCII</a> or <a href="/jargon/e/ebcdic.htm">EBCDIC</a> characters. This <a href="/jargon/o/output.htm">output</a> hex dump can be safely emailed and reconstructed at the destination. It can also take an equivalently formatted hex dump and convert it back to <a href="/jargon/b/binary.htm">binary</a> form, allowing binary files to be edited or <a href="/jargon/p/patch.htm">patched</a> as text.</p>
+<p class="tab"><img src="/unix/images/xxd.jpg" width="600" height="380" alt="xxd results labeled" class="resize600"></p>
+<h2 id="syntax">Syntax</h2>
+<p class="tab">The following is the general <a href="/jargon/s/syntax.htm">syntax</a> of the <b>xxd</b> command. Note that if a <a href="/jargon/p/paramete.htm">parameter</a> is included with a long option name, such as <b>-autoskip</b>, the same parameter could be specified with the corresponding short option, such as <b>-a</b>.</p>
+<pre class="tcy tab">Display command help or version:
+xxd [-h | <a href="#opt-help">-help</a>] [-v | <a href="#opt-version">-version</a>]
+Create hex dump:
+xxd [options] [infile [outfile]]
+Convert a hex dump to binary:
+xxd [-r | <a href="#opt-revert">-revert</a>] [options] [infile [outfile]]
+Options:
+ [-a | <a href="#opt-autoskip">-autoskip</a>] [-b | <a href="#opt-bits">-bits</a>] [-c <i>cols</i> | <a href="#opt-cols">-cols <i>cols</i></a>] [-C | <a href="#opt-capitalize">-capitalize</a>]
+ [-E | <a href="#opt-ebcdic">-EBCDIC</a>] [<a href="#opt-e">-e</a>] [-g <i>bytes</i> | <a href="#opt-groupsize">-groupsize <i>bytes</i></a>] [-i | <a href="#opt-include">-include</a>]
+ [-l <i>len</i> | <a href="#opt-len">-len <i>len</i></a>] [<a href="#opt-offset">-o <i>offset</i></a>] [-p | -ps | <a href="#opt-postscript">-postscript</a> | -plain]
+ [<a href="#opt-seek">-seek <i>offset</i></a>] [<a href="#opt-s">-s <i>[+][-]seek</i></a>] [<a href="#opt-u">-u</a>]
+</pre>
+<h3 class="tab">Options</h3>
+<p class="tab">If no display switches are specified, <b>xxd</b> behaves as if <b>-c16</b> were specified (16 octets per row).</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td id="opt-autoskip" style="width:200px"><b>a</b>, <b>-autoskip</b></td>
+<td>Toggle autoskip: A single '*' replaces <a href="/jargon/n/nullchar.htm">null</a>-lines. Default off.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-bits"><b>b</b>, <b>-bits</b></td>
+<td>Switch to <a href="/jargon/b/bit.htm">bits</a> (binary digits) dump, rather than hex dump. This option writes <a href="/jargon/o/octet.htm">octets</a> as eight digits &quot;1&quot;s and &quot;0&quot;s instead of a normal hex dump. Each line is preceded by a line number in hexadecimal and followed by an ASCII (or EBCDIC) representation. The command line switches <a href="#opt-revert">-r</a>, <a href="#opt-postscript">-p</a>, <a href="#opt-include">-i</a> do not work with this mode.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-cols"><b>c</b> <i>cols</i>, <b>-cols</b> <i>cols</i></td>
+<td>Format &lt;cols&gt; octets per line. Default 16 (-i: 12, -ps: 30, -b: 6). Max 256. No maximum for <a href="#opt-postscript">-ps</a>. With <a href="#opt-postscript">-ps</a>, 0 results in one long line of output.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-capitalize"><b>C</b>, <b>-capitalize</b></td>
+<td>Capitalize variable names in C include file style, when using <a href="#opt-include">-i</a>.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-ebcdic"><b>E</b>, <b>-EBCDIC</b></td>
+<td>Change the character encoding in the right-side column from ASCII to EBCDIC. This does not change the hexadecimal representation. The option is meaningless in combinations with <a href="#opt-revert">-r</a>, <a href="#opt-postscript">-p</a>, or <a href="#opt-include">-i</a>.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-e"><b>e</b></td>
+<td>Switch to little-<a href="/jargon/e/endian.htm">endian</a> hex dump. This option treats byte groups as words in little-endian byte order. The default grouping of 4 bytes may be changed using <a href="#opt-groupsize">-g</a>. This option only applies to hex dump, leaving the ASCII (or EBCDIC) representation unchanged. The command line switches <a href="#opt-revert">-r</a>, <a href="#opt-postscript">-p</a>, <a href="#opt-include">-i</a> do not work with this mode.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-groupsize"><b>g</b> <i>bytes</i>, <b>-groupsize</b> <i>bytes</i></td>
+<td>Separate the output of every &lt;bytes&gt; bytes (two hex characters or eight bit-digits each) by a whitespace. Specify -g 0 to suppress grouping. &lt;Bytes&gt; defaults to 2 in normal mode, 4 in little-endian mode and 1 in bits mode. Grouping does not apply to postscript or include style.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-help"><b>h</b>, <b>-help</b></td>
+<td>Print a summary of available commands and exit. No hex dumping is performed.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-include"><b>i</b>, <b>-include</b></td>
+<td>Output in C include file style. A complete static array definition is written (named after the input file), unless <b>xxd</b> reads from stdin.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-len"><b>l</b> <i>len</i>, <b>-len</b> <i>len</i></td>
+<td>Stop after writing &lt;len&gt; octets.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-offset"><b>o offset</b></td>
+<td>Add &lt;offset&gt; to the displayed file position.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-postscript"><b>p</b>, <b>-ps</b>, <b>-postscript</b>, <b>-plain</b></td>
+<td>Output in postscript continuous hex dump style. Also known as plain hex dump style.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-revert"><b>r</b>, <b>-revert</b></td>
+<td>Reverse operation: convert (or patch) hex dump into binary. If not writing to stdout, <b>xxd</b> writes into its output file without truncating it. Use the combination <a href="#opt-revert">-r</a> <a href="#opt-postscript">-p</a> to read plain hex dumps without line number information and without a particular column layout. Additional <a href="/jargon/w/whitspac.htm">whitespace</a> and <a href="/jargon/l/linebrea.htm">line breaks</a> are allowed anywhere.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-seek"><b>seek</b> <i>offset</i></td>
+<td>When used after <a href="#opt-revert">-r</a>: revert with &lt;offset&gt; added to file positions found in hex dump.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-s"><b>s</b> <i>[+][-]seek</i></td>
+<td>Start at &lt;seek&gt; bytes abs. (or rel.) infile offset. + indicates that the seek is relative to the current stdin file position (meaningless when not reading from stdin). - indicates that the seek should be that many characters from the end of the input (or if combined with +: before the current stdin file position). Without -s option, xxd starts at the current file position.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-u"><b>u</b></td>
+<td>Use uppercase hex letters. Default is lowercase.</td>
+</tr>
+<tr class="tcw">
+<td id="opt-version"><b>v</b>, <b>-version</b></td>
+<td>Show version string.</td>
+</tr>
+</table>
+<h3 class="tab">Exit status</h3>
+<p class="tab"><b>xxd</b> has the following return codes.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>0</b></td>
+<td>No errors encountered</td>
+</tr>
+<tr class="tcw">
+<td><b>-1</b></td>
+<td>Operation not supported ( <b>xxd</b> <a href="#opt-revert">-r</a> <a href="#opt-include">-i</a> still impossible).</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>Error while parsing options.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>Problems with input file.</td>
+</tr>
+<tr class="tcw">
+<td><b>3</b></td>
+<td>Problems with output file.</td>
+</tr>
+<tr class="tcw">
+<td><b>4,5</b></td>
+<td>Desired seek position is unreachable.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<p class="tab">The following examples show some ways that <b>xxd</b> can be used. See the <b>xxd</b> <a href="/jargon/m/man.htm">man page</a> for additional examples by typing <b>man xxd</b> in the <a href="/jargon/c/commprom.htm">command prompt</a>.</p>
+<h3 id="print_first_bytes" class="tab">How to print the first 20 bytes of a file</h3>
+<pre class="tcy tab">xxd -l 20 myfile</pre>
+<pre class="tcy tab">xxd -l 0x14 myfile</pre>
+<pre class="tcy tab">xxd -l 024 myfile</pre>
+<p class="tab">All three commands above read the contents of myfile, take the first 20 bytes, and print those as the hex dump. The first command specifies the length in decimal (20), the second specifies the length in hexadecimal (0x14), and the third specifies the length in octal (024). Below shows this in use on a two paragraph <a href="/jargon/l/lorem-ipsum.htm">lorem ipsum</a> file saved as <a href="/jargon/u/unicode.htm">UTF-8</a> (8 bits per character).</p>
+<pre class="dtab"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="791a11391a1614090c0d1c0b1116091c">[email&#160;protected]</a> ~ : xxd -l 20 lorem.txt 
+00000000: 4c6f 7265 6d20 6970 7375 6d20 646f 6c6f  Lorem ipsum dolo
+00000010: 7220 7369                                r si
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d1b2b991b2bebca1a4a5b4a3b9bea1b4">[email&#160;protected]</a> ~ : xxd -l 0x14 lorem.txt 
+00000000: 4c6f 7265 6d20 6970 7375 6d20 646f 6c6f  Lorem ipsum dolo
+00000010: 7220 7369                                r si
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f5969db5969a9885808190879d9a8590">[email&#160;protected]</a> ~ : xxd -l 024 lorem.txt  
+00000000: 4c6f 7265 6d20 6970 7375 6d20 646f 6c6f  Lorem ipsum dolo
+00000010: 7220 7369                                r si
+</pre>
+<div class="tip tab" role="note">
+<span class="title">Note</span>
+<p>The first line, first character, is a capital <i>L</i>. This is represented in hexadecimal as <i>4c</i> above.</p>
+<p>Capital <i>L</i><br> Binary <i>0b1001100</i><br> ASCII Decimal <i>76</i><br> Hex <i>0x4C</i></p>
+</div>
+<h3 id="print_last_bytes" class="tab">How to print the last 20 bytes of a file</h3>
+<pre class="tcy tab">xxd -s -20 myfile</pre>
+<pre class="tcy tab">xxd -s -0x14 myfile</pre>
+<pre class="tcy tab">xxd -s -024 myfile</pre>
+<p class="tab">All three commands above read the contents of myfile, go to the end of the file, seek backwards (the <b>-</b> sign) 20 bytes, and print from then forward as the hex dump. The first command specifies the length in decimal (20), the second specifies the length in hexadecimal (0x14), and the third specifies the length in octal (024). Below shows this in use on a two paragraph <a href="/jargon/l/lorem-ipsum.htm">lorem ipsum</a> file saved as <a href="/jargon/u/unicode.htm">UTF-8</a> (8 bits per character).</p>
+<pre class="dtab"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2c4f446c4f43415c5958495e44435c49">[email&#160;protected]</a> ~ : xxd -s -20 lorem.txt
+00000583: 2c20 6772 6176 6964 6120 6567 6574 206f  , gravida eget o
+00000593: 7263 692e                                rci.
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b7d4dff7d4d8dac7c2c3d2c5dfd8c7d2">[email&#160;protected]</a> ~ : xxd -s -0x14 lorem.txt
+00000583: 2c20 6772 6176 6964 6120 6567 6574 206f  , gravida eget o
+00000593: 7263 692e                                rci.
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="680b00280b0705181d1c0d1a0007180d">[email&#160;protected]</a> ~ : xxd -s -024 lorem.txt 
+00000583: 2c20 6772 6176 6964 6120 6567 6574 206f  , gravida eget o
+00000593: 7263 692e                                rci.
+</pre>
+<h3 id="print_bits" class="tab">How to print the first 5 bytes of a file as bits</h3>
+<pre class="tcy tab">xxd -l 5 -b myfile</pre>
+<p class="tab">The command above reads the contents of myfile, takes the first 5 bytes, and prints those as a binary dump. Below shows this in use on a two paragraph <a href="/jargon/l/lorem-ipsum.htm">lorem ipsum</a> file saved as <a href="/jargon/u/unicode.htm">UTF-8</a> (8 bits per character).</p>
+<pre class="dtab"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f89b90b89b9795888d8c9d8a9097889d">[email&#160;protected]</a> ~ : xxd -l 5 -b lorem.txt 
+00000000: 01001100 01101111 01110010 01100101 01101101           Lorem
+</pre>
+<h3 id="nonprinting" class="tab">How to inspect a text file for nonprinting characters</h3>
+<pre class="tcy tab">xxd myfile</pre>
+<p class="tab">This is useful for finding and fixing bad data. In the following code, a BELL character is inserted between the first <i>o</i> and <i>r</i> in the lorem.txt file as a demonstration. It is not visible in a text editor, nor using <a href="/unix/ucat.htm">cat</a> or <a href="/unix/uhead.htm">head</a>, although the system bell sound plays when using <b>cat</b> or <b>head</b>. nonprinting characters can break data imports and data usage, and may be corrupt data.</p>
+<p class="tab"><img src="/unix/images/lorem.jpg" width="600" height="442" alt="lorem ipsum file" class="resize600"></p>
+<pre class="dtab"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f7949fb794989a87828392859f988792">[email&#160;protected]</a> ~ : cat lorem.txt 
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas at
+ libero nisi. In magna nisi, vehicula eget eros sit amet, hendrerit 
+faucibus eros. Duis feugiat a massa vitae vestibulum. Aliquam commodo 
+risus a ipsum ultrices auctor. In neque magna, mollis non erat vel, 
+...
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c5f547c5f53514c4948594e54534c59">[email&#160;protected]</a> ~ : xxd lorem.txt
+00000000: 4c6f <span class="red">07</span>72 656d 2069 7073 756d 2064 6f6c  Lo<span class="red">.</span>rem ipsum dol
+00000010: 6f72 2073 6974 2061 6d65 742c 2063 6f6e  or sit amet, con
+00000020: 7365 6374 6574 7572 2061 6469 7069 7363  sectetur adipisc
+00000030: 696e 6720 656c 6974 2e20 4d61 6563 656e  ing elit. Maecen
+00000040: 6173 2061 7420 6c69 6265 726f 206e 6973  as at libero nis
+...
+</pre> 
+<div class="tip tab" role="note">
+<span class="title">Note</span>
+<p>The bell character plays a system-defined tone instead of displaying. This is hexadecimal <i>07</i> above and is translated into a period because it has no ASCII visual representation.</p>
+<p><i>BELL</i> Character<br> Binary <i>0b111</i><br> ASCII Decimal <i>7</i><br> Hex <i>0x07</i></p>
+</div>
+<h3 id="edit_binary" class="tab">How to edit binary</h3>
+<p class="tab">The <b>xxd</b> man page has one-liner steps for editing. This example breaks down the steps for clarity.</p>
+<ol>
+<li>Convert the file to its hex dump.</li>
+</ol>
+<pre class="tcy tab">xxd myfile &gt; hexdumpfile</pre>
+<p class="tab">The command above reads the contents of myfile, converts it into a hex dump, and writes that to hexdumpfile. Below shows this in use on a two paragraph <a href="/jargon/l/lorem-ipsum.htm">lorem ipsum</a> file saved as <a href="/jargon/u/unicode.htm">UTF-8</a> (8 bits per character).</p>
+<pre class="dtab"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="64070c24070b0914111001160c0b1401">[email&#160;protected]</a> ~ : xxd lorem.txt &gt; lorem_hex.txt
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e7d765e7d71736e6b6a7b6c76716e7b">[email&#160;protected]</a> ~ : head -5 lorem_hex.txt
+00000000: 4c6f <span class="red">07</span>72 656d 2069 7073 756d 2064 6f6c  Lo<span class="red">.</span>rem ipsum dol
+00000010: 6f72 2073 6974 2061 6d65 742c 2063 6f6e  or sit amet, con
+00000020: 7365 6374 6574 7572 2061 6469 7069 7363  sectetur adipisc
+00000030: 696e 6720 656c 6974 2e20 4d61 6563 656e  ing elit. Maecen
+00000040: 6173 2061 7420 6c69 6265 726f 206e 6973  as at libero nis
+</pre>
+<ol start="2">
+<li>Edit the hex dump.</li>
+</ol>
+<p class="tab">Use any <a href="/jargon/e/editor.htm">text editor</a>. In the example below, we changed the <i>BELL</i> character (0x07) to capital <i>L</i> (0x4c).</p>
+<pre class="dtab">00000000: 4c6f <span class="red">4c</span>72 656d 2069 7073 756d 2064 6f6c  Lo.rem ipsum dol
+00000010: 6f72 2073 6974 2061 6d65 742c 2063 6f6e  or sit amet, con
+00000020: 7365 6374 6574 7572 2061 6469 7069 7363  sectetur adipisc
+00000030: 696e 6720 656c 6974 2e20 4d61 6563 656e  ing elit. Maecen
+</pre>
+<div class="tip tab" role="warn">
+<span class="title">Warning</span>
+<p>The number of characters per row must remain the same or the translation is truncated or filled with <i>0x00</i> to create the correct number of characters.</p>
+<p>Editing the line number or the ASCII character representation has no effect on the conversion back to binary.</p>
+</div>
+<ol start="3">
+<li>Convert the hex dump back to its binary.</li>
+</ol>
+<pre class="tcy dtab">xxd -r hexdumpfile &gt; myfile</pre>
+<p class="tab">The command above reads the contents of hexdumpfile, reverts it back to its binary form, and writes that to myfile. Below shows this in use on the file created and edited in steps 1 and 2.</p>
+<pre class="dtab"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8fece7cfece0e2fffafbeafde7e0ffea">[email&#160;protected]</a> ~ : xxd -r lorem_hex.txt &gt; lorem2.txt
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6c0f042c0f03011c1918091e04031c09">[email&#160;protected]</a> ~ : xxd lorem2.txt
+00000000: 4c6f <span class="red">4c</span>72 656d 2069 7073 756d 2064 6f6c  Lo<span class="red">L</span>rem ipsum dol
+00000010: 6f72 2073 6974 2061 6d65 742c 2063 6f6e  or sit amet, con
+00000020: 7365 6374 6574 7572 2061 6469 7069 7363  sectetur adipisc
+00000030: 696e 6720 656c 6974 2e20 4d61 6563 656e  ing elit. Maecen
+</pre>
+<h3 id="single_byte" class="tab">How to create a text file</h3>
+<pre class="tcy tab">echo &quot;<i>some hexadecimal values</i>&quot; | xxd -r -p &gt; myfile</pre>
+<p class="tab">The command above prints the hexadecimal values which is sent to the <b>xxd</b> command via the <a href="/jargon/p/pipe.htm">pipe</a>. The -r reverts and -p means plain hex, with no line information given. This is redirected from printing to the screen and is saved as myfile. If <i>&gt; myfile</i> isn't included, the results are printed to <a href="/jargon/s/stdout.htm">stdout</a>.</p>
+<pre class="dtab"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b28230b2824263b3e3f2e3923243b2e">[email&#160;protected]</a> ~ : echo &quot;4c0a&quot; | xxd -r -p &gt; capital_L.txt
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2b48436b4844465b5e5f4e5943445b4e">[email&#160;protected]</a> ~ : cat capital_L.txt                      
+L
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="583b30183b3735282d2c3d2a3037283d">[email&#160;protected]</a> ~ : echo &quot;436f6d7075746572486f70650a&quot; | xxd -r -p &gt; computerhope.txt
+<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ed8e85ad8e82809d9899889f85829d88">[email&#160;protected]</a> ~ : cat computerhope.txt
+ComputerHope
+</pre>
+<div class="tip tab" role="note">
+<span class="title">Note</span>
+<p>Hexadecimal 0A is a line feed character and is marking the end of the text file.</p>
+</div>
+<h2 id="vim">How to use xxd in vim</h2>
+<p class="tab"><b>xxd</b> can be used in the <a href="/unix/vim.htm">vim text editor</a> when in normal mode (also sometimes called command mode). This is useful for quick data checks and specialized edits.</p>
+<h3 id="vim_whole_file" class="tab">How to convert the whole file</h3>
+<p class="tab">In the <b>vim</b> normal or command mode, convert the entire file to its hex dump or revert it back by typing the characters below.</p>
+<pre class="tcy tab">:%!xxd</pre>
+<pre class="tcy tab">:%!xxd -r</pre>
+<h3 id="vim_current_line" class="tab">How to convert the current line</h3>
+<p class="tab">In the <b>vim</b> normal or command mode, navigate to the line to convert, and then type the characters below to convert it to its hex dump or revert it back to its original.</p>
+<pre class="tcy tab">!!xxd</pre>
+<pre class="tcy tab">!!xxd -r</pre>
+<div class="tip tab" role="note">
+<span class="title">Note</span>
+<p>The current line in binary and text may spawn multiple lines when translated to the hex dump. Reverting back to the original text needs to be done line-by-line or using <a href="#vim_marked_locations">marked locations</a>.</p>
+</div>
+<h3 id="vim_marked_locations" class="tab">How to convert between marked locations</h3>
+<ol>
+<li>In the <b>vim</b> normal or command mode, mark the lines to be converted by typing the characters below. This creates two marked locations, named <i>a</i> and <i>b</i>.</li>
+</ol>
+<pre class="tcy tab">ma</pre>
+<pre class="tcy tab">mb</pre>
+<div class="tip tab" role="note">
+<span class="title">Note</span>
+<p>In <b>vim</b>, the current <a href="/jargon/c/cursor.htm">cursor</a> position can be marked, or saved, so it can be returned to later using its identification. Use lowercase letters for non-<a href="/jargon/p/persistent-memory.htm">persistent</a> marks. To place a mark, use <i>m</i> followed by its letter. To reference the line a mark is on, use an <i>&apos;</i> (apostrophe) followed by its letter. To delete a mark, use <i>:delmarks</i> followed by its letter.</p>
+</div>
+<ol start="2">
+<li>In the <b>vim</b> normal or command mode, convert the marked lines by typing the characters below.</li>
+</ol>
+<pre class="tcy tab">:'a,'b!xxd</pre>
+<pre class="tcy tab">:'a,'b!xxd -r</pre>
+<div class="tip tab" role="warn">
+<span class="title">Warning</span>
+<p>To use <b>xxd</b>'s revert command, the marks may have to be redone as the conversion may erase them.</p>
+</div>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucat.htm"><b>cat</b></a> &mdash; Output the contents of a file.<br><a href="/unix/uhead.htm"><b>head</b></a> &mdash; Prints the first lines of a text file.<br><a href="/unix/uless.htm"><b>less</b></a> &mdash; Displays text one screen at a time, with navigation options.<br><a href="/unix/umore.htm"><b>more</b></a> &mdash; Display text one screen at a time.<br><a href="/unix/upg.htm"><b>pg</b></a> &mdash; Browse page by page through text files.<br><a href="/unix/utail.htm"><b>tail</b></a> &mdash; Print the last lines of a text file.<br> <a href="/unix/vim.htm"><b>vim</b></a> &mdash; Command line text editor.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83873f14c3e8',m:'UmqQUl2vtPfzs1mcFwankLo8MuS.0jHgBRkNvsiPSRY-1661495373-0-AWdCTJNq/QRYjkOYGyjPvQAk4fxDsYW6lEmHV5J9Elo33UwVC91Uu4UXTdyZH23hYRsgAecbB6LM9CAykLGap3tidWGhGjzH3vjSUnakm5FANOzj+84LslL3i89vw/rnaQ==',s:[0x827a3a04e7,0x41a38e6f5f],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux sudo command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2022-03-12">03/12/2022</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/sudo.gif" width="300" height="300" alt="sudo command" class="floatRight">
+<p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>sudo</b> command (&quot;superuser do&quot;) allows a user with proper <a href="/jargon/p/permissi.htm">permissions</a> to execute a command as another user. By default, sudo executes commands as <a href="/jargon/r/root.htm">root</a>.</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>When it was first created, sudo could only switch to the superuser, which is why it's short for &quot;superuser do.&quot; Today, it can also switch to other users, so some may now refer to this command as &quot;substitute user, do&quot; or &quot;switch user, do.&quot;</p>
+</div>
+<p>This page describes the <a href="/jargon/l/linux.htm">Linux</a> version of <b>sudo</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#return">Return values</a></li>
+<li><a href="#security">Security notes</a></li>
+<li><a href="#variables">Environment variables</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>sudo</b> allows a permitted user to execute a command as another user, according to specifications in the <b>/etc/sudoers</b> file. The real and effective <b>uid</b> and <b>gid</b> of the issuing user are then set to match those of the target user account as specified in the <b>passwd</b> file.</p>
+<p class="tab">By default, <b>sudo</b> requires that users <a href="/jargon/a/auth.htm">authenticate</a> themselves with a password. By default, this is the user's password, not the root password itself.</p>
+<p class="tab">Once a user is authenticated, a <a href="/jargon/t/timestam.htm">timestamp</a> is recorded and the user may use <b>sudo</b> without a password for a short time (<b>5 minutes</b>, unless configured differently in <b>sudoers</b>). This timestamp can be renewed if the user issues <b>sudo</b> with the <b>-v</b> flag.</p>
+<p class="tab">If a user not listed in <b>sudoers</b> tries to run a command using <b>sudo</b>, it is considered an unsuccessful attempt to breach system security and <a href="/jargon/e/email.htm">mail</a> is sent to the proper authorities, as defined at configure time or in the <b>sudoers</b> file. The default authority to be notified of unsuccessful <b>sudo</b> attempts is <b>root</b>. Note that the mail isn't sent if an unauthorized user tries to run <b>sudo</b> with the <b>-l</b> or <b>-v</b> flags; this allows users to determine for themselves whether or not they are allowed to use <b>sudo</b>.</p>
+<p class="tab"><b>sudo</b> can <a href="/jargon/l/log.htm">log</a> both successful and unsuccessful attempts (and errors) to <b>syslog</b>, a unique log file, or both. By default, <b>sudo</b> will log to <b>syslog</b> but this can be changed at configure time or in the <b>sudoers</b> file.</p>
+<p class="tab">To edit the <b>sudoers</b> file, use the <a href="/unix/visudo.htm"><b>visudo</b></a> command.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">sudo -V | -h | -l | -L | -v | -k | -K | -s | [ -H ] [-P ] [-S ] [ -b ] | 
+     [ -p <i>prompt</i> ] [ -c <i>class</i>|- ] [ -a <i>auth_type</i> ] [-r <i>role</i> ] [-t <i>type</i> ] 
+     [ -u <i>username</i>|#<i>uid</i> ] <i>command</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:50px"><b>-V</b></td>
+<td>The <b>-V</b> (version) option causes <b>sudo</b> to print the version number and exit. If the invoking user is already root, the <b>-V</b> option prints out a list of the defaults <b>sudo</b> was compiled with and the machine's local network addresses.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>The <b>-l</b> (list) option prints out the commands allowed (and forbidden) the user on the current host.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b></td>
+<td>The <b>-L</b> (list defaults) option lists out the <a href="/jargon/p/paramete.htm">parameters</a> set in a <b>Defaults</b> line with a short description for each. This option is useful in conjunction with <a href="/unix/ugrep.htm"><b>grep</b></a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>The <b>-h</b> (help) option causes <b>sudo</b> to print a usage message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>If given the <b>-v</b> (validate) option, <b>sudo</b> updates the user's timestamp, prompting for the user's password if necessary. This extends the <b>sudo</b> timeout for another 5 minutes (or whatever the timeout is set to in <b>sudoers</b>) but does not run a command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b></td>
+<td>The <b>-k</b> (kill) option to <b>sudo</b> invalidates the user's timestamp by setting the time on it to the <a href="/jargon/e/epoch.htm">epoch</a>. The next time <b>sudo</b> is run a password will be required. This option does not require a password and was added to allow a user to revoke sudo permissions from a <b>.logout</b> file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-K</b></td>
+<td>The <b>-K</b> (sure kill) option to <b>sudo</b> removes the user's timestamp entirely. Likewise, this option does not require a password.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>The <b>-b</b> (background) option tells <b>sudo</b> to run the given command in the background. Note that if you use the <b>-b</b> option you cannot use <a href="/jargon/s/shell.htm">shell</a> job control to manipulate the process.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>The <b>-p</b> (prompt) option lets you override the default password prompt and use a custom one. The following percent ('<b>%</b>') escapes are supported:<br><br><b>%u</b> is expanded to the invoking user's <a href="/jargon/l/login.htm">login</a> name;<br><br> <b>%U</b> is expanded to the login name of the user the command will run as (which defaults to root);<br><br><b>%h</b> is expanded to the local <a href="/jargon/h/hostname.htm">hostname</a> without the <a href="/jargon/d/domain.htm">domain name</a>;<br><br><b>%H</b> is expanded to the local hostname including the domain name (only if the machine's hostname is fully qualified or the "<a href="/jargon/f/fqdn.htm"><b>fqdn</b></a>" <b>sudoers</b> option is set);<br><br><b>%%</b> (two consecutive <b>%</b> <a href="/jargon/c/charact.htm">characters</a>) are collapsed into a single <b>%</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>The <b>-c</b> (class) option causes <b>sudo</b> to run the specified command with resources limited by the specified login class. The class argument can be either a class name as defined in <b>/etc/login.conf</b>, or a single '<b>-</b>' character. Specifying a class of <b>-</b> indicates that the command should run restricted by the default login capabilities for the user running the command. If the class argument specifies an existing user class, the command must run as root, or the <b>sudo</b> command must run from a shell that is already root. This option is only available on systems with <a href="/jargon/b/bsd.htm">BSD</a> login classes where <b>sudo</b> is configured with the <b>--with-logincap</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>The <b>-a</b> (authentication type) option causes <b>sudo</b> to use the specified authentication type when validating the user, as allowed by <b>/etc/login.conf</b>. The system administrator may specify a list of <b>sudo</b>-specific authentication methods by adding an "<b>auth-sudo</b>" entry in <b>/etc/login.conf</b>. This option is only available on systems that support BSD authentication where <b>sudo</b> is configured with the <b>--with-bsdauth</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>The <b>-u</b> (user) option causes <b>sudo</b> to run the specified command as a user other than root. To specify a <b>uid</b> instead of a username, use <b>#uid</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>The <b>-s</b> (shell) option runs the shell specified by the <b>SHELL</b> <a href="/jargon/e/envivari.htm">environment variable</a> if it's set or the shell as specified in the file <a href="/unix/upasswor.htm">passwd</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b></td>
+<td>The <b>-H</b> (HOME) option sets the <b>HOME</b> environment variable to the <a href="/jargon/h/homedir.htm">home directory</a> of the target user (<b>root</b> by default) as specified in <b>passwd</b>. By default, <b>sudo</b> does not modify <b>HOME</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b></td>
+<td>The <b>-P</b> (preserve group vector) option causes <b>sudo</b> to preserve the user's group vector unaltered. By default, <b>sudo</b> will initialize the group vector to the list of groups of the target user. The real and effective group IDs, however, are still set to match the target user.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>The <b>-r</b> (role) option causes the new (<a href="https://selinuxproject.org/page/Main_Page" class="external">SELinux</a>) security context to have the role specified by ROLE.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>The <b>-t</b> (type) option causes the new (SELinux) security context to have the type (domain) specified by <b>TYPE</b>. If no type is specified, the default type is derived from the specified role.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b></td>
+<td>The <b>-S</b> (<a href="/jargon/s/stdin.htm">stdin</a>) option causes <b>sudo</b> to read the password from standard input instead of the <a href="/jargon/t/terminal.htm">terminal</a> device.</td>
+</tr>
+<tr class="tcw">
+<td><b>--</b></td>
+<td>The <b>--</b> flag indicates that <b>sudo</b> should stop processing command line arguments. It is most useful in conjunction with the <b>-s</b> flag.</td>
+</tr>
+</table>
+<h2 id="return">Return values</h2>
+<p class="tab">Upon successful execution of a program, the <a href="/jargon/r/returnst.htm">return</a> value from <b>sudo</b> will be the return value of the program that was executed.</p>
+<p class="tab">Otherwise, <b>sudo</b> quits with an exit value of <b>1</b> if there is a configuration/permission problem or if <b>sudo</b> cannot execute the given command. In the latter case the error string is printed to <b>stderr</b>. If <b>sudo</b> cannot <a href="/jargon/s/stat.htm"><b>stat</b></a> one or more entries in the user's <b>PATH</b> an error is printed on <b>stderr</b>. (If the <a href="/jargon/d/director.htm">directory</a> does not exist or if it's not a directory, the entry is ignored and no error is printed.) This should not happen under normal circumstances. The most common reason for <b>stat</b> to return "permission denied" is if you are running an auto-<a href="/jargon/m/mount.htm"><b>mount</b></a>er and one of the directories in your <b>PATH</b> is on a machine that is currently unreachable.</p>
+<h2 id="security">Security notes</h2>
+<p class="tab"><b>sudo</b> tries to be safe when executing commands. Variables that control how dynamic loading and binding is done can subvert the program that <b>sudo</b> runs. To combat this, some system-specific environment variables are removed from the environment that is passed on to the commands that are executed. Other variables that <b>sudo</b> removes from the environment include:</p>
+<ul>
+<li>IFS</li>
+<li>ENV</li>
+<li>BASH_ENV</li>
+<li>KRB_CONF</li>
+<li>KRBCONFDIR</li>
+<li>KRBTKFILE</li>
+<li>KRB5_CONFIG</li>
+<li>LOCALDOMAIN</li>
+<li>RES_OPTIONS</li>
+<li>HOSTALIASES</li>
+<li>NLSPATH</li>
+<li>PATH_LOCALE</li>
+<li>TERMINFO</li>
+<li>TERMINFO_DIRS</li>
+<li>TERMPATH</li>
+</ul>
+<p class="tab">as they too can pose a threat. If the <b>TERMCAP</b> variable is set and is a pathname, it too is ignored. Additionally, if certain variables contain the <b>/</b> or <b>%</b> characters, they are ignored.</p>
+<p class="tab">If <b>sudo</b> was compiled with <b>SecurID</b> support, the <b>VAR_ACE</b>, <b>USR_ACE</b> and <b>DLC_ACE</b> variables are cleared as well. The list of environment variables that sudo clears is contained in the output of <b>sudo -V</b> when run as root.</p>
+<p class="tab">To prevent command spoofing, sudo checks "<b>.</b>" and <b>""</b> (both denoting current directory) last when searching for a command in the user's <b>PATH</b> (if one or both are in the <b>PATH</b>). Note, however, that the actual <b>PATH</b> environment variable is not modified and is passed unchanged to the program that <b>sudo</b> executes.</p>
+<p class="tab">For security reasons, if your <a href="/jargon/o/os.htm">OS</a> supports shared <a href="/jargon/l/library.htm">libraries</a> and does not disable user-defined library search paths for <a href="/jargon/s/suid.htm">setuid</a> programs (most do), either use a linker option that disables this behavior or link <b>sudo</b> statically.</p>
+<p class="tab"><b>sudo</b> checks the ownership of its timestamp directory (<b>/var/run/sudo</b> by default) and ignore the directory's contents if it's not owned by root and only writable by root. On systems that allow non-root users to give away files via <a href="/unix/uchown.htm"><b>chown</b></a>, if the timestamp directory is located in a directory writable by anyone (e.g.: <b>/tmp</b>), it is possible for a user to create the timestamp directory before <b>sudo</b> is run. However, because <b>sudo</b> checks the ownership and mode of the directory and its contents, the only damage that can be done is to "hide" files by putting them in the timestamp dir. This is unlikely to happen since once the timestamp dir is owned by root and inaccessible by any other user the user placing files there would be unable to get them back out. To get around this issue, you can use a directory that is not world-writable for the timestamps (<b>/var/adm/sudo</b> for instance) or create <b>/var/run/sudo</b> with the appropriate owner (root) and permissions (0700) in the system startup files.</p>
+<p class="tab"><b>sudo</b> will not honor timestamps set far in the future. Timestamps with a date greater than <b>current_time + 2 * TIMEOUT</b> is ignored and <b>sudo</b> will log and complain. This is done to keep a user from creating his/her own timestamp with a bogus date on systems that allow users to give away files.</p>
+<p class="tab">Please note that <b>sudo</b> only logs the command it explicitly runs. If a user runs a command such as "<b>sudo <a href="/unix/usu.htm">su</a></b>" or "<b>sudo <a href="/unix/ush.htm">sh</a></b>", subsequent commands run from that shell are not logged, nor will <b>sudo</b>'s access control affect them. The same is true for commands that offer shell escapes (including most editors). Because of this, care must be taken when giving users access to commands via <b>sudo</b> to verify that the command does not inadvertently give the user an effective root shell.</p>
+<h2 id="variables">Environment variables</h2>
+<p class="tab"><b>sudo</b> uses the following <a href="/jargon/e/envivari.htm">environment variables</a>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>PATH</b></td>
+<td>Set to a sane value if <b>SECURE_PATH</b> is set</td>
+</tr>
+<tr class="tcw">
+<td><b>SHELL</b></td>
+<td>Used to determine shell to run with <b>-s</b> option</td>
+</tr>
+<tr class="tcw">
+<td><b>USER</b></td>
+<td>Set to the target user (root unless the <b>-u</b> option is specified)</td>
+</tr>
+<tr class="tcw">
+<td><b>HOME</b></td>
+<td>In <b>-s</b> or <b>-H</b> mode (or if <b>sudo</b> was configured with the <b>--enable-shell-sets-home</b> option), set to home directory of the target user.</td>
+</tr>
+<tr class="tcw">
+<td><b>SUDO_PROMPT</b></td>
+<td>Used as the default password prompt</td>
+</tr>
+<tr class="tcw">
+<td><b>SUDO_COMMAND</b></td>
+<td>Set to the command run by <b>sudo</b></td>
+</tr>
+<tr class="tcw">
+<td><b>SUDO_USER</b></td>
+<td>Set to the login of the user who invoked <b>sudo</b></td>
+</tr>
+<tr class="tcw">
+<td><b>SUDO_UID</b></td>
+<td>Set to the uid of the user who invoked <b>sudo</b></td>
+</tr>
+<tr class="tcw">
+<td><b>SUDO_GID</b></td>
+<td>Set to the gid of the user who invoked <b>sudo</b></td>
+</tr>
+<tr class="tcw">
+<td><b>SUDO_PS1</b></td>
+<td>If set, <b>PS1</b> will be set to its value</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tab tcy">sudo shutdown -r now</pre>
+<p class="tab">Restart the system; run the <a href="/jargon/s/shutdown.htm"><b>shutdown</b></a> command as root.</p>
+<pre class="tcy tab">sudo -u hope ls /home/otheruser/Documents</pre>
+<p class="tab">List the contents of the <b>/home/otheruser/Documents</b> directory as the user <b>hope</b>.</p>
+<pre class="tcy tab">sudo -u hope -g otherusers mkdir /home/otheruser/Documents/newfiles</pre>
+<p class="tab">Create a new directory with the <a href="/unix/umkdir.htm"><b>mkdir</b></a> command, as the user <b>hope</b>, with hope's current group set to <b>otherusers</b>. <b>hope</b> must be a member of the <b>otherusers</b> group.</p>
+<pre class="tcy tab">sudo -v</pre>
+<p class="tab">Extend/reset <b>sudo</b>'s automatic authentication timeout, allowing you to continue issuing <b>sudo</b> commands without entering a password.</p>
+<pre class="tcy tab">sudo -k</pre>
+<p class="tab">"Kill" <b>sudo</b> authentication for the current user. The next <b>sudo</b> command requires a password.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/usu.htm"><b>su</b></a> &mdash; Become the superuser or another user.<br><a href="/unix/visudo.htm"><b>visudo</b></a> &mdash; Edit the <b>sudoers</b> file, which defines who can run <b>sudo</b>.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8359fb5dc447',m:'WN420U0whhBqLWTEqDSZFsoVZ6XMb7oCVQC1HcNOWp8-1661495366-0-Acg4Sht/T4/g6trdE3KEz+/+1dwAXFTmBkE9qITh0nn9Dme/T3a3eXLN+OFbQ6z+BtyDhbLsN7P0SkeeD2WOVjO/2d5TJk0OhzZ/u/txfLc6Dwe6pqn3UmSN2k+LnkB7TA==',s:[0xb0e60b3686,0xbaabc5dc21],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux calendar command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/calendar.gif" width="300" height="300" alt="calendar command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>calendar</b> command displays appointments and provides reminders.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>calendar</b> utility checks the current <a href="/jargon/d/director.htm">directory</a> or the directory specified by the <b>CALENDAR_DIR</b> <a href="/jargon/e/envivari.htm">environment variable</a> for a file named <b>calendar</b> and displays lines that begin with either today's date or tomorrow's. On Fridays, events on Friday through Monday are displayed.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">calendar [-ab] [-A <i>num</i>] [-B <i>num</i>] [-l <i>num</i>] [-w <i>num</i>]
+         [-f <i>calendarfile</i>] [-t [[[<i>cc</i>]<i>yy</i>]<i>mm</i>]<i>dd</i>]</pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>-A</b> <i>num</i></td>
+<td>Print lines from today and the next <i>num</i> days forward (in the future). Defaults to one. (same as <b>-l</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>Process the &quot;<b>calendar</b>&quot; files of all users and <a href="/unix/umail.htm">mail</a> the results to them. This requires <a href="/jargon/r/root.htm">superuser</a> privileges.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b> <i>num</i></td>
+<td>Print lines from today and the previous <i>num</i> days backward (in the past).</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>Enforce special date calculation mode for KOI8 calendars.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>Print lines from today and the next <i>num</i> days forward. Defaults to one. (same as <b>-A</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b> <i>num</i></td>
+<td>Print lines from today and the next <i>num</i> days, if today is Friday. Defaults to two, which causes <b>calendar</b> to print entries through the weekend on Fridays.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>calendarfile</i></td>
+<td>Use <i>calendarfile</i> as the default <b>calendar</b> file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> [[[<i>cc</i>]<i>yy</i>]<i>mm</i>]<i>dd</i></td>
+<td>Act like the specified value is &quot;today&quot; instead of using the current date. If <i>yy</i> is specified, but <i>cc</i> is not, a value for <i>yy</i> between <b>69</b> and <b>99</b> results in a <i>cc</i> value of <b>19</b>. Otherwise, a <i>cc</i> value of <b>20</b> is used.</td>
+</tr>
+</table>
+<p class="tab">To handle calendars in your national code table, you can specify &quot;<b>LANG=&lt;locale_name&gt;</b>&quot; in the <b>calendar</b> file as early as possible. To handle national Easter names in the calendars, &quot;<b>Easter=&lt;national_name&gt;</b>&quot; (for Catholic Easter) or &quot;<b>Paskha=&lt;national_name&gt;</b>&quot; (for Orthodox Easter) can be used.</p>
+<p class="tab">A special locale name exists: '<b>utf-8</b>'. Specifying &quot;<b>LANG=utf-8</b>&quot; indicates that the dates are read using the C locale, and the descriptions are encoded in <a href="/jargon/u/unicode.htm">UTF-8</a>. This setting is usually used for the distributed calendar files. The &quot;<b>CALENDAR</b>&quot; variable can specify the style. Only '<b>Julian</b>' and '<b>Gregorian</b>' styles are currently supported. Use &quot;<b>CALENDAR=</b>&quot; to return to the default (<b>Gregorian</b>).</p>
+<p class="tab">To enforce special date calculation mode for Cyrillic calendars, specify &quot;<b>LANG=&lt;local_name&gt;</b>&quot; and &quot;<b>BODUN=&lt;bodun_prefix&gt;</b>&quot; where <b>&lt;local_name&gt;</b> can be <b>ru_RU.KOI8-R</b>, <b>uk_UA.KOI8-U</b> or <b>by_BY.KOI8-B</b>.</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>The locale is reset to the user's default for each new file that is read so that locales from one file do not accidentally carry over into another file.</p>
+</div>
+<p class="tab">Other lines should begin with a month and day. They may be entered in almost any format, either numeric or as <a href="/jargon/c/charact.htm">character</a> <a href="/jargon/s/string.htm">strings</a>. If proper locale is set, national months and weekdays names can be used. A single asterisk ('<b>*</b>') matches every month. A day without a month matches that day of every week. A month without a day matches the first of that month. Two numbers default to the month followed by the day. Lines with leading tabs default to the last entered date, allowing multiple line specifications for a single date. &quot;<b>Easter</b>&quot; (may be followed by a positive or negative <a href="/jargon/i/integer.htm">integer</a>) is Easter for this year. &quot;<b>Paskha</b>&quot; (may be followed by a positive or negative integer) is Orthodox Easter for this year. Weekdays may be followed by &quot;<b>-4</b>&quot; <b>...</b> &quot;<b>+5</b>&quot; (aliases: <b>last</b>, <b>first</b>, <b>second</b>, <b>third</b>, <b>fourth</b>) for moving events like "<b>the last Monday in April</b>".</p>
+<p class="tab">By convention, dates followed by an asterisk ('<b>*</b>') are not fixed, i.e., change from year to year.</p>
+<p class="tab">Day descriptions start after the first <b>&lt;tab&gt;</b> character in the line; if the line does not contain a <b>&lt;tab&gt;</b> character, it isn't printed out. If the first character in the line is a <b>&lt;tab&gt;</b> character, it is treated as the continuation of the previous description.</p>
+<p class="tab">The calendar file is preprocessed by the system's C preprocessor, allowing the inclusion of shared files such as company holidays or meetings. If the shared file is not referenced by a full pathname, the preprocessor searches in the <a href="/jargon/c/currentd.htm">current</a> (or <a href="/jargon/h/homedir.htm">home</a>) directory first, and then in the directory <b>/etc/calendar</b>, and finally in <b>/usr/share/calendar</b>. Empty lines and lines protected by the C <a href="/jargon/c/comment.htm">commenting</a> syntax (<b>/* ... */</b>) are ignored.</p>
+<h2 id="examples">Examples</h2>
+<p class="tab">Below is an example set of entries for the <b>calendar</b> file. <b>\t</b> represents a <a href="/jargon/t/tab.htm">tab</a> character.</p>
+<pre class="tcy tab">LANG=C
+Easter=Ostern
+#include &lt;calendar.usholiday&gt;
+#include &lt;calendar.birthday&gt;
+6/15\tJune 15 (if ambiguous, will default to month/day).
+Jun. 15\tJune 15.
+15 June\tJune 15.
+Thursday\tEvery Thursday.
+June\tEvery June 1st.
+15 *\t15th of every month.
+May Sun+2\tsecond Sunday in May (Muttertag)
+04/SunLast\tlast Sunday in April,
+\tsummer time in Europe
+Easter\tEaster
+Ostern-2\tGood Friday (2 days before Easter)
+Paskha\tOrthodox Easter
+</pre>
+<p class="tab">This <b>calendar</b> file includes standard holidays and famous birthdays. For instance, if today were <b>September 24</b>, and you were to run:</p>
+<pre class="tcy tab">calendar</pre>
+<p class="tab">...<b>calendar</b> would display the following:</p>
+<pre class="tab">Sep 24 F. Scott Fitzgerald born, 1896</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucal.htm"><b>cal</b></a> &mdash; Display a conveniently-formatted calendar from the command line.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82bc3d69c3cf',m:'n5LqvgBJ0elbW7gyj0aw.2Tx79UY1xMSdVAASxAE.J0-1661495341-0-Aauw+9ES6YXUO1o/lFIVWyw4QSuL8bMChyA9MbqMNfCSZCY5p8U6/7tE0/dCNuz+MJKGSJTO4YM1I+ri99JBCASYcxHKkE0DenAFDiT9EEqYAxt9WRh7V7O7QKK05LnTrlPqxrVvQgl9gd0CLtEyAqI=',s:[0x1a3527190a,0xf479684f9c],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

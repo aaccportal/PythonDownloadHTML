@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux mysql command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/mysql.gif" width="300" height="300" alt="mysql command" class="floatRight">
+<p class="intro">The <b>mysql</b> command is a simple <a href="/jargon/s/shell.htm">shell</a> for <a href="/jargon/s/sql.htm">SQL</a> commands. With user <a href="/jargon/i/interact.htm">interaction</a>, it can enter commands at a special prompt, or run a batch script containing your SQL commands.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="/unix/mysqltut.htm">An introduction to MySQL</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">When <b>mysql</b> is used interactively, <a href="/jargon/q/query.htm">query</a> results are presented in a table format. When used non-interactively, the result is presented in <a href="/jargon/t/tab.htm">tab</a>-separated format. The <a href="/jargon/o/output.htm">output</a> format can be changed using command options.</p>
+<p class="tab">The simplest way to invoke <b>mysql</b> is to specify your MySQL username with the <b>-u</b> option, and to tell <b>mysql</b> to prompt you for your password with <b>-p</b>:</p>
+<pre class="tab tcy">mysql -u <i>username</i> -p</pre>
+<p class="tab">You are shown a brief introduction message and then placed at the <b>mysql&gt;</b> prompt.</p>
+<p class="tab">At the <b>mysql&gt;</b> prompt, enter MySQL commands, such as:</p>
+<pre class="tab tcy"><b>mysql&gt;</b> SHOW DATABASES;</pre>
+<p class="tab">To list the databases which exist, or:</p>
+<pre class="tab tcy"><b>mysql&gt;</b> USE <i>dbname</i>;</pre>
+<p class="tab">...to begin using the database named <i>dbname</i>, or:</p>
+<pre class="tab tcy"><b>mysql&gt;</b> SELECT 21 * 2 AS meaning_of_life;</pre>
+<p class="tab">...to display the mathematical product of <b>2</b> and <b>21</b>.</p>
+<p class="tab">To end your <b>mysql</b> session and return to the shell prompt, use the command:</p>
+<pre class="tab tcy"><b>mysql&gt;</b> QUIT</pre>
+<h3 class="tab">Running MySQL commands from a batch script</h3>
+<p class="tab">Instead of using <b>mysql</b> interactively, you can execute MySQL statements from a <a href="/jargon/s/script.htm">script</a> file. For instance, if you have a text file named <b>mysqlscript.txt</b> containing MySQL commands, one per line, you could use this command:</p>
+<pre class="tab tcy">mysql -u <i>username</i> -p <i>db_name</i> &lt; mysqlscript.txt &gt; output.txt</pre>
+<p class="tab">...and after prompting you for your password, <b>mysql</b> would execute the commands in <b>mysqlscript.txt</b> on the database <i>db_name</i>, writing the output to the file <b>output.txt</b>.</p>
+<p class="tab">For an in-depth description of how to install MySQL on your system, and an overview of the basic interactive usage of <b>mysql</b>, see <a href="/unix/mysqltut.htm">an introduction to MySQL</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy">mysql [<i>options</i>] <i>db_name</i></pre>
+<h3 class="tab">Options</h3>
+<p class="tab"><b>mysql</b> supports the following options, which can be specified on the <a href="/jargon/c/commandi.htm">command line</a> or in the <b>[mysql]</b> and <b>[client]</b> groups of an option file.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:300px"><b>--help, -?</b></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--auto-rehash</b></td>
+<td>Enable automatic rehashing. This option is on by default, which enables database, table, and column name completion. Use <b>--disable-auto-rehash</b> to disable rehashing. That causes <b>mysql</b> to start faster, but you must issue the <b>rehash</b> command if you want to use name completion.<br><br>To complete a name, enter the first part and press <a href="/jargon/t/tab.htm"><kbd>Tab</kbd></a>. If the name is unambiguous, <b>mysql</b> completes it. Otherwise, you can press <kbd>Tab</kbd> again to see the possible names beginning with what you typed so far. Completion does not occur if there is no default database.</td>
+</tr>
+<tr class="tcw">
+<td><b>--auto-vertical-output</b></td>
+<td>Cause result sets to display vertically if they are too wide for the current window, and use normal tabular format otherwise. (This applies to statements terminated by <b>;</b> or <b>\G</b>.) This option was added in MySQL 5.5.3.</td>
+</tr>
+<tr class="tcw">
+<td><b>--batch, -B</b></td>
+<td>Print results using tab as the column separator, with each row on a new line. With this option, <b>mysql</b> does not use the history file. Batch mode results in nontabular output format and escaping of special characters. Escaping may be disabled using raw mode; see the description for the <b>--raw</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>--bind-address=</b><i>ip_address</i></td>
+<td>On a computer having multiple network interfaces, this option can select which interface is employed when connecting to the MySQL server. This option is supported only in the version of the <b>mysql</b> client that is supplied with MySQL Cluster. It is not available in standard MySQL Server 5.5 releases.</td>
+</tr>
+<tr class="tcw">
+<td><b>--character-sets-dir=</b><i>path</i></td>
+<td>The directory where character sets are installed.</td>
+</tr>
+<tr class="tcw">
+<td><b>--column-names</b></td>
+<td>Write column names in results.</td>
+</tr>
+<tr class="tcw">
+<td><b>--column-type-info, -m</b></td>
+<td>Display result set <a href="/jargon/m/metadata.htm">metadata</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--comments, -c</b></td>
+<td>Whether to preserve <a href="/jargon/c/comment.htm">comments</a> in statements sent to the server. The default is <b>--skip-comments</b> (discard comments), enable with <b>--comments</b> (preserve comments).</td>
+</tr>
+<tr class="tcw">
+<td><b>--compress, -C</b></td>
+<td>Compress all information sent between the <a href="/jargon/c/client.htm">client</a> and the <a href="/jargon/s/server.htm">server</a> if both support compression.</td>
+</tr>
+<tr class="tcw">
+<td><b>--database=</b><i>db_name</i>,<br> <b>-D</b> <i>db_name</i></td>
+<td>The database to use. This switch is useful primarily in an option file.</td>
+</tr>
+<tr class="tcw">
+<td><b>--debug</b>[<b>=</b><i>debug_options</i>],<br> <b>-#</b> [<i>debug_options</i>]</td>
+<td>Write a <a href="/jargon/d/debug.htm">debugging</a> log. A typical <b>debug_options</b> <a href="/jargon/s/string.htm">string</a> is '<b>d:t:o,file_name</b>'. The default is '<b>d:t:o,/tmp/mysql.trace</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>--debug-check</b></td>
+<td>Print some debugging information when the program exits.</td>
+</tr>
+<tr class="tcw">
+<td><b>--debug-info, -T</b></td>
+<td>Print debugging information, and <a href="/jargon/m/memory.htm">memory</a> and <a href="/jargon/c/cpu.htm">CPU</a> usage statistics when the program exits.</td>
+</tr>
+<tr class="tcw">
+<td><b>--default-auth=</b><i>plugin</i></td>
+<td>The client-side authentication plugin to use.<br><br>This option was added in MySQL 5.5.7.</td>
+</tr>
+<tr class="tcw">
+<td><b>--default-character-set=</b><i>charset_name</i></td>
+<td>Use <b>charset_name</b> as the default character set for the client and connection.<br><br>A common issue that occurs when the operating system uses <a href="/jargon/u/unicode.htm">utf8</a> or another multi-byte <a href="/jargon/c/charcode.htm">character set</a> is that output from the mysql client is formatted incorrectly, because that MySQL client uses the latin1 character set by default. You can usually fix such issues using this option to force the client to use the system character set instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>--delimiter=</b><i>str</i></td>
+<td>Set the statement <a href="/jargon/d/delimite.htm">delimiter</a>. The default is the semicolon character (&quot;<b>;</b>&quot;).</td>
+</tr>
+<tr class="tcw">
+<td><b>--disable-named-commands</b></td>
+<td>Disable named commands. Use the <b>\*</b> form only, or use named commands only at the beginning of a line ending with a semicolon (&quot;<b>;</b>&quot;). The mysql command starts with this option enabled by default. However, even with this option, long-format commands still work from the first line.</td>
+</tr>
+<tr class="tcw">
+<td><b>--enable-cleartext-plugin</b></td>
+<td>Enable the <b>mysql_clear_password</b> cleartext <a href="/jargon/a/auth.htm">authentication</a> <a href="/jargon/p/plugin.htm">plugin</a>. This option was added in MySQL 5.5.27.</td>
+</tr>
+<tr class="tcw">
+<td><b>--execute=</b><i>statement</i>,<br> <b>-e</b> <i>statement</i></td>
+<td>Execute the statement and quit. The default output format is like that produced with <b>--batch</b>. With this option, <b>mysql</b> does not use the history file.</td>
+</tr>
+<tr class="tcw">
+<td><b>--force, -f</b></td>
+<td>Continue even if an SQL error occurs.</td>
+</tr>
+<tr class="tcw">
+<td><b>--host=</b><i>host_name</i>,<br> <b>-h</b> <i>host_name</i></td>
+<td>Connect to the MySQL server on the given host.</td>
+</tr>
+<tr class="tcw">
+<td><b>--html, -H</b></td>
+<td>Produce <a href="/jargon/h/html.htm">HTML</a> output.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ignore-spaces, -i</b></td>
+<td>Ignore spaces after function names. The effect of this switch is described in the discussion for the <b>IGNORE_SPACE SQL</b> mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>--init-command=</b><i>str</i></td>
+<td>SQL statement to execute after connecting to the server. If auto-reconnect is enabled, the statement is executed again after reconnection occurs.</td>
+</tr>
+<tr class="tcw">
+<td><b>--line-numbers</b></td>
+<td>Write line numbers for errors. Disable this with <b>--skip-line-numbers</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--local-infile</b>[<b>=</b>{<b>0</b>|<b>1</b>}]</td>
+<td>Enable or disable <b>LOCAL</b> capability for <b>LOAD DATA INFILE</b>. With no value, the option enables <b>LOCAL</b>. The option may be given as <b>--local-infile=0</b> or <b>--local-infile=1</b> to explicitly disable or enable <b>LOCAL</b>. Enabling <b>LOCAL</b> has no effect if the server does not also support it.</td>
+</tr>
+<tr class="tcw">
+<td><b>--named-commands, -G</b></td>
+<td>Enable named <b>mysql</b> commands. Long-format commands are permitted, in addition to short-format commands. For example, <b>quit</b> and <b>\q</b> both are recognized. Use <b>--skip-named-commands</b> to disable named commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-auto-rehash, -A</b></td>
+<td>This has the same effect as <b>-skip-auto-rehash</b>. See the description for <b>--auto-rehash</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-beep, -b</b></td>
+<td>Do not beep when errors occur.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-named-commands, -g</b></td>
+<td>Deprecated, use <b>--disable-named-commands instead</b>. <b>--no-named-commands</b> was removed in MySQL 5.5.3.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-pager</b></td>
+<td>Deprecated form of <b>--skip-pager</b>. See the <b>--pager</b> option. <b>--no-pager</b> was removed in MySQL 5.5.3.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-tee</b></td>
+<td>Deprecated form of <b>--skip-tee</b>. See the <b>--tee</b> option. <b>--no-tee</b> is removed in MySQL 5.5.3.</td>
+</tr>
+<tr class="tcw">
+<td><b>--one-database, -o</b></td>
+<td>Ignore statements except those that occur while the default database is the one named on the command line. This option is rudimentary and should be used with care. Statement filtering is based only on <b>USE</b> statements.<br> <br>Initially, <b>mysql</b> executes statements in the input because specifying a database <b>db_name</b> on the command line is equivalent to inserting <b>USE db_name</b> at the beginning of the input. Then, for each <b>USE</b> statement encountered, <b>mysql</b> accepts or rejects following statements depending on whether the database named is the one on the command line. The content of the statements is immaterial.<br><br>Suppose that <b>mysql</b> is invoked to process this set of statements:<br> <br><pre class="tcy">DELETE FROM db2.t2;USE db2;DROP TABLE db1.t1;CREATE TABLE db1.t1 (i INT);USE db1;INSERT INTO t1 (i) VALUES(1);CREATE TABLE db2.t1 (j INT);</pre> If the command line is <b>mysql --force --one-database db1</b>, <b>mysql</b> handles the input as follows:<br><br> The <b>DELETE</b> statement is executed because the default database is <b>db1</b>, even though the statement names a table in a different database.<br><br> The <b>DROP TABLE</b> and <b>CREATE TABLE</b> statements are not executed because the default database is not db1, even though the statements name a table in db1.<br><br> The <b>INSERT</b> and <b>CREATE TABLE</b> statements are executed because the default database is db1, even though the <b>CREATE TABLE</b> statement names a table in a different database.</td>
+</tr>
+<tr class="tcw">
+<td><b>--pager</b>[<b>=</b><i>command</i>]</td>
+<td>Use the given command for paging query output. If the command is omitted, the default pager is the value of your PAGER <a href="/jargon/e/envivari.htm">environment variable</a>. Valid pagers are <b>less</b>, <b>more</b>, <b>cat</b> [<b>&gt;</b> <i>file name</i>], and so forth. This option only works on Unix and only in interactive mode. To disable paging, use <b>--skip-pager</b>. See <a href="#MySQL-Commands">MySQL commands</a> for more information about output paging.</td>
+</tr>
+<tr class="tcw">
+<td><b>--password</b>[<b>=</b><i>password</i>],<br> <b>-p</b>[<i>password</i>]</td>
+<td>The <a href="/jargon/p/password.htm">password</a> to use when connecting to the server. If you use the short option form (<b>-p</b>), you cannot have a space between the option and the password. If you omit the password value following the <b>--password</b> or <b>-p</b> option on the command line, <b>mysql</b> prompts for one.<br><br>Specifying a password on the command line should be considered insecure. You can use an option file to avoid giving the password on the command line.</td>
+</tr>
+<tr class="tcw">
+<td><b>--pipe, -W</b></td>
+<td>On Windows, connect to the server using a named pipe. This option applies only if the server supports named-pipe connections.</td>
+</tr>
+<tr class="tcw">
+<td><b>--plugin-dir=</b><i>path</i></td>
+<td>The directory where to look for plugins. It may be necessary to specify this option if the <b>--default-auth</b> option is used to specify an authentication plugin but mysql does not find it.<br><br>This option was added in MySQL 5.5.7.</td>
+</tr>
+<tr class="tcw">
+<td><b>--port=</b><i>port_num</i>,<br> <b>-P</b> <i>port_num</i></td>
+<td>The <a href="/jargon/t/tcpip.htm">TCP/IP</a> <a href="/jargon/p/port.htm">port</a> number to use for the connection.</td>
+</tr>
+<tr class="tcw">
+<td><b>--prompt=</b><i>format_str</i></td>
+<td>Set the prompt to the specified format. The default is <b>mysql&gt;</b>. The special sequences that the prompt contains are described in the <a href="#MySQL-Commands">MySQL commands</a> section.</td>
+</tr>
+<tr class="tcw">
+<td><b>--protocol=</b>{<b>TCP</b>|<b>SOCKET</b>|<b>PIPE</b>|<b>MEMORY</b>}</td>
+<td>The connection <a href="/jargon/p/protocol.htm">protocol</a> to use for connecting to the server. It is useful when the other connection parameters normally would cause a protocol to be used other than the one you want.</td>
+</tr>
+<tr class="tcw">
+<td><b>--quick, -q</b></td>
+<td>Do not cache each query result; print each row as it is received. This may slow down the server if the output is suspended. With this option, mysql does not use the history file.</td>
+</tr>
+<tr class="tcw">
+<td><b>--raw</b>, <b>-r</b></td>
+<td>For tabular output, the &quot;boxing&quot; around columns enables one column value to be distinguished from another. For nontabular output (such as is produced in batch mode or when the <b>--batch</b> or <b>--silent</b> option is given), special characters are escaped in the output so they can be identified easily. <a href="/jargon/n/newline.htm">Newline</a>, tab, <a href="/jargon/n/nullchar.htm">NUL</a>, and backslash are written as <b>\n</b>, <b>\t</b>, <b>\0</b>, and <b>\\</b>. The <b>--raw</b> option disables this character escaping.<br><br> The following example demonstrates tabular versus nontabular output and the use of raw mode to disable escaping:<br> <br><pre class="tcy">mysql</pre> <pre class="tcy"><b>mysql&gt;</b> SELECT CHAR(92);</pre><pre class="tab">+----------+| CHAR(92) |+----------+| \        |+----------+</pre><pre class="tcy">mysql -s</pre> <pre class="tcy"><b>mysql&gt;</b> SELECT CHAR(92);</pre><pre class="tab">CHAR(92)\\</pre> <pre class="tcy">mysql -s -r</pre> <pre class="tcy"><b>mysql&gt;</b> SELECT CHAR(92);</pre><pre class="tab">CHAR(92)\</pre></td>
+</tr>
+<tr class="tcw">
+<td><b>--reconnect</b></td>
+<td>If the connection to the server is lost, automatically try to reconnect. A single reconnect attempt is made each time the connection is lost. To suppress reconnection behavior, use <b>--skip-reconnect</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--safe-updates,<br> --i-am-a-dummy,<br> -U</b></td>
+<td>Permit only those UPDATE and DELETE statements that specify which rows to modify using key values. If you have set this option in an option file, you can override it using <b>--safe-updates</b> on the command line.</td>
+</tr>
+<tr class="tcw">
+<td><b>--secure-auth</b></td>
+<td>Do not send passwords to the server in old (pre-4.1.1) format. This prevents connections except for servers that use the newer password format.</td>
+</tr>
+<tr class="tcw">
+<td><b>--show-warnings</b></td>
+<td>Cause warnings to show after each statement, if there are any. This option applies to interactive and batch mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>--sigint-ignore</b></td>
+<td>Ignore SIGINT <a href="/unix/signals.htm">signals</a> (typically the result of typing Control+C).</td>
+</tr>
+<tr class="tcw">
+<td><b>--silent, -s</b></td>
+<td>Silent mode. Produce less output. This option can be given multiple times to produce less and less output.<br><br>This option results in nontabular output format and escaping of special characters. Escaping may be disabled using raw mode; see the description for the <b>--raw</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>--skip-column-names, -N</b></td>
+<td>Do not write column names in results.</td>
+</tr>
+<tr class="tcw">
+<td><b>--skip-line-numbers, -L</b></td>
+<td>Do not write line numbers for errors. Useful when you want to compare result files that include error messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>--socket=</b><i>path</i>, <b>-S</b> <i>path</i></td>
+<td>For connections to localhost, the Unix socket file to use, or on Windows, the name of the named pipe to use.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ssl*</b></td>
+<td>Options that begin with --ssl specify whether to connect to the server using SSL and indicate where to find SSL keys and certificates.</td>
+</tr>
+<tr class="tcw">
+<td><b>--table, -t</b></td>
+<td>Display output in table format. This switch is the default for interactive use, but can produce table output in batch mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>--tee=file_name</b></td>
+<td>Append a copy of output to the given file. This option works only in interactive mode. The section called &quot;MYSQL COMMANDS&quot;, discusses tee files further.</td>
+</tr>
+<tr class="tcw">
+<td><b>--unbuffered, -n</b></td>
+<td>Flush the buffer after each query.</td>
+</tr>
+<tr class="tcw">
+<td><b>--user=</b><i>user_name</i>,<br> <b>-u</b> <i>user_name</i></td>
+<td>The MySQL username to use when connecting to the server.</td>
+</tr>
+<tr class="tcw">
+<td><b>--verbose, -v</b></td>
+<td>Verbose mode. Produce more output about what the program does. This option can be given multiple times to produce more and more output. (For example, <b>-v -v -v</b> produces table output format even in batch mode.)</td>
+</tr>
+<tr class="tcw">
+<td><b>--version, -V</b></td>
+<td>Display version information and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--vertical, -E</b></td>
+<td>Print query output rows vertically (one line per column value). Without this option, you can specify vertical output for individual statements by terminating them with <b>\G</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--wait, -w</b></td>
+<td>If the connection cannot be established, wait and retry instead of aborting.</td>
+</tr>
+<tr class="tcw">
+<td><b>--xml, -X</b></td>
+<td>Produce XML output. See mysql manual for more information.</td>
+</tr>
+</table>
+<h2 id="MySQL-Commands">MySQL commands</h2>
+<p class="tab"><b>mysql</b> sends each SQL statement you issue to the server to be executed. Note that all text commands must first be online and end with '<b>;</b>' .</p>
+<p class="tab">There is also a set of commands that mysql itself interprets. For a list of these commands, type help or <b>\h</b> at the <b>mysql&gt;</b> prompt:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>?</b></td>
+<td style="width:50px">(<b>\?</b>)</td>
+<td>Synonym for 'help'.</td>
+</tr>
+<tr class="tcw">
+<td><b>clear</b></td>
+<td>(<b>\c</b>)</td>
+<td>Clear command.</td>
+</tr>
+<tr class="tcw">
+<td><b>connect</b></td>
+<td>(<b>\r</b>)</td>
+<td>Reconnect to the server. Optional arguments are db and host.</td>
+</tr>
+<tr class="tcw">
+<td><b>delimiter</b></td>
+<td>(<b>\d</b>)</td>
+<td>Set statement delimiter.</td>
+</tr>
+<tr class="tcw">
+<td><b>edit</b></td>
+<td>(<b>\e</b>)</td>
+<td>Edit command with $EDITOR.</td>
+</tr>
+<tr class="tcw">
+<td><b>ego</b></td>
+<td>(<b>\G</b>)</td>
+<td>Send command to mysql server, display result vertically.</td>
+</tr>
+<tr class="tcw">
+<td><b>exit</b></td>
+<td>(<b>\q</b>)</td>
+<td>Exit mysql. Same as quit.</td>
+</tr>
+<tr class="tcw">
+<td><b>go</b></td>
+<td>(<b>\g</b>)</td>
+<td>Send command to mysql server.</td>
+</tr>
+<tr class="tcw">
+<td><b>help</b></td>
+<td>(<b>\h</b>)</td>
+<td>Display this help.</td>
+</tr>
+<tr class="tcw">
+<td><b>nopager</b></td>
+<td>(<b>\n</b>)</td>
+<td>Disable pager, print to stdout.</td>
+</tr>
+<tr class="tcw">
+<td><b>notee</b></td>
+<td>(<b>\t</b>)</td>
+<td>Don't write into outfile.</td>
+</tr>
+<tr class="tcw">
+<td><b>pager</b></td>
+<td>(<b>\P</b>)</td>
+<td>Set PAGER [to_pager]. Print the query results via PAGER.</td>
+</tr>
+<tr class="tcw">
+<td><b>print</b></td>
+<td>(<b>\p</b>)</td>
+<td>Print current command.</td>
+</tr>
+<tr class="tcw">
+<td><b>prompt</b></td>
+<td>(<b>\R</b>)</td>
+<td>Change your mysql prompt,</td>
+</tr>
+<tr class="tcw">
+<td><b>quit</b></td>
+<td>(<b>\q</b>)</td>
+<td>Quit mysql.</td>
+</tr>
+<tr class="tcw">
+<td><b>rehash</b></td>
+<td>(<b>\#</b>)</td>
+<td>Rebuild completion hash.</td>
+</tr>
+<tr class="tcw">
+<td><b>source</b></td>
+<td>(<b>\.</b>)</td>
+<td>Execute an SQL script file. Takes a file name as an argument.</td>
+</tr>
+<tr class="tcw">
+<td><b>status</b></td>
+<td>(<b>\s</b>)</td>
+<td>Get status information from the server.</td>
+</tr>
+<tr class="tcw">
+<td><b>system</b></td>
+<td>(<b>\!</b>)</td>
+<td>Execute a system shell command.</td>
+</tr>
+<tr class="tcw">
+<td><b>tee</b></td>
+<td>(<b>\T</b>)</td>
+<td>Set outfile [to_outfile]. Append everything into given outfile.</td>
+</tr>
+<tr class="tcw">
+<td><b>use</b></td>
+<td>(<b>\u</b>)</td>
+<td>Use another database. Takes database name as argument.</td>
+</tr>
+<tr class="tcw">
+<td><b>charset</b></td>
+<td>(<b>\C</b>)</td>
+<td>Switch to another charset. Might be needed for processing binlog with multi-byte charsets.</td>
+</tr>
+<tr class="tcw">
+<td><b>warnings</b></td>
+<td>(<b>\W</b>)</td>
+<td>Show warnings after every statement.</td>
+</tr>
+<tr class="tcw">
+<td><b>nowarning</b></td>
+<td>(<b>\w</b>)</td>
+<td>Don't show warnings after every statement.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<p class="tab">For an in-depth description of installing MySQL, and an overview of basic commands, see <a href="/unix/mysqltut.htm">An introduction to MySQL</a>.</p>
+<p class="tab">The following are a few other notable commands:</p>
+<pre class="tcy tab">mysqldump -u hope -p -h localhost hope_SMF &gt; smf.sql</pre>
+<p class="tab">Backup the database &quot;<b>hope_SMF</b>&quot; to the <b>smf.sql</b> file after the username and password were verified.</p>
+<pre class="tcy tab"><b>mysql&gt;</b> status</pre>
+<p class="tab">Running <b>status</b> while at the <b>mysql&gt;</b> prompt would give you MySQL status results similar to what is shown below.</p>
+<pre class="tab">--------------
+mysql  Ver 14.14 Distrib 5.5.35, for debian-linux-gnu (i686) using readline 6.2
+Connection id:		42
+Current database:	
+Current user:		<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3bbbca3b693bfbcb0b2bfbbbca0a7">[email&#160;protected]</a>
+SSL:			Not in use
+Current pager:		stdout
+Using outfile:		''
+Using delimiter:	;
+Server version:		5.5.35-0ubuntu0.13.10.2 (Ubuntu)
+Protocol version:	10
+Connection:		Localhost via UNIX socket
+Server characterset:	latin1
+Db     characterset:	latin1
+Client characterset:	utf8
+Conn.  characterset:	utf8
+UNIX socket:		/var/run/mysqld/mysqld.sock
+Uptime:			2 hours 3 min 4 sec
+Threads: 1  Questions: 577  Slow queries: 0  Opens: 421  Flush tables: 1  Open tables: 41  Queries per second avg: 0.078
+--------------</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/myisamch.htm"><b>myisamchk</b></a> &mdash; Check, repair, optimize, or fetch information about a MySQL database.<br><a href="/unix/mysqldum.htm"><b>mysqldump</b></a> &mdash; A tool for backing up or transferring MySQL databases.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a831c4feb84a4',m:'CVj4MCIXT1XXtqM1.vuXUqw9v7sU5_XxJSBZ2DbP1Is-1661495356-0-AeWwpPNHXoCkNVp5kzoLVigswpEDSDaearMV3j9JmgxZxl1nOzbzfl1p1XPBA5NZx5cfJQLzoppZc+y3PHex/4am7t6vYCObjuU+SlDzWM5dhXxyk4VVHg2rmBBLHqCt0Q==',s:[0xaab3131b1a,0x8b762e46a1],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

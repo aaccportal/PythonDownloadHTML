@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux netstat command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/netstat.gif" width="300" height="300" alt="netstat command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>netstat</b> command prints information about <a href="/jargon/n/network.htm">network</a> <a href="/jargon/c/connect.htm">connections</a>, <a href="/jargon/r/routing_table.htm">routing tables</a>, <a href="/jargon/i/interfac.htm">interface</a> statistics, masquerade connections, and <a href="/jargon/m/multicast.htm">multicast</a> memberships.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>netstat</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#internet">Output: Internet connections</a></li>
+<li><a href="#output">Output: Unix domain sockets</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>netstat</b> (&quot;network statistics&quot;) is a <a href="/jargon/c/commandi.htm">command-line</a> tool that displays network connections (both incoming and outgoing), routing tables, and many network interface (network interface controller or software-defined network interface) and network protocol statistics. It is available on <a href="/jargon/u/unix.htm">Unix</a>-like operating systems, including <a href="/jargon/m/macos.htm">OS X</a>, <a href="/jargon/l/linux.htm">Linux</a>, <a href="/jargon/s/solaris.htm">Solaris</a>, and <a href="/jargon/b/bsd.htm">BSD</a>, and on <a href="/jargon/w/winnt.htm">Windows NT</a>-based operating systems, including <a href="/jargon/w/winxp.htm">Windows XP</a>, <a href="/jargon/v/vista.htm">Windows Vista</a>, <a href="/jargon/w/windows7.htm">Windows 7</a> and <a href="/jargon/w/windows8.htm">Windows 8</a>.</p>
+<p class="tab">It is used for finding problems in the network and to determine the amount of traffic on the network as a performance measurement.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">netstat [<i>address_family_options</i>] [--tcp|-t] [--udp|-u] [--raw|-w] 
+        [--listening|-l] [--all|-a] [--numeric|-n] [--numeric-hosts] 
+        [--numeric-ports] [--numeric-users] [--symbolic|-N] 
+        [--extend|-e[--extend|-e]] [--timers|-o] [--program|-p] 
+        [--verbose|-v] [--continuous|-c]</pre>
+<pre class="tcy tab">netstat {--route|-r} [<i>address_family_options</i>] [--extend|-e[--extend|-e]] 
+        [--verbose|-v] [--numeric|-n] [--numeric-hosts] [--numeric-ports] 
+        [--numeric-users] [--continuous|-c]</pre>
+<pre class="tcy tab">netstat {--interfaces|-i} [--all|-a] [--extend|-e[--extend|-e]] [--verbose|-v] 
+        [--program|-p] [--numeric|-n] [--numeric-hosts] [--numeric-ports] 
+        [--numeric-users] [--continuous|-c]</pre>
+<pre class="tcy tab">netstat {--groups|-g} [--numeric|-n] [--numeric-hosts] [--numeric-ports] 
+        [--numeric-users] [--continuous|-c]</pre>
+<pre class="tcy tab">netstat {--masquerade|-M} [--extend|-e] [--numeric|-n] [--numeric-hosts] 
+        [--numeric-ports] [--numeric-users] [--continuous|-c]</pre>
+<pre class="tcy tab">netstat {--statistics|-s} [--tcp|-t] [--udp|-u] [--raw|-w]</pre>
+<pre class="tcy tab">netstat {--version|-V}</pre>
+<pre class="tcy tab">netstat {--help|-h}</pre>
+<p class="tab">In the syntax above, <i>address_family_options</i> may be any combination of the following options:</p>
+<pre class="tcy tab">[-4] [-6] [--protocol={inet,unix,ipx,ax25,netrom,ddp}[,...]] [--unix|-x] 
+[--inet|--ip] [--ax25] [--ipx] [--netrom] [--ddp]</pre>
+<h3 class="tab">Options</h3>
+<p class="tab">The type of information printed by <b>netstat</b> is controlled by the first argument, which is one of the following:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:190px">(none)</td>
+<td>By default, <b>netstat</b> displays a list of open sockets. If you don't specify any address families, then the active sockets of all configured address families are printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>--route</b>, <b>-r</b></td>
+<td>Display the <a href="/jargon/k/kernel.htm">kernel</a> routing tables. See the description in <a href="/jargon/r/route.htm">route</a> for details. <b>netstat -r</b> and <b>route</b> <b>-e</b> produce the same output.</td>
+</tr>
+<tr class="tcw">
+<td><b>--groups</b>, <b>-g</b></td>
+<td>Display multicast group membership information for IPv4 and IPv6.</td>
+</tr>
+<tr class="tcw">
+<td><b>--interfaces</b>, <b>-i</b></td>
+<td>Display a table of all network interfaces.</td>
+</tr>
+<tr class="tcw">
+<td><b>--masquerade</b>, <b>-M</b></td>
+<td>Display a list of masqueraded connections.</td>
+</tr>
+<tr class="tcw">
+<td><b>--statistics</b>, <b>-s</b></td>
+<td>Display summary statistics for each protocol.</td>
+</tr>
+</table>
+<p class="tab">After the first argument, the following options specify the reporting behavior of <b>netstat</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>--verbose</b>, <b>-v</b></td>
+<td>Tell the user what is going on by operating <a href="/jargon/v/verbose.htm">verbosely</a>. Especially print some useful information about unconfigured address families.</td>
+</tr>
+<tr class="tcw">
+<td><b>--wide</b>, <b>-W</b></td>
+<td>Do not <a href="/jargon/t/truncate.htm">truncate</a> <a href="/jargon/i/ip.htm">IP</a> <a href="/jargon/a/address.htm">addresses</a> using output as wide as needed. This is optional for now to not break existing scripts.</td>
+</tr>
+<tr class="tcw">
+<td><b>--numeric</b>, <b>-n</b></td>
+<td>Show numerical addresses instead of trying to determine symbolic host, port or user names.</td>
+</tr>
+<tr class="tcw">
+<td><b>--numeric-hosts</b></td>
+<td>Shows numerical host addresses, but does not affect the resolution of port or user names.</td>
+</tr>
+<tr class="tcw">
+<td><b>--numeric-ports</b></td>
+<td>Shows numerical port numbers, but does not affect the resolution of host or user names.</td>
+</tr>
+<tr class="tcw">
+<td><b>--numeric-users</b></td>
+<td>Shows numerical user IDs, but does not affect the resolution of host or port names.</td>
+</tr>
+<tr class="tcw">
+<td><b>--protocol=</b><i>family</i>, <b>-A</b></td>
+<td>Specifies the &quot;address families&quot; (low-level <a href="/jargon/p/protocol.htm">protocols</a>) for which connections are to be shown. The <i>family</i> is a comma-separated list of address family keywords like <b>inet</b>, <b>unix</b>, <b>ipx</b>, <b>ax25</b>, <b>netrom</b>, and <b>ddp</b>. This has the same effect as using the <b>--inet</b>, <b>--unix</b> (<b>-x</b>), <b>--ipx</b>, <b>--ax25</b>, <b>--netrom</b>, and <b>--ddp</b> options.<br><br> The address family <b>inet</b> includes raw, <a href="/jargon/u/udp.htm">udp</a>, and <a href="/jargon/t/tcpip.htm">tcp</a> protocol sockets.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--continuous</b></td>
+<td>Cause <b>netstat</b> to print the selected information every second continuously.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>, <b>--extend</b></td>
+<td>Display additional information. Use this option twice for maximum detail.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--timers</b></td>
+<td>Include information related to networking timers.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--program</b></td>
+<td>Show the <a href="/jargon/p/pid.htm">PID</a> (process identifier) and name of the program that each socket belongs.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--listening</b></td>
+<td>Show only listening sockets. (These are omitted by default.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b>, <b>--all</b></td>
+<td>Show both listening and non-listening sockets. With the <b>--interfaces</b> option, show interfaces that are not up.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b></td>
+<td>Print routing information from the FIB. (This is the default.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>Print routing information from the route cache.</td>
+</tr>
+</table>
+<h2 id="internet">Output: Internet connections</h2>
+<p class="tab">Information about <b>Active Internet Connections</b> (<b>TCP</b>, <b>UDP</b>, <b>raw</b>) falls under the following categories:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>Proto</b></td>
+<td>The protocol (<b>tcp</b>, <b>udp</b>, <b>raw</b>) used by the socket.</td>
+</tr>
+<tr class="tcw">
+<td><b>Recv-Q</b></td>
+<td>The count of bytes not copied by the user program connected to this socket.</td>
+</tr>
+<tr class="tcw">
+<td><b>Send-Q</b></td>
+<td>The count of bytes not acknowledged by the remote host.</td>
+</tr>
+<tr class="tcw">
+<td><b>Local Address</b></td>
+<td>Address and port number of the local end of the socket. Unless the <b>--numeric</b> (<b>-n</b>) option is specified, the socket address is resolved to its <a href="/jargon/f/fqdn.htm">FQDN</a> (canonical <a href="/jargon/h/hostname.htm">hostname</a>), and the port number is translated into the corresponding service name.</td>
+</tr>
+<tr class="tcw">
+<td><b>Foreign Address</b></td>
+<td>Address and port number of the remote end of the socket; analogous to &quot;Local Address.&quot;</td>
+</tr>
+<tr class="tcw">
+<td><b>State</b></td>
+<td>The state of the socket. Since there are no states in raw mode and usually no states used in UDP, this column may be left blank. Normally this can be one of several values:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:150px"><b>ESTABLISHED</b></td>
+<td>The socket has an established connection.</td>
+</tr>
+<tr class="tcw">
+<td><b>SYN_SENT</b></td>
+<td>The socket is actively attempting to establish a connection.</td>
+</tr>
+<tr class="tcw">
+<td><b>SYN_RECV</b></td>
+<td>A connection request was received from the network.</td>
+</tr>
+<tr class="tcw">
+<td><b>FIN_WAIT1</b></td>
+<td>The socket is closed, and the connection is shutting down.</td>
+</tr>
+<tr class="tcw">
+<td><b>FIN_WAIT2</b></td>
+<td>Connection is closed, and the socket is waiting for a shutdown from the remote end.</td>
+</tr>
+<tr class="tcw">
+<td><b>TIME_WAIT</b></td>
+<td>The socket is waiting after close to handle packets still in the network.</td>
+</tr>
+<tr class="tcw">
+<td><b>CLOSE</b></td>
+<td>The socket is not being used.</td>
+</tr>
+<tr class="tcw">
+<td><b>CLOSE_WAIT</b></td>
+<td>The remote end has shut down, waiting for the socket to close.</td>
+</tr>
+<tr class="tcw">
+<td><b>LAST_ACK</b></td>
+<td>The remote end has shut down, and the socket is closed. Waiting for acknowledgement.</td>
+</tr>
+<tr class="tcw">
+<td><b>LISTEN</b></td>
+<td>The socket is listening for incoming connections. Such sockets are not included in the output unless you specify the <b>--listening</b> (<b>-l</b>) or <b>--all</b> (<b>-a</b>) option.</td>
+</tr>
+<tr class="tcw">
+<td><b>CLOSING</b></td>
+<td>Both sockets are shut down, but we still don't have all our data sent.</td>
+</tr>
+<tr class="tcw">
+<td><b>UNKNOWN</b></td>
+<td>The state of the socket is unknown.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>User</b></td>
+<td>The username or the user id (UID) of the owner of the socket.</td>
+</tr>
+<tr class="tcw">
+<td><b>PID/Program name</b></td>
+<td>Slash-separated pair of the process id (PID) and process name of the process that owns the socket. <b>--program</b> causes this column to be included. You need <a href="/jargon/r/root.htm">superuser</a> privileges to see this information on sockets you don't own. This identification information is not yet available for IPX sockets.</td>
+</tr>
+</table>
+<h2 id="output">Output: Unix domain sockets</h2>
+<p class="tab">Information about Active Unix Domain Sockets falls under the following categories:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>Proto</b></td>
+<td>The protocol (usually <b>unix</b>) used by the socket.</td>
+</tr>
+<tr class="tcw">
+<td><b>RefCnt</b></td>
+<td>The reference count (i.e., attached processes via this socket).</td>
+</tr>
+<tr class="tcw">
+<td><b>Flags</b></td>
+<td>The flags displayed are <b>SO_ACCEPTON</b> (displayed as <b>ACC</b>), <b>SO_WAITDATA</b> (<b>W</b>) or SO_NOSPACE (<b>N</b>). <b>SO_ACCECPTON</b> is used on unconnected sockets if their corresponding processes are waiting for a connect request. The other flags are not of normal interest.</td>
+</tr>
+<tr class="tcw">
+<td><b>Type</b></td>
+<td>There are several types of socket access:<br><br>
+<table class="mtable4">
+<tr class="tcw">
+<td style="width:210px"><b>SOCK_DGRAM</b></td>
+<td>The socket is used in datagram (connectionless) mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>SOCK_STREAM</b></td>
+<td>This is a stream (connection) socket.</td>
+</tr>
+<tr class="tcw">
+<td><b>SOCK_RAW</b></td>
+<td>The socket is used as a raw socket.</td>
+</tr>
+<tr class="tcw">
+<td><b>SOCK_RDM</b></td>
+<td>This one serves reliably-delivered messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>SOCK_SEQPACKET</b></td>
+<td>This is a sequential packet socket.</td>
+</tr>
+<tr class="tcw">
+<td><b>SOCK_PACKET</b></td>
+<td>Raw interface access socket.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>State</b></td>
+<td>This field contains one of the following keywords:<br><br>
+<table class="mtable4">
+<tr class="tcw">
+<td style="width:190px"><b>FREE</b></td>
+<td>The socket is not allocated.</td>
+</tr>
+<tr class="tcw">
+<td><b>LISTENING</b></td>
+<td>The socket is listening for a connection request. Such sockets are only included in the output if you specify the <b>--listening</b> (<b>-l</b>) or <b>--all</b> (<b>-a</b>) option.</td>
+</tr>
+<tr class="tcw">
+<td><b>CONNECTING</b></td>
+<td>The socket is about to establish a connection.</td>
+</tr>
+<tr class="tcw">
+<td><b>CONNECTED</b></td>
+<td>The socket is connected.</td>
+</tr>
+<tr class="tcw">
+<td><b>DISCONNECTING</b></td>
+<td>The socket is disconnecting.</td>
+</tr>
+<tr class="tcw">
+<td>(empty)</td>
+<td>The socket is not connected to another one.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>PID/Program name</b></td>
+<td>Process ID (PID) and process name of the process with the socket open. More info available in <i>Active Internet Connections</i> section written above.</td>
+</tr>
+<tr class="tcw">
+<td><b>Path</b></td>
+<td>This is the path name as which the corresponding processes attached to the socket.</td>
+</tr>
+<tr class="tcw">
+<td><b>Active IPX sockets</b></td>
+<td>A list of active <a href="/jargon/i/ipxspx.htm">IPX</a> sockets.</td>
+</tr>
+<tr class="tcw">
+<td><b>Active NET/ROM sockets</b></td>
+<td>A list of active NET/ROM sockets.</td>
+</tr>
+<tr class="tcw">
+<td><b>Active AX.25 sockets</b></td>
+<td>A list of active AX.25 sockets.</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<p class="tab"><b>netstat</b> makes use of the following files:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:270px"><b>/etc/services</b></td>
+<td>The services translation file.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc</b></td>
+<td>Mount point for the <b>proc</b> filesystem, which gives access to <a href="/jargon/k/kernel.htm">kernel</a> status information as a <a href="/jargon/h/hierfile.htm">file hierarchy</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/dev</b></td>
+<td>Device information file.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/raw</b></td>
+<td>Raw socket information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/tcp</b></td>
+<td>TCP socket information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/udp</b></td>
+<td>UDP socket information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/igmp</b></td>
+<td>IGMP multicast information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/unix</b></td>
+<td>Unix domain socket information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/ipx</b></td>
+<td>IPX socket information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/ax25</b></td>
+<td>AX25 socket information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/appletalk</b></td>
+<td>DDP (<a href="/jargon/a/appltalk.htm">appletalk</a>) socket information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/nr</b></td>
+<td>NET/ROM socket information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/route</b></td>
+<td>IP routing information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/ax25_route</b></td>
+<td>AX25 routing information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/ipx_route</b></td>
+<td>IPX routing information.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/nr_nodes</b></td>
+<td>NET/ROM nodelist.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/nr_neigh</b></td>
+<td>NET/ROM neighbours.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/ip_masquerade</b></td>
+<td>Masqueraded connections.</td>
+</tr>
+<tr class="tcw">
+<td><b>/proc/net/snmp</b></td>
+<td>Statistics.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">netstat</pre>
+<p class="tab">Displays generic statistics about the network activity of the local system.</p>
+<pre class="tcy tab">netstat -an</pre>
+<p class="tab">Shows information about all active connections to the server, including the source and destination IP addresses and ports, if you have proper permissions.</p>
+<pre class="tcy tab">netstat -rn</pre>
+<p class="tab">Displays the routing table for all IP addresses bound to the server.</p>
+<pre class="tcy tab">netstat -an |grep :80 | wc -l</pre>
+<p class="tab">Collects statistics about the amount of active connections on port 80, and <a href="/jargon/p/pipe.htm">pipes</a> this data to the <a href="/unix/uwc.htm"><b>wc</b></a> command, which displays the number of connections by counting the lines of the original <b>netstat</b> output.</p>
+<pre class="tcy tab">netstat -natp</pre>
+<p class="tab">Display statistics about active Internet connections.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uac.htm"><b>ac</b></a> &mdash; Print statistics about the amount of time users were connected.<br><a href="/unix/arp.htm"><b>arp</b></a> &mdash; Manipulate the system ARP cache.<br><a href="/unix/uifconfi.htm"><b>ifconfig</b></a> &mdash; View or modify the configuration of network interfaces.<br><a href="/unix/ip.htm"><b>ip</b></a> &mdash; Display and manipulate information about routing, devices, policy routing and tunnels.<br><b>route</b> &mdash; Display and manipulate the IP routing table.<br><a href="/unix/urpcinfo.htm"><b>rpcinfo</b></a> &mdash; Report information about remote procedure calls.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a831e98298474',m:'HwYImSY2KPs8JU9h3yEAzt9P97dXzFMWcbqstJcqjCM-1661495357-0-AaICFK+fW4sGSOpB32Srl0XJp3BbQqR2ulkHTVT9qOvaa2ycJfqQuqB9PIta6JgBPSVH+UCaK+SGwZkqoBLqRIOse2HAi2h+b/ruhpNkKAlinedHd2mNh2qveJ+8Pv5uggwND/tl+AUPwmvROWSz/ss=',s:[0x7f48d60188,0xbbc80d1847],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

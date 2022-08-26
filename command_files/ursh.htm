@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux rsh command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/rsh.gif" width="300" height="300" alt="rsh command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>rsh</b> command <a href="/jargon/e/execute.htm">executes</a> <a href="/jargon/c/command.htm">commands</a> on a <a href="/jargon/r/remote.htm">remote</a> <a href="/jargon/s/shell.htm">shell</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>rsh</b> connects to the specified <a href="/jargon/h/hostcomp.htm">host</a>, and executes the specified <i>command</i>. <b>rsh</b> copies its <a href="/jargon/s/stdin.htm">standard input</a> to the remote command, the standard output of the remote command to its standard output, and the standard error of the remote command to its standard error. Interrupt, quit and terminate <a href="/unix/signals.htm">signals</a> are propagated to the remote command; <b>rsh</b> normally terminates when the remote command does.</p>
+<p class="tab">Individual users can keep a private authorization list in a file named <b>.k5login</b> in their (remote) home directory. Each line in this file should contain a <a href="/jargon/k/kerberos.htm">Kerberos</a> principal name of the form <b>principal/<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="71181f0205101f1214310314101d1c">[email&#160;protected]</a></b>. If there is a <b>~/.k5login</b> file, access is granted to the account if and only if the originator user is authenticated to one of the principals named in the <b>~/.k5login</b> file.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">rsh <i>host</i> [-l <i>username</i>] [-n] [-d] [-k <i>realm</i>] [-f | -F] [-x] [-PN | -PO] <i>command</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><b>-l</b> <i>username</i></td>
+<td>Sets the remote username to <i>username</i>. Otherwise, the remote username will be the same as the local username.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b></td>
+<td>Causes the network session traffic to be <a href="/jargon/e/encrypt.htm">encrypted</a>. This applies only to the input and output streams, and not the <a href="/jargon/c/commandi.htm">command line</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>Cause nonforwardable Kerberos credentials to be forwarded to the remote machine for use by the specified command. They will be removed when command finishes. This option is mutually exclusive with the <b>-F</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b></td>
+<td>Cause forwardable Kerberos credentials to be forwarded to the remote machine for use by the specified command. They will be removed when command finishes. This option is mutually exclusive with the <b>-f</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b> <i>realm</i></td>
+<td>Causes <b>rsh</b> to obtain tickets for the remote host in realm instead of the remote host's realm, as determined by <b>krb_real-mofhost</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Turns on socket <a href="/jargon/d/debug.htm">debugging</a> on the <a href="/jargon/t/tcpip.htm">TCP</a> sockets used for communication with the remote host.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Redirects input from <b>/dev/null</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-PN</b>, <b>-PO</b></td>
+<td>Explicitly request new or old version of the Kerberos "<b>rcmd</b>" <a href="/jargon/p/protocol.htm">protocol</a>. The new protocol avoids many security problems found in the old one, but is not interoperable with older servers. (An "input/output error" and a closed connection is the most likely result of attempting this combination.) If neither option is specified, some simple <a href="/jargon/h/heuristi.htm">heuristics</a> are used to guess which to try.</td>
+</tr>
+</table>
+<p class="tab">If you omit <i>command</i>, then instead of executing a single command, you will be logged in on the remote host using <a href="/unix/urlogin.htm"><b>rlogin</b></a>.</p>
+<p class="tab">Shell <a href="/jargon/m/metachar.htm">metacharacters</a> that are not quoted are interpreted on the local machine, while quoted metacharacters are interpreted on the remote machine. For example, the following command:</p>
+<pre class="tab tcy">rsh otherhost cat remotefile &gt;&gt; localfile</pre>
+<p class="tab"><a href="/jargon/a/append.htm">appends</a> the remote file <b>remotefile</b> to the local file <b>localfile</b>, while:</p>
+<pre class="tab tcy">rsh otherhost cat remotefile "&gt;&gt;" otherremotefile</pre>
+<p class="tab">appends <b>remotefile</b> to <b>otherremotefile</b>.</p>
+<p class="tab">Please note that <a href="/jargon/i/interact.htm">interactive</a> commands, such as a text editor, cannot be executed remotely with <b>rsh</b>; use <b>rlogin</b> instead.</p>
+<h2 id="files">Files</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><b>/etc/hosts</b></td>
+<td>The <a href="/jargon/h/hostname.htm">hostname</a> map definitions file.</td>
+</tr>
+<tr class="tcw">
+<td><b>~/.k5login</b></td>
+<td>On the remote host, this file may be used to define the Kerberos principals that are allowed access.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">rsh example-host.com ls</pre>
+<p class="tab">Executes the <a href="/jargon/l/ls.htm"><b>ls</b></a> command on host <b>example-host.com</b>, using the local username as the remote login name.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uon.htm"><b>on</b></a> &mdash; Execute a command on a remote system, but with the local environment.<br><a href="/unix/urlogin.htm"><b>rlogin</b></a> &mdash; Begin a session on a remote system.<br><a href="/unix/utelnet.htm"><b>telnet</b></a> &mdash; Connect to a remote system using the telnet protocol.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83444eab84ec',m:'stBEpmuA09KRF_lscJncsnYorbUNC5Iw5yNuuxgAKds-1661495363-0-AcMIZTkJzFQDE2AWyyE7tspfnO4h78XaWTpSJGCAgPjFutK9v4I+mnNu8Qf5oU3cNuac0u8aPQxonMV0BpjHWWY7LqezTyG/OfSsnqTp4M+vdjONpUOBX55dIu3LeA6uBQ==',s:[0xae58c1bacc,0x8ae4f26d01],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

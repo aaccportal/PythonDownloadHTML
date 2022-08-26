@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux lp command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/lp.gif" width="300" height="300" alt="lp command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>lp</b> command prints files.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>lp</b> submits files for printing, or alters a pending print job. Use a file name of "<b>-</b>" to specify printing from the <a href="/jargon/s/stdin.htm">standard input</a>.</p>
+<h3 class="tab">Default Destination</h3>
+<p class="tab"><b>lp</b> uses the common printing system CUPS, providing many ways to set the default destination. The <b>LPDEST</b> and <b>PRINTER</b> <a href="/jargon/e/envivari.htm">environment variables</a> are checked first. If neither are set, the current default set using the <b>lpoptions</b> command is used, followed by the default set using the <a href="/unix/ulpadmin.htm">lpadmin</a> command.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">lp -i <i>request-ID</i> [-c] [-m] [-p] [-s] [-w] [-d <i>destination</i>] [-f <i>form-name</i>] 
+   [-H <i>special-handling</i>] [-n <i>number</i>] [-o <i>options</i>] [-p <i>pagenumbers</i>] 
+   [-q <i>priority-level</i>] [-S <i>character-set</i> | <i>print-wheel</i>] [-t <i>title</i>] 
+   [-T <i>content-Type</i> [-r]] [-y <i>mode-list</i>]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>--</b></td>
+<td>Marks the end of options; use this to print a file whose name begins with a dash (<b>-</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b></td>
+<td>Forces <a href="/jargon/e/encrypt.htm">encryption</a> when connecting to the server.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b> <i>username</i></td>
+<td>Specifies the <i>username</i> to use when connecting to the server.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>This option is provided for backward compatibility only. On systems that support it, this option forces the print file to be copied to the spool directory before printing. In CUPS, print files are always sent to the scheduler via IPP which has the same effect.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>destination</i></td>
+<td>Prints files to the <i>destination</i> printer.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b> <i>hostname</i>[<b>:</b><i>port</i>]</td>
+<td>Chooses an alternate server.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b> <i>job-id</i></td>
+<td>Specifies an existing job to modify.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b></td>
+<td>Sends an e-mail when the job is completed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b> <i>copies</i></td>
+<td>Sets the number of copies to print from 1 to 100.</td>
+</tr>
+<tr class="tcw">
+<td>-o <b>"name=</b><i>value</i> [<b>name=</b><i>value</i> ...]<b>"</b></td>
+<td>Sets one or more job <a href="#co">options</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b> <i>priority</i></td>
+<td>Sets the job priority from 1 (lowest) to 100 (highest). The default priority is 50.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Do not report the resulting job IDs (silent mode.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-t "</b><i>name</i><b>"</b></td>
+<td>Sets the job name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b> <i>hh</i><b>:</b><i>mm</i><br><br><b>-H</b> <b>hold</b><br><br><b>-H</b> <b>immediate</b><br><br><b>-H</b> <b>restart</b><br><br><b>-H</b> <b>resume</b></td>
+<td>Specifies when the job should be printed. A value of <b>immediate</b> prints the file immediately, a value of <b>hold</b> holds the job indefinitely, and a UTC time value (<i>HH</i><b>:</b><i>MM</i>) holds the job until the specified UTC (not local) time. Use a value of resume with the <b>-i</b> option to resume a held job. Use a value of <b>restart</b> with the <b>-i</b> option to restart a completed job.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b> <i>page-list</i></td>
+<td>Specifies which pages to print in the document. The list can contain a list of numbers and ranges (<i>#</i><b>-</b><i>#</i>) separated by commas (e.g., <b>1,3-5,16</b>). The page numbers refer to the output pages and not the document's original pages - options like "number-up" can affect the numbering of the pages.</td>
+</tr>
+</table>
+<h2 id="co">Options</h2>
+<p class="tab">Aside from the printer-specific options reported by the <b>lpoptions</b> command, the following generic options are available:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-o media=</b><i>size</i></td>
+<td>Sets the page size to <i>size</i>. Most printers support at least the size names "<b>a4</b>", "<b>letter</b>", and "<b>legal</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-o landscape</b><br><br><b>-o orientation-requested=4</b></td>
+<td>Prints the job in landscape orientation (rotated 90 degrees).</td>
+</tr>
+<tr class="tcw">
+<td><b>-o sides=one-sided</b><br><br><b>-o sides=two-sided-long-edge</b> <b>-o sides=two-sided-short-edge</b></td>
+<td>Prints on one or two sides of the paper. The value "two-sided-long-edge" is normally used when printing portrait (unrotated) pages, while "two-sided-short-edge" is used for landscape pages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o fit-to-page</b></td>
+<td>Scales the print file to fit on the page.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o number-up=2</b><br><br><b>-o number-up=4</b><br><br><b>-o number-up=6</b><br><br><b>-o number-up=9</b><br><br><b>-o number-up=16</b></td>
+<td>Prints multiple document pages on each output page.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o cpi=</b><i>N</i></td>
+<td>Sets the number of characters per inch to use when printing a text file. The default is <b>10</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o lpi=</b><i>N</i></td>
+<td>Sets the number of lines per inch to use when printing a text file. The default is <b>6</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o page-bottom=</b><i>N</i><br><br><b>-o page-left=</b><i>N</i><br><br><b>-o page-right=</b><i>N</i><br><br><b>-o page-top=</b><i>N</i></td>
+<td>Sets the page margins when printing text files. The values are in points - there are 72 points to the inch.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">lp -d myprinter -o media=legal -o sides=two-sided-long-edge file name</pre>
+<p class="tab">Prints the double-sided legal document <b>file name</b> to printer <b>myprinter</b>.</p>
+<pre class="tcy tab">lp -d myprinter -o scaling=200 file name</pre>
+<p class="tab">Print document <b>file name</b> across 4 pages.</p>
+<pre class="tcy tab">lp -d myprinter -o cpi=12 -o lpi=8 -o page-left=72 file name</pre>
+<p class="tab">Print a text file with 12 characters per inch, 8 lines per inch, and a 1 inch left margin.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucancel.htm"><b>cancel</b></a> &mdash; Cancels a print job under the System V operating system.<br><a href="/unix/uenable.htm"><b>enable</b></a> &mdash; Enable and disable LP printers.<br><a href="/unix/ulpq.htm"><b>lpq</b></a> &mdash; List the status of available printers.<br><a href="/unix/ulpr.htm"><b>lpr</b></a> &mdash; Submit print requests.<br><a href="/unix/ulprm.htm"><b>lprm</b></a> &mdash; Remove requests from the print queue.<br><a href="/unix/ulpstat.htm"><b>lpstat</b></a> &mdash; List the status of the LP print services.<br><a href="/unix/umail.htm"><b>mail</b></a> &mdash; Read, compose, and manage mail.<br><a href="/unix/upr.htm"><b>pr</b></a> &mdash; Format a text file for printing.<br><a href="/unix/ustty.htm"><b>stty</b></a> &mdash; Set options for your terminal display.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a830ac98c84f8',m:'EV9sY.Q6wm33L6U.WKOnWYdxhPlgbIjG4UmQNGXPb2s-1661495354-0-AT2I1O2e5rAa5uZx/1GsqqJQdKM24qgaEGAaBs2ZhywRPjmxopArL6Swmew/lsWgr8DB9cfxTsNwUmQQiiPm62h9a3nWOgE8p28rlsj9TOq/XcxFog8O60nPi9On90EeTQ==',s:[0x7f48d60188,0xf89354af69],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

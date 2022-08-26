@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux tput command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/tput.gif" width="300" height="300" alt="tput command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>tput</b> command initializes a <a href="/jargon/t/terminal.htm">terminal</a> or queries the <b>terminfo</b> <a href="/jargon/d/database.htm">database</a>.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>tput</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#exit">Exit codes</a></li>
+<li>Diagnostics</li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>tput</b> <a href="/jargon/u/utility.htm">utility</a> uses the <b>terminfo</b> database to make the values of terminal-dependent capabilities and information available to the <a href="/jargon/s/shell.htm">shell</a>, to initialize or reset the terminal, or return the long name of the requested terminal type. The result depends upon the capability's type:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><a href="/jargon/s/string.htm">string</a></td>
+<td><b>tput</b> writes the string to the standard output. No trailing <a href="/jargon/n/newline.htm">newline</a> is supplied.</td>
+</tr>
+<tr class="tcw">
+<td><a href="/jargon/i/integer.htm">integer</a></td>
+<td><b>tput</b> writes the <a href="/jargon/d/decimal.htm">decimal</a> value to the standard output, with a trailing newline.</td>
+</tr>
+<tr class="tcw">
+<td><a href="/jargon/b/boolean.htm">boolean</a></td>
+<td><b>tput</b> sets the exit code (<b>0</b> for TRUE if the terminal has the capability, <b>1</b> for FALSE if it does not), and writes nothing to the standard output.</td>
+</tr>
+</table>
+<p class="tab">Before using a value returned on the standard output, the application should test the exit code (for example, <b>$?</b>; see <a href="/unix/ush.htm"><b>sh</b></a> for details) to be sure it is <b>0</b>. (See the <a href="#exit">exit codes</a> and <a href="#diagnostics">diagnostics</a> sections.) For a complete list of capabilities and the <i>capname</i> associated with each, see the manual for <b>terminfo</b>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">tput [-T<i>type</i>] <i>capname</i> [<i>params</i> ... ]</pre>
+<pre class="tcy tab">tput [-T<i>type</i>] init</pre>
+<pre class="tcy tab">tput [-T<i>type</i>] reset</pre>
+<pre class="tcy tab">tput [-T<i>type</i>] longname</pre>
+<pre class="tcy tab">tput -S &lt;&lt;</pre>
+<pre class="tcy tab">tput -V</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>-T</b><i>type</i></td>
+<td>Indicates the type of terminal. Normally this option is unnecessary, because the default is taken from the <a href="/jargon/e/envivari.htm">environment variable</a> <b>TERM</b>. If <b>-T</b> is specified, then the shell variables <b>LINES</b> and <b>COLUMNS</b> is ignored, and the <a href="/jargon/o/os.htm">operating system</a> cannot be queried for the actual screen size.</td>
+</tr>
+<tr class="tcw">
+<td><i>capname</i></td>
+<td>Indicates the capability from the <b>terminfo</b> database. When <b>termcap</b> (the terminal capability database) support is <a href="/jargon/c/compile.htm">compiled</a> in, the <b>termcap</b> name for the capability is also accepted.</td>
+</tr>
+<tr class="tcw">
+<td><i>params</i></td>
+<td>If the capability is a string that takes <a href="/jargon/p/paramete.htm">parameters</a>, the <a href="/jargon/a/argument.htm">arguments</a> <i>params</i> will be instantiated into the string.<br><br> Most parameters are numbers. Only a few <b>terminfo</b> capabilities require string parameters; <b>tput</b> uses a table to decide which to pass as strings. If no parameters are given for the capability, <b>tput</b> writes the string without performing the substitution.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b></td>
+<td>Allows more than one capability per invocation of <b>tput</b>. The capabilities must be passed to <b>tput</b> from the <a href="/jargon/s/stdin.htm">standard input</a> instead of from the <a href="/jargon/c/commandi.htm">command line</a> (see example, below). Only one capname is allowed per line. The <b>-S</b> option changes the meaning of the <b>0</b> and <b>1</b> boolean and string exit codes (see the <a href="#exit">exit codes</a> section).<br><br> Again, <b>tput</b> uses a table and the presence of parameters in its input to decide whether, and how, to interpret the parameters.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b></td>
+<td>Reports the version of <b>ncurses</b> (a text interface programming library) which was used in this program, and exits.</td>
+</tr>
+<tr class="tcw">
+<td><b>init</b></td>
+<td>If the <b>terminfo</b> database is present and an entry for the user's terminal exists (see <b>-T</b><i>type</i>, above), the following will occur:<br><br><ul><li>If present, the terminal's initialization strings will be output as detailed in the <b>terminfo</b> section on Tabs and Initialization,</li><li>Any delays (e.g., newline) specified in the entry will be set in the <a href="/jargon/t/tty.htm">tty</a> driver,</li><li><a href="/jargon/t/tab.htm">Tabs</a> expansion will be turned on or off according to the specification in the entry, and</li><li>If tabs are not expanded, standard tabs will be set, every 8 spaces.</li></ul> If an entry does not contain the information needed for any of the four above activities, that activity will silently be skipped.</td>
+</tr>
+<tr class="tcw">
+<td><b>reset</b></td>
+<td>Instead of putting out initialization strings, the terminal's reset strings will be output if present (<b>rs1</b>, <b>rs2</b>, <b>rs3</b>, <b>rf</b>). If the reset strings are not present, but initialization strings are, the initialization strings will be output. Otherwise, <b>reset</b> acts identically to <b>init</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>longname</b></td>
+<td>If the <b>terminfo</b> database is present and an entry for the user's terminal exists (see <b>-T</b><i>type</i> above), then the long name of the terminal will be put out. The long name is the last name in the first line of the terminal's description in the <b>terminfo</b> database.</td>
+</tr>
+</table>
+<p class="tab">If <b>tput</b> is invoked by a link named <b>reset</b>, this has the same effect as <b>tput reset</b>. See <b>tset</b> for comparison, which has similar behavior.</p>
+<h2 id="exit">Exit codes</h2>
+<p class="tab">If the <b>-S</b> option is used, <b>tput</b> checks for errors from each line, and if any errors are found, sets the exit code to <b>4</b> plus the number of lines with errors. If no errors are found, the exit code is <b>0</b>. No indication of which line failed can be given so exit code <b>1</b> never appears. Exit codes <b>2</b>, <b>3</b>, and <b>4</b> retain their usual interpretation. If the <b>-S</b> option is not used, the exit code depends on the type of <i>capname</i>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:80px">boolean</td>
+<td>A value of <b>0</b> is set for TRUE and <b>1</b> for FALSE.</td>
+</tr>
+<tr class="tcw">
+<td>string</td>
+<td>A value of <b>0</b> is set if the <i>capname</i> is defined for this terminal type (the value of <i>capname</i> is returned on standard output); a value of <b>1</b> is set if capname is not defined for this terminal type (nothing is written to standard output).</td>
+</tr>
+<tr class="tcw">
+<td>integer</td>
+<td>A value of <b>0</b> is always set, whether or not capname is defined for this terminal type. To determine if capname is defined for this terminal type, the user must test the value written to standard output. A value of <b>-1</b> means that <i>capname</i> is not defined for this terminal type.</td>
+</tr>
+<tr class="tcw">
+<td>other</td>
+<td>The <b>reset</b> or <b>init</b> may fail to find their respective files. In that case, the exit code is set to <b>4 + errno</b>.</td>
+</tr>
+</table>
+<p class="tab">Any other exit code indicates an error, as listed in the <a href="#diagnostics">diagnostics</a> section.</p>
+<h2 id="diagnostics">Diagnostics</h2>
+<p class="tab"><b>tput</b> prints the following error messages and sets the corresponding exit codes:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>0</b></td>
+<td>The <i>capname</i> is a numeric variable that is not specified in the <b>terminfo</b> database for this terminal type, e.g., <b>tput -T450 lines</b> and <b>tput -T2621 xmc</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>No error message is printed; see the <a href="#exit">exit codes</a> section.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>Usage error.</td>
+</tr>
+<tr class="tcw">
+<td><b>3</b></td>
+<td>Unknown terminal type or no <b>terminfo</b> database.</td>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td>Unknown <b>terminfo</b> capability <i>capname</i>.</td>
+</tr>
+<tr class="tcw">
+<td>&gt;<b>4</b></td>
+<td>Error occurred as per the <b>-S</b> option.</td>
+</tr>
+</table>
+<h2 class="tab" id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:220px"><b>/etc/terminfo</b></td>
+<td>The compiled terminal description database.</td>
+</tr>
+<tr class="tcw">
+<td><b>/usr/share/tabset/*</b></td>
+<td>Tab settings for some terminals, in a format appropriate to be output to the terminal (escape sequences that set margins and tabs); for more information, see the manual for <b>terminfo</b>.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">tput init</pre>
+<p class="tab">Initialize the terminal according to the type of terminal in the environment variable <b>TERM</b>. This command should be included in the <b>.profile</b> file after the environment variable <b>TERM</b> has been exported.</p>
+<pre class="tcy tab">tput -T5620 reset</pre>
+<p class="tab">Reset an <a href="/comp/att.htm">AT&amp;T</a> 5620 terminal, overriding the type of terminal in the environment variable <b>TERM</b>.</p>
+<pre class="tcy tab">tput cup 0 0</pre>
+<p class="tab">Send the sequence to move the <a href="/jargon/c/cursor.htm">cursor</a> to row <b>0</b>, column <b>0</b> (the upper left corner of the screen, usually known as the "home" cursor position).</p>
+<pre class="tcy tab">tput clear</pre>
+<p class="tab">Echo the clear-screen sequence for the current terminal.</p>
+<pre class="tcy tab">tput cols</pre>
+<p class="tab">Print the number of columns for the current terminal.</p>
+<pre class="tcy tab">tput -T450 cols</pre>
+<p class="tab">Print the number of columns for the 450 terminal.</p>
+<pre class="tcy tab">bold=&#96;tput smso&#96; offbold=&#96;tput rmso&#96;</pre>
+<p class="tab">Set the shell variables bold, to begin stand-out mode sequence, and offbold, to end standout mode sequence, for the current terminal. This command might be followed by a prompt: <b>echo "${bold}Please type in your name: ${offbold}\c"</b>.</p>
+<pre class="tcy tab">tput hc</pre>
+<p class="tab">Set exit code to indicate if the current terminal is a hard copy terminal.</p>
+<pre class="tcy tab">tput cup 23 4</pre>
+<p class="tab">Send the sequence to move the cursor to row 23, column 4.</p>
+<pre class="tcy tab">tput cup</pre>
+<p class="tab">Send the <b>terminfo</b> string for cursor-movement, with no parameters substituted.</p>
+<pre class="tcy tab">tput longname</pre>
+<p class="tab">Print the long name from the <b>terminfo</b> database for the type of terminal specified in the environment variable <b>TERM</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/jargon/c/clear.htm"><b>clear</b></a> &mdash; Clear the screen.<br><a href="/unix/ustty.htm"><b>stty</b></a> &mdash; Set options for your terminal display.<br><a href="/unix/utabs.htm"><b>tabs</b></a> &mdash; Set tab stops on a terminal.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83661c66c3c5',m:'pQduqBui1Bs80ZU40AGdFmMW2RgKOA2kC8WBcsos4ho-1661495368-0-AVCOSDYyTlkx/vQVuhMelHIn2mMfGpyiN4e2O7nV3DHqdIRDUIa4YICEZJH06HEahY6aAaNZh4bA8P44r0OdYwmWf6rV6+nEdXqvkMoUkrNeA4aIjCUCueaZiNv7SGp/cw==',s:[0xc3546bba41,0xc3b8987dc7],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

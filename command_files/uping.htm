@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux ping command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/ping.gif" width="300" height="300" alt="ping command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>ping</b> command sends <a href="/jargon/i/icmp.htm">ICMP</a> ECHO_REQUEST <a href="/jargon/p/packet.htm">packets</a> to network hosts.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>ping</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#icmp">ICMP packet details</a></li>
+<li><a href="#duplicate">Duplicate and damaged packets</a></li>
+<li><a href="#patterns">Trying different data patterns</a></li>
+<li><a href="#ttl">TTL details</a></li>
+<li><a href="#additional">Additional notes</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>ping</b> is a simple way to send <a href="/jargon/n/network.htm">network</a> data to, and receive network data from, another computer on a network. It is frequently used to test, at the most basic level, whether another <a href="/jargon/s/system.htm">system</a> is reachable over a network, and if so, how much time it takes for that data to be exchanged.</p>
+<p class="tab">The <b>ping</b> <a href="/jargon/u/utility.htm">utility</a> uses the ICMP <a href="/jargon/p/protocol.htm">protocol</a>'s mandatory ECHO_REQUEST <a href="/jargon/p/packet.htm">datagram</a> to elicit an ICMP ECHO_RESPONSE from a <a href="/jargon/h/hostcomp.htm">host</a> or <a href="/jargon/g/gateway.htm">gateway</a>. ECHO_REQUEST datagrams ("pings") have an <a href="/jargon/i/ip.htm">IP</a> and ICMP <a href="/jargon/h/header.htm">header</a>, followed by a struct <b>timeval</b> and then an arbitrary number of "pad" <a href="/jargon/p/pad.htm">bytes</a> used to fill out the packet.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">ping [-LRUbdfnqrvVaAB] [-c <i>count</i>] [-m <i>mark</i>] [-i <i>interval</i>] [-l <i>preload</i>] 
+     [-p <i>pattern</i>] [-s <i>packetsize</i>] [-t <i>ttl</i>] [-w <i>deadline</i>] [-F <i>flowlabel</i>] 
+     [-I <i>interface</i>] [-M <i>hint</i>] [-N <i>nioption</i>] [-Q <i>tos</i>] [-S <i>sndbuf</i>] 
+     [-T <i>timestamp option</i>] [-W <i>timeout</i>] [<i>hop</i> ...] <i>destination</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-a</b></td>
+<td>Audible ping.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b></td>
+<td>Adaptive ping. Interpacket interval adapts to round-trip time, so that effectively not more than one (or more, if preload is set) unanswered probes are present in the network. Minimal interval is 200msec for any user other than the <a href="/jargon/r/root.htm">super-user</a>. On networks with low RTT (round trip time), this mode is essentially equivalent to flood mode (see <b>-f</b>, below).</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>Allow pinging a <a href="/jargon/b/broadcas.htm">broadcast</a> address.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b></td>
+<td>Do not allow <b>ping</b> to change source address of probes. The address is bound to one selected when <b>ping</b> starts.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b> <i>mark</i></td>
+<td>Use <i>mark</i> to tag the packets going out. This is useful for variety of reasons in the <a href="/jargon/k/kernel.htm">kernel</a> such as using policy <a href="/jargon/r/routing.htm">routing</a> to select specific outbound processing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b> <i>count</i></td>
+<td>Stop after sending <i>count</i> ECHO_REQUEST packets. With the <b>deadline</b> option, <b>ping</b> waits for <i>count</i> ECHO_REPLY packets, until the <a href="/jargon/t/timeout.htm">timeout</a> expires.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Set the SO_DEBUG option on the <a href="/jargon/s/socket.htm">socket</a> being used. This socket option is not used by <a href="/jargon/l/linux.htm">Linux</a> kernel.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>Flood ping. For every ECHO_REQUEST sent, a period ("<b>.</b>") is printed, while for every ECHO_REPLY received, a backspace is printed. This provides a rapid display of how many packets are being dropped. If an <i>interval</i> is not given (see <b>-i</b>, below), it sets <i>interval</i> to zero and outputs packets as fast as they come back or one hundred times per second, whichever is more. Only the super-user may use this option with an interval of zero.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b> <i>interval</i></td>
+<td>Wait <i>interval</i> seconds between sending each packet. The default is to wait for one second between each packet normally, or not to wait at all in flood mode (see <b>-f</b>, above). Only super-user may set interval to values less <b>0.2</b> seconds.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> <i>interface-address</i></td>
+<td>Set source address to specified interface address. Argument may be a numeric IP address or the name of the device. When pinging <a href="/jargon/i/ipv6.htm">IPv6</a> link-local addresses, this option is required.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b> <i>preload</i></td>
+<td>If <i>preload</i> is specified, <b>ping</b> sends that many packets not waiting for reply. Only the super-user may select a <i>preload</i> of more than <b>3</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b></td>
+<td>Suppress loopback of <a href="/jargon/m/multicast.htm">multicast</a> packets. This flag only applies if the ping destination is a multicast address.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b> <i>nioption</i></td>
+<td>Send ICMPv6 Node Information Queries (<a href="/jargon/r/rfc.htm">RFC</a> 4620), instead of Echo Requests. <i>nioption</i> may be one of the following:<br><br>
+<table class="mtable4">
+<tr class="tcw">
+<td style="width:200px"><b>name</b></td>
+<td>Queries for Node Names.</td>
+</tr>
+<tr class="tcw">
+<td><b>ipv6</b></td>
+<td>Queries for IPv6 Addresses. There are several IPv6 specific flags:
+<table>
+<tr class="tcw">
+<td><b>ipv6-global</b></td>
+<td>Request IPv6 global-scope addresses.</td>
+</tr>
+<tr class="tcw">
+<td><b>ipv6-sitelocal</b></td>
+<td>Request IPv6 site-local addresses.</td>
+</tr>
+<tr class="tcw">
+<td><b>ipv6-linklocal</b></td>
+<td>Request IPv6 link-local addresses.</td>
+</tr>
+<tr class="tcw">
+<td><b>ipv6-all</b></td>
+<td>Request IPv6 addresses on other interfaces.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>ipv4</b></td>
+<td>Queries for IPv4 addresses. There is one IPv4 specific flag:<br>
+<table>
+<tr class="tcw">
+<td><b>ipv4-all</b></td>
+<td>Request IPv4 addresses on other interfaces.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>subject-ipv6=</b><i>ipv6addr</i></td>
+<td>IPv6 subject address.</td>
+</tr>
+<tr class="tcw">
+<td><b>subject-ipv4=</b><i>ipv4addr</i></td>
+<td>IPv4 subject address.</td>
+</tr>
+<tr class="tcw">
+<td><b>subject-name=</b><i>nodename</i></td>
+<td>Subject name. If it contains more than one dot, <a href="/jargon/f/fqdn.htm">fully-qualified domain name</a> is assumed.</td>
+</tr>
+<tr class="tcw">
+<td><b>subject-fqdn=</b><i>nodename</i></td>
+<td>Subject name. Fully-qualified domain name is always assumed.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Numeric output only. No attempt will be made to look up symbolic names for host addresses.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>pattern</i></td>
+<td>You may specify up to 16 "pad" bytes to fill out the packet you send. This is useful for diagnosing data-dependent problems in a network. For example, <b>-p ff</b> causes the sent packet to be filled with all ones: <b>ff</b> is <b>255</b> in <a href="/jargon/h/hex.htm">hexadecimal</a>, or <b>11111111</b> in <a href="/jargon/b/binary.htm">binary</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b></td>
+<td>Print <a href="/jargon/t/timestam.htm">timestamp</a> (unix time + microseconds) before each line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Q</b> <i>tos</i></td>
+<td>Set Quality of Service-related bits in ICMP datagrams. <i>tos</i> can be either decimal or hex number. Traditionally (RFC1349), these are interpreted as: <b>0</b> for reserved (currently being redefined as congestion control), <b>1</b>-<b>4</b> for <a href="/jargon/t/tos.htm">TOS</a> (type of service) and <b>5</b>-<b>7</b> for precedence. Possible settings for type of service are: minimal cost: <b>0x02</b>, reliability: <b>0x04</b>, throughput: <b>0x08</b>, low delay: <b>0x10</b>. Multiple TOS bits should not be set simultaneously. Possible settings for special precedence range from priority (<b>0x20</b>) to net control (<b>0xe0</b>). You must be root (CAP_NET_ADMIN capability) to use critical or higher precedence value. You cannot set bit <b>0x01</b> (reserved) unless ECN is enabled in the kernel. In RFC2474, these fields are redefined as 8-bit DS (Differentiated Services), consisting of: bits <b>0</b>-<b>1</b> of separate data (ECN will be used, here), and bits <b>2</b>-<b>7</b> of Differentiated Services Codepoint (DSCP).</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b></td>
+<td>Quiet output. Nothing is displayed except the summary lines at startup time and when finished.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b></td>
+<td>Record route. Includes the RECORD_ROUTE option in the ECHO_REQUEST packet and displays the route buffer on returned packets. Note that the IP header is only large enough for nine such routes. Many hosts ignore or discard this option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>Bypass the normal routing tables and send directly to a host on an attached <a href="/jargon/i/interfac.htm">interface</a>. If the host is not on a directly-attached network, an error is returned. This option can ping a local host through an interface with no route through it, provided the option <b>-I</b> is also used (see above).</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>packetsize</i></td>
+<td>Specifies the number of data bytes to be sent. The default is <b>56</b>, which translates into 64 ICMP data bytes when combined with the 8 bytes of ICMP header data.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b> <i>sndbuf</i></td>
+<td>Set socket <i>sndbuf</i>. If not specified, it is selected to buffer not more than one packet.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>ttl</i></td>
+<td>Set the IP <a href="/jargon/t/ttl.htm">TTL</a> (time-to-live).</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b> <i>timestamp-option</i></td>
+<td>Set special IP timestamp options. <i>timestamp-option</i> may be either <b>tsonly</b> (only timestamps), <b>tsandaddr</b> (timestamps and addresses) or <b>tsprespec host1</b> [<b>host2</b> [<b>host3</b> [<b>host4</b>]]] (timestamp prespecified hops).</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b> <i>hint</i></td>
+<td>Select Path <a href="/jargon/m/mtu.htm">MTU</a> discovery strategy. <i>hint</i> may be either <b>do</b> (prohibit fragmentation, even local one), <b>want</b> (do PMTU discovery, fragment locally when packet size is large), or <b>dont</b> (do not set DF flag).</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b></td>
+<td>Print full user-to-user latency (legacy <b>ping</b> behavior). Normally <b>ping</b> prints network round trip time, which can be different f.e. due to <a href="/jargon/d/dns.htm">DNS</a> failures.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td><a href="/jargon/v/verbose.htm">Verbose</a> output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b></td>
+<td>Display version number, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b> <i>deadline</i></td>
+<td>Specify a timeout, in seconds, before <b>ping</b> exits regardless of how many packets are sent or received. In this case, <b>ping</b> does not stop after <i>count</i> packet are sent, it waits either for <i>deadline</i> to expire or until <i>count</i> probes are answered or for some error notification from network.</td>
+</tr>
+<tr class="tcw">
+<td><b>-W</b> <i>timeout</i></td>
+<td>Time to wait for a response, in seconds. The option affects only timeout in absence of any responses, otherwise <b>ping</b> waits for two RTTs.</td>
+</tr>
+</table>
+<h2 id="notes">Notes</h2>
+<p class="tab">When using <b>ping</b> for fault isolation, it should first run on the <a href="/jargon/l/locahost.htm">localhost</a>, to verify that the local network interface is up and running. Then, hosts and gateways further and further away should be "pinged". Round-trip times and packet loss statistics are computed. If duplicate packets are received, they are not included in the packet loss calculation, although the round trip time of these packets is used in calculating the minimum/average/maximum round-trip time numbers. When the specified number of packets are sent (and received) or if the program is terminated with a <b>SIGINT</b> <a href="/unix/signals.htm">signal</a>, a summary is displayed. Shorter current statistics can be obtained without termination of process with signal <b>SIGQUIT</b>.</p>
+<p class="tab">If <b>ping</b> does not receive any reply packets at all it will exit with code <b>1</b>. If a packet count and deadline are both specified, and fewer than <i>count</i> packets are received by the time the deadline has arrived, it also exits with code <b>1</b>. On other error it exits with code <b>2</b>. Otherwise, it exits with code <b>0</b>. This makes it possible to use the exit code to see if a host is alive or not.</p>
+<p class="tab"><b>ping</b> is intended for use in network testing, measurement and management. Because of the load it can impose on the network, it is unwise to use ping during normal operations or from automated scripts.</p>
+<h2 id="icmp">ICMP packet details</h2>
+<p class="tab">An IP header without options is 20 bytes. An ICMP ECHO_REQUEST packet contains an additional 8 bytes worth of ICMP header followed by an arbitrary amount of data. When a packetsize is given, this indicated the size of this extra piece of data (the default is 56). Thus the amount of data received inside of an IP packet of type ICMP ECHO_REPLY is always 8 bytes more than the requested data space (the ICMP header).</p>
+<p class="tab">If the data space is at least of size of <b>struct timeval</b>, ping uses the beginning bytes of this space to include a timestamp which it uses in the computation of round trip times. If the data space is shorter, no round trip times are given.</p>
+<h2 id="duplicate">Duplicate and damaged packets</h2>
+<p class="tab"><b>ping</b> will report duplicate and damaged packets. Duplicate packets should never occur, and seem to be caused by inappropriate link-level retransmissions. Duplicates may occur in many situations and are rarely (if ever) a good sign, although the presence of low levels of duplicates may not always be cause for alarm.</p>
+<p class="tab">Damaged packets are serious cause for alarm and often indicate broken hardware somewhere in the ping packet's path (in the network or in the hosts).</p>
+<h2 id="patterns">Trying different data patterns</h2>
+<p class="tab">The (inter)network layer should never treat packets differently depending on the data contained in the data portion. Unfortunately, data-dependent problems were known to sneak into networks and remain undetected for long periods of time. In many cases, the particular pattern having problems is something that doesn't have sufficient "transitions," such as all ones or all zeros, or a pattern right at the edge, such as almost all zeros. It isn't necessarily enough to specify a data pattern of all zeros (for example) on the command line because the pattern that is of interest is at the data link level, and the relationship between what you type and what the controllers transmit can be complicated.</p>
+<p class="tab">This means that if you have a data-dependent problem you will probably have to do a lot of testing to find it. If you are lucky, you may manage to find a file that either can't be sent across your network or that takes longer to transfer than other similar length files. You can then examine this file for repeated patterns that you can test using the <b>-p</b> option.</p>
+<h2 id="ttl">TTL details</h2>
+<p class="tab">The <a href="/jargon/t/ttl.htm">TTL</a> (time-to-live) value of an IP packet represents the maximum number of IP routers that the packet can go through before being thrown away. In practice, you can expect each router in the Internet to decrement the TTL field by exactly one.</p>
+<p class="tab">The <a href="/jargon/t/tcpip.htm">TCP/IP</a> specification states that the TTL field for TCP packets should be set to 60, but many systems use smaller values (4.3 <a href="/jargon/b/bsd.htm">BSD</a> uses 30, 4.2 used 15).</p>
+<p class="tab">The maximum possible value of this field is 255, and most <a href="/jargon/u/unix.htm">Unix</a> systems set the TTL field of ICMP ECHO_REQUEST packets to 255. This is why you find you can ping some hosts, but not reach them with <a href="/jargon/t/telnet.htm">telnet</a> or <a href="/jargon/f/ftp.htm">ftp</a>.</p>
+<p class="tab">In normal operation, <b>ping</b> prints the ttl value from the packet it receives. When a remote system receives a ping packet, it can do one of three things with the TTL field in its response:</p>
+<ul>
+<li>Not change it; this is what <a href="/jargon/b/bsdi.htm">Berkeley</a> Unix systems did before the 4.3 BSD Tahoe release. In this case, the TTL value in the received packet will be 255 minus the number of routers in the round-trip path.</li>
+<li>Set it to 255; this is what current Berkeley Unix systems do. In this case, the TTL value in the received packet will be 255 minus the number of routers in the path from the remote system to the pinging host.</li>
+<li>Set it to some other value. Some machines use the same value for ICMP packets that they use for TCP packets, for example either 30 or 60. Others may use completely wild values.</li>
+</ul>
+<h2 id="additional">Additional notes</h2>
+<ul>
+<li>Many <a href="/jargon/h/hostcomp.htm">hosts</a> and <a href="/jargon/g/gateway.htm">gateways</a> ignore the RECORD_ROUTE option.</li>
+<li>The maximum IP header length is too small for options like RECORD_ROUTE to be completely useful, although there's not much that can be done about this.</li>
+<li>Flood pinging is not recommended in general, and flood pinging the broadcast address should only be done under very controlled conditions.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">ping google.com</pre>
+<p class="tab">Ping the host google.com to see if it's alive.</p>
+<pre class="tcy tab">ping google.com -c 1</pre>
+<p class="tab">Ping the host <b>google.com</b> once. Output resembles the following:</p>
+<pre class="tab">PING google.com (204.228.150.3) 56(84) bytes of data.
+64 bytes from www.google.com (204.228.150.3): icmp_seq=1 ttl=63 time=0.267 ms
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.267/0.267/0.267/0.000 ms</pre>
+<div class="relatedpages tab" role="navigation" aria-label="related">
+<h2 id="pages">Related information</h2>
+<ul>
+<li><a href="/issues/ch001054.htm">Why can I not ping microsoft.com, amazon.com, or another site?</a></li>
+<li><a href="/issues/ch001055.htm">How to determine the IP address of a website.</a></li>
+<li><a href="/issues/ch001800.htm">How to test if a website or web page is down.</a></li>
+</ul>
+</div>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/host.htm"><b>host</b></a> &mdash; Convert a <a href="/jargon/h/hostname.htm">hostname</a> to an <a href="/unix/ip.htm">IP address</a> and vice versa.<br><a href="/unix/uifconfi.htm"><b>ifconfig</b></a> &mdash; View or modify the configuration of network interfaces.<br><a href="/unix/unetstat.htm"><b>netstat</b></a> &mdash; Print information about network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.<br><a href="/unix/urpcinfo.htm"><b>rpcinfo</b></a> &mdash; Report information about remote procedure calls.<br><a href="/unix/utracero.htm"><b>traceroute</b></a> &mdash; Trace the route that packets take to a remote host.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83322e3d84d4',m:'c0lkwIbivYVAPtcfOvmzAk8IqG2t_c1zPzUJAUqTeRY-1661495360-0-ASmAG9SFUkq4weLyuDuvdSxBq3GoXDuoTG1tQEitAipM6HBJnBEt4qU02MPvdvhpOyEjBod45thvw9dzEZ4RQ/ix51BeWYD9cpQ+fjKU7FyFjC2juixZPPqGLRSwWEYxew==',s:[0xb4a143b250,0x511705ab33],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

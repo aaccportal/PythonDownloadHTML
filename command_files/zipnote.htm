@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux zipnote command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/zipinfo.gif" width="300" height="300" alt="zipinfo command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>zipnote</b> command views, adds, or edits a zipfile's comments. It also lets you rename files contained in the archive.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>zipnote</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#works">How zipnote works</a></li>
+<li><a href="#comments">Types of zipfile comments</a></li>
+<li><a href="#viewing">Viewing a zipfile's comments</a></li>
+<li><a href="#adding">Adding comments</a></li>
+<li><a href="#using">Using zipnote to rename the files in your archive</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">Every file that is <a href="/jargon/a/archive.htm">archived</a> in the <b>zip</b> format may optionally contain <i>comments</i>, which are short notes or descriptions about individual files or the entire archive.</p>
+<p class="tab">When you create a zipfile with the <a href="/unix/zip.htm"><b>zip</b></a> utility, you can add comments about individual files using <b>zip</b>'s <b>--entry-comments</b> option. You can also add a comment about the entire archive using <b>zip</b>'s <b>--archive-comment</b> option. These comments will be written to the zipfile as part of the archiving process.</p>
+<p class="tab">If you want to add comments after a zipfile has already been created, however, you can use <b>zipnote</b>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">zipnote [-w] [-b <i>path</i>] [-h] [-v] [-L] <i>zipfile</i>
+</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tbody>
+<tr class="tcw">
+<td><b>-w</b></td>
+<td>Write comments to a zipfile from <a href="/jargon/s/stdin.htm">standard input</a> (stdin).</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b> <i>path</i></td>
+<td>Use <i>path</i> to store the temporary zip file that is created during annotation.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw"> 
+<td><b>-v</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b></td>
+<td>Display software license information, and exit.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="works">How zipnote works</h2>
+<p class="tab">By default, <b>zipnote</b> will dump a zipfile's comments to standard output.</p>
+<p class="tab">If you want to make changes, you can <a href="/jargon/r/redirect.htm">redirect</a> this output to a file, edit it manually, and then use <b>zipnote</b> to read in your changes and write them to the zipfile.</p>
+<p class="tab">You can also use <b>zipnote</b> to <a href="/jargon/r/rename.htm">rename</a> the files in the archive by making special edits during this process.</p>
+<h2 id="comments">Types of zipfile comments</h2>
+<p class="tab">"Archive comments" describe the archive as a <i>whole</i>, and are shown when a user views the contents of an archive, and also when a user extracts files from the archive.</p>
+<p class="tab">"Entry comments" describe <i>individual</i> files in the archive. They are displayed when a user views the contents of an archive, but are usually not shown when the files are extracted.</p>
+<p class="tab">Both these types of comments can be added or modified using <b>zipnote</b>.</p>
+<h2 id="viewing">Viewing a zipfile's comments</h2>
+<p class="tab">Let's say you have a zipfile called <b>files.zip</b>, which contains two files: <b>file1</b> and <b>file2</b>. You can view <b>files.zip</b>'s comments using the following command:</p>
+<pre class="tab tcy">zipnote files.zip</pre>
+<p class="tab">The output looks like this:</p>
+<pre class="tab">@ file1
+@ (comment above this line)
+@ file2
+@ (comment above this line)
+@ (zip file comment below this line)</pre>
+<p class="tab">This shows us that there are two files, <b>file1</b> and <b>file2</b>, and that there are no comments in the file. (If there were, we would see them here.)</p>
+<p class="tab">If we view a list of the files in the archive using the <b>-l</b> option of <a href="/jargon/u/unzip.htm"><b>unzip</b></a>, like this:</p>
+<pre class="tab tcy">unzip -l files.txt</pre>
+<p class="tab">...our file list looks like this:</p>
+<pre class="tab">Archive:  files.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  2014-09-27 15:48   file1
+        0  2014-09-27 15:48   file2
+---------                     -------
+        0                     2 files</pre>
+<p class="tab">If there were descriptions for the archive or the individual files, they would appear here.</p>
+<h2 id="adding">Adding comments</h2>
+<p class="tab">To change the comments in <b>files.zip</b> using <b>zipnote</b>, we first need to capture <b>zipnote</b>'s output to a file. Let's redirect the output to a file called <b>comments.txt</b>:</p>
+<pre class="tab tcy">zipnote files.zip &gt; comments.txt</pre>
+<p class="tab">Now, open the newly-created <b>comments.txt</b> file in your favorite text editor, adding lines so that it looks like this:</p>
+<pre class="tab">@ file1
+This is the first file in our archive.
+@ (comment above this line)
+@ file2
+This is the second file in our archive.
+@ (comment above this line)
+@ (zip file comment below this line)
+This archive contains two files.</pre>
+<p class="tab">Save the file and exit your text editor.</p>
+<p class="tab">Next, we run <b>zipnote</b> with the <b>-w</b> option. The command looks like this:</p>
+<pre class="tab tcy">zipnote -w files.zip &lt; comments.txt</pre>
+<p class="tab">This command says, "use the contents of <b>comments.txt</b> as input for <b>zipnote</b>, and write (<b>-w</b>) that data as the new comments of <b>files.zip</b>." When this command is run, our edits replace the comments in <b>files.zip</b>.</p>
+<p class="tab">Let's use <b>zipnote</b> again, to check that our changes are written:</p>
+<pre class="tab tcy">zipnote files.zip</pre>
+<pre class="tab">@ file1
+This is the first file in our archive.
+@ (comment above this line)
+@ file2
+This is the second file in our archive.
+@ (comment above this line)
+@ (zip file comment below this line)
+This archive contains two files.</pre>
+<p class="tab">We can also use <b>unzip -l</b> to list the archive contents, and we'll see our new comments:</p>
+<pre class="tab tcy">unzip -l files.zip</pre>
+<pre class="tab">Archive:  files.zip
+This archive contains two files.
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  2014-09-27 15:48   file1
+This is the first file in our archive.
+        0  2014-09-27 15:48   file2
+This is the second file in our archive.
+---------                     -------
+        0                     2 files</pre>
+<p class="tab">Additionally, when we <a href="/jargon/e/extract.htm">extract</a> the files from the archive with <b>unzip</b>, it shows us the archive comment with the rest of the output:</p>
+<pre class="tab tcy">unzip files.zip</pre>
+<pre class="tab">Archive:  files.zip
+This archive contains two files.
+ extracting: file1                   
+ extracting: file2</pre>
+<h2 id="using">Using zipnote to rename the files in your archive</h2>
+<p class="tab">It's possible, in your edits to the comments, to rename the archived files themselves. For instance, here is the <b>comments.txt</b> file we were working with:</p>
+<pre class="tab">@ file1
+This is the first file in our archive.
+@ (comment above this line)
+@ file2
+This is the second file in our archive.
+@ (comment above this line)
+@ (zip file comment below this line)
+This archive contains two files.</pre>
+<p class="tab">If we open this up in our editor again, we can insert a line beneath the file name and above the comment in the form "<b>@=</b><i>newfilename</i>". For instance, let's rename our files <b>file1</b> and <b>file2</b> to <b>file-one</b> and <b>file-two</b>, respectively. We do this by adding two lines so that <b>comments.txt</b> looks like this:</p>
+<pre class="tab">@ file1
+@=file-one
+This is the first file in our archive.
+@ (comment above this line)
+@ file2
+@=file-two
+This is the second file in our archive.
+@ (comment above this line)
+@ (zip file comment below this line)
+This archive contains two files.</pre>
+<p class="tab">Now we write our changes using <b>zipnote -w</b>, as we did before:</p>
+<pre class="tab tcy">zipnote -w files.zip &lt; comments.txt</pre>
+<p class="tab">...and check our changes using <b>unzip -l</b>:</p>
+<pre class="tab tcy">unzip -l files.zip</pre>
+<pre class="tab">Archive:  files.zip
+This archive contains two files.
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  2014-09-27 15:48   file-one
+This is the first file in our archive.
+        0  2014-09-27 15:48   file-two
+This is the second file in our archive.
+---------                     -------
+        0                     2 files</pre>
+<p class="tab">...and voil&agrave;, the files are renamed.</p>
+<div class="tip tab" role="note">
+<span class="title note">Warning</span>
+<p>There is no <a href="/jargon/u/undo.htm">undo</a> function for any of the changes you make with <b>zipnote</b>, so double check your comments file before writing to the archive! Any changes you make with the <b>-w</b> option are permanent.</p>
+</div>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">zipnote myarchive.zip</pre>
+<p class="tab">Display details about <b>myarchive.zip</b>, including any comments, in a <b>zipnote</b>-specific format.</p>
+<pre class="tcy tab">zipnote myarchive.zip &gt; mycommentfile.txt</pre>
+<p class="tab">Redirect the output of <b>zipnote</b> to the file <b>mycommentfile.txt</b>, writing the comment information to that file.</p>
+<pre class="tcy tab">zipnote -w myarchive.zip &lt; mycommentfile.txt</pre>
+<p class="tab">Redirect the contents of <b>mycommentfile.txt</b> to <b>zipnote</b>, which takes them as input and writes them (<b>-w</b>) as comments to <b>myarchive.zip</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab norm"><a href="/unix/unzip.htm"><b>unzip</b></a> &mdash; List, test and extract compressed files in a zip archive.<br><a href="/unix/zip.htm"><b>zip</b></a> &mdash; A compression and archiving utility.<br><a href="/unix/zipcloak.htm"><b>zipcloak</b></a> &mdash; Encrypt files within an existing zip archive.<br><a href="/unix/zipsplit.htm"><b>zipsplit</b></a> &mdash; Split a single zip archive into a set of smaller zip files.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a838d2b6c848c',m:'Cg2EZCHny6JeVzKCBQdbcgYsiIJ.2J4iTfSedCNmcew-1661495374-0-AZWBWoWhnkUCGAtoAFvs3WDCj8+FBVHhRsAbUAOZS/4PQGHIQnxfZlJQhXng8SgelvON+ERglwKG2V/KECFNaYpyrL9Rv4XZhR3aas2m2um3RGtc32KLxI2pto5DBWQthcVpUyMgY7T2oH40fRQqZNU=',s:[0x36e50c16fd,0x973f6b8684],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

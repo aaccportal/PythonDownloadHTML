@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux comm command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/comm.gif" width="300" height="300" alt="comm command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>comm</b> command compares two <a href="/jargon/s/sort.htm">sorted</a> files line-by-line.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>comm</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">With no options, <b>comm</b> produces three-column output. Column one contains lines unique to <b>FILE1</b>, column two contains lines unique to <b>FILE2</b>, and column three contains lines common to both files. Each of these columns can be suppressed individually with options.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">comm [<i>OPTION</i>]... <i>FILE1</i> <i>FILE2</i></pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>-1</b></td>
+<td>Suppress column 1 (lines unique to <b>FILE1</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-2</b></td>
+<td>Suppress column 2 (lines unique to <b>FILE2</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-3</b></td>
+<td>Suppress column 3 (lines that appear in both files).</td>
+</tr>
+<tr class="tcw">
+<td><b>--check-order</b></td>
+<td>Check that the input is correctly sorted, even if all input lines are pairable.</td>
+</tr>
+<tr class="tcw">
+<td><b>--nocheck-order</b></td>
+<td>Do not check that the input is correctly sorted.</td>
+</tr>
+<tr class="tcw">
+<td><b>--output-delimiter=</b><i>STR</i></td>
+<td>Separate columns with <a href="/jargon/s/string.htm">string</a> <i>STR.</i></td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Output <a href="/jargon/v/version.htm">version</a> information, and exit.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<p class="tab">Let's say you have two text files, <b>recipe.txt</b> and <b>shopping-list.txt</b>.</p>
+<p class="tab"><b>recipe.txt</b> contains these lines:</p>
+<pre class="tab">All-Purpose Flour
+Baking Soda
+Bread
+Brown Sugar
+Chocolate Chips
+Eggs
+Milk
+Salt
+Vanilla Extract
+White Sugar</pre>
+<p class="tab">And <b>shopping-list.txt</b> contains these lines:</p>
+<pre class="tab">All-Purpose Flour
+Bread
+Brown Sugar
+Chicken Salad
+Chocolate Chips
+Eggs
+Milk
+Onions
+Pickles
+Potato Chips
+Soda Pop
+Tomatoes
+White Sugar</pre>
+<p class="tab">As you can see, the two files are different, but many of the lines are the same. Not all of the recipe ingredients are on the shopping list, and not everything on the shopping list is part of the recipe.</p>
+<p class="tab">If we run the <b>comm</b> command on the two files, it will read both files and give us three columns of output:</p>
+<pre class="tab tcy">comm recipe.txt shopping-list.txt</pre>
+<pre class="tab">        All-Purpose Flour
+Baking Soda
+        Bread
+        Brown Sugar
+    Chicken Salad
+        Chocolate Chips
+        Eggs
+        Milk
+    Onions
+    Pickles
+    Potato Chips
+Salt
+    Soda Pop
+    Tomatoes
+Vanilla Extract
+        White Sugar
+</pre>
+<p class="tab">Here, each line of output has either zero, one, or two <a href="/jargon/t/tab.htm">tabs</a> at the beginning, separating the output into three columns:</p>
+<ol>
+<li>The first column (zero tabs) is lines that only appear in the first file.</li>
+<li>The second column (one tab) is lines that only appear in the second file.</li>
+<li>The third column (two tabs) is lines that appear in both files.</li>
+</ol>
+<p class="tab">(The columns overlap visually because our <a href="/jargon/t/terminal.htm">terminal</a> prints a tab as eight spaces. It might look different on your screen.)</p>
+<p class="tab">Next, let's look at how we can bring our separated data into a <a href="/jargon/s/spreadsheet.htm">spreadsheet</a>.</p>
+<h3 class="tab">Creating a CSV file for spreadsheets</h3>
+<p class="tab">One useful way to use <b>comm</b> is to output to a <a href="/jargon/c/csv.htm">CSV file</a>, which can then be read by a <a href="/jargon/s/spreadsheet.htm">spreadsheet program</a>. CSV files are text files that use a certain character, usually a comma, tab, or semicolon, to <a href="/jargon/d/delimite.htm">delimit</a> data in a way that can be read as a spreadsheet. By convention, CSV file names have the <a href="/jargon/e/extensio.htm">extension</a> <b>.csv</b>.</p>
+<p class="tab">For instance, let's run the same command, but this time let's <a href="/jargon/r/redirect.htm">redirect</a> the output to a file called <b>output.csv</b> using the <b>&gt;</b> operator:</p>
+<pre class="tab tcy">comm recipe.txt shopping-list.txt &gt; output.csv</pre>
+<p class="tab">This time there is no output on the screen. Instead, output is sent to a file called <b>output.csv</b>. To check that it worked correctly, we can <a href="/unix/ucat.htm">cat</a> the contents of <b>output.csv</b>:</p>
+<pre class="tab tcy">cat output.csv</pre>
+<pre class="tab">All-Purpose Flour
+Baking Soda
+                Bread
+                Brown Sugar
+        Chicken Salad
+                Chocolate Chips
+                Eggs
+                Milk
+        Onions
+        Pickles
+        Potato Chips
+Salt
+        Soda Pop
+        Tomatoes
+Vanilla Extract
+                White Sugar</pre>
+<p class="tab">To bring this data into a spreadsheet, we can open it in <a href="/jargon/l/libreoff.htm">LibreOffice</a> Calc:</p>
+<p class="tab"><img src="/unix/images/ucomm-ss-01.jpg" width="600" height="600" alt="Opening a CSV file in LibreOffice Calc" class="resize600"></p>
+<p class="tab">Before it opens the file, LibreOffice asks us how to interpret the file data.</p>
+<p class="tab">We want the column delimiter to be tab characters, which is already checked by default. (There are no commas or semicolons in our data, so we don't have to worry about the other checkboxes.) It also gives us a preview of how the data looks, given the options we selected.</p>
+<p class="tab"><img src="/unix/images/ucomm-ss-02.jpg" width="600" height="600" alt="CSV interpretation options in LibreOffice Calc" class="resize600"></p>
+<p class="tab">Everything looks good, so we can click OK, and LibreOffice will import our data into a spreadsheet.</p>
+<p class="tab"><img src="/unix/images/ucomm-ss-03.jpg" width="547" height="570" alt="comm output imported into a spreadsheet" class="resize600"></p>
+<p class="tab">Now if we wanted to, we could save the spreadsheet in another format such as a <a href="/jargon/e/excel.htm">Microsoft Excel</a> file, or an <a href="/jargon/x/xml.htm">XML</a> file, or even <a href="/jargon/h/html.htm">HTML</a>.</p>
+<h3 class="tab">Suppressing columns</h3>
+<p class="tab">If you only want to output specific columns, you can specify the column numbers to suppress in the command, preceded by a dash. For instance, this command will suppress columns 1 and 2, displaying only column 3 &mdash; lines shared by both files. This isolates the items on the shopping list that are also part of the recipe:</p>
+<pre class="tcy tab">comm -12 recipe.txt shopping-list.txt</pre>
+<pre class="tab">All-Purpose Flour
+Bread
+Brown Sugar
+Chocolate Chips
+Eggs
+Milk
+White Sugar</pre>
+<p class="tab">The next command will suppress columns 2 and 3, displaying only column 1 &mdash; lines in the recipe that are not in the shopping list. This shows us what ingredients we already have in our cupboard:</p>
+<pre class="tcy tab">comm -23 recipe.txt shopping-list.txt</pre>
+<pre class="tab">Baking Soda
+Salt
+Vanilla Extract</pre>
+<p class="tab">And the next command will suppress column 3, displaying only columns 1 and 2 &mdash; the items in the recipe that are not on the shopping list, and the items on the shopping list that are not in the recipe, each in their column.</p>
+<pre class="tab tcy">comm -3 recipe.txt shopping-list.txt</pre>
+<pre class="tab">Baking Soda
+        Chicken Salad
+        Onions
+        Pickles
+        Potato Chips
+Salt
+        Soda Pop
+        Tomatoes
+Vanilla Extract
+</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucmp.htm"><b>cmp</b></a> &mdash; Compare two files byte by byte.<br><a href="/unix/udiff.htm"><b>diff</b></a> &mdash; Identify the differences between two files.<br><a href="/unix/ujoin.htm"><b>join</b></a> &mdash; Join the lines of two files which share a common field of data.<br><a href="/unix/usort.htm"><b>sort</b></a> &mdash; Sort the lines in a text file.<br><a href="/unix/uuniq.htm"><b>uniq</b></a> &mdash; Identify, and optionally filter out, repeated lines in a file.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82c83c7f8474',m:'lnX5W5FMRdyyvkzNtaCpTbMzKfRzBdUI8y_Sa9NqopE-1661495343-0-AT/HW2vZ6jEgTojhV4iUB0tuHtenByIs8j8QkKSP3fk5TK/EagytVlkPVqjg7M4tFrQns5DZTrU12iZ50Mg5TG5Vgmcvl0IyN4J7EqxgXxGafolIPNTdGRVEvnUVtP4yvQ==',s:[0xd3759bbc00,0x712e725c4a],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

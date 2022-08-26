@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux telnet command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/telnet.gif" width="300" height="300" alt="telnet command" class="floatRight"><p class="intro">The <b>telnet</b> program is a <a href="/jargon/u/ui.htm">user interface</a> to the <a href="/jargon/t/telnet.htm">TELNET</a> <a href="/jargon/p/protocol.htm">protocol</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#protocol">Protocol</a></li>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>telnet</b> command is used for <a href="/jargon/i/interact.htm">interactive</a> communication with another <a href="/jargon/h/hostcomp.htm">host</a> using the TELNET protocol. It begins in command mode, where it prints a telnet command <a href="/jargon/p/prompt.htm">prompt</a> ("<b>telnet&gt;</b>").</p>
+<p class="tab">If <b>telnet</b> is invoked with a <i>host</i> <a href="/jargon/a/argument.htm">argument</a>, it performs an <b>open</b> command implicitly (see the <a href="#commands">Commands</a> section below for details).</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">telnet [-468ELadr] [-S <i>tos</i>] [-b <i>address</i>] [-e <i>escapechar</i>] [-l <i>user</i>] 
+       [-n <i>tracefile</i>] [<i>host</i> [<i>port</i>]]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><b>-4</b></td>
+<td>Force <a href="/jargon/i/ipv4.htm">IPv4</a> address resolution.</td>
+</tr>
+<tr class="tcw">
+<td><b>-6</b></td>
+<td>Force <a href="/jargon/i/ipv6.htm">IPv6</a> address resolution.</td>
+</tr>
+<tr class="tcw">
+<td><b>-8</b></td>
+<td>Request <a href="/jargon/num/8bit.htm">8-bit</a> operation. This option causes an attempt to negotiate the <b>TELNET BINARY</b> option for both input and output. By default, <b>telnet</b> is not "8-bit clean" (it does not recognize 8-bit <a href="/jargon/c/charcode.htm">character encodings</a> such as <a href="/jargon/u/unicode.htm">Unicode</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b></td>
+<td>Disables the <a href="/jargon/e/esc.htm">escape</a> <a href="/jargon/c/charact.htm">character</a> functionality; that is, sets the escape character to "no character".</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b></td>
+<td>Specifies an 8-bit data path on output. This option causes the <b>TELNET BINARY</b> option to be negotiated on output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>Attempt automatic <a href="/jargon/l/login.htm">login</a>. Currently, this sends the username via the <b>USER</b> variable of the <b>ENVIRON</b> option if supported by the remote system. The username is retrieved via the <b>getlogin</b> system call.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b> <i>address</i></td>
+<td>Use <a href="/jargon/b/bind.htm">bind</a> on the local socket to bind it to a specific local address.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Sets the initial value of the <a href="/jargon/d/debug.htm">debug</a> toggle to <b>TRUE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>Emulate <a href="/unix/urlogin.htm"><b>rlogin</b></a>. In this mode, the default escape character is a <a href="/jargon/t/tilde.htm">tilde</a>. Also, the interpretation of the escape character is changed: an escape character followed by a dot causes <b>telnet</b> to disconnect from the remote host. A <b>^Z</b> (<a href="/jargon/c/ctrl-z.htm">Control-Z</a>) instead of a dot suspends <b>telnet</b>, and a <b>^]</b> (Control-close bracket, the default <b>telnet</b> escape character) generates a normal <b>telnet</b> prompt. These codes are accepted only at the beginning of a line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b> <i>tos</i></td>
+<td>Sets the <a href="/jargon/i/ip.htm">IP</a> TOS (type-of-service) option for the <b>telnet</b> connection to the value <i>tos</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b> <i>escapechar</i></td>
+<td>Sets the escape character to <i>escapechar</i>. If no character is supplied, no escape character will be used. Entering the escape character while connected causes <b>telnet</b> to drop to command mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b> <i>user</i></td>
+<td>Specify <i>user</i> as the user to log in as on the remote system. By sending the specified name as the <b>USER</b> <a href="/jargon/e/envivari.htm">environment variable</a>, so it requires that the remote system support the <b>TELNET ENVIRON</b> option. This option implies the <b>-a</b> option, and may also be used with the <b>open</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b> <i>tracefile</i></td>
+<td>Opens <i>tracefile</i> for recording trace information. See the <b>set tracefile</b> command below.</td>
+</tr>
+<tr class="tcw">
+<td><i>host</i></td>
+<td>Specifies a host to contact over the network.</td>
+</tr>
+<tr class="tcw">
+<td><i>port</i></td>
+<td>Specifies a port number or service name to contact. If not specified, the telnet port (<b>23</b>) is used.</td>
+</tr>
+</table>
+<h2 id="protocol">Protocol</h2>
+<p class="tab">Once a connection is opened, <b>telnet</b> attempts to enable the <b>TELNET LINEMODE</b> option. If this fails, then <b>telnet</b> will revert to one of two input modes: either "character at a time" or "old line by line" depending on what the remote system supports.</p>
+<p class="tab">When <b>LINEMODE</b> is enabled, character processing is done on the local system, under the control of the remote system. When input editing or character echoing is to be disabled, the remote system will relay that information. The remote system also relays changes to any special characters that happen on the remote system, so that they can take effect on the local system.</p>
+<p class="tab">In "character at a time" mode, most text typed is immediately sent to the remote host for processing.</p>
+<p class="tab">In "old line by line" mode, all text is echoed locally, and (normally) only completed lines are sent to the remote host. The "local echo character" (initially "<b>^E</b>") may be used to turn off and on the local echo (this would mostly be used to enter <a href="/jargon/p/password.htm">passwords</a> without the password being echoed).</p>
+<p class="tab">If the <b>LINEMODE</b> option is enabled, or if the <b>localchars</b> toggle is <b>TRUE</b> (the default for "old line by line"; see below), the user's <b>quit</b>, <b>intr</b>, and <b>flush</b> characters are trapped locally, and sent as TELNET protocol sequences to the remote side. If <b>LINEMODE</b> has ever been enabled, then the user's <b>susp</b> and <b>eof</b> are also sent as TELNET protocol sequences, and <b>quit</b> is sent as a <b>TELNET ABORT</b> instead of <b>BREAK</b>. There are options (see <b>toggle autoflush</b> and <b>toggle autosynch</b>, below) which cause this action to flush subsequent output to the <a href="/jargon/t/terminal.htm">terminal</a> (until the remote host acknowledges the <b>TELNET</b> sequence) and flush previous terminal input (in the case of <b>quit</b> and <b>intr</b>).</p>
+<h2 id="commands">Commands</h2>
+<p class="tab">The following <b>telnet</b> commands are available. Unique prefixes are understood as abbreviations.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:270px"><b>auth</b> <i>argument</i> ...</td>
+<td>The <b>auth</b> command controls the <b>TELNET AUTHENTICATE</b> protocol option. If <b>telnet</b> was compiled without authentication, the <b>auth</b> command is not supported. Valid arguments are as follows:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>disable</b> <i>type</i></td>
+<td>Disable the specified type of authentication. To obtain a list of available types, use the <b>auth disable ?</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>enable</b> <i>type</i></td>
+<td>Enable the specified type of authentication. To obtain a list of available types, use the <b>auth enable ?</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>status</b></td>
+<td>List the current status of the various types of authentication.</td>
+</tr>
+</table>
+Note that the current version of <b>telnet</b> does not support authentication.</td>
+</tr>
+<tr class="tcw">
+<td><b>close</b></td>
+<td>Close the connection to the remote host, if any, and return to command mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>display</b> <i>argument</i> ...</td>
+<td>Display all, or some, of the <b>set</b> and <b>toggle</b> values (see below).</td>
+</tr>
+<tr class="tcw">
+<td><b>encrypt</b> <i>argument</i> ...</td>
+<td>The <b>encrypt</b> command controls the <b>TELNET ENCRYPT</b> protocol option. If <b>telnet</b> was <a href="/jargon/c/compile.htm">compiled</a> without <a href="/jargon/e/encrypt.htm">encryption</a>, the <b>encrypt</b> command will not be supported. Valid arguments are as follows:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:216px"><b>disable</b> <i>type</i> [<b>input</b>|<b>output</b>]</td>
+<td>Disable the specified type of encryption. If you do not specify <b>input</b> or <b>output</b>, encryption of both is disabled. To obtain a list of available types, use "<b>encrypt disable ?</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>enable</b> <i>type</i> [<b>input</b>|<b>output</b>]</td>
+<td>Enable the specified type of encryption. If you do not specify <b>input</b> or <b>output</b>, encryption of both is enabled. To obtain a list of available types, use "<b>encrypt enable ?</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>input</b></td>
+<td>This argument is the same as "<b>encrypt start input</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-input</b></td>
+<td>This argument is the same as "<b>encrypt stop input</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>output</b></td>
+<td>This argument is the same as "<b>encrypt start output</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-output</b></td>
+<td>This argument is the same as "<b>encrypt stop output</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>start</b> [<b>input</b>|<b>output</b>]</td>
+<td>Attempt to begin encrypting. If you do not specify <b>input</b> or <b>output</b>, encryption of both input and output is started.</td>
+</tr>
+<tr class="tcw">
+<td><b>status</b></td>
+<td>Display the current status of the encryption module.</td>
+</tr>
+<tr class="tcw">
+<td><b>stop</b> [<b>input</b>|<b>output</b>]</td>
+<td>Stop encrypting. If you do not specify <b>input</b> or <b>output</b>, encryption of both is stopped.</td>
+</tr>
+<tr class="tcw">
+<td><b>type</b> <i>type</i></td>
+<td>Sets the default type of encryption to be used with later "<b>encrypt start</b>" or "<b>encrypt stop</b>" commands.</td>
+</tr>
+</table>
+Note that the current version of <b>telnet</b> does not support encryption.</td>
+</tr>
+<tr class="tcw">
+<td><b>environ</b> <i>arguments</i>...</td>
+<td>The <b>environ</b> command is used to propagate environment variables across the <b>telnet</b> link using the <b>TELNET ENVIRON</b> protocol option. All variables exported from the <a href="/jargon/s/shell.htm">shell</a> are defined, but only the <b>DISPLAY</b> and <b>PRINTER</b> variables are marked to be sent by default. The <b>USER</b> variable is marked to be sent if the <b>-a</b> or <b>-l</b> <a href="/jargon/c/commandi.htm">command-line</a> options were used. Valid arguments for the <b>environ</b> command are:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:110px"><b>define</b> <i>variable</i> <i>value</i></td>
+<td>Define the <i>variable</i> to have a value of <i>value</i>. Any variables defined by this command are automatically marked for propagation ("exported"). The value may be enclosed in single or double quotes so that <a href="/jargon/t/tab.htm">tabs</a> and spaces may be included.</td>
+</tr>
+<tr class="tcw">
+<td><b>undefine</b> <i>variable</i></td>
+<td>Remove any existing definition of <i>variable</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>export</b> <i>variable</i></td>
+<td>Mark the specified variable for propagation to the remote host.</td>
+</tr>
+<tr class="tcw">
+<td><b>unexport</b> <i>variable</i></td>
+<td>Do not mark the specified variable for propagation to the remote host. The remote host may still ask explicitly for variables that are not exported.</td>
+</tr>
+<tr class="tcw">
+<td><b>list</b></td>
+<td>List the current set of environment variables. Those marked with an <a href="/jargon/a/asterisk.htm">asterisk</a> ("<b>*</b>") will be propagated to the remote host. The remote host may still ask explicitly for the rest.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>Prints out help information for the <b>environ</b> command.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>logout</b></td>
+<td>Send the <b>TELNET LOGOUT</b> protocol option to the remote host. This command is similar to a <b>close</b> command. If the remote host does not support the <b>LOGOUT</b> option, nothing happens. But if it does, this command should cause it to close the connection. If the remote side also supports the concept of suspending a user's session for later reattachment, the <b>logout</b> command indicates that the session should be terminated immediately.</td>
+</tr>
+<tr class="tcw">
+<td><b>mode</b> <i>type</i></td>
+<td>The <i>type</i> is one of several options, depending on the state of the session. <b>telnet</b> asks the remote host to go into the requested mode. If the remote host says it can, that mode takes effect. Options for <i>type</i> are as follows:
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:120px"><b>character</b></td>
+<td>Disable the <b>TELNET LINEMODE</b> option, or, if the remote side does not understand the <b>LINEMODE</b> option, then enter "character at a time" mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>line</b></td>
+<td>Enable the <b>TELNET LINEMODE</b> option, or, if the remote side does not understand the <b>LINEMODE</b> option, then attempt to enter "old-line-by-line" mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>isig</b> (<b>-isig</b>)</td>
+<td>Attempt to enable (disable) the <b>TRAPSIG</b> mode of the <b>LINEMODE</b> option. This requires that the <b>LINEMODE</b> option be enabled.</td>
+</tr>
+<tr class="tcw">
+<td><b>edit</b> (<b>-edit</b>)</td>
+<td>Attempt to enable (disable) the <b>EDIT</b> mode of the <b>LINEMODE</b> option. This requires that the <b>LINEMODE</b> option be enabled.</td>
+</tr>
+<tr class="tcw">
+<td><b>softtabs</b> (<b>-softtabs</b>)</td>
+<td>Attempt to enable (disable) the <b>SOFT_TAB</b> mode of the <b>LINEMODE</b> option. This requires that the <b>LINEMODE</b> option be enabled.</td>
+</tr>
+<tr class="tcw">
+<td><b>litecho</b> (<b>-litecho</b>)</td>
+<td>Attempt to enable (disable) the <b>LIT_ECHO</b> mode of the <b>LINEMODE</b> option. This requires that the <b>LINEMODE</b> option be enabled.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>Prints out help information for the <b>mode</b> command.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>open</b> <i>host</i> [[<b>-l</b>] <i>user</i>][<b>-</b> <i>port</i>]</td>
+<td>Open a connection to the named <i>host</i>. If no <i>port</i> number is specified, <b>telnet</b> attempts to contact a <b>telnet</b> <a href="/jargon/d/daemon.htm">daemon</a> at the standard port (<b>23</b>). The <i>host</i> specification may be a <a href="/jargon/h/hostname.htm">hostname</a> or <a href="/jargon/i/ip.htm">IP address</a>. The <b>-l</b> option may be used to specify a username to be passed to the remote system, like the <b>-l</b> command-line option. When connecting to ports other than the telnet port, <b>telnet</b> does not attempt telnet protocol negotiations. This method of connecting makes it possible to connect to services that do not support the telnet protocol without making a mess. Protocol negotiation can be forced by placing a dash before the port number.<br><br> After establishing a connection, any commands associated with the remote host in <b>/etc/telnetrc</b> and the user's <b>.telnetrc</b> file are <a href="/jargon/e/execute.htm">executed</a>, in that order. The format of the <b>telnetrc</b> files is as follows: Lines beginning with a <b>#</b>, and blank lines, are treated as <a href="/jargon/c/comment.htm">comments</a> (ignored). The rest of the file should consist of hostnames and sequences of telnet commands to use with that host. Commands should be one per line, indented by <a href="/jargon/w/whitspac.htm">whitespace</a>; lines beginning without whitespace are interpreted as hostnames. Lines beginning with the special hostname &lsquo;<b>DEFAULT</b>&rsquo; will apply to all hosts. Hostnames including &lsquo;<b>DEFAULT</b>&rsquo; may be followed immediately by a colon and a port number or string.<br><br> If a port is specified it must match exactly with what is specified on the command line. If no port was specified on the command line, then the value &lsquo;<b>telnet</b>&rsquo; is used. Upon connecting to a particular host, the commands associated with that host are executed.</td>
+</tr>
+<tr class="tcw">
+<td><b>quit</b></td>
+<td>Close any open session and exit <b>telnet</b>. An <a href="/jargon/e/eof.htm">end of file</a> condition on input, when in command mode, will trigger this operation as well.</td>
+</tr>
+<tr class="tcw">
+<td><b>send</b> <i>arguments</i></td>
+<td>Send one or more special telnet protocol character sequences to the remote host. The following are the codes which may be specified (more than one may be used in one command):<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:110px"><b>abort</b></td>
+<td>Sends the <b>TELNET ABORT</b> (abort processes) sequence.</td>
+</tr>
+<tr class="tcw">
+<td><b>ao</b></td>
+<td>Sends the <b>TELNET AO</b> (abort output) sequence, which should cause the remote system to flush all output from the remote system to the user's terminal.</td>
+</tr>
+<tr class="tcw">
+<td><b>ayt</b></td>
+<td>Sends the <b>TELNET AYT</b> (<b>are you there?</b>) sequence, that the remote system may or may not choose to respond.</td>
+</tr>
+<tr class="tcw">
+<td><b>brk</b></td>
+<td>Sends the <b>TELNET BRK</b> (break) sequence, which may have significance to the remote system.</td>
+</tr>
+<tr class="tcw">
+<td><b>ec</b></td>
+<td>Sends the <b>TELNET EC</b> (erase character) sequence, which should cause the remote system to erase the last character entered.</td>
+</tr>
+<tr class="tcw">
+<td><b>el</b></td>
+<td>Sends the <b>TELNET EL</b> (erase line) sequence, which should cause the remote system to erase the line currently being entered.</td>
+</tr>
+<tr class="tcw">
+<td><b>eof</b></td>
+<td>Sends the <b>TELNET EOF</b> (end-of-file) sequence.</td>
+</tr>
+<tr class="tcw">
+<td><b>eor</b></td>
+<td>Sends the <b>TELNET EOR</b> (end-of-record) sequence.</td>
+</tr>
+<tr class="tcw">
+<td><b>escape</b></td>
+<td>Sends the current telnet escape character.</td>
+</tr>
+<tr class="tcw">
+<td><b>ga</b></td>
+<td>Sends the <b>TELNET GA</b> (go ahead) sequence, which likely has no significance to the remote system.</td>
+</tr>
+<tr class="tcw">
+<td><b>getstatus</b></td>
+<td>If the remote side supports the <b>TELNET STATUS</b> command, <b>getstatus</b> sends the subnegotiation to request that the server send its current option status.</td>
+</tr>
+<tr class="tcw">
+<td><b>ip</b></td>
+<td>Sends the <b>TELNET IP</b> (interrupt [rocess) sequence, which should cause the remote system to abort the currently running process.</td>
+</tr>
+<tr class="tcw">
+<td><b>nop</b></td>
+<td>Sends the <b>TELNET NOP</b> (no operation) sequence.</td>
+</tr>
+<tr class="tcw">
+<td><b>susp</b></td>
+<td>Sends the <b>TELNET SUSP</b> (duspend process) sequence.</td>
+</tr>
+<tr class="tcw">
+<td><b>synch</b></td>
+<td>Sends the <b>TELNET SYNCH</b> sequence. This sequence causes the remote system to discard all previously typed (but not yet read) input. This sequence is sent as <a href="/jargon/t/tcpip.htm">TCP</a> urgent data (and may not work if the remote system is a 4.2 <a href="/jargon/b/bsd.htm">BSD</a> system -- if it doesn't work, a lowercase "<b>r</b>" may be <a href="/jargon/e/echo.htm">echoed</a> on the terminal).</td>
+</tr>
+<tr class="tcw">
+<td><b>do</b> <i>cmd</i></td>
+<td>Sends the <b>TELNET DO</b> <i>cmd</i> sequence. The <i>cmd</i> can be either a <a href="/jargon/d/decimal.htm">decimal</a> number between <b>0</b> and <b>255</b>, or a symbolic name for a specific <b>TELNET</b> command. The <i>cmd</i> can also be either <b>help</b> or <b>?</b> to print out help information, including a list of known symbolic names.</td>
+</tr>
+<tr class="tcw">
+<td><b>dont</b> <i>cmd</i>, <b>will</b> <i>cmd</i>, <b>wont</b> <i>cmd</i></td>
+<td>Similar to <b>do</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>Prints out help information for the <b>send</b> command.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>set</b> <i>argument</i> <i>value</i>,<br><b>unset</b> <i>argument</i> <i>value</i></td>
+<td>The <b>set</b> command will set any one of the telnet variables to a specific value or as <b>TRUE</b>. The special value <b>off</b> turns off the function associated with the variable. This command is equivalent to using the <b>unset</b> command. The <b>unset</b> command will disable or set to <b>FALSE</b> any of the specified variables. The values of variables may be interrogated with the <b>display</b> command. The variables which may be <b>set</b> or <b>unset</b>, but not toggled, are listed here. Also, any of the variables for the toggle command may be explicitly <b>set</b> or <b>unset</b>.<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:130px"><b>ayt</b></td>
+<td>If <b>telnet</b> is in <b>localchars</b> mode, or <b>LINEMODE</b> is enabled, and the <b>status</b> character is typed, a <b>TELNET AYT</b> sequence is sent to the remote host. The initial value for the "Are You There" character is the terminal's <b>status</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>echo</b></td>
+<td>This variable is the value (initially "<b>^E</b>") which, when in "line by line" mode, toggles between doing local echoing of entered characters (for normal processing), and suppressing echoing of entered characters (for entering, say, a password).</td>
+</tr>
+<tr class="tcw">
+<td><b>eof</b></td>
+<td>If <b>telnet</b> is operating in <b>LINEMODE</b> or "old line by line" mode, entering this character as the first character on a line causes this character to be sent to the remote system. The initial value of the <b>eof</b> character is taken to be the terminal's <b>eof</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>erase</b></td>
+<td>If <b>telnet</b> is in <b>localchars</b> mode (see <b>toggle localchars</b> below), and if <b>telnet</b> is operating in "character at a time" mode, then when this character is typed, a <b>TELNET EC</b> sequence (see <b>send ec</b> above) is sent to the remote system. The initial value for the <b>erase</b> character is taken to be the terminal's <b>erase</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>escape</b></td>
+<td>This variable is the telnet escape character (initially "<b>^[</b>") which causes entry into <b>telnet</b> command mode (when connected to a remote system).</td>
+</tr>
+<tr class="tcw">
+<td><b>flushoutput</b></td>
+<td>If <b>telnet</b> is in <b>localchars</b> mode (see <b>toggle localchars</b> below) and the <b>flushoutput</b> character is typed, a <b>TELNET AO</b> sequence (see <b>send ao</b> above) is sent to the remote host. The initial value for the <b>flush</b> character is taken to be the terminal's <b>flush</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>forw1</b>, <b>forw2</b></td>
+<td>If <b>telnet</b> is operating in <b>LINEMODE</b>, these are the characters that, when typed, cause partial lines to be forwarded to the remote system. The initial value for the forwarding characters are taken from the terminal's <b>eol</b> and <b>eol2</b> characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>interrupt</b></td>
+<td>If telnet is in <b>localchars</b> mode (see <b>toggle localchars</b> below) and the <b>interrupt</b> character is typed, a <b>TELNET IP</b> sequence (see <b>send ip</b> above) is sent to the remote host. The initial value for the <b>interrupt</b> character is taken to be the terminal's <b>intr</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>kill</b></td>
+<td>If <b>telnet</b> is in <b>localchars</b> mode (see <b>toggle localchars</b> below), and if <b>telnet</b> is operating in "character at a time" mode, then when this character is typed, a <b>TELNET EL</b> sequence (see <b>send el</b> above) is sent to the remote system. The initial value for the kill character is taken to be the terminal's <b>kill</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>lnext</b></td>
+<td>If <b>telnet</b> is operating in <b>LINEMODE</b> or "old line by line" mode, then this character is taken to be the terminal's <b>lnext</b> character. The initial value for the <b>lnext</b> character is taken to be the terminal's <b>lnext</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>quit</b></td>
+<td>If <b>telnet</b> is in <b>localchars</b> mode (see <b>toggle localchars</b> below) and the <b>quit</b> character is typed, a <b>TELNET BRK</b> sequence (see <b>send brk</b> above) is sent to the remote host. The initial value for the <b>quit</b> character is taken to be the terminal's <b>quit</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>reprint</b></td>
+<td>If <b>telnet</b> is operating in <b>LINEMODE</b> or "old line by line" mode, then this character is taken to be the terminal's <b>reprint</b> character. The initial value for the <b>reprint</b> character is taken to be the terminal's <b>reprint</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>rlogin</b></td>
+<td>This variable is the <b>rlogin mode</b> escape character. Setting it enables <b>rlogin mode</b>, as with the <b>r</b> command-line option (see above).</td>
+</tr>
+<tr class="tcw">
+<td><b>start</b></td>
+<td>If the <b>TELNET TOGGLE-FLOW-CONTROL</b> option is enabled, then this character is taken to be the terminal's start character. The initial value for the <b>kill</b> character is taken to be the terminal's <b>start</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>stop</b></td>
+<td>If the <b>TELNET TOGGLE-FLOW-CONTROL</b> option is enabled, then this character is taken to be the terminal's <b>stop</b> character. The initial value for the <b>kill</b> character is taken to be the terminal's <b>stop</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>susp</b></td>
+<td>If <b>telnet</b> is in <b>localchars</b> mode, or <b>LINEMODE</b> is enabled, and the <b>suspend</b> character is typed, a <b>TELNET SUSP</b> sequence (see <b>send susp</b> above) is sent to the remote host. The initial value for the <b>suspend</b> character is taken to be the terminal's <b>suspend</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>tracefile</b></td>
+<td>This variable is the file where the output, caused by <b>netdata</b> or <b>option tracing</b> being <b>TRUE</b>, will be written. If it is set to "<b>-</b>", then tracing information will be written to standard output (this is the default).</td>
+</tr>
+<tr class="tcw">
+<td><b>worderase</b></td>
+<td>If <b>telnet</b> is operating in <b>LINEMODE</b> or "old line by line" mode, then this character is taken to be the terminal's <b>worderase</b> character. The initial value for the <b>worderase</b> character is taken to be the terminal's <b>worderase</b> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>Displays the legal <b>set</b> (or <b>unset</b>) commands.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>slc</b> <i>state</i></td>
+<td>The <b>slc</b> command (set local characters) is used to set or change the state of the special characters when the <b>TELNET LINEMODE</b> option is enabled. Special characters are characters that get mapped to TELNET commands sequences (like <b>ip</b> or <b>quit</b>) or line editing characters (like <b>erase</b> and <b>kill</b>). By default, the local special characters are exported. <i>state</i> may be one of the following:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:80px"><b>check</b></td>
+<td>Verify the current settings for the current special characters. The remote side is requested to send all the current special character settings, and if there are any discrepancies with the local side, the local side switches to the remote value.</td>
+</tr>
+<tr class="tcw">
+<td><b>export</b></td>
+<td>Switch to the local defaults for the special characters. The local default characters are those of the local terminal at the time when <b>telnet</b> was started.</td>
+</tr>
+<tr class="tcw">
+<td><b>import</b></td>
+<td>Switch to the remote defaults for the special characters. The remote default characters are those of the remote system at the time when the TELNET connection was established.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>Prints out help information for the <b>slc</b> command.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>status</b></td>
+<td>Show the current status of <b>telnet</b>. This command includes the name of the remote host, if any, and the current mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>toggle</b> <i>arguments</i> ...</td>
+<td>Toggle (between <b>TRUE</b> and <b>FALSE</b>) various flags that control how <b>telnet</b> responds to events. These flags may be set explicitly to <b>TRUE</b> or <b>FALSE</b> using the <b>set</b> and <b>unset</b> commands. More than one flag may be toggled at once. The state of these flags may be examined with the display command. Valid flags are:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:190px"><b>authdebug</b></td>
+<td>Turns on debugging for the authentication code. This flag only exists if authentication support is enabled.</td>
+</tr>
+<tr class="tcw">
+<td><b>autoflush</b></td>
+<td>If <b>autoflush</b> and <b>localchars</b> are both <b>TRUE</b>, then when the <b>ao</b>, or <b>quit</b> characters are recognized (and transformed into TELNET sequences; see <b>set</b> above for details), <b>telnet</b> refuses to display any data on the user's terminal until the remote system acknowledges (via a <b>TELNET TIMING MARK</b> option) that it has processed those <b>TELNET</b> sequences. The initial value for this toggle is <b>TRUE</b> if the terminal user had not done an "<b>stty noflsh</b>", otherwise <b>FALSE</b> (see <a href="/unix/ustty.htm">stty</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>autoencrypt</b>, <b>autodecrypt</b></td>
+<td>When the <b>TELNET ENCRYPT</b> option is negotiated, by default the actual encryption (or decryption) of the data stream does not start automatically. The <b>autoencrypt</b> (or <b>autodecrypt</b>) command states that encryption of the output (input) stream should be enabled as soon as possible.<br><br> Note that this flag exists only if encryption support is enabled.</td>
+</tr>
+<tr class="tcw">
+<td><b>autologin</b></td>
+<td>If the remote side supports the <b>TELNET AUTHENTICATION</b> option, <b>telnet</b> attempts to use it to perform automatic authentication. If the <b>TELNET AUTHENTICATION</b> option is not supported, the user's login name is propagated using the <b>TELNET ENVIRON</b> option. Setting this flag is the same as specifying the "a" option to the <b>open</b> command or on the command line.</td>
+</tr>
+<tr class="tcw">
+<td><b>autosynch</b></td>
+<td>If <b>autosynch</b> and <b>localchars</b> are both <b>TRUE</b>, then when either the <b>intr</b> or <b>quit</b> characters is typed (see <b>set</b> above for descriptions of the <b>intr</b> and <b>quit</b> characters), the resulting <b>telnet</b> sequence sent is followed by the <b>TELNET SYNCH</b> sequence. This procedure should cause the remote system to begin throwing away all previously typed input until both of the telnet sequences are read and acted upon. The initial value of this toggle is <b>FALSE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>binary</b></td>
+<td>Enable or disable the <b>TELNET BINARY</b> option on both input and output.</td>
+</tr>
+<tr class="tcw">
+<td><b>inbinary</b></td>
+<td>Enable or disable the <b>TELNET BINARY</b> option on input.</td>
+</tr>
+<tr class="tcw">
+<td><b>outbinary</b></td>
+<td>Enable or disable the <b>TELNET BINARY</b> option on output.</td>
+</tr>
+<tr class="tcw">
+<td><b>crlf</b></td>
+<td>If this is TRUE, then carriage returns will be sent as <a href="/jargon/c/cr.htm">CR</a> <a href="/jargon/l/lf.htm">LF</a>. If this is <b>FALSE</b>, then carriage returns will be send as CR <a href="/jargon/n/nullchar.htm">NUL</a>. The initial value for this toggle is <b>FALSE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>crmod</b></td>
+<td>Toggle carriage return mode. When this mode is enabled, most carriage return characters received from the remote host will be mapped into a carriage return followed by a line feed. This mode does not affect those characters typed by the user, only those received from the remote host. This mode is not very useful unless the remote host only sends carriage return, but never line feed. The initial value for this toggle is <b>FALSE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>debug</b></td>
+<td>Toggles socket level debugging (useful only to the <a href="/jargon/r/root.htm">superuser</a>). The initial value for this toggle is <b>FALSE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>encdebug</b></td>
+<td>Turns on <a href="/jargon/d/debug.htm">debugging</a> information for the encryption code. Note that this flag only exists if encryption support is available.</td>
+</tr>
+<tr class="tcw">
+<td><b>localchars</b></td>
+<td>If this is <b>TRUE</b>, then the <b>flush</b>, <b>interrupt</b>, <b>quit</b>, <b>erase</b>, and <b>kill</b> characters (see <b>set</b> above) are recognized locally, and transformed into (hopefully) appropriate TELNET control sequences (respectively <b>ao</b>, <b>ip</b>, <b>brk</b>, <b>ec</b>, and <b>el</b>; see <b>send</b> above). The initial value for this toggle is <b>TRUE</b> in "old line by line" mode, and <b>FALSE</b> in "character at a time" mode. When the <b>LINEMODE</b> option is enabled, the value of <b>localchars</b> is ignored, and assumed to always be <b>TRUE</b>. If <b>LINEMODE</b> has ever been enabled, then <b>quit</b> is sent as <b>abort</b>, and <b>eof and</b> are sent as <b>eof</b> and <b>susp</b>; see <b>send</b> above).</td>
+</tr>
+<tr class="tcw">
+<td><b>netdata</b></td>
+<td>Toggles the display of all network data (in <a href="/jargon/h/hex.htm">hexadecimal</a> format). The initial value for this toggle is <b>FALSE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>options</b></td>
+<td>Toggles the display of some internal telnet protocol processing (having to do with <b>telnet</b> options). The initial value for this toggle is <b>FALSE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>prettydump</b></td>
+<td>When the <b>netdata</b> toggle is enabled, if <b>prettydump</b> is enabled the output from the <b>netdata</b> command will be formatted in a more user-readable format. Spaces are put between each character in the output, and the beginning of telnet escape sequences are preceded by an asterisk ("<b>*</b>") to aid in locating them.</td>
+</tr>
+<tr class="tcw">
+<td><b>skiprc</b></td>
+<td>When the <b>skiprc</b> toggle is <b>TRUE</b>, <b>telnet</b> does not read the <b>telnetrc</b> files. The initial value for this toggle is <b>FALSE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>termdata</b></td>
+<td>Toggles the display of all terminal data (in hexadecimal format). The initial value for this toggle is <b>FALSE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>verbose_encrypt</b></td>
+<td>When the <b>verbose_encrypt</b> toggle is <b>TRUE</b>, <b>TELNET</b> prints out a message each time encryption is enabled or disabled. The initial value for this toggle is <b>FALSE</b>. This flag only exists if encryption support is available.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>Displays the legal toggle commands.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>z</b></td>
+<td>Suspend <b>telnet</b>. This command only works when the user uses the C Shell (<a href="/unix/ucsh.htm">csh</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>!</b> [<i>command</i>]</td>
+<td>Execute a single command in a subshell on the local system. If <i>command</i> is omitted, then an interactive subshell is invoked.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b> [<i>command</i>]</td>
+<td>Get help. With no arguments, <b>telnet</b> prints a help summary. If a <i>command</i> is specified, <b>telnet</b> prints the help information for that command.</td>
+</tr>
+</table>
+<h2 id="environment">Environment</h2>
+<p class="tab"><b>telnet</b> uses at least the <b>HOME</b>, <b>SHELL</b>, <b>DISPLAY</b>, and <b>TERM</b> <a href="/jargon/e/envivari.htm">environment variables</a>. Other environment variables may be propagated to the other side via the <b>TELNET ENVIRON</b> option.</p>
+<h2 id="files">Files</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:140px"><b>/etc/telnetrc</b></td>
+<td>global telnet startup values</td>
+</tr>
+<tr class="tcw">
+<td><b>~/.telnetrc</b></td>
+<td>user customized telnet startup values</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">telnet myhost.com</pre>
+<p class="tab">Attempts to open a connection to the remote host <b>myhost.com</b>. If a connection is established, the host prompts for a login name and password.</p>
+<pre class="tcy tab">telnet -l myusername myhost.com 5555</pre>
+<p class="tab">Attempts to open a connection to the remote host <b>myhost.com</b> on port <b>5555</b>, using the login name <b>myusername</b>. If successful, the host prompts for <b>myusername</b>'s password.</p>
+<pre class="tcy tab">telnet</pre>
+<p class="tab">Opens a local <b>telnet&gt;</b> prompt, where you can enter any of the commands listed <a href="#commands">above</a>. For example, entering the following command at the prompt:</p>
+<pre class="tcy tab"><b>telnet&gt;</b> open myhost.com</pre>
+<p class="tab">...attempts to open a connection to <b>myhost.com</b>, as in our first example.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/urlogin.htm"><b>rlogin</b></a> &mdash; Begin a session on a remote system.<br><a href="/unix/slogin.htm"><b>ssh</b></a> &mdash; Login to a remote system securely.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83624e3e84a4',m:'pviXoQvo8HSA3rcbZy8IiXft3_.2lQYlS7W4u0rfwk0-1661495368-0-Afuz1Vn2hqI+I+OdUUbkv3PsAQeKC5MehUAbnL8X/CG5jipB9ePSniZ3BbfeBom8CnVwgG7omyq7cXQzXDcAWovW27FId2NOlLiMxlcElr77RBBgLVMZvhNtQraJ1XphhVcwCbGrHwBBCsEgdq252Y0=',s:[0xc981d343b1,0xe70613d0cd],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux scp command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-11-16">11/16/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/scp.gif" width="300" height="300" alt="scp command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>scp</b> command <a href="/jargon/c/copy.htm">copies</a> files over a secure, <a href="/jargon/e/encrypt.htm">encrypted</a> network connection.</p>
+<p><b>scp</b> stands for "secure copy." It is similar to the standard Unix command, <a href="/unix/ucp.htm"><b>cp</b></a>, but it operates over a secure network connection.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#copying-files">Copying files</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>scp</b> command can be thought of as a network version of <b>cp</b>. For example, you might use the following <b>cp</b> command:</p>
+<pre class="tab tcy">cp /home/stacy/images/image*.jpg /home/stacy/archive</pre>
+<p class="tab">...which would copy all files in the directory <b>images</b> in user <b>stacy</b>'s <a href="/jargon/h/homedir.htm">home directory</a> whose name starts with "<b>image</b>" and ends in "<b>.jpg</b>" into the directory <b>archive</b> in her home directory.</p>
+<p class="tab">Similarly, you could use the <b>scp</b> command:</p>
+<pre class="tab tcy">scp /home/stacy/images/image*.jpg <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="790a0d181a0039140011160a0d571a1614">[email&#160;protected]</a>:/home/stacy/archive</pre>
+<p class="tab">...to upload those same files to the server <b>myhost.com</b>, using the login name <b>stacy</b>, into the remote directory <b>/home/stacy/archive</b>. <b>scp</b> will ask for <b>stacy</b>'s remote password before initiating the upload.</p>
+<p class="tab">Or, you could specify a remote location as the source location if you want to download files. For example,</p>
+<pre class="tab tcy">scp <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8dfef9eceef4cde0f4e5e2fef9a3eee2e0">[email&#160;protected]</a>:/home/stacy/archive/image*.jpg /home/stacy/downloads</pre>
+<p class="tab">...would download all the files in the remote directory <b>/home/stacy/archive</b> on <b>myhost.com</b> whose name starts with "<b>image</b>" and ends in <b>.jpg</b>, into the local directory <b>/home/stacy/downloads</b>.</p>
+<p class="tab">You can also specify a remote host as both the source and destination. For instance, the following command will transfer a file from one remote directory on <b>myhost.com</b> to another directory on the same server:</p>
+<pre class="tab tcy">scp <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="681d1b0d1a28051100071b1c460b0705">[email&#160;protected]</a>:/home/user/dir1/file.txt <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="becbcddbccfed3c7d6d1cdca90ddd1d3">[email&#160;protected]</a>:/home/user/dir2</pre>
+<p class="tab">...while this command will transfer a file from one remote host to another:</p>
+<pre class="tab tcy">scp <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96e5f9fbf3e3e5f3e4d6f7fae6fef7b8f5f9fb">[email&#160;protected]</a>:/somedir/somefile.txt <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8efde1e3ebfbfdebfcceecebfaefa0ede1e3">[email&#160;protected]</a>:/anotherdir</pre>
+<p class="tab">Keep in mind that all <b>scp</b> transfers have the benefit of being secure: they are encrypted, like an <a href="/unix/slogin.htm"><b>ssh</b></a> or <a href="/unix/sftp.htm"><b>sftp</b></a> session.</p>
+<h2 id="copying-files">Copying files</h2>
+<p class="tab"><b>scp</b> copies files securely between <a href="/jargon/h/hostcomp.htm">hosts</a> on a <a href="/jargon/n/network.htm">network</a>. It uses <a href="/jargon/s/ssh.htm"><b>ssh</b></a> for <a href="/jargon/d/data.htm">data</a> transfer, and uses the same <a href="/jargon/a/auth.htm">authentication</a> and provides the same security as <b>ssh</b>. Unlike <a href="/unix/urcp.htm"><b>rcp</b></a>, <b>scp</b> will ask for <a href="/jargon/p/password.htm">passwords</a> or passphrases if they are needed for authentication.</p>
+<p class="tab">File names may contain a user and host specification to indicate that the file is to be copied to/from that host. Local file names can be made explicit using <a href="/jargon/a/absopath.htm">absolute</a> or <a href="/jargon/r/relapath.htm">relative</a> <a href="/jargon/p/path.htm">pathnames</a> to avoid <b>scp</b> treating file names containing '<b>:</b>' as host specifiers. Copies between two remote hosts are also permitted.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">scp [-12346BCpqrv] [-c <i>cipher</i>] [-F <i>ssh_config</i>] [-i <i>identity_file</i>] 
+    [-l <i>limit</i>] [-o <i>ssh_option</i>] [-P <i>port</i>] [-S <i>program</i>]
+    [[<i>user</i>@]<i>host1</i>:]<i>file1</i> ... [[<i>user</i>@]<i>host2</i>:]<i>file2</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>-1</b></td>
+<td>Forces <b>scp</b> to use <a href="/jargon/p/protocol.htm">protocol</a> 1. This is an older protocol.</td>
+</tr>
+<tr class="tcw">
+<td><b>-2</b></td>
+<td>Forces <b>scp</b> to use protocol 2. This is an older protocol.</td>
+</tr>
+<tr class="tcw">
+<td><b>-3</b></td>
+<td>Copies between two remote hosts are transferred through the local host. Without this option the data is copied directly between the two remote hosts. This option also disables the progress meter.</td>
+</tr>
+<tr class="tcw">
+<td><b>-4</b></td>
+<td>Forces <b>scp</b> to use IPv4 addresses only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-6</b></td>
+<td>Forces <b>scp</b> to use IPv6 addresses only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b></td>
+<td>Uses <a href="/jargon/b/batchfil.htm">batch</a> mode, operating without any interactive keyboard input. This means that <b>scp</b> cannot authenticate the session by asking the user to type in a password; therefore, a non-interactive authentication method is required. For an example of setting up non-interactive authentication, see <a href="/unix/sftp.htm#Public-Key-Authentication">Setting Up Public Key Authentication</a> in our <b>sftp</b> documentation.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>Enable compression, which passes the <b>-C</b> flag to <b>ssh</b> to enable compression of the encrypted connection.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b> <i>cipher</i></td>
+<td>Selects the <a href="/jargon/c/cipher.htm">cipher</a> to use for encrypting the data transfer. This option is directly passed to <b>ssh</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b> <i>ssh_config</i></td>
+<td>Specifies an alternative per-user configuration file for <b>ssh</b>. This option is directly passed to <b>ssh</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b> <i>identity_file</i></td>
+<td>Selects the file from which the identity (private key) for <a href="/jargon/r/rsa.htm">RSA</a> authentication is read. This option is directly passed to <b>ssh</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b> <i>limit</i></td>
+<td>Limits the used <a href="/jargon/b/bandwidt.htm">bandwidth</a>, specified in <a href="/jargon/k/kilobyte.htm">Kbit</a>/s.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b> <i>ssh_option</i></td>
+<td>Can be used to pass options to <b>ssh</b> in the format used in <b>ssh_config</b>. This is useful for specifying options for which there is no separate <b>scp</b> command-line flag. Valid options are:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:320px"><b>AddressFamily</b></td>
+<td>Specifies which address family to use when connecting. Valid arguments are "<b>any</b>", "<b>inet</b>" (use IPv4 only), or "<b>inet6</b>" (use IPv6 only).</td>
+</tr>
+<tr class="tcw">
+<td><b>BatchMode</b></td>
+<td>If set to "<b>yes</b>", passphrase/password querying will be disabled. Also, the <b>ServerAliveInterval</b> option will be set to <b>300</b> seconds by default. This option is useful in scripts and other batch jobs where no user is present to supply the password, and where it is desirable to detect a broken network swiftly. The argument must be "<b>yes</b>" or "<b>no</b>". The default is "<b>no</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>BindAddress</b></td>
+<td>Use the specified address on the local machine as the source address of the connection. Only useful on systems with more than one address. Note that this option does not work if <b>UsePrivilegedPort</b> is set to "<b>yes</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>ChallengeResponseAuthentication</b></td>
+<td>Specifies whether to use challenge-response authentication. The argument to this keyword must be "<b>yes</b>" or "<b>no</b>". The default is "<b>yes</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>CheckHostIP</b></td>
+<td>If this flag is set to "<b>yes</b>", <b>ssh</b> will additionally check the host IP address in the <b>known_hosts</b> file. This allows <b>ssh</b> to detect if a host key changed due to DNS spoofing. If the option is set to "<b>no</b>", the check is not executed. The default is "<b>yes</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>Cipher</b></td>
+<td>Specifies the cipher to use for encrypting the session in protocol version 1. Currently, "<b>blowfish</b>", "<b>3des</b>", and "<b>des</b>" are supported. <b>des</b> is only supported in the <b>ssh</b> client for interoperability with legacy protocol 1 implementations that do not support the 3des cipher. Its use is strongly discouraged due to cryptographic weaknesses. The default is "<b>3des</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>Ciphers</b></td>
+<td>Specifies the ciphers allowed for protocol version 2 in order of preference. Multiple ciphers must be comma-separated. The supported ciphers are "<b>3des-cbc</b>", "<b>aes128-cbc</b>", "<b>aes192-cbc</b>", "<b>aes256-cbc</b>", "<b>aes128-ctr</b>", "<b>aes192-ctr</b>", "<b>aes256-ctr</b>", "<b>arcfour128</b>", "<b>arcfour256</b>", "<b>arcfour</b>", "<b>blowfish-cbc</b>", and "<b>cast128-cbc</b>". The default is:<br><br><b>aes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128, aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc, aes256-cbc,arcfour</b></td>
+</tr>
+<tr class="tcw">
+<td><b>Compression</b></td>
+<td>Specifies whether to use compression. The argument must be "<b>yes</b>" or "<b>no</b>". The default is "<b>no</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>CompressionLevel</b></td>
+<td>Specifies the compression level to use if compression is enabled. The argument must be an integer from <b>1</b> (fastest) to <b>9</b> (slowest, best). The default level is <b>6</b>, which is good for most applications. The meaning of the values is the same as in <a href="/unix/uzcat.htm"><b>gzip</b></a>. Note that this option applies to protocol version 1 only.</td>
+</tr>
+<tr class="tcw">
+<td><b>ConnectionAttempts</b></td>
+<td>Specifies the number of tries (one per second) to make before exiting. The argument must be an integer. This may be useful in scripts if the connection sometimes fails. The default is <b>1</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>ConnectionTimeout</b></td>
+<td>Specifies the timeout (in seconds) used when connecting to the SSH server, instead of using the default system TCP timeout. This value is used only when the target is down or really unreachable, not when it refuses the connection.</td>
+</tr>
+<tr class="tcw">
+<td><b>GlobalKnownHostsFile</b></td>
+<td>Specifies one or more files to use for the global host key database, separated by whitespace. The default is <b>/etc/ssh/ssh_known_hosts</b>, <b>/etc/ssh/ssh_known_hosts2</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>GSSAPIAuthentication</b></td>
+<td>Specifies whether user authentication based on GSSAPI is allowed. The default is "<b>no</b>". Note that this option applies to protocol version 2 only.</td>
+</tr>
+<tr class="tcw">
+<td><b>GSSAPIDelegateCredentials</b></td>
+<td>Forward (delegate) credentials to the server. The default is "<b>no</b>". Note that this option applies to protocol version 2 connections using GSSAPI.</td>
+</tr>
+<tr class="tcw">
+<td><b>Host</b></td>
+<td>See <b>HostName</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>HostbasedAuthentication</b></td>
+<td>Specifies whether to try rhosts based authentication with public key authentication. The argument must be "<b>yes</b>" or "<b>no</b>". The default is "<b>no</b>". This option applies to protocol version 2 only and is similar to <b>RhostsRSAAuthentication</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>HostKeyAlgorithms</b></td>
+<td>Specifies the protocol version 2 host key algorithms that the client wants to use in order of preference. The default for this option is:<br><br><b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93f6f0f7e0f2bee0fbf2a1befdfae0e7e3a1a6a5bef0f6e1e7bee5a3a2d3fce3f6fde0e0fbbdf0fcfe">[email&#160;protected]</a>, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="badfd9dec9db97c9d2db8897d4d3c9ceca89828e97d9dfc8ce97cc8a8bfad5cadfd4c9c9d294d9d5d7">[email&#160;protected]</a>, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c2a7a1a6b1a3efb1aaa3f0efacabb1b6b2f7f0f3efa1a7b0b6efb4f2f382adb2a7acb1b1aaeca1adaf">[email&#160;protected]</a>, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="98ebebf0b5eaebf9b5fbfdeaecb5eea8a9d8f7e8fdf6ebebf0b6fbf7f5">[email&#160;protected]</a>,<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="106363783d7463633d737562643d662021507f60757e6363783e737f7d">[email&#160;protected]</a>, <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8dfefee5a0fffeeca0eee8fff9a0fbbdbdcde2fde8e3fefee5a3eee2e0">[email&#160;protected]</a>,<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="087b7b60256c7b7b256b6d7a7c257e38384867786d667b7b60266b6765">[email&#160;protected]</a>, ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521, ssh-rsa,ssh-dss</b><br><br> If hostkeys are known for the destination host then this default is modified to prefer their algorithms.</td>
+</tr>
+<tr class="tcw">
+<td><b>HostKeyAlias</b></td>
+<td>Specifies an alias that should be used instead of the real <a href="/jargon/h/hostname.htm">hostname</a> when looking up or saving the host key in the host key database files. This option is useful for tunneling SSH connections or for multiple servers running on a single host.</td>
+</tr>
+<tr class="tcw">
+<td><b>HostName</b></td>
+<td>Specifies the real hostname to log into. This can be used to specify nicknames or abbreviations for hosts. If the hostname contains the character sequence '<b>%h</b>', then this will be replaced with the hostname specified on the command line (this is useful for manipulating unqualified names). The default is the name given on the command line. Numeric IP addresses are also permitted (both on the command line and in <b>HostName</b> specifications).</td>
+</tr>
+<tr class="tcw">
+<td><b>IdentityFile</b></td>
+<td>Specifies a file from which the user's DSA, ECDSA or DSA authentication identity is read. The default is <b>~/.ssh/identity</b> for protocol version 1, and <b>~/.ssh/id_dsa</b>, <b>~/.ssh/id_ecdsa</b> and <b>~/.ssh/id_rsa</b> for protocol version 2. Additionally, any identities represented by the authentication agent will be used for authentication. <b>ssh</b> will try to load certificate information from the file name obtained by appending <b>-cert.pub</b> to the path of a specified <b>IdentityFile</b>.<br><br> The file name may use the tilde syntax to refer to a user's home directory or one of the following escape characters: '<b>%d</b>' (local user's home directory), '<b>%u</b>' (local username), '<b>%l</b>' (local hostname), '<b>%h</b>' (remote hostname) or '<b>%r</b>' (remote username).<br><br> It is possible to have multiple identity files specified in configuration files; all these identities will be tried in sequence. Multiple <b>IdentityFile</b> directives will add to the list of identities tried (this behaviour differs from that of other configuration directives).</td>
+</tr>
+<tr class="tcw">
+<td><b>IdentitiesOnly</b></td>
+<td>Specifies that <b>ssh</b> should only use the authentication identity files configured in the <b>ssh_config</b> files, even if <b>ssh-agent</b> offers more identities. The argument to this keyword must be "<b>yes</b>" or "<b>no</b>". This option is intended for situations where <b>ssh-agent</b> offers many different identities. The default is "<b>no</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>LogLevel</b></td>
+<td>Gives the verbosity level that is used when logging messages from <b>ssh</b>. The possible values are: <b>QUIET</b>, <b>FATAL</b>, <b>ERROR</b>, <b>INFO</b>, <b>VERBOSE</b>, <b>DEBUG</b>, <b>DEBUG1</b>, <b>DEBUG2</b>, and <b>DEBUG3</b>. The default is <b>INFO</b>. <b>DEBUG</b> and <b>DEBUG1</b> are equivalent. <b>DEBUG2</b> and <b>DEBUG3</b> each specify higher levels of verbose output.</td>
+</tr>
+<tr class="tcw">
+<td><b>MACs</b></td>
+<td>Specifies the MAC (message authentication code) algorithms in order of preference. The MAC algorithm is used in protocol version 2 for data integrity protection. Multiple algorithms must be comma-separated. The default is:<br><br><b>hmac-md5,hmac-sha1,<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d8adb5b9bbf5eeec98b7a8bdb6ababb0f6bbb7b5">[email&#160;protected]</a>, hmac-ripemd160,hmac-sha1-96,hmac-md5-96, hmac-sha2-256,hmac-sha2-256-96,hmac-sha2-512, hmac-sha2-512-96</b></td>
+</tr>
+<tr class="tcw">
+<td><b>NoHostAuthenticationForLocalhost</b></td>
+<td>This option can be used if the home directory is shared across machines. In this case, localhost refers to a different machine on each of the machines and the user will get many warnings about changed host keys. However, this option disables host authentication for localhost. The argument to this keyword must be "<b>yes</b>" or "<b>no</b>". The default is to check the host key for localhost.</td>
+</tr>
+<tr class="tcw">
+<td><b>NumberOfPasswordPrompts</b></td>
+<td>Specifies the number of password prompts before giving up. The argument to this keyword must be an integer. The default is <b>3</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>PasswordAuthentication</b></td>
+<td>Specifies whether to use password authentication. The argument to this keyword must be "<b>yes</b>" or "<b>no</b>". The default is "<b>yes</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>Port</b></td>
+<td>Specifies the port number to connect on the remote host. The default is <b>22</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>PreferredAuthentications</b></td>
+<td>Specifies the order in which the client should try protocol 2 authentication methods. This allows a client to prefer one method (e.g., <b>keyboard-interactive</b>) over another method (e.g., <b>password</b>). The default is:<br><br><b>gssapi-with-mic,hostbased,publickey, keyboard-interactive,password</b></td>
+</tr>
+<tr class="tcw">
+<td><b>Protocol</b></td>
+<td>Specifies the protocol versions <b>ssh</b> should support in order of preference. The possible values are '<b>1</b>' and '<b>2</b>'. Multiple versions must be comma-separated. When this option is set to "<b>2,1</b>" <b>ssh</b> will try version 2 and fall back to version 1 if version 2 is not available. The default is '<b>2</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>ProxyCommand</b></td>
+<td>Specifies the command to use to connect to the server. The command string extends to the end of the line, and is executed with the user's shell. In the command string, any occurrence of '<b>%h</b>' will be substituted by the hostname to connect, '<b>%p</b>' by the port, and '<b>%r</b>' by the remote username. The command can be basically anything, and should read from its standard input and write to its standard output. It should eventually connect an <b>sshd</b> server running on some machine, or execute <b>sshd -i</b> somewhere. Host key management will be done using the <b>HostName</b> of the host being connected (defaulting to the name typed by the user). Setting the command to "<b>none</b>" disables this option entirely. Note that <b>CheckHostIP</b> is not available for connects with a proxy command.<br><br> This directive is useful in conjunction with <a href="/unix/nc.htm"><b>nc</b></a> and its proxy support. For example, the following directive would connect via an HTTP proxy at <b>192.0.2.0</b>:<br><br><b>ProxyCommand /usr/bin/nc -X connect -x 192.0.2.0:8080 %h %p</b></td>
+</tr>
+<tr class="tcw">
+<td><b>PubkeyAuthentication</b></td>
+<td>Specifies whether to try public key authentication. The argument to this keyword must be "<b>yes</b>" or "<b>no</b>". The default is "<b>yes</b>". This option applies to protocol version 2 only.</td>
+</tr>
+<tr class="tcw">
+<td><b>RhostsRSAAuthentication</b></td>
+<td>Specifies whether to try rhosts based authentication with RSA host authentication. The argument must be "<b>yes</b>" or "<b>no</b>". The default is "<b>no</b>". This option applies to protocol version 1 only and requires <b>ssh</b> to be setuid root.</td>
+</tr>
+<tr class="tcw">
+<td><b>RSAAuthentication</b></td>
+<td>Specifies whether to try RSA authentication. The argument to this keyword must be "<b>yes</b>" or "<b>no</b>". RSA authentication will only be attempted if the identity file exists, or an authentication agent is running. The default is "<b>yes</b>". Note that this option applies to protocol version 1 only.</td>
+</tr>
+<tr class="tcw">
+<td><b>ServerAliveInterval</b></td>
+<td>Sets a timeout interval in seconds after which if no data is received from the server, <b>ssh</b> will send a message through the encrypted channel to request a response from the server. The default is <b>0</b>, indicating that these messages are not sent to the server, or <b>300</b> if the <b>BatchMode</b> option is set. This option applies to protocol version 2 only. <b>ProtocolKeepAlives</b> and <b>SetupTimeOut</b> are Debian-specific compatibility aliases for this option.</td>
+</tr>
+<tr class="tcw">
+<td><b>ServerAliveCountMax</b></td>
+<td>Sets the number of server alive messages (see below) which may be sent without <b>ssh</b> receiving any messages back from the server. If this threshold is reached while server alive messages are being sent, <b>ssh</b> will disconnect from the server, terminating the session. It is important to note that the use of server alive messages is very different from <b>TCPKeepAlive</b> (see below). The server alive messages are sent through the encrypted channel and therefore is not spoofable. The TCP keepalive option enabled by <b>TCPKeepAlive</b> is spoofable. The server alive mechanism is valuable when the client or server depend on knowing when a connection has become inactive.<br><br> The default value is <b>3</b>. If, for example, <b>ServerAliveInterval</b> (see below) is set to <b>15</b> and <b>ServerAliveCountMax</b> is left at the default, if the server becomes unresponsive, <b>ssh</b> will disconnect after approximately 45 seconds. This option applies to protocol version 2 only. In protocol version 1 there's no mechanism to request a response from the server to the server alive messages, so disconnection is the responsibility of the TCP stack.</td>
+</tr>
+<tr class="tcw">
+<td><b>SmartcardDevice</b></td>
+<td>See your smartcard manufacturer's documentation.</td>
+</tr>
+<tr class="tcw">
+<td><b>StrictHostKeyChecking</b></td>
+<td>If this flag is set to "<b>yes</b>", <b>ssh</b> will never automatically add host keys to the <b>~/.ssh/known_hosts</b> file, and refuses to connect to hosts whose host key has changed. This provides maximum protection against trojan horse attacks, though it can be annoying when the <b>/etc/ssh/ssh_known_hosts</b> file is poorly maintained or when connections to new hosts are frequently made. This option forces the user to manually add all new hosts. If this flag is set to "<b>no</b>", <b>ssh</b> will automatically add new host keys to the user known hosts files. If this flag is set to "<b>ask</b>", new host keys are added only after the user confirms that's what they want, and <b>ssh</b> refuses to connect to hosts whose host key has changed. The host keys of known hosts will be verified automatically in all cases. The argument must be "<b>yes</b>", "<b>no</b>", or "<b>ask</b>". The default is "<b>ask</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>TCPKeepAlive</b></td>
+<td>Specifies whether the system should send TCP keepalive messages to the other side. If they are sent, death of the connection or crash of one of the machines will be properly noticed. This option only uses TCP keepalives (as opposed to using ssh level keepalives), so takes a long time to notice when the connection dies. As such, you probably want the <b>ServerAliveInterval</b> option as well. However, this means that connections will die if the route is down temporarily, and some people find it annoying.<br><br> The default is "<b>yes</b>" (to send TCP keepalive messages), and the client will notice if the network goes down or the remote host dies. This is important in scripts, and many users want it too.<br><br> To disable TCP keepalive messages, the value should be set to "<b>no</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>UsePrivilegedPort</b></td>
+<td>Specifies whether to use a privileged port for outgoing connections. The argument must be "<b>yes</b>" or "<b>no</b>". The default is "<b>no</b>". If set to "<b>yes</b>", <b>ssh</b> must be setuid root. Note that this option must be set to "<b>yes</b>" for <b>RhostsRSAAuthentication</b> with older servers.</td>
+</tr>
+<tr class="tcw">
+<td><b>User</b></td>
+<td>Specifies the user to use for log in. This can be useful when a different username is used on different machines. This saves the trouble of having to remember to give the username on the command line.</td>
+</tr>
+<tr class="tcw">
+<td><b>UserKnownHostsFile</b></td>
+<td>Specifies one or more files to use for the user host key database, separated by whitespace. The default is <b>~/.ssh/known_hosts</b>, <b>~/.ssh/known_hosts2</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>VerifyHostKeyDNS</b></td>
+<td>Specifies whether to verify the remote key using DNS and SSHFP resource records. If this option is set to "<b>yes</b>", the client will implicitly trust keys that match a secure fingerprint from DNS. Insecure fingerprints will be handled as if this option was set to "<b>ask</b>". If this option is set to "<b>ask</b>", information on fingerprint match will be displayed, but the user will still need to confirm new host keys according to the <b>StrictHostKeyChecking</b> option. The argument must be "<b>yes</b>", "<b>no</b>", or "<b>ask</b>". The default is "<b>no</b>". Note that this option applies to protocol version 2 only.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b> <i>port</i></td>
+<td>Specifies the port to connect to on the remote host. Note that this option is written with a capital "<b>P</b>", because <b>-p</b> is already reserved for preserving the times and modes of the file in <b>rcp</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Preserves modification times, access times, and modes from the original file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b></td>
+<td>Disables the progress meter.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td><a href="/jargon/r/recurse.htm">Recursively</a> copy entire directories.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b> <i>program</i></td>
+<td>Name of program to use for the encrypted connection. The program must understand <b>ssh</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td><a href="/jargon/v/verbose.htm">Verbose</a> mode. Causes <b>scp</b> and <b>ssh</b> to print <a href="/jargon/d/debug.htm">debugging</a> messages about their progress. This is helpful in debugging connection, authentication, and configuration problems.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">scp myfile.txt <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="83ebecf3e6c3e6fbe2eef3efe6ade0eceef3f6f7e6f1ebecf3e6ade0ecee">[email&#160;protected]</a>:myfile.txt</pre>
+<p class="tab">Copies the file <b>myfile.txt</b> to the remote host <b>example.computerhope.com</b>, using the username <b>hope</b> to log in.</p>
+<pre class="tcy tab">scp <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="24495d515741564a45494164495d5641494b50414c4b57500a474b49">[email&#160;protected]</a>:/home/hope/* .</pre>
+<p class="tab">Copies all files in the remote directory <b>/home/hope</b> on the remote host <b>myremotehost.com</b> into the local <a href="/jargon/c/currentd.htm">working directory</a>.</p>
+<pre class="tcy tab">scp -r <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c3a9a6a5a583aebaabacb0b7eda0acae">[email&#160;protected]</a>:/home/jeff/documents /home/jeff/downloads/documents</pre>
+<p class="tab">Copies all files in the remote directory <b>/home/jeff/documents</b> on the server <b>myhost.com</b>, including all <a href="/jargon/s/subdirec.htm">subdirectories</a> and the files they contain, into the local directory <b>/home/jeff/downloads/documents</b>.</p>
+<pre class="tcy tab">scp -l 100 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="157f70737355786c7d7a66613b767a78">[email&#160;protected]</a>:/home/jeff/archive.zip .</pre>
+<p class="tab">Transfer the remote file <b>/home/jeff/archive.zip</b> on the remote host <b>myhost.com</b> as the user <b>jeff</b> into the local working directory, and limit the transfer to <b>100</b> kilobytes per second.</p>
+<pre class="tcy tab">scp <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bdd7d8dbdbfddbd4cfcec9d5d2cec993ded2d0">[email&#160;protected]</a>:/files/file1.zip <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c5e4e5d587c4f595f53525854534f48125f5351">[email&#160;protected]</a>:/archives</pre>
+<p class="tab">Copies the file in the remote directory <b>/files/file1.zip</b> on the remote host <b>firsthost.com</b> into the remote directory <b>/archives</b> on the remote host <b>secondhost.com</b>. You will be prompted to enter the passwords for the remote accounts <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="721817141432141b0001061a1d01065c111d1f">[email&#160;protected]</a></b> and <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="89ebfbe8edc9faeceae6e7ede1e6fafda7eae6e4">[email&#160;protected]</a></b>, respectively. The transfer will go directly from one remote host to the other.</p>
+<pre class="tcy tab">scp -3 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e747b78785e78776c6d6a76716d6a307d7173">[email&#160;protected]</a>:/files/file1.zip <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93f1e1f2f7d3e0f6f0fcfdf7fbfce0e7bdf0fcfe">[email&#160;protected]</a>:/archives</pre>
+<p class="tab">Same as the above command, but rather than directly transferring the file from one remote host to the other, the transfer is routed through the local host.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/urcp.htm"><b>rcp</b></a> &mdash; Copy files to or from a remote system.<br><a href="/unix/sftp.htm"><b>sftp</b></a> &mdash; Conduct an interactive FTP session over a secure network connection.<br><a href="/unix/slogin.htm"><b>slogin</b></a> &mdash; Login to a remote system securely.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83482c4c84c8',m:'jKwIXkw8FOBwokfSQZairnCWgleEPVviS0boNL9KqWM-1661495363-0-AUL8aVrqyvdLol7655UaKyBjGa06tL8UpJ9gxiNYv8EtKgJpFsm3yjkdSSqelBZ9tN16JuZc92vfHW8u8E3JS6yLnY01bX3t+osoms/onrhjzpQV3hkXHaCv8zRmBlVIcg==',s:[0xa8c77f4aad,0xb4b506d08c],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

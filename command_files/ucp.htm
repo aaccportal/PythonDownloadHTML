@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux cp command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/cp.gif" width="300" height="300" alt="cp command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>cp</b> command makes copies of files and directories.</p>
+<p>This page describes the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>cp</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a>
+<ul>
+<li><a href="#options">Options</a></li>
+<li><a href="#version-control">Version control</a></li>
+</ul>
+</li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The general form of the command is <b>cp <i>source</i> <i>destination</i></b>, for example:</p>
+<pre class="tab tcy">cp myfile.txt myfilecopy.txt</pre>
+<p class="tab">Like many core Linux commands, if the <b>cp</b> command is successful, by default, no output is displayed. To view output when files are copied, use the <b>-v</b> (verbose) option.</p>
+<p class="tab">By default, <b>cp</b> will overwrite files without asking. If the destination file name already exists, its data is destroyed. If you want to be prompted for confirmation before files are overwritten, use the <b>-i</b> (interactive) option.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab"><b>cp</b> [<i>option</i>]... [<b>-T</b>] <i>source</i> <i>destination</i></pre>
+<pre class="tcy tab"><b>cp</b> [<i>option</i>]... <i>source</i>... <i>directory</i></pre>
+<pre class="tcy tab"><b>cp</b> [<i>option</i>]... <b>-t</b> <i>directory</i> <i>source</i>...</pre>
+<pre class="tcy tab"><b>cp --help</b></pre>
+<pre class="tcy tab"><b>cp --version</b></pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>-a</b>,<br><b>--archive</b></td>
+<td>Same as <b>-dR --preserve=ALL</b>. When performing the copy, attempt to preserve as much of the original file structure, attributes, and associated metadata as possible. This metadata includes security context data if you are running <a href="/jargon/s/selinux.htm">SELinux</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--attributes-only</b></td>
+<td>Don't copy the file data, only create a file with the same <a href="/jargon/f/fileattr.htm">attributes</a>. If the destination file already exists, don't alter its contents. You can control exactly which attributes are copied with the <b>--preserve</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>--backup</b>[<b>=</b><i>control</i>]</td>
+<td>Make a backup of each existing destination file that would otherwise be overwritten or removed. The <i>control</i> parameter specifies what version control method to use; see <a href="#version-control">version control</a> for details.<br><br>As a special case, <b>cp --force --backup</b> makes a backup of <i>source</i> when <i>source</i> and <i>dest</i> are the same, regular file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>Like <b>--backup</b>, but does not accept a <i>control</i> argument; the default control method is always used.</td>
+</tr>
+<tr class="tcw">
+<td><b>--copy-contents</b></td>
+<td>When operating <a href="/jargon/r/recursive.htm">recursively</a>, copy contents of special files, such as <a href="/jargon/f/fifo.htm">FIFOs</a> and devices found in <b>/dev</b>. You usually don't want to use this option, because it can have undesired results, such as hanging forever or filling up your entire disk. However, this option is available for special, expert use cases.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Copy symbolic links themselves, rather than the files they refer to, and preserve hard links between source files in the copies. Same as "<b>--no-dereference --preserve=links</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>,<br><b>--force</b></td>
+<td>If an existing destination file cannot be opened, remove it and try again. This option has no effect if the <b>-n</b>/<b>--no-clobber</b> option is used. However, it applies independently of <b>-i</b>/<b>--interactive</b>; neither option cancels the effect of the other.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>,<br><b>--interactive</b></td>
+<td>Prompt before <a href="/jargon/o/overwrit.htm">overwrite</a> (overrides a previous <b>-n</b> option).</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b></td>
+<td>Follow symlinks specified on the command line, but preserve discovered links.<br><br>If one of the arguments on the command line is a <a href="/jargon/s/symblink.htm">symbolic link</a>, copy the referenced file, not the link itself. However, if a symbolic link is discovered during recursive traversal, it's copied as a symlink, not a regular file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>,<br><b>--link</b></td>
+<td>Create <a href="/jargon/h/hardlink.htm">hard links</a> to files instead of copying them.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>,<br><b>--dereference</b></td>
+<td>Always follow symbolic links in <i>source</i>; if <i>source</i> is a symlink, copy the file linked to rather than the symlink itself. When this option is specified, <b>cp</b> cannot create symlinks in the destination copies.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>,<br><b>--no-clobber</b></td>
+<td>Do not overwrite an existing file. If <b>-i</b>/<b>--interactive</b> was previously specified, this option overrides it. This option cannot be specified with <b>-b</b>/<b>--backup</b>, because backups are only created when a file would be overwritten.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b>,<br><b>--no-dereference</b></td>
+<td>Never follow symbolic links in <i>source</i>; copy symlinks as symlinks. Existing symlinks encountered in the destination may still be followed, however.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Same as <b>--preserve=mode,ownership,timestamps</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--preserve=</b>[<i>attr_list</i>]</td>
+<td>Preserve the specified attributes, separated by a comma. Attributes are:<br>
+<table>
+<tr>
+<td style="width:120px"><b>mode</b></td>
+<td>Preserve file mode bits (as set with <a href="/unix/uchmod.htm"><b>chmod</b></a>), and any <a href="/jargon/a/acl.htm">ACLs</a>.</td>
+</tr>
+<tr>
+<td><b>ownership</b></td>
+<td>Preserve owner and group (as set with <a href="/unix/uchown.htm"><b>chown</b></a>). Ability to preserve these attributes is restricted in the same way as using <b>chown</b>.</td>
+</tr>
+<tr>
+<td><b>timestamps</b></td>
+<td>Preserve time of last file access and modification (<b>atime</b> and <b>mtime</b>, as set with <a href="/unix/utouch.htm"><b>touch</b></a>), if possible.</td>
+</tr>
+<tr>
+<td><b>links</b></td>
+<td>Preserve in the destination files any links between the source files. With <b>-L</b> or <b>-H</b>, this option can potentially copy symbolic links as hard links.</td>
+</tr>
+<tr>
+<td><b>context</b></td>
+<td>Preserve SELinux security context of source files, or fail with verbose diagnostics.</td>
+</tr>
+<tr>
+<td><b>xattr</b></td>
+<td>Preserve extended attributes of source files, or fail with verbose diagnostics.</td>
+</tr>
+<tr>
+<td><b>all</b></td>
+<td>Preserve all of the above. Same as specifying all the above attributes individually, with the exception that failing to copy <b>context</b> or <b>xattr</b> will not give an exit status of failure.</td>
+</tr>
+</table>
+If not specified, the default value of <i>attr_list</i> is "<b>mode,ownership,timestamps</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-preserve=</b><i>attr_list</i></td>
+<td>Don't preserve the specified attributes.</td>
+</tr>
+<tr class="tcw">
+<td><b>--parents</b></td>
+<td>Create missing parent directories in the destination, if necessary, when copying to target <i>directory</i>, according to the pathname specified in <i>source</i>.<br><br>For instance, "<b>cp --parents dir2/dir3/file dir1</b>" creates the destination file "<b>dir1/dir2/dir3/file</b>", even if <b>dir2</b> and <b>dir3</b> do not presently exist under <b>dir1</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>,<br><b>-r</b>,<br><b>--recursive</b></td>
+<td>Copy directories recursively.</td>
+</tr>
+<tr class="tcw">
+<td><b>--reflink=</b>[<i>when</i>]</td>
+<td>Perform an optimized CoW ("copy-on-write") clone, if the destination filesystem supports it. The resulting copy will share the same bytes on disk as the original file, until the copy is modified. Be aware that this means if the source bytes are corrupted, the destination will share the corrupted data.<br><br>The <i>when</i> parameter defines what will happen if copy-on-write is not supported by the destination filesystem. If <i>when</i> is <b>always</b> (the default), the copy fails. If <b>auto</b>, copying will proceed, using standard copy behavior.</td>
+</tr>
+<tr class="tcw">
+<td><b>--remove-destination</b></td>
+<td>Remove each existing destination file before attempting to open it (contrast with the <b>--force</b> option, which only removes the destination after a failed attempt to open).</td>
+</tr>
+<tr class="tcw">
+<td><b>--sparse=</b><i>when</i></td>
+<td>Control creation of sparse files.<br><br>A sparse file contains "holes", where a hole is a sequence of zero bytes that occupies no physical disk space. When the file is read, the holes are read as zeros. This can conserve disk space since many files contain long sequences of zeros. By default, <b>cp</b> detects sparse files and creates sparse destination files as well.<br><br>The <i>when</i> parameter defines what <b>cp</b> should do when a source file is detected to be sparse:<br><br>
+<table>
+<tr>
+<td style="width:70px"><b>auto</b></td>
+<td>If the source is sparse, attempt to make the destination sparse. If destination exists and is a non-regular file, do not attempt to make it sparse. This is the default.</td>
+</tr>
+<tr>
+<td><b>always</b></td>
+<td>For each sufficiently long sequence of zero bytes in the source, attempt to make a sparse hole in the destination, even if the input file is not sparse. This can be useful if the source filesystem does not support sparse files; a sparse file can be appropriately created on the destination filesystem.</td>
+</tr>
+<tr>
+ <td><b>never</b></td>
+<td>Never make the output file sparse. Some special files, such as a swap file, must never be sparse. In these cases, this option should be used.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>--strip-trailing-slashes</b></td>
+<td>Remove any trailing slashes from each <i>source</i> argument.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>,<br><b>--symbolic-link</b></td>
+<td>Make symbolic links instead of copying the files themselves. All source files must be absolute pathnames starting with a slash, unless the destination files are in the current directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b>,<br><b>--suffix=</b><i>suffix</i></td>
+<td>Override the usual backup suffix.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>,<br><b>--target-directory=</b><i>directory</i></td>
+<td>Copy all <i>source</i> arguments into <i>directory</i></td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>,<br><b>--no-target-directory</b></td>
+<td>Treat <i>destination</i> as a normal file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>,<br><b>--update</b></td>
+<td>Copy only when the <i>source</i> file is newer than the destination file or when the destination file is missing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>,<br><b>--verbose</b></td>
+<td><a href="/jargon/v/verbose.htm">Verbose</a> mode; explain what is being done.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b>,<br><b>--one-file-system</b></td>
+<td>Only operate on the filesystem where the command was executed. If <b>cp</b> tries to cross the boundary to another filesystem, those files are skipped. This includes networked drives, another partition &mdash; any file that resides on a filesystem with a different <a href="/unix/umount.htm"><b>mount</b></a> point.<br><br>The directory representing the mount point itself is copied, but not traversed.<br><br>If <b>-v</b> is specified, you will see exactly which files are skipped.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Output version information, and exit.</td>
+</tr>
+</table>
+<p class="tab">By default, sparse <i>source</i> files are detected by a crude <a href="/jargon/h/heuristi.htm">heuristic</a> and the corresponding <i>destination</i> file is made sparse as well. That is the behavior selected by <b>--sparse=auto</b>. Specify <b>--sparse=always</b> to create a sparse <i>destination</i> file whenever the <i>source</i> file contains a long enough sequence of zero bytes. Use <b>--sparse=never</b> to inhibit creation of sparse files.</p>
+<p class="tab">When <b>--reflink</b>[<b>=always</b>] is specified, <b>cp</b> performs a lightweight copy, where the data <a href="/jargon/b/block.htm">blocks</a> are copied only when modified. If this is not possible, the copy fails; or, if <b>--reflink=auto</b> is specified, <b>cp</b> falls back to a standard copy operation.</p>
+<h2 id="version-control">Version control</h2>
+<p class="tab">When using <b>-b</b>/<b>--backup</b>, the backup suffix is '<b>~</b>', unless set with <b>--suffix</b> or <b>SIMPLE_BACKUP_SUFFIX</b>. The version control method may be selected via the <b>--backup=</b><i>control</i> option or through the <b>VERSION_CONTROL</b> <a href="/jargon/e/envivari.htm">environment variable</a>. The possible values of <i>control</i> or <b>VERSION_CONTROL</b> are:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:140px"><b>none</b>, <b>off</b></td>
+<td>Never make backups (even if <b>--backup</b> is given).</td>
+</tr>
+<tr class="tcw">
+<td><b>numbered</b>, <b>t</b></td>
+<td>Make numbered backups.</td>
+</tr>
+<tr class="tcw">
+<td><b>existing</b>, <b>nil</b></td>
+<td><b>Numbered</b> if numbered backups exist, <b>simple</b> otherwise.</td>
+</tr>
+<tr class="tcw">
+<td><b>simple</b>, <b>never</b></td>
+<td>Always make simple backups.</td>
+</tr>
+</table>
+<p class="tab">As a special case, <b>cp</b> makes a backup of <i>source</i> when the <b>force</b> and <b>backup</b> options are given and <i>source</i> and <i>destination</i> are the same name for an existing, regular file.</p>
+<h2 id="examples">Examples</h2>
+<p class="tab">Let's say you have a file named <b>picture.jpg</b> in your <a href="/jargon/c/currentd.htm">working directory</a>, and you want to make a copy of it called <b>picture-02.jpg</b>. You would run the command:</p>
+<pre class="tab tcy">cp picture.jpg picture-02.jpg</pre>
+<p class="tab">...and the file is copied. Here, <b>picture.jpg</b> is the source of the copy operation, and <b>picture-02.jpg</b> is the destination. Both files now exist in your working directory.</p>
+<p class="tab">The source and destination files may also reside in different directories. For instance,</p>
+<pre class="tab tcy">cp /home/chuck/pictures/picture.jpg /home/chuck/backup/picture.jpg</pre>
+<p class="tab">...makes a copy of the file <b>/home/chuck/pictures/picture.jpg</b> in the directory <b>/home/chuck/backup</b>. The destination file is also named <b>picture.jpg</b>.</p>
+<p class="tab">If you are the user <b>chuck</b>, you can abbreviate your <a href="/jargon/h/homedir.htm">home directory</a> ("<b>/home/chuck</b>") using a tilde ("<b>~</b>"). For instance,</p>
+<pre class="tab tcy">cp ~/pictures/picture.jpg ~/backup/picture.jpg</pre>
+<p class="tab">...functions the same as the above command when it is run by <b>chuck</b>.</p>
+<h3 class="tab" id="examples-copying-multiple-files-to-a-directory">Copying multiple files to a directory</h3>
+<p class="tab">Or, perhaps you want to copy <i>multiple</i> files into another directory. To accomplish this, you can specify multiple files as the source, and a directory name as the destination. Let's say you are the user <b>sally</b>, and you have a bunch of files in the directory <b>/home/sally/pictures/</b> named <b>picture-01.jpg</b>, <b>picture-02.jpg</b>, etc. and you want to copy them into the directory <b>/home/sally/picture-backup/</b>. This command will do the trick:</p>
+<pre class="tab tcy">cp ~/pictures/picture-*.jpg ~/picture-backup</pre>
+<p class="tab">Here, we use a <a href="/jargon/w/wildcard.htm">wildcard</a> (the asterisk, "<b>*</b>") to indicate that the source files are all the files in the directory <b>/home/sally/pictures</b> whose name starts with "<b>picture-</b>" and has the extension "<b>.jpg</b>". They are copied into the directory <b>/home/sally/picture-backup</b>, assuming that directory already exists. If it doesn't exist, <b>cp</b> gives you an error message, and no files are copied.</p>
+<p class="tab">You can also specify multiple source files one after the other, and <b>cp</b> will expect that the final <a href="/jargon/a/argument.htm">argument</a> is a directory name, and copy them all there. For instance,</p>
+<pre class="tab tcy">cp ~/pictures/picture-01.jpg ~/pictures/picture-02.jpg ~/picture-backup</pre>
+<p class="tab">...will copy only those two files, <b>/home/sally/picture-01.jpg</b> and <b>/home/sally/picture-02.jpg</b>, into the directory <b>/home/sally/picture-backup</b>.</p>
+<h3 class="tab" id="examples-copying-files-recursively">Copying files recursively</h3>
+<p class="tab">You can use <b>cp</b> to copy entire directory structures from one place to another using the <b>-R</b> option to perform a recursive copy. Let's say you are the user <b>steve</b> and you have a directory, <b>/home/steve/files</b>, which contains many files and subdirectories. You want to copy all those files, and all the subdirectories (and the files and subdirectories they contain), to a new location, <b>/home/steve/files-backup</b>. You can copy all of them using the command:</p>
+<pre class="tab tcy">cp -R ~/files ~/files-backup</pre>
+<p class="tab">...and the entire directory structure is copied to the directory <b>/home/steve/files-backup</b>. When performing a recursive copy:</p>
+<ul>
+<li>If the directory <b>files-backup</b> already exists, the directory <b>files</b> are placed inside.</li>
+ <li>If <b>files-backup</b> does <i>not</i> already exist, it <i>will</i> be created and the <i>contents</i> of the <b>files</b> directory is placed inside it.</li>
+</ul>
+<h3 class="tab" id="examples-creating-symlinks-instead-of-copying-data">Creating symbolic links instead of copying data</h3>
+<p class="tab">Another useful trick is to use <b>cp</b> to create <a href="/jargon/s/symblink.htm">symbolic links</a> to your source files. You may already be familiar with using the <a href="/unix/uln.htm"><b>ln</b></a> command to create symlinks; <b>cp</b> is a great way to create multiple symlinks all at once.</p>
+<p class="tab"><b>cp</b> creates symbolic links if you specify the <b>-s</b> option. So, for instance,</p>
+<pre class="tab tcy">cp -s file.txt file2.txt</pre>
+<p class="tab">...creates a symbolic link, <b>file2.txt</b>, which points to <b>file.txt</b>.</p>
+<p class="tab">You can also create symbolic links from multiple source files, specifying a directory as the destination.</p>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>To create symbolic links in another directory, <b>cp</b> needs you to specify the full pathname, including the full directory name, in your source file name(s). Relative paths will not work.</p>
+</div>
+<p class="tab">Let's say you are user <b>melissa</b> and you have a set of files, <b>file01.txt</b>, <b>file02.txt</b>, etc. in the directory <b>/home/melissa/myfiles</b>. You want to create symbolic links to these files in the existing directory <b>/home/melissa/myfiles2</b>. This command will do the trick:</p>
+<pre class="tab tcy">cp -s ~/myfiles/file*.txt ~/myfiles2</pre>
+<p class="tab">The directory <b>myfiles2</b> now contain symbolic links to the <b>file*.txt</b> in the directory <b>/home/melissa/myfiles</b>. The <b>myfiles2</b> directory must already exist for the operation to succeed; if it doesn't exist, <b>cp</b> gives you an error message and nothing is copied.</p>
+<p class="tab">This will work with a recursive copy, as well. So the command:</p>
+<pre class="tab tcy">cp -R -s ~/myfiles ~/myfiles2</pre>
+<p class="tab">...will re-create the directory structure of <b>/home/melissa/myfiles</b>, including any subdirectories and their contents; any files are created as symlinks to the originals, but the directories are not symbolic links, only regular directories. If <b>myfiles2</b> already exists, <b>cp</b> creates a directory inside it called <b>myfiles</b> which contains the directory structure and symlinks; if <b>myfiles2</b> does not already exist, it is created, and contain the subdirectories and symlinks to the files that <b>myfiles</b> contains.</p>
+<p class="tab">There are other options you can provide to <b>cp</b> that affect its behavior. These are listed, with the precise command syntax, in the following sections.</p>
+<h3 class="tab" id="examples-copying-into-same-directory">Make a copy of a file into the same directory</h3>
+<pre class="tab tcy">cp origfile newfile</pre>
+<p class="tab">Creates a copy of the file in the <a href="/jargon/c/currentd.htm">working directory</a> named <b>origfile</b>. The copy is named <b>newfile</b>, and is located in the working directory.</p>
+<div class="tip tab" role="note">
+<span class="title note">Caution</span>
+<p>If the destination file <b>newfile</b> already exists, it is <a href="/jargon/o/overwrit.htm">overwritten</a> without a <a href="/jargon/c/confirma.htm">confirmation</a> prompt. This is the default behavior for all <b>cp</b> operations.</p>
+</div>
+<p class="tab">If you want to be prompted before overwriting a file, use the <b>-i</b> (interactive) <a href="#options">option</a>. For example:</p>
+<pre class="tab tcy">cp -i oldfile newfile</pre>
+<p class="tab">If <b>newfile</b> already exists, you are prompted:</p>
+<pre class="tab">cp: overwrite &lsquo;newfile&rsquo;?</pre>
+<p class="tab">If you type <b>y</b> (or <b>yes</b>, <b>Y</b>, <b>YES</b>, or any other combination of upper and lowercase of these), then <b>newfile</b> is overwritten with a copy of <b>origfile</b>. Typing anything else will abort the operation.</p>
+<h3 class="tab" id="examples-copy-file-into-another-directory">Copy a file into another directory</h3>
+<pre class="tab tcy">cp origfile /directory/subdirectory</pre>
+<p class="tab">Creates a copy of the file in the working directory named <b>origfile</b>. The copy is located in the directory <b>/directory/subdirectory</b>, and is named <b>origfile</b>.</p>
+<pre class="tab tcy">cp origfile /directory/subdirectory/.</pre>
+<p class="tab">Same as the above command. The slash-dot (<b>/.</b>) is implied in the above form of the command. (The dot is a special file in every Linux directory which means "this directory.")</p>
+<h3 class="tab" id="example-copy-file-into-another-directory-with-a-new-name">Copy a file into another directory, and give it a new name</h3>
+<pre class="tab tcy">cp origfile /directory/subdirectory/newfile</pre>
+<p class="tab">Creates a copy of the file in the working directory named <b>origfile</b>. The copy is named <b>newfile</b>, and is located in the directory <b>/directory/subdirectory</b>.</p>
+<h3 class="tab" id="examples-copy-multiple-files-into-another-directory-using-a-wildcard">Copy multiple files into another directory, using a wildcard</h3>
+<pre class="tab tcy">cp file* /directory/subdirectory</pre>
+<p class="tab">Copy every file in the working directory whose name begins with <b>file</b> into the directory <b>/directory/subdirectory</b>. The asterisk ("<b>*</b>") is a <a href="/jargon/w/wildcard.htm">wildcard</a> &mdash; a special <a href="/jargon/c/charact.htm">character</a> which expands to match other characters. Specifically, the asterisk wildcard matches zero or more non-<a href="/jargon/w/whitspac.htm">whitespace</a> characters. For instance, this command will copy any files named <b>file</b>, <b>file001</b>, <b>file.txt</b>, <b>fileone.jpg</b>, <b>file-archive.zip</b>, etc.</p>
+<pre class="tab tcy">cp file*.jpg /directory/subdirectory</pre>
+<p class="tab">Copy every file in the working directory whose name begins with <b>file</b>, and ends with the file extension <b>.jpg</b>. For instance, it would make copies of any files named <b>file</b>, <b>file001.jpg</b>, <b>file002.jpg</b>, or <b>file-new.jpg</b>, etc. The copies are placed into the directory <b>/directory/subdirectory</b>.</p>
+<h3 class="tab" id="copy-entire-directory-structure-to-another-location">Copy an entire directory structure to another location</h3>
+<pre class="tab tcy">cp -R /one/two /three/four</pre>
+<p class="tab">Copy the directory <b>two</b> (located in the directory <b>/one</b>), and everything <b>two</b> contains, into the destination directory <b>/three/four</b>. The result is called <b>/three/four/two</b>. The directory <b>/three</b> must already exist for the command to succeed. If the directory <b>four</b> does not already exist in the directory <b>/three</b>, it is created.</p>
+<pre class="tcy tab">cp file1.txt newdir</pre>
+<p class="tab">Copies the <b>file1.txt</b> in the working directory to the <b>newdir</b> subdirectory.</p>
+<pre class="tcy tab">cp /home/public_html/mylog.txt /home/public_html/backup/mylog.bak</pre>
+<p class="tab">Copies the file <b>mylog.txt</b> in the <b>public_html</b> directory into the <b>public_html/backup</b> directory as <b>mylog.bak</b>.</p>
+<pre class="tcy tab">cp -u *.txt newdir</pre>
+<p class="tab">Copy all files ending in <b>.txt</b> into the <b>newdir</b> directory, but only if the files do not already exist in the new directory, or if the files being copied are newer.</p>
+<pre class="tcy tab">cp -R /home/hope/files/* /home/hope/backup</pre>
+<p class="tab">Recursively copies all the files, directories, and subdirectories in the <b>/home/hope/files</b> directory into the <b>/home/hope/backup</b> directory. If the directory <b>backup</b> does not exist in the directory <b>/home/hope</b>, it is created.</p>
+<p class="tcy tab">cp --backup origfile newfile</p>
+<p class="tab">If <b>newfile</b> already exists, make a backup of the existing <b>newfile</b> before overwriting it with a copy of <b>origfile</b>. By default, the backup of <b>newfile</b> is named <b>newfile~</b>.</p>
+<p class="tcy tab">cp --backup=numbered origfile newfile</p>
+<p class="tab">If <b>newfile</b> already exists, make a backup of the existing <b>newfile</b> before overwriting it with a copy of <b>origfile</b>. The backup of <b>newfile</b> is named <b>newfile.~1~</b> if no other backup exists, or <b>newfile.~2~</b> if <b>newfile.~1~</b> exists, etc.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/dd.htm"><b>dd</b></a> &mdash; Copy and convert the encoding of files.<br><a href="/unix/uln.htm"><b>ln</b></a> &mdash; Create a link, or a symbolic link, to a file or directory.<br><a href="/unix/umv.htm"><b>mv</b></a> &mdash; Move files and directories from one location to another, and optionally rename them.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82ca5c9b84e0',m:'YNMTw0coEwcOt1IFn.Z327xntihaE0E4q53WDmEyw44-1661495343-0-AYh+XYx12xmwlKvb1yrUkY+lq+94FQ69T0xTA9JX7bkRFBVTIqY7ZZ5c9UsES8KPbawT+DY72gipe0zhd3J3iiJrPO8R2ibLvZ8R/UDE7VZWEthuUW7DFxZrioseFomZKQ==',s:[0xc3cdc3aa0e,0xdef596aa6b],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

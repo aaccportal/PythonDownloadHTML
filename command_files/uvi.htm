@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux vi command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/vi.gif" width="300" height="300" alt="vi command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>vi</b> (pronounced "vee-eye") is a text editor.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#Using-Vi">Using Vi</a></li>
+<li><a href="#Moving-Around-In-Vi">Moving Around in Vi</a></li>
+<li><a href="#Making-Simple-Changes">Making Simple Changes</a></li>
+<li><a href="#Rearranging-And-Duplicating-Text">Rearranging and Duplicating Text</a></li>
+<li><a href="#High-Level-Commands">High Level Commands</a></li>
+<li><a href="#Special-Topics">Special Topics</a></li>
+<li><a href="#Technical-Details">Technical Details</a></li>
+<li><a href="#Quick-Reference">Quick Reference</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>vi</b> command starts the visual mode of <b><a href="/unix/uex.htm">ex</a></b>, the landmark editing program developed by <a href="/people/william_joy.htm">William Joy</a> in the late 1970s. As <b>ex</b> gained popularity, Joy noticed that most users were exclusively using its visual mode, so to make things more convenient for his users, he added a link to <b>ex</b> which started it in visual mode automatically. Today <b>vi</b> is the most popular text editor among <a href="/jargon/l/linux.htm">Linux</a> users.</p>
+<p class="tab">A more feature-rich implementation of <b>vi</b> named <b>vim</b> (which stands for "vi improved") is also available. For more information, please see our <a href="/unix/vim.htm"><b>vim</b> documentation</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">vi [ -| -s ] [-l] [-L] [-R] [ -r [ <i>filename</i> ] ] [-S] [-t <i>tag</i>] [-v] [-V]
+   [-x] [-w] [-n ] [-C] [+<i>command</i> | -c <i>command</i> ] <i>filename</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td width="250"><b>-</b> | <b>-s</b></td>
+<td>Suppress all interactive user feedback. This is useful when processing editor <a href="/jargon/s/script.htm">scripts</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>Set up for editing <a href="/jargon/l/lisp.htm">LISP</a> programs.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>List the name of all files saved as the result of an editor or system crash.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b> <i>filename</i></td>
+<td>Edit <i>filename</i> after an editor or system crash. Recovers the version of <i>filename</i> that was in the buffer when the crash occurred.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b></td>
+<td>Same as <b>-r</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b></td>
+<td><a href="/jargon/r/readonly.htm">Readonly</a> mode; the readonly flag is set, preventing accidental overwriting of the file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b></td>
+<td>This option is used in conjunction with the <b>-t</b> tag option to tell <b>vi</b> that the tags file may not be sorted and that, if the binary search (which relies on a sorted tags file) for <i>tag</i> fails to find it, the much slower linear search should also be done. Since the linear search is slow, users of large tags files should ensure that the tags files are sorted rather than use this flag. Creation of tags files normally produces sorted tags files. See <b><a href="/unix/uctags.htm">ctags</a></b> for more information on tags files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>tag</i></td>
+<td>Edit the file containing the tag <i>tag</i>, and position the editor at its definition.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b></td>
+<td><a href="/jargon/v/verbose.htm">Verbose</a> mode. When <b>ex</b> commands are read by means of <a href="/jargon/s/stdin.htm">standard input</a>, the input will be echoed to standard error. This may be useful when processing <b>ex</b> commands within shell scripts.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b></td>
+<td><a href="/jargon/e/encrypt.htm">Encryption</a> option; when used, <b>vi</b> simulates the <b>X</b> command of <b>ex</b> and prompts the user for a key. This key is used to encrypt and <a href="/jargon/d/decrypti.htm">decrypt</a> text using the <a href="/jargon/a/algorith.htm">algorithm</a> of the crypt function. The <b>X</b> command makes an educated guess to determine whether text read in is encrypted or not. The temporary <a href="/jargon/b/buffer.htm">buffer</a> file is encrypted also, using a transformed version of the key typed in for the <b>-x</b> option. If an empty encryption key is entered (that is, if the return key is pressed right after the <a href="/jargon/p/prompt.htm">prompt</a>), the file will not be encrypted. This is a good way to decrypt a file erroneously encrypted with a mistyped encryption key, such as a backspace or undo key.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b><i>n</i></td>
+<td>Set the default window size to <i>n</i>. This is useful when using the editor over a slow speed line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>Encryption option; same as the <b>-x</b> option, except that <b>vi</b> simulates the C command of <b>ex</b>. The C command is like the <b>X</b> command of <b>ex</b>, except that all text read in is assumed to have been encrypted.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b><i>command</i> | <b>-c</b> <i>command</i></td>
+<td>Begin editing by executing the specified editor command (usually a search or positioning command).</td>
+</tr>
+<tr class="tcw">
+<td><i>filename</i></td>
+<td>The file to be edited.</td>
+</tr>
+</table>
+<h2 id="Using-Vi">Using Vi</h2>
+<p class="tab"><b>vi</b> is an interactive text editor that is <i>display-oriented</i>: the screen of your <a href="/jargon/t/terminal.htm">terminal</a> acts as a window into the file you are editing. Changes you make to the file are reflected in what you see.</p>
+<p class="tab">Using <b>vi</b> you can insert text anywhere in the file very easily. Most of the <b>vi</b> commands move the <a href="/jargon/c/cursor.htm">cursor</a> around in the file. You can move the cursor forward and backward in units of characters, words, sentences, and paragraphs. Some of the operators, like <b>d</b> for delete and <b>c</b> for change, can be combined with the motion commands to make them operate on entire words, paragraphs, etc., in a natural way.</p>
+<h2>Editing a file</h2>
+<p class="tab">The most common way to start a <b>vi</b> session is to tell it which file to edit. To edit a file named <b>filename</b>, use the command:</p>
+<pre class="tab tcy">vi filename</pre>
+<p class="tab">The screen will clear and the text of your file will appear on the screen. If <b>filename</b> doesn't exist yet, <b>vi</b> will start you in a new file, and when you tell it to save your work, it will use the <b>filename</b> that you specified.</p>
+<h2>The editor's copy: the "buffer"</h2>
+<p class="tab">The editor does not directly modify the file you are editing. Instead, it makes a copy of this file in memory called the <i>buffer</i>. You do not actually affect the contents of the file until you write the changes you've made back into the original file.</p>
+<h2>Arrow keys</h2>
+<p class="tab">On most terminals, you can use the arrow keys to move the cursor around. Left and right moves the cursor left or right one character, and up and down move the cursor up or down one line. The other way to move the cursor is with the <b>h</b>, <b>j</b>, <b>k</b>, and <b>l</b> keys:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>h</b></td>
+<td>left</td>
+</tr>
+<tr class="tcw">
+<td><b>j</b></td>
+<td>down</td>
+</tr>
+<tr class="tcw">
+<td><b>k</b></td>
+<td>up</td>
+</tr>
+<tr class="tcw">
+<td><b>l</b></td>
+<td>right</td>
+</tr>
+</table>
+<p class="tab">A bit of historical trivia: the <b>hjkl</b> keys are used because the original computer system Bill Joy developed with did not have separate arrow keys. Instead, the keyboard used <b>hjkl</b> keys as the arrow keys.</p>
+<p class="tab">Hardcore <b>vi</b> users will tell you that the <b>hjkl</b> keys are the only "true" way to move the cursor because you can keep your hands in the typing position, but you should use whatever works best for you.</p>
+<h2>Special Keys: Esc, Return, and Delete</h2>
+<p class="tab">The Escape key is important in <b>vi</b>: it is used to cancel any command you've started typing, and to return to command-mode after you've been inserting or adding text. Escape is a safe key to hit if you've lost track of what mode you're in or what you're doing. You can hit it several times to return to command mode and cancel anything that you've been doing.</p>
+<p class="tab">The Return (or "Enter") key is used to complete certain commands and execute them.</p>
+<p class="tab">The Delete key is another "safe" key to press. It interrupts anything that the editor has been doing and brings you back to the default state of the editor, sometimes also called the "quiescent" state.</p>
+<h2>Exiting vi</h2>
+<p class="tab">The command <b>ZZ</b> will write the contents of the buffer into the file you are editing, and quit <b>vi</b>.</p>
+<p class="tab">If there are no changes to be saved, you can also quit the editor with the command <b>:q</b>. If you have made changes that haven't been saved yet, the editor won't let you exit this way.</p>
+<p class="tab">If you want to quit and discard the changes you've made, you can tell the editor you're sure you know what you're doing by quitting with the command <b>:q!</b>. This will exit <b>vi</b> immediately, and any unsaved changes will be lost.</p>
+<h2 id="Moving-Around-In-Vi">Moving around in your file</h2>
+<h2>Scrolling and paging</h2>
+<p class="tab">The editor has several commands for moving around within your file. One of the most useful of these is <b>Control-D</b> (also represented as <b>^D</b>). This command "scrolls" down in the file (the <b>D</b> stands for "down"). <b>^U</b> ("up") is similar: it scrolls up one page in the file. Both of these commands will also move the cursor to the new location.</p>
+<p class="tab">If you just want to see more of the file, but leave the cursor where it is, you can use <b>^E</b> to "expose" one more line at the bottom of the screen. <b>^Y</b> (which doesn't stand for anything, but it's next to the <b>U</b> on the keyboard) exposes one line at the top of the screen.</p>
+<p class="tab">There are other ways to move around in the file. The keys <b>^F</b> and <b>^B</b> move forward and backward one page (this is called "paging"), keeping a couple of lines of continuity between screens so that it is possible to read through a file using these rather than <b>^D</b> and <b>^U</b> if you wish.</p>
+<p class="tab">Notice the difference between "scrolling" (<b>^U</b>, <b>^D</b>) and "paging" (<b>^B</b>, <b>^F</b>). Scrolling leaves more context, but paging only leaves you a couple of lines. It's up to you which one is easier for moving around and reading your file.</p>
+<h2>Searching</h2>
+<p class="tab">Another way to position yourself in the file is by giving the editor a <a href="/jargon/s/string.htm">string</a> to search for. If you type "<b>/</b>" followed by a string of characters and press Enter, the editor will search for the next occurrence of this string in your file, and place the cursor there. Pressing <b>n</b> will go to the next occurrence after that.</p>
+<p class="tab">If instead of forward, you want to search backward for a string, use <b>?</b> instead of <b>/</b>. In a <b>?</b> string search, pressing <b>n</b> will take you to successive occurrences in the same (backward) direction.</p>
+<p class="tab">If the search string you give the editor is not present in the file, the editor will print a message letting you know it couldn't find it, and your cursor will not be moved.</p>
+<p class="tab">If you want your search string only to match if it's at the beginning of a line, you should begin the search string with a <a href="/jargon/c/caret.htm">caret</a> ("<b>^</b>"). To match only at the end of a line, end the search string with a dollar sign ("<b>$</b>"). So using the command</p>
+<pre class="tab tcy">/^mystring</pre>
+<p class="tab">will only find a match if "<b>mystring</b>" is at the very begining of a line. Similarly, the command</p>
+<pre class="tab tcy">/mystring$</pre>
+<p class="tab">will only match any occurrences of "<b>mystring</b>" that are at the very end of a line.</p>
+<h2>"Goto"-ing</h2>
+<p class="tab">The command <b>G</b>, when preceded by a number, will "goto" a line: it will go to that line number and position the cursor there. If you use <b>G</b> with no number, it moves the cursor to the last line of the file.</p>
+<p class="tab">So, using the command</p>
+<pre class="tab tcy">1G</pre>
+<p class="tab">Moves your cursor to the first line in the file;</p>
+<pre class="tab tcy">30G</pre>
+<p class="tab">Moves your cursor to line 30, and</p>
+<pre class="tab tcy">G</pre>
+<p class="tab">Moves your cursor to the last line, whatever number that may be.</p>
+<h2>Finding out where you are in the file</h2>
+<p class="tab">You can find out where you're at in the file by pressing <b>^G</b>. This sill show you the name of the file you are editing, the number of the current line, the number of lines in the buffer, and the percentage of the way through the buffer your cursor is currently at.</p>
+<h2>Getting back to where you just were</h2>
+<p class="tab">Any time you move the cursor in any of these ways, you can move the cursor back to where it just was by typing <b>&#96;&#96;</b> (two <a href="/jargon/b/backquot.htm">back quotes</a>). So, if you type</p>
+<pre class="tab tcy">G</pre>
+<p class="tab">to move to the end of the file, but then you realize you need to get back to where you were (whether you remember where that is or not), you can type</p>
+<pre class="tab tcy">&#96;&#96;</pre>
+<p class="tab">To get back to your original location. This also works after performing a search. Remember this command, because it's very useful!</p>
+<h2>Lines past the end of your file</h2>
+<p class="tab">If you're near the end of your file, and the last line is not at the bottom of the screen, <b>vi</b> will print a <a href="/jargon/t/tilde.htm">tilde</a> ("<b>~</b>") on any lines after the end of your actual file. This indicates that the last line of your file is on the screen; that is, any lines showing "<b>~</b>" are past the end of your file. You'll notice this, for instance, when you start editing a new file: every line will begin with a tilde.</p>
+<h2>Moving around on the screen</h2>
+<p class="tab">As we've already mentioned, you can use the arrow keys or <b>h</b>, <b>j</b>, <b>k</b>, and <b>l</b> to move the cursor left and right one cursor, or up and down one line.</p>
+<p class="tab">You can also use <b>+</b> to move to the next line or <b>-</b> to move to the previous line. This is similar to using <b>up</b> and <b>down</b> (or <b>j</b> and <b>k</b>), except that your cursor will automatically be placed at the first non-<a href="/jargon/w/whitspac.htm">whitespace</a> character on the line.</p>
+<p class="tab">Any of these keys, if they would take you before the first line on the screen or after the last line, will scroll the display one line in the correct direction. Pressing the <b>Return</b> key is the same as pressing <b>+</b>. You can also position the cursor at the top, middle, or bottom of the currently-displayed screen of text:</p>
+<p class="tab"><b>H</b> will take you to the top ("home") line on the screen. Preceding <b>H</b> with a number will take you to the home line plus that number of lines. For instance, <b>3H</b> moves your cursor to the third line of text displayed on the screen.</p>
+<p class="tab"><b>M</b> is a similar command: it moves your cursor to the middle of the screen.</p>
+<p class="tab"><b>L</b> moves your cursor to the last line of the screen. If you precede it with a number, it moves your cursor to that number of lines before the last line displayed. So <b>5L</b> moves your cursor to the fifth-to-last line currently displayed.</p>
+<h2>Moving within a line</h2>
+<p class="tab"><b>w</b> will advance the cursor to the next word on the line, and <b>b</b> will back up the cursor to the previous word.</p>
+<p class="tab"><b>e</b> advances you to the end of the current word rather than the beginning of the next word.</p>
+<p class="tab">If words are punctuated, for instance with an apostrophe or a comma, <b>w</b> and <b>b</b> will stop at the punctuation. If you use <b>W</b> and <b>B</b> instead, they move the cursor while ignoring punctuation.</p>
+<p class="tab">These commands all wrap at the end (or beginning) of a line, moving to the previous or next line if their search for the next or previous word goes that far.</p>
+<h2>Summary: movement keys</h2>
+<p class="tab">Here's a recap of the movement keys we just discussed, and a few extras.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><a href="/jargon/s/spacebar.htm">Spacebar</a></td>
+<td>advance the cursor one position</td>
+</tr>
+<tr class="tcw">
+<td><b>^B</b></td>
+<td>page backward</td>
+</tr>
+<tr class="tcw">
+<td><b>^D</b></td>
+<td>scroll down</td>
+</tr>
+<tr class="tcw">
+<td><b>^E</b></td>
+<td>expose a line at the bottom of the screen</td>
+</tr>
+<tr class="tcw">
+<td><b>^F</b></td>
+<td>page forward</td>
+</tr>
+<tr class="tcw">
+<td><b>^G</b></td>
+<td>Positional status check</td>
+</tr>
+<tr class="tcw">
+<td><b>^N</b></td>
+<td>next line, same column</td>
+</tr>
+<tr class="tcw">
+<td><b>^P</b></td>
+<td>previous line, same column</td>
+</tr>
+<tr class="tcw">
+<td><b>^U</b></td>
+<td>scroll up</td>
+</tr>
+<tr class="tcw">
+<td><b>^Y</b></td>
+<td>expose a line at the top of the screen</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b></td>
+<td>next line, at the first non-whitespace character</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>previous line, at the first non-whitespace character</td>
+</tr>
+<tr class="tcw">
+<td><b>/</b><i>string</i></td>
+<td>Scan forward for <i>string</i>. If no <i>string</i> is specified, scans for the last <i>string</i> scanned for.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>Scan backwards for <i>string</i>. If no <i>string</i> is specified, scans for the last <i>string</i> scanned for.</td>
+</tr>
+<tr class="tcw">
+<td><b>B</b></td>
+<td>backwards one word, ignoring punctuation</td>
+</tr>
+<tr class="tcw">
+<td><i>linenumber</i><b>G</b></td>
+<td>Go to specified <i>linenumber</i> (an <a href="/jargon/i/integer.htm">integer</a>). Defaults to the last line.</td>
+</tr>
+<tr class="tcw">
+<td><b>H</b></td>
+<td>move cursor to first line of screen</td>
+</tr>
+<tr class="tcw">
+<td><b>M</b></td>
+<td>middle line of screen</td>
+</tr>
+<tr class="tcw">
+<td><b>L</b></td>
+<td>last line of screen</td>
+</tr>
+<tr class="tcw">
+<td><b>W</b></td>
+<td>forward a word, ignoring punctuation</td>
+</tr>
+<tr class="tcw">
+<td><b>b</b></td>
+<td>backwards a word</td>
+</tr>
+<tr class="tcw">
+<td><b>e</b></td>
+<td>end of current word</td>
+</tr>
+<tr class="tcw">
+<td><b>n</b></td>
+<td>next instance of <b>/</b> or <b>?</b> search pattern</td>
+</tr>
+<tr class="tcw">
+<td><b>w</b></td>
+<td>next word</td>
+</tr>
+</table>
+<h2 id="Making-Simple-Changes">Making simple changes</h2>
+<p class="tab">The most basic command for making changes to your file is the <i>i</i> (insert) command. After you type <i>i</i>, everything you type until you hit <b>Esc</b> is inserted at your cursor position into the buffer.</p>
+<p class="tab">The companion to the <i>i</i> command is the <b>a</b> ("append") command. This works exactly like <i>i</i>, except it starts inserting the text <i>after</i> the cursor location, not <i>at</i> the cursor location.</p>
+<p class="tab">Sometimes, you want to start editing on a new line right after the line your cursor is at. To do this, use the <i>o</i> command. To start a new line <i>before</i> the line your cursor is at, use the <b>O</b> command. Just like with <i>i</i> and <i>a</i>, any text you type will be inserted into the buffer until you press <b>Esc</b>.</p>
+<p class="tab">While you are inserting text with any of these commands, you can use <b>^W</b> to erase a whole word and leave your cursor one space after the previous word</p>
+<p class="tab">One thing to note is that when you backspace, you will not erase any characters that you haven't inserted. Also, you can't backspace to the previous line; backspacing will stop when you get to the beginning of the current line.</p>
+<h2>Making small corrections</h2>
+<p class="tab">It's easy to make small corrections in <b>vi</b>. If you need to remove a character that shouldn't be there, move the cursor over it and press <b>x</b> to delete it. You can also supply a number before pressing <b>x</b>, and it will delete that many characters. So if you have the word "<b>discovery</b>", and you move the cursor over the <b>v</b> and type</p>
+<pre class="tab tcy">4x
+</pre>
+<p class="tab">...you will be left with the word "<b>disco</b>".</p>
+<p class="tab">If you want to replace a single character with another character, move the cursor over it and press <b>r</b> and then the character that should replace it. So, if you type "<b>mistoke</b>", and move the cursor over the "<b>o</b>" and type</p>
+<pre class="tab tcy">ra</pre>
+<p class="tab">...the <b>o</b> will be replaced with an <b>a</b>, leaving you with the word "<b>mistake</b>."</p>
+<p class="tab">The <b>R</b> command is similar, but you can use it to replace more than one character; if you press <b>R</b> and start typing, every character you type will replace every character that was already there. So, if you have the word "<b>mistake</b>", and you move the cursor over the letter <b>t</b> and type</p>
+<pre class="tab tcy">Rsile</pre>
+<p class="tab">...you will see that the word "<b>mistake</b>" has turned into the word "<b>missile</b>". You might also notice that if you backspace in this mode, your original text will be restored, letter by letter. When you're done, press <b>Esc</b> to stop replacing characters.</p>
+<h2>Operators</h2>
+<p class="tab">The command <b>d</b> acts as a <i>delete operator</i>: pressing <b>d</b> and then a movement key will delete wherever the cursor would have moved. For instance, typing <b>dw</b> will delete the next word, and typing <b>db</b> will delete backwards to the previous word. Typing <b>d</b>SPACE will delete one character; this is the same as typing <b>x</b>.</p>
+<p class="tab">Another useful operator is <b>c</b>, which stands for <i>change</i>. The command <b>cw</b> will change a single word: it will delete everything to the end of a word, and place you into insert mode to type the text that should replace it.</p>
+<h2>Repeating a change</h2>
+<p class="tab">Any time you make a change with a command, you can type "<b>.</b>" to repeat the change. So if you delete a word with <b>dw</b>, typing <b>.</b> will delete the next word as well. You can repeat this over and over by typing <b>.</b> several times, like an ellipsis ("<b>...</b>").</p>
+<h2>Operating on lines</h2>
+<p class="tab">Typing <b>dd</b> will delete an entire line.</p>
+<p class="tab">Typing <b>cc</b> will change an entire line, deleting it and placing you in insert mode.</p>
+<p class="tab">You can delete or change more than one line at a time by preceding <b>dd</b> or <b>cc</b> with a number. For instance, <b>5dd</b> will delete 5 lines. You can also give a command like <b>dL</b> which will delete every line from the cursor up to and including the last line on the screen, or <b>d3L</b> which will delete every line from the cursor to the third-to-last line. When you make big changes like this, especially if you make changes that go beyond what you can see in one screen, the editor gives you a message telling you what's been done.</p>
+<h2>Undoing</h2>
+<p class="tab">To undo the last change, type <b>u</b>. To re-do (to undo an undo), type <b>u</b> again.</p>
+<p class="tab">Unlike <a href="/jargon/v/vim.htm"><b>vim</b></a>, <b>vi</b> only offers one level of undo. However, you can use <b>U</b> (capital U) to undo any changes that were made to the current line; pressing <b>U</b> restores the current line to the way it was before you started changing it.</p>
+<h2>Summary: making changes</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:70px">SPACE</td>
+<td>Advance the cursor one position.</td>
+</tr>
+<tr class="tcw">
+<td><b>^W</b></td>
+<td>Erase a word during insert.</td>
+</tr>
+<tr class="tcw">
+<td><b>.</b></td>
+<td>Repeats the last change command.</td>
+</tr>
+<tr class="tcw">
+<td><b>O</b></td>
+<td>Opens and inputs a new line, above the current line.</td>
+</tr>
+<tr class="tcw">
+<td><b>U</b></td>
+<td>Undoes the changes you made to the current line.</td>
+</tr>
+<tr class="tcw">
+<td><b>a</b></td>
+<td>Appends text after the cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td>Changes the object you specify to the text you type in after.</td>
+</tr>
+<tr class="tcw">
+<td><b>d</b></td>
+<td>Deletes the object that you specify.</td>
+</tr>
+<tr class="tcw">
+<td><b>i</b></td>
+<td>Inserts text before the cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>o</b></td>
+<td>Opens and inputs new lines, below the current line.</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b></td>
+<td>Undoes the last change.</td>
+</tr>
+</table>
+<h2 id="Rearranging-And-Duplicating-Text">Rearranging and duplicating text</h2>
+<h2>Low-level character motions</h2>
+<p class="tab"><b>f</b><i>x</i> moves the cursor finds the next <i>x</i> character on the current line. After that, if you press <b>;</b> your cursor moves to the next occurrence of the same character. <b>F</b> is a similar command, but searches backwards in the same line, rather than forwards.</p>
+<p class="tab">The <b>f</b> and <b>F</b> commands can be combined, for example, with the <b>d</b> command. Typing <b>df</b><i>x</i> will delete everything from the cursor through the next occurrence of <i>x</i> in the line. Sometimes you want to delete up to, but not including, the next occurrence of character <i>x</i>. In this case, use the command <b>dt</b><i>x</i>. <b>t</b> stands for "to".</p>
+<p class="tab">The beginning of the line is represented by zero ("<b>0</b>"), the <a href="/jargon/c/caret.htm">caret</a> ("<b>^</b>") represents the first non-whitespace character on the line, and the end of the line is represented by the <a href="/jargon/d/dollarsign.htm">dollar sign</a> ("<b>$</b>"). If you press <b>^</b>, the cursor will be placed at the first non-whitespace character of the line; if you press <b>0</b>, the cursor will be placed at the beginning of the line; and if you press <b>$</b>, the cursor will be placed at the end of the line.</p>
+<p class="tab">To delete everything from the cursor to the end of the line, type <b>d$</b>. To delete everything from the cursor to the beginning of the line, type <b>d0</b>... and so on.</p>
+<h2>Higher-level text objects</h2>
+<p class="tab">Sometimes it's helpful to move around in units of entire sentences. The <b>(</b> and <b>)</b> commands move to the beginning of the previous and next sentences, respectively. So the command <b>d)</b> deletes everything through the end of the current sentence; and <b>d(</b> deletes everything through the beginning of the current sentence, or the entire previous sentence if you're already at the beginning of a sentence.</p>
+<p class="tab">A sentence is defined as ending at a <a href="/jargon/p/period.htm">period</a> ("<b>.</b>"), <a href="/jargon/e/exclamation-mark.htm">exclamation point</a> ("<b>!</b>"), or <a href="/jargon/q/question.htm">question mark</a> ("<b>?</b>") which is followed either by the end of the line or a space. Any number of closing <b>)</b>, <b>]</b>, <b>"</b>, and <b>'</b> characters may appear after the <b>.</b>, <b>?</b>, or <b>!</b> before the space or the end of the line.</p>
+<p class="tab">The <b>{</b> and <b>}</b> commands move over paragraphs, and the operations <b>[[</b> and <b>]]</b> move over sections. A "section" can be defined by a special macro, or by a formfeed at the beginning of a line.</p>
+<h2>Rearranging and duplicating text</h2>
+<p class="tab">The editor has a special unnamed buffer where the last deleted or changed-away text is saved, and a set of named buffers <b>a</b> through <b>z</b> which you can use to save copies of text and to move text around in your file (or files).</p>
+<p class="tab">The <b>y</b> command "yanks" a copy of an object into the unnamed buffer. If preceded by a buffer name, it places this object into the named buffer. The way to specify the buffer is double quotes (<b>"</b>), then a letter <b>a</b>-<b>z</b>, then the <b>y</b> command. So <b>"ay</b> will yank an object into the buffer named <b>a</b>.</p>
+<p class="tab">Text in a buffer (either the unnamed buffer or one of your named buffers) can be pasted into your document with the commands <b>p</b> or <b>P</b>. <b>p</b> will paste the buffer contents after the cursor location (much like an append), and <b>P</b> will paste the buffer contents at the cursor location (much like an insert).</p>
+<p class="tab">If the text which you yank forms part of a line, or is an object such as a sentence which partially spans more than one line, then when you put the text back, it will be placed after the cursor (or before it if you used <b>P</b>). If the yanked text forms whole lines, they will be put back as whole lines, without changing the current line. In this case, the paste acts much more like an <b>o</b> or <b>O</b> command. So, the command <b>YP</b> will make a copy of the current line and place you at the location of the copy, which is placed before the current line. <b>Y</b> is a convenient abbreviation for <b>yy</b>.</p>
+<p class="tab">The command <b>Yp</b> will also make a copy of the current line, and place it after the current line. You can give <b>Y</b> a number of lines to yank, and thus duplicate several lines; for instance, <b>3YP</b> will duplicate three lines, and place them before the current line.</p>
+<p class="tab">To move text within the buffer, you need to delete it in one place, and put it back in another. You can precede a delete operation by the name of a buffer in which the text is to be stored, as in <b>"a5dd</b>, which deletes 5 lines into the named buffer <b>a</b>. You can then move the cursor to the eventual resting place of these lines and do a <b>"ap</b> or <b>"aP</b> to put them back. In fact, you can switch and edit another file before you put the lines back, by giving a command of the form <b>:e</b> <i>name</i>, where <i>name</i> is the name of the other file you want to edit. You will have to write the contents of the current editor buffer (or discard them) if you have made changes, before the editor will allow you to edit a new file.</p>
+<p class="tab">An ordinary delete command saves the text in the unnamed buffer, so that an ordinary paste will place it back in the file. However, the unnamed buffer is lost when you change files, so to move text from one file to another you should use a named buffer.</p>
+<h2>Summary of moving and rearranging text</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:40px"><b>^</b></td>
+<td>First non-whitespace character on line.</td>
+</tr>
+<tr class="tcw">
+<td><b>0</b></td>
+<td>Beginning of the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>$</b></td>
+<td>End of the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>)</b></td>
+<td>Forward to next sentence break.</td>
+</tr>
+<tr class="tcw">
+<td><b>(</b></td>
+<td>Backward to previous sentence break.</td>
+</tr>
+<tr class="tcw">
+<td><b>}</b></td>
+<td>Forward to next paragraph break.</td>
+</tr>
+<tr class="tcw">
+<td><b>{</b></td>
+<td>Backward to previous paragraph break.</td>
+</tr>
+<tr class="tcw">
+<td><b>]]</b></td>
+<td>Forward to next section break.</td>
+</tr>
+<tr class="tcw">
+<td><b>[[</b></td>
+<td>Backward to previous section break.</td>
+</tr>
+<tr class="tcw">
+<td><b>f</b><i>x</i></td>
+<td>Find character <i>x</i> forward in the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>F</b><i>x</i></td>
+<td>Find character <i>x</i> backward in the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>p</b></td>
+<td>Paste text after cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>P</b></td>
+<td>Paste text before cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>y</b></td>
+<td>Yank.</td>
+</tr>
+<tr class="tcw">
+<td><b>Y</b></td>
+<td>Yank a whole line.</td>
+</tr>
+<tr class="tcw">
+<td><b>t</b></td>
+<td>Forward to character <i>x</i>, for operations.</td>
+</tr>
+<tr class="tcw">
+<td><b>T</b><i>x</i></td>
+<td>Back to character <i>x</i>, for operations.</td>
+</tr>
+</table>
+<h2 id="High-Level-Commands">High level commands</h2>
+<h2>Writing, quitting, and editing new files</h2>
+<p class="tab">So far we have seen how to write our file to disk and quit (<b>ZZ</b>), or simply write our file and continue editing(<b>:w</b>).</p>
+<p class="tab">If you have changed your file but you want to quit without saving, use the command <b>:q!</b>. The command <b>:q</b> quits the editor, but it will only let you do this if you haven't made any changes since your last write (your last save). The exclamation point, however, tells the editor "yes, I really want to do this."</p>
+<p class="tab">Similarly, you can edit another file with the <b>:e</b> <i>name</i> command, where <i>name</i> is the name of the file you want to edit. But the editor won't let you do this if you have unsaved changes. However, if you use the exclamation mark again (<b>:e!</b> <i>name</i>), the editor will do as you ask: it will discard your changes and open file <i>name</i> for editing.</p>
+<p class="tab">If you don't specify a file name, and just use the command <b>:e!</b>, the editor will re-load your saved version of the file you're working on. This is like the "revert" command in other file editors. It will discard your changes, and revert to the last-saved version of the file.</p>
+<h2>Escaping to the shell</h2>
+<p class="tab">If you want run a shell command without exiting the editor, you can use the command <b>:!</b><i>command</i>. The system will run the command <i>command</i>, and when the command finishes, the editor will ask you to press Enter before returning you to the editing screen. You can also give another <b>:</b> command when it asks you to press Enter; this will run the next command without redrawing the screen.</p>
+<p class="tab">If you want to drop entirely to your shell's command prompt, use the command <b>:sh</b>. This will drop you into your shell, where you can use it as you normally would; when you're done, type Control-D (<b>^D</b>), and you will be returned to <b>vi</b>.</p>
+<p class="tab">On many systems, you can also simply type <b>^Z</b> from within the editor at any time to drop into your shell. This technically puts <b>vi</b> in the background. To return to <b>vi</b>, type <b>fg</b> ("foreground") at your shell command prompt, and <b>vi</b> will become your foreground process again.</p>
+<h2>Marking and returning</h2>
+<p class="tab">As already mentioned, the command <b>&#96;&#96;</b> (two back quotes) returns you to the previous place after a motion of the cursor by a command such as <b>/</b>, <b>/</b>, or <b>G</b>. You can also mark your position in the file with single-letter tags and return to these marks later. The marking is done with the command <b>m</b><i>x</i>, where <i>x</i> is the letter you want to assign to the mark. To return to the place that you marked, you can use the command <b>&#96;</b><i>x</i></p>
+<p class="tab">For example, if you type <b>ma</b>, you will mark the current cursor position with the letter <b>a</b>. Then, if you move the cursor anywhere else in the file, you can always return to that line with the command <b>&#96;a</b>. Marks last until you start editing another file, or until you overwrite the mark by setting it somewhere else.</p>
+<p class="tab">When using operators such as <b>d</b> and referring to marked lines, sometimes you'll want to refer to the line that you marked, and not the actual cursor position within the line. At any time, you can use <b>'</b><i>x</i> (as opposed to <b>&#96;</b><i>x</i>) to refer to the line itself. So, the command <b>d&#96;</b><i>a</i> will delete everything from the current cursor position up to the exact position at mark <b>a</b>, whereas the command <b>d'a</b> will delete everything up to (and including) the entire line where mark <b>a</b> resides.</p>
+<p class="tab">Used without an operator, <b>'</b><i>x</i> moves you to the first non-whitespace character in the line where mark <i>x</i> resides.</p>
+<h2>Adjusting the screen</h2>
+<p class="tab">If the screen image is messed up for any reason, you can refresh the screen with Control-L (<b>^L</b>).</p>
+<p class="tab">If you want to center the screen on your cursor at any time, type <b>z-</b>. To adjust the screen so that the line with your cursor is at the top of the screen, type <b>z</b> and press Enter. To adjust the screen so that the line with your cursor is at the bottom of the screen, type <b>z.</b>.</p>
+<p class="tab"><b>zz</b> is the same as <b>z-</b>, and will center the screen so that the line with your cursor is at the center of the screen.</p>
+<h2 id="Special-Topics">Special topics</h2>
+<h2>Setting options, and using editor startup files</h2>
+<p class="tab">The editor has a set of options, which you can set with the <b>:set</b> command. To set option <i>opt</i> to value <i>val</i>, use the command <b>:set</b> <i>opt</i><b>=</b><i>val</i>.</p>
+<p class="tab">Toggle options can be set with the commands <b>set</b> <i>opt</i>, and unset with the command <b>set no</b><i>opt</i>.</p>
+<p class="tab">Here are some of the most useful options you can set:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<th>option name</th>
+<th>default value</th>
+<th>description</th>
+</tr>
+<tr class="tcw">
+<td><b>autoindent</b></td>
+<td>noai</td>
+<td>Supply indentation automatically</td>
+</tr>
+<tr class="tcw">
+<td><b>autowrite</b></td>
+<td>noaw</td>
+<td>Automatically write to file while editing</td>
+</tr>
+<tr class="tcw">
+<td><b>ignorecase</b></td>
+<td>noic</td>
+<td>Ignore case when searching</td>
+</tr>
+<tr class="tcw">
+<td><b>lisp</b></td>
+<td>nolisp</td>
+<td><b>(</b>, <b>{</b>, <b>)</b>, and <b>}</b> commands deal with S-expressions</td>
+ </tr>
+<tr class="tcw">
+<td><b>list</b></td>
+<td>nolist</td>
+<td>Tabs print as <b>^I</b>; end of lines marked with <b>$</b></td>
+</tr>
+<tr class="tcw">
+<td><b>magic</b></td>
+<td>nomagic</td>
+<td>The characters <b>.</b>, <b>[</b>, and <b>*</b> are special ("magical") in scans</td>
+</tr>
+<tr class="tcw">
+<td><b>number</b></td>
+<td>nonu</td>
+<td>Lines are displayed prefixed with their line numbers</td>
+</tr>
+<tr class="tcw">
+<td><b>paragraphs</b></td>
+<td>para=IPLPPPQPbpP</td>
+<td>LI Macro names which start paragraphs</td>
+</tr>
+<tr class="tcw">
+<td><b>redraw</b></td>
+<td>nore</td>
+<td>Simulate a smart terminal on a dumb terminal</td>
+</tr>
+<tr class="tcw">
+<td><b>sections</b></td>
+<td>sect=NHSHH</td>
+<td>HU Macro names which start new sections</td>
+</tr>
+<tr class="tcw">
+<td><b>shiftwidth</b></td>
+<td>sw=8</td>
+<td>Shift distance for <b>&lt;</b>, <b>&gt;</b>, and other "shift" commands</td>
+</tr>
+<tr class="tcw">
+<td><b>showmatch</b></td>
+<td>nosm</td>
+<td>Show matching <b>(</b> or <b>{</b> locations as <b>)</b> or <b>}</b> is typed, for example</td>
+</tr>
+<tr class="tcw">
+<td><b>showmode</b></td>
+<td>nosmd</td>
+<td>Show input mode description</td>
+</tr>
+<tr class="tcw">
+<td><b>slowopen</b></td>
+<td>slow</td>
+<td>Postpone display updates during inserts</td>
+</tr>
+<tr class="tcw">
+<td><b>term</b></td>
+<td>dumb</td>
+<td>The kind of terminal you are using</td>
+</tr>
+</table>
+<p class="tab">These statements can be placed in the <a href="/jargon/e/envivari.htm">environment variable</a> <b>EXINIT</b>, or can be given while you are running <b>vi</b> by preceding them with a <b>:</b>, as described above.</p>
+<p class="tab">You can view a list of all options and their settings by typing <b>:set</b> within <b>vi</b> at any time. To view the current setting of a particular option, use the command <b>:set</b> <i>opt</i><b>?</b>.</p>
+<p class="tab"><b>set</b> can be abbreviated as <b>se</b>. Multiple options can be set on one line, for instance <b>:se ai aw nu</b>.</p>
+<p class="tab">Options set with <b>:set</b> only last for your current editor session.</p>
+<p class="tab">If you want to place your default settings into the environment variable <b>EXINIT</b> so that they are loaded every time you run <b>vi</b>, you can specify multiple commands on a single line by separating them with the vertical bar ("<b>|</b>"). For instance, if your shell is <a href="/unix/ucsh.htm"><b>csh</b></a>, you could set <b>EXINIT</b> with the following shell command:</p>
+<pre class="tab tcy">setenv EXINIT 'set ai aw terse|map @ dd|map # x'</pre>
+<h2>Recovering lost lines</h2>
+<p class="tab">You might have a problem if you delete several lines and then want them back. However, the editor saves the last 9 deleted blocks of text in a set of registers numbered <b>1</b> through <b>9</b>. You can get the <i>n</i>th previous deleted text back in your file by the command <b>"</b><i>n</i><b>p</b>. These are similar to your named buffers, except they refer to the number of the previous block of text that was deleted.</p>
+<p class="tab">Usually, when you type a single period ("<b>.</b>"), it repeats the last change you've made. As a special case, when this period repeats a change that refers to a numbered buffer, the number is incremented before the command is repeated. Let's see how this works, and why it's useful:</p>
+<p class="tab">Let's say you deleted something important, and you know it's in one of your nine previous block-deletes, but you're not sure which one. If you want to go back and look at all nine previously deleted blocks, here's how you could do it: you could use the command</p>
+<pre class="tab tcy">"1p</pre>
+<p class="tab">To paste the contents of the most recently-deleted text (buffer number <b>1</b>). If that's not the text you wanted, you could then undo (<b>u</b>) and repeat the command with <b>.</b>, pasting the command of buffer <b>2</b>. In other words, typing the command</p>
+<pre class="tab tcy">"1pu.u.u.u.</pre>
+<p class="tab">is the same as typing</p>
+<pre class="tab tcy">"1pu"2pu"3pu"4pu"5p</pre>
+<p class="tab">and you can go back in the numbered buffers easily until you find the text you want to have back.</p>
+<p class="tab">The command <b>P</b> can, of course, be used instead of <b>p</b> in the above example, to place the text before the cursor instead of after it.</p>
+<h2>Recovering lost files</h2>
+<p class="tab">If the system crashes, you can recover the work you were doing to within a few changes. When you get back into your system, use this command to start <b>vi</b>:</p>
+<pre class="tab tcy">vi -r <i>name</i></pre>
+<p class="tab">Where <i>name</i> is the name of the file you were editing. This will recover your work to a point as close as possible to where you left off.</p>
+<p class="tab">If you don't specify a file with <i>name</i> and instead just type</p>
+<pre class="tab tcy">vi -r</pre>
+<p class="tab">then you will receive a list of files which can be recovered.</p>
+<h2>Continuous text input</h2>
+<p class="tab">When you are typing in large amounts of text it is convenient to have lines broken near the right margin automatically. You can cause this to happen by giving the command <b>:se wm=10</b>. This causes all lines to be broken at a space at least 10 columns from the right hand edge of the screen.</p>
+<p class="tab">If the editor breaks an input line and you wish to put it back together you can tell it to join the lines with <b>J</b>. You can give <b>J</b> a count of the number of lines to be joined as in <b>3J</b> to join 3 lines. The editor supplies white space, if appropriate, at the juncture of the joined lines, and leaves the cursor at this white space. You can kill the white space with <b>x</b> if you don't want it.</p>
+<h2>Features for editing programs</h2>
+<p class="tab">The editor has a number of commands for editing programs. The thing that most distinguishes editing of programs from editing of text is the indented structure to the body of the program. The editor has an <b>autoindent</b> facility for helping you generate correctly indented programs.</p>
+<p class="tab">To enable this facility you can give the command <b>:se ai</b>. Now try opening a new line with <b>o</b> and type some characters on the line after a few tabs. If you now start another line, notice that the editor supplies white space at the beginning of the line to line it up with the previous line. You cannot backspace over this indentation, but you can use <b>^D</b> key to backtab over the supplied indentation.</p>
+<p class="tab">Each time you type <b>^D</b> you back up one position, normally to an 8 column boundary. This amount is settable; the editor has an option called <b>shiftwidth</b> which you can set to change this value. Try giving the command <b>:se sw=4</b> and then experimenting with <b>autoindent</b> again.</p>
+<p class="tab">For shifting lines in the program left and right, there are operators <b>&lt;</b> and <b>&gt;</b>. These shift the lines you specify right or left by one shiftwidth. Try <b>&lt;&lt;</b> and <b>&gt;&gt;</b> which shift one line left or right, and <b>&lt;L</b> and <b>&gt;L</b> shifting the rest of the display left and right.</p>
+<p class="tab">If you have a complicated expression and wish to see how the parentheses match, put the cursor at a left or right parenthesis and hit <b>%</b>. This will show you the matching parenthesis. This works also for braces <b>{</b> and <b>}</b>, and brackets <b>[</b> and <b>]</b>.</p>
+<p class="tab">If you are editing <a href="/jargon/c/c.htm">C</a> programs, you can use the <b>[[</b> and <b>]]</b> keys to advance or retreat to a line starting with a <b>{</b>, i.e. a function declaration at a time. When <b>]]</b> is used with an operator it stops after a line which starts with <b>}</b>; this is sometimes useful with <b>y]]</b>.</p>
+<h2>Filtering portions of the buffer</h2>
+<p class="tab">You can run system commands over portions of the buffer using the operator <b>!</b> (the exclamation point). Essentially, it sends a section of your file as <a href="/jargon/s/stdin.htm">standard input</a> to a shell command, then replaces that portion of your text with the standard output of the command.</p>
+<p class="tab">All together, the way to specify what text to send and what command to send it to, is <b>!</b><i>(movement-specifier) command-name</i>. The <i>movement-specifier</i> could be <b>w</b> for operating on the next word, for instance, or <b>}</b> for the next paragraph, etc. The <i>command-name</i> is the shell command, and any arguments it may take.</p>
+<p class="tab">This is especially useful for sorting using the <a href="/unix/usort.htm"><b>sort</b></a> command. You can use this to sort lines in your file. For instance, if you were to type in a list of random words, one per line, and end them with a blank line, then you backed up to the beginning of the list and gave the command <b>!}sort</b>, this would sort the data you just typed in, right before your eyes. This is a very powerful function! Try it for yourself.</p>
+<h2>Commands for editing LISP code</h2>
+<p class="tab">If you are editing a <a href="/jargon/l/lisp.htm">LISP</a> program you should set the option <b>lisp</b> by doing <b>:se lisp</b>. This changes the <b>(</b> and <b>)</b> commands to move backward and forward over s-expressions. The <b>{</b> and <b>}</b> commands are like <b>(</b> and <b>)</b> but don't stop at atoms. These can be used to skip to the next list, or through a <a href="/jargon/c/comment.htm">comment</a> quickly.</p>
+<p class="tab">The <b>autoindent</b> option works differently for LISP, supplying indent to align at the first <a href="/jargon/a/argument.htm">argument</a> to the last open list. If there is no such argument then the indent is two spaces more than the last level.</p>
+<p class="tab">There is another option that is useful for typing in LISP, the <b>showmatch</b> option. Try setting it with <b>:se sm</b> and then try typing a "<b>(</b>", some words, and then a "<b>)</b>". Notice that the cursor shows the position of the "<b>(</b>" which matches the "<b>)</b>" briefly. This happens only if the matching "<b>(</b>" is on the screen, and the cursor stays there for at most one second.</p>
+<p class="tab">The editor also has an operator to realign existing lines as though they had been typed in with <b>lisp</b> and <b>autoindent</b> set. This is the <b>=</b> operator. Try the command <b>=%</b> at the beginning of a <a href="/jargon/f/function.htm">function</a>. This will realign all the lines of the function declaration.</p>
+<p class="tab">When you are editing LISP, the <b>[[</b> and <b>]]</b> advance and retreat to lines beginning with a <b>(</b>, and are useful for dealing with entire function definitions.</p>
+<h2>Macros</h2>
+<p class="tab"><b>vi</b> has a parameterless <a href="/jargon/m/macro.htm">macro</a> facility, which lets you set it up so that when you hit a single keystroke, the editor will act as though you had hit some longer sequence of keys. You can set this up if you find yourself typing the same sequence of commands repeatedly.</p>
+<p class="tab">There are two general kinds of macros:</p>
+<ol>
+<li>Ones where you put the macro body in a named macro buffer <i>x</i>. You can then type <b>@</b><i>x</i> to invoke the macro. The <b>@</b> may be followed by another <b>@</b> to repeat the last macro.</li>
+<li>You can use the map command from <b>vi</b> (typically in your <b>EXINIT</b> environment variable) with a command of the form:<br><br><pre class="tcy">:map lhs rhsCR</pre> mapping <b>lhs</b> into <b>rhs</b>. There are restrictions: <b>lhs</b> should be one keystroke (either 1 character or one function key) since it must be entered within one second (unless <b>notimeout</b> is set, in which case you can type it as slowly as you wish, and <b>vi</b> will wait for you to finish it before it echoes anything). The lhs can be no longer than 10 characters, the <b>rhs</b> no longer than 100. To get a space, tab or <a href="/jargon/n/newline.htm">newline</a> into <b>lhs</b> or <b>rhs</b> you should escape them with a <b>^V</b>. It may be necessary to double the <b>^V</b> if the map command is given inside <b>vi</b>, rather than in <b>ex</b>. Spaces and tabs inside the <b>rhs</b> need not be escaped.</li>
+</ol>
+<p class="tab">Thus to make the <b>q</b> key write and exit the editor, you can give the command</p>
+<pre class="tab tcy">:map q :wq^V^VCR CR</pre>
+<p class="tab">which means that whenever you type <b>q</b>, it will be as though you had typed the four characters <b>:wqCR</b>. A <b>^V</b>'s is needed because without it the carriage return would end the <b>:</b> command, rather than becoming part of the map definition. There are two <b>^V</b>'s because from within <b>vi</b>, two <b>^V</b>'s must be typed to get one. The first CR is part of the <b>rhs</b>, the second terminates the <b>:</b> command.</p>
+<p class="tab">Macros can be deleted with</p>
+<pre class="tab tcy">unmap lhs</pre>
+<p class="tab">If the <b>lhs</b> of a macro is &quot;<b>#0</b>&quot; through &quot;<b>#9</b>&quot;, this maps the particular function key instead of the 2 character &quot;<b>#</b>&quot; sequence. So that terminals without function keys can access such definitions, the form &quot;<b>#x</b>&quot; means function key <b>x</b> on all terminals (and need not be typed within one second). The character &quot;<b>#</b>&quot; can be changed using a macro in the usual way:</p>
+<pre class="tab tcy">:map ^V^V^I #</pre>
+<p class="tab">to use tab, for example. This won't affect the <b>map</b> command, which still uses <b>#</b>, but just the invocation from visual mode.</p>
+<p class="tab">The <b>undo</b> command reverses an entire macro call as a unit, if it made any changes.</p>
+<p class="tab">Placing a &quot;<b>!</b>&quot; after the word map causes the mapping to apply to input mode, rather than command mode. Thus, to arrange for <b>^T</b> to be the same as 4 spaces in input mode, you can type:</p>
+<pre class="tab tcy">:map! ^T ^Vb/b/b/b/</pre>
+<p class="tab">where <b>b/</b> is a blank. The <b>^V</b> is necessary to prevent the blanks from being taken as white space between the <b>lhs</b> and <b>rhs</b>.</p>
+<h2>Word abbreviations</h2>
+<p class="tab">A feature similar to macros in input mode is word abbreviation. This allows you to type a short word and have it expanded into a longer word or words. The commands are <b>:abbreviate</b> and <b>:unabbreviate</b> (<b>:ab</b> and <b>:una</b>) and have the same syntax as <b>:map</b>. For example:</p>
+<pre class="tab tcy">:ab eecs Electrical Engineering and Computer Sciences</pre>
+<p class="tab">causes the word &quot;<b>eecs</b>&quot; to always be changed into the phrase "<b>Electrical Engineering and Computer Sciences</b>". Word abbreviation is different from macros in that only whole words are affected. If &quot;<b>eecs</b>&quot; were typed as part of a larger word, it would be left alone. Also, the partial word is echoed as it is typed. There is no need for an abbreviation to be a single keystroke, as it should be with a macro.</p>
+<h2 id="Technical-Details">Technical details</h2>
+<h2>Line representation in the display</h2>
+<p class="tab">The editor folds long logical lines onto many physical lines in the display. Commands which advance lines advance logical lines and will skip over all the segments of a line in one motion. The command <b>|</b> moves the cursor to a specific column, and may be useful for getting near the middle of a long line to split it in half.</p>
+<p class="tab">The editor only puts full lines on the display; if there is not enough room on the display to fit a logical line, the editor leaves the physical line empty, placing only an <b>@</b> on the line as a place holder. When you delete lines on a dumb terminal, the editor will often just clear the lines to <b>@</b> to save time (rather than rewriting the rest of the screen). You can always maximize the information on the screen by giving the <b>^R</b> command.</p>
+<p class="tab">If you wish, you can have the editor place line numbers before each line on the display. Give the command <b>:se nu</b> to enable this, and the command <b>:se nonu</b> to turn it off. You can have tabs represented as <b>^I</b> and the ends of lines indicated with "<b>$</b>" by giving the command <b>:se list</b>; <b>:se nolist</b> turns this off.</p>
+<p class="tab">Finally, lines consisting of only the character "<b>~</b>" are displayed when the last line in the file is in the middle of the screen. These represent physical lines that are past the logical end of file.</p>
+<h2>More file manipulation commands</h2>
+<p class="tab">The following table lists the file manipulation commands which you can use when you are in <b>vi</b>.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>:w</b></td>
+<td>Write back changes.</td>
+</tr>
+<tr class="tcw">
+<td><b>:wq</b></td>
+<td>Write and quit.</td>
+</tr>
+<tr class="tcw">
+<td><b>:x</b></td>
+<td>Write (if necessary) and quit (same as <b>ZZ</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>:e</b> <i>name</i></td>
+<td>Edit file <i>name</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:e!</b></td>
+<td>Reedit, discarding changes.</td>
+</tr>
+<tr class="tcw">
+<td><b>:e +</b> <i>name</i></td>
+<td>Edit, starting at end.</td>
+</tr>
+<tr class="tcw">
+<td><b>:e +</b><i>n</i></td>
+<td>Edit, starting at line <i>n</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:e #</b></td>
+<td>Edit alternate file.</td>
+</tr>
+<tr class="tcw">
+<td><b>:w</b> <i>name</i></td>
+<td>Write file <i>name</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:w!</b> <i>name</i></td>
+<td>Overwrite file <i>name</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:<i>x</i></b>,<i>y</i><b>w</b> <i>name</i></td>
+<td>Write lines <i>x</i> through <i>y</i> to <i>name</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:r</b> <i>name</i></td>
+<td>Read file <i>name</i> into .</td>
+</tr>
+<tr class="tcw">
+<td><b>:r !</b><i>cmd</i></td>
+<td>Read output of <i>cmd</i> into buffer</td>
+</tr>
+<tr class="tcw">
+<td><b>:</b><i>n</i></td>
+<td>Edit next file in argument list.</td>
+</tr>
+<tr class="tcw">
+<td><b>:</b><i>n</i><b>!</b></td>
+<td>Edit next file, discarding changes to current.</td>
+</tr>
+<tr class="tcw">
+<td><b>:</b><i>n</i> <i>args</i></td>
+<td>Specify new argument list.</td>
+</tr>
+<tr class="tcw">
+<td><b>:ta</b> <i>tag</i></td>
+<td>Edit file containing tag <i>tag</i>, at <i>tag</i>.</td>
+</tr>
+</table>
+<p class="tab">All of these commands are followed by a CR or Esc. The most basic commands are <b>:w</b> and <b>:e</b>. A normal editing session on a single file will end with a <b>ZZ</b> command. If you are editing for a long period of time you can give <b>:w</b> commands occasionally after major amounts of editing, and then finish with a <b>ZZ</b>. When you edit more than one file, you can finish with one with a <b>:w</b> and start editing a new file by giving a <b>:e</b> command, or set <b>autowrite</b> and use <b>:n</b> <i>file</i>.</p>
+<p class="tab">If you make changes to the editor's copy of a file, but do not wish to write them back, then you must give an <b>!</b> after the command you would otherwise use; this forces the editor to discard any changes you have made. Use this carefully.</p>
+<p class="tab">The <b>:e</b> command can be given a <b>+</b> argument to start at the end of the file, or a <b>+</b><i>n</i> argument to start at line <i>n</i>. In actuality, <i>n</i> may be any editor command not containing a space, usefully a scan like <b>+/</b><i>pat</i> or <b>+?</b><i>pat</i>. In forming new names to the <b>e</b> command, you can use the character <b>%</b> which is replaced by the current file name, or the character <b>#</b> which is replaced by the alternate file <i>name</i>. The alternate file <i>name</i> is generally the last name you typed other than the current file. Thus if you try to do a <b>:e</b> and get a diagnostic that you haven't written the file, you can give a <b>:w</b> command and then a <b>:e #</b> command to redo the previous <b>:e</b>.</p>
+<p class="tab">You can write part of the buffer to a file by finding out the lines that bound the range to be written using <b>^G</b>, and giving these numbers after the <b>:</b> and before the <b>w</b>, separated by <b>,</b>'s. You can also mark these lines with <b>m</b> and then use an address of the form <b>'</b><i>x</i>,<b>'</b><i>y</i> on the <b>w</b> command here.</p>
+<p class="tab">You can read another file into the buffer after the current line using the <b>:r</b> command. You can similarly read in the output from a command, just use <b>!cmd</b> instead of a file name.</p>
+<p class="tab">If you wish to edit a set of files in succession, you can give all the names on the command line, and then edit each one in turn using the command <b>:n</b>. It is also possible to respecify the list of files to be edited by giving the <b>:n</b> command a list of file names, or a pattern to be expanded as you would have given it on the initial <b>vi</b> command.</p>
+<p class="tab">If you are editing large programs, the <b>:ta</b> command is very useful. It utilizes a data base of function names and their locations, which can be created by programs such as <a href="/unix/uctags.htm"><b>ctags</b></a>, to quickly find a function whose name you give. If the <b>:ta</b> command requires the editor to switch files, then you must <b>:w</b> or abandon any changes before switching. You can repeat the <b>:ta</b> command without any arguments to look for the same tag again.</p>
+<h2>More about searching for strings</h2>
+<p class="tab">When you are searching for strings in the file with <b>/</b> and <b>?</b>, the editor normally places you at the next or previous occurrence of the string. If you are using an operator such as <b>d</b>, <b>c</b> or <b>y</b>, then you may well wish to affect lines up to the line before the line containing the pattern. You can give a search of the form <b>/</b><i>pat</i><b>/-</b><i>n</i> to refer to the <i>n</i>'th line before the next line containing <i>pat</i>, or you can use <b>+</b> instead of <b>-</b> to refer to the lines after the one containing <i>pat</i>. If you don't give a line offset, then the editor affects characters up to the match place, rather than whole lines; thus use &quot;<b>+0</b>&quot; to affect to the line which matches.</p>
+<p class="tab">You can have the editor ignore the case of words in the searches it does by giving the command <b>:se ic</b>. The command <b>:se noic</b> turns this off.</p>
+<p class="tab">Strings given to searches may actually be <a href="/jargon/r/regex.htm">regular expressions</a>. If you do not want or need this facility, you should</p>
+<pre class="tab tcy">set nomagic</pre>
+<p class="tab">in your <b>EXINIT</b>. In this case, only the characters <b>^</b> and <b>$</b> are special in patterns. The character <b>\</b> is also then special (as it is most everywhere in the system), and may be used to get at the an extended pattern matching facility. It is also necessary to use a <b>\</b> before a <b>/</b> in a forward scan or a <b>?</b> in a backward scan, in any case. The following table gives the extended forms when magic is set.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:70px"><b>^</b></td>
+<td>At beginning of pattern, matches beginning of line.</td>
+</tr>
+<tr class="tcw">
+<td><b>$</b></td>
+<td>At end of pattern, matches end of line.</td>
+</tr>
+<tr class="tcw">
+<td><b>.</b></td>
+<td>Matches any character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\&lt;</b></td>
+<td>Matches the beginning of a word.</td>
+</tr>
+<tr class="tcw">
+<td><b>\&gt;</b></td>
+<td>Matches the end of a word.</td>
+</tr>
+<tr class="tcw">
+<td><b>[</b><i>str</i><b>]</b></td>
+<td>Matches any single character in <i>str</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>[</b><i>str</i><b>]</b></td>
+<td>Matches any single character not in <i>str</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>[</b><i>x</i><b>-</b><i>y</i><b>]</b></td>
+<td>Matches any character between <i>x</i> and <i>y</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b></td>
+<td>Matches any number of the preceding pattern.</td>
+</tr>
+</table>
+<p class="tab">If you use <b>nomagic</b> mode, then the <b>. [</b> and <b>*</b> primitives are given with a preceding <b>\</b>.</p>
+<h2>More about input mode</h2>
+<p class="tab">There are a number of characters which you can use to make corrections during input mode. These are summarized in the following table.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>^H</b></td>
+<td>Deletes the last input character.</td>
+</tr>
+<tr class="tcw">
+<td><b>^W</b></td>
+<td>Deletes the last input word, defined as by <b>b</b>.</td>
+</tr>
+<tr class="tcw">
+<td>erase</td>
+<td>Your erase character, same as <b>^H</b>.</td>
+</tr>
+<tr class="tcw">
+<td>kill</td>
+<td>Your kill character, deletes the input on this line.</td>
+</tr>
+<tr class="tcw">
+<td><b>\</b></td>
+<td>Escapes a following <b>^H</b> and your erase and kill.</td>
+</tr>
+<tr class="tcw">
+<td>Esc</td>
+<td>Ends an insertion.</td>
+</tr>
+<tr class="tcw">
+<td>Del</td>
+<td>Interrupts an insertion, terminating it abnormally.</td>
+</tr>
+<tr class="tcw">
+<td>CR</td>
+<td>Starts a new line.</td>
+</tr>
+<tr class="tcw">
+<td><b>^D</b></td>
+<td>Backtabs over autoindent.</td>
+</tr>
+<tr class="tcw">
+<td><b>0^D</b></td>
+<td>Kills all the autoindent.</td>
+</tr>
+<tr class="tcw">
+<td><b>^^D</b></td>
+<td>(Caret-control-D) same as <b>0^D</b>, but restores indent next line.</td>
+</tr>
+<tr class="tcw">
+<td><b>^V</b></td>
+<td>Quotes the next non-printing character into the file.</td>
+</tr>
+</table>
+<p class="tab">The most usual way of making corrections to input is by typing <b>^H</b> to correct a single character, or by typing one or more <b>^W</b>'s to back over incorrect words. If you use <b>#</b> as your erase character in the normal system, it will work like <b>^H</b>.</p>
+<p class="tab">Your system kill character, normally <b>@</b>, <b>^X</b> or <b>^U</b>, will erase all the input you have given on the current line. In general, you can neither erase input back around a line boundary nor can you erase characters which you did not insert with this insertion command. To make corrections on the previous line after a new line has been started you can hit Esc to end the insertion, move over and make the correction, and then return to where you were to continue. The command <b>A</b> which appends at the end of the current line is often useful for continuing.</p>
+<p class="tab">If you wish to type in your erase or kill character (say <b>#</b> or <b>@</b>) then you must precede it with a <b>\</b>, just as you would do at the normal system command level. A more general way of typing non-printing characters into the file is to precede them with a <b>^V</b>. The <b>^V</b> echoes as a <b>^</b> character on which the cursor rests. This indicates that the editor expects you to type a control character. In fact, you may type any character and it will be inserted into the file at that point.</p>
+<p class="tab">If you are using <b>autoindent</b> you can backtab over the indent which it supplies by typing a <b>^D</b>. This backs up to a <b>shiftwidth</b> boundary. This only works immediately after the supplied <b>autoindent</b>.</p>
+<p class="tab">When you are using <b>autoindent</b> you may wish to place a label at the left margin of a line. The way to do this easily is to type <b>^</b> and then <b>^D</b>. The editor moves the cursor to the left margin for one line, and restore the previous indent on the next. You can also type a <b>0</b> followed immediately by a <b>^D</b> if you wish to kill all the indent and not have it come back on the next line.</p>
+<h2>Uppercase-only terminals</h2>
+<p class="tab">If your terminal has only upper case, you can still use <b>vi</b> using the normal system convention for typing on such a terminal. Characters which you normally type are converted to lower case, and you can type upper case letters by preceding them with a <b>\</b>. The characters <b>{</b> <b>~</b> <b>}</b> <b>|</b> <b>&#96;</b> are not available on such terminals, but you can escape them as <b>\(</b> <b>\^</b> <b>\)</b> <b>\!</b> <b>\'</b>. These characters are represented on the display in the same way they are typed.</p>
+<h2>Vi and ex</h2>
+<p class="tab"><b>vi</b> is actually one mode of editing within the editor <a href="/unix/uex.htm"><b>ex</b></a>. When you are running <b>vi</b> you can escape to the line oriented editor of <b>ex</b> by giving the command <b>Q</b>. All the <b>:</b> commands which were introduced above are available in <b>ex</b>. Likewise, most <b>ex</b> commands can be invoked from <b>vi</b> using <b>:</b>. Just give them without the <b>:</b> and follow them with a CR.</p>
+<p class="tab">In rare instances, an internal error may occur in <b>vi</b>. In this case, you get a diagnostic and be left in the command mode of <b>ex</b>. You can then save your work and quit if you wish by giving a command <b>x</b> after the <b>:</b> which <b>ex</b> prompts you with, or you can reenter <b>vi</b> by giving <b>ex</b> a <b>vi</b> command.</p>
+<p class="tab">There are a number of things which you can do more easily in <b>ex</b> than in <b>vi</b>. Systematic changes in line-oriented material are particularly easy. You can read the advanced editing documents for the editor <b>ed</b> to find out a lot more about this style of editing. Experienced users often mix their use of <b>ex</b> command mode and <b>vi</b> command mode to speed the work they are doing.</p>
+<h2 id="Quick-Reference">Quick reference</h2>
+<p class="tab">This is a summary of all the most useful <b>vi</b> commands. Refer to it any time you need to remember any of <b>vi</b>'s functions quickly, and at a glance.</p>
+<h2>Entering/leaving the editor</h2>
+<p class="tab">From the command line:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:190px"><b>vi</b> <i>name</i></td>
+<td>Launch <b>vi</b>, and load the file <i>name</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>vi</b> <b>+</b> <i>n</i> <i>name</i></td>
+<td>Launch <b>vi</b>, and load file <i>name</i>, placing the cursor at line <i>n</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>vi</b> <b>-t</b> <i>tag</i></td>
+<td>Launch <b>vi</b>, and start editing at <i>tag</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>vi</b> <b>-r</b></td>
+<td>List files that can be recovered.</td>
+</tr>
+<tr class="tcw">
+<td><b>vi</b> <b>-r</b> <i>name</i></td>
+<td>Launch <b>vi</b>, and recover previously-edited file <i>name</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>vi</b> <i>name1</i> <i>name2</i> <b>...</b></td>
+<td>Launch <b>vi</b>, loading file <i>name1</i> for editing; any other files named are loaded with the <b>:n</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>vi</b> <b>-R</b> <i>name</i></td>
+<td>Launch <b>vi</b>, and load file <i>name</i> in <a href="/jargon/r/readonly.htm">read-only</a> mode.</td>
+</tr>
+</table>
+<p class="tab">From within <b>vi</b>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>ZZ</b></td>
+<td>Exit from <b>vi</b>, saving changes.</td>
+</tr>
+<tr class="tcw">
+<td><b>^Z</b></td>
+<td>Background <b>vi</b> and return to the command shell. Resume foreground <b>vi</b> operation with the <b>fg</b> shell builtin command.</td>
+</tr>
+</table>
+<h2>File manipulation</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>:w</b></td>
+<td>Write changes (save the file).</td>
+</tr>
+<tr class="tcw">
+<td><b>:wq</b></td>
+<td>Write changes (save) and quit.</td>
+</tr>
+<tr class="tcw">
+<td><b>:q</b></td>
+<td>Quit immediately, if there are no unsaved changes.</td>
+</tr>
+<tr class="tcw">
+<td><b>:q!</b></td>
+<td>Quit immediately, discarding any unsaved changes.</td>
+</tr>
+<tr class="tcw">
+<td><b>:e</b> <i>name</i></td>
+<td>Edit file <i>name</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:e!</b></td>
+<td>Revert to the last-saved version of the current file.</td>
+</tr>
+<tr class="tcw">
+<td><b>:e</b> <b>+</b> <i>name</i></td>
+<td>Load file <i>name</i> for editing, placing the cursor at the end of the file.</td>
+</tr>
+<tr class="tcw">
+<td><b>:e</b> <b>+</b><i>n</i> <i>name</i></td>
+<td>Load file <i>name</i> for editing, starting at line <i>n</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:e</b> <b>#</b></td>
+<td>Edit alternate file.</td>
+</tr>
+<tr class="tcw">
+<td><b>^^</b></td>
+<td>(Control-caret). synonym for <b>:e #</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:w</b> <i>name</i></td>
+<td>Write to file <i>name</i> (save as...).</td>
+</tr>
+<tr class="tcw">
+<td><b>:w!</b> <i>name</i></td>
+<td>Overwrite file <i>name</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:sh</b></td>
+<td>Drop to command line shell; <b>^D</b> to return.</td>
+</tr>
+<tr class="tcw">
+<td><b>:!</b><i>cmd</i></td>
+<td>Run shell command <i>cmd</i>, then return to <b>vi</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:n</b></td>
+<td>Edit next file that was specified as an argument to <b>vi</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:n</b> <i>args</i></td>
+<td>Specify new argument list of files for <b>vi</b> to edit.</td>
+</tr>
+<tr class="tcw">
+<td><b>:f</b></td>
+<td>Show current file being edited, and current line count.</td>
+</tr>
+<tr class="tcw">
+<td><b>^G</b></td>
+<td>Synonym for <b>:f</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:ta</b> <i>tag</i></td>
+<td>To tag file entry <i>tag</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>^]</b></td>
+<td>Same as <b>:ta</b>, and the following word is the <i>tag</i>.</td>
+</tr>
+</table>
+<h2>Positioning within file</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:80px"><b>^F</b></td>
+<td>Position forward one screenful.</td>
+</tr>
+<tr class="tcw">
+<td><b>^B</b></td>
+<td>Position backward one screenful.</td>
+</tr>
+<tr class="tcw">
+<td><b>^D</b></td>
+<td>Scroll down one half-screenful.</td>
+</tr>
+<tr class="tcw">
+<td><b>^U</b></td>
+<td>Scroll up one half-screenful.</td>
+</tr>
+<tr class="tcw">
+<td><i>num</i><b>G</b></td>
+<td>Goto line <i>num</i> (the last line if <i>num</i> not specified).</td>
+</tr>
+<tr class="tcw">
+<td><b>/</b><i>pat</i></td>
+<td>Search for next occurrence of pattern <i>pat</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b><i>pat</i></td>
+<td>Search for previous occurrence of pattern <i>pat</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>n</b></td>
+<td>Repeat last search, in last search direction.</td>
+</tr>
+<tr class="tcw">
+<td><b>N</b></td>
+<td>Repeat last search, in the opposite of last search direction.</td>
+</tr>
+<tr class="tcw">
+<td><b>/</b><i>pat</i><b>/+</b><i>n</i></td>
+<td>Search to the <i>n</i>th line after next occurrence of pattern <i>pat</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b><i>pat</i><b>?-</b><i>n</i></td>
+<td>Search to the <i>n</i>th line before the previous occurrence of pattern <i>pat</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>]]</b></td>
+<td>Move to next section/function.</td>
+</tr>
+<tr class="tcw">
+<td><b>[[</b></td>
+<td>Move to previous section/function.</td>
+</tr>
+<tr class="tcw">
+<td><b>%</b></td>
+<td>Find matching <b>(</b>, <b>)</b>, <b>{</b>, or <b>}</b>.</td>
+</tr>
+</table>
+<h2>Insert and replace</h2>
+<p class="tab">The <b>Esc</b> key exits each of the following text-entry modes, except for <b>r</b>, which is only used to enter a single character.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>i</b></td>
+<td>Insert mode: text is inserted before the cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>a</b></td>
+<td>Append mode: text is appended after the cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>A</b></td>
+<td>Text is appended at the end of the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>I</b></td>
+<td>Text is inserted at the beginning of the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>o</b></td>
+<td>Open a new line, after the current line, for text entry.</td>
+</tr>
+<tr class="tcw">
+<td><b>O</b></td>
+<td>Open a new line, before the current line, for text entry.</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b><i>x</i></td>
+<td>Replace a the character under the cursor with character <i>x</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>R</b></td>
+<td>Replace multiple characters.</td>
+</tr>
+</table>
+<h2>Line positioning</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>H</b></td>
+<td>Move cursor to the first ("home") line of the window.</td>
+</tr>
+<tr class="tcw">
+<td><b>L</b></td>
+<td>Move cursor to the last line of the window.</td>
+</tr>
+<tr class="tcw">
+<td><b>M</b></td>
+<td>Move cursor to the middle line of the window.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b></td>
+<td>Move cursor to the first non-whitespace character of the next line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>Move cursor to the first non-whitespace character of the previous line.</td>
+</tr>
+<tr class="tcw">
+<td><b>CR</b></td>
+<td>(Carriage return/the Enter key.) same as <b>+</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>down</b> or <b>j</b></td>
+<td>Next line, same column.</td>
+</tr>
+<tr class="tcw">
+<td><b>up</b> or <b>k</b></td>
+<td>Previous line, same column.</td>
+</tr>
+</table>
+<h2>Character positioning</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><b>^</b></td>
+<td>Move cursor to first non-whitespace character on the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>0</b></td>
+<td>Move cursor to beginning of line.</td>
+</tr>
+<tr class="tcw">
+<td><b>$</b></td>
+<td>Move cursor to end of line.</td>
+</tr>
+<tr class="tcw">
+<td><b>right</b> or <b>l</b> or <b>SPACE</b></td>
+<td>Move cursor forward one character.</td>
+</tr>
+<tr class="tcw">
+<td><b>left</b> or <b>h</b> or <b>^H</b></td>
+<td>Move cursor back one character.</td>
+</tr>
+<tr class="tcw">
+<td><b>f</b><i>x</i></td>
+<td>Find the next occurrence of character <i>x</i> in the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>F</b><i>x</i></td>
+<td>Find the previous occurrence of character <i>x</i> in the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>t</b><i>x</i></td>
+<td>Move up to <i>x</i> forward.</td>
+</tr>
+<tr class="tcw">
+<td><b>T</b><i>x</i></td>
+<td>Move back to <i>x</i> backward.</td>
+</tr>
+<tr class="tcw">
+<td><b>;</b></td>
+<td>Repeat last <b>f</b>, <b>F</b>, <b>t</b>, or <b>T</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>,</b></td>
+<td>Inverse of <b>;</b>.</td>
+</tr>
+<tr class="tcw">
+<td><i>num</i><b>|</b></td>
+<td>Move to column <i>num</i>.</td>
+</tr>
+</table>
+<h2>Operators</h2>
+<p class="tab">(Each of these commands can be used twice to affect entire lines):</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:350px"><b>d</b></td>
+<td>Delete.</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td>Change (like delete, but places you in insert mode to enter the text it should change to).</td>
+</tr>
+<tr class="tcw">
+<td><b>&lt;</b></td>
+<td>Shift line left <b>shiftwidth</b> number of spaces.</td>
+</tr>
+<tr class="tcw">
+<td><b>&gt;</b></td>
+<td>Shift line right <b>shiftwidth</b> number of spaces.</td>
+</tr>
+<tr class="tcw">
+<td><b>!</b><i>(movement-command)</i><i>shell-command</i></td>
+<td>Filter text through a shell command.</td>
+</tr>
+<tr class="tcw">
+<td><b>=</b></td>
+<td>Indent for LISP.</td>
+</tr>
+<tr class="tcw">
+<td><b>y</b></td>
+<td>Yank lines into buffer.</td>
+</tr>
+</table>
+<h2>Words, sentences, paragraphs</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>w</b></td>
+<td>Word forward.</td>
+</tr>
+<tr class="tcw">
+<td><b>b</b></td>
+<td>Word backward.</td>
+</tr>
+<tr class="tcw">
+<td><b>e</b></td>
+<td>End of word.</td>
+</tr>
+<tr class="tcw">
+<td><b>)</b></td>
+<td>To next sentence break.</td>
+</tr>
+<tr class="tcw">
+<td><b>}</b></td>
+<td>To next paragraph break.</td>
+</tr>
+<tr class="tcw">
+<td><b>(</b></td>
+<td>To previous sentence break.</td>
+</tr>
+<tr class="tcw">
+<td><b>{</b></td>
+<td>To previous paragraph break.</td>
+</tr>
+<tr class="tcw">
+<td><b>W</b></td>
+<td>To next blank-delimited word.</td>
+</tr>
+<tr class="tcw">
+<td><b>B</b></td>
+<td>To previous blank-delimited word.</td>
+</tr>
+<tr class="tcw">
+<td><b>E</b></td>
+<td>To end of blank-delimited word.</td>
+</tr>
+</table>
+<h2>Yank to buffer, and paste from buffer</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:50px"><b>p</b></td>
+<td>Paste after cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>P</b></td>
+<td>Paste before cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>"</b><i>x</i><b>p</b></td>
+<td>Paste from buffer <i>x</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>"</b><i>x</i><b>y</b></td>
+<td>Yank into buffer <i>x</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>"</b><i>x</i><b>d</b></td>
+<td>Delete into buffer <i>x</i>.</td>
+</tr>
+</table>
+<h2>Undo, redo, retrieve</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:50px"><b>u</b></td>
+<td>Undo last change.</td>
+</tr>
+<tr class="tcw">
+<td><b>U</b></td>
+<td>Restore current line.</td>
+</tr>
+<tr class="tcw">
+<td><b>.</b></td>
+<td>Repeat last change.</td>
+</tr>
+<tr class="tcw">
+<td><b>"</b><i>d</i><b>p</b></td>
+<td>Retrieve <i>d</i>th last delete.</td>
+</tr>
+</table>
+<h2>Marking and returning</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:50px"><b>&#96;&#96;</b></td>
+<td>Go to previous location.</td>
+</tr>
+<tr class="tcw">
+<td><b>''</b></td>
+<td>Go to previous location, at first non-whitespace in line.</td>
+</tr>
+<tr class="tcw">
+<td><b>m</b><i>x</i></td>
+<td>Mark position with letter <i>x</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>&#96;</b><i>x</i></td>
+<td>Move to the position marked <i>x</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>'</b><i>x</i></td>
+<td>Move to the position marked <i>x</i>, at the first non-whitespace character in the line.</td>
+</tr>
+</table>
+<h2>Miscellaneous operations</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>C</b></td>
+<td>Change rest of line.</td>
+</tr>
+<tr class="tcw">
+<td><b>D</b></td>
+<td>Delete rest of line.</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b></td>
+<td>Substitute characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>S</b></td>
+<td>Substitute lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>J</b></td>
+<td>Join lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>x</b></td>
+<td>Delete a single character.</td>
+</tr>
+<tr class="tcw">
+<td><b>X</b></td>
+<td>Delete a single character <i>before</i> the cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>Y</b></td>
+<td>Yank a line; same as <b>yy</b>.</td>
+</tr>
+</table>
+<h2>Adjusting the screen</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:80px"><b>^L</b></td>
+<td>Clear and redraw.</td>
+</tr>
+<tr class="tcw">
+<td><b>z</b>(Enter)</td>
+<td>Redraw screen with current line at top.</td>
+</tr>
+<tr class="tcw">
+<td><b>z-</b></td>
+<td>Redraw screen with current line at bottom.</td>
+</tr>
+<tr class="tcw">
+<td><b>z.</b></td>
+<td>Redraw screen with current line at center.</td>
+</tr>
+<tr class="tcw">
+ <td><b>zz</b></td>
+<td>Same as <b>z.</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>^E</b></td>
+<td>Scroll window down one line (but don't move cursor).</td>
+</tr>
+<tr class="tcw">
+<td><b>^Y</b></td>
+<td>Scroll window up one line (but don't move cursor).</td>
+</tr>
+</table>
+<h2>Useful command combinations</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:80px"><b>dw</b></td>
+<td>Delete a word.</td>
+</tr>
+<tr class="tcw">
+<td><b>de</b></td>
+<td>Delete a word, leaving any of its punctuation intact.</td>
+</tr>
+<tr class="tcw">
+<td><b>dd</b></td>
+<td>Delete a line.</td>
+</tr>
+<tr class="tcw">
+<td><b>3dd</b></td>
+<td>Delete 3 lines (for example).</td>
+</tr>
+<tr class="tcw">
+<td><b>cw</b><i>new</i></td>
+<td>Change word to <i>new</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>eas</b></td>
+<td>Pluralize a word (stick an s at the end of it).</td>
+</tr>
+<tr class="tcw">
+<td><b>xp</b></td>
+<td>Transpose two characters.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">vi myfile.txt</pre>
+<p class="tab">Edits the file <b>myfile.txt</b>.</p>
+<ul>
+<li><a href="/issues/ch001745.htm">How to save a file in Linux after using the vi command.</a></li>
+</ul>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uctags.htm"><b>ctags</b></a> &mdash; Create tag files for source code.<br><a href="/unix/ued.htm"><b>ed</b></a> &mdash; A simple text editor.<br><a href="/unix/uedit.htm"><b>edit</b></a> &mdash; A text editor.<br><a href="/unix/uex.htm"><b>ex</b></a> &mdash; Line-editor mode of the <b>vi</b> text editor.<br><a href="/unix/upico.htm"><b>pico</b></a> &mdash; A simple text editor.<br><a href="/unix/vim.htm"><b>vim</b></a> &mdash; An advanced version of <b>vi</b>.<br><a href="/unix/vipw.htm"><b>vipw</b></a> &mdash; Safely edit the password file.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8377df4884b0',m:'acFoXtYipUSNCqFrH8MtehLmuk.kvSPy5EfyYF0LiA4-1661495371-0-AR352YeDgaGLaA/311nvCFhoXCQXD8+5lf2D3FPVzs3XYI1AMly+arikL7EWuVlXEO17pdoS9HnJfJsI+qn1xw2p8ADl6b+u0kToMyzr4ezB6CPbO3Jjse0BD38HeyCUnQ==',s:[0xc9aed9269e,0xe6d7aa13f7],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

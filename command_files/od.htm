@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux od command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/od.gif" width="300" height="300" alt="od command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>od</b> command dumps the contents of files to <a href="/jargon/o/octal.htm">octal</a>, and other formats.</p>
+<p>This page describes the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>od</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#format">Format specifications</a></li>
+<li><a href="#examples">Examples</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>od</b> command writes an unambiguous representation, using octal bytes by default, of <i>FILE</i> to standard output. If more than one <i>FILE</i> is specified, od <a href="/jargon/c/concaten.htm">concatenates</a> them in the listed order to form the input. With no <i>FILE</i>, or when <i>FILE</i> is a dash (&quot;<b>-</b>&quot;), od reads from <a href="/jargon/s/stdin.htm">standard input</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">od [<i>OPTION</i>]... [<i>FILE</i>]...</pre>
+<pre class="tcy tab">od [-abcdfilosx]... [<i>FILE</i>] [[+]<i>OFFSET</i>[.][b]]</pre>
+<pre class="tcy tab">od --traditional [<i>OPTION</i>]... [<i>FILE</i>] [[+]<i>OFFSET</i>[.][b] [+][<i>LABEL</i>][.][b]]</pre>
+<h3 class="tab">Options</h3>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>All arguments to <b>--long</b> options are mandatory for <b>-short</b> options.</p>
+</div>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:330px"><b>-A</b> <i>RADIX</i>, <b>--address-radix=</b><i>RADIX</i></td>
+<td>decide how file offsets are printed</td>
+</tr>
+<tr class="tcw">
+<td><b>-j</b> <i>BYTES</i>, <b>--skip-bytes=</b><i>BYTES</i></td>
+<td>skip <i>BYTES</i> input bytes first</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b> <i> BYTES</i>, <b>--read-bytes=</b><i>BYTES</i></td>
+<td>limit dump to <i>BYTES</i> input bytes</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b> <i>BYTES</i>, <b>--strings</b>[<b>=</b><i>BYTES</i>]</td>
+<td>output strings of at least <i>BYTES</i> graphic chars</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>TYPE</i>, <b>--format=</b><i>TYPE</i></td>
+<td>select output format or formats</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--output-duplicates</b></td>
+<td>do not use <b>*</b> to mark line suppression</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>[<i>BYTES</i>], <b>--width</b>[<b>=</b><i>BYTES</i>]</td>
+<td>output <i>BYTES</i> bytes per output line</td>
+</tr>
+<tr class="tcw">
+<td><b>--traditional</b></td>
+<td>accept arguments in traditional form</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>display help and exit</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>display version information and exit</td>
+</tr>
+</table>
+<h2 id="format">Format specifications</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>same as <b>-t a</b>, select named characters, ignoring high-order bit</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>same as <b>-t o1</b>, select octal bytes</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>same as <b>-t c</b>, select <a href="/jargon/a/ascii.htm">ASCII</a> characters or backslash escapes</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>same as <b>-t u2</b>, select unsigned decimal 2-byte units</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>same as <b>-t fF</b>, select floats</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td>same as <b>-t dI</b>, select decimal ints</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>same as <b>-t dL</b>, select decimal longs</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b></td>
+<td>same as <b>-t o2</b>, select octal 2-byte units</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>same as <b>-t d2</b>, select decimal 2-byte units</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b></td>
+<td>same as <b>-t x2</b>, select hexadecimal 2-byte units</td>
+</tr>
+</table>
+<p class="tab">If first and second call formats both apply, the second format is assumed if the last operand begins with &quot;<b>+</b>&quot; or (if there are 2 operands) a digit. An <i>OFFSET</i> operand means <b>-j</b> <i>OFFSET</i>. <i>LABEL</i> is the pseudo-address at first byte printed, incremented when dump is progressing. For <i>OFFSET</i> and <i>LABEL</i>, a <b>0x</b> or <b>0X</b> prefix indicates <a href="/jargon/h/hex.htm">hexadecimal</a>; <a href="/jargon/s/suffix.htm">suffixes</a> may be &quot;.&quot; for octal and <b>b</b> for multiply by 512.</p>
+<p class="tab"><i>TYPE</i> is made up of one or more of these specifications:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:100px"><b>a</b></td>
+<td>named character, ignoring high-order bit</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td><a href="/jargon/a/ascii.htm">ASCII</a> character or backslash escape</td>
+</tr>
+<tr class="tcw">
+<td><b>d</b>[<i>SIZE</i>]</td>
+<td>signed decimal, <i>SIZE</i> bytes per integer</td>
+</tr>
+<tr class="tcw">
+<td><b>f</b>[<i>SIZE</i>]</td>
+<td>floating point, <i>SIZE</i> bytes per integer</td>
+</tr>
+<tr class="tcw">
+<td><b>o</b>[<i>SIZE</i>]</td>
+<td>octal, SIZE bytes per integer</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b>[<i>SIZE</i>]</td>
+<td>unsigned decimal, <i>SIZE</i> bytes per integer</td>
+</tr>
+<tr class="tcw">
+<td><b>x</b>[<i>SIZE</i>]</td>
+<td>hexadecimal, <i>SIZE</i> bytes per integer</td>
+</tr>
+</table>
+<p class="tab"><i>SIZE</i> is a number. For <i>TYPE</i> in <b>d</b>/<b>o</b>/<b>u</b>/<b>x</b>, <i>SIZE</i> may also be <b>C</b> for sizeof(char), <b>S</b> for sizeof(short), <b>I</b> for sizeof(int) or <b>L</b> for sizeof(long). If <i>TYPE</i> is <b>f</b>, <i>SIZE</i> may also be <b>F</b> for sizeof(float), <b>D</b> for sizeof(double) or <b>L</b> for sizeof(long double).</p>
+<p class="tab"><i>RADIX</i> is <b>d</b> for decimal, <b>o</b> for octal, <b>x</b> for hexadecimal or <b>n</b> for none. <i>BYTES</i> is hexadecimal with 0x or 0X prefix, and may have a multiplier suffix: <b>b</b> 512, <b>kB</b> 1000, <b>K</b> 1024, <b>MB</b> 1000*1000, <b>M</b> 1024*1024, <b>GB</b> 1000*1000*1000, <b>G</b> 1024*1024*1024, and so on for <b>T</b>, <b>P</b>, <b>E</b>, <b>Z</b>, <b>Y</b>. Adding a <b>z</b> suffix to any type displays printable characters at the end of each output line. Option <b>--string</b> without a number implies 3; option <b>--width</b> without a number implies 32. By default, <b>od</b> uses <b>-A o -t oS -w16</b>.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">od -b file.txt</pre>
+<p class="tab">Display the contents of file.txt in <a href="/jargon/o/octal.htm">octal</a> format (one byte per integer).</p>
+<pre class="tcy tab">od -Ax -c file.txt</pre>
+<p class="tab">Display the contents of file.txt in <a href="/jargon/a/ascii.htm">ASCII</a> (character) format, with byte offsets displayed as <a href="/jargon/h/hex.htm">hexadecimal</a>.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8328ecc2c429',m:'o4rBxEM3kvmk2TMtq5j1atTiX1okQQuQdl7fhHf8Qio-1661495358-0-AfKqym/n3dct1bVzxLPB7ZwuMSfWnvSLtKyrGzQCQtibIYdalGZAPD2T6Gr5fGRnWxxhK4SmUacb0lkRTofCiLQTd2u6/Oi6i3O+VNoG7fZGnE9EFuBIW834EWofM/hwcg==',s:[0x256cf84b24,0xea5160f43e],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

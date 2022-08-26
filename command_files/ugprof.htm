@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux gprof command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/gprof.gif" width="300" height="300" alt="gprof command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>gprof</b> command is a <a href="/jargon/s/softdeve.htm">software developement</a> tool that displays call graph profile data of a <a href="/jargon/c/compile.htm">compiled</a> binary.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>gprof</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>gprof</b> produces an <a href="/jargon/e/execute.htm">execution</a> profile of <a href="/jargon/c/c.htm">C</a>, <a href="/jargon/p/pascal.htm">Pascal</a>, or <a href="/jargon/f/fortran.htm">Fortran77</a> programs. The effect of called <a href="/jargon/r/routine.htm">routines</a> is incorporated in the profile of each caller. The profile data is taken from the call graph profile file (<b>gmon.out</b>, by default) which is created by programs that are compiled with the <b>-pg</b> option of <a href="/unix/ucc.htm">cc</a>, <b>pc</b>, and <b>f77</b>. The <b>-pg</b> option also links in versions of the library routines that are compiled for profiling. <b>gprof</b> reads the given object file (the default is <b>a.out</b>) and establishes the relation between its symbol table and the call graph profile from <b>gmon.out</b>. If more than one profile file is specified, the <b>gprof</b> output shows the sum of the profile information in the given profile files.</p>
+<p class="tab">If you use <a href="/jargon/g/gcc.htm">gcc</a> 2.95.x or 3.0 to compile your binaries, you may need to add the <b>-fprofile-arcs</b> to the compile command line for the call graphs to be properly stored in <b>gmon.out</b>.</p>
+<p class="tab"><b>gprof</b> calculates the amount of time spent in each routine. Next, these times are propagated along the edges of the call graph. Cycles are discovered, and calls into a cycle are made to share the time of the cycle.</p>
+<p class="tab">Several forms of output are available from the analysis:</p>
+<ul>
+<li>The <i>flat profile</i> shows how much time your program spent in each function, and how many times that function was called. If you want to know which functions burn most of the cycles, it is stated concisely here.</li>
+<li>The <i>call graph</i> shows, for each function, which functions called it, which other functions it called, and how many times. There is also an estimate of how much time was spent in the subroutines of each function. This can suggest places where you might try to eliminate function calls that use a lot of time.</li>
+<li>The <i>annotated source listing</i> is a copy of the program's <a href="/jargon/s/source.htm">source</a> <a href="/jargon/c/code.htm">code</a>, labeled with the number of times each line of the program was executed.</li>
+</ul>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">gprof [ -[abcDhilLrsTvwxyz] ] [ -[ACeEfFJnNOpPqQZ][name] ] [ -I <i>dirs</i> ] 
+      [ -d[<i>num</i>] ] [ -k <i>from/to</i> ] [ -m <i>min-count</i> ] [ -R <i>map_file</i> ] 
+      [ -t <i>table-length</i> ] [ --[no-]<i>annotated-source</i>[=<i>name</i>] ] 
+      [ --[no-]<i>exec-counts</i>[=<i>name</i>] ] [ --[no-]<i>flat-profile</i>[=<i>name</i>] ] 
+      [ --[no-]<i>graph</i>[=<i>name</i>] ] [ --[no-]<i>time</i>=<i>name</i>] [ --all-lines ] [ --brief ] 
+      [ --debug[=<i>level</i>] ] [ --function-ordering ] [ --file-ordering <i>map_file</i> ] 
+      [ --directory-path=<i>dirs</i> ] [ --display-unused-functions ] 
+      [ --file-format=<i>name</i> ] [ --file-info ] [ --help ] [ --line ] 
+      [ --min-count=<i>n</i> ] [ --no-static ] [ --print-path ] [ --separate-files ] 
+      [ --static-call-graph ] [ --sum ] [ --table-length=<i>len</i> ] 
+      [ --traditional ] [ --version ] [ --width=<i>n</i> ] [ --ignore-non-functions ] 
+      [ --demangle[=<i>STYLE</i>] ] [ --no-demangle ] [--external-symbol-table=<i>name</i>] 
+      [ image-file ] [ profile-file ... ]</pre>
+<h2>Options</h2>
+<p class="tab">These options specify which of several output formats <b>gprof</b> should produce.</p>
+<p class="tab">Many of these options take an optional <i>symspec</i> to specify functions to be included or excluded. These options can be specified multiple times, with different symspecs, to include or exclude sets of symbols.</p>
+<p class="tab">Specifying any of these options overrides the default (<b>-p -q</b>), which prints a flat profile and call graph analysis for all functions.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:340px"><b>-A</b>[<i>symspec</i>],<br> <b>--annotated-source</b>[=<i>symspec</i>]</td>
+<td>The <b>-A</b> option causes <b>gprof</b> to print annotated source code. If <i>symspec</i> is specified, print output only for matching symbols.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b>, <b>--brief</b></td>
+<td>If the <b>-b</b> option is given, <b>gprof</b> doesn't print the <a href="/jargon/v/verbose.htm">verbose</a> blurbs that try to explain the meaning of all of the fields in the tables. This is useful if you intend to print out the output, or are tired of seeing the blurbs.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b>[<i>symspec</i>],<br> <b>--exec-counts</b>[=<i>symspec</i>]</td>
+<td>The <b>-C</b> option causes <b>gprof</b> to print a tally of functions and the number of times each was called. If <i>symspec</i> is specified, print tally only for matching symbols.<br><br> If the profile data file contains basic-block count records, specifying the <b>-l</b> option, along with <b>-C</b>, causes basic-block execution counts to be tallied and displayed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--file-info</b></td>
+<td>The <b>-i</b> option causes <b>gprof</b> to display summary information about the profile data file(s) and then exit. The number of histogram, call graph, and basic-block count records is displayed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> <i>dirs</i>,<br> <b>--directory-path=</b><i>dirs</i></td>
+<td>The <b>-I</b> option specifies a list of search directories where to find source files. <a href="/jargon/e/envivari.htm">Environment variable</a> <b>GPROF_PATH</b> can also be used to convey this information. Used mostly for annotated source output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-J</b>[<i>symspec</i>],<br> <b>--no-annotated-source</b>[=<i>symspec</i>]</td>
+<td>The <b>-J</b> option causes <b>gprof</b> not to print annotated source code. If <i>symspec</i> is specified, <b>gprof</b> prints annotated source, but excludes matching symbols.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--print-path</b></td>
+<td>Normally, source filenames are printed with the path component suppressed. The <b>-L</b> option causes <b>gprof</b> to print the full pathname of source filenames, which is determined from symbolic debugging information in the image file and is relative to the directory where the compiler was invoked.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>[<i>symspec</i>],<br> <b>--flat-profile</b>[=<i>symspec</i>]</td>
+<td>The <b>-p</b> option causes <b>gprof</b> to print a flat profile. If <i>symspec</i> is specified, print flat profile only for matching symbols.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b>[<i>symspec</i>],<br> <b>--no-flat-profile</b>[=<i>symspec</i>]</td>
+<td>The <b>-P</b> option causes <b>gprof</b> to suppress printing a flat profile. If <i>symspec</i> is specified, <b>gprof</b> prints a flat profile, but excludes matching symbols.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>[<i>symspec</i>],<br> <b>--graph</b>[=<i>symspec</i>]</td>
+<td>The <b>-q</b> option causes <b>gprof</b> to print the call graph analysis. If <i>symspec</i> is specified, print call graph only for matching symbols and their children.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Q</b>[<i>symspec</i>],<br> <b>--no-graph</b>[=<i>symspec</i>]</td>
+<td>The <b>-Q</b> option causes <b>gprof</b> to suppress printing the call graph. If <i>symspec</i> is specified, <b>gprof</b> prints a call graph, but excludes matching symbols.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--table-length</b>=<i>num</i></td>
+<td>The <b>-t</b> option causes the <i>num</i> most active source lines in each source file to be listed when source annotation is enabled. The default is <b>10</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b>, <b>--separate-files</b></td>
+<td>This option affects annotated source output only. Normally, <b>gprof</b> prints annotated source files to standard output. If this option is specified, annotated source for a file named path<b>/filename</b> is generated in the file <b>filename-ann</b>. If the underlying file system would truncate <b>filename-ann</b> so that it overwrites the original filename, <b>gprof</b> generates annotated source in the file <b>filename.ann</b> instead (if the original file name has an extension, that extension is replaced with <b>.ann</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-Z</b>[<i>symspec</i>],<br> <b>--no-exec-counts</b>[=<i>symspec</i>]</td>
+<td>The <b>-Z</b> option causes <b>gprof</b> not to print a tally of functions and the number of times each was called. If <i>symspec</i> is specified, print tally, but exclude matching symbols.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--function-ordering</b></td>
+<td>The <b>--function-ordering</b> option causes <b>gprof</b> to print a suggested function ordering for the program based on profiling data. This option suggests an ordering which may improve paging, tlb and <a href="/jargon/c/cache.htm">cache</a> behavior for the program on systems which support arbitrary ordering of functions in an executable.<br><br> The exact details of how to force the linker to place functions in a particular order is system dependent and out of the scope of this manual.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b> <i>map_file</i>,<br> <b>--file-ordering</b> <i>map_file</i></td>
+<td>The <b>--file-ordering</b> option causes <b>gprof</b> to print a suggested <b>.o</b> link line ordering for the program based on profiling data. This option suggests an ordering which may improve paging, tlb and cache behavior for the program on systems which do not support arbitrary ordering of functions in an executable.<br><br> Use of the <b>-a</b> argument is highly recommended with this option.<br><br> The <i>map_file</i> argument is a <a href="/jargon/p/path.htm">pathname</a> to a file which provides function name to object file mappings. The format of the file is similar to the output of the program <b>nm</b>.<br><br><pre class="tab">c-parse.o:00000000 T yyparsec-parse.o:00000004 C yyerrflagc-lang.o:00000000 T maybe_objc_method_namec-lang.o:00000000 T print_lang_statisticsc-lang.o:00000000 T recognize_objc_keywordc-decl.o:00000000 T print_lang_identifierc-decl.o:00000000 T print_lang_type...</pre> To create a <i>map_file</i> with GNU <b>nm</b>, type a command like "<b>nm --extern-only --defined-only -v --print-file-name program-name</b>". </td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>, <b>--traditional</b></td>
+<td>The <b>-T</b> option causes <b>gprof</b> to print its output in "traditional" <a href="/jargon/b/bsd.htm">BSD</a> style.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b> <i>width</i>, <b>--width</b>=<i>width</i></td>
+<td>Sets width of output lines to <i>width</i>. Currently only used when printing the function index at the bottom of the call graph.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b>, <b>--all-lines</b></td>
+<td>This option affects annotated source output only. By default, only the lines at the beginning of a basic-block are annotated. If this option is specified, every line in a basic-block is annotated by repeating the annotation for the first line.</td>
+</tr>
+<tr class="tcw">
+<td><b>--demangle</b>[=<i>style</i>],<br> <b>--no-demangle</b></td>
+<td>These options control whether C++ symbol names should be demangled when printing output. The default is to demangle symbols. The <b>--no-demangle</b> option may be used to turn off demangling. Different compilers have different mangling styles. The optional demangling style argument can choose an appropriate demangling style for your compiler.</td>
+</tr>
+</table>
+<h2>Analysis Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:280px"><b>-a</b>, <b>--no-static</b></td>
+<td>The <b>-a</b> option causes <b>gprof</b> to suppress the printing of statically declared (private) functions. (These are functions whose names are not listed as global, and that are not visible outside the file/function/block where they were defined.) Time spent in these functions, calls to/from them, etc., will all be attributed to the function that was loaded directly before it in the executable file. This option affects both the flat profile and the call graph.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>,<br> <b>--static-call-graph</b></td>
+<td>The <b>-c</b> option causes the call graph of the program to be augmented by a <a href="/jargon/h/heuristi.htm">heuristic</a> which examines the text space of the object file and identifies function calls in the binary machine code. Since normal call graph records are only generated when functions are entered, this option identifies children that could be called, but never were. Calls to functions that were not compiled with profiling enabled are also identified, but only if symbol table entries are present for them. Calls to dynamic library routines are often not found by this option. Parents or children identified via this heuristic are indicated in the call graph with call counts of 0.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b>,<br> <b>--ignore-non-functions</b></td>
+<td>The <b>-D</b> option causes <b>gprof</b> to ignore symbols that are not known to be functions. This option gives more accurate profile data on systems where it is supported (<a href="/jargon/s/solaris.htm">Solaris</a> and <a href="/jargon/h/hp-ux.htm">HPUX</a> for example).</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b> <i>from</i>/<i>to</i></td>
+<td>The <b>-k</b> option allows you to delete from the call graph any arcs from symbols matching symspec <i>from</i> to those matching symspec <i>to</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b> <b>--line</b></td>
+<td>The <b>-l</b> option enables line-by-line profiling, which causes histogram hits to be charged to individual source code lines, instead of functions. This feature only works with programs compiled by older versions of the <a href="/jargon/g/gcc.htm">gcc</a> compiler. Newer versions of <b>gcc</b> are designed to work with the <b>gcov</b> tool instead.<br><br> If the program was compiled with basic-block counting enabled, this option also identifies how many times each line of code was executed. While line-by-line profiling help isolate where in a large function a program is spending its time, it also significantly increases the running time of <b>gprof</b>, and magnifies statistical inaccuracies.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b> <i>num</i>,<br> <b>--min-count</b>=<i>num</i></td>
+<td>This option affects execution count output only. Symbols that are executed less than num times are suppressed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b><i>symspec</i>,<br> <b>--time</b>=<i>symspec</i></td>
+<td>The <b>-n</b> option causes <b>gprof</b>, in its call graph analysis, to only propagate times for symbols matching <i>symspec</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b><i>symspec</i>,<br> <b>--no-time</b>=<i>symspec</i></td>
+<td>The <b>-n</b> option causes <b>gprof</b>, in its call graph analysis, not to propagate times for symbols matching <i>symspec</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b><i>filename</i>,<br> <b>--external-symbol-table</b>=<i>filename</i></td>
+<td>The <b>-S</b> option causes <b>gprof</b> to read an external symbol table file, such as <b>/proc/kallsyms</b>, rather than read the symbol table from the given object file (the default is "<b>a.out</b>"). This is useful for profiling <a href="/jargon/k/kernel.htm">kernel</a> modules.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b>,<br> <b>--display-unused-functions</b></td>
+<td>If you give the <b>-z</b> option, <b>gprof</b> will mention all functions in the flat profile, even those that were never called, and that had no time spent in them. This is useful in conjunction with the <b>-c</b> option for discovering which routines were never called.</td>
+</tr>
+</table>
+<h3 class="tab">Miscellaneous Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-d</b>[<i>num</i>],<br> <b>--debug</b>[=<i>num</i>]</td>
+<td>The <b>-d</b> <i>num</i> option specifies <a href="/jargon/d/debug.htm">debugging</a> options. If <i>num</i> is not specified, enable all debugging.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>The <b>-h</b> option prints command line usage.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b><i>name</i>,<br> <b>--file-format</b>=<i>name</i></td>
+<td>Selects the format of the profile data files. Recognized formats are <b>auto</b> (the default), <b>bsd</b>, <b>4.4bsd</b>, <b>magic</b>, and <b>prof</b> (not yet supported).</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--sum</b></td>
+<td>The <b>-s</b> option causes <b>gprof</b> to summarize the information in the profile data files it read in, and write out a profile data file called <b>gmon.sum</b>, which contains all the information from the profile data files that <b>gprof</b> read in. The file <b>gmon.sum</b> may be one of the specified input files; the effect of this is to merge the data in the other input files into <b>gmon.sum</b>.<br><br> Eventually you can run <b>gprof</b> again without <b>-s</b> to analyze the cumulative data in the file <b>gmon.sum</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--version</b></td>
+<td>The <b>-v</b> flag causes <b>gprof</b> to print the current version number, and then exit.</td>
+</tr>
+</table>
+<h2>Deprecated Options</h2>
+<p class="tab">These options are replaced with newer versions that use symspecs.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td width="180"><b>-e</b> <i>function_name</i></td>
+<td>The <b>-e</b> function option tells <b>gprof</b> to not print information about the function <i>function_name</i> (and its children...) in the call graph. The function is listed as a child of any functions that call it, but its index number is shown as <b>[not printed]</b>. More than one <b>-e</b> option may be given; only one <i>function_name</i> may be indicated with each <b>-e</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b> <i>function_name</i></td>
+<td>The <b>-E</b> <i>function</i> option works like the <b>-e</b> option, but time spent in the function (and children who were not called from anywhere else), is not used to compute the percentages-of-time for the call graph. More than one <b>-E</b> option may be given; only one <i>function_name</i> may be indicated with each <b>-E</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>function_name</i></td>
+<td>The <b>-f</b> function option causes <b>gprof</b> to limit the call graph to the function <i>function_name</i> and its children (and their children...). More than one <b>-f</b> option may be given; only one <i>function_name</i> may be indicated with each <b>-f</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b> <i>function_name</i></td>
+<td>The <b>-F</b> function option works like the <b>-f</b> option, but only time spent in the function and its children (and their children...) will be used to determine total-time and percentages-of-time for the call graph. More than one <b>-F</b> option may be given; only one <i>function_name</i> may be indicated with each <b>-F</b> option. The <b>-F</b> option overrides the <b>-E</b> option.</td>
+</tr>
+</table>
+<h2>Files</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>a.out</b></td>
+<td>the namelist and text space.</td>
+</tr>
+<tr class="tcw">
+<td><b>gmon.out</b></td>
+<td>dynamic call graph and profile.</td>
+</tr>
+<tr class="tcw">
+<td><b>gmon.sum</b></td>
+<td>summarized dynamic call graph and profile.</td>
+</tr>
+</table>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ucc.htm"><b>cc</b></a> &mdash; Compiler of the C programming language.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82ef0c58c401',m:'WKGHNONgMExmhxUMiBRyRSwI13jovhIoUDn5PxYu9Uo-1661495349-0-AR/t5wYLfku5ZJOgElH6RywQ5dzOqM65NuEoNr/DF5IRFqu+3IHy9/7XkFRR0FDYr4ixe8FJcBXzY1Eh/zCV7rT/Dtrj/Eih4ioyPT3nXW5rVVk0o9WK4X0pdyWdRn+HBw==',s:[0xcd027b104c,0xb2c76640fb],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

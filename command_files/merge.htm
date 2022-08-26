@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux merge command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/merge.gif" width="300" height="300" alt="merge command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>merge</b> command performs a three-way file merge.</p>
+<p>The merge process analyzes three files: a base version, and two conflicting modified versions. It attempts to automatically combine both sets of modifications, based on the shared base version, into a single merged file. If automatic merge is not possible, it facilitates manual merging.</p>
+<p>This page describes the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>merge</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#how-merge-works">How merging works</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>merge</b> is part of the <a href="/jargon/r/rcs.htm">RCS</a> version control package. It is used to perform a three-way file <a href="/jargon/m/merge.htm">merge</a>.</p>
+<p class="tab"><b>merge</b> analyzes three <a href="/jargon/f/file.htm">files</a> -- an original file, and two modified versions of the original -- and compares them, line-by-line, attempting to resolve the differences between the two sets of modifications to create a single, unified file which represents both sets of changes.</p>
+<p class="tab">Depending on the differences between the two sets of changes, this may be an automatic process or may require user <a href="/jargon/i/input.htm">input</a>.</p>
+<p class="tab">If neither set of changes conflicts with the other, <b>merge</b> can usually figure out what to do on its own. But if the two sets of changes conflict &mdash; for example, if the same line of <a href="/jargon/t/text.htm">text</a> is worded differently in both modified files &mdash; <b>merge</b> shows the conflict in the resulting merged file.</p>
+<h2 id="how-merge-works">How merging works</h2>
+<p class="tab"><b>merge</b> incorporates all changes that lead from <i>file2</i> to <i>file3</i> into <i>file1</i>. The result ordinarily goes into <i>file1</i>.</p>
+<p class="tab">Suppose <i>file2</i> is the original, and both <i>file1</i> and <i>file3</i> are modifications of <i>file2</i>. Then <b>merge</b> combines both changes.</p>
+<p class="tab">A conflict occurs if both <i>file1</i> and <i>file3</i> have changes in a common segment of lines. If a conflict is found, merge normally outputs a warning and brackets the conflict with &quot;<b>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</b>&quot; and &quot;<b>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</b>&quot; lines. For instance, a typical conflict looks like this:</p>
+<pre class="tab">&lt;&lt;&lt;&lt;&lt;&lt;&lt; file A
+lines in file A
+=======
+lines in file B
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; file B</pre>
+<p class="tab">If there are conflicts, the user should edit the result and delete one of the alternatives.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">merge [<i>options</i>] <i>file1 file2 file3</i></pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>-A</b></td>
+<td>Output conflicts using the <b>-A</b> style of <b>diff3</b>(1) (if supported by <b>diff3</b>). This merges all changes leading from <i>file2</i> to <i>file3</i> into <i>file1</i>, and generates the most <a href="/jargon/v/verbose.htm">verbose</a> output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b>, <b>-e</b></td>
+<td>These options specify conflict styles that generate less information than <b>-A</b>. See <b>diff3</b>(1) for details. The default is <b>-E</b>. With <b>-e</b>, merge does not warn about conflicts.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b> <i>label</i></td>
+<td>This option may be given up to three times, and specifies labels to be used in place of the corresponding file names in conflict reports. That is, <b>merge -L x -L y -L z a b c</b> generates output that looks like it came from files <b>x</b>, <b>y</b>, and <b>z</b> instead of from files <b>a</b>, <b>b</b>, and <b>c</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Send results to standard output instead of <a href="/jargon/o/overwrit.htm">overwriting</a> <i>file1</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b></td>
+<td>Quiet mode. Do not warn about conflicts.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b></td>
+<td>Print RCS's version number.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<p class="tab">Let's say we have a file named <b>orig.txt</b> with the following contents.</p>
+<pre class="tab">Apples are red.
+Oranges are orange.
+Blueberries are delicious.
+</pre>
+<p class="tab">...and a file named <b>mod1.txt</b>, which is a modified version of <b>orig.txt</b>:</p>
+<pre class="tab">Apples are obviously red.
+Oranges are blue.
+Blueberries are delicious.
+</pre>
+<p class="tab">...and a file named <b>mod2.txt</b>, which is <i>also</i> a modified version of <b>orig.txt</b>:</p>
+<pre class="tab">Apples are obviously red.
+Oranges are NOT blue.
+Blueberries are delicious.
+</pre>
+<p class="tab">...and we run <b>merge</b> as follows:</p>
+<pre class="tab tcy">merge mod1.txt orig.txt mod2.txt</pre>
+<p class="tab">It analyzes all three files, write to <b>mod1.txt</b>, and display the following warning:</p>
+<pre class="tab">merge: warning: conflicts during merge</pre>
+<p class="tab">This means the <b>merge</b> was successful, but we should be aware that there was a conflict. If we open <b>mod1.txt</b> &mdash; which by default is the file where the merge is written &mdash; we find that it now contains the following text:</p>
+<pre class="tab">&lt;&lt;&lt;&lt;&lt;&lt;&lt; mod1.txt
+Apples are obviously red.
+Oranges are blue.
+=======
+Apples are obviously red.
+Oranges are NOT blue.
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; mod2.txt
+Blueberries are delicious.
+</pre>
+<p class="tab">It is up to us to decide which &quot;<b>Oranges are...</b>&quot; line to keep (or to combine them in our own way), and make the edit to the file manually.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/udiff.htm"><b>diff</b></a> &mdash; Identify the differences between two files.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8314ba3084bc',m:'3.y5PQ74P9yF6KPZDHNtXoOg9CH_RNFZ2QSvp19gtqM-1661495355-0-ATE5KyYwdQYVEAo/jlOhQWS5/B0j3RC9CgEwSVXsg9dGaIXp6UsXApnn8EDa4nfgm52zSFpU2/7nbLCDohApARFPpaBFbMKRj17AVgOrHTCKk50vxo5G1m+msh9cMCgFyg==',s:[0xa862e29df7,0xd102aa1c4a],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

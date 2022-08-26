@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux chmod command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/chmod.gif" width="300" height="300" alt="chmod command" class="floatRight"><p class="intro">In <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>chmod</b> command sets the <a href="/jargon/p/permissi.htm">permissions</a> of <a href="/jargon/f/file.htm">files</a> or <a href="/jargon/d/director.htm">directories</a>.</p>
+<p>This page describes the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>chmod</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#technical-desc">Technical description</a></li>
+<li><a href="#setuid-setgid-bits">Setuid and setgid bits</a></li>
+<li><a href="#restrict-del-flag">Restricted deletion flag (or &quot;sticky bit&quot;)</a></li>
+<li><a href="#view-permissions">Viewing permissions in the file listing</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">On Unix-like <a href="/jargon/o/os.htm">operating systems</a>, a set of <a href="/jargon/f/flag.htm">flags</a> associated with each file determines who can access that file, and how they can access it. These flags are called file <i>permissions</i> or <i>modes</i>, as in "mode of access." The command name <b>chmod</b> stands for "change mode." It restricts the way a file can be accessed.</p>
+<p class="tab">For more information about file modes, see: <a href="/unix/uumask.htm#filepermissions">What are file permissions, and how do they work?</a> in our documentation of the <a href="/unix/uumask.htm"><b>umask</b></a> command. It contains a comprehensive description of how to define and specify file permissions.</p>
+<p class="tab">In general, <b>chmod</b> commands take the form:</p>
+<pre class="tab tcy">chmod <i>options</i> <i>permissions</i> <i>file name</i></pre>
+<p class="tab">If no <i>options</i> are specified, <b>chmod</b> modifies the permissions of the file specified by <i>file name</i> to the permissions specified by <i>permissions</i>.</p>
+<p class="tab"><i>permissions</i> defines the permissions for the owner of the file (the "user"), members of the group who owns the file (the "group"), and anyone else ("others"). There are two ways to represent these permissions: with symbols (<a href="/jargon/a/alphanum.htm">alphanumeric</a> <a href="/jargon/c/charact.htm">characters</a>), or with <a href="/jargon/o/octal.htm">octal</a> numbers (the digits <b>0</b> through <b>7</b>).</p>
+<p class="tab">Let's say you are the owner of a file named <b>myfile</b>, and you want to set its permissions so that:</p>
+<ol>
+<li>the <b>u</b>ser can <b>r</b>ead, <b>w</b>rite, and e<b>x</b>ecute it;</li>
+<li>members of your <b>g</b>roup can <b>r</b>ead and e<b>x</b>ecute it; and</li>
+<li><b>o</b>thers may only <b>r</b>ead it.</li>
+</ol>
+<p class="tab">This command does the trick:</p>
+<pre class="tab tcy">chmod u=rwx,g=rx,o=r myfile</pre>
+<p class="tab">This example uses symbolic permissions notation. The letters <b>u</b>, <b>g</b>, and <b>o</b> stand for "<b>user</b>", "<b>group</b>", and "<b>other</b>". The equals sign ("<b>=</b>") means "set the permissions exactly like this," and the letters "<b>r</b>", "<b>w</b>", and "<b>x</b>" stand for "read", "write", and "execute", respectively. The commas separate the different classes of permissions, and there are no spaces between them.</p>
+<p class="tab">Here is the equivalent command using octal permissions notation:</p>
+<pre class="tab tcy">chmod 754 myfile</pre>
+<p class="tab">Here the digits <b>7</b>, <b>5</b>, and <b>4</b> each individually represent the permissions for the user, group, and others, in that order. Each digit is a combination of the numbers <b>4</b>, <b>2</b>, <b>1</b>, and <b>0</b>:</p>
+<ul>
+<li><b>4</b> stands for "read",</li>
+<li><b>2</b> stands for "write",</li>
+<li><b>1</b> stands for "execute", and</li>
+<li><b>0</b> stands for "no permission."</li>
+</ul>
+<p class="tab">So <b>7</b> is the combination of permissions <b>4</b>+<b>2</b>+<b>1</b> (read, write, and execute), <b>5</b> is <b>4</b>+<b>0</b>+<b>1</b> (read, no write, and execute), and <b>4</b> is <b>4</b>+<b>0</b>+<b>0</b> (read, no write, and no execute).</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">chmod [<i>OPTION</i>]... <i>MODE</i>[,<i>MODE</i>]... <i>FILE</i>...
+chmod [<i>OPTION</i>]... <i>OCTAL-MODE</i> <i>FILE</i>...
+chmod [<i>OPTION</i>]... --reference=<i>RFILE FILE</i>...
+</pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>-c</b>, <b>--changes</b></td>
+<td>Like <b>--verbose</b>, but gives verbose output only when a change is actually made.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--silent</b>, <b>--quiet</b></td>
+<td>Quiet mode; suppress most error messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Verbose mode; output a diagnostic message for every file processed.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-preserve-root</b></td>
+<td>Do not treat '<b>/</b>' (the <a href="/jargon/r/root.htm">root</a> directory) in any special way, which is the default setting.</td>
+</tr>
+<tr class="tcw">
+<td><b>--preserve-root</b></td>
+<td>Do not operate <a href="/jargon/r/recursive.htm">recursively</a> on '<b>/</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>--reference=</b><i>RFILE</i></td>
+<td>Set permissions to match those of file <i>RFILE</i>, ignoring any specified <i>MODE</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--recursive</b></td>
+<td>Change files and <a href="/jargon/d/director.htm">directories</a> recursively.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Output <a href="/jargon/v/version.htm">version</a> information and exit.</td>
+</tr>
+</table>
+<h2 id="technical-desc">Technical description</h2>
+<p class="tab"><b>chmod</b> changes the file mode of each specified <i>FILE</i> according to <i>MODE</i>, which can be either a symbolic representation of changes to make, or an <a href="/jargon/o/octal.htm">octal</a> number representing the bit pattern for the new mode bits.</p>
+<p class="tab">The format of a symbolic mode is:</p>
+<p class="tab mono">[<b>ugoa</b>...][[<b>+-=</b>][<i>perms</i>...]...]</p>
+<p class="tab">where <i>perms</i> is either zero or more letters from the set <b>r</b>, <b>w</b>, <b>x</b>, <b>X</b>, <b>s</b> and <b>t</b>, or a single letter from the set <b>u</b>, <b>g</b>, and <b>o</b>. Multiple symbolic modes can be given, separated by commas.</p>
+<p class="tab">A combination of the letters <b>u</b>, <b>g</b>, <b>o</b>, and <b>a</b> controls which users' access to the file will be changed: the user who owns it (<b>u</b>), other users in the file's group (<b>g</b>), other users not in the file's group (<b>o</b>), or all users (<b>a</b>). If none of these are given, the effect is as if <b>a</b> were given, but bits that are set in the <a href="/unix/uumask.htm">umask</a> are not affected.</p>
+<p class="tab">The operator <b>+</b> causes the selected file mode bits to be added to the existing file mode bits of each file; <b>-</b> causes them to be removed; and <b>=</b> causes them to be added and causes unmentioned bits to be removed except that a directory's unmentioned set user and group ID bits are not affected.</p>
+<p class="tab">The letters <b>r</b>, <b>w</b>, <b>x</b>, <b>X</b>, <b>s</b> and <b>t</b> select file mode bits for the affected users: read (<b>r</b>), write (<b>w</b>), execute (<b>x</b>), execute only if the file is a directory or already has execute permission for some user (<b>X</b>), set user or group ID on execution (<b>s</b>), restricted deletion flag or sticky bit (<b>t</b>). For directories, the execute options <b>X</b> and <b>X</b> define permission to view the directory's contents.</p>
+<p class="tab">Instead of one or more of these letters, you can specify exactly one of the letters <b>u</b>, <b>g</b>, or <b>o</b>: the permissions granted to the user who owns the file (<b>u</b>), the permissions granted to other users who are members of the file's group (<b>g</b>), and the permissions granted to users that are in neither of the two preceding categories (<b>o</b>).</p>
+<p class="tab">A numeric mode is from one to four octal digits (<b>0</b>-<b>7</b>), derived by adding up the bits with values <b>4</b>, <b>2</b>, and <b>1</b>. Omitted digits are assumed to be leading zeros. The first digit selects the <a href="/jargon/s/suid.htm">set user ID</a> (<b>4</b>) and set group ID (<b>2</b>) and restricted deletion or sticky (<b>1</b>) attributes. The second digit selects permissions for the user who owns the read (<b>4</b>), write (<b>2</b>), and execute (<b>1</b>); the third selects permissions for other users in the file's group, with the same values; and the fourth for other users not in the file's group, with the same values.</p>
+<p class="tab"><b>chmod</b> never changes the permissions of <a href="/jargon/s/symblink.htm">symbolic links</a>; the <b>chmod</b> system call cannot change their permissions. However, this is not a problem since the permissions of symbolic links are never used. However, for each symbolic link listed on the <a href="/jargon/c/commandi.htm">command line</a>, <b>chmod</b> changes the permissions of the pointed-to file. In contrast, <b>chmod</b> ignores symbolic links encountered during <a href="/jargon/r/recursive.htm">recursive</a> directory traversals.</p>
+<h2 id="setuid-setgid-bits">Setuid and setgid bits</h2>
+<p class="tab"><b>chmod</b> clears the set-group-ID bit of a regular file if the file's group ID does not match the user's effective group ID or one of the user's supplementary group IDs, unless the user has appropriate privileges. Additional restrictions may cause the <a href="/jargon/s/suid.htm">set-user-ID</a> and set-group-ID bits of <i>MODE</i> or <i>RFILE</i> to be ignored. This behavior depends on the policy and functionality of the underlying <b>chmod</b> system call. When in doubt, check the underlying system behavior.</p>
+<p class="tab"><b>chmod</b> preserves a directory's set-user-ID and set-group-ID bits unless you explicitly specify otherwise. You can set or clear the bits with symbolic modes like <b>u+s</b> and <b>g-s</b>, and you can set (but not clear) the bits with a numeric mode.</p>
+<h2 id="restrict-del-flag">Restricted deletion flag (or &quot;sticky bit&quot;)</h2>
+<p class="tab">The restricted deletion flag or sticky bit is a single bit, whose interpretation depends on the file type. For directories, it prevents unprivileged users from removing or renaming a file in the directory unless they own the file or the directory; this is called the restricted deletion flag for the directory, and is commonly found on world-writable directories like <b>/tmp</b>. For regular files on some older systems, the bit saves the program's text image on the swap device so it loads quicker when run; this is called the sticky bit.</p>
+<h2 id="view-permissions">Viewing permissions in the file listing</h2>
+<p class="tab">A quick and easy way to list a file's permissions are with the long listing (<b>-l</b>) option of the <a href="/unix/uls.htm"><b>ls</b></a> command. For example, to view the permissions of <b>file.txt</b>, you could use the command:</p>
+<pre class="tcy tab">ls -l file.txt</pre>
+<p class="tab">...which displays output that looks like the following:</p>
+<pre class="tab">-rwxrw-r-- 1   hope   hopestaff  123   Feb 03 15:36   file.txt</pre>
+<p class="tab">Here's what each part of this information means:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>-</b></td>
+<td>The first character represents the file type: "<b>-</b>" for a regular file, "<b>d</b>" for a directory, "<b>l</b>" for a symbolic link.</td>
+</tr>
+<tr class="tcw">
+<td><b>rwx</b></td>
+<td>The next three characters represent the permissions for the file's owner: the owner may <b>r</b>ead from, <b>w</b>rite to, ore <b>x</b>ecute the file.</td>
+</tr>
+<tr class="tcw">
+<td><b>rw-</b></td>
+<td>The next three characters represent the permissions for members of the file group. Any member of the file's owning group may <b>r</b>ead from or <b>w</b>rite to the file. The final dash is a placeholder; group members do not have permission to execute this file.</td>
+</tr>
+<tr class="tcw">
+<td><b>r--</b></td>
+<td>The permissions for "others" (everyone else). Others may only <b>r</b>ead this file.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>The number of <a href="/jargon/h/hardlink.htm">hard links</a> to this file.</td>
+</tr>
+<tr class="tcw">
+<td><b>hope</b></td>
+<td>The file's owner.</td>
+</tr>
+<tr class="tcw">
+<td><b>hopestaff</b></td>
+<td>The group to whom the file belongs.</td>
+</tr>
+<tr class="tcw">
+<td><b>123</b></td>
+<td>The size of the file in <a href="/jargon/b/block.htm">blocks</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Feb 03 15:36</b></td>
+<td>The file's mtime (date and time when the file was last modified).</td>
+</tr>
+<tr class="tcw">
+<td><b>file.txt</b></td>
+<td>The name of the file.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">chmod 644 file.htm</pre>
+<p class="tab">Set the permissions of <b>file.htm</b> to "owner can read and write; group can read only; others can read only".</p>
+<pre class="tcy tab">chmod -R 755 myfiles</pre>
+<p class="tab">Recursively (<b>-R</b>) Change the permissions of the directory <b>myfiles</b>, and all folders and files it contains, to mode <b>755</b>. User can read, write, and execute; group members and other users can read and execute, but cannot write.</p>
+<pre class="tcy tab">chmod u=rw example.jpg</pre>
+<p class="tab">Change the permissions for the owner of <b>example.jpg</b> so that the owner may read and write the file. Do not change the permissions for the group, or for others.</p>
+<pre class="tcy tab">chmod u+s comphope.txt</pre>
+<p class="tab">Set the "Set-User-ID" bit of <b>comphope.txt</b>, so that anyone who attempts to access that file does so as if they are the owner of the file.</p>
+<pre class="tcy tab">chmod u-s comphope.txt</pre>
+<p class="tab">The opposite of the command above; un-sets the SUID bit.</p>
+<pre class="tcy tab">chmod 755 file.cgi</pre>
+<p class="tab">Set the permissions of <b>file.cgi</b> to "read, write, and execute by owner" and "read and execute by the group and everyone else".</p>
+<pre class="tcy tab">chmod 666 file.txt</pre>
+<p class="tab">Set the permission of <b>file.txt</b> to "read and write by everyone.".</p>
+<pre class="tcy tab">chmod a=rw file.txt</pre>
+<p class="tab">Accomplishes the same thing as the command above, using symbolic notation.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uchown.htm"><b>chown</b></a> &mdash; Change the ownership of files or directories.<br><a href="/unix/ugetfacl.htm"><b>getfacl</b></a> &mdash; Display file access control lists.<br><a href="/unix/uls.htm"><b>ls</b></a> &mdash; List the contents of a directory or directories.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82c34884848c',m:'6LnVvMiRfpaJXtKeQKu7aO0_49SIfT_J.7Uuop_UlO4-1661495342-0-AXg3B7vLCuHTgWx27qLYwDDbjok5gRhigHpAyCSl1VeCZ+4//+YWBEgKUQZxOZoRGjV9Xp+AKjdB+0qzf1GoWmQ0ylQbGFetyKnoN+RT8R/gkcY3olN5bMs2kqtgBFb0ow==',s:[0xb7dbe85fc2,0x0fdf7466cc],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

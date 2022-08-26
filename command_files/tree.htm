@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux tree command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/tree.gif" width="300" height="300" alt="tree command" class="floatRight">
+<p class="intro"><b>tree</b> lists the contents of <a href="/jargon/d/director.htm">directories</a> in a tree-like format. It can display the structure of your <a href="/jargon/f/filesyst.htm">file system</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>tree</b> is a <a href="/jargon/r/recursive.htm">recursive</a> directory listing program that produces a depth-indented listing of files (which is colorized if the <b>LS_COLORS</b> <a href="/jargon/e/envivari.htm">environment variable</a> is set) and output is to <a href="/jargon/t/tty.htm">tty</a>. With no arguments, <b>tree</b> lists the files in the current directory. When directory arguments are given, <b>tree</b> lists all the files and/or directories found in the given directories each in turn. <b>tree</b> then returns the total number of files and/or directories listed.</p>
+<p class="tab">By default, when a <a href="/jargon/s/symblink.htm">symbolic link</a> is encountered, the path that the symbolic link refers to is printed after the name of the link in the format:</p>
+<pre class="tab">name -&gt; real-path</pre>
+<p class="tab">If the &#96;<b>-l</b>' option is given and the symbolic link refers to an actual directory, then tree follows the path of the symbolic link as if it were a real directory.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">tree [-adfgilnopqrstuxACDFNS] [-L <i>level</i> [-R]] [-H <i>baseHREF</i>] [-T <i>title</i>] 
+     [-o <i>file name</i>] [--nolinks] [-P <i>pattern</i>] [-I <i>pattern</i>] [--inodes] 
+     [--device] [--noreport] [--dirsfirst] [--version] [--help] 
+     [--filelimit <i>#</i>] [--si] [--prune] [--du] [--timefmt <i>format</i>] 
+     [<i>directory</i> ...]</pre>
+<h2 id="options">Options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:190px"><b>--help</b></td>
+<td>Outputs a <a href="/jargon/v/verbose.htm">verbose</a> usage listing.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Outputs the <a href="/jargon/v/version.htm">version</a> of tree.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>All files are printed. By default, tree does not print hidden files (those beginning with a dot &#96;<b>.</b>'). In no event does tree print the file system constructs &#96;<b>.</b>' (current directory) and &#96;<b>..</b>' (previous directory).</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>List directories only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>Prints the full path prefix for each file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td>Tree does not print the indentation lines. Useful when used in conjunction with the <b>-f</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>Follows symbolic links to directories as if they were directories. Links that would result in a recursive loop are avoided.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b></td>
+<td>Stay on the current file system only, as with <b>find -xdev</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b> <i>pattern</i></td>
+<td>List only those files that match the <a href="/jargon/w/wildcard.htm">wildcard</a> <i>pattern</i>. Note: you must use the <b>-a</b> option to also consider those files beginning with a dot &#96;<b>.</b>' for matching. Valid wildcard operators are &#96;<b>*</b>' (any zero or more characters), &#96;<b>?</b>' (any single character), &#96;<b>[...]</b>' (any single character listed between brackets (optional <b>-</b> (dash) for character range may be used: ex: <b>[A-Z]</b>), and &#96;<b>[^...]</b>' (any single character not listed in brackets) and &#96;<b>|</b>' separates alternate patterns.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b> <i>pattern</i></td>
+<td>Do not list those files that match the wildcard <i>pattern</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--prune</b></td>
+<td>Makes tree prune empty directories from the output, useful when used in conjunction with <b>-P</b> or <b>-I</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--filelimit</b> <i>#</i></td>
+<td>Do not descend directories that contain more than <i>#</i> entries.</td>
+</tr>
+<tr class="tcw">
+<td><b>--timefmt</b> <i>format</i></td>
+<td>Prints (implies <b>-D</b>) and formats the date according to the format string which uses the <a href="/unix/strftime.htm">strftime</a> syntax.</td>
+</tr>
+<tr class="tcw">
+<td><b>--noreport</b></td>
+<td>Omits printing of the file and directory report at the end of the tree listing.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>Print the protections for each file (as per ls <b>-l</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Print the size of each file with the name.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>Print the username, or UID # if no username is available, of the file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b></td>
+<td>Print the group name, or GID # if no group name is available, of the file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b></td>
+<td>Print the date of the last modification time for the file listed.</td>
+</tr>
+<tr class="tcw">
+<td><b>--inodes</b></td>
+<td>Prints the inode number of the file or directory</td>
+</tr>
+<tr class="tcw">
+<td><b>--device</b></td>
+<td>Prints the device number to which the file or directory belongs</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b></td>
+<td>Append a &#96;<b>/</b>' for directories, a &#96;<b>=</b>' for socket files, a &#96;<b>*</b>' for executable files and a &#96;<b>|</b>' for FIFO's, as per ls <b>-F</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b></td>
+<td>Print non-printable characters in file names as question marks instead of the default carrot notation.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b></td>
+<td>Print non-printable characters as is instead of the default carrot notation.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>Sort the output in reverse alphabetic order.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Sort the output by last modification time instead of alphabetically.</td>
+</tr>
+<tr class="tcw">
+<td><b>--dirsfirst</b></td>
+<td>List directories before files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Turn colorization off always, overridden by the <b>-C</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>Turn colorization on always, using built-in color defaults if the <b>LS_COLORS</b> environment variable is not set. Useful to colorize output to a pipe.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b></td>
+<td>Turn on ANSI line graphics hack when printing the indentation lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b></td>
+<td>Turn on ASCII line graphics (useful when using linux console mode fonts). This option is now equivalent to &#96;<b>--charset=IBM437</b>' and eventually is depreciated.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b> <i>level</i></td>
+<td>Max display depth of the directory tree.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b></td>
+<td>Recursively cross down the tree each level directories (see <b>-L</b> option), and at each of them execute tree again adding &#96;<b>-o 00Tree.html</b>' as a new option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b> <i>baseHREF</i></td>
+<td>Turn on <a href="/jargon/h/html.htm">HTML</a> output, including HTTP references. Useful for <a href="/jargon/f/ftp.htm">ftp</a> sites. BaseHREF gives the base ftp location when using HTML output. That is, the local directory may be &#96;<b>/local/ftp/pub'</b>, but it must be referenced as &#96;<b>ftp://host-name.organization.domain/pub'</b> (baseHREF should be &#96;<b>ftp://hostname.organization.domain'</b>). Hint: don't use ANSI lines with this option, and don't give more than one directory in the directory list. If you want to use colors via <a href="/jargon/c/css.htm">CSS</a> stylesheet, use the <b>-C</b> option in addition to this option to force color output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b> <i>title</i></td>
+<td>Sets the title and H1 header string in HTML output mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>--charset</b> <i>charset</i></td>
+<td>Set the character set to use when outputting HTML and for line drawing.</td>
+</tr>
+<tr class="tcw">
+<td><b>--nolinks</b></td>
+<td>Turns off hyperlinks in HTML output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b> <i>file name</i></td>
+<td>Send output to file name.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">tree</pre>
+<p class="tab">Displays the contents of the current directory and subdirectories in a tree. The output takes a graphical form which resembles the following example:</p>
+<pre class="tab">.
+&#9500;&#9472;&#9472; config.dat
+&#9500;&#9472;&#9472; data
+&#9474;   &#9500;&#9472;&#9472; data1.bin
+&#9474;   &#9500;&#9472;&#9472; data2.sql
+&#9474;   &#9492;&#9472;&#9472; data3.inf
+&#9500;&#9472;&#9472; images
+&#9474;   &#9500;&#9472;&#9472; background.jpg
+&#9474;   &#9500;&#9472;&#9472; icon.gif
+&#9474;   &#9492;&#9472;&#9472; logo.jpg
+&#9500;&#9472;&#9472; program.exe
+&#9492;&#9472;&#9472; readme.txt
+2 directories, 9 files</pre>
+<pre class="tcy tab">tree -I 'example*|bin|lib'</pre>
+<p class="tab">Displays a tree without anything beginning with example or containing 'bin' or 'lib' as specified in the pattern.</p>
+<pre class="tcy tab">tree -P 't*'</pre>
+<p class="tab">With an uppercase &quot;P,&quot; you can list files with a pattern. This pattern example displays a tree only containing directories beginning with <b>t</b> or directories containing files that begin with <b>t</b>.</p>
+<pre class="tcy tab">tree -p</pre>
+<p class="tab">With a lowercase &quot;p,&quot; you can list a tree that also shows the file permissions.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uls.htm"><b>ls</b></a> &mdash; List the contents of a directory or directories.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8367bc7ac41f',m:'3h12ccGnburw1u_V4vlq92kkevhRFFqSUpt1eSmO.XM-1661495368-0-ARBGxyStWKqf9y4lcsiqU6GPHs5REbJ/uMJflq/oAPJ1Ffne2RNEUltmdnC4YjC/R5ZlDWBWbw1sJ7gQKZAeXD8iq+gs9fh9ued1BbotrHZUqylkTmFQH1jGnMBSPRHJ5Q==',s:[0xff524c51ec,0xbbc80d1847],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

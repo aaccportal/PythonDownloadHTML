@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux xset command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/xset.gif" width="300" height="300" alt="xset command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>xset</b> command changes user settings for the <a href="/jargon/x/xwin.htm">X Window System</a>. You can use <b>xset</b> to change the basic characteristics of your <a href="/jargon/g/gui.htm">GUI</a>, including the way your mouse and keyboard behave, and which display to use for your X session.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">xset [-display <i>display</i>] [-b] [b {on|off}] [b [<i>volume</i> [<i>pitch</i> [<i>duration</i>]]]] 
+     [-bc] [bc] [-c] [c {on|off}] [c [<i>volume</i>]] [+dpms] [-dpms] 
+     [dpms <i>standby</i> [ suspend [ off]]] [dpms force {standby|suspend|off|on}] 
+     [fp=<i>pathlist</i>] [-fp=<i>pathlist</i>] [+fp=<i>pathlist</i>] [<i>fp-pathlist</i>] [<i>fp+pathlist</i>] 
+     [fp <i>default</i>] [fp <i>rehash</i>] [-led [<i>integer</i>|<i>named indicator</i>]] 
+     [led [<i>integer</i>|<i>named indicator</i>]] [led {on|off}] 
+     [mouse [<i>accel_mult</i>[/<i>accel_div</i>] [<i>threshold</i>]]] [<i>mouse default</i>] 
+     [p <i>pixel color</i>] [-r [<i>keycode</i>]] [r [<i>keycode</i>]] [r {on|off}] 
+     [r <i>rate</i> <i>delay</i> [<i>rate</i>]] [s [<i>length</i> [<i>period</i>]]] [s {blank|noblank}] 
+     [s {expose|noexpose}] [s {on|off}] [s <i>default</i>] [s <i>activate</i>] [s <i>reset</i>] [q]
+</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>-display</b> <i>display</i></td>
+<td>This option specifies the server to use; see the <a href="/unix/ux.htm">X</a> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>b</b></td>
+<td>The <b>b</b> option controls bell volume, pitch and duration. This option accepts up to three numerical <a href="/jargon/p/paramete.htm">parameters</a>, a preceding dash("<b>-</b>"), or a "<b>on</b>/<b>off</b>" <a href="/jargon/f/flag.htm">flag</a>. If no parameters are given, or the "<b>on</b>" flag is used, the system defaults will be used. If the dash or "<b>off</b>" are given, the bell will be turned off. If only one numerical parameter is given, the bell volume will be set to that value, as a percentage of its maximum. Likewise, the second numerical parameter specifies the bell pitch, in <a href="/jargon/h/hertz.htm">hertz</a>, and the third numerical parameter specifies the duration in <a href="/jargon/m/millisec.htm">milliseconds</a>. Note that not all hardware can vary the bell characteristics. The X server sets the characteristics of the bell as closely as it can to the user's specifications.</td>
+</tr>
+<tr class="tcw">
+<td><b>bc</b></td>
+<td>The <b>bc</b> option controls bug compatibility mode in the server, if possible; a preceding dash("<b>-</b>") disables the mode, otherwise the mode is enabled. Various <i>pre-Release 4</i> clients pass illegal values in some protocol requests, and pre-R4 servers did not correctly generate errors in these cases. Such clients, when run against an R4 server, will terminate abnormally or otherwise fail to operate correctly. Bug compatibility mode explicitly reintroduces certain bugs into the X server, so that many such clients can still run. This mode should be used with care; new application development should be done with this mode disabled. The server must support the MIT-SUNDRY-NONSTANDARD protocol extension for this option to work.</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b></td>
+<td>The <b>c</b> option controls key click. This option can take an optional value, a preceding dash("<b>-</b>"), or an "<b>on</b>/<b>off</b>" flag. If no parameter or the "<b>on</b>" flag is given, the system defaults will be used. If the dash or "<b>off</b>" flag is used, keyclick will be disabled. If a value from <b>0</b> to <b>100</b> is given, it indicates volume, as a percentage of the maximum. The X server sets the volume to the nearest value that the hardware can support.</td>
+</tr>
+<tr class="tcw">
+<td><b>-dpms</b></td>
+<td>The <b>-dpms</b> option disables DPMS (<a href="/jargon/e/energyst.htm">Energy Star</a>) features.</td>
+</tr>
+<tr class="tcw">
+<td><b>+dpms</b></td>
+<td>The <b>+dpms</b> option enables DPMS (Energy Star) features.</td>
+</tr>
+<tr class="tcw">
+<td><b>dpms</b> <i>flags</i>...</td>
+<td>The <b>dpms</b> option allows the DPMS (Energy Star) parameters to be set. The option can take up to three numerical values, or the "<b>force</b>" flag followed by a DPMS state. The "<b>force</b>" flags forces the server to immediately switch to the DPMS state specified. The DPMS state can be one of "<b>standby</b>", "<b>suspend</b>", "<b>off</b>", or "<b>on</b>". When numerical values are given, they set the inactivity period (in units of seconds) before the three modes are activated. The first value given is for the "standby" mode, the second is for the "suspend" mode, and the third is for the "off" mode. Setting these values implicitly enables the DPMS features. A value of zero disables a particular mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>fp=</b><i>path</i><b>,</b>...</td>
+<td>Sets the <a href="/jargon/f/font.htm">font</a> <a href="/jargon/p/path.htm">path</a> to the entries given in the path <a href="/jargon/a/argument.htm">argument</a>. The entries are interpreted by the server, not by the client. Usually they are directory names or font server names, but the interpretation is server-dependent.</td>
+</tr>
+<tr class="tcw">
+<td><b>fp default</b></td>
+<td>The <b>default</b> argument causes the font path to be reset to the server's default.</td>
+</tr>
+<tr class="tcw">
+<td><b>fp rehash</b></td>
+<td>The <b>rehash</b> argument resets the font path to its current value, causing the server to reread the font databases in the current font path. This option is generally only used when adding new fonts to a font directory (after running <b>mkfontdir</b> to recreate the font database).</td>
+</tr>
+<tr class="tcw">
+<td><b>-fp</b> or <b>fp-</b></td>
+<td>The <b>-fp</b> and <b>fp-</b> options remove elements from the current font path. They must be followed by a comma-separated list of entries.</td>
+</tr>
+<tr class="tcw">
+<td><b>+fp</b> or <b>fp+</b></td>
+<td>This <b>+fp</b> and <b>fp+</b> options prepend and append elements to the current font path, respectively. They must be followed by a comma-separated list of entries.</td>
+</tr>
+<tr class="tcw">
+<td><b>led</b></td>
+<td>The <b>led</b> option controls the keyboard <a href="/jargon/l/led.htm">LED</a>s. This controls the turning on or off of one or all of the LEDs. It accepts an optional <a href="/jargon/i/integer.htm">integer</a>, a preceding dash("<b>-</b>") or an "<b>on</b>/<b>off</b>" flag. If no parameter or the "<b>on</b>" flag is given, all LEDs are turned on. If a preceding dash or the flag "<b>off</b>" is given, all LEDs are turned off. If a value between <b>1</b> and <b>32</b> is given, that LED will be turned on or off depending on the existence of a preceding dash. The "<b>xset led 3</b>" would turn led #3 on. The "<b>xset -led 3</b>" would turn it off. The particular LED values may refer to different LEDs on different hardware. If the X server supports the XKEYBOARD (XKB) extension, leds may be referenced by the XKB indicator name by specifying the "<b>named</b>" keyword and the indicator name. For example, to turn on the Scroll Lock LED:<br><br><pre class="tcy">xset led named "Scroll Lock"</pre></td>
+</tr>
+<tr class="tcw">
+<td><b>mouse</b></td>
+<td>The <b>m</b> option controls the mouse parameters; it may be abbreviated to "<b>m</b>". Of course, it applies to most pointing devices, not only mice. The parameters for the pointing device are "<b>acceleration</b>" and "<b>threshold</b>". The acceleration can be specified as an integer, or as a simple fraction. Threshold is an integer. The setting is applied to all connected pointing devices. <b>xinput</b> should be used if you need device-specific settings.</td>
+</tr>
+</table>
+<p class="tab">By default, the pointer (the on-screen representation of the pointing device) goes "<b>acceleration</b>" times as fast when the device travels more than "<b>threshold</b>" "mickeys" (i.e., would-be pixels) in 10 ms, including a small transition range. This way, the pointing device can be used for precise alignment when it is moved slowly, yet it can be set to travel across the screen in a flick of the wrist when desired. One or both parameters for the <b>m</b> option can be omitted, but if only one is given, it will be interpreted as the acceleration. If no parameters or the flag 'default' is used, the system defaults will be set.</p>
+<p class="tab">If the "<b>threshold</b>" parameter is provided and is <b>0</b>, the "<b>acceleration</b>" parameter will be used in the exponent of a more natural and continuous formula, giving precise control for slow motion but big reach for fast motion, and a progressive transition for motions between. The recommended "<b>acceleration</b>" value is <b>3/2</b> to <b>3</b>, but not limited to that range.</p>
+<p class="tab">In X Server 1.6 and above, the behaviour described so far is linked to the default profile. There are other profiles (i.e., functions determining pointer acceleration from device velocity) and additional settings, so the above description may not apply to non-default cases. In the X Server 1.7, these are available as input device properties.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>p</b></td>
+<td>The <b>p</b> option controls pixel color values. The parameters are the color map entry number in <a href="/jargon/d/decimal.htm">decimal</a>, and a color specification. The root background colors may be changed on some servers by altering the entries for <b>BlackPixel</b> and <b>WhitePixel</b>. Although these are often <b>0</b> and <b>1</b>, they need not be. Also, a server may choose to allocate those colors privately, in which case an error will be generated. The map entry must not be a read-only color, or an error result.</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b></td>
+<td>The <b>r</b> option controls the auto-repeat. Invoking with "<b>-r</b>", or "<b>r off</b>", disables auto-repeat, whereas "<b>r</b>", or "<b>r on</b>" enables auto-repeat. Following the "<b>-r</b>" or "<b>r</b>" option with an integer keycode between <b>0</b> and <b>255</b> disables or enable auto-repeat on that key respectively, but only if it makes sense for the particular keycode. Keycodes below <b>8</b> are not usually valid for this command. Example: "<b>xset -r 10</b>" disables auto-repeat for the "1" key on the top row of an IBM PC keyboard.<br><br> If the server supports the XFree86-Misc extension, or the XKB extension, then a parameter of "<b>rate</b>" is accepted and should be followed by zero, one or two numeric values. The first specifies the delay before auto-repeat starts and the second specifies the repeat rate. In the case that the server supports the XKB extension, the delay is the number of milliseconds before auto-repeat starts, and the rate is the number of repeats per second. If the rate or delay is not given, it will be set to the default value.</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b></td>
+<td>The <b>s</b> option lets you set the screen saver parameters. This option accepts up to two numerical parameters, a "<b>blank</b>/<b>noblank</b>" flag, an "<b>expose</b>/<b>noexpose</b>" flag, an "<b>on</b>/<b>off</b>" flag, an "<b>activate</b>/<b>reset</b>" flag, or the "<b>default</b>" flag. If no parameters or the "<b>default</b>" flag is used, the system will be set to its default screen saver characteristics. The "<b>on</b>/<b>off</b>" flags turn the screen saver functions <b>on</b> or <b>off</b>. The "<b>activate</b>" flag forces activation of screen saver even if the screen saver had been turned off. The "<b>reset</b>" flag forces deactivation of screen saver if it's active. The "<b>blank</b>" flag sets the preference to blank the video (if the hardware can do so) rather than display a background pattern, while "<b>noblank</b>" sets the preference to display a pattern rather than blank the video. The "<b>expose</b>" flag sets the preference to allow window exposures (the server can freely discard window contents), while "<b>noexpose</b>" sets the preference to disable screen saver unless the server can regenerate the screens without causing exposure events. The length and period parameters for the screen saver function determines how long the server must be inactive for screen saving to activate, and the period to change the background pattern to avoid <a href="/jargon/b/burnin.htm">burn in</a> on the screen. The arguments are specified in seconds. If only one numerical parameter is given, it will be used for the length.</td>
+</tr>
+<tr class="tcw">
+<td><b>q</b></td>
+<td>The <b>q</b> option gives you information on the current settings.</td>
+</tr>
+</table>
+<p class="tab">These settings are reset to default values when you log out.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">xset q</pre>
+<p class="tab">Display the values of all current X Window System preferences.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ux.htm"><b>X</b></a> &mdash; Executable of the X Window System.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83856fbbc42e',m:'pg8BV8CiY427PB6YgJQc7S7gSY6rXB3T78xS9HBFS4o-1661495373-0-AfOw3oX0JWkuKjSWmoAjn0TV524pYhe6JtXhqD4SVQvFVBTY1WPy+IJZ7YkWoKB8TjgZ6dZsb1ZzpkoAfBPQBXWUy1Ph8MgC5gMePM4fK1JIwWTcq4cuueoaDVmLd5X/Fg==',s:[0x5e1bb29797,0x01344985d9],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

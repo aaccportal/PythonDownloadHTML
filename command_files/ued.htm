@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux ed and red commands</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/ed.gif" width="300" height="300" alt="ed command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>ed</b> is an interactive file editor.</p>
+<p><b>red</b>, short for &quot;restricted ed&quot;, is a version of <b>ed</b> which carries restrictions about what types of editing can be performed.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#tech-description">Technical description</a></li>
+<li><a href="#line-address">Line addresses</a></li>
+<li><a href="#refer-line-address">Referring to line addresses</a></li>
+<li><a href="#Address-Ranges">Address ranges</a></li>
+<li><a href="#regex">Regular expressions</a></li>
+<li><a href="#commands">Commands</a></li>
+<li><a href="#restricted">Restricted ed</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>ed</b> is one of the oldest editing programs around. It was introduced in <a href="/history/1969.htm">1969</a>, approximately 50 years ago, as one of the original components of <a href="/jargon/u/unix.htm">Unix</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">ed [<i>options</i>] [<i>file</i>]</pre>
+<pre class="tcy tab">red [<i>options</i>] [<i>file</i>]</pre>
+<h3 class="tab" id="options">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:190px"><b>-h</b>, <b>--help</b></td>
+<td>Display a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Output version information and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b>, <b>--traditional</b></td>
+<td>Run in compatibility mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>,<br> <b>--loose-exit-status</b></td>
+<td>Exit with a status of zero (normal termination) even if a command fails. This option can be useful if <b>ed</b> is set to be the editor for <a href="/unix/ucrontab.htm"><b>crontab</b></a>, for instance.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>,<br> <b>--prompt=</b><i>STRING</i></td>
+<td><b>ed</b> usually waits for user input at a blank line; this option uses the <a href="/jargon/s/string.htm">string</a> STRING as the <a href="/jargon/p/prompt.htm">prompt</a> instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--restricted</b></td>
+<td>Run in restricted mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--quiet</b>,<br> <b>--silent</b></td>
+<td>Suppress diagnostics.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Operate <a href="/jargon/v/verbose.htm">verbosely</a>.</td>
+</tr>
+</table>
+<h2 id="technical-desc">Technical description</h2>
+<p class="tab"><b>ed</b> is a line-oriented text editor with a minimal interface. It is used to create, display, modify and otherwise manipulate <a href="/jargon/t/textfile.htm">text files</a>.</p>
+<p class="tab">If <b>ed</b> is invoked with a file name <a href="/jargon/a/argument.htm">argument</a>, then a copy of file is read into the editor's <a href="/jargon/b/buffer.htm">buffer</a>. Changes are made to this copy and not directly to file itself. Upon quitting <b>ed</b>, any changes not explicitly saved with a '<b>w</b>' command are lost.</p>
+<p class="tab">Editing is performed in two distinct modes: <b>command</b> and <b>input</b>. When first invoked, <b>ed</b> is in <b>command mode</b>. In this mode, commands are read from the <a href="/jargon/s/stdin.htm">standard input</a> and executed to manipulate the contents of the editor buffer. A typical command might look like:</p>
+<pre class="tab tcy">,s/old/new/g</pre>
+<p class="tab">Which replaces all occurrences of the string <i>old</i> with the string <i>new</i>.</p>
+<p class="tab">When an input command, such as '<b>a</b>' (append), '<b>i</b>' (insert), or '<b>c</b>' (change) is given, <b>ed</b> enters <b>input mode</b>. This mode is the primary means of adding text to a file. In this mode, no commands are available; instead, the standard input is written directly to the editor buffer. Lines consist of text up to and including a <a href="/jargon/n/newline.htm">newline</a> <a href="/jargon/c/charact.htm">character</a>. Input mode is exited by entering a single period ("<b>.</b>") on a line.</p>
+<p class="tab">An important thing to remember is that all <b>ed</b> commands operate on whole lines or ranges of lines. For example, the '<b>d</b>' command deletes lines; the '<b>m</b>' command moves lines, etc. It is possible to modify only a portion of a line by specific replacement, as in the example above; although even then, the '<b>s</b>' command is applied to whole lines at a time.</p>
+<p class="tab">In general, <b>ed</b> commands consist of zero or more line addresses, followed by a single character command and possibly additional <a href="/jargon/p/paramete.htm">parameters</a>. Commands have the structure:</p>
+<pre class="tab tcy">[<i>address</i> [,<i>address</i>]]<i>command</i>[<i>parameters</i>]</pre>
+<p class="tab">The address(es) indicate the line or range of lines to be affected by the command. If fewer addresses are given than the command accepts, then default addresses are supplied.</p>
+<h2 id="line-address">Line addresses</h2>
+<p class="tab">An <i>address</i> represents the number of a line in the buffer. <b>ed</b> maintains a current address that is supplied to commands as the default address if none other is specified.</p>
+<p class="tab">When a file is first read, the current address is set to the last line of the file. In general, at any given time, the current address is set to the last line affected by a command.</p>
+<p class="tab">Think of the address as a place marker to the last line in the file where <b>ed</b> has done something, and, unless told otherwise, the line where it operates next.</p>
+<h2 id="refer-line-address">Referring to line addresses</h2>
+<p class="tab">A reference to a line address is constructed from one of the bases in the list below, optionally followed by a numeric <a href="/jargon/o/offset.htm">offset</a>. The offset may include any combination of digits, <a href="/jargon/o/operator.htm">operators</a> (for instance, "<b>+</b>" and "<b>-</b>") and <a href="/jargon/w/whitspac.htm">whitespace</a>. Addresses are read from left to right, and their values are computed relative to the current address.</p>
+<p class="tab">One exception to the rule that addresses represent line numbers is the special address <b>0</b> (zero). This address means "before the first line," and can be used in any command.</p>
+<h2 id="Address-Ranges">Address ranges</h2>
+<p class="tab">An <i>address range</i> is two addresses separated either by a comma ("<b>,</b>") or semicolon ("<b>;</b>"). The value of the first address in a range cannot exceed the value of the second. If only one address is given in a range, then the second address is set to the given address.</p>
+<p class="tab">Each address in a comma-<a href="/jargon/d/delimite.htm">delimited</a> range is interpreted relative to the current address. In a semicolon-delimited range, the first address is used to set the current address, and the second address is interpreted relative to the first.</p>
+<p class="tab">The following address symbols are recognized:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:50px"><b>.</b></td>
+<td>The current line (address) in the buffer.</td>
+</tr>
+<tr class="tcw">
+<td><b>$</b></td>
+<td>The last line in the buffer.</td>
+</tr>
+<tr class="tcw">
+<td><b><i>n</i></b></td>
+<td>The <i>n</i>th line in the buffer where <i>n</i> is a number in the range <b>[0,$]</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>The previous line. This option is equivalent to <b>-1</b> and may be repeated with cumulative effect.</td>
+</tr>
+<tr class="tcw">
+<td><b>^</b><i>n</i></td>
+<td>The <i>n</i>th previous line, where <i>n</i> is a non-negative number.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b></td>
+<td>The next line. This option is equivalent to <b>+1</b> and may be repeated with cumulative effect.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b><i>n</i></td>
+<td>The <i>n</i>th next line, where <i>n</i> is a non-negative number.</td>
+</tr>
+<tr class="tcw">
+<td><b>,</b></td>
+<td>The first-through-last lines in the buffer. This option is equivalent to the address range <b>1,$</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>;</b></td>
+<td>The current through last lines in the buffer. This option is equivalent to the address range <b>.,$.</b></td>
+</tr>
+<tr class="tcw">
+<td><b>/</b><i>re</i><b>/</b></td>
+<td>The next line containing the <a href="/jargon/r/regex.htm">regular expression</a> <i>re</i>. The search wraps to the beginning of the buffer and continues down to the current line, if necessary. <b>//</b> repeats the last search.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b><i>re</i><b>?</b></td>
+<td>The previous line containing the regular expression <i>re</i>. The search wraps to the end of the buffer and continues up to the current line, if necessary. <b>??</b> repeats the last search.</td>
+</tr>
+<tr class="tcw">
+<td><b>'</b><i>lc</i></td>
+<td>The line previously marked by a '<b>k</b>' (mark) command, where <i>lc</i> is a <a href="/jargon/l/lowercas.htm">lowercase</a> letter.</td>
+</tr>
+</table>
+<h2 id="regex">Regular expressions</h2>
+<p class="tab"><a href="/jargon/r/regex.htm">Regular expressions</a> are patterns used in selecting text. For example, the <b>ed</b> command</p>
+<pre class="tab tcy">g/string/</pre>
+<p class="tab">Prints all lines containing <b>string</b>. Regular expressions are also used by the '<b>s</b>' command for selecting old text to be replaced with new. In addition to a specifying string literals, regular expressions can represent classes of strings. If it is possible for a regular expression to match several strings in a line, then the left-most longest match is the one selected.</p>
+<p class="tab">The following symbols are used in constructing regular expressions:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><i>c</i></td>
+<td>Any character <i>c</i> not listed below, including '<b>{</b>', '<b>}</b>', '<b>(</b>', '<b>)</b>', '<b>&lt;</b>' and '<b>&gt;</b>', matches itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>\</b><i>c</i></td>
+<td>A backslash-escaped character <i>c</i> other than '<b>{</b>', '<b>}</b>', '<b>(</b>', '<b>)</b>', '<b>&lt;</b>', '<b>&gt;</b>', '<b>b</b>', '<b>B</b>', '<b>w</b>', '<b>W</b>', '<b>+</b>', and '<b>?</b>' matches itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>.</b></td>
+<td>Matches any single character.</td>
+</tr>
+<tr class="tcw">
+<td><b>[</b><i>char-class</i><b>]</b></td>
+<td>Matches any single character in <i>char-class</i>. To include a '<b>]</b>' in <i>char-class</i>, it must be the first character. A range of characters may be specified by separating the end characters of the range with a '<b>-</b>'; for instance, '<b>a-z</b>' specifies the lowercase characters. The following literal expressions can also be used in <i>char-class</i> to specify sets of characters:<br><br><pre>[:alnum:][:cntrl:][:lower:][:space:][:alpha:][:digit:][:print:][:upper:][:blank:][:graph:][:punct:][:xdigit:]</pre> If '<b>-</b>' appears as the first or last character of <i>char-class</i>, then it matches itself. All other characters in <i>char-class</i> match themselves.<br><br> Patterns in <i>char-class</i> of the form:<br><br><pre class="tcy tab">[.col-elm.]</pre> or,<br><br><pre class="tcy tab">[=col-elm=]</pre> where <i>col-elm</i> is a collating element interpreted according to the locale of the system.</td>
+</tr>
+<tr class="tcw">
+<td><b>[^</b><i>char-class</i><b>]</b></td>
+<td>Matches any single character, other than newline, not in <i>char-class</i>. <i>char-class</i> is defined as above.</td>
+</tr>
+<tr class="tcw">
+<td><b>^</b></td>
+<td>If '<b>^</b>' is the first character of a regular expression, then it anchors the regular expression to the beginning of a line. Otherwise, it matches itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>$</b></td>
+<td>If '<b>$</b>' is the last character of a regular expression, it anchors the regular expression to the end of a line. Otherwise, it matches itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>\(</b><i>re</i><b>\)</b></td>
+<td>Defines a (possibly <a href="/jargon/n/null.htm">null</a>) subexpression <i>re</i>. Subexpressions may be <a href="/jargon/n/nesting.htm">nested</a>. A subsequent backreference of the form '<b>\</b><i>n</i>', where <i>n</i> is a number in the range <b>[1,9]</b>, expands to the text matched by the <i>n</i>th subexpression. For example, the regular expression '<b>\(a.c\)\1</b>' matches the string '<b>abcabc</b>', but not '<b>abcadc</b>'. Subexpressions are ordered relative to their left <a href="/jargon/d/delimite.htm">delimiter</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b></td>
+<td>Matches the single-character regular expression or subexpression immediately preceding it zero or more times. If '<b>*</b>' is the first character of a regular expression or subexpression, then it matches itself. The '<b>*</b>' operator sometimes yields unexpected results. For example, the regular expression '<b>b*</b>' matches the beginning of the string '<b>abbb</b>', instead of the substring '<b>bbb</b>', since a null match is the only left-most match.</td>
+</tr>
+<tr class="tcw">
+<td><b>\{</b><i>n</i><b>,</b><i>m</i><b>\}</b><br><br><b>\{</b><i>n</i><b>,</b><i>\</i><b>}</b><br><br><b>\{</b><i>n</i><b>\}</b></td>
+<td>Matches the single character regular expression or subexpression immediately preceding it at least <i>n</i> and at most <i>m</i> times. If <i>m</i> is omitted, then it matches at least <i>n</i> times. If the comma is also omitted, then it matches exactly <i>n</i> times. If any of these forms occurs first in a regular expression or subexpression, then it is interpreted literally (i.e., the regular expression '<b>\{2\}</b>' matches the string '<b>{2}</b>', and so on).</td>
+</tr>
+<tr class="tcw">
+<td><b>\&lt;</b><br><br><b>\&gt;</b></td>
+<td>Anchors the single character regular expression or subexpression immediately following it to the beginning (<b>\&lt;</b>) or ending (<b>\&lt;</b>) of a word, i.e., in <a href="/jargon/a/ascii.htm">ASCII</a>, a maximal string of alphanumeric characters, including the underscore ("<b>_</b>").</td>
+</tr>
+</table>
+<p class="tab">The following extended operators are preceded by a backslash (<b>\</b>) to distinguish them from traditional <b>ed</b> syntax.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:40px"><b>\'</b><br><br><b>\'</b></td>
+<td>Unconditionally matches the beginning (<b>\'</b>) or ending (<b>\'</b>) of a line.</td>
+</tr>
+<tr class="tcw">
+<td><b>\?</b></td>
+<td>Optionally matches the single character regular expression or subexpression immediately preceding it. For example, the regular expression '<b>a[bd]\?c</b>' matches the strings '<b>abc</b>', '<b>adc</b>' and '<b>ac</b>'. If <b>\?</b> occurs at the beginning of a regular expressions or subexpression, then it matches a literal '<b>?</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>\+</b></td>
+<td>Matches the single character regular expression or subexpression immediately preceding it one or more times. So the regular expression '<b>a\+</b>' is shorthand for '<b>aa*</b>'. If <b>\+</b> occurs at the beginning of a regular expression or subexpression, then it matches a literal '<b>+</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>\b</b></td>
+<td>Matches the beginning or ending (null string) of a word. Thus the regular expression '<b>\bhello\b</b>' is equivalent to '<b>\&lt;hello\&gt;</b>'. However, '<b>\b\b</b>' is a valid regular expression whereas '<b>\&lt;\&gt;</b>' is not.</td>
+</tr>
+<tr class="tcw">
+<td><b>\B</b></td>
+<td>Matches (a null string) inside a word.</td>
+</tr>
+<tr class="tcw">
+<td><b>\w</b></td>
+<td>Matches any character in a word.</td>
+</tr>
+<tr class="tcw">
+<td><b>\W</b></td>
+<td>Matches any character not in a word.</td>
+</tr>
+</table>
+<h2 id="commands">Commands</h2>
+<p class="tab">All <b>ed</b> commands are single characters, though some require additional parameters. If a command's parameters extend over several lines, then each line except for the last must be terminated with a backslash (<b>\</b>).</p>
+<p class="tab">In general, at most one command is allowed per line. However, most commands accept a print suffix, which is any of '<b>p</b>' (print), '<b>l</b>' (list), or '<b>n</b>' (enumerate), to print the last line affected by the command.</p>
+<p class="tab">An interrupt (typically <b>^C</b>) has the effect of aborting the current command and returning the editor to command mode.</p>
+<p class="tab"><b>ed</b> recognizes the following commands. The commands are shown together with the default address or address range supplied if none is specified (in brackets).</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px">[<b>.,.</b>]<b>a</b></td>
+<td>Appends text to the buffer after the addressed line, which may be the address <b>0</b> (zero). Text is entered in input mode. The current address is set to last line entered.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.,.</b>]<b>c</b></td>
+<td>Changes lines in the buffer. The addressed lines are deleted from the buffer, and text is appended in their place. Text is entered in input mode. The current address is set to last line entered.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.,.</b>]<b>d</b></td>
+<td>Deletes the addressed lines from the buffer. If there is a line after the deleted range, then the current address is set to this line. Otherwise, the current address is set to the line before the deleted range.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.,.</b>]<b>e</b> <i>file</i></td>
+<td>Edits <i>file</i>, and sets the default <a href="/jargon/f/filename.htm">file name</a>. If <i>file</i> is not specified, then the default file name is used. Any lines in the buffer are deleted before the new file is read. The current address is set to the last line read.</td>
+</tr>
+ <tr class="tcw">
+<td><b>e</b> <b>!</b><i>command</i></td>
+<td>Edits the standard output of '<b>!</b><i>command</i>', (see <b>!</b><i>command</i> below). The default file name is unchanged. Any lines in the buffer are deleted before the output of command is read. The current address is set to the last line read.</td>
+</tr>
+<tr class="tcw">
+<td><b>E</b> <i>file</i></td>
+<td>Edits <i>file</i> unconditionally. This option is similar to the <b>e</b> command, except that unwritten changes are discarded without warning. The current address is set to the last line read.</td>
+</tr>
+<tr class="tcw">
+<td><b>f</b> <i>file</i></td>
+<td>Sets the default file name to <i>file</i>. If <i>file</i> is not specified, then the default unescaped file name is printed.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>1,$</b>]<b>g/</b><i>re</i><b>/</b><i>command-list</i></td>
+<td>Applies <i>command-list</i> to each of the addressed lines matching a regular expression <i>re</i>. The current address is set to the line currently matched before <i>command-list</i> is executed. At the end of the '<b>g</b>' command, the current address is set to the last line affected by <i>command-list</i>.<br><br> Each command in <i>command-list</i> must be on a separate line, and every line except for the last must be terminated by a backslash (<b>\</b>). Any commands are allowed, except for '<b>g</b>', '<b>G</b>', '<b>v</b>', and '<b>V</b>'. A newline alone in <i>command-list</i> is equivalent to a '<b>p</b>' command.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>1,$</b>]<b>G/</b><i>re</i><b>/</b></td>
+<td>Interactively edits the addressed lines matching a regular expression <i>re</i>. For each matching line, the line is printed, the current address is set, and the user is prompted to enter a <i>command-list</i>. At the end of the '<b>G</b>' command, the current address is set to the last line affected by (the last) <i>command-list</i>.<br><br> The format of <i>command-list</i> is the same as that of the '<b>g</b>' command. A newline alone acts as a null command list. A single '<b>&amp;</b>' repeats the last non-null command list.</td>
+</tr>
+<tr class="tcw">
+<td><b>H</b></td>
+<td>Toggles the printing of error explanations. By default, explanations are not printed. It is recommended that <b>ed</b> scripts begin with this command to aid in debugging.</td>
+</tr>
+<tr class="tcw">
+<td><b>h</b></td>
+<td>Prints an explanation of the last error.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.</b>]<b>i</b></td>
+<td>Inserts text in the buffer before the current line. Text is entered in input mode. The current address is set to the last line entered.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.,.+1</b>]<b>j</b></td>
+<td>Joins the addressed lines. The addressed lines are deleted from the buffer and replaced by a single line containing their joined text. The current address is set to the resultant line.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.</b>]<b>k</b><i>c</i></td>
+<td>Marks a line with a lowercase letter <i>c</i>. The line can then be addressed as <b>'</b><i>c</i> (a single quote followed by <i>c</i> ) in subsequent commands. The mark is not cleared until the line is deleted or otherwise modified.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.,.</b>]<b>l</b></td>
+<td>Prints the addressed lines unambiguously. If invoked from a terminal, <b>ed</b> pauses at the end of each page until a newline is entered. The current address is set to the last line printed.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.,.</b>]<b>m</b>[<b>.</b>]</td>
+<td>Moves lines in the buffer. The addressed lines are moved to after the right destination address, which may be the address <b>0</b> (zero). The current address is set to the last line moved.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.,.</b>]<b>n</b></td>
+<td>Prints the addressed lines with their line numbers. The current address is set to the last line printed.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.,.</b>]<b>p</b></td>
+<td>Prints the addressed lines. If invoked from a terminal, <b>ed</b> pauses at the end of each page until a newline is entered. The current address is set to the last line printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>P</b></td>
+<td>Toggles the command prompt on and off. Unless a prompt was specified by with command-line option <b>-p</b> <i>string</i>, the command prompt is by default turned off.</td>
+</tr>
+<tr class="tcw">
+<td><b>q</b></td>
+<td>Quits <b>ed</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Q</b></td>
+<td>Quits <b>ed</b> unconditionally. This option is similar to the <b>q</b> command, except that unwritten changes are discarded without warning.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>$</b>]<b>r</b> <i>file</i></td>
+<td>Reads <i>file</i> to after the addressed line. If <i>file</i> is not specified, then the default file name is used. If there was no default file name before the command, then the default file name is set to <i>file</i>. Otherwise, the default file name is unchanged. The current address is set to the last line read.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>$</b>]<b>r</b> <i>!command</i></td>
+<td>Reads to after the addressed line the standard output of '<i>!command</i>', (see the <i>!command</i> below). The default file name is unchanged. The current address is set to the last line read.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.,.</b>]<b>s/</b><i>re</i><b>/</b><i>replacement</i><b>/</b><br><br> [<b>.,.</b>]<b>s/</b><i>re</i><b>/</b><i>replacement</i><b>/g</b><br><br> [<b>.,.</b>]<b>s/</b><i>re</i><b>/</b><i>replacement</i><b>/</b><i>n</i></td>
+<td>Replaces text in the addressed lines matching a regular expression <i>re</i> with replacement. By default, only the first match in each line is replaced. If the '<b>g</b>' (global) suffix is given, then every match to be replaced. The '<i>n</i>' suffix, where <i>n</i> is a positive number, causes only the <i>n</i>th match to be replaced. It is an error if no substitutions are performed on any of the addressed lines. The current address is set the last line affected.<br><br> The <i>re</i> and <i>replacement</i> may be delimited by any character other than space and newline (see the '<b>s</b>' command below). If one or two of the last delimiters is omitted, then the last line affected is printed as though the print suffix '<b>p</b>' were specified.<br><br> An unescaped '<b>&amp;</b>' in replacement is replaced by the currently matched text. The character sequence '<b>\</b><i>m</i>', where <i>m</i> is a number in the range <b>[1,9]</b>, is replaced by the <i>m</i>th backreference expression of the matched text. If replacement consists of a single '<b>%</b>', then replacement from the last substitution is used. Newlines may be embedded in replacement if they are escaped with a backslash (<b>\</b>).</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.,.</b>]<b>s</b></td>
+<td>Repeats the last substitution. This form of the '<b>s</b>' command accepts a count suffix '<b>n</b>', or any combination of the characters '<b>r</b>', '<b>g</b>', and '<b>p</b>'. If a count suffix '<b>n</b>' is given, then only the <i>n</i>th match is replaced. The '<b>r</b>' suffix causes the regular expression of the last search to be used instead of the that of the last substitution. The '<b>g</b>' suffix toggles the global suffix of the last substitution. The '<b>p</b>' suffix toggles the print suffix of the last substitution. The current address is set to the last line affected.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.,.</b>]<b>t</b>[<b>.</b>]</td>
+<td>Copies the addressed lines to after the right destination address, which may be the address <b>0</b> (zero). The current address is set to the last line copied.</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b></td>
+<td>Undoes the last command and restores the current address to what it was before the command. The global commands '<b>g</b>', '<b>G</b>', '<b>v</b>', and '<b>V</b>' are treated as a single command by undo. '<b>u</b>' is its own inverse.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>1,$</b>]<b>v/</b><i>re</i><b>/</b><i>command-list</i></td>
+<td>Applies <i>command-list</i> to each of the addressed lines not matching a regular expression <i>re</i>. This option is similar to the '<b>g</b>' command.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>1,$</b>]<b>V/</b><i>re</i><b>/</b></td>
+<td>Interactively edits the addressed lines not matching a regular expression <i>re</i>. This option is similar to the '<b>G</b>' command.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>1,$</b>]<b>w</b> <i>file</i></td>
+<td>Writes the addressed lines to file. Any previous contents of file is lost without warning. If there is no default file name, then the default file name is set to <i>file</i>, otherwise it is unchanged. If no file name is specified, then the default file name is used. The current address is unchanged.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>1,$</b>]<b>wq</b> <i>file</i></td>
+<td>Writes the addressed lines to file, and then executes a '<b>q</b>' command.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>1,$</b>]<b>w</b> <i>!command</i></td>
+<td>Writes the addressed lines to the standard input of '<i>!command</i>', (see the <i>!command</i> below). The default file name and current address are unchanged.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>1,$</b>]<b>W</b> <i>file</i></td>
+<td>Appends the addressed lines to the end of file. This option is similar to the '<b>w</b>' command, expect that the previous contents of file is not clobbered. The current address is unchanged.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.</b>]<b>x</b></td>
+<td>Copies (puts) the contents of the cut buffer to after the addressed line. The current address is set to the last line copied.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.,.</b>]<b>y</b></td>
+<td>Copies (yanks) the addressed lines to the cut buffer. The cut buffer is overwritten by subsequent '<b>y</b>', '<b>s</b>', '<b>j</b>', '<b>d</b>', or '<b>c</b>' commands. The current address is unchanged.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.+1</b>]<b>z</b><i>n</i></td>
+<td>Scrolls <i>n</i> lines at a time starting at addressed line. If <i>n</i> is not specified, then the current window size is used. The current address is set to the last line printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>!</b><i>command</i></td>
+<td>Executes <i>command</i> via <a href="/unix/ush.htm"><b>sh</b></a>. If the first character of <i>command</i> is '<b>!</b>', then it is replaced by text of the previous '<i>!command</i>'. <b>ed</b> does not process <i>command</i> for backslash (<b>\</b>) escapes. However, an unescaped '<b>%</b>' is replaced by the default file name. When the <a href="/jargon/s/shell.htm">shell</a> returns from execution, a '<b>!</b>' is printed to the standard output. The current line is unchanged.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.,.</b>]<b>#</b></td>
+<td>Begins a <a href="/jargon/c/comment.htm">comment</a>; the rest of the line, up to a newline, is ignored. If a line address followed by a semicolon is given, then the current address is set to that address. Otherwise, the current address is unchanged.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>$</b>]<b>=</b></td>
+<td>Prints the line number of the addressed line.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>.+1</b>]</td>
+<td>Prints the addressed line, and sets the current address to that line.</td>
+</tr>
+</table>
+<h2 id="restricted">Restricted ed</h2>
+<p class="tab"><b>red</b> operates like <b>ed</b>, except that it can only edit files in the current directory, and it cannot execute shell commands.</p>
+<h2 id="examples">Examples</h2>
+<h3 class="tab">Getting started</h3>
+<p class="tab">The simplest way to start <b>ed</b> is to run it with no options at the command line:</p>
+<pre class="tcy tab">ed</pre>
+<p class="tab">This command places your cursor at a new line, but you won't receive any other prompt or indication you're in <b>ed</b>. To quit <b>ed</b> and return to your shell's command prompt, type <b>q</b> and press <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a>:</p>
+<pre class="tcy tab">q</pre>
+<p class="tab">You could also have quit using a capital <b>Q</b>, which is an &quot;unconditional&quot; quit: it exits regardless if you have changes that haven't yet been written to a file.</p>
+<p class="tab">Let's go back into <b>ed</b>:</p>
+<pre class="tcy tab">ed</pre>
+<p class="tab">Now let's intentionally type a command that <b>ed</b> won't recognize, to cause an error. There is no <b>o</b> command, so let's type that:</p>
+<pre class="tcy tab">o</pre>
+<pre class="tab">?</pre>
+<p class="tab">The &quot;<b>?</b>&quot; means that something went wrong. By default, <b>ed</b> has such a minimal interface that it doesn't give you a specific error message. If an error has occurred, you can find out what happened using the <b>h</b> command:</p>
+<pre class="tcy tab">h</pre>
+<pre>Unknown command</pre>
+<p class="tab">And then <b>ed</b> is ready for another command.</p>
+<p class="tab">To turn on error messages so they always display immediately by default, use the <b>H</b> command:</p>
+<pre class="tcy tab">H</pre>
+<h3 class="tab">Making ed more friendly</h3>
+<p class="tab">It's easier to use <b>ed</b> if you have a command prompt. Let's quit <b>ed</b>...</p>
+<pre class="tcy tab">q</pre>
+<p class="tab">...which returns us to our shell's command prompt. Now let's start <b>ed</b> again using the <b>-p</b> option, which tells <b>ed</b> to use a command prompt. We specify what prompt we want to use as a <a href="/jargon/s/string.htm">string</a> immediately following <b>-p</b>. For instance, let's use the simple prompt '<b>&gt;</b> '. Here's how we invoke <b>ed</b>:</p>
+<pre class="tcy tab">ed -p'&gt; '</pre>
+<p class="tab">Now when <b>ed</b> launches, we see our prompt:</p>
+<pre class="tab"><b>&gt;</b></pre>
+<h3 class="tab">Adding text, and viewing it</h3>
+<p class="tab">We haven't given <b>ed</b> a file name, so it starts us with an empty <a href="/jargon/b/buffer.htm">buffer</a> to enter text. Let's enter some now. We use the <b>a</b> command to add text; in the commands below we also show the prompt before the command, for clarity.</p>
+<pre class="tcy tab"><b>&gt;</b> a</pre>
+<p class="tab">Now we are given blank lines where we can type our text. We enter it like in any word processor, pressing <a href="/jargon/e/enterkey.htm"><kbd>Enter</kbd></a> at the end of each line. When we're done, we enter a period alone on a new line, to tell <b>ed</b> we're done:</p>
+<pre class="tcy tab">Line one,
+line two,
+line three,
+line four.
+.</pre>
+<p class="tab">We've entered four lines; the editor leaves off there, and gives us another <b>ed</b> command prompt. If we enter the <b>p</b> command, it prints the line where we left off editing:</p>
+<pre class="tcy tab"><b>&gt;</b> p</pre>
+<pre class="tab">line four.</pre>
+<p class="tab">Most <b>ed</b> commands can be prefixed with an <a href="#Address-Ranges">address range</a> to specify what range to apply to the text. So, if we want to print lines <b>1</b> through <b>4</b>, we could use the command <b>1,4p</b>:</p>
+<pre class="tcy tab"><b>&gt;</b> 1,4p</pre>
+<pre class="tab">Line one,
+line two,
+line three,
+line four.</pre>
+<p class="tab">If we omit the line numbers (but leave in the comma), <b>ed</b> assumes maximum start and end values, so it prints the whole buffer:</p>
+<pre class="tcy tab"><b>&gt;</b> ,p</pre>
+<pre class="tab">Line one,
+line two,
+line three,
+line four.</pre>
+<p class="tab">In case we forget what line number we left off at, we can use the <b>=</b> command:</p>
+<pre class="tcy tab"><b>&gt;</b> =</pre>
+<pre class="tab">4</pre>
+<p class="tab">We can continue to add lines using the <b>a</b> command again, and entering a period on a new line when we're done:</p>
+<pre class="tcy tab"><b>&gt;</b> a</pre>
+<pre class="tcy tab">Line five.
+.</pre>
+<pre class="tcy tab"><b>&gt;</b> ,p</pre>
+<pre class="tab">Line one,
+line two,
+line three,
+line four.
+Line five.</pre>
+<p class="tab">We're now at line 5:</p>
+<pre class="tcy tab"><b>&gt;</b> =</pre>
+<pre class="tab">5</pre>
+<p class="tab">We can change to another line by entering that line number. When we do, <b>ed</b> prints that line to let us know where we are:</p>
+<pre class="tcy tab"><b>&gt;</b> 3</pre>
+<pre class="tab">line three,</pre>
+<p class="tab">Now if we entered <b>a</b>, we'd start adding lines after line 3. Or we can use the <b>i</b> command to start inserting lines <i>before</i> line 3:</p>
+<pre class="tcy tab"><b>&gt;</b> i</pre>
+<pre class="tcy tab">This is the new line three. All lines after this are off by one!
+.</pre>
+<p class="tab">Let's check to see where the editor leaves us after this insertion. This is known as where the buffer is &quot;addressed,&quot; and it should be the last line of the buffer:</p>
+<pre class="tcy tab"><b>&gt;</b> =</pre>
+<pre class="tab">6</pre>
+<p class="tab">Let's look at all six lines:</p>
+<pre class="tcy tab"><b>&gt;</b> ,p</pre>
+<pre class="tab">Line one,
+line two,
+This is the new line three. All lines after this are off by one!
+line three,
+line four.
+Line five.</pre>
+<p class="tab">Let's delete the third line using the <b>d</b> command. We put a <b>3</b> before the <b>d</b>, to specify that line 3 is the line to be deleted:</p>
+<pre class="tcy tab"><b>&gt;</b> 3d</pre>
+<p class="tab">...and view the changed buffer:</p>
+<pre class="tcy tab">,p</pre>
+<pre class="tab">Line one,
+line two,
+line three,
+line four.
+Line five.</pre>
+<p class="tab">If you want to view lines with the line number at the beginning, use the <b>n</b> command. For example:</p>
+<pre class="tcy tab"><b>&gt;</b> n</pre>
+<pre class="tab">5      Line five.</pre>
+<pre class="tcy tab"><b>&gt;</b> 3n</pre>
+<pre class="tab">3      line three,</pre>
+<pre class="tcy tab"><b>&gt;</b> 2,4n</pre>
+<pre class="tab">2     line two,
+3     line three,
+4     line four.</pre>
+<p class="tab">To change a line (completely replace it), you can use the <b>c</b> command. You can enter multiple lines of text, so you still need to put a period on a new line to indicate you're done:</p>
+<pre class="tcy tab"><b>&gt;</b> 3c</pre>
+<pre class="tcy tab">line the third,
+.</pre>
+<p class="tab">It also works on multiple lines:</p>
+<pre class="tcy tab"><b>&gt;</b> 1,2c</pre>
+<pre class="tcy tab">First line,
+second line,
+.</pre>
+<pre class="tcy tab"><b>&gt;</b> 4,5c</pre>
+<pre class="tcy tab">line
+ four.
+.</pre>
+<p class="tab">And we can join lines with the <b>j</b> command:</p>
+<pre class="tcy tab"><b>&gt;</b> 4,5j</pre>
+<p class="tab">Let's look at those changes:</p>
+<pre class="tcy tab"><b>&gt;</b> ,p</pre>
+<pre class="tab">First line,
+second line,
+line the third,
+line four.</pre>
+<h3 class="tab">Understanding ranges</h3>
+<p class="tab">Let's explore ranges a little more. Let's select line 2, then print one line before and after it:</p>
+<pre class="tcy tab"><b>&gt;</b> 2</pre>
+<pre class="tab">second line,</pre>
+<pre class="tcy tab"><b>&gt;</b> -1,+1p</pre>
+<pre class="tab">First line,
+second line,
+line the third,</pre>
+<p class="tab">We've already seen that we can specify the entire buffer using a single comma as the range ("<b>,</b>"):</p>
+<pre class="tcy tab"><b>&gt;</b> ,p</pre>
+<pre class="tab">First line,
+second line,
+line the third,
+line four.</pre>
+<p class="tab">We've been using a single comma ("<b>,</b>") to represent the entire buffer range in our commands. A percent sign (&quot;<b>%</b>&quot;) does the same thing:</p>
+<pre class="tcy tab"><b>&gt;</b> %p</pre>
+<pre class="tab">First line,
+second line,
+line the third,
+line four.</pre>
+<p class="tab">When specifying ranges, we can represent the last line using a dollar sign (&quot;<b>$</b>&quot;):</p>
+<pre class="tcy tab"><b>&gt;</b> 2,$p</pre>
+<pre class="tab">second line,
+line the third,
+line four.</pre>
+<p class="tab">If you don't specify a range, most commands assume a range of the currently-addressed line. You can also specify the currently-addressed line explicitly using a period ("<b>.</b>"):</p>
+<pre class="tcy tab"><b>&gt;</b> 2</pre>
+<pre class="tab">second line,</pre>
+<pre class="tcy tab"><b>&gt;</b> .</pre>
+<pre class="tab">second line,</pre>
+<pre class="tcy tab"><b>&gt;</b> .=</pre>
+<pre class="tab">2</pre>
+<pre class="tcy tab"><b>&gt;</b> .p</pre>
+<pre class="tab">second line,</pre>
+<h3 class="tab">Marking lines for easier reference</h3>
+<p class="tab">You can mark a line using the <b>k</b> command, giving it a &quot;marker&quot; of any lowercase letter. You can then refer to the marked line using a single quote followed by that letter. For instance, here we mark line <b>3</b> with the letter <b>a</b>, then print that line by referring to it with <b>'a</b>:</p>
+<pre class="tcy tab"><b>&gt;</b> 3ka</pre>
+<pre class="tcy tab"><b>&gt;</b> 'ap</pre>
+<pre class="tab">line the third,</pre>
+<h3 class="tab">Moving and copying lines</h3>
+<p class="tab">You can move lines from one place to another using the <b>m</b> command:</p>
+<pre class="tcy tab"><b>&gt;</b> 1,2m3</pre>
+<pre class="tcy tab"><b>&gt;</b> ,p</pre>
+<pre class="tab">line the third,
+First line,
+second line,
+line four.</pre>
+<p class="tab">You can copy lines to another location using the <b>t</b> command:</p>
+<pre class="tcy tab"><b>&gt;</b> 2t4</pre>
+<pre class="tcy tab"><b>&gt;</b> ,p</pre>
+<pre class="tab">line the third,
+First line,
+second line,
+line four.
+First line,</pre>
+<h3 class="tab">Writing to and reading from files</h3>
+<p class="tab">When you're ready to write to a file, you can use the <b>f</b> command to specify a file name:</p>
+<pre class="tcy tab"><b>&gt;</b> f myfile.txt</pre>
+<pre class="tab">myfile.txt</pre>
+<p class="tab">We can now write to <b>myfile.txt</b> using the <b>w</b> command. <b>ed</b> tells us how many bytes were written:</p>
+<pre class="tcy tab"><b>&gt;</b> w</pre>
+<pre class="tab">64</pre>
+<p class="tab">If we specify a file name after <b>w</b>, <b>ed</b> writes to that file name, and tell us how many bytes:</p>
+<pre class="tcy tab"><b>&gt;</b> w myfile2.txt</pre>
+<pre class="tab">64</pre>
+<p class="tab">To open a file for editing, use the <b>e</b> command with the name of the file you want to open. <b>ed</b> reads the file into the buffer, and let you know how many bytes were read in:</p>
+<pre class="tcy tab"><b>&gt;</b> e myfile.txt</pre>
+<pre class="tab">64</pre>
+<p class="tab">If you try to open a file for editing when you have unsaved changes in your current buffer, you receive an error. To open a file with unsaved changes, losing any unwritten changes to the current buffer, use a capital <b>E</b>:</p>
+<pre class="tcy tab"><b>&gt;</b> E myfile.txt</pre>
+<pre class="tab">64</pre>
+<p class="tab">The same goes for exiting <b>ed</b>: if you try to use the <b>q</b> command to exit and you have unsaved changes, you receive an error. To quit without writing your changes, use a capital <b>Q</b>:</p>
+<pre class="tcy tab"><b>&gt;</b> Q</pre>
+<p class="tab">To open a file from the command line, specify it with the last argument when invoking <b>ed</b>. The file is read into the buffer, and <b>ed</b> reports how many bytes were read and give you a prompt for a command. For example:</p>
+<pre class="tcy tab">ed -p'&gt; ' myfile.txt</pre>
+<pre class="tab">64
+<b>&gt;</b></pre>
+<h3 class="tab">Searching for and replacing text</h3>
+<p class="tab">Let's delete all the lines in our buffer and re-make the file before the next examples:</p>
+<pre class="tcy tab"><b>&gt;</b> ,d</pre>
+<pre class="tcy tab"><b>&gt;</b> a</pre>
+<pre class="tcy tab">Twinkle, twinkle, little star.
+How I wonder what you are.
+Although I suspect you're mostly made of hydrogen.
+.</pre>
+<p class="tab">To search for text in your file, use the <b>/</b> command with the text to search for:</p>
+<pre class="tcy tab"><b>&gt;</b> /twinkle</pre>
+<pre class="tab">Twinkle, twinkle, little star.</pre>
+<p class="tab">To globally run a command on lines matching a regular expression, use the command form <b>g/</b><i>regular-expression</i><b>/</b><i>command</i>. For instance, here we'll <b>g</b>lobally search for lines containing the consecutive letters &quot;<b>re</b>&quot;, and <b>p</b>rint those lines:</p>
+<pre class="tcy tab"><b>&gt;</b> g/re/p</pre>
+<pre class="tab">How I wonder what you are.
+Although I suspect you're mostly made of hydrogen.</pre>
+<p class="tab">To run a command on the lines which do <i>not</i> match a specific regular expression, use the command form <b>v/</b><i>regular-expression</i><b>/</b><i>command</i>:</p>
+<pre class="tcy tab"><b>&gt;</b> v/re/p</pre>
+<pre class="tab">Twinkle, twinkle, little star.</pre>
+<p class="tab">To perform text substitution, use the command form <b>s/</b><i>text-to-replace</i><b>/</b><i>replacement-text</i><b>/</b>. We specify a range before the <b>s</b> so that it searches more than only the currently-addressed line:</p>
+<pre class="tcy tab"><b>&gt;</b> ,s/hydrogen/hydrogen and helium/</pre>
+<pre class="tcy tab"><b>&gt;</b> ,p</pre>
+<pre class="tab">Twinkle, twinkle, little star.
+How I wonder what you are.
+Although I suspect you're mostly made of hydrogen and helium.</pre>
+<p class="tab">By default, only the first occurrence of <i>text-to-replace</i> in a line is substituted. To replace every occurrence in each matching line, specify <b>g</b> after the second slash, for a &quot;global&quot; substitution:</p>
+<pre class="tcy tab"><b>&gt;</b> ,s/wink/wonk/g</pre>
+<pre class="tcy tab"><b>&gt;</b> 1p</pre>
+<pre class="tab">Twonkle, twonkle, little star.</pre>
+<h3 class="tab">Conclusion</h3>
+<p class="tab">Hopefully this has given you enough familiarity with <b>ed</b> to be able to use it, and to make use of the references available above. <b>ed</b> can be very useful when working on a system with minimal system resources, or when repairing a system that cannot boot beyond a very basic <a href="/jargon/r/runlevel.htm">runlevel</a>. It's the progenitor of many modern editors, and once you get used to it, its simplicity can make basic, important tasks easy to perform.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ubfs.htm"><b>bfs</b></a> &mdash; An editor that can load very large files.<br><a href="/unix/ucat.htm"><b>cat</b></a> &mdash; Output the contents of a file.<br><a href="/unix/uedit.htm"><b>edit</b></a> &mdash; A text editor.<br><a href="/unix/uex.htm"><b>ex</b></a> &mdash; Line-editor mode of the <b>vi</b> text editor.<br><a href="/unix/ugrep.htm"><b>grep</b></a> &mdash; Filter text which matches a regular expression.<br><a href="/unix/uksh.htm"><b>ksh</b></a> &mdash; The Korn shell command interpreter.<br><a href="/unix/upico.htm"><b>pico</b></a> &mdash; A simple text editor.<br><a href="/unix/used.htm"><b>sed</b></a> &mdash; A utility for filtering and transforming text.<br><a href="/unix/ush.htm"><b>sh</b></a> &mdash; The Bourne shell command interpreter.<br><a href="/unix/ustty.htm"><b>stty</b></a> &mdash; Set options for your terminal display.<br><a href="/unix/uumask.htm"><b>umask</b></a> &mdash; Get or set the file mode creation mask.<br><a href="/unix/uvi.htm"><b>vi</b></a> &mdash; Text editor based on the visual mode of <b>ex</b>.<br><a href="/unix/vim.htm"><b>vim</b></a> &mdash; An advanced version of <b>vi</b>.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a833ab82084f8',m:'hqQrckXRH26dLOQe6v_Y0aUUKcZ7S66ebYbfNLRKk9U-1661495361-0-AV4U59+44E/Cox/CrW4jztbjshzU1XLJXoEkMOHMY1G0lB4c0Qm+zdQGbdJwO5m8nHBT3uZ47we+c8MWandIM15CN9yPDNSDo3cfBKXROcX31rOzV2oug8kaoAj/zsi1HQ==',s:[0xccd768f265,0x9960fcd626],u:'/cdn-cgi/challenge-platform/h/b'};var _cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/cb/invisible.js?cb=740a833ab82084f8',document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

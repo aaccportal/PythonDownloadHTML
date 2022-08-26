@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux lex command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/lex.gif" width="300" height="300" alt="lex command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>lex</b> command generates programs to perform <a href="/jargon/l/lexicon.htm">lexical</a> tasks.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>lex</b> <a href="/jargon/u/utility.htm">utility</a> generates <a href="/jargon/c/c.htm">C</a> programs to be used in lexical processing of <a href="/jargon/c/charact.htm">character</a> input, and that can be used as an interface to <a href="/unix/uyacc.htm">yacc</a>. The C programs are generated from <b>lex</b> source code and conform to the <a href="/jargon/i/iso.htm">ISO</a> C standard. Usually, the <b>lex</b> utility writes the program it generates to the file <b>lex.yy.c</b>. The state of this file is unspecified if <b>lex</b> exits with a non-zero exit status. See <a href="#syntax">extended description</a> for a complete description of the <b>lex</b> input language.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">lex [-cntv] [-e | -w] [-V -Q [y | n]] [<i>file</i>]...</pre>
+<h2>Options</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:80px"><b>-c</b></td>
+<td>Indicate C-language action (This is the default).</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>Generates a program that can handle EUC characters (cannot be used with the <b>-w</b> option). <b>yytext[]</b> is of type <b>unsigned char[]</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Suppresses the summary of statistics usually written with the <b>-v</b> option. If no table sizes are specified in the <b>lex</b> source code and the <b>-v</b> option is not specified, then <b>-n</b> is implied.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>Write the resulting program to standard output instead of <b>lex.yy.c</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Write a summary of <b>lex</b> statistics to the standard error. If table sizes are specified in the <b>lex</b> source code, and if the <b>-n</b> option is not specified, the <b>-v</b> option may be enabled.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b></td>
+<td>Generate a program that can handle EUC characters (cannot be used with the <b>-e</b> option). Unlike the <b>-e</b> option, <b>yytext[]</b> is of type <b>wchar_t[]</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b></td>
+<td>Print out version information on standard error.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Q</b>[<b>y</b>|<b>n</b>]</td>
+<td>Print out version information to output file <b>lex.yy.c</b> using <b>-Qy</b>. The <b>-Qn</b> option does not print out version information and is the default.</td>
+</tr>
+<tr class="tcw">
+<td><i>file</i></td>
+<td>The <a href="/jargon/p/path.htm">pathname</a> of an input file. If more than one such file is specified, all files are concatenated to produce a single lex program. If no file operands are specified, or if a file operand is <b>-</b>, the standard input is used.</td>
+</tr>
+</table>
+<h2 id="extended">Extended description</h2>
+<p class="tab">Each input file contains <b>lex</b> <a href="/jargon/s/source.htm">source code</a>, which is a table of <a href="/jargon/r/regex.htm">regular expressions</a> with corresponding actions in the form of C program fragments.</p>
+<p class="tab">When <b>lex.yy.c</b> is compiled and linked with the <b>lex</b> library (using the <b>-ll</b> operand with c89 or <a href="/jargon/c/cc.htm">cc</a>), the resulting program reads character input from the standard input and partitions it into strings that match the given expressions.</p>
+<p class="tab">When an expression is matched, these actions occur:</p>
+<ul>
+<li>The input string that was matched is left in <b>yytext</b> as a null-terminated string; <b>yytext</b> is either an external character array or a pointer to a character string. The type can be explicitly selected using the <b>%array</b> or <b>%pointer</b> declarations, but the default is <b>%array</b>.</li>
+<li>The external integer <b>yyleng</b> is set to the length of the matching string.</li>
+<li>The expression's corresponding program fragment, or action, is executed.</li>
+</ul>
+<p class="tab">During pattern matching, <b>lex</b> searches the set of patterns for the single longest possible match. Among rules that match the same number of characters, the rule given first is chosen.</p>
+<p class="tab">The general format of <b>lex</b> source is:</p>
+<pre class="tab tcy">Definitions %% Rules %% User Subroutines</pre>
+<p class="tab">The first <b>%%</b> is required to mark the beginning of the rules (regular expressions and actions); the second <b>%%</b> is required only if user subroutines follow.</p>
+<p class="tab">Any line in the &quot;<a href="#Definitions-In-Lex">Definitions in lex</a>&quot; section beginning with a blank character will be assumed to be a C program fragment and will be copied to the external definition area of the <b>lex.yy.c</b> file. Similarly, anything in the &quot;Definitions in lex&quot; section included between <a href="/jargon/d/delimite.htm">delimiter</a> lines containing only <b>%{</b> and <b>%}</b> is also copied unchanged to the external definition area of the <b>lex.yy.c</b> file.</p>
+<p class="tab">Any such input (beginning with a blank character or within <b>%{</b> and <b>%}</b> delimiter lines) appearing at the beginning of the &quot;<a href="#Rules-In-Lex">Rules</a>&quot; section before any rules are specified will be written to <b>lex.yy.c</b> after the declarations of variables for the <b>yylex</b> function and before the first line of code in <b>yylex</b>. Thus, user variables local to <b>yylex</b> can be declared here, and application code to execute upon entry to <b>yylex</b>.</p>
+<p class="tab">The action taken by <b>lex</b> when encountering any input beginning with a blank character or within <b>%{</b> and <b>%}</b> delimiter lines appearing in the "Rules" section but coming after one or more rules is undefined. The presence of such input may result in an erroneous definition of the <b>yylex</b> function.</p>
+<h2 id="Definitions-In-Lex">Definitions in lex</h2>
+<p class="tab">Definitions in <b>lex</b> appear before the first <b>%%</b> delimiter. Any line in this section not contained between <b>%{</b> and <b>%}</b> lines and not beginning with a blank character is assumed to define a <b>lex</b> substitution string. The format of these lines is:</p>
+<pre class="tab tcy">name substitute</pre>
+<p class="tab">If a <i>name</i> does not meet the requirements for identifiers in the ISO C standard, the result is undefined. The string substitute replaces the string <b>{</b> <i>name</i> <b>}</b> when it is used in a rule. The <i>name</i> string is recognized in this context only when the braces are provided and when it does not appear within a bracket expression or within double-quotes.</p>
+<p class="tab">In this section, any line beginning with a <b>%</b> (percent sign) character and followed by an <a href="/jargon/a/alphanum.htm">alphanumeric</a> word beginning with either <b>s</b> or <b>S</b> defines a set of start conditions. Any line beginning with a <b>%</b> followed by a word beginning with either <b>x</b> or <b>X</b> defines a set of exclusive start conditions. When the generated scanner is in a <b>%s</b> state, patterns with no state specified are also active; in a <b>%x</b> state, such patterns are not active. The rest of the line, after the first word, is considered to be one or more blank-character-separated names of start conditions. Start condition names are constructed in the same way as definition names. Start conditions can be used to restrict the matching of regular expressions to one or more states as described in <a href="#Regular-Expressions-In-Lex">Regular expressions in lex</a>.</p>
+<p class="tab">Implementations accept either of the following two mutually exclusive declarations in the Definitions in lex section:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>%array</b></td>
+<td>Declare the type of yytext to be a <a href="/jargon/n/null.htm">null</a>-terminated character array.</td>
+</tr>
+<tr class="tcw">
+<td><b>%pointer</b></td>
+<td>Declare the type of yytext to be a pointer to a null-terminated character string.</td>
+</tr>
+</table>
+<p class="tab">Note: When using the <b>%pointer</b> option, you may not also use the <b>yyless</b> function to alter <b>yytext</b>.</p>
+<p class="tab"><b>%array</b> is the default. If <b>%array</b> is specified (or neither <b>%array</b> nor <b>%pointer</b> is specified), then the correct way to make an external reference to <b>yyext</b> is with a declaration of the form:</p>
+<pre class="tab tcy">extern char yytext[]</pre>
+<p class="tab">If <b>%pointer</b> is specified, then the correct external reference is of the form:</p>
+<pre class="tab tcy">extern char *yytext;</pre>
+<p class="tab"><b>lex</b> will accept declarations for setting certain internal table sizes. The declarations are shown in the following table.</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th><b>declaration</b></th>
+<th><b>description</b></th>
+<th><b>default</b></th>
+</tr>
+<tr class="tcw">
+<td><b>%pn</b></td>
+<td>Number of positions</td>
+<td>2500</td>
+</tr>
+<tr class="tcw">
+<td><b>%nn</b></td>
+<td>Number of states</td>
+<td>500</td>
+</tr>
+<tr class="tcw">
+<td><b>%an</b></td>
+<td>Number of transitions</td>
+<td>2000</td>
+</tr>
+<tr class="tcw">
+<td><b>%en</b></td>
+<td>Number of parse tree nodes</td>
+<td>1000</td>
+</tr>
+<tr class="tcw">
+<td><b>%kn</b></td>
+<td>Number of packed character classes</td>
+<td>10000</td>
+</tr>
+<tr class="tcw">
+<td><b>%on</b></td>
+<td>Size of the output array</td>
+<td>3000</td>
+</tr>
+</table>
+<p class="tab">Programs generated by <b>lex</b> need either the <b>-e</b> or <b>-w</b> option to handle input that contains EUC characters from supplementary codesets. If neither of these options is specified, <b>yytext</b> is of the type <b>char[]</b>, and the generated program can handle only <a href="/jargon/a/ascii.htm">ASCII</a> characters.</p>
+<p class="tab">When the <b>-e</b> option is used, <b>yytext</b> is of the type <b>unsigned char[]</b> and <b>yyleng</b> gives the total number of bytes in the matched string. With this option, the macros <b>input()</b>, <b>unput(</b><i>c</i><b>)</b>, and <b>output(</b><i>c</i><b>)</b> should do a byte-based I/O in the same way as with the regular ASCII <b>lex</b>. Two more variables are available with the <b>-e</b> option, <b>yywtext</b> and <b>yywleng</b>, which behave the same as <b>yytext</b> and <b>yyleng</b> would under the <b>-w</b> option.</p>
+<p class="tab">When the <b>-w</b> option is used, <b>yytext</b> is of the type <b>wchar_t[]</b> and <b>yyleng</b> gives the total number of characters in the matched string. If you supply <b>input()</b>, <b>unput(c)</b>, or <b>output(c)</b> macros with this option, they must return or accept EUC characters in the form of wide character <b>(wchar_t)</b>. This allows a different interface between your program and the <b>lex</b> internals, to expedite some programs.</p>
+<h2 id="Rules-In-Lex">Rules in lex</h2>
+<p class="tab">The Rules in <b>lex</b> source files are a table in which the left column contains regular expressions and the right column contains <i>actions</i> (C program fragments) to be executed when the expressions are recognized.</p>
+<pre class="tab tcy">ERE action ERE action ...</pre>
+<p class="tab">The extended regular expression (ERE) portion of a row will be separated from <i>action</i> by one or more blank characters. A regular expression containing blank characters is recognized under one of the following conditions:</p>
+<ul>
+<li>The entire expression appears within double-quotes.</li>
+<li>The blank characters appear within double-quotes or square brackets.</li>
+<li>Each blank character is preceded by a backslash character.</li>
+</ul>
+<h2>User Subroutines in lex</h2>
+<p class="tab">Anything in the user subroutines section will be copied to <b>lex.yy.c</b> following <b>yylex</b>.</p>
+<h2 id="Regular-Expressions-In-Lex">Regular expressions in lex</h2>
+<p class="tab">The <b>lex</b> utility supports the set of Extended Regular Expressions (EREs), with the following exceptions:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px">...</td>
+<td>Any string enclosed in double-quotes will represent the characters within the double-quotes as themselves, except that backslash escapes (which appear in the following table) are recognized. Any backslash-escape sequence is terminated by the closing quote. For example, <b>"\01""1"</b> represents a single string: the octal value <b>1</b> followed by the character <b>1</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>&lt;state&gt;</b><i>r</i>, <i>r</i></td>
+<td>The regular expression <i>r</i> is matched only when the program is in one of the start conditions indicated by <i>state</i>, <i>state1</i>, and so forth. For more information, see <a href="#Actions-In-Lex">Actions in lex</a>. As an exception to the typographical conventions on the rest of this page, in this case <b>&lt;</b><i>state</i><b>&gt;</b> does not represent a metavariable, but the literal angle-bracket characters surrounding a symbol. The start condition is recognized as such only at the beginning of a regular expression.</td>
+</tr>
+<tr class="tcw">
+<td><i>r</i><b>/</b><i>x</i></td>
+<td>The regular expression <i>r</i> is matched only if it's followed by an occurrence of regular expression <i>x</i>. The token returned in <b>yytext</b> only matches <i>r</i>. If the trailing portion of <i>r</i> matches the beginning of <i>x</i>, the result is unspecified. The <i>r</i> expression cannot include further trailing context or the <b>$</b> (match-end-of-line) operator; <i>x</i> cannot include the <b>^</b> (match-beginning-of-line) operator, nor trailing context, nor the <b>$</b> operator. That is, only one occurrence of trailing context is allowed in a <b>lex</b> regular expression, and the <b>^</b> operator only can be used at the beginning of such an expression. A further restriction is that the trailing-context operator <b>/</b> (slash) cannot be grouped within parentheses.</td>
+</tr>
+<tr class="tcw">
+<td><b>{</b><i>name</i><b>}</b></td>
+<td>When <i>name</i> is one of the substitution symbols from the Definitions section, the string, including the enclosing braces, will be replaced by the substitute value. The substitute value will be treated in the extended regular expression as if it were enclosed in parentheses. No substitution will occur if <b>{</b><i>name</i><b>}</b> occurs within a bracket expression or within double-quotes.</td>
+</tr>
+</table>
+<p class="tab">Within an ERE, a backslash character (<b>\\</b>, <b>\a</b>, <b>\b</b>, <b>\f</b>, <b>\n</b>, <b>\r</b>, <b>\t</b>, <b>\v</b>) is considered to begin an escape sequence. Also, the escape sequences in the following table will be recognized.</p>
+<p class="tab">A literal <a href="/jargon/n/newline.htm">newline</a> character cannot occur within an ERE; the escape sequence <b>\n</b> can be used to represent a newline character. A newline character cannot be matched by a period operator.</p>
+<h2>Escape Sequences in lex</h2>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th><b>escape</b></th>
+<th><b>description</b></th>
+<th><b>meaning</b></th>
+</tr>
+<tr class="tcw">
+<td><b>\</b><i>digits</i></td>
+<td>A backslash character followed by the longest sequence of one, two, or three octal-digit characters (<b>01234567</b>). If all of the digits are <b>0</b> (that is, the representation of the NUL character), the behavior is undefined.</td>
+<td>The character whose encoding is represented by the one-, two- or three-digit octal integer. Multi-byte characters require multiple, concatenated escape sequences of this type, including the leading <b>\</b> for each byte.</td>
+</tr>
+<tr class="tcw">
+<td><b>\x</b><i>digits</i></td>
+<td>A backslash character followed by the longest sequence of <a href="/jargon/h/hex.htm">hexadecimal</a>-digit characters (<b>01234567abcdefABCDEF</b>). If all of the digits are <b>0</b> (that is, a representation of the NUL character), the behavior is undefined.</td>
+<td>The character whose encoding is represented by the hexadecimal integer.</td>
+</tr>
+<tr class="tcw">
+<td><b>\</b><i>c</i></td>
+<td>A backslash character followed by any character not described in this table. (<b>\\</b>, <b>\a</b>, <b>\b</b>, <b>\f</b>, <b>\en</b>, <b>\r</b>, <b>\t</b>, <b>\v</b>).</td>
+<td>The character <i>c</i>, unchanged.</td>
+</tr>
+</table>
+<p class="tab">The order of precedence given to extended regular expressions for <b>lex</b> is as shown in the following table, from high to low.</p>
+<p class="tab">Note: The escaped characters entry is not meant to imply that these are operators, but they are included in the table to show their relationships to the true operators. The start condition, trailing context and anchoring notations have been omitted from the table because of the placement restrictions described in this section; they can only appear at the beginning or ending of an ERE.</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th><b>precedence</b></th>
+<th><b>type</b></th>
+<th><b>syntax</b></th>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>collation-related bracket symbols</td>
+<td><b>[= =] [: :] [. .]</b></td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>escaped characters</td>
+<td><b>\</b></td>
+</tr>
+<tr class="tcw">
+<td><b>3</b></td>
+<td>bracket expression</td>
+<td>[ ]</td>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td>quoting</td>
+<td><b>"</b>...<b>"</b></td>
+</tr>
+<tr class="tcw">
+<td><b>5</b></td>
+<td>grouping</td>
+<td><b>()</b></td>
+</tr>
+<tr class="tcw">
+<td><b>6</b></td>
+<td>definition</td>
+<td><b>{</b><i>name</i><b>}</b></td>
+</tr>
+<tr class="tcw">
+<td><b>7</b></td>
+<td>single-character RE duplication</td>
+<td><b>* + ?</b></td>
+</tr>
+<tr class="tcw">
+<td><b>8</b></td>
+<td>concatenation</td>
+<td></td>
+</tr>
+<tr class="tcw">
+<td><b>9</b></td>
+<td>interval expression</td>
+<td><b>{</b><i>m</i><b>,</b><i>n</i><b>}</b></td>
+</tr>
+<tr class="tcw">
+<td><b>10</b></td>
+<td>alternation</td>
+<td></td>
+</tr>
+</table>
+<p class="tab">The ERE anchoring operators (<b>^</b> and <b>$</b>) do not appear in the table. With <b>lex</b> regular expressions, these operators are restricted in their use: the <b>^</b> operator can only be used at the beginning of an entire regular expression, and the <b>$</b> operator only at the end. The operators apply to the entire regular expression. Thus, for example, the pattern <b>(^abc)|(def$)</b> is undefined; it can instead be written as two separate rules, one with the regular expression <b>^abc</b> and one with <b>def$</b>, which share a common action via the special <b>|</b> action (see below). If the pattern were written <b>^abc|def$</b>, it would match either of <b>abc</b> or <b>def</b> on a line by itself.</p>
+<p class="tab">Unlike the general ERE rules, embedded anchoring is not allowed by most historical <b>lex</b> implementations. An example of embedded anchoring would be for patterns such as <b>(^)foo($)</b> to match <b>foo</b> when it exists as a complete word. This functionality can be obtained using existing <b>lex</b> features:</p>
+<pre class="tab tcy">^foo/[ \n]| " foo"/[ \n] /* found foo as a separate word */</pre>
+<p class="tab">Notice also that <b>$</b> is a form of trailing context (it is equivalent to <b>/\n</b> and as such cannot be used with regular expressions containing another instance of the operator (see the preceding discussion of trailing context).</p>
+<p class="tab">The additional regular expressions trailing-context operator <b>/</b> (slash) can be used as an ordinary character if presented within double-quotes, <b>"/"</b>; preceded by a backslash, <b>\/</b>; or within a bracket expression, <b>[/]</b>. The start-condition operators <b>&lt;</b> and <b>&gt;</b> are special only in a start condition at the beginning of a regular expression; elsewhere in the regular expression they are treated as ordinary characters.</p>
+<p class="tab">The following examples clarify the differences between <b>lex</b> regular expressions and regular expressions appearing elsewhere on this page. For regular expressions of the form <i>r</i><b>/</b><i>x</i>, the string matching <i>r</i> is always returned; confusion may arise when the beginning of <i>x</i> matches the trailing portion of <i>r</i>. For example, given the regular expression <b>a*b/cc</b> and the input <b>aaabcc</b>, <b>yytext</b> would contain the string <b>aaab</b> on this match. But given the regular expression <b>x*/xy</b> and the input <b>xxxy</b>, the token <b>xxx</b>, not <b>xx</b>, is returned by some implementations because <b>xxx</b> matches <b>x*</b>.</p>
+<p class="tab">In the rule <b>ab*/bc</b>, the <b>b*</b> at the end of <i>r</i> will extend <i>r</i>'s match into the beginning of the trailing context, so the result is unspecified. If this rule were <b>ab/bc</b>, however, the rule matches the text <b>ab</b> when it is followed by the text <b>bc</b>. In this latter case, the matching of <i>r</i> cannot extend into the beginning of <i>x</i>, so the result is specified.</p>
+<h2 id="Actions-In-Lex">Actions in lex</h2>
+<p class="tab">The action to be taken when an ERE is matched can be a C program fragment or the special actions described below; the program fragment can contain one or more C statements, and can also include special actions. The empty C statement <b>;</b> is a valid action; any string in the <b>lex.yy.c</b> input that matches the pattern portion of such a rule is effectively ignored or skipped. However, the absence of an action is not valid, and the action <b>lex</b> takes in such a condition is undefined.</p>
+<p class="tab">The specification for an action, including C statements and special actions, can extend across several lines if enclosed in braces:</p>
+<pre class="tab tcy">ERE { program statement program statement }</pre>
+<p class="tab">The default action when a string in the input to a <b>lex.yy.c</b> program is not matched by any expression is to copy the string to the output. Because the default behavior of a program generated by <b>lex</b> is to read the input and copy it to the output, a minimal <b>lex</b> source program that has just <b>%%</b> generates a C program that copies the input to the output unchanged.</p>
+<p class="tab">Four special actions are available:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:90px"><b>|</b></td>
+<td>The action <b>|</b> means that the action for the next rule is the action for this rule. Unlike the other three actions, <b>|</b> cannot be enclosed in braces or be semicolon-terminated. It must be specified alone, with no other actions.</td>
+</tr>
+<tr class="tcw">
+<td><b>ECHO;</b></td>
+<td>Writes the contents of the string <b>yytext</b> on the output.</td>
+</tr>
+<tr class="tcw">
+<td><b>REJECT;</b></td>
+<td>Usually only a single expression is matched by a given string in the input. <b>REJECT</b> means "continue to the next expression that matches the current input," and causes whatever rule was the second choice after the current rule to be executed for the same input. Thus, multiple rules can be matched and executed for one input string or overlapping input strings. For example, given the regular expressions <b>xyz</b> and <b>xy</b> and the input <b>xyz</b>, usually only the regular expression <b>xyz</b> would match. The next attempted match would start after <b>z</b>. If the last action in the <b>xyz</b> rule is <b>REJECT</b>, both this rule and the <b>xy</b> rule would be executed. The <b>REJECT</b> action may be implemented in such a fashion that flow of control does not continue after it, as if it were equivalent to a <b>goto</b> to another part of <b>yylex</b>. The use of <b>REJECT</b> may result in somewhat larger and slower scanners.</td>
+</tr>
+<tr class="tcw">
+<td><b>BEGIN</b></td>
+<td>The action "<b>BEGIN</b> <i>newstate</i><b>;</b>" switches the state (start condition) to <i>newstate</i>. If the string <i>newstate</i> has not been declared previously as a start condition in the Definitions in <b>lex</b> section, the results are unspecified. The initial state is indicated by the digit <b>0</b> or the token <b>INITIAL</b>.</td>
+</tr>
+</table>
+<p class="tab">The functions or macros described below are accessible to user code included in the <b>lex</b> input. It is unspecified whether they appear in the C code output of <b>lex</b>, or are accessible only through the <b>-ll</b> operand to c89 or <a href="/jargon/c/cc.htm">cc</a> (the <b>lex</b> library).</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><b>int yylex(void)</b></td>
+<td>Performs lexical analysis on the input; this is the primary function generated by the <b>lex</b> utility. The function returns zero when the end of input is reached; otherwise it returns non-zero values (tokens) determined by the actions that are selected.</td>
+</tr>
+<tr class="tcw">
+<td><b>int yymore(void)</b></td>
+<td>When called, indicates that when the next input string is recognized, it is to be appended to the current value of <b>yytext</b> rather than replacing it; the value in <b>yyleng</b> is adjusted accordingly.</td>
+</tr>
+<tr class="tcw">
+<td><b>intyyless(int</b> <i>n</i>)</td>
+<td>Retains <i>n</i> initial characters in <b>yytext</b>, NUL-terminated, and treats the remaining characters as if they had not been read; the value in <b>yyleng</b> is adjusted accordingly.</td>
+</tr>
+<tr class="tcw">
+<td><b>int input(void)</b></td>
+<td>Returns the next character from the input, or zero on end-of-file. It obtains input from the stream pointer <b>yyin</b>, although possibly via an intermediate buffer. Thus, once scanning has begun, the effect of altering the value of <b>yyin</b> is undefined. The character read is removed from the input stream of the scanner without any processing by the scanner.</td>
+</tr>
+<tr class="tcw">
+<td><b>int unput(int</b> <i>c</i><b>)</b></td>
+<td>Returns the character <i>c</i> to the input; <b>yytext</b> and <b>yyleng</b> are undefined until the next expression is matched. The result of using unput for more characters than have been input is unspecified.</td>
+</tr>
+</table>
+<p class="tab">The following functions appear only in the <b>lex</b> library accessible through the <b>-ll</b> operand; they can therefore be redefined by a portable application:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>int yywrap(void)</b></td>
+<td>Called by <b>yylex</b> at end-of-file; the default <b>yywrap</b> always will return <b>1</b>. If the application requires <b>yylex</b> to continue processing with another source of input, then the application can include a function <b>yywrap</b>, which associates another file with the external variable <b>FILE *yyin</b> and will return a value of zero.</td>
+</tr>
+<tr class="tcw">
+<td><b>int main(int argc, char *argv[])</b></td>
+<td>Calls <b>yylex</b> to perform lexical analysis, then exits. The user code can contain main to perform application-specific operations, calling <b>yylex</b> as applicable.</td>
+</tr>
+</table>
+<p class="tab">The reason for breaking these functions into two lists is that only those functions in <b>libl.a</b> can be reliably redefined by a portable application.</p>
+<p class="tab">Except for <b>input</b>, <b>unput</b> and <b>main</b>, all external and static names generated by <b>lex</b> begin with the prefix <b>yy</b> or <b>YY</b>.</p>
+<h2 id="Usage">Usage</h2>
+<p class="tab">Portable applications are warned that in the <a href="#Rules-In-Lex">Rules in lex</a> section, an ERE without an action is not acceptable, but need not be detected as erroneous by <b>lex</b>. This may result in compilation or run-time errors.</p>
+<p class="tab">The purpose of <b>input</b> is to take characters off the input stream and discard them as far as the lexical analysis is concerned. A common use is to discard the body of a comment once the beginning of a comment is recognized.</p>
+<p class="tab">The <b>lex</b> utility is not fully internationalized in its treatment of regular expressions in the <b>lex</b> source code or generated lexical analyzer. It would seem desirable to have the lexical analyzer interpret the regular expressions given in the <b>lex</b> source according to the environment specified when the lexical analyzer is executed, but this is not possible with the current <b>lex</b> technology. Furthermore, the very nature of the lexical analyzers produced by <b>lex</b> must be closely tied to the lexical requirements of the input language being described, which will frequently be locale-specific anyway. For example, writing an analyzer that is used for French text will not automatically be useful for processing other languages.</p>
+<h2 id="examples">Examples</h2>
+<p class="tab">The following is an example of a <b>lex</b> program that implements a rudimentary scanner for a <a href="/jargon/p/pascal.htm">Pascal</a>-like syntax:</p>
+<pre class="tab tcy"> %{
+ /* need this for the call to atof() below */
+ #include &lt;math.h&gt;
+ /* need this for printf(), fopen() and stdin below */
+ #include &lt;stdio.h&gt;
+ %}
+ DIGIT	  [0-9]
+ ID	  [a-z][a-z0-9]*
+ %%
+ {DIGIT}+      		{
+			printf("An integer: %s (%d)\n", yytext,
+			atoi(yytext));
+			}
+ {DIGIT}+"."{DIGIT}*	{
+			printf("A float: %s (%g)\n", yytext,
+			atof(yytext));
+			}
+ if|then|begin|end|procedure|function	     {
+			printf("A keyword: %s\n", yytext);
+			}
+ {ID}			printf("An identifier: %s\n", yytext);
+ "+"|"-"|"*"|"/"	printf("An operator: %s\n", yytext);
+ "{"[^}\n]*"}"	        /* eat up one-line comments */
+ [ \t\n]+		/* eat up white space */
+ .			printf("Unrecognized character: %s\n", yytext);
+ %%
+ int main(int argc, char *argv[])
+ {
+		       ++argv, --argc;	/* skip over program name */
+		       if (argc &gt; 0)
+			   yyin = fopen(argv[0], "r");
+		       else
+		       yyin = stdin;
+		       yylex();
+ }
+</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uyacc.htm"><b>yacc</b></a> &mdash; "Yet another compiler-compiler."</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8305fa2ac3e3',m:'bdcqZW.qoNetWu3R37VtHf22qUTyYu9BCH93yp.sTR8-1661495353-0-ATDpAKDQ4/uxvb4COQCAGBer0AiA31MGpHaXwGLACB/K3Cec3Q1nUGdBXOInzFSxBwt4s87jU3wGC8AgVO0fr+zYsWiV/5DWe82x2aMjwmECr0u6nUFpCZTn0uAuuNk/Bw==',s:[0xdad54736e8,0x1117474436],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

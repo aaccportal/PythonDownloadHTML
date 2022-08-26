@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux setfacl command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/setfacl.gif" width="300" height="300" alt="setfacl command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>setfacl</b> command sets file <a href="/jargon/a/acl.htm">access control lists</a>.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>setfacl</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#desc">Description</a></li>
+<li><a href="#acl-entries">ACL entries</a></li>
+<li><a href="#auto">Automatically Created Entries</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">setfacl [-bkndRLPvh] [{-m|-x} <i>acl_spec</i>] [{-M|-X} <i>acl_file</i>] <i>file</i> ...</pre>
+<pre class="tcy tab">setfacl --restore=<i>file</i></pre>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>setfacl</b> <a href="/jargon/u/utility.htm">utility</a> sets ACLs (Access Control Lists) of <a href="/jargon/f/file.htm">files</a> and <a href="/jargon/d/director.htm">directories</a>. On the <a href="/jargon/c/commandi.htm">command line</a>, a sequence of commands is followed by a sequence of files (which in turn can be followed by another sequence of commands, and so on).</p>
+<p class="tab">The options <b>-m</b> and <b>-x</b> expect an ACL on the command line. Multiple ACL entries are separated by commas ("<b>,</b>"). The options <b>-M</b> and <b>-X</b> read an ACL from a file or from <a href="/jargon/s/stdin.htm">standard input</a>. The ACL entry format is described in the <a href="#acl-entries">ACL entries</a> section, below.</p>
+<p class="tab">The <b>--set</b> and <b>--set-file</b> options set the ACL of a file or a directory. The previous ACL is replaced. ACL entries for this operation must include <a href="/jargon/p/permissi.htm">permissions</a>.</p>
+<p class="tab">The <b>-m</b> (<b>--modify</b>) and <b>-M</b> (<b>--modify-file</b>) options modify the ACL of a file or directory. ACL entries for this operation must include permissions.</p>
+<p class="tab">The <b>-x</b> (<b>--remove</b>) and <b>-X</b> (<b>--remove-file</b>) options remove ACL entries. It is not an error to remove an entry which does not exist. Only ACL entries without the <i>perms</i> field are accepted as <a href="/jargon/p/paramete.htm">parameters</a>, unless the <b>POSIXLY_CORRECT</b> <a href="/jargon/e/envivari.htm">environment variable</a> is defined.</p>
+<p class="tab">When reading from files using the <b>-M</b> and <b>-X</b> options, <b>setfacl</b> accepts the output produced by <a href="/unix/ugetfacl.htm"><b>getfacl</b></a>. There is at most one ACL entry per line. After a pound sign ("<b>#</b>"), everything up to the end of the line is treated as a <a href="/jargon/c/comment.htm">comment</a>.</p>
+<p class="tab">If <b>setfacl</b> is used on a <a href="/jargon/f/filesyst.htm">file system</a> which does not support ACLs, <b>setfacl</b> operates on the <a href="/unix/uchmod.htm">file mode</a> permission <a href="/jargon/b/bit.htm">bits</a>. If the ACL does not fit completely in the permission bits, <b>setfacl</b> modifies the file mode permission bits to reflect the ACL as closely as possible, writes an error message to standard error, and returns with an exit status greater than <b>0</b>.</p>
+<p class="tab">The file <a href="/jargon/o/owner.htm">owner</a> and <a href="/jargon/p/process.htm">processes</a> capable of <b>CAP_FOWNER</b> are granted the right to modify ACLs of a file, which is analogous to the permissions required for accessing the file mode.</p>
+<p class="tab">On current <a href="/jargon/l/linux.htm">Linux</a> systems, <a href="/jargon/r/root.htm">root</a> is the only user with the <b>CAP_FOWNER</b> capability, so you must be the <a href="/unix/usu.htm">superuser</a> to use <b>setfacl</b> if you are not the owner of the file.</p>
+<h3 class="tab" id="options">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>-b</b>, <b>--remove-all</b></td>
+<td>Remove all extended ACL entries. The base ACL entries of the owner, group and others are retained.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b>, <b>--remove-default</b></td>
+<td>Remove the Default ACL. If no Default ACL exists, no warnings are issued.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--no-mask</b></td>
+<td>Do not recalculate the effective rights <a href="/unix/uumask.htm">mask</a>. The default behavior of <b>setfacl</b> is to recalculate the ACL mask entry, unless a mask entry was explicitly given. The mask entry is set to the union of all permissions of the owning group, and all named user and group entries. (These are exactly the entries affected by the mask entry).</td>
+</tr>
+<tr class="tcw">
+<td><b>--mask</b></td>
+<td>Do recalculate the effective rights mask, even if an ACL mask entry was explicitly given. (See the <b>-n</b> option.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--default</b></td>
+<td>All operations apply to the Default ACL. Regular ACL entries in the input set are promoted to Default ACL entries. Default ACL entries in the input set are discarded. (A warning is issued if that happens).</td>
+</tr>
+<tr class="tcw">
+<td><b>--restore=</b><i>file</i></td>
+<td>Restore a permission backup created by "<b>getfacl -R</b>" or similar. All permissions of a complete <a href="/jargon/h/hierfile.htm">directory subtree</a> are restored using this mechanism. If the input contains owner comments or group comments, <b>setfacl</b> attempts to restore the owner and owning group. If the input contains flags comments (which define the <a href="/jargon/s/suid.htm">setuid</a>, setgid, and sticky bits), <b>setfacl</b> sets those three bits accordingly; otherwise, it clears them. This option cannot be mixed with other options except "<b>--test</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>--test</b></td>
+<td>Test mode. Instead of changing the ACLs of any files, the resulting ACLs are listed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--recursive</b></td>
+<td>Apply operations to all files and directories <a href="/jargon/r/recursive.htm">recursively</a>. This option cannot be mixed with "<b>--restore</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--logical</b></td>
+<td>"Logical walk": follow <a href="/jargon/s/symblink.htm">symbolic links</a> to directories. The default behavior is to follow symbolic link <a href="/jargon/a/argument.htm">arguments</a>, and skip symbolic links encountered in <a href="/jargon/s/subdirec.htm">subdirectories</a>. Only effective in combination with <b>-R</b>. This option cannot be mixed with "<b>--restore</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b>, <b>--physical</b></td>
+<td>"Physical walk": do not follow symbolic links to directories. This also skips symbolic link arguments. Only effective in combination with <b>-R</b>. This option cannot be mixed with "<b>--restore</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--version</b></td>
+<td>Print the version of <b>setfacl</b>, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Print a help message explaining the command line options.</td>
+</tr>
+<tr class="tcw">
+<td><b>--</b></td>
+<td>A double-dash marks the end of command line options; all remaining <a href="/jargon/p/paramete.htm">parameters</a> are interpreted as <a href="/jargon/f/filename.htm">file names</a>. This option is especially useful for file names that start with a dash.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>If the file name parameter is a single dash, <b>setfacl</b> reads a list of files from standard input.</td>
+</tr>
+</table>
+<h2 id="acl-entries">ACL entries</h2>
+<p class="tab"><b>setfacl</b> recognizes the following ACL entry formats (spaces in the following formats are optional, but are included for legibility):</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:320px">[<b>d</b>[<b>efault</b>]<b>:</b>] [<b>u</b>[<b>ser</b>]<b>:</b>]<i>uid</i> [<b>:</b><i>perms</i>]</td>
+<td>Permissions of the user with user ID <i>uid</i>, or permissions of the file's owner if <i>uid</i> is empty.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>d</b>[<b>efault</b>]<b>:</b>] <b>g</b>[<b>roup</b>]<b>:</b><i>gid</i> [<b>:</b><i>perms</i>]</td>
+<td>Permissions of the group with group ID <i>gid</i>, or permissions of the owning group if <i>gid</i> is empty.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>d</b>[<b>efault</b>]<b>:</b>] <b>m</b>[<b>ask</b>][<b>:</b>] [<b>:</b><i>perms</i>]</td>
+<td>Effective rights mask.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>d</b>[<b>efault</b>]<b>:</b>] <b>o</b>[<b>ther</b>][<b>:</b>] [<b>:</b><i>perms</i>]</td>
+<td>Permissions of others.</td>
+</tr>
+</table>
+<p class="tab"><a href="/jargon/w/whitspac.htm">Whitespace</a> between <a href="/jargon/d/delimite.htm">delimiter</a> <a href="/jargon/c/charact.htm">characters</a> and non-delimiter characters is ignored.</p>
+<p class="tab">Proper ACL entries including permissions are used in modify and set operations (options <b>-m</b>, <b>-M</b>, <b>--set</b> and <b>--set-file</b>). Entries without the <i>perms</i> field are used for deletion of entries (options <b>-x</b> and <b>-X</b>).</p>
+<p class="tab">For <i>uid</i> and <i>gid</i>, you can specify either a name or a number.</p>
+<p class="tab">The <i>perms</i> field is a combination of characters that indicate the permissions: <a href="/jargon/r/read.htm">read</a> ("<b>r</b>"), <a href="/jargon/w/write.htm">write</a> ("<b>w</b>"), <a href="/jargon/e/execute.htm">execute</a> ("<b>x</b>"), or "execute only if the file is a directory or already has execute permission for some user" (capital "<b>X</b>"). Alternatively, the <i>perms</i> field is an <a href="/jargon/o/octal.htm">octal</a> digit ("<b>0</b>"-"<b>7</b>").</p>
+<h2 id="auto">Automatically Created Entries</h2>
+<p class="tab">Initially, files and directories contain only the three base ACL entries for the owner, the group, and others. There are some rules that need to be satisfied for an ACL to be valid:</p>
+<ul>
+<li>The three base entries cannot be removed. There must be exactly one entry of each of these base entry types.</li>
+<li>Whenever an ACL contains named user entries or named group objects, it must also contain an effective rights mask.</li>
+<li>Whenever an ACL contains any Default ACL entries, the three Default ACL base entries (default owner, default group, and default others) must also exist.</li>
+<li>Whenever a Default ACL contains named user entries or named group objects, it must also contain a default effective rights mask.</li>
+</ul>
+<p class="tab">To help the user ensure these rules, <b>setfacl</b> creates entries from existing entries under the following conditions:</p>
+<ul>
+<li>If an ACL contains named user or named group entries, and no mask entry exists, a mask entry containing the same permissions as the group entry is created. Unless the <b>-n</b> option is given, the permissions of the mask entry are further adjusted to include the union of all permissions affected by the mask entry. (See the <b>-n</b> option description).</li>
+<li>If a Default ACL entry is created, and the Default ACL contains no owner, owning group, or others entry, a copy of the ACL owner, owning group, or others entry is added to the Default ACL.</li>
+<li>If a Default ACL contains named user entries or named group entries, and no mask entry exists, a mask entry containing the same permissions as the Default ACL's group entry is added. Unless the <b>-n</b> option is given, the permissions of the mask entry are further adjusted to include the union of all permissions affected by the mask entry. (See the <b>-n</b> option description, above).</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">setfacl -m u:lisa:r file</pre>
+<p class="tab">Grant user <b>lisa</b> read access to file <b>file</b>.</p>
+<pre class="tcy tab">setfacl -m m::rx file</pre>
+<p class="tab">Revoke write access from all groups and all named users (using the effective rights mask) for file <b>file</b>.</p>
+<pre class="tcy tab">setfacl -x g:staff file</pre>
+<p class="tab">Remove the group entry for the group <b>staff</b> from file <b>file</b>'s ACL.</p>
+<pre class="tcy tab">getfacl file1 | setfacl --set-file=- file2</pre>
+<p class="tab">Copy the ACL of <b>file1</b> to <b>file2</b>.</p>
+<pre class="tcy tab">getfacl --access dir | setfacl -d -M- dir</pre>
+<p class="tab">Copy the access ACL into the default ACL.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uchmod.htm"><b>chmod</b></a> &mdash; Change the permissions of files or directories.<br><a href="/unix/ugetfacl.htm"><b>getfacl</b></a> &mdash; Display file access control lists.<br><a href="/unix/uumask.htm"><b>umask</b></a> &mdash; Get or set the file mode creation mask.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a834d4a3684d4',m:'D1mQTmqE_1E8FeKst.GqGOYCvu5SOCy0w1JudK09H04-1661495364-0-AXK0/G89x9b1Dlh5GGi5cHwCOxPOHLi3K5THE/0zeve5KLZDMgRLP+WTlLsU988fHerVDdjiCjj3RTiwOLgb3bMYd3mceZqKXA1M6Xmet48EvHuoCya75NbdJZwr3dRoC8iwVuNp3YDYM1rTWgpS3Vs=',s:[0x8f1b9c2cb5,0xd8b9bb8202],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

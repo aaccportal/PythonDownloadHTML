@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux gawk command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/gawk.gif" width="300" height="300" alt="gawk command" class="floatRight"><p class="intro">The <b>gawk</b> command is the interface for GAWK, a powerful pattern-matching and processing language. It is based on the language <a href="/unix/uawk.htm">AWK</a>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#execution">AWK program execution</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related Commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">Working with <a href="/jargon/t/textfile.htm">text files</a> often requires repeated tasks. You might want to extract certain lines and discard the rest. Or you may need to make changes wherever certain patterns appear, but leave the rest of the file alone. Writing single-use programs for these tasks in languages, such as <a href="/jargon/c/c.htm">C</a>, <a href="/jargon/c/cplus.htm">C++</a>, or <a href="/jargon/j/java.htm">Java</a>, is time-consuming and inconvenient. Such jobs are often easier with <b>awk</b>. The <b>awk</b> utility interprets a special-purpose programming language that makes it easy to handle simple data-reformatting jobs.</p>
+<p class="tab">The <a href="/jargon/g/gnu.htm">GNU</a> implementation of <b>awk</b> is called <b>gawk</b>; if you invoke it with the proper options or <a href="/jargon/e/envivari.htm">environment variables</a> (see Options), it is fully compatible with the <a href="/jargon/p/posix.htm">POSIX</a> specification of the awk language and with the <a href="/jargon/u/unix.htm">Unix</a> version of <b>awk</b> maintained by <a href="/people/brian_kernighan.htm">Brian Kernighan</a>.</p>
+<p class="tab">Using <b>awk</b> (or <b>gawk</b>) allows you to:</p>
+<ul>
+<li>Manage small, personal <a href="/jargon/d/database.htm">databases</a></li>
+<li>Generate reports</li>
+<li>Validate <a href="/jargon/d/data.htm">data</a></li>
+<li>Produce <a href="/jargon/i/index.htm">indexes</a> and perform other document preparation tasks</li>
+<li>Experiment with <a href="/jargon/a/algorith.htm">algorithms</a> you can adapt later to other computer languages</li>
+</ul>
+<p class="tab">Also, <b>gawk</b> provides facilities that make it easy to:</p>
+<ul>
+<li>Extract <a href="/jargon/b/bit.htm">bits</a> and pieces of data for processing</li>
+<li><a href="/jargon/s/sort.htm">Sort</a> data</li>
+<li>Perform simple <a href="/jargon/n/network.htm">network</a> communications</li>
+</ul>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">gawk [ <i>POSIX or GNU style options</i> ] -f <i>program-file</i> [ -- ]<i> file </i>...</pre>
+<pre class="tcy tab">gawk [ <i>POSIX or GNU style options</i> ] [ -- ] <i>program-text</i><i> file </i>...</pre>
+<pre class="tcy tab">pgawk [ <i>POSIX or GNU style options</i> ] -f <i>program-file</i> [ -- ]<i> file </i>...</pre>
+<pre class="tcy tab">pgawk [ <i>POSIX or GNU style options</i> ] [ -- ] <i>program-text</i><i> file </i>...</pre>
+<pre class="tcy tab">dgawk [ <i>POSIX or GNU style options</i> ] -f <i>program-file</i> [ -- ]<i> file </i>...</pre>
+<h3 class="tab">Option format</h3>
+<p class="tab"><b>gawk</b> options may be either traditional <a href="/jargon/p/posix.htm">POSIX</a>-style one letter options, or <a href="/jargon/g/gnu.htm">GNU</a>-style long options. POSIX options start with a single &quot;<b>-</b>&quot;, while long options start with &quot;<b>--</b>&quot;. Long options are provided for GNU-specific features and POSIX-mandated features.</p>
+<p class="tab"><b>gawk</b>-specific options are often used in long-option form. Arguments to long options are either joined with the option by an <b>=</b> sign, with no intervening spaces, or they may be provided in the next <a href="/jargon/c/commandi.htm">command line</a> <a href="/jargon/a/argument.htm">argument</a>. Long options may be abbreviated, as long as the abbreviation remains unique.</p>
+<p class="tab">Additionally, each long option has a corresponding short option, so that the option's functionality may be used from in <b>#!</b> <a href="/jargon/e/execfile.htm">executable</a> <a href="/jargon/s/script.htm">scripts</a>.</p>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>-f</b> <i>program-file</i>,<br> <b>--file</b> <i>program-file</i></td>
+<td>Read the AWK program source from the file <i>program-file</i>, instead of from the first command line argument. Multiple <b>-f</b> (or <b>--file</b>) options may be used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b> <i>fs</i>,<br> <b>--field-separator</b> <i>fs</i></td>
+<td>Use <i>fs</i> for the input field separator (the value of the <b>FS</b> predefined <a href="/jargon/v/variable.htm">variable</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b> <i>var</i><b>=</b><i>val</i>,<br> <b>--assign</b> <i>var</i><b>=</b><i>val</i></td>
+<td>Assign the value <i>val</i> to the variable <i>var</i>, before execution of the program begins. Such variable values are available to the <b>BEGIN</b> block of an AWK program.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b>,<br> <b>--characters-as-bytes</b></td>
+<td>Treat all input data as single-byte characters. In other words, don't pay any attention to the locale information when attempting to process strings as multibyte characters. The <b>--posix</b> option overrides this option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--traditional</b></td>
+<td>Run in compatibility mode. In compatibility mode, gawk behaves identically to UNIX awk; none of the GNU-specific extensions are recognized.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b>, <b>--copyright</b></td>
+<td>Print the short version of the GNU Copyright information message on the standard output and exit successfully.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>[<i>file</i>],<br> <b>--dump-variables</b>[=<i>file</i>]</td>
+<td>Print a sorted list of global variables, their types and final values to <i>file</i>. If no <i>file</i> is provided, <b>gawk</b> uses a file named <b>awkvars.out</b> in the current directory. Having a list of all the global variables is a good way to look for typographical errors in your programs. You would also use this option if you have a large program with a lot of functions, and you want to be sure your functions don't inadvertently use global variables you meant to be local. This is a particularly easy mistake to make with simple variable names like <b>i</b>, <b>j</b>, and similar.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b> <i>program-text</i>,<br> <b>--source</b> <i>program-text</i></td>
+<td>Use program-text as AWK program source code. This option allows the easy intermixing of library functions (used via the <b>-f</b> and <b>--file</b> options) with source code entered on the command programs used in shell scripts.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b> <i>file</i>, <b>--exec</b> <i>file</i></td>
+<td>Similar to <b>-f</b>, however, this is option is the last one processed. This should be used with <b>#!</b> scripts, particularly for <a href="/jargon/c/cgi.htm">CGI</a> applications, to avoid passing in options or source code (!!!) on the command line from a <a href="/jargon/u/url.htm">URL</a>. This option disables command-line variable assignments.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>, <b>--gen-pot</b></td>
+<td>Scan and parse the AWK program, and generate a GNU <b>.pot</b> (Portable Object Template) format file on standard output with entries for all localizable strings in the program. The program itself is not executed. See the GNU gettext distribution for more information on <b>.pot</b> files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Print a summary of the available options on the standard output. Per the GNU Coding Standards, these options cause an immediate, successful exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b> [<i>value</i>],<br> <b>--lint</b>[<b>=</b><i>value</i>]</td>
+<td>Provide warnings about constructs that are dubious or non-portable to other AWK implementations. With an optional argument of fatal, lint warnings become fatal errors. This may be drastic, but its use certainly encourages the development of cleaner AWK programs. With an optional argument of invalid, only warnings about things that are actually invalid are issued. Note: This is not fully implemented yet.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--non-decimal-data</b></td>
+<td>Recognize <a href="/jargon/o/octal.htm">octal</a> and <a href="/jargon/h/hex.htm">hexadecimal</a> values in input data. Use this option with great caution!</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b>, <b>--use-lc-numeric</b></td>
+<td>This forces <b>gawk</b> to use the locale's decimal point character when parsing input data. Although the POSIX standard requires this behavior, and gawk does so when <b>--posix</b> is in effect, the default is to follow traditional behavior and use a period as the decimal point, even in locales where the period is not the decimal point character. This option overrides the default behavior, without the full draconian strictness of the <b>--posix</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b>, <b>--optimize</b></td>
+<td>Enable optimizations upon the internal representation of the program. Currently, this includes only simple constant-folding. The <b>gawk</b> maintainer hopes to add additional optimizations over time.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>[<i>prof_file</i>],<br> <b>--profile</b>[<b>=</b><i>prof_file</i>]</td>
+<td>Send profiling data to <i>prof_file</i>. The default is <b>awkprof.out</b>. When run with <b>gawk</b>, the profile is a &quot;pretty printed&quot; version of the program. When run with <b>pgawk</b>, the profile contains execution counts of each statement in the program in the left margin and function call counts for each user-defined function.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b>, <b>--posix</b></td>
+<td>This turns on compatibility mode, with the following additional restrictions:<br><br> <b>\x</b> escape sequences are not recognized.<br><br>Only <b>space</b> and <b>tab</b> act as field separators when <b>FS</b> is set to a single space, newline does not.<br><br>You cannot continue lines after <b>?</b> and <b>:</b><br><br>The synonym <b>func</b> for the keyword function is not recognized.<br><br>The operators <b>**</b> and <b>**=</b> cannot be used in place of <b>^</b> and <b>^=</b><br><br>The <b>fflush()</b> function is not available.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--re-interval</b></td>
+<td>Enable the use of interval expressions in regular expression matching. Interval expressions were not traditionally available in the AWK language. The POSIX standard added them, to make <b>awk</b> and <b>egrep</b> consistent. They are enabled by default, but this option remains for use with <b>--traditional</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--command file</b></td>
+<td><b>Dgawk</b> only. Read stored debugger commands from file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b>, <b>--sandbox</b></td>
+<td>Runs <b>gawk</b> in sandbox mode, disabling the <b>system()</b> function, input redirection with <b>getline</b>, output redirection with <b>print</b> and <b>printf</b>, and loading dynamic extensions. Command execution (through <a href="/jargon/p/pipe.htm">pipelines</a>) is also disabled. This effectively blocks a script from accessing local resources (except for the files specified on the command line).</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--lint-old</b></td>
+<td>Provide warnings about constructs that are not portable to the original version of Unix awk.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Print version information for this particular copy of gawk on the standard output. This is useful mainly for knowing if the current copy of gawk on your system is up-to-date with respect to whatever the <a href="/jargon/f/fsf.htm">Free Software Foundation</a> is distributing. This is also useful when reporting bugs. Per the GNU Coding Standards, these options cause an immediate, successful exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--</b></td>
+<td>Signal the end of options. This is useful to allow further arguments to the AWK program itself to start with a &quot;<b>-</b>&quot;. This provides consistency with the argument parsing convention used by most other POSIX programs.</td>
+</tr>
+</table>
+<p class="tab">In compatibility mode, any other options are flagged as invalid, but are otherwise ignored. In normal operation, as long as program text is supplied, unknown options are passed on to the AWK program in the ARGV array for processing. This is particularly useful for running AWK programs via the &quot;<b>#!</b>&quot; executable interpreter mechanism.</p>
+<h2 id="execution">AWK program execution</h2>
+<p class="tab">An AWK program consists of a sequence of pattern-action statements and optional function definitions.</p>
+<pre class="tcy tab">@include &quot;<i>file name</i>&quot; <i>pattern</i> { <i>action</i> <i>statements</i> }
+function <i>name</i>(<i>parameter list</i>) { <i>statements</i> }</pre>
+<p class="tab"><b>gawk</b> first reads the program source from the <i>program-file</i>(s) if specified, from arguments to <b>--source</b>, or from the first non-option argument on the command line. The <b>-f</b> and <b>--source</b> options may be used multiple times on the command line. <b>gawk</b> reads the program text as if all the program files and command line source texts had been <a href="/unix/ucat.htm">concatenated</a>. This is useful for building libraries of AWK functions, without having to include them in each new AWK program that uses them. It also provides the ability to mix library functions with command line programs.</p>
+<p class="tab">Also, lines beginning with <b>@include</b> may be used to include other source files into your program, making library use even easier.</p>
+<p class="tab">The <a href="/jargon/e/envivari.htm">environment variable</a> <b>AWKPATH</b> specifies a search path to use when finding source files named with the <b>-f</b> option. If this variable does not exist, the default path is &quot;<b>.:/usr/local/share/awk</b>&quot;. The actual directory may vary, depending on how <b>gawk</b> was built and installed. If a file name given to the <b>-f</b> option contains a &quot;<b>/</b>&quot; character, no path search is performed.</p>
+<p class="tab"><b>gawk</b> executes AWK programs in the following order. First, all variable assignments specified via the <b>-v</b> option are performed. Next, <b>gawk</b> compiles the program into an internal form. Then, <b>gawk</b> executes the code in the BEGIN block(s) (if any), and then proceeds to read each file named in the <b>ARGV</b> <a href="/jargon/a/array.htm">array</a> (up to <b>ARGV[ARGC]</b>). If there are no files named on the command line, <b>gawk</b> reads the standard input.</p>
+<p class="tab">If a file name on the command line has the form <i>var</i><b>=</b><i>val</i> it is treated as a variable assignment. The variable <b>var</b> is assigned the value <b>val</b>. This happens after any <b>BEGIN</b> blocks are run. Command line variable assignment is most useful for dynamically assigning values to the variables AWK uses to control how input is broken into fields and records. It is also useful for controlling state if multiple passes are needed over a single data file.</p>
+<p class="tab">If the value of a particular element of <b>ARGV</b> is empty (&quot;&quot;), <b>gawk</b> skips over it.</p>
+<p class="tab">For each input file, if a <b>BEGINFILE</b> rule exists, <b>gawk</b> executes the associated code before processing the contents of the file. Similarly, <b>gawk</b> executes the code associated with <b>ENDFILE</b> after processing the file.</p>
+<p class="tab">For each record in the input, <b>gawk</b> tests to see if it matches any pattern in the AWK program. For each pattern that the record matches, the associated action is executed. The patterns are tested in the order they occur in the program.</p>
+<p class="tab">Finally, after all the input is exhausted, <b>gawk</b> executes the code in the <b>END</b> block(s) (if any).</p>
+<h3 class="tab">Official gawk user's guide</h3>
+<p class="tab">If you want to learn more about this incredibly powerful language, check out the <a href="https://www.gnu.org/software/gawk/manual/gawk.html" class="external">GNU gawk user guide.</a></p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">gawk '{ num_fields = num_fields + NF }
+END { print num_fields }'</pre>
+<p class="tab">Print the total number of fields in all input lines.</p>
+<pre class="tcy tab">gawk 'length($0) &gt; 80'</pre>
+<p class="tab">Prints every line longer than 80 characters. The sole rule has a relational expression as its pattern, and has no action (so the default action, printing the record, is used).</p>
+<pre class="tcy tab">ls -l files | awk '{ x += $4 } ; END { print "total bytes: " x }'</pre>
+<p class="tab">Prints the total number of bytes used by files.</p>
+<h2 id="related">Related Commands</h2>
+<p class="tab"><a href="/unix/uawk.htm"><b>awk</b></a> &mdash; Interpreter for the AWK text processing programming language.<br><a href="/unix/used.htm"><b>sed</b></a> &mdash; A utility for filtering and transforming text.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82ed7fde84ec',m:'KlVV55XzLgtpxy.yybUJjt5wV7t8rOlR_0GsyDZmA0I-1661495349-0-ASXDTPWMFUrzxqpp2hYgtk68EB6kMa0M4om3+TLNVLbtiFYOMLnrJiFOWhq+x0DzM07tesaLgqr844qDPr9op4u7lp/7/qn7FP0vEFF0w8kDjnVchSv2iBQKksV5yGvHJQ==',s:[0xc460bf2553,0x9a6d388f85],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

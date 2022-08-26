@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux sed command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/sed.gif" width="300" height="300" alt="sed command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>sed</b> is a <i>stream editor</i>: it <a href="/jargon/f/filter.htm">filters</a> and transforms <a href="/jargon/t/text.htm">text</a>.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>sed</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#sed">Sed programs</a></li>
+<li><a href="#works">How sed works</a></li>
+<li><a href="#lines">Selecting lines with sed</a></li>
+<li><a href="#overview">Overview of regular expression syntax</a></li>
+<li><a href="#often">Often-used commands</a></li>
+<li><a href="#scommand">The s command</a></li>
+<li><a href="#less">Less frequently-used commands</a></li>
+<li><a href="#gurus">Commands for sed gurus</a></li>
+<li><a href="#gnu">Commands specific to GNU sed</a></li>
+<li><a href="#escapes">GNU extensions for escapes in regular expressions</a></li>
+<li><a href="#samples">Sample scripts</a></li>
+<li><a href="#limitations">GNU sed's limitations (and non-limitations)</a></li>
+<li><a href="#regex">Extended regular expressions</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <b>sed</b> stream editor performs basic text transformations on an input stream (a file, or input from a <a href="/jargon/p/pipe.htm">pipeline</a>). While in some ways similar to an editor which permits <a href="/jargon/s/script.htm">scripted</a> edits (such as <a href="/unix/ued.htm">ed</a>), <b>sed</b> works by making only one pass over the input(s), and is consequently more efficient. But it is <b>sed</b>'s ability to filter text in a pipeline which particularly distinguishes it from other types of editors.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">sed <i>OPTIONS</i>... [<i>SCRIPT</i>] [<i>INPUTFILE</i>...]</pre>
+<p class="tab">If you do not specify <i>INPUTFILE</i>, or if <i>INPUTFILE</i> is "<b>-</b>", <b>sed</b> filters the contents of the <a href="/jargon/s/stdin.htm">standard input</a>. The <a href="/jargon/s/script.htm">script</a> is actually the first non-option <a href="/jargon/p/paramete.htm">parameter</a>, which <b>sed</b> specially considers a script and not an input file if and only if none of the other options specifies a script to be <a href="/jargon/e/execute.htm">executed</a> (that is, if neither of the <b>-e</b> and <b>-f</b> options is specified).</p>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:220px"><b>-n</b>, <b>--quiet</b>, <b>--silent</b></td>
+<td>Suppress automatic printing of pattern space.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b> <i>script</i>,<br><b>--expression=</b><i>script</i></td>
+<td>Add the script <i>script</i> to the commands to be executed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>script-file</i>,<br><b>--file=</b><i>script-file</i></td>
+<td>Add the contents of <i>script-file</i> to the commands to be executed.</td>
+</tr>
+<tr class="tcw">
+<td><b>--follow-symlinks</b></td>
+<td>Follow <a href="/jargon/s/symblink.htm">symlinks</a> when processing in place.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>[<i>SUFFIX</i>],<br><b>--in-place</b>[<b>=</b><i>SUFFIX</i>]</td>
+<td>Edit files in place (this makes a backup with <a href="/jargon/f/fileext.htm">file extension</a> <i>SUFFIX</i>, if <i>SUFFIX</i> is supplied).</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b> <i>N</i>, <b>--line-length=</b><i>N</i></td>
+<td>Specify the desired line-wrap length, <i>N</i>, for the "<b>l</b>" command.</td>
+</tr>
+<tr class="tcw">
+<td><b>--POSIX</b></td>
+<td>Disable all <a href="/jargon/g/gnu.htm">GNU</a> extensions.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--regexp-extended</b></td>
+<td>Use extended <a href="/jargon/r/regex.htm">regular expressions</a> in the script.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--separate</b></td>
+<td>Consider files as separate rather than as a single continuous long stream.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--unbuffered</b></td>
+<td>Load minimal amounts of data from the input files and flush the output <a href="/jargon/b/buffer.htm">buffers</a> more often.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Output version information, and exit.</td>
+</tr>
+</table>
+<h2 id="sed">Sed programs</h2>
+<p class="tab">A <b>sed</b> program consists of one or more <b>sed</b> commands, passed in by one or more of the <b>-e</b>, <b>-f</b>, <b>--expression</b>, and <b>--file</b> options, or the first non-option argument if none of these options are used. This documentation frequently refers to "the" <b>sed</b> script; this should be understood to mean the in-order <a href="/jargon/c/concaten.htm">catenation</a> of all of the scripts and script-files passed in.</p>
+<p class="tab">Commands within a script or script-file can be separated by semicolons ("<b>;</b>") or <a href="/jargon/n/newline.htm">newlines</a> (<a href="/jargon/a/ascii.htm">ASCII</a> code 10). Some commands, due to their <a href="/jargon/s/syntax.htm">syntax</a>, cannot be followed by semicolons working as command separators and thus should be terminated with newlines or be placed at the end of a script or script-file. Commands can also be preceded with optional non-significant <a href="/jargon/w/whitspac.htm">whitespace</a> <a href="/jargon/c/charact.htm">characters</a>.</p>
+<p class="tab">Each <b>sed</b> command consists of an optional address or address range (for instance, line numbers specifying what part of the file to operate on; see <a href="#lines">selecting lines</a> for details), followed by a one-character command name and any additional command-specific code.</p>
+<h2 id="works">How sed works</h2>
+<p class="tab"><b>sed</b> maintains two data buffers: the active <i>pattern space</i>, and the auxiliary <i>hold space</i>. Both are initially empty.</p>
+<p class="tab"><b>sed</b> operates by performing the following cycle on each line of input: first, <b>sed</b> reads one line from the input stream, removes any trailing newline, and places it in the pattern space. Then commands are executed; each command can have an address associated to it: addresses are a kind of condition code, and a command is only executed if the condition is verified before the command is to be executed.</p>
+<p class="tab">When the end of the script is reached, unless the <b>-n</b> option is in use, the contents of pattern space are printed out to the output stream, adding back the trailing newline if it was removed. Then the next cycle starts for the next input line.</p>
+<p class="tab">Unless special commands (like &lsquo;<b>D</b>&rsquo;) are used, the pattern space is deleted between two cycles. The hold space, on the other hand, keeps its data between cycles (see commands &lsquo;<b>h</b>&rsquo;, &lsquo;<b>H</b>&rsquo;, &lsquo;<b>x</b>&rsquo;, &lsquo;<b>g</b>&rsquo;, &lsquo;<b>G</b>&rsquo; to move data between both buffers).</p>
+<h2 id="lines">Selecting lines with sed</h2>
+<p class="tab">Addresses in a <b>sed</b> script can be in any of the following forms:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><i>number</i></td>
+<td>Specifying a line number will match only that line in the input. (Note that sed counts lines continuously across all input files unless <b>-i</b> or <b>-s</b> options are specified.)</td>
+</tr>
+<tr class="tcw">
+<td><i>first</i><b>~</b><i>step</i></td>
+<td>This GNU extension of <b>sed</b> matches every <i>step</i> lines starting with line <i>first</i>. In particular, lines will be selected when there exists a non-negative <i>n</i> such that the current line-number equals <i>first</i> + (<i>n</i> * <i>step</i>). Thus, to select the odd-numbered lines, one would use <b>1~2</b>; to pick every third line starting with the second, &lsquo;<b>2~3</b>&rsquo; would be used; to pick every fifth line starting with the tenth, use &lsquo;<b>10~5</b>&rsquo;; and &lsquo;<b>50~0</b>&rsquo; is another way of saying <b>50</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>$</b></td>
+<td>This address matches the last line of the last file of input, or the last line of each file when the <b>-i</b> or <b>-s</b> options are specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>/</b><i>regexp</i><b>/</b></td>
+<td>This selects any line which matches the regular expression <i>regexp</i>. If <i>regexp</i> itself includes any "<b>/</b>" characters, each must be <a href="/jargon/e/esc.htm">escaped</a> by a backslash ("<b>\</b>").<br><br> The empty regular expression &lsquo;<b>//</b>&rsquo; repeats the last regular expression match (the same holds if the empty regular expression is passed to the s command). Note that modifiers to regular expressions are evaluated when the regular expression is compiled, thus it is invalid to specify them together with the empty regular expression.</td>
+</tr>
+<tr class="tcw">
+<td><b>\</b><i>%</i><i>regexp</i><i>%</i></td>
+<td>(The <i>%</i> may be replaced by any other single character.)<br><br> This also matches the regular expression <i>regexp</i>, but allows one to use a different delimiter than "<b>/</b>". This option is particularly useful if the <i>regexp</i> itself contains a lot of slashes, since it avoids the tedious escaping of every "<b>/</b>". If <i>regexp</i> itself includes any delimiter characters, each must be escaped by a backslash ("<b>\</b>").</td>
+</tr>
+<tr class="tcw">
+<td><b>/</b><i>regexp</i><b>/I</b><br><br><b>\</b><i>%</i><i>regexp</i><i>%</i><b>I</b></td>
+<td>The <b>I</b> modifier to regular-expression matching is a GNU extension which causes the <i>regexp</i> to be matched in a case-insensitive (as opposed to <a href="/jargon/c/casesens.htm">case-sensitive</a>) manner.</td>
+</tr>
+<tr class="tcw">
+<td><b>/</b><i>regexp</i><b>/M</b><br><br><b>\</b><i>%</i><i>regexp</i><i>%</i><b>M</b></td>
+<td>The <b>M</b> modifier to regular-expression matching is a GNU <b>sed</b> extension which causes <b>^</b> and <b>$</b> to match respectively (in addition to the normal behavior) the empty <a href="/jargon/s/string.htm">string</a> after a newline, and the empty string before a newline. There are special character sequences ("<b>\&#96;</b>" and "<b>\'</b>") which always match the beginning or the end of the buffer. <b>M</b> stands for multi-line.</td>
+</tr>
+</table>
+<p class="tab">If no addresses are given, then all lines are matched; if one address is given, then only lines matching that address are matched.</p>
+<p class="tab">An address range can be specified by specifying two addresses separated by a comma ("<b>,</b>"). An address range matches lines starting from where the first address matches, and continues until the second address matches (inclusively).</p>
+<p class="tab">If the second address is a <i>regexp</i>, then checking for the ending match starts with the line following the line which matched the first address: a range always spans at least two lines (except of course if the input stream ends).</p>
+<p class="tab">If the second address is a number less than (or equal to) the line matching the first address, then only the one line is matched.</p>
+<p class="tab">GNU <b>sed</b> also supports some special two-address forms; all these are GNU extensions:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><b>0,/</b><i>regexp</i><b>/</b></td>
+<td>A line number of <b>0</b> can be used in an address specification like <b>0,/</b><i>regexp</i><b>/</b> so that <b>sed</b> will try to match <i>regexp</i> in the first input line too. In other words, <b>0,/</b><i>regexp</i><b>/</b> is similar to <b>1,/</b><i>regexp</i><b>/</b>, except that if <i>addr2</i> matches the very first line of input the <b>0,/</b><i>regexp</i><b>/</b> form will consider it to end the range, whereas the <b>1,/</b><i>regexp</i><b>/</b> form will match the beginning of its range and hence make the range span up to the second occurrence of the regular expression.<br><br> Note that this is the only place where the <b>0</b> address makes sense; there is no "0th" line, and commands that are given the <b>0</b> address in any other way gives an error.</td>
+</tr>
+<tr class="tcw">
+<td><i>addr1</i><b>,+</b><i>N</i></td>
+<td>Matches <i>addr1</i> and the <i>N</i> lines following <i>addr1</i>.</td>
+</tr>
+<tr class="tcw">
+<td><i>addr1</i><b>,~</b><i>N</i></td>
+<td>Matches <i>addr1</i> and the lines following <i>addr1</i> until the next line whose input line number is a multiple of <i>N</i>.</td>
+</tr>
+</table>
+<p class="tab">Appending the <b>!</b> character to the end of an address specification negates the sense of the match. That is, if the <b>!</b> character follows an address range, then only lines which do not match the address range will be selected. This also works for singleton addresses, and, perhaps perversely, for the <a href="/jargon/n/null.htm">null</a> address.</p>
+<h2 id="overview">Overview of regular expression syntax</h2>
+<p class="tab">To know how to use <b>sed</b>, understand <a href="/jargon/r/regex.htm">regular expressions</a> ("regexp" for short). A regular expression is a pattern that is matched against a subject string from left to right. Most characters are ordinary: they stand for themselves in a pattern, and match the corresponding characters in the subject. As a simple example, the pattern</p>
+<pre class="tab tcy">The quick brown fox</pre>
+<p class="tab">...matches a portion of a subject string that is identical to itself. The power of regular expressions comes from the ability to include alternatives and repetitions in the pattern. These are encoded in the pattern by the use of special characters, which do not stand for themselves but instead are interpreted in some special way. Here is a brief description of regular expression syntax as used in <b>sed</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><i>char</i></td>
+<td>A single ordinary character matches itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b></td>
+<td>Matches a sequence of zero or more instances of matches for the preceding regular expression, which must be an ordinary character, a special character preceded by "<b>\</b>", a "<b>.</b>", a grouped regexp (see <a href="#Grouped-Regexp">below</a>), or a bracket expression. As a GNU extension, a postfixed regular expression can also be followed by "<b>*</b>"; for example, <b>a**</b> is equivalent to <b>a*</b>. <a href="/jargon/p/posix.htm">POSIX</a> 1003.1-2001 says that <b>*</b> stands for itself when it appears at the start of a regular expression or subexpression, but many non-GNU implementations do not support this, and <a href="/jargon/p/port.htm">portable</a> scripts should instead use "<b>\*</b>" in these contexts.</td>
+</tr>
+<tr class="tcw">
+<td><b>\+</b></td>
+<td>Like <b>*</b>, but matches one or more. It is a GNU extension.</td>
+</tr>
+<tr class="tcw">
+<td><b>\?</b></td>
+<td>Like <b>*</b>, but only matches zero or one. It is a GNU extension.</td>
+</tr>
+<tr class="tcw">
+<td><b>\{</b><i>i</i><b>\}</b></td>
+<td>Like <b>*</b>, but matches exactly <i>i</i> sequences (<i>i</i> is a decimal integer; for compatibility, keep it between <b>0</b> and <b>255</b>, inclusive).</td>
+</tr>
+<tr class="tcw">
+<td><b>\{</b><i>i</i><b>,</b><i>j</i><b>\}</b></td>
+<td>Matches between <i>i</i> and <i>j</i>, inclusive, sequences.</td>
+</tr>
+<tr class="tcw">
+<td><b>\{</b><i>i</i><b>,\}</b></td>
+<td>Matches more than or equal to <i>i</i> sequences.</td>
+</tr>
+<tr class="tcw">
+<td><b>\(</b><i>regexp</i><b>\)</b></td>
+<td id="Grouped-Regexp">Groups the inner regexp as a whole; this is used to: <ul><li>Apply postfix operators, like <b>\(abcd\)*</b>: this searches for zero or more whole sequences of &lsquo;<b>abcd</b>&rsquo;, while <b>abcd*</b> would search for &lsquo;<b>abc</b>&rsquo; followed by zero or more occurrences of &lsquo;<b>d</b>&rsquo;. Note that support for <b>\(abcd\)*</b> is required by POSIX 1003.1-2001, but many non-GNU implementations do not support it and hence it is not universally portable.</li><li>Use back references (see <a href="#Back-Reference">below</a>).</li></ul></td>
+</tr>
+<tr class="tcw">
+<td><b>.</b></td>
+<td>Matches any character, including a newline.</td>
+</tr>
+<tr class="tcw">
+<td><b>^</b></td>
+<td>Matches the null string at beginning of the pattern space, i.e., what appears after the <b>^</b> must appear at the beginning of the pattern space.<br><br> In most scripts, pattern space is initialized to the content of each line. So, it is a useful simplification to think of <b>^#include</b> as matching only lines where &lsquo;<b>#include</b>&rsquo; is the first thing on line&mdash;if there are spaces before, for example, the match fails. This simplification is valid as long as the original content of pattern space is not modified, for example with an <b>s</b> command.<br><br><b>^</b> acts as a special character only at the beginning of the regular expression or subexpression (that is, after <b>\(</b> or <b>\|</b>). Portable scripts should avoid <b>^</b> at the beginning of a subexpression, though, as POSIX allows implementations that treat <b>^</b> as an ordinary character in that context.</td>
+</tr>
+<tr class="tcw">
+<td><b>$</b></td>
+<td>It is the same as <b>^</b>, but refers to end of pattern space. <b>$</b> also acts as a special character only at the end of the regular expression or subexpression (that is, before <b>\)</b> or <b>\|</b>), and its use at the end of a subexpression is not portable.</td>
+</tr>
+<tr class="tcw">
+<td><b>[</b><i>list</i><b>]</b><br><br><b>[^</b><i>list</i><b>]</b></td>
+<td>Matches any single character in <i>list</i>: for example, <b>[aeiou]</b> matches all vowels. A <i>list</i> may include sequences like <i>char1</i><b>-</b><i>char2</i>, which matches any character between <i>char1</i> and <i>char2</i>. For example, <b>[b-e]</b> matches any of the characters <b>b</b>, <b>c</b>, <b>d</b>, or <b>e</b>.<br><br> A leading <b>^</b> reverses the meaning of <i>list</i>, so that it matches any single character not in <i>list</i>. To include <b>]</b> in the list, make it the first character (after the <b>^</b> if needed); to include <b>-</b> in the list, make it the first or last; to include <b>^</b> put it after the first character.<br><br> The characters <b>$</b>, <b>*</b>, <b>.</b>, <b>[</b>, and <b>\</b> are normally not special within <i>list</i>. For example, <b>[\*]</b> matches either &lsquo;<b>\</b>&rsquo; or &lsquo;<b>*</b>&rsquo;, because the <b>\</b> is not special here. However, strings like <b>[.ch.]</b>, <b>[=a=]</b>, and <b>[:space:]</b> are special within <i>list</i> and represent collating symbols, equivalence classes, and character classes, respectively, and <b>[</b> is therefore special within list when it is followed by <b>.</b>, <b>=</b>, or <b>:</b>. Also, when not in <b>POSIXLY_CORRECT</b> mode, special escapes like <b>\n</b> and <b>\t</b> are recognized within <i>list</i>. See <a href="#escapes">escapes</a> for more information.</td>
+</tr>
+<tr class="tcw">
+<td><i>regexp1</i><b>\|</b><i>regexp2</i></td>
+<td>Matches either <i>regexp1</i> or <i>regexp2</i>. Use parentheses to use complex alternative regular expressions. The matching process tries each alternative in turn, from left to right, and the first one that succeeds is used. This option is a GNU extension.</td>
+</tr>
+<tr class="tcw">
+<td><i>regexp1regexp2</i></td>
+<td>Matches the concatenation of <i>regexp1</i> and <i>regexp2</i>. Concatenation binds more tightly than <b>\|</b>, <b>^</b>, and <b>$</b>, but less tightly than the other regular expression operators.</td>
+</tr>
+<tr class="tcw">
+<td><b>\</b><i>digit</i></td>
+<td id="Back-Reference">Matches the <i>digit</i>-th <b>\(</b>...<b>\)</b> parenthesized subexpression in the regular expression. This option is called a back reference. Subexpressions are implicitly numbered by counting occurrences of <b>\(</b> left-to-right.</td>
+</tr>
+<tr class="tcw">
+<td><b>\n</b></td>
+<td>Matches the newline character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\</b><i>char</i></td>
+<td>Matches <i>char</i>, where <i>char</i> is one of <b>$</b>, <b>*</b>, <b>.</b>, <b>[</b>, <b>\</b>, or <b>^</b>. Note that the only C-like backslash sequences that you can portably assume to be interpreted are <b>\n</b> and <b>\\</b>; in particular <b>\t</b> is not portable, and matches a &lsquo;<b>t</b>&rsquo; under most implementations of <b>sed</b>, rather than a tab character.</td>
+</tr>
+</table>
+<p class="tab">Note that the regular expression matcher is greedy, i.e., matches are attempted from left to right and, if two or more matches are possible starting at the same character, it selects the longest.</p>
+<p class="tab">For example:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>abcdef</b></td>
+<td>Matches "<b>abcdef</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>a*b</b></td>
+<td>Matches zero or more "<b>a</b>" characters, followed by a single "<b>b</b>". For example, "<b>b</b>" or "<b>aaaaaaab</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>a\?b</b></td>
+<td>Matches "<b>b</b>" or "<b>ab</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>a\+b\+</b></td>
+<td>Matches one or more "<b>a</b>" characters followed by one or more "<b>b</b>"s. "<b>ab</b>" is the shortest possible match, but other examples are "<b>aaaaab</b>", "<b>abbbbbb</b>", or "<b>aaaaaabbbbbbb</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>.*</b> or <b>.\+</b></td>
+<td>Either of these expressions will match all of the characters in a non-empty string, but only <b>.*</b> will match the empty string.</td>
+</tr>
+<tr class="tcw">
+<td><b>^main.*(.*)</b></td>
+<td>This matches a string starting with "<b>main</b>", followed by an opening and closing parenthesis. The "<b>n</b>", "<b>(</b>" and "<b>)</b>" need not be adjacent.</td>
+</tr>
+<tr class="tcw">
+<td><b>^#</b></td>
+<td>This matches a string beginning with "<b>#</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>\\$</b></td>
+<td>This matches a string ending with a single backslash. The regexp contains two backslashes for escaping.</td>
+</tr>
+<tr class="tcw">
+<td><b>\$</b></td>
+<td>This matches a string consisting of a single dollar sign.</td>
+</tr>
+<tr class="tcw">
+<td><b>[a-zA-Z0-9]</b></td>
+<td>In the C locale, this matches any ASCII letters or digits.</td>
+</tr>
+<tr class="tcw">
+<td><b>[^</b> <i>tab</i><b>]\+</b></td>
+<td>(Here <i>tab</i> stands for a single <a href="/jargon/t/tab.htm">tab character</a>.) This matches a string of one or more characters that does not contain a space or a tab. Usually this means a word.</td>
+</tr>
+<tr class="tcw">
+<td><b>^\(.*\)\n\1$</b></td>
+<td>This matches a string consisting of two equal substrings separated by a newline.</td>
+</tr>
+<tr class="tcw">
+<td><b>.\{9\}A$</b></td>
+<td>This matches nine characters followed by an &lsquo;<b>A</b>&rsquo;.</td>
+</tr>
+<tr class="tcw">
+<td><b>^.\{15\}A</b></td>
+<td>This matches the start of a string that contains 16 characters with the last character of being &lsquo;<b>A</b>&rsquo;.</td>
+</tr>
+</table>
+<h2 id="often">Often-used commands</h2>
+<p class="tab">If you use <b>sed</b> at all, you will probably want to know these commands.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:135px"><b>#</b></td>
+<td>(No addresses allowed with this command.) The <b>#</b> character begins a <a href="/jargon/c/comment.htm">comment</a>; the comment continues until the next newline.<br><br> If you are concerned about portability, be aware that some implementations of <b>sed</b> (which are not POSIX conformant) may only support a single one-line comment, and then only when the very first character of the script is a <b>#</b>.<br><br> Warning: if the first two characters of the <b>sed</b> script are <b>#n</b>, then the <b>-n</b> (no-autoprint) option is forced. If you want to put a comment in the first line of your script and that comment begins with the letter &lsquo;<b>n</b>&rsquo; and you do not want this behavior, then either use a capital &lsquo;<b>N</b>&rsquo;, or place at least one space before the &lsquo;<b>n</b>&rsquo;.</td>
+</tr>
+<tr class="tcw">
+<td><b>q</b> [<i>exit-code</i>]</td>
+<td>This command only accepts a single address.<br><br> Exit <b>sed</b> without processing any more commands or input. Note that the current pattern space is printed if auto-print is not disabled with the <b>-n</b> options. The ability to return an exit code from the <b>sed</b> script is a GNU <b>sed</b> extension.</td>
+</tr>
+<tr class="tcw">
+<td><b>d</b></td>
+<td>Delete the pattern space; immediately start next cycle.</td>
+</tr>
+<tr class="tcw">
+<td><b>p</b></td>
+<td>Print out the pattern space (to the standard output). This command is usually only used in conjunction with the <b>-n</b> command-line option.</td>
+</tr>
+<tr class="tcw">
+<td><b>n</b></td>
+<td>If auto-print is not disabled, print the pattern space, then, regardless, replace the pattern space with the next line of input. If there is no more input then sed exits without processing any more commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>{</b> <i>commands</i> <b>}</b></td>
+<td>A group of commands may be enclosed between <b>{</b> and <b>}</b> characters. This option is particularly useful when you want a group of commands to be triggered by a single address (or address-range) match.</td>
+</tr>
+</table>
+<h2 id="scommand">The s command</h2>
+<p class="tab">The syntax of the <b>s</b> command (which stands for "substitute") is: &lsquo;<b>s/</b><i>regexp</i><b>/</b><i>replacement</i><b>/</b><i>flags</i>&rsquo;. The <b>/</b> characters may be uniformly replaced by any other single character within any given <b>s</b> command. The <b>/</b> character (or whatever other character is used in its stead) can appear in the <i>regexp</i> or <i>replacement</i> only if it's preceded by a <b>\</b> character.</p>
+<p class="tab">The <b>s</b> command is probably the most important in <b>sed</b> and has a lot of different options. Its basic concept is simple: the <b>s</b> command attempts to match the pattern space against the supplied <i>regexp</i>; if the match is successful, then that portion of the pattern space which was matched is replaced with <i>replacement</i>.</p>
+<p class="tab">The replacement can contain <b>\</b><i>n</i> (<i>n</i> being a number from <b>1</b> to <b>9</b>, inclusive) references, which refer to the portion of the match that is contained between the <i>n</i>th <b>\(</b> and its matching <b>\)</b>. Also, the replacement can contain unescaped <b>&amp;</b> characters which reference the whole matched portion of the pattern space. Finally, as a GNU <b>sed</b> extension, you can include a special sequence made of a backslash and one of the letters <b>L</b>, <b>l</b>, <b>U</b>, <b>u</b>, or <b>E</b>. The meaning is as follows:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>\L</b></td>
+<td>Turn the replacement to lowercase until a <b>\U</b> or <b>\E</b> is found</td>
+</tr>
+<tr class="tcw">
+<td><b>\l</b></td>
+<td>Turn the next character to lowercase</td>
+</tr>
+<tr class="tcw">
+<td><b>\U</b></td>
+<td>Turn the replacement to uppercase until a <b>\L</b> or <b>\E</b> is found</td>
+</tr>
+<tr class="tcw">
+<td><b>\u</b></td>
+<td>Turn the next character to uppercase</td>
+</tr>
+<tr class="tcw">
+<td><b>\E</b></td>
+<td>Stop case conversion started by <b>\L</b> or <b>\U</b></td>
+</tr>
+</table>
+<p class="tab">To include a literal <b>\</b>, <b>&amp;</b>, or newline in the final replacement, precede the desired <b>\</b>, <b>&amp;</b>, or newline in the replacement with a <b>\</b>.</p>
+<p class="tab">The <b>s</b> command can be followed by zero or more of the following flags:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:90px"><b>g</b></td>
+<td>Apply the replacement to <i>all</i> matches to the regexp.</td>
+</tr>
+<tr class="tcw">
+<td><i>number</i></td>
+<td>Only replace the <i>number</i> 'th match of the regexp.<br><br> Note: the POSIX standard does not specify what should happen when you mix the <b>g</b> and <i>number</i> modifiers, and currently there is no widely agreed upon meaning across <b>sed</b> implementations. For GNU <b>sed</b>, the interaction is defined to be: ignore matches before the <i>number</i>th, and then match and replace all matches from the <i>number</i>th on.</td>
+</tr>
+<tr class="tcw">
+<td><b>p</b></td>
+<td>If the substitution was made, then print the new pattern space.<br><br> Note: when both the <b>p</b> and <b>e</b> options are specified, the relative ordering of the two produces very different results. In general, <b>ep</b> (evaluate then print) is what you want, but operating the other way round can be useful for debugging. For this reason, the current version of GNU <b>sed</b> interprets specially the presence of <b>p</b> options both before and after <b>e</b>, printing the pattern space before and after evaluation, while in general flags for the <b>s</b> command show their effect once. This behavior, although documented, might change in future versions.</td>
+</tr>
+<tr class="tcw">
+<td><b>w</b> <i>file</i></td>
+<td>If the substitution was made, then write out the result to the named <i>file</i>. As a GNU <b>sed</b> extension, two special values of <i>file</i> are supported: <b>/dev/stderr</b>, which writes the result to the standard error, and <b>/dev/stdout</b>, which writes to the standard output.</td>
+</tr>
+<tr class="tcw">
+<td><b>e</b></td>
+<td>This command allows one to pipe input from a shell command into pattern space. If a substitution was made, the command found in pattern space is executed and pattern space is replaced with its output. A trailing newline is suppressed; results are undefined if the command to be executed contains a null character. This option is a GNU <b>sed</b> extension.</td>
+</tr>
+<tr class="tcw">
+<td><b>I</b>, <b>i</b></td>
+<td>The <b>I</b> modifier to regular-expression matching is a GNU extension which makes <b>sed</b> match regexp in a case-insensitive manner.</td>
+</tr>
+<tr class="tcw">
+<td><b>M</b>, <b>m</b></td>
+<td>The <b>M</b> modifier to regular-expression matching is a GNU <b>sed</b> extension which causes <b>^</b> and <b>$</b> to match respectively (in addition to the normal behavior) the empty string after a newline, and the empty string before a newline. There are special character sequences (<b>\&#96;</b> and <b>\'</b>) which always match the beginning or the end of the buffer. <b>M</b> stands for multi-line.</td>
+</tr>
+</table>
+<h2 id="less">Less frequently-used commands</h2>
+<p class="tab">Though perhaps less frequently used than those in the previous section, some very small yet useful <b>sed</b> scripts can be built with these commands.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:260px"><b>y/</b><i>source-chars</i><b>/</b><i>dest-chars</i><b>/</b></td>
+<td>(The <b>/</b> characters may be uniformly replaced by any other single character within any given <b>y</b> command.)<br><br> Transliterate any characters in the pattern space which match any of the <i>source-chars</i> with the corresponding character in <i>dest-chars</i>.<br><br> Instances of the <b>/</b> (or whatever other character is used instead), <b>\</b>, or newlines can appear in the <i>source-chars</i> or <i>dest-chars</i> lists, provide that each instance is escaped by a <b>\</b>. The <i>source-chars</i> and <i>dest-chars</i> lists must contain the same number of characters (after de-escaping).</td>
+</tr>
+<tr class="tcw">
+<td><b>a\</b> <i>text</i></td>
+<td>As a GNU extension, this command accepts two addresses.<br><br> Queue the lines of text which follow this command (each but the last ending with a <b>\</b>, which are removed from the output) to be output at the end of the current cycle, or when the next input line is read.<br><br> Escape sequences in text are processed, so use <b>\\</b> in text to print a single backslash.<br><br> As a GNU extension, if between the <b>a</b> and the newline there is other than a whitespace-<b>\</b> sequence, then the text of this line, starting at the first non-whitespace character after the <b>a</b>, is taken as the first line of the text block. (This enables a simplification in scripting a one-line add.) This extension also works with the <b>i</b> and <b>c</b> commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>i\</b> <i>text</i></td>
+<td>As a GNU extension, this command accepts two addresses.<br><br> Immediately output the lines of text which follow this command (each but the last ending with a <b>\</b>, which are removed from the output).</td>
+</tr>
+<tr class="tcw">
+<td><b>c\</b> <i>text</i></td>
+<td>Delete the lines matching the address or address-range, and output the lines of <i>text</i> which follow this command (each but the last ending with a <b>\</b>, which are removed from the output) in place of the last line (or in place of each line, if no addresses were specified). A new cycle is started after this command is done, since the pattern space will be deleted.</td>
+</tr>
+<tr class="tcw">
+<td><b>=</b></td>
+<td>As a GNU extension, this command accepts two addresses.<br><br> Print out the current input line number (with a trailing newline).</td>
+</tr>
+<tr class="tcw">
+<td><b>l</b> <i>n</i></td>
+<td>Print the pattern space in an unambiguous form: non-printable characters (and the <b>\</b> character) are printed in <a href="/jargon/c/c.htm">C</a>-style escaped form; long lines are split, with a trailing <b>\</b> character to indicate the split; the end of each line is marked with a <b>$</b>.<br><br><i>n</i> specifies the desired line-wrap length; a length of <b>0</b> (zero) means to never wrap long lines. If omitted, the default as specified on the command line is used. The <i>n</i> parameter is a GNU <b>sed</b> extension.</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b> <i>file name</i></td>
+<td>As a GNU extension, this command accepts two addresses.<br><br> Queue the contents of <i>file name</i> to be read and inserted into the output stream at the end of the current cycle, or when the next input line is read. Note that if <i>file name</i> cannot be read, it is treated as if it were an empty file, without any error indication.<br><br> As a GNU <b>sed</b> extension, the special value <b>/dev/stdin</b> is supported for the file name, which reads the contents of the standard input.</td>
+</tr>
+<tr class="tcw">
+<td><b>w</b> <i>file name</i></td>
+<td>Write the pattern space to <i>file name</i>. As a GNU <b>sed</b> extension, two special values of <i>file name</i> are supported: <b>/dev/stderr</b>, which writes the result to the standard error, and <b>/dev/stdout</b>, which writes to the standard output.<br><br> The file is created (or truncated) before the first input line is read; all <b>w</b> commands (including instances of the <b>w</b> flag on successful s commands) which refer to the same file name are output without closing and reopening the file.</td>
+</tr>
+<tr class="tcw">
+<td><b>D</b></td>
+<td>If pattern space contains no newline, start a normal new cycle as if the <b>d</b> command was issued. Otherwise, delete text in the pattern space up to the first newline, and restart cycle with the resultant pattern space, without reading a new line of input.</td>
+</tr>
+<tr class="tcw">
+<td><b>N</b></td>
+<td>Add a newline to the pattern space, then append the next line of input to the pattern space. If there is no more input then <b>sed</b> exits without processing any more commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>P</b></td>
+<td>Print out the portion of the pattern space up to the first newline.</td>
+</tr>
+<tr class="tcw">
+<td><b>h</b></td>
+<td>Replace the contents of the hold space with the contents of the pattern space.</td>
+</tr>
+<tr class="tcw">
+<td><b>H</b></td>
+<td>Append a newline to the contents of the hold space, and then append the contents of the pattern space to that of the hold space.</td>
+</tr>
+<tr class="tcw">
+<td><b>g</b></td>
+<td>Replace the contents of the pattern space with the contents of the hold space.</td>
+</tr>
+<tr class="tcw">
+<td><b>G</b></td>
+<td>Append a newline to the contents of the pattern space, and then append the contents of the hold space to that of the pattern space.</td>
+</tr>
+<tr class="tcw">
+<td><b>x</b></td>
+<td>Exchange the contents of the hold and pattern spaces.</td>
+</tr>
+</table>
+<h2 id="gurus">Commands for sed gurus</h2>
+<p class="tab">In most cases, use of these commands indicates that you are probably better off programming in something like <a href="/unix/uawk.htm">awk</a> or <a href="/jargon/p/perl.htm">Perl</a>. But occasionally one is committed to sticking with <b>sed</b>, and these commands can enable one to write quite convoluted scripts.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:70px"><b>:</b> <i>label</i></td>
+<td>[No addresses allowed with this command.] Specify the location of <i>label</i> for branch commands. In all other respects, a no-op (no operation performed).</td>
+</tr>
+<tr class="tcw">
+<td><b>b</b> <i>label</i></td>
+<td>Unconditionally branch to <i>label</i>. The label may be omitted, in which case the next cycle is started.</td>
+</tr>
+<tr class="tcw">
+<td><b>t</b> <i>label</i></td>
+<td>Branch to <i>label</i> only if there was a successful substitution since the last input line was read or conditional branch was taken. The <i>label</i> may be omitted, in which case the next cycle is started.</td>
+</tr>
+</table>
+<h2 id="gnu">Commands specific to GNU sed</h2>
+<p class="tab">These commands are specific to GNU <b>sed</b>, so you must use them with care and only when you are sure that the script doesn't need to be <a href="/jargon/p/port.htm">ported</a>. They allow you to check for GNU <b>sed</b> extensions or do tasks that are required quite often, yet are unsupported by standard <b>sed</b>s.</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><b>e</b> [<i>command</i>]</td>
+<td>This command allows one to pipe input from a shell command into pattern space. Without parameters, the <b>e</b> command executes the command found in the pattern space and replaces the pattern space with the output; a trailing newline is suppressed.<br><br> If a parameter is specified, instead, the <b>e</b> command interprets it as a command and sends its output to the output stream (like <b>r</b> does). The <i>command</i> can run across multiple lines, all but the last ending with a back-slash.<br><br> In both cases, the results are undefined if the command to be executed contains a null character.</td>
+</tr>
+<tr class="tcw">
+<td><b>F</b></td>
+<td>Print out the file name of the current input file (with a trailing newline).</td>
+</tr>
+<tr class="tcw">
+<td><b>L</b> <i>n</i></td>
+<td>This GNU <b>sed</b> extension fills and joins lines in pattern space to produce output lines of (at most) <i>n</i> characters, like <a href="/unix/ufmt.htm">fmt</a> does; if <i>n</i> is omitted, the default as specified on the command line is used. This command is considered a failed experiment and unless there is enough request (which seems unlikely) will be removed in future versions.</td>
+</tr>
+<tr class="tcw">
+<td><b>Q</b> [<i>exit-code</i>]</td>
+<td>This command only accepts a single address.<br><br> This command is the same as <b>q</b>, but will not print the contents of pattern space. Like <b>q</b>, it provides the ability to return an exit code to the caller.<br><br> This command can be useful because the only alternative ways to accomplish this apparently trivial function are to use the <b>-n</b> option (which can unnecessarily complicate your script) or resorting to the following snippet, which wastes time by reading the whole file without any visible effect:<br>
+<p>:eat #Quit silently on the last line: $d #Read another line, silently: N #Overwrite pattern space each time to save memory: g b eat.</p>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>R</b> <i>file name</i></td>
+<td>Queue a line of <i>file name</i> to be read and inserted into the output stream at the end of the current cycle, or when the next input line is read. Note that if <i>file name</i> cannot be read, or if its end is reached, no line is appended, without any error indication.<br><br> As with the <b>r</b> command, the special value <b>/dev/stdin</b> is supported for the file name, which reads a line from the standard input.</td>
+</tr>
+<tr class="tcw">
+<td><b>T</b> <i>label</i></td>
+<td>Branch to <i>label</i> only if there was no successful substitutions since the last input line was read or conditional branch was taken. The <i>label</i> may be omitted, in which case the next cycle is started.</td>
+</tr>
+<tr class="tcw">
+<td><b>v</b> <i>version</i></td>
+<td>This command does nothing, but makes <b>sed</b> fail if GNU <b>sed</b> extensions are not supported, because other versions of <b>sed</b> do not implement it. Also, you can specify the version of <b>sed</b> your script requires, such as <b>4.0.5</b>. The default is <b>4.0</b> because that is the first version that implemented this command.<br><br> This command enables all GNU extensions even if <b>POSIXLY_CORRECT</b> is set in the environment.</td>
+</tr>
+<tr class="tcw">
+<td><b>W</b> <i>file name</i></td>
+<td>Write to the given file name the portion of the pattern space up to the first newline. Everything said under the <b>w</b> command about file handling holds here too.</td>
+</tr>
+<tr class="tcw">
+<td><b>z</b></td>
+<td>This command empties the content of pattern space. It is usually the same as &lsquo;<b>s/.*//</b>&rsquo;, but is more efficient and works in the presence of invalid multibyte sequences in the input stream. POSIX mandates that such sequences are not matched by &lsquo;<b>.</b>&rsquo;, so that there is no portable way to clear <b>sed</b>'s buffers in the middle of the script in most multibyte locales (including <a href="/jargon/u/unicode.htm">UTF-8</a> locales).</td>
+</tr>
+</table>
+<h2 id="escapes">GNU extensions for escapes in regular expressions</h2>
+<p class="tab">Until now (on this page, anyway), we have only encountered escapes of the form &lsquo;<b>\^</b>&rsquo;, for example, which tell <b>sed</b> not to interpret the circumflex (<a href="/jargon/c/caret.htm">caret</a>) as a special character, but rather to take it literally. For another example, &lsquo;<b>\*</b>&rsquo; matches a single asterisk rather than zero or more backslashes.</p>
+<p class="tab">This section introduces another kind of escape&mdash;that is, escapes that are applied to a character or sequence of characters that ordinarily are taken literally, and that <b>sed</b> replaces with a special character. This provides a way of encoding non-printable characters in patterns in a visible manner. There is no restriction on the appearance of non-printing characters in a <b>sed</b> script, but when a script is being prepared in the shell or by text editing, it is usually easier to use one of the following escape sequences than the <a href="/jargon/p/perl.htm">binary</a> character it represents:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:70px"><b>\a</b></td>
+<td>Produces or matches a bel character, that is an "alert" (ASCII 7).</td>
+</tr>
+<tr class="tcw">
+<td><b>\f</b></td>
+<td>Produces or matches a <a href="/jargon/f/formfeed.htm">form feed</a> (ASCII 12).</td>
+</tr>
+<tr class="tcw">
+<td><b>\n</b></td>
+<td>Produces or matches a newline (ASCII 10).</td>
+</tr>
+<tr class="tcw">
+<td><b>\r</b></td>
+<td>Produces or matches a <a href="/jargon/c/cr.htm">carriage return</a> (ASCII 13).</td>
+</tr>
+<tr class="tcw">
+<td><b>\t</b></td>
+<td>Produces or matches a horizontal tab (ASCII 9).</td>
+</tr>
+<tr class="tcw">
+<td><b>\v</b></td>
+<td>Produces or matches a so called "vertical tab" (ASCII 11).</td>
+</tr>
+<tr class="tcw">
+<td><b>\c</b><i>x</i></td>
+<td>Produces or matches <b>Control-</b><i>x</i>, where <i>x</i> is any character. The precise effect of &lsquo;<b>\c</b><i>x</i>&rsquo; is as follows: if <i>x</i> is a <a href="/jargon/l/lowercas.htm">lowercase</a> letter, it is converted to <a href="/jargon/u/uppercase.htm">uppercase</a>. Then bit 6 of the character (<a href="/jargon/h/hex.htm">hex</a> 40) is inverted. Thus &lsquo;<b>\cz</b>&rsquo; becomes hex 1A, but &lsquo;<b>\c{</b>&rsquo; becomes hex 3B, while &lsquo;<b>\c;</b>&rsquo; becomes hex 7B.</td>
+</tr>
+<tr class="tcw">
+<td><b>\d</b><i>xxx</i></td>
+<td>Produces or matches a character whose <a href="/jargon/d/decimal.htm">decimal</a> ASCII value is <i>xxx</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>\o</b><i>xxx</i></td>
+<td>Produces or matches a character whose <a href="/jargon/o/octal.htm">octal</a> ASCII value is <i>xxx</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>\x</b><i>xx</i></td>
+<td>Produces or matches a character whose <a href="/jargon/h/hex.htm">hexadecimal</a> ASCII value is <i>xx</i>.</td>
+</tr>
+</table>
+<p class="tab">&lsquo;<b>\b</b>&rsquo; (backspace) was omitted because of the conflict with the existing "word boundary" meaning.</p>
+<p class="tab">Other escapes match a particular character class and are valid only in regular expressions:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:50px"><b>\w</b></td>
+<td>Matches any "word" character. A "word" character is any letter or digit or the underscore character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\W</b></td>
+<td>Matches any "non-word" character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\b</b></td>
+<td>Matches a word boundary; that is, it matches if the character to the left is a "word" character and the character to the right is a "non-word" character, or vice versa.</td>
+</tr>
+<tr class="tcw">
+<td><b>\B</b></td>
+<td>Matches everywhere but on a word boundary; that is it matches if the character to the left and the character to the right are either both "word" characters or both "non-word" characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>\&#96;</b></td>
+<td>Matches only at the start of pattern space. This option is different from <b>^</b> in multi-line mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>\'</b></td>
+<td>Matches only at the end of pattern space. This option is different from <b>$</b> in multi-line mode.</td>
+</tr>
+</table>
+<h2 id="samples">Sample scripts</h2>
+<p class="tab">Here are some <b>sed</b> scripts to guide you in the art of mastering <b>sed</b>.</p>
+<h3 class="tab">Sample script: centering lines</h3>
+<p class="tab">This script centers all lines of a file on 80 columns width. To change that width, the number in <b>\{</b>...<b>\}</b> must be replaced, and the number of added spaces also must be changed.</p>
+<p class="tab">Note how the buffer commands are used to separate parts in the regular expressions to be matched, which is a common technique.</p>
+<pre class="tab tcy">#!/usr/bin/sed -f
+# Put 80 spaces in the buffer
+1 {
+  x
+  s/^$/          /
+  s/^.*$/&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;/
+  x
+}
+# del leading and trailing spaces
+y/tab/ /
+s/^ *//
+s/ *$//
+# add a newline and 80 spaces to end of line
+G
+# keep first 81 chars (80 + a newline)
+s/^\(.\{81\}\).*$/\1/
+# \2 matches half of the spaces, which are moved to the beginning
+s/^\(.*\)\n\(.*\)\2/\2\1/
+</pre>
+<h3 class="tab">Sample script: increment a number</h3>
+<p class="tab">This script is one of a few that demonstrate how to do arithmetic in <b>sed</b>. This script is indeed possible, but must be done manually.</p>
+<p class="tab">To increment one number you add 1 to last digit, replacing it by the following digit. There is one exception: when the digit is a nine the previous digits must be also incremented until you don't have a nine.</p>
+<p class="tab">This solution is very clever and smart because it uses a single buffer; if you don't have this limitation, the algorithm used in <i><a href="#Numbering-Lines">Numbering Lines</a></i> is faster. It works by replacing trailing nines with an underscore, then using multiple <b>s</b> commands to increment the last digit, and then again substituting underscores with zeros.</p>
+<pre class="tab tcy">#!/usr/bin/sed -f
+/[^0-9]/ d
+# replace all leading 9s by _ (any other character except digits, could
+# be used)
+:d
+s/9\(_*\)$/_\1/
+td
+# incr last digit only.  The first line adds a most-significant
+# digit of 1 if we have to add a digit.
+#
+# The tn commands are not necessary, but make the thing
+# faster
+s/^\(_*\)$/1\1/; tn
+s/8\(_*\)$/9\1/; tn
+s/7\(_*\)$/8\1/; tn
+s/6\(_*\)$/7\1/; tn
+s/5\(_*\)$/6\1/; tn
+s/4\(_*\)$/5\1/; tn
+s/3\(_*\)$/4\1/; tn
+s/2\(_*\)$/3\1/; tn
+s/1\(_*\)$/2\1/; tn
+s/0\(_*\)$/1\1/; tn
+:n
+y/_/0/
+</pre>
+<h3 class="tab">Sample script: rename files to lowercase</h3>
+<p class="tab">This script is a pretty strange use of <b>sed</b>. We transform text, and transform it to be shell commands, then feed them to shell. Don't worry, even worse hacks are done when using <b>sed</b>. Scripts have even been written converting the output of <a href="/unix/udate.htm">date</a> into a <a href="/unix/ubc.htm">bc</a> program... So, stranger things have happened.</p>
+<p class="tab">The main body of this is the <b>sed</b> script, which remaps the name from lower to upper (or vice versa) and even checks out if the remapped name is the same as the original name. Note how the script is parameterized using shell variables and proper quoting.</p>
+<pre class="tab tcy">#! /bin/sh
+# rename files to lower/upper case...
+#
+# usage:
+#    move-to-lower *
+#    move-to-upper *
+# or
+#    move-to-lower -R .
+#    move-to-upper -R .
+#
+help()
+{
+        cat &lt;&lt; eof
+Usage: $0 [-n] [-r] [-h] files...
+-n      do nothing, only see what would be done
+-R      recursive (use find)
+-h      this message
+files   files to remap to lower case
+Examples:
+       $0 -n *        (see if everything is ok, then...)
+       $0 *
+       $0 -R .
+eof
+}
+apply_cmd='sh'
+finder='echo "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="bc98fc">[email&#160;protected]</a>" | tr " " "\n"'
+files_only=
+while :
+do
+    case "$1" in
+        -n) apply_cmd='cat' ;;
+        -R) finder='find "<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="200460">[email&#160;protected]</a>" -type f';;
+        -h) help ; exit 1 ;;
+        *) break ;;
+    esac
+    shift
+done
+if [ -z "$1" ]; then
+        echo Usage: $0 [-h] [-n] [-r] files...
+        exit 1
+fi
+LOWER='abcdefghijklmnopqrstuvwxyz'
+UPPER='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+case &#96;basename $0&#96; in
+        *upper*) TO=$UPPER; FROM=$LOWER ;;
+        *)       FROM=$UPPER; TO=$LOWER ;;
+esac
+eval $finder | sed -n '
+# remove all trailing slashes
+s/\/*$//
+# add ./ if there is no path, only a file name
+/\//! s/^/.\//
+# save path+file name
+h
+# remove path
+s/.*\///
+# do conversion only on file name
+y/'$FROM'/'$TO'/
+# now line contains original path+file, while
+# hold space contains the new file name
+x
+# add converted file name to line, which now contains
+# path/file-name\nconverted-file-name
+G
+# check if converted file name is equal to original file name,
+# if it is, do not print nothing
+/^.*\/\(.*\)\n\1/b
+# now, transform path/fromfile\n, into
+# mv path/fromfile path/tofile and print it
+s/^\(.*\/\)\(.*\)\n\(.*\)$/mv "\1\2" "\1\3"/p
+' | $apply_cmd
+</pre>
+<h3 class="tab">Sample script: print bash environment</h3>
+<p class="tab">This script strips the definition of the shell functions from the output of the <a href="/unix/uset.htm">set</a> command in the <a href="/unix/ubash.htm">Bourne-Again shell</a> (bash).</p>
+<pre class="tab tcy">#!/bin/bash
+set | sed -n '
+:x
+# if no occurrence of &lsquo;=()&rsquo; print and load next line
+/=()/! { p; b; }
+/ () $/! { p; b; }
+# possible start of functions section
+# save the line in case this is a var like FOO="() "
+h
+# if the next line has a brace, we quit because
+# nothing comes after functions
+n
+/^{/ q
+# print the old line
+x; p
+# work on the new line now
+x; bx
+'</pre>
+<h3 class="tab">Sample script: reverse characters of lines</h3>
+<p class="tab">This script can reverse the position of characters in lines. The technique moves two characters at a time, hence it is faster than more intuitive implementations.</p>
+<p class="tab">Note the <b>tx</b> command before the definition of the label. This command is often needed to reset the flag that is tested by the <b>t</b> command.</p>
+<pre class="tab tcy">#!/usr/bin/sed -f
+/../! b
+# Reverse a line.  Begin embedding the line between two newlines
+s/^.*$/\
+&amp;\
+/
+# Move first character at the end.  The regexp matches until
+# there are zero or one characters between the markers
+tx
+:x
+s/\(\n.\)\(.*\)\(.\n\)/\3\2\1/
+tx
+# Remove the newline markers
+s/\n//g
+</pre>
+<h3 class="tab">Sample script: reverse lines of files</h3>
+<p class="tab">This one begins a series of totally useless (yet interesting) scripts emulating various Unix commands. This, in particular, is a <a href="/unix/tac.htm">tac</a> workalike.</p>
+<p class="tab">Note that on implementations other than GNU <b>sed</b> this script might easily overflow internal buffers.</p>
+<pre class="tab tcy">#!/usr/bin/sed -nf
+# reverse all lines of input, i.e., first line became last, ...
+# from the second line, the buffer (which contains all previous lines)
+# is *appended* to current line, so, the order will be reversed
+1! G
+# on the last line we're done -- print everything
+$ p
+# store everything on the buffer again
+h
+</pre>
+<h3 class="tab" id="Numbering-Lines">Sample script: numbering lines</h3>
+<p class="tab">This script replaces &lsquo;<b>cat -n</b>&rsquo;; in fact it formats its output exactly like GNU <a href="/unix/ucat.htm">cat</a> does.</p>
+<p class="tab">Of course this is completely useless for two reasons: first, because somebody else did it in C (the <b>cat</b> command), and second, because the following Bourne-shell script could be used for the same purpose and would be much faster:</p>
+<pre class="tab tcy">#! /bin/sh
+sed -e "=" <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5b7f1b">[email&#160;protected]</a> | sed -e '
+  s/^/      /
+  N
+  s/^ *\(......\)\n/\1  /
+'
+</pre>
+<p class="tab">It uses <b>sed</b> to print the line number, then groups lines two by two using <b>N</b>. Of course, this script does not teach as much as the one presented below.</p>
+<p class="tab">The <a href="/jargon/a/algorith.htm">algorithm</a> used for incrementing uses both buffers, so the line is printed as soon as possible and then discarded. The number is split so that changing digits go in a buffer and unchanged ones go in the other; the changed digits are modified in a single step (using a <b>y</b> command). The line number for the next line is then composed and stored in the hold space, to be used in the next <a href="/jargon/i/iteration.htm">iteration</a>.</p>
+<pre class="tab tcy">#!/usr/bin/sed -nf
+# Prime the pump on the first line
+x
+/^$/ s/^.*$/1/
+# Add the correct line number before the pattern
+G
+h
+# Format it and print it
+s/^/      /
+s/^ *\(......\)\n/\1  /p
+# Get the line number from hold space; add a zero
+# if we're going to add a digit on the next line
+g
+s/\n.*$//
+/^9*$/ s/^/0/
+# separate changing/unchanged digits with an x
+s/.9*$/x&amp;/
+# keep changing digits in hold space
+h
+s/^.*x//
+y/0123456789/1234567890/
+x
+# keep unchanged digits in pattern space
+s/x.*$//
+# compose the new number, remove the newline implicitly added by G
+G
+s/\n//
+h
+</pre>
+<h3 class="tab">Sample script: numbering non-blank lines</h3>
+<p class="tab">Emulating &lsquo;<b>cat -b</b>&rsquo; is almost the same as &lsquo;<b>cat -n</b>&rsquo;: we only have to select which lines are to be numbered and which are not.</p>
+<p class="tab">The part that is common to this script and the previous one is not commented to show how important it is to comment <b>sed</b> scripts properly...</p>
+<pre class="tab tcy">#!/usr/bin/sed -nf
+/^$/ {
+  p
+  b
+}
+# Same as cat -n from now
+x
+/^$/ s/^.*$/1/
+G
+h
+s/^/      /
+s/^ *\(......\)\n/\1  /p
+x
+s/\n.*$//
+/^9*$/ s/^/0/
+s/.9*$/x&amp;/
+h
+s/^.*x//
+y/0123456789/1234567890/
+x
+s/x.*$//
+G
+s/\n//
+h
+</pre>
+<h3 class="tab">Sample script: counting characters</h3>
+<p class="tab">This script shows another way to do arithmetic with <b>sed</b>. In this case, we have to add possibly large numbers, so implementing this by successive increments would not be feasible (and possibly even more complicated to contrive than this script).</p>
+<p class="tab">The approach is to map numbers to letters, kind of an abacus implemented with <b>sed</b>. &lsquo;<b>a</b>'s are units, &lsquo;<b>b</b>'s are tens and so on: we add the number of characters on the current line as units, and then propagate the carry to tens, hundreds, and so on.</p>
+<p class="tab">As usual, running totals are kept in hold space.</p>
+<p class="tab">On the last line, we convert the abacus form back to decimal. For the sake of variety, this is done with a loop rather than with some <b>80 s</b> commands: first we convert units, removing &lsquo;<b>a</b>'s from the number; then we rotate letters so that tens become &lsquo;<b>a</b>'s, and so on until no more letters remain.</p>
+<pre class="tab tcy">#!/usr/bin/sed -nf
+# Add n+1 a's to hold space (+1 is for the newline)
+s/./a/g
+H
+x
+s/\n/a/
+# Do the carry.  The t's and b's are not necessary,
+# but they do speed up the thing
+t a
+: a;  s/aaaaaaaaaa/b/g; t b; b done
+: b;  s/bbbbbbbbbb/c/g; t c; b done
+: c;  s/cccccccccc/d/g; t d; b done
+: d;  s/dddddddddd/e/g; t e; b done
+: e;  s/eeeeeeeeee/f/g; t f; b done
+: f;  s/ffffffffff/g/g; t g; b done
+: g;  s/gggggggggg/h/g; t h; b done
+: h;  s/hhhhhhhhhh//g
+: done
+$! {
+  h
+  b
+}
+# On the last line, convert back to decimal
+: loop
+/a/! s/[b-h]*/&amp;0/
+s/aaaaaaaaa/9/
+s/aaaaaaaa/8/
+s/aaaaaaa/7/
+s/aaaaaa/6/
+s/aaaaa/5/
+s/aaaa/4/
+s/aaa/3/
+s/aa/2/
+s/a/1/
+: next
+y/bcdefgh/abcdefg/
+/[a-h]/ b loop
+p
+</pre>
+<h3 class="tab">Sample script: counting words</h3>
+<p class="tab">This script is almost the same as the previous one, once each of the words on the line is converted to a single &lsquo;<b>a</b>&rsquo; (in the previous script each letter was changed to an &lsquo;<b>a</b>&rsquo;).</p>
+<p class="tab">It is interesting that real <a href="/unix/uwc.htm">wc</a> programs have optimized loops for &lsquo;<b>wc -c</b>&rsquo;, so they are much slower at counting words rather than characters. This script's bottleneck, instead, is arithmetic, and hence the word-counting one is faster (it has to manage smaller numbers).</p>
+<p class="tab">Again, the common parts are not commented to show the importance of commenting <b>sed</b> scripts.</p>
+<pre class="tab tcy">#!/usr/bin/sed -nf
+# Convert words to a's
+s/[ tab][ tab]*/ /g
+s/^/ /
+s/ [^ ][^ ]*/a /g
+s/ //g
+# Append them to hold space
+H
+x
+s/\n//
+# From here on it is the same as in wc -c.
+/aaaaaaaaaa/! bx;   s/aaaaaaaaaa/b/g
+/bbbbbbbbbb/! bx;   s/bbbbbbbbbb/c/g
+/cccccccccc/! bx;   s/cccccccccc/d/g
+/dddddddddd/! bx;   s/dddddddddd/e/g
+/eeeeeeeeee/! bx;   s/eeeeeeeeee/f/g
+/ffffffffff/! bx;   s/ffffffffff/g/g
+/gggggggggg/! bx;   s/gggggggggg/h/g
+s/hhhhhhhhhh//g
+:x
+$! { h; b; }
+:y
+/a/! s/[b-h]*/&amp;0/
+s/aaaaaaaaa/9/
+s/aaaaaaaa/8/
+s/aaaaaaa/7/
+s/aaaaaa/6/
+s/aaaaa/5/
+s/aaaa/4/
+s/aaa/3/
+s/aa/2/
+s/a/1/
+y/bcdefgh/abcdefg/
+/[a-h]/ by
+p
+</pre>
+<h3 class="tab">Sample script: counting lines</h3>
+<p class="tab">Sed gives us &lsquo;<b>wc -l</b>&rsquo; functionality for free. Here is the code:</p>
+<pre class="tab tcy">#!/usr/bin/sed -nf
+$=
+</pre>
+<h3 class="tab">Sample script: printing the first lines</h3>
+<p class="tab">This script is probably the simplest useful <b>sed</b> script. It displays the first 10 lines of input; the number of displayed lines is right before the <b>q</b> command.</p>
+<pre class="tab tcy">#!/usr/bin/sed -f
+10q
+</pre>
+<h3 class="tab" id="sample">Sample script: printing the last lines</h3>
+<p class="tab">Printing the last <i>n</i> lines rather than the first is more complex but indeed possible. The <i>n</i> is encoded in the second line, before the bang ("<b>!</b>") character.</p>
+<p class="tab">This script is similar to the <b>tac</b> script (above) in that it keeps the final output in the hold space and prints it at the end:</p>
+<pre class="tab tcy">#!/usr/bin/sed -nf
+1! {; H; g; }
+1,10 !s/[^\n]*\n//
+$p
+h
+</pre>
+<p class="tab">Mainly, the scripts keeps a window of 10 lines and slides it by adding a line and deleting the oldest (the substitution command on the second line works like a <b>D</b> command but does not restart the loop).</p>
+<p class="tab">The "sliding window" technique is a very powerful way to write efficient and complex <b>sed</b> scripts, because commands like <b>P</b> would require a lot of work if implemented manually.</p>
+<p class="tab">To introduce the technique, which is fully demonstrated in the rest of this chapter and is based on the <b>N</b>, <b>P</b> and <b>D</b> commands, here is an implementation of <a href="/unix/utail.htm">tail</a> using a simple "sliding window."</p>
+<p class="tab">This looks complicated but in fact the working concept is the same as the last script: after we have kicked in the appropriate number of lines, however, we stop using the hold space to keep inter-line state, and instead use <b>N</b> and <b>D</b> to slide pattern space by one line:</p>
+<pre class="tab tcy">#!/usr/bin/sed -f
+1h
+2,10 {; H; g; }
+$q
+1,9d
+N
+D
+</pre>
+<p class="tab">Note how the first, second and fourth line are inactive after the first ten lines of input. After that, all the script does is: exiting on the last line of input, appending the next input line to pattern space, and removing the first line.</p>
+<h3 class="tab">Sample script: make duplicate lines unique</h3>
+<p class="tab">This script is an example of the art of using the <b>N</b>, <b>P</b> and <b>D</b> commands, probably the most difficult to master.</p>
+<pre class="tab tcy">#!/usr/bin/sed -f
+h
+:b
+# On the last line, print and exit
+$b
+N
+/^\(.*\)\n\1$/ {
+    # The two lines are identical.  Undo the effect of
+    # the n command.
+    g
+    bb
+}
+# If the N command had added the last line, print and exit
+$b
+# The lines are different; print the first and go
+# back working on the second.
+P
+D
+</pre>
+<p class="tab">As you can see, we maintain a 2-line window using <b>P</b> and <b>D</b>. This technique is often used in advanced <b>sed</b> scripts.</p>
+<h3 class="tab">Sample script: print duplicated lines of input</h3>
+<p class="tab">This script prints only duplicated lines, like &lsquo;<b><a href="/unix/uuniq.htm">uniq</a> -d</b>&rsquo;.</p>
+<pre class="tab tcy">#!/usr/bin/sed -nf
+$b
+N
+/^\(.*\)\n\1$/ {
+    # Print the first of the duplicated lines
+    s/.*\n//
+    p
+    # Loop until we get a different line
+    :b
+    $b
+    N
+    /^\(.*\)\n\1$/ {
+        s/.*\n//
+        bb
+    }
+}
+# The last line cannot be followed by duplicates
+$b
+# Found a different one.  Leave it alone in the pattern space
+# and go back to the top, hunting its duplicates
+D
+</pre>
+<h3 class="tab">Sample script: remove all duplicated lines</h3>
+<p class="tab">This script prints only unique lines, like &lsquo;<b>uniq -u</b>&rsquo;.</p>
+<pre class="tab tcy">#!/usr/bin/sed -f
+# Search for a duplicate line --- until that, print what you find.
+$b
+N
+/^\(.*\)\n\1$/ ! {
+    P
+    D
+}
+:c
+# Got two equal lines in pattern space.  At the
+# end of the file we exit
+$d
+# Else, we keep reading lines with N until we
+# find a different one
+s/.*\n//
+N
+/^\(.*\)\n\1$/ {
+    bc
+}
+# Remove the last instance of the duplicate line
+# and go back to the top
+D
+</pre>
+<h3 class="tab">Sample script: squeezing blank lines</h3>
+<p class="tab">As a final example, here are three scripts, of increasing complexity and speed, that implement the same function as &lsquo;<b>cat -s</b>&rsquo;, that is squeezing blank lines.</p>
+<p class="tab">The first leaves a blank line at the beginning and end if there are some already.</p>
+<pre class="tab tcy">#!/usr/bin/sed -f
+# on empty lines, join with next
+# Note there is a star in the regexp
+:x
+/^\n*$/ {
+N
+bx
+}
+# now, squeeze all '\n', this can be also done by:
+# s/^\(\n\)*/\1/
+s/\n*/\
+/
+</pre>
+<p class="tab">This one is a bit more complex and removes all empty lines at the beginning. It does leave a single blank line at end if one was there.</p>
+<pre class="tab tcy">#!/usr/bin/sed -f
+# delete all leading empty lines
+1,/^./{
+/./!d
+}
+# on an empty line we remove it and all the following
+# empty lines, but one
+:x
+/./!{
+N
+s/^\n$//
+tx
+}
+</pre>
+<p class="tab">This removes leading and trailing blank lines. It is also the fastest. Note that loops are completely done with <b>n</b> and <b>b</b>, without relying on sed to restart the script automatically at the end of a line.</p>
+<pre class="tab tcy">#!/usr/bin/sed -nf
+# delete all (leading) blanks
+/./!d
+# get here: so there is a non empty
+:x
+# print it
+p
+# get next
+n
+# got chars? print it again, etc...
+/./bx
+# no, don't have chars: got an empty line
+:z
+# get next, if last line we finish here so no trailing
+# empty lines are written
+n
+# also empty? then ignore it, and get next... this will
+# remove ALL empty lines
+/./!bz
+# all empty lines were deleted/ignored, but we have a non empty.  As
+# what we want to do is to squeeze, insert a blank line artificially
+i\
+bx
+</pre>
+<h2 id="limitations">GNU sed's limitations (and non-limitations)</h2>
+<p class="tab">For those who want to write portable <b>sed</b> scripts, be aware that some implementations are known to limit line lengths (for the pattern and hold spaces) to be no more than 4000 bytes. The POSIX standard specifies that conforming <b>sed</b> implementations shall support at least 8192 byte line lengths. GNU <b>sed</b> has no built-in limit on line length; as long as it can allocate more (virtual) memory, you can feed or construct lines as long as you like.</p>
+<p class="tab">However, <a href="/jargon/r/recurse.htm">recursion</a> is used to handle subpatterns and indefinite repetition. This indicates the available stack space may limit the size of the buffer that can be processed by certain patterns.</p>
+<h2 id="regex">Extended regular expressions</h2>
+<p class="tab">The only difference between basic and extended regular expressions is in the behavior of a few characters: &lsquo;<b>?</b>&rsquo;, &lsquo;<b>+</b>&rsquo;, parentheses, and braces (&lsquo;<b>{}</b>&rsquo;). While basic regular expressions require these to be escaped if you want them to behave as special characters, when using extended regular expressions you must escape them if you want them to match a literal character.</p>
+<p class="tab">For example:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><b>abc?</b></td>
+<td>Becomes &lsquo;<b>abc\?</b>&rsquo; when using extended regular expressions. It matches the literal string &lsquo;<b>abc?</b>&rsquo;.</td>
+</tr>
+<tr class="tcw">
+<td><b>c</b><b>\+</b></td>
+<td>Becomes &lsquo;<i>c</i><b>+</b>&rsquo; when using extended regular expressions. It matches one or more &lsquo;<i>c</i>'s.</td>
+</tr>
+<tr class="tcw">
+<td><b>a\{3,\}</b></td>
+<td>Becomes &lsquo;<b>a{3,}</b>&rsquo; when using extended regular expressions. It matches three or more &lsquo;<b>a</b>'s.</td>
+</tr>
+<tr class="tcw">
+<td><b>\(abc\)\{2,3\}</b></td>
+<td>Becomes &lsquo;<b>(abc){2,3}</b>&rsquo; when using extended regular expressions. It matches either &lsquo;<b>abcabc</b>&rsquo; or &lsquo;<b>abcabcabc</b>&rsquo;.</td>
+</tr>
+<tr class="tcw">
+<td><b>\(abc*\)\1</b></td>
+<td>Becomes &lsquo;<b>(abc*)\1</b>&rsquo; when using extended regular expressions. Backreferences must still be escaped when using extended regular expressions.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">sed G myfile.txt &gt; newfile.txt</pre>
+<p class="tab">Double-spaces the contents of file <b>myfile.txt</b>, and writes the output to the file <b>newfile.txt</b>.</p>
+<pre class="tcy tab">sed = myfile.txt | sed 'N;s/\n/\. /'</pre>
+<p class="tab">Prefixes each line of <b>myfile.txt</b> with a line number, a period, and a space, and displays the output.</p>
+<pre class="tcy tab">sed 's/test/example/g' myfile.txt &gt; newfile.txt</pre>
+<p class="tab">Searches for the word "<b>test</b>" in <b>myfile.txt</b> and replaces every occurrence with the word "<b>example</b>".</p>
+<pre class="tcy tab">sed -n '$=' myfile.txt</pre>
+<p class="tab">Counts the number of lines in <b>myfile.txt</b> and displays the results.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uawk.htm"><b>awk</b></a> &mdash; Interpreter for the AWK text processing programming language.<br><a href="/unix/ued.htm"><b>ed</b></a> &mdash; A simple text editor.<br><a href="/unix/ugrep.htm"><b>grep</b></a> &mdash; Filter text which matches a regular expression.<br><a href="/unix/replace.htm"><b>replace</b></a> &mdash; A string-replacement utility.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a834a7d95c3ed',m:'ubCjMlRSAEw2lUANfmjYrdiDUoZJSMPlau_XL1.dliA-1661495364-0-AX3NJqFo3/qYYzs79JcfaY5gU9g4HPRFJhSAHc9urKOgOpV4rxPuAEv7lAUmdSPtOP56ZjRVg+PPy4HZ1ddYFmtL8zSdGijZHjcUq/1tuxYTZAHj0fxYblu46seUTPHtJg==',s:[0xd04c2c4b0d,0xed2da54040],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

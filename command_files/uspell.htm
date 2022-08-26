@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux spell command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/spell.gif" width="300" height="300" alt="spell command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>spell</b> command is a spell-checking program which scans a <a href="/jargon/t/textfile.htm">text file</a> for misspelled words, and prints each misspelled word on its own line.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>spell</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#spell">Spell and ispell</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>spell</b> is a very minimalistic spell-checking program, based on the original <a href="/jargon/u/unix.htm">UNIX</a> spell checker. It reads the contents of file <i>FILE</i>, word for word, checking them against its dictionary. If a word does not correspond with any of <b>spell</b>'s dictionary words, the word is printed.</p>
+<p class="tab">If an input <i>FILE</i> is not specified, or is specified as a dash ("<b>-</b>"), <b>spell</b> performs a spell check of <a href="/jargon/s/stdin.htm">standard input</a>.</p>
+<h2 id="spell">Spell and ispell</h2>
+<p class="tab"><b>spell</b> is essentially a <a href="/jargon/w/wrapper.htm">wrapper</a> for the much more complex <b>ispell</b> utility. However, unlike <b>ispell</b> (or the very similar GNU program, <a href="/unix/aspell.htm"><b>aspell</b></a>), <b>spell</b> does not make any spelling suggestions. It only reports which words were misspelled.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">spell [<i>OPTIONS</i>] <i>FILE</i> ...</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:310px"><b>-I</b>, <b>--ispell-version</b></td>
+<td>Print the version number of <b>ispell</b>, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Print the version number of <b>spell</b>, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b>, <b>--british</b></td>
+<td>Instead of an American English dictionary, use the British English dictionary, if it's available.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>FILE</i>, <b>--dictionary=</b><i>FILE</i></td>
+<td>Use <i>FILE</i> as a personal dictionary file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display a help summary, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--ispell=</b><i>PROGRAM</i></td>
+<td>Use <i>PROGRAM</i> as the <b>ispell</b> <a href="/jargon/e/execfile.htm">executable</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b> <i>DICTIONARY</i>,<br><b>--ispell-dictionary=</b><i>DICTIONARY</i></td>
+<td>Use dictionary file <i>DICTIONARY</i> as the <b>ispell</b> dictionary.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>, <b>--all-chains</b></td>
+<td>(Ignored, but included for compatibility reasons.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--number</b></td>
+<td>Print line numbers. (For each misspelled word, also print the number of the line it was in.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--print-file-name</b></td>
+<td>Print <a href="/jargon/f/filename.htm">file names</a>. (For each misspelled word, also print the name of the file it was in.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>FILE</i>, <b>--stop-list=</b><i>FILE</i></td>
+<td>(Ignored, but included for compatibility reasons.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>When a word is not found in its literal form in the dictionary, it is printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b>, <b>--print-stems</b></td>
+<td>(Ignored, but included for compatibility reasons.)</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">spell -on words.txt words2.txt</pre>
+<p class="tab">Checks the spelling of files <b>words.txt</b> and <b>words2.txt</b>, printing the file name (<b>-o</b>) and the line number (<b>-n</b>) of each misspelled word. Output resembles the following:</p>
+<pre class="tab">words.txt:1: Thisz
+words.txt:2: fyle
+words.txt:5: haz
+words.txt:13: miztakes
+words.txt:16: innit
+words2.txt:1: Mannny
+words2.txt:1: wordsis
+words2.txt:4: aree
+words2.txt:6: miszpelleds
+words2.txt:19: inthis
+words2.txt:21: fyyle
+words2.txt:42: allso</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/uderoff.htm"><b>deroff</b></a> &mdash; Remove <b>nroff</b>/<b>troff</b>, <b>tbl</b>, and <b>eqn</b> constructs from files.<br><a href="/unix/ueqn.htm"><b>eqn</b></a> &mdash; Language processor for describing equations.<br><a href="/unix/usort.htm"><b>sort</b></a> &mdash; Sort the lines in a text file.<br><a href="/unix/utbl.htm"><b>tbl</b></a> &mdash; Preprocessor which formats tables for <b>nroff</b> or <b>troff</b>.<br><a href="/unix/utroff.htm"><b>troff</b></a> &mdash; Typeset or format documents for terminal display or line-printer.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a835559e384bc',m:'WW3yNfR6DaauP6B42ChyZEZ3FPfC8poeGN5.fWSwQzA-1661495365-0-AZB5E2IVeeh7eQVTjnAOXEoq6P5z0Zh8SVAfdmgN+Jkdnn4KAKd/8PrITaz5aycv68pPzQu/eF6s8/UmnP3dRQPBt0JiRFKP9aWVmzZMH/bd663MZQGv//CLodCGt7y5IA==',s:[0xb2e6ea0be4,0xea74ef7cf2],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

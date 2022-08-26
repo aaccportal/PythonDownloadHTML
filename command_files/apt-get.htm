@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux apt-get command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-02-01">02/01/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/apt-get.gif" width="300" height="300" alt="apt-get command" class="floatRight"><p class="intro">On Linux <a href="/jargon/o/os.htm">operating systems</a> that use the <a href="/jargon/a/apt.htm">APT</a> package management system, the <b>apt-get</b> command is used to install, remove, and perform other operations on installed software <a href="/jargon/p/package.htm">packages</a>.</p>
+<p>The <b>apt-get</b> command, and other core APT utilities, are available by default in the <a href="/jargon/d/debian.htm">Debian</a>, <a href="/jargon/u/ubuntu.htm">Ubuntu</a>, and <a href="/jargon/m/mint-linux.htm">Linux Mint</a> operating systems.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">apt-get [-asqdyfmubV] [-o=<i>config_string</i>] [-c=<i>config_file</i>] 
+        [-t=<i>target_release</i>] [-a=<i>architecture</i>] 
+        {update | upgrade | dselect-upgrade | dist-upgrade |
+        install <i>pkg</i> [{=<i>pkg_version_number</i> | /<i>target_release</i>}]... |
+        remove <i>pkg</i>... | purge <i>pkg</i>... |
+        source <i>pkg</i> [{=<i>pkg_version_number</i> | /<i>target_release</i>}]... |
+        build-dep <i>pkg</i> [{=<i>pkg_version_number</i> | /<i>target_release</i>}]... |
+        download <i>pkg</i> [{=<i>pkg_version_number</i> | /<i>target_release</i>}]... |
+        check | clean | autoclean | autoremove | {-v | --version} |
+        {-h | --<i>help</i>}}
+</pre>
+<h3 class="tab">Commands</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><b>update</b></td>
+<td>Resynchronizes the local index of packages files, updating information about new and updated packages that are available. The indexes are fetched from the location(s) specified in <b>/etc/apt/sources.list</b>.<br><br>An <b>update</b> should always be performed before an <b>upgrade</b> or <b>dist-upgrade</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>upgrade</b></td>
+<td>Installs the newest versions of all packages currently installed on the system, using the sources in <b>/etc/apt/sources.list</b>. If a package is currently installed and a new version is available, it is retrieved and upgraded. Under no circumstances are installed packages removed, or packages not already installed retrieved. New versions of currently installed packages that cannot be upgraded without changing the install status of another package will be left at their current version.<br><br>An <b>update</b> should always be performed first so that apt-get knows which new versions of packages are available.</td>
+</tr>
+<tr class="tcw">
+<td><b>dist-upgrade</b></td>
+<td>In addition to performing the function of upgrade, <b>dist-upgrade</b> also intelligently handles changing dependencies with new versions of packages; apt-get has a "smart" conflict resolution system, and it attempts to upgrade the most important packages at the expense of less important ones if necessary.<br><br>The dist-upgrade command may therefore remove some packages.<br><br>The <b>/etc/apt/sources.list</b> file contains the list of locations from where package files will be retrieved. See also apt_preferences for a mechanism that overrides the general settings for individual packages.</td>
+</tr>
+<tr class="tcw">
+<td><b>dselect-upgrade</b></td>
+<td>Used in conjunction with the traditional Debian packaging front-end, <b>dselect</b>. <b>dselect-upgrade</b> follows the changes made by <b>dselect</b> to the Status field of available packages, and performs the actions necessary to achieve that state (for instance, the removal of old and the installation of new packages).</td>
+</tr>
+<tr class="tcw">
+<td><b>install</b></td>
+<td>Installs one or more packages desired for installation or upgrading. Packages are specified by their package name, not a fully qualified file name (for instance, in a Debian system, "apt-utils" would be the argument provided, not "apt-utils_0.9.7.7ubuntu4_amd64.deb"). All packages required by the package(s) specified for installation are also retrieved and installed. The <b>/etc/apt/sources.list</b> file is used to locate the desired packages.<br><br>If a hyphen is appended to the package name (with no intervening space), the identified package will be removed if it's installed. Similarly a plus sign can designate a package to install. These annotation features may be used to override decisions made by apt-get's default conflict resolution system.<br><br>A specific version of a package can be selected for installation by following the package name with an equals and the version of the package to select. This causes that specific version to be located and installed. Alternatively, a specific distribution can be selected by following the package name with a slash and the version of the distribution or the archive name ("stable", "testing", "unstable").<br><br>Both of the version selection mechanisms can downgrade packages and must be used with care. You don't want to manually remove a package that another installed package is dependent on.<br><br>If no package matches the given expression and the expression contains one of '.', '?' or '*' then it is assumed to be a <a href="/jargon/p/posix.htm">POSIX</a>-style <a href="/jargon/r/regex.htm">regular expression</a>, and it is applied to all package names in the database. Any matches are then installed (or removed). (Note that matching is done by substring; so 'lo.*' matches 'how-lo' and also 'lowest'. If this is undesired, anchor the regular expression with a '^' or '$' character, or create a more specific regular expression.</td>
+</tr>
+<tr class="tcw">
+<td><b>remove</b></td>
+<td>Identical to <b>install</b> except that packages are removed instead of installed. Note that removing a package leaves its configuration files on the system. If a plus sign is appended to the package name (with no intervening space), the identified package will be installed instead of removed.</td>
+</tr>
+<tr class="tcw">
+<td><b>purge</b></td>
+<td>Identical to <b>remove</b> except that packages are removed <i>and</i> purged (any configuration files are also deleted).</td>
+</tr>
+<tr class="tcw">
+<td><b>source</b></td>
+<td>Causes apt-get to fetch source packages. APT will examine the available packages to decide which source package to fetch. It will then find and download into the current directory the newest available version of that source package while respecting the default release, as set with the option <b>APT::Default-Release</b>, the <b>-t</b> option or per package with the pkg/release syntax.<br><br>Source packages are tracked separately from binary packages via <b>deb-src</b> lines in the <b>sources.list</b> file.<br><br>If the <b>--compile</b> option is specified then the package will be compiled to a binary .deb using <b>dpkg-buildpackage</b> for the architecture as defined by the <b>--host-architecture</b> option. If <b>--download-only</b> is specified then the source package are not unpacked.<br><br>A specific source version can be retrieved by postfixing the source name with an equals and then the version to fetch, similar to the mechanism used for the package files. This enables exact matching of the source package name and version, implicitly enabling the <b>APT::Get::Only-Source</b> option.<br><br>Note that source packages are not installed and tracked in the dpkg database like binary packages; they are downloaded to the current directory, like source <a href="/jargon/t/tarball.htm">tarballs</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>build-dep</b></td>
+<td>Causes <b>apt-get</b> to install/remove packages in an attempt to satisfy the build dependencies for a source package. By default, the dependencies are satisfied to build the package natively. If desired a host architecture can be specified with the <b>--host-architecture</b> option instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>check</b></td>
+<td>A diagnostic tool; it updates the package <a href="/jargon/c/cache.htm">cache</a> and checks for broken dependencies.</td>
+</tr>
+<tr class="tcw">
+<td><b>download</b></td>
+<td>Downloads the given binary package into the current directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>clean</b></td>
+<td>Clears out the local repository of retrieved package files. It removes everything but the <a href="/jargon/l/lock.htm">lock</a> file from <b>/var/cache/apt/archives/</b> and <b>/var/cache/apt/archives/partial/</b>. When APT is used as a <b>dselect</b> method, clean is run automatically. If you don't use <b>dselect</b>, you will likely want to run <b>apt-get clean</b> from time to time to free up disk space.</td>
+</tr>
+<tr class="tcw">
+<td><b>autoclean</b></td>
+<td>Like <b>clean</b>, <b>autoclean</b> clears out the local repository of retrieved package files. The difference is that it only removes package files that can no longer be downloaded, since they are largely useless. This allows a cache to be maintained over a long period without it growing out of control. The configuration option <b>APT::Clean-Installed</b> prevents installed packages from being erased if it's set to <b>off.</b></td>
+</tr>
+<tr class="tcw">
+<td><b>autoremove</b></td>
+<td>Autoremove is used to remove packages that were automatically installed to satisfy dependencies for other packages and are now no longer needed.</td>
+</tr>
+<tr class="tcw">
+<td><b>changelog</b></td>
+<td>Downloads a package changelog and displays it through <b>sensible-pager</b>. The server name and base directory is defined in the <b>APT::Changelogs::Server</b> variable. By default, it displays the changelog for the version that is installed. However, you can specify the same options as for the install command.</td>
+</tr>
+</table>
+<h3 class="tab">Options</h3>
+<p class="tab">All command line options may be set using the configuration file; the descriptions indicate the configuration option to set. For boolean options you can override the config file using something like <b>-f-</b>,<b>--no-f</b>, or <b>-f=no</b>.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px"><b>--no-install-recommends</b></td>
+<td>Do not consider recommended packages as a dependency for installing.<br><br> Configuration Item: <b>APT::Install-Recommends</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--install-suggests</b></td>
+<td>Consider suggested packages as a dependency for installing.<br><br> Configuration Item: <b>APT::Install-Suggests</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--download-only</b></td>
+<td>Download only; package files are only retrieved, not unpacked or installed.<br><br> Configuration Item: <b>APT::Get::Download-Only</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--fix-broken</b></td>
+<td>Fix; attempt to correct a system with broken dependencies in place. This option, when used with <b>install</b>/<b>remove</b>, can omit any packages to permit APT to deduce a likely solution. If packages are specified, these have to completely correct the problem. The option is sometimes necessary when running APT for the first time; APT itself does not allow broken package dependencies to exist on a system. It is possible that a system's dependency structure can be so corrupt as to require manual intervention (which usually means using <b>dselect</b> or <b>dpkg --remove</b> to eliminate some of the offending packages). Use of this option together with <b>-m</b> may produce an error in some situations.<br><br> Configuration Item: <b>APT::Get::Fix-Broken</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b>, <b>--ignore-missing</b>,<br><b>--fix-missing</b></td>
+<td>Ignore missing packages; if packages cannot be retrieved or fail the integrity check after retrieval (corrupted package files), hold back those packages and handle the result. Use of this option together with <b>-f</b> may produce an error in some situations. If a package is selected for installation (particularly if it's mentioned on the command line) and it could not be downloaded then it will be silently held back.<br><br> Configuration Item: <b>APT::Get::Fix-Missing</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-download</b></td>
+<td>Disables downloading of packages. This is best used with <b>--ignore-missing</b> to force APT to use only the .debs it has already downloaded.<br><br> Configuration Item: <b>APT::Get::Download.</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--quiet</b></td>
+<td>Quiet; produces output suitable for logging, omitting progress indicators. More q's produce more quiet up to a maximum of 2. You can also use <b>-q=#</b> to set the quiet level, overriding the configuration file. Note that quiet level 2 implies <b>-y</b>; never use <b>-qq</b> without a no-action modifier such as <b>-d</b>, <b>--print-uris</b> or <b>-s</b> as APT may decide to do something you did not expect.<br><br> Configuration Item: <b>quiet</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--simulate</b>,<br><b>--just-print</b>, <b>--dry-run</b>,<br><b>--recon</b>, <b>--no-act</b></td>
+<td>No action; perform a simulation of events that would occur but do not actually change the system.<br><br> Configuration Item: <b>APT::Get::Simulate</b>.<br><br>Simulated runs performed as a user, automatically deactivate locking (<b>Debug::NoLocking</b>), and if the option <b>APT::Get::Show-User-Simulation-Note</b> is set (as it is by default) a notice is displayed indicating that this is only a simulation. Runs performed as root do not trigger either NoLocking or the notice; <a href="/jargon/r/root.htm">superusers</a> should know what they are doing without further warnings from <b>apt-get</b>.<br><br>
+Simulated runs print out several lines, each representing a <b>dpkg</b> operation: <b>configure</b> (<b>Conf</b>), <b>remove</b> (<b>Remv</b>) or <b>unpack</b> (<b>Inst</b>). Square brackets indicate broken packages, and empty square brackets indicate breaks that are of no consequence, which is very rare.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b>, <b>--yes</b>, <b>--assume-yes</b></td>
+<td>Automatic yes to prompts; assume "yes" as answer to all prompts and run non-interactively. If an undesirable situation, such as changing a held package, trying to install an unauthenticated package or removing an essential package occurs then apt-get will abort.<br><br> Configuration Item: <b>APT::Get::Assume-Yes</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--assume-no</b></td>
+<td>Automatic "no" to all prompts.<br><br> Configuration Item: <b>APT::Get::Assume-No</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--show-upgraded</b></td>
+<td>Show upgraded packages; print out a list of all packages that are to be upgraded.<br><br> Configuration Item: <b>APT::Get::Show-Upgraded</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--verbose-versions</b></td>
+<td>Show full versions for upgraded and installed packages.<br><br> Configuration Item: <b>APT::Get::Show-Versions</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b>, <b>--host-architecture</b></td>
+<td>This option controls the architecture packages are built for by <b>apt-get</b> source <b>--compile</b> and how cross-build dependencies are satisfied. By default, it is not set which indicates the host architecture is the same as the build architecture (which is defined by <b>APT::Architecture</b>).<br><br> Configuration Item: <b>APT::Get::Host-Architecture</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b>, <b>--compile</b>, <b>--build</b></td>
+<td>Compile source packages after downloading them.<br><br> Configuration Item: <b>APT::Get::Compile</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ignore-hold</b></td>
+<td>Ignore package holds; this causes <b>apt-get</b> to ignore a hold placed on a package. This may be useful in conjunction with <b>dist-upgrade</b> to override a large number of undesired holds.<br><br> Configuration Item: <b>APT::Ignore-Hold</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-upgrade</b></td>
+<td>Do not upgrade packages; when used in conjunction with <b>install</b>, no-upgrade prevents packages on the command line from being upgraded if they are already installed.<br><br> Configuration Item: <b>APT::Get::Upgrade</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--only-upgrade</b></td>
+<td>Do not install new packages; when used in conjunction with <b>install</b>, <b>only-upgrade</b> will install upgrades for already installed packages only and ignore requests to install new packages.<br><br> Configuration Item: <b>APT::Get::Only-Upgrade</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--force-yes</b></td>
+<td>Force yes; this is a dangerous option that causes apt to continue without prompting if it's doing something potentially harmful. It should not be used except in very special situations. <i><b>Using force-yes can potentially destroy your system!</b></i><br><br> Configuration Item: <b>APT::Get::force-yes</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--print-uris</b></td>
+<td>Instead of fetching the files to install, their <a href="/jargon/u/uri.htm">URIs</a> are printed. Each URI has the path, the destination file name, the size and the expected <a href="/jargon/h/hashing.htm">MD5 hash</a>. Note that the file name to write to will not always match the file name on the remote site! This also works with the source and update commands. When used with the update command the MD5 and size are not included, and it is up to the user to decompress any compressed files.<br><br> Configuration Item: <b>APT::Get::Print-URIs</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--purge</b></td>
+<td>Use <b>purge</b> instead of <b>remove</b> for anything that would be removed. An asterisk ("*") is displayed next to packages that are scheduled to be purged. <b>remove --purge</b> is equivalent to the <b>purge</b> command.<br><br> Configuration Item: <b>APT::Get::Purge</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--reinstall</b></td>
+<td>Reinstall packages that are already installed and at the newest version.<br><br> Configuration Item: <b>APT::Get::ReInstall</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--list-cleanup</b></td>
+<td>This option is on by default; use <b>--no-list-cleanup</b> to turn it off. When it is on, apt-get automatically manages the contents of <b>/var/lib/apt/lists</b> to ensure that obsolete files are erased. The only reason to turn it off is if you frequently change your sources list.<br><br> Configuration Item: <b>APT::Get::List-Cleanup</b>.</td>
+</tr> 
+<tr class="tcw">
+<td><b>-t</b>, <b>--target-release</b>,<br><b>--default-release</b></td>
+<td>This option controls the default input to the policy engine; it creates a default pin at priority 990 using the specified release string. This overrides the general settings in <b>/etc/apt/preferences</b>. Specifically pinned packages are not affected by the value of this option. In short, this option lets you have control over which distribution packages will be retrieved. Some common examples might be <b>-t '2.1*'</b>, <b>-t unstable</b> or <b>-t sid</b>.<br><br> Configuration Item: <b>APT::Default-Release</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--trivial-only</b></td>
+<td>Only perform operations that are 'trivial'. Logically this can be considered related to <b>--assume-yes</b>; where <b>--assume-yes</b> will answer yes to any prompt, <b>--trivial-only</b> will answer no.<br><br> Configuration Item: <b>APT::Get::Trivial-Only</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-remove</b></td>
+<td>If any packages are to be removed apt-get immediately aborts without prompting.<br><br> Configuration Item: <b>APT::Get::Remove</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--auto-remove</b></td>
+<td>If the command is either <b>install</b> or <b>remove</b>, then this option acts like running the <b>autoremove</b> command, removing unused dependency packages.<br><br> Configuration Item: <b>APT::Get::AutomaticRemove</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--only-source</b></td>
+<td>Only has meaning for the <b>source</b> and <b>build-dep</b> commands. Indicates that the given source names are not to be mapped through the binary table. This means that if this option is specified, these commands only accept source package names as arguments, rather than accepting binary package names and looking up the corresponding source package.<br><br> Configuration Item: <b>APT::Get::Only-Source</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--diff-only</b>, <b>--dsc-only</b>,<br><b>--tar-only</b></td>
+<td>Download only the diff, dsc, or tar file of a source archive.<br><br> Configuration Item: <b>APT::Get::Diff-Only</b>, <b>APT::Get::Dsc-Only</b>, and <b>APT::Get::Tar-Only</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--arch-only</b></td>
+<td>Only process architecture-dependent build-dependencies.<br><br> Configuration Item: <b>APT::Get::Arch-Only</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--allow-unauthenticated</b></td>
+<td>Ignore if packages can't be authenticated and don't prompt about it. This is useful for tools like pbuilder.<br><br> Configuration Item: <b>APT::Get::AllowUnauthenticated</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Show a short usage summary.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--version</b></td>
+<td>Show the program version.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--config-file</b></td>
+<td><i>Configuration File</i>; specify a configuration file to use. The program will read the default configuration file and then this configuration file. If configuration settings need to be set before the default configuration files are parsed specify a file with the <b>APT_CONFIG</b> environment variable. See <b>apt.conf</b> for syntax information.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--option</b></td>
+<td>Set a <i>Configuration Option</i>; this sets an arbitrary configuration option. The syntax is <b>-o Foo::Bar=bar</b>. <b>-o</b> and <b>--option</b> can be used multiple times to set different options.</td>
+</tr>
+</table>
+<h3 class="tab">Files</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:344px"><b>/etc/apt/sources.list</b></td>
+<td>Locations of where to fetch packages.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/apt/sources.list.d/</b></td>
+<td>File fragments for locations of where to fetch packages.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/apt/apt.conf</b></td>
+<td>APT configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/apt/apt.conf.d/</b></td>
+<td>APT configuration file fragments.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/apt/preferences</b></td>
+<td>Version preferences file. This is where you would specify "pinning", i.e., a preference to get certain packages from a separate source or from a different version of a distribution.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/apt/preferences.d/</b></td>
+<td>File fragments for the version preferences.</td>
+</tr>
+<tr class="tcw">
+<td><b>/var/cache/apt/archives/</b></td>
+<td>Storage area for retrieved package files.</td>
+</tr>
+<tr class="tcw">
+<td><b>/var/cache/apt/archives/partial/</b></td>
+<td>Storage area for package files in transit.</td>
+</tr>
+<tr class="tcw">
+<td><b>/var/lib/apt/lists/</b></td>
+<td>Storage area for state information for each package resource specified in <b>sources.list</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>/var/lib/apt/lists/partial/</b></td>
+<td>Storage area for state information in transit.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<div class="tip tab" role="note">
+<span class="title note">Note</span>
+<p>Many (if not most) <b>apt-get</b> operations require write access to the APT lock file, which requires <a href="/jargon/a/admin.htm">administrator</a> <a href="/jargon/p/permissi.htm">privileges</a> &mdash; so most commands listed here are prefixed with <a href="/unix/sudo.htm"><b>sudo</b></a>, and require your password.</p>
+</div>
+<pre class="tcy tab">sudo apt-get install libc6</pre>
+<p class="tab">Install <b>libc6</b>, which comprises the shared libraries of the embedded <a href="/jargon/g/gnu.htm">GNU</a> C library.</p>
+<pre class="tcy tab">sudo apt-get remove chromium</pre>
+<p class="tab">Remove <b>chromium</b>, the Chromium web browser package.</p>
+<pre class="tcy tab">sudo apt-get clean</pre>
+<p class="tab">Clean the local repository of downloaded package files, clearing disk space.</p>
+<pre class="tcy tab">apt-get download ruby</pre>
+<p class="tab">Download the archive file for the package named <b>ruby</b> into the <a href="/jargon/c/currentd.htm">current directory</a>. The file has the <b>.deb</b> extension (in this case, <b>ruby_</b><i>x</i><b>.</b><i>x</i><b>.</b><i>x</i><b>_all.deb</b>). You could then install the package manually with <a href="/unix/dpkg.htm"><b>dpkg --install</b></a>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/apt.htm"><b>apt</b></a> &mdash; A unified APT front end for the command line.<br><a href="/unix/apt-cache.htm"><b>apt-cache</b></a> &mdash; Get information about software packages available through APT.<br><a href="/unix/apt-file.htm"><b>apt-file</b></a> &mdash; Search for individual files in all available APT packages.<br><a href="/unix/apt-mark.htm"><b>apt-mark</b></a> &mdash; Change or view the settings of individual APT packages.<br><a href="/unix/aptitude.htm"><b>aptitude</b></a> &mdash; Text-based front end for the APT package management system.<br><a href="/unix/dpkg.htm"><b>dpkg</b></a> &mdash; Install, remove, and maintain Debian software packages.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82af2f7884d4',m:'ZD2hsDV27rsKpg.Ce.WLgAVLYcA_1uXwIfRSqTTIWqA-1661495339-0-AX5M9aAIdS/cbJtx8tcobIPHCfFxEloCd4UwS+aZxbXxZjV9q2TneUsxDPzIGEYym++7PzZ4dZwhXN3hvpm+vwI2R8cZgHAesjdBmjCzHwOEStehw05AjpwJuly4ESdlHDt50lBIf3BnkvQ+5BnqBu4=',s:[0x53ea9f551f,0xb2534c1f15],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

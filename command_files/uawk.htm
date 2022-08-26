@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux awk command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/awk.gif" width="300" height="300" alt="awk command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>awk</b> command runs AWK, a text-processing programming language.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of AWK, <b>gawk</b>. On Linux systems, the <b>awk</b> command is generally a <a href="/jargon/s/symblink.htm">symbolic link</a> to the <a href="/jargon/e/execfile.htm">executable</a> file <b>/usr/bin/gawk</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#arguments">Arguments</a></li>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">Short for &quot;Aho, Weinberger, and Kernighan,&quot; <b>AWK</b> is an <a href="/jargon/i/interpre.htm">interpreted</a> <a href="/jargon/p/programming-language.htm">programming language</a> which focuses on processing text.</p>
+<p class="tab">AWK was developed in the 1970s at <a href="/history/unix.htm">Bell Labs</a> by <a href="/people/alfred_aho.htm">Alfred Aho</a>, <a href="/people/peter_weinberger.htm">Peter Weinberger</a>, and <a href="/people/brian_kernighan.htm">Brian Kernighan</a>. It was designed to execute complex pattern-matching operations on streams of textual data. It makes heavy use of <a href="/jargon/s/string.htm">strings</a>, associative <a href="/jargon/a/array.htm">arrays</a>, and <a href="/jargon/r/regex.htm">regular expressions</a>, and is immensely useful for <a href="/jargon/p/parse.htm">parsing</a> system data and generating automatic reports.</p>
+<p class="tab">AWK is a direct predecessor of <a href="/jargon/p/perl.htm">Perl</a>, and is still very useful in modern systems. The <a href="/jargon/g/gnu.htm">GNU free software project</a> distributes an <a href="/jargon/o/opensour.htm">open-source</a> version of AWK called <a href="/unix/gawk.htm"><b>gawk</b></a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">awk [ -F <i>fs</i> ] [ -v var=<i>value</i> ] [ '<i>prog</i>' | -f <i>progfile</i> ] [ <i>file</i> ... ]
+</pre>
+<h2 id="arguments">Arguments</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><b>-F</b> <i>fs</i></td>
+<td>Sets the input field separator to the regular expression <i>fs</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b> <i>var</i>=<i>value</i></td>
+<td>Assigns the value <i>value</i> to the variable <i>var</i> before executing the awk program.</td>
+</tr>
+<tr class="tcw">
+<td><b>'prog'</b></td>
+<td>An <b>awk</b> program.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>progfile</i></td>
+<td>Specify a file, <i>progfile</i>, which contains the <b>awk</b> program to be executed.</td>
+</tr>
+<tr class="tcw">
+<td><i>file ...</i></td>
+<td>A file to be processed by the specified <b>awk</b> program.</td>
+</tr>
+</table>
+<h2 id="overview">Overview</h2>
+<p class="tab">Awk scans each input file for lines that match any of a set of patterns specified literally in <b>prog</b> or in one or more files specified as <b>-f progfile</b>. With each pattern, there is an associated action that will be performed when a line of a file matches the pattern. Each line is matched against the pattern portion of every pattern-action statement; the associated action is performed for each matched pattern. The file name &quot;<b>-&quot;</b> (a dash) instructs awk to read from the <a href="/jargon/s/stdin.htm">standard input</a>. The option <b>-v</b> followed by <b>var=</b><i>value</i> is an assignment to be done before <b>prog</b> is executed; any number of <b>-v</b> options may be present. The <b>-F</b> <i>fs</i> option defines the input field separator to be the <a href="/jargon/r/regex.htm">regular expression</a> <i>fs</i>.</p>
+<p class="tab">An input line is normally made up of <a href="/jargon/f/field.htm">fields</a> separated by <a href="/jargon/w/whitspac.htm">white space</a>, or by regular expression <i>fs</i>. The fields are denoted <b>$1, $2, ...</b>, while <b>$0</b> refers to the entire line. If <i>fs</i> is null, the input line is split into one field per <a href="/jargon/c/charact.htm">character</a>.</p>
+<p class="tab">A pattern-action statement has the form</p>
+<pre class="tab tcy"><i>pattern</i> { <i>action</i> }</pre>
+<p class="tab">A missing <b>{</b> <i>action</i> <b>}</b> means print the line; if no pattern is specified, it always matches. Pattern-action statements are separated by <a href="/jargon/n/newline.htm">newlines</a> or semicolons.</p>
+<p class="tab">An action is a sequence of statements. A statement can be one of the following:</p>
+<pre class="tab tcy">If( <i>expression</i> ) <i>statement</i> [ else <i>statement</i> ]
+</pre>
+<pre class="tab tcy">while( <i>expression</i> ) <i>statement</i>
+</pre>
+<pre class="tab tcy">for( <i>expression</i> ; <i>expression</i> ; <i>expression</i> ) <i>statement</i>
+</pre>
+<pre class="tab tcy">for( <i>var</i> in <i>array</i> ) <i>statement</i>
+</pre>
+<pre class="tab tcy">do <i>statement</i> while( <i>expression</i> )
+</pre>
+<pre class="tab tcy">break
+</pre>
+<pre class="tab tcy">continue
+</pre>
+<pre class="tab tcy">{ [ <i>statement</i> ... ] }
+</pre>
+<pre class="tab tcy"><i>expression</i>
+</pre>
+<pre class="tab tcy">print [ <i>expression-list</i> ] [ &gt; <i>expression</i> ]
+</pre>
+<pre class="tab tcy">printf <i>format</i> [ , <i>expression-list</i> ] [ &gt; <i>expression</i> ]
+</pre>
+<pre class="tab tcy">return [ <i>expression</i> ]
+</pre>
+<pre class="tab tcy">next
+</pre>
+<p class="tab">(skips remaining patterns on this input line)</p>
+<pre class="tab tcy">nextfile
+</pre>
+<p class="tab">(skips rest of this file, open next, start at top)</p>
+<pre class="tab tcy">delete array[ <i>expression</i> ]
+</pre>
+<p class="tab">(deletes an array element)</p>
+<pre class="tab tcy">delete array
+</pre>
+<p class="tab">(deletes all elements of array)</p>
+<pre class="tab tcy">exit [ <i>expression</i> ]
+</pre>
+<p class="tab">(exits immediately; exit status is the evaluation of <i>expression</i>)</p>
+<p class="tab">Statements are terminated by semicolons, newlines or right braces. An empty expression-list stands for <b>$0</b>. <a href="/jargon/s/string.htm">String</a> <a href="/jargon/c/constant.htm">constants</a> are quoted <b>&quot; &quot;</b>, with the usual <a href="/jargon/c/c.htm">C</a> escapes recognized within. Expressions take on string or numeric values as appropriate, and are built using the operators <b>+</b>, <b>-</b>, <b>*</b>, <b>/</b>, <b>%</b>, <b>^</b> (exponentiation), and concatenation (indicated by white space).</p>
+<p class="tab">operators <b>!</b>, <b>++</b>, <b>--</b>, <b>+=</b>, <b>-=</b>, <b>*=</b>, <b>/=</b>, <b>%=</b>, <b>^=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;</b>, <b>&lt;=</b>, <b>==</b>, <b>!=</b>, and <b>?:</b> are also available in expressions. Variables may be scalars, array elements (denoted <b>x[i]</b>) or fields. Variables are initialized to the <a href="/jargon/n/null.htm">null</a> string. Array subscripts may be any string, not necessarily numeric; this allows for a form of associative memory. Multiple subscripts such as <b>[i,j,k]</b> are permitted; the constituents are concatenated, separated by the value of <b>SUBSEP</b>.</p>
+<p class="tab">The <b>print</b> statement prints its <a href="/jargon/a/argument.htm">arguments</a> on the standard output (or on a file if <b>&gt;file</b> or <b>&gt;&gt;file</b> is present or on a <a href="/jargon/p/pipe.htm">pipe</a> if <b>|cmd</b> is present), separated by the current output field separator, and terminated by the output record separator. <b>file</b> and <b>cmd</b> may be literal names or parenthesized expressions; identical string values in different statements denote the same open file. The <b>printf</b> statement formats its expression list according to the format (see <a href="/unix/uprintf.htm">printf</a>). The built-in function <b>close(expr)</b> closes the file or pipe <b>expr</b>. The built-in function <b>fflush(expr)</b> flushes any buffered output for the file or pipe <b>expr</b>.</p>
+<p class="tab">The mathematical functions <b>exp</b>, <b>log</b>, <b>sqrt</b>, <b>sin</b>, <b>cos</b>, and <b>atan2</b> are built-in. Other built-in functions:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>length</b></td>
+<td>The length of its argument taken as a string, or of <b>$0</b> if no argument.</td>
+</tr>
+<tr class="tcw">
+<td><b>rand</b></td>
+<td>Random number between 0 and 1</td>
+</tr>
+<tr class="tcw">
+<td><b>srand</b></td>
+<td>Sets <a href="/jargon/s/seed.htm">seed</a> for <b>rand</b> and returns the previous seed.</td>
+</tr>
+<tr class="tcw">
+<td><b>int</b></td>
+<td><a href="/jargon/t/truncate.htm">Truncates</a> to an <a href="/jargon/i/integer.htm">integer</a> value</td>
+</tr>
+<tr class="tcw">
+<td><b>substr(</b><i>s</i><b>,</b> <i>m</i><b>,</b> <i>n</i><b>)</b></td>
+<td>The <i>n</i>-character <a href="/jargon/s/substring.htm">substring</a> of <i>s</i> that begins at position <i>m</i> counted from 1.</td>
+</tr>
+<tr class="tcw">
+<td><b>index(</b><i>s</i><b>,</b> <i>t</i><b>)</b></td>
+<td>The position in <i>s</i> where the string <i>t</i> occurs, or 0 if it does not.</td>
+</tr>
+<tr class="tcw">
+<td><b>match(</b><i>s</i><b>,</b> <i>r</i><b>)</b></td>
+<td>The position in <i>s</i> where the regular expression <i>r</i> occurs, or 0 if it does not. The variables <b>RSTART</b> and <b>RLENGTH</b> are set to the position and length of the matched string.</td>
+</tr>
+<tr class="tcw">
+<td><b>split(</b><i>s</i><b>,</b> <i>a</i><b>,</b> <i>fs</i><b>)</b></td>
+<td>Splits the string <i>s</i> into array elements <b>a[1], a[2], ..., a[</b><i>n</i><b>]</b>, and returns <i>n</i>. The separation is done with the regular expression <i>fs</i> or with the field separator <i>FS</i> if <i>fs</i> is not given. An empty string as field separator splits the string into one array element per character.</td>
+</tr>
+<tr class="tcw">
+<td><b>sub(</b><i>r</i><b>,</b> <i>t</i><b>,</b> <i>s</i><b>)</b></td>
+<td>Substitutes <i>t</i> for the first occurrence of the regular expression <i>r</i> in the string <i>s</i>. If <i>s</i> is not given, <b>$0</b> is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>gsub</b></td>
+<td>Same as <b>sub</b> except that all occurrences of the regular expression are replaced; <b>sub</b> and <b>gsub</b> return the number of replacements.</td>
+</tr>
+<tr class="tcw">
+<td><b>sprintf(</b><i>fmt</i><b>,</b> <i>expr</i><b>,</b> ... <b>)</b></td>
+<td>The string resulting from formatting <i>expr ...</i> according to the <b>printf</b> format <i>fmt</i></td>
+</tr>
+<tr class="tcw">
+<td><b>system(</b><i>cmd</i><b>)</b></td>
+<td>Executes <i>cmd</i> and returns its exit status</td>
+</tr>
+<tr class="tcw">
+<td><b>tolower(</b><i>str</i><b>)</b></td>
+<td>Returns a copy of <i>str</i> with all <a href="/jargon/u/uppercase.htm">uppercase</a> characters translated to their corresponding <a href="/jargon/l/lowercas.htm">lowercase</a> equivalents.</td>
+</tr>
+<tr class="tcw">
+<td><b>toupper(</b><i>str</i><b>)</b></td>
+<td>Returns a copy of <i>str</i> with all lowercase characters translated to their corresponding uppercase equivalents.</td>
+</tr>
+</table>
+<p class="tab">The function <b>getline</b> sets <b>$0</b> to the next input record from the current input file; <b>getline &lt;file</b> sets <b>$0</b> to the next record from file. <b>getline x</b> sets variable <b>x</b> instead. Finally, <b>cmd | getline</b> pipes the output of <b>cmd</b> into <b>getline</b>; each call of <b>getline</b> returns the next line of output from <b>cmd</b>. In all cases, <b>getline</b> returns <b>1</b> for a successful input, <b>0</b> for end of file, and <b>-1</b> for an error.</p>
+<p class="tab">Patterns are arbitrary <a href="/jargon/b/boolean.htm">Boolean</a> combinations (with <b>! || &amp;&amp;</b>) of regular expressions and relational expressions. Regular expressions are as defined in <b>re_format</b>. Isolated regular expressions in a pattern apply to the entire line. Regular expressions may also occur in relational expressions, using the operators <b>~</b> and <b>!~</b>. <b>/re/</b> is a constant regular expression; any string (constant or variable) may be used as a regular expression, except in the position of an isolated regular expression in a pattern.</p>
+<p class="tab">A pattern may consist of two patterns separated by a comma. Here, the action is performed for all lines from an occurrence of the first pattern though an occurrence of the second.</p>
+<p class="tab">A relational expression is one of the following:</p>
+<pre class="tab tcy"><i>expression</i> <i>matchop</i> <i>regular-expression</i></pre>
+<pre class="tab tcy"><i>expression</i> <i>relop</i> <i>expression</i></pre>
+<pre class="tab tcy"><i>expression</i> in <i>array-name</i></pre>
+<pre class="tab tcy">(<i>expr</i>,<i>expr</i>,...) in <i>array-name</i></pre>
+<p class="tab">Where a <b>relop</b> is any of the six relational operators in C, and a <b>matchop</b> is either <b>~</b> (matches) or <b>!~</b> (does not match). A <a href="/jargon/c/contstat.htm">conditional</a> is an arithmetic expression, a relational expression, or a Boolean combination of these.</p>
+<p class="tab">The special patterns <b>BEGIN</b> and <b>END</b> may be used to capture control before the first input line is read and after the last. BEGIN and END do not combine with other patterns.</p>
+<p class="tab">Variable names with special meanings:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>CONVFMT</b></td>
+<td>Conversion format used when converting numbers (default: <b>%.6g</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>FS</b></td>
+<td>Regular expression used to separate fields; also settable by option <b>-F</b><i>fs</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>NF</b></td>
+<td>Number of fields in the current record.</td>
+</tr>
+<tr class="tcw">
+<td><b>NR</b></td>
+<td>Ordinal number of the current record.</td>
+</tr>
+<tr class="tcw">
+<td><b>FNR</b></td>
+<td>Ordinal number of the current record in the current file.</td>
+</tr>
+<tr class="tcw">
+<td><b>FILENAME</b></td>
+<td>The name of the current input file.</td>
+</tr>
+<tr class="tcw">
+<td><b>RS</b></td>
+<td>Input record separator (default: newline).</td>
+</tr>
+<tr class="tcw">
+<td><b>OFS</b></td>
+<td>Output field separator (default: blank).</td>
+</tr>
+<tr class="tcw">
+<td><b>ORS</b></td>
+<td>Output record separator (default: newline).</td>
+</tr>
+<tr class="tcw">
+<td><b>OFMT</b></td>
+<td>Output format for numbers (default: <b>%.6g</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>SUBSEP</b></td>
+<td>Character to separate multiple subscripts (default: <b>034</b>, which is the <a href="/jargon/a/ascii.htm">ASCII</a> code for double quotes).</td>
+</tr>
+<tr class="tcw">
+<td><b>ARGC</b></td>
+<td>Argument count, assignable.</td>
+</tr>
+<tr class="tcw">
+<td><b>ARGV</b></td>
+<td>Argument array, assignable; non-null members are taken as file names.</td>
+</tr>
+<tr class="tcw">
+<td><b>ENVIRON</b></td>
+<td>Array of environment variables; subscripts are names.</td>
+</tr>
+</table>
+<p class="tab">Functions may be defined (at the position of a pattern-action statement) like this:</p>
+<pre class="tab tcy">function <i>foo</i>(<i>a</i>, <i>b</i>, <i>c</i>) { ...; return <i>x</i> }</pre>
+<p class="tab"><a href="/jargon/p/paramete.htm">Parameters</a> are passed by value (if <a href="/jargon/s/scalar.htm">scalar</a>) or by reference (if array name); functions may be called <a href="/jargon/r/recursive.htm">recursively</a>. Parameters are local to the function; all other variables are global. Thus local variables may be created by providing excess parameters in the function definition.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">awk 'length($0) &gt; 72' text.txt</pre>
+<p class="tab">Print only lines of the file <b>text.txt</b> that are longer than <b>72</b> characters.</p>
+<pre class="tcy tab">awk '{ print $2, $1 }' data.txt</pre>
+<p class="tab">Print first two fields of data in opposite order. For example, if the file <b>data.txt</b> contains the lines:</p>
+<pre class="tab">red apple blue berry green thumb</pre>
+<p class="tab">...then the output of the above <b>awk</b> command would be:</p>
+<pre class="tab">apple red berry blue thumb green</pre>
+<p class="tab">Most awk programs are too long to specify on the command line. If the program is saved in the file <b>prog.awk</b>, the command below.</p>
+<pre class="tcy tab">awk -f prog.awk file.txt</pre>
+<p class="tab">The above command executes the awk program in <b>prog.awk</b> to process the contents of file <b>file.txt</b>.</p>
+<p class="tab">The remainder of the examples are the awk programs themselves.</p>
+<pre class="tcy tab">{ s += $1 }
+END { print &quot;sum is&quot;, s, &quot; average is&quot;, s/NR }</pre>
+<p class="tab">This program adds up first column of its input file, and print the sum and average of the values.</p>
+<pre class="tcy tab">/start/, /stop/</pre>
+<p class="tab">This program prints all lines of text found between &quot;<b>start</b>&quot; and &quot;<b>stop</b>&quot;.</p>
+<pre class="tcy tab">BEGIN {
+for (i = 1; i &lt; ARGC; i++) printf &quot;%s &quot;, ARGV[i]
+printf &quot;\n&quot;
+exit }</pre>
+<p class="tab">This awk program simulates the <a href="/unix/uecho.htm"><b>echo</b></a> command.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/gawk.htm"><b>gawk</b></a> &mdash; GNU's version of AWK.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82b4def6c43d',m:'bYryEa_mjmi.L7cYeK0uy9M2RDylu5KpDILWfad.aJI-1661495340-0-AQb7vqgRYd7vgtp15KjVRT3VjE/wfeEt77a/XYje4QWGw+phk+1tgFmSSGx3GrsOCQICHJfRPWu5yK4zmXJmfYokdVOZwm1l4ZNjezGgELqLQ+hMIQB/TzOP3jLUjXaR+Q==',s:[0xc5f30056f8,0x7d06007760],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux traceroute command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/traceroute.gif" width="300" height="300" alt="traceroute command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>traceroute</b> command prints the route that <a href="/jargon/p/packet.htm">packets</a> take to a <a href="/jargon/n/network.htm">network</a> <a href="/jargon/h/hostcomp.htm">host</a>.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>traceroute</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#methods">List of available methods</a></li>
+<li><a href="#notes">Notes</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab">The <a href="/jargon/i/internet.htm">Internet</a> is a large and complex aggregation of network <a href="/jargon/h/hardware.htm">hardware</a>, connected together by <a href="/jargon/g/gateway.htm">gateways</a>. Tracking the route your packets follow (or finding a gateway that's discarding your packets) can be difficult. The traceroute command utilizes the <a href="/jargon/i/ip.htm">IP</a> <a href="/jargon/p/protocol.htm">protocol</a> "time to live" field and attempts to elicit an <a href="/jargon/i/icmp.htm">ICMP</a> <b>TIME_EXCEEDED</b> response from each gateway along the path to some host.</p>
+<p class="tab">The only mandatory <a href="/jargon/p/paramete.htm">parameter</a> is the destination <a href="/jargon/h/hostname.htm">hostname</a> or IP number. The default probe datagram length is 40 bytes, but this may be increased by specifying a packet size (in bytes) after the destination hostname.</p>
+<p class="tab"><b>traceroute</b> attempts to trace the route an IP packet would follow to some Internet host by launching probe packets with a small ttl (time to live) then listening for an ICMP "time exceeded" reply from a gateway. It start its probes with a ttl of one and increases this by one until it gets an ICMP "port unreachable" (or <a href="/jargon/t/tcpip.htm">TCP</a> reset), which means we got to the "host", or hit a max (which defaults to 30 <a href="/jargon/h/hops.htm">hops</a>). Three probes (by default) are sent at each ttl setting and a line is printed showing the ttl, address of the gateway and round trip time of each probe. The address can be followed by additional information when requested. If the probe answers come from different gateways, the address of each responding system will be printed. If there is no response within a 5.0 seconds (default), an "<b>*</b>" (asterisk) is printed for that probe.</p>
+<p class="tab">After the trip time, some additional annotation can be printed: <b>!H</b>, <b>!N</b>, or <b>!P</b> (host, network or protocol unreachable), <b>!S</b> (source route failed), <b>!F</b> (fragmentation needed), <b>!X</b> (communication administratively prohibited), <b>!V</b> (host precedence violation), <b>!C</b> (precedence cutoff in effect), or <b>!&lt;</b><i>num</i><b>&gt;</b> (ICMP unreachable code <b>&lt;</b><i>num</i><b>&gt;</b>). If almost all the probes result in some kind of unreachable, traceroute gives up and exit.</p>
+<p class="tab">You don't want the destination host to process the <a href="/jargon/u/udp.htm">UDP</a> probe packets, so the destination port is set to an unlikely value (you can change it with the <b>-p</b> flag). There is no such a problem for ICMP or TCP tracerouting (for TCP we use half-open technique, which prevents our probes to be seen by applications on the destination host).</p>
+<p class="tab">In the modern network environment the traditional traceroute methods cannot be always applicable, because of widespread use of <a href="/jargon/f/firewall.htm">firewalls</a>. Such firewalls filter the "unlikely" UDP ports, or even ICMP echoes. To solve this, some additional tracerouting methods are implemented (including tcp); see <a href="#methods">list of available methods</a> below. Such methods try to use particular protocol and source/destination port, to bypass firewalls (to be seen by firewalls as a start of allowed type of a network session).</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">traceroute [-46dFITUnreAV] [-f <i>first_ttl</i>] [-g <i>gate</i>,...] [-i <i>device</i>] 
+           [-m <i>max_ttl</i>] [-p <i>port</i>] [-s <i>src_addr</i>] [-q <i>nqueries</i>] 
+           [-N <i>squeries</i>] [-t <i>tos</i>] [-l <i>flow_label</i>] [-w <i>waittime</i>] 
+           [-z <i>sendwait</i>] [-UL] [-D] [-P <i>proto</i>] [--sport=<i>port</i>] [-M <i>method</i>] 
+           [-O <i>mod_options</i>] [--mtu] [--back] <i>host</i> [<i>packet_len</i>]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:140px"><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-4</b>, <b>-6</b></td>
+<td>Explicitly force <a href="/jargon/i/ipv4.htm">IPv4</a> or <a href="/jargon/i/ipv6.htm">IPv6</a> tracerouting. By default, the program will try to resolve the name given, and choose the appropriate protocol automatically. If resolving a hostname returns both IPv4 and IPv6 addresses, traceroute uses IPv4.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b></td>
+<td>Use ICMP ECHO for probes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b></td>
+<td>Use TCP SYN for probes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Enable socket level <a href="/jargon/d/debug.htm">debugging</a> (if the <a href="/jargon/k/kernel.htm">kernel</a> supports it).</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b></td>
+<td>Do not fragment probe packets. (For IPv4 it also sets DF bit, which tells intermediate routers not to fragment remotely as well).<br><br> Varying the size of the probing packet by the <b>packet_len</b> <a href="/jargon/c/commandi.htm">command-line</a> parameter, you can manually obtain information about the <a href="/jargon/m/mtu.htm">MTU</a> of individual network hops. The <b>--mtu</b> option (see below) tries to do this automatically.<br><br> Note, that non-fragmented features (like <b>-F</b> or <b>--mtu</b>) work properly since the Linux kernel 2.6.22 only. Before that version, IPv6 was always fragmented, IPv4 could use the once the discovered final mtu only (from the route <a href="/jargon/c/cache.htm">cache</a>), which can be less than the actual mtu of a device.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>first_ttl</i></td>
+<td>Specifies with what TTL to start. Defaults to 1.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b> <i>gateway</i></td>
+<td>Tells <b>traceroute</b> to add an IP source routing option to the outgoing packet that tells the network to route the packet through the specified gateway (most routers have disabled source routing for security reasons). In general, specifying multiple gateways is allowed (as a comma-separated list). For IPv6, the form of <i>num</i><b>,</b><i>addr</i><b>,</b><i>addr</i>... is allowed, where <i>num</i> is a route header type (default is type 2). (Note: the type 0 route header is now deprecated, according to <a href="/jargon/r/rfc.htm">rfc</a> 5095).</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b> <i>interface</i></td>
+<td>Specifies the interface through which traceroute should send packets. By default, the interface is selected according to the routing table.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b> <i>max_ttl</i></td>
+<td>Specifies the maximum number of hops (max time-to-live value) traceroute will probe. The default is 30.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b> <i>squeries</i></td>
+<td>Specifies the number of probe packets sent out simultaneously. Sending several probes concurrently can speed up <b>traceroute</b> considerably. The default value is <b>16</b>. Note that some routers and hosts can use ICMP rate throttling. In such a situation specifying too large number can lead to loss of some responses.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Do not try to map IP addresses to hostnames when displaying them.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>port</i></td>
+<td>For UDP tracing, specifies the destination port base traceroute uses (the destination port number will be incremented by each probe). For ICMP tracing, specifies the initial ICMP sequence value (incremented by each probe too). For TCP and others, specifies the (constant) destination port to connect. When using the <b>tcptraceroute</b> wrapper, <b>-p</b> specifies the source port.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>tos</i></td>
+<td>For IPv4, set the <a href="/jargon/t/tos.htm">TOS</a> (type of service) and precedence value. Useful values are <b>16</b> (low delay) and <b>8</b> (high throughput). Note that to use some TOS precedence values, you have to be <a href="/jargon/r/root.htm">superuser</a>. For IPv6, set the <i>Traffic Control</i> value.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b> <i>flow_label</i></td>
+<td>Use specified <i>flow_label</i> for IPv6 packets.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b> <i>waittime</i></td>
+<td>Set the time (in seconds) to wait for a response to a probe (default is <b>5.0</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b> <i>nqueries</i></td>
+<td>Sets the number of probe packets per hop. The default is <b>3</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>Bypass the normal routing tables and send directly to a host on an attached network. If the host is not on a directly-attached network, an error is returned. This option can <a href="/jargon/p/ping.htm">ping</a> a <a href="/jargon/l/locahost.htm">local host</a> through an interface with no route through it.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>source_addr</i></td>
+<td>Chooses an alternative source address. Note you must select the address of one of the interfaces. By default, the address of the outgoing interface is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b> <i>sendwait</i></td>
+<td>Minimal time interval between probes (default 0). If the value is more than 10, then it specifies a number in <a href="/jargon/m/millisec.htm">milliseconds</a>, else it is several seconds (<a href="/jargon/f/floapoin.htm">floating point</a> values allowed too). Useful when some routers use rate limit for ICMP messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b></td>
+<td>Show ICMP extensions. The general form is CLASS/TYPE: followed by a <a href="/jargon/h/hex.htm">hexadecimal</a> dump. The MPLS (Multiprotocol Label Switching) data is shown <a href="/jargon/p/parse.htm">parsed</a>, in a form: <b>MPLS:L=</b><i>label</i><b>,E=</b><i>exp_use</i><b>,S=</b><i>stack_bottom</i><b>,T=</b><i>TTL</i> (with any further objects separated by a slash ("<b>/</b>")).</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b></td>
+<td>Perform AS path lookups in routing registries and print results directly after the corresponding addresses.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b></td>
+<td>Print version information, and exit.</td>
+</tr>
+</table>
+<p class="tab">The following options are intended for an advanced usage (another trace methods etc.):</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>--sport=</b><i>port</i></td>
+<td>Chooses the source port to use. Implies <b>-N 1</b>. Normally source ports (if applicable) are chosen by the system.</td>
+</tr>
+<tr class="tcw">
+<td><b>--fwmark=</b><i>mark</i></td>
+<td>Set the firewall mark for outgoing packets (since Linux kernel 2.6.25).</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b> <i>method</i></td>
+<td>Use specified <i>method</i> for traceroute operations. Default traditional udp method is called <b>default</b>, and icmp (<b>-I</b>) and tcp (<b>-T</b>) have the names <b>icmp</b> and <b>tcp</b>, respectively. Method-specific options can be passed by <b>-O</b>. Most methods have their simple shortcuts (<b>-I</b> means <b>-M icmp</b>, etc).</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b> <i>option</i></td>
+<td>Specifies some method-specific option. Several options are separated by comma (or use several <b>-O</b> specifications on the command-line). Each method may have its own specific options, or many not have them at all. To print information about available options, use <b>-O</b> help.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b></td>
+<td>Use UDP to particular destination port for tracerouting (instead of increasing the port per each probe). Default port is <b>53</b> (dns).</td>
+</tr>
+<tr class="tcw">
+<td><b>-UL</b></td>
+<td>Use UDPLITE for tracerouting (default port is 53).</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b></td>
+<td>Use DCCP requests for probes.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b> <i>protocol</i></td>
+<td>Use raw packet of specified protocol for tracerouting. Default protocol is <b>253</b>, as per rfc3692.</td>
+</tr>
+<tr class="tcw">
+<td><b>--mtu</b></td>
+<td>Discover MTU along the path being traced. Implies <b>-F -N 1</b>. New mtu is printed once in a form of <b>F=</b><i>NUM</i> at the first probe of a hop which requires such mtu to be reached. (Actually, the correspond "frag needed" icmp message normally is sent by the previous hop). Note, that some routers might cache once the seen information on a fragmentation. Thus you can receive the final mtu from a closer hop. Try to specify an unusual tos by <b>-t</b>, this helps for one attempt (then it can be cached there as well). See <b>-F</b> option for more info.</td>
+</tr>
+<tr class="tcw">
+<td><b>--back</b></td>
+<td>Print the number of backward hops when it seems different with the forward direction. This number is guessed in assumption that remote hops send reply packets with initial ttl set to either <b>64</b>, <b>128</b> or <b>255</b> (which is a common practice). It is printed as a negative value in a form of '<b>-</b><i>NUM</i>' .</td>
+</tr>
+</table>
+<h2 id="methods">List of available methods</h2>
+<p class="tab">In general, a particular <b>traceroute</b> method may have to be chosen by "<b>-M</b> <i>name</i>", but most of the methods have their simple command-line switches (you can see them after the method name, if present).</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>default</b></td>
+<td>The traditional, ancient method of tracerouting. Used by default.<br><br> Probe packets are udp datagrams with so-called "unlikely" destination ports. The "unlikely" port of the first probe is 33434, then for each next probe it is incremented by one. Since the ports are expected to be unused, the destination host normally returns "icmp unreach port" as a final response. (Nobody knows what happens when some application listens for such ports, though).<br><br> This method is allowed for unprivileged users.</td>
+</tr>
+<tr class="tcw">
+<td><b>icmp</b>, <b>-I</b></td>
+<td>The most commonly-used method, which uses icmp echo packets for probes. If you can <a href="/jargon/p/ping.htm">ping</a> the destination host, icmp tracerouting is applicable as well.<br><br> This method may be allowed for unprivileged users since the kernel 3.0 (IPv4 only), which supports new <b>dgram</b> icmp (or "ping") sockets. To allow such sockets, sysadmin should provide net/ipv4/ping_group_range sysctl range to match any group of the user.<br><br> Options:<br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:80px"><b>raw</b></td>
+<td>Use only raw sockets (this is the traditional method). This method is tried first by default (for compatibility reasons), then new <b>dgram</b> icmp sockets as fallback.</td>
+</tr>
+<tr class="tcw">
+<td><b>dgram</b></td>
+<td>Use only <b>dgram</b> icmp sockets.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>tcp</b>, <b>-T</b></td>
+<td>Well-known modern method, intended to bypass firewalls. Uses the constant destination port (default is 80, <a href="/jargon/h/http.htm">http</a>).<br><br> If some filters are present in the network path, then most probably any "unlikely" udp ports (as for default method) or even icmp echoes (as for icmp) are filtered, and whole tracerouting will stop at such a firewall. To bypass a network filter, we have to use only allowed protocol/port combinations. If we trace for some, say, mailserver, then more likely <b>-T -p 25</b> can reach it, even when <b>-I</b> cannot.<br><br> This method uses well-known "half-open technique", which prevents applications on the destination host from seeing our probes at all. Normally, a tcp <a href="/jargon/s/syn.htm">syn</a> is sent. For non-listened ports we receive tcp reset, and all is done. For active listening ports we receive tcp syn+ack, but answer by tcp reset (instead of expected tcp ack), this way the remote tcp session is dropped even without the application ever taking notice.<br><br> The tcp method may be one of the following:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:200px"><b>syn</b>,<b>ack</b>,<b>fin</b>,<b>rst</b>,<b>psh</b>,<b>urg</b>,<b>ece</b>,<b>cwr</b></td>
+<td>Sets specified tcp flags for probe packet, in any combination.</td>
+</tr>
+<tr class="tcw">
+<td><b>flags=</b><i>num</i></td>
+<td>Sets the flags field in the tcp header exactly to <i>num</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>ecn</b></td>
+<td>Send <b>syn</b> packet with tcp flags ECE and CWR (for Explicit Congestion Notification, rfc3168).</td>
+</tr>
+<tr class="tcw">
+<td><b>sack</b>,<b>timestamps</b>,<b>window_scaling</b></td>
+<td>Use the corresponding tcp header option in the outgoing probe packet.</td>
+</tr>
+<tr class="tcw">
+<td><b>sysctl</b></td>
+<td>Use current sysctl (<b>/proc/sys/net/*</b>) setting for the tcp header options above and ecn. Always set by default, if nothing else specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>mss=</b><i>num</i></td>
+<td>Use value of <i>num</i> for <b>maxseg</b> tcp header option (when <b>syn</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>info</b></td>
+<td>Print tcp flags of final tcp replies when the target host is reached. Allows to determine whether an application listens the port and other useful things.</td>
+</tr>
+</table>
+The default tcp method is <b>syn,sysctl</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>tcpconn</b></td>
+<td>An implementation of the <b>tcp</b> method using a simple <b>connect()</b> call, which performs full tcp session opening. Not recommended for normal use, because a destination application is always affected (and can be confused).</td>
+</tr>
+<tr class="tcw">
+<td><b>udp</b>, <b>-U</b></td>
+<td>Use <b>udp</b> datagram with constant destination port (default 53, <b>dns</b>). Intended to bypass firewall as well.<br><br> Note, that unlike in <b>tcp</b> method, the corresponding application on the destination host always receive your probes (with random data), and most can easily be confused by them. In most cases it will not respond to your packets, so you never see the final hop in the trace. (DNS servers usually reply with something angry, however).<br><br> This method is allowed for unprivileged users.</td>
+</tr>
+<tr class="tcw">
+<td><b>udplite</b>, <b>-UL</b></td>
+<td>Use <b>udplite</b> datagram for probes (with constant destination port, default 53). This method is allowed for unprivileged users. Options:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:180px"><b>coverage=</b><i>num</i></td>
+<td>Set <b>udplite</b> send coverage to <i>num</i>.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>dccp</b>, <b>-D</b></td>
+<td>Use DCCP Request packets for probes (rfc4340). This method uses the same "half-open technique" as used for TCP. The default destination port is 33434. Options:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:180px"><b>service=</b><i>num</i></td>
+<td>Set DCCP service code to num (default is 1885957735).</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>raw</b>, <b>-P</b> <i>proto</i></td>
+<td>Send raw packet of protocol <i>proto</i>. No protocol-specific headers are used, IP header only. Implies <b>-N 1</b>. Options:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:200px"><b>protocol=</b><i>proto</i></td>
+<td>Use IP protocol <i>proto</i> (default <b>253</b>).</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<h2 id="notes">Notes</h2>
+<p class="tab">To speed up work, normally several probes are sent simultaneously. The downside is that this creates a "storm of packages", especially in the reply direction. Routers can throttle the rate of icmp responses, and some of replies can be lost. To avoid this, decrease the number of simultaneous probes, or even set it to <b>1</b> (like in initial <b>traceroute</b> implementation), i.e., <b>-N 1</b></p>
+<p class="tab">The final (target) host can drop some of the simultaneous probes, and might even answer only the latest ones. It can lead to extra "looks like expired" hops near the final hop. <b>traceroute</b> uses a smart algorithm to auto-detect such a situation, but if it cannot help in your case, use <b>-N 1</b>.</p>
+<p class="tab">For even greater stability, you can slow down the program's work with the <b>-z</b> option. For example, use <b>-z 0.5</b> for a half-second pause between probes.</p>
+<p class="tab">If some hops report nothing for every method, the last chance to obtain something is to use the <a href="/unix/uping.htm">ping</a> command with the <b>-R</b> option (IPv4, and for nearest 8 hops only).</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">traceroute computerhope.com</pre>
+<p class="tab">Trace the route that packets take between your system and the host named <b>computerhope.com</b>, using the default method (udp datagram, 16 simultaneous probes). The results looks similar to the following output:</p>
+<pre class="tab">traceroute to computerhope.com (166.70.10.23), 30 hops max, 60 byte packets
+ 1  176.221.87.1 (176.221.87.1)  1.474 ms  1.444 ms  1.390 ms
+ 2  f126.broadband2.quicknet.se (92.43.37.126)  10.047 ms  19.868 ms  23.156 ms
+ 3  10.5.12.1 (10.5.12.1)  24.098 ms  24.340 ms  25.311 ms
+ 4  212.247.178.9 (212.247.178.9)  25.777 ms  27.184 ms  27.625 ms
+ 5  vst-ncore-1.bundle-ether1.tele2.net (130.244.39.46)  30.632 ms  31.610 ms  32.194 ms
+ 6  kst5-core-1.bundle-ether6.tele2.net (130.244.71.178)  33.608 ms  15.274 ms  16.449 ms
+ 7  kst5-peer-1.ae0-unit0.tele2.net (130.244.205.125) 252.53 ms 11.169 ms 12.158 ms
+ 8  avk6-peer-1.ae0-unit0.tele2.net (130.244.64.71)  19.661 ms  25.765 ms  26.730 ms
+ 9  peer-as3257.avk6.tele2.net (130.244.200.106)  25.390 ms  24.863 ms xe-5-0-0.nyc30.ip4.tinet.net (89.149.181.109)  23.626 ms
+10  fortress-gw.ip4.tinet.net (216.221.158.90)  29.943 ms  31.112 ms  29.002 ms
+11  208.116.63.254 (208.116.63.254)  32.102 ms  29.862 ms  29.337 ms</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/unetstat.htm"><b>netstat</b></a> &mdash; Print information about network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.<br><a href="/unix/uping.htm"><b>ping</b></a> &mdash; Send <a href="/jargon/i/icmp.htm">ICMP</a> ECHO_REQUEST packets to network hosts.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83672a88c3fc',m:'sxDnZlGOyr332LPd1eCjLcwiaDvJGBxNaqI4FkqDV7g-1661495368-0-ATvsBEWQMwF8Y9MJCtf29awi+aL1Wp31U1pviULHhiRKRhODMnwBQdk6xJtL2BwPT1i/C/qeptV15m8hA2zGl7vSaibUJbpJEdRNAfPrnRA6SAWuZ3QYuZQxe0UbgMHGlM2v/L3qF/zFUQHSxIyvUUw=',s:[0xb02a74d43b,0x5f9af61191],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

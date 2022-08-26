@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux mount and umount</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/mount.gif" width="300" height="300" alt="mount command" class="floatRight"><p class="intro">The <b>mount</b> command <a href="/jargon/m/mount.htm">mounts</a> a <a href="/jargon/s/stordevi.htm">storage device</a> or <a href="/jargon/f/filesyst.htm">filesystem</a>, making it accessible and attaching it to an existing <a href="/jargon/d/director.htm">directory</a> structure.</p>
+<p>The <b>umount</b> command "unmounts" a mounted filesystem, informing the system to complete any pending <a href="/jargon/r/read.htm">read</a> or <a href="/jargon/w/write.htm">write</a> operations, and safely detaching it.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">mount [-lhV]</pre>
+<pre class="tcy tab">mount -a [-fFnrsvw] [-t <i>vfstype</i>] [-O <i>optlist</i>]</pre>
+<pre class="tcy tab">mount [-fnrsvw] [-o <i>option</i>[,<i>option</i>]...] <i>device</i>|<i>dir</i></pre>
+<pre class="tcy tab">mount [-fnrsvw] [-t <i>vfstype</i>] [-o <i>options</i>] <i>device</i>|<i>dir</i></pre>
+<h2>umount syntax</h2>
+<pre class="tcy tab">umount [-hV]</pre>
+<pre class="tcy tab">umount -a [-dflnrv] [-t <i>vfstype</i>] [-O <i>options</i>]</pre>
+<pre class="tcy tab">umount [-dflnrv] {<i>dir</i>|<i>device</i>}...</pre>
+<h2>Description: mount</h2>
+<p class="tab">All files accessible in <a href="/jargon/u/unix.htm">Unix</a>, or a Unix-style system such as <a href="/jargon/l/linux.htm">Linux</a>, are arranged in one big tree: the <a href="/jargon/h/hierfile.htm">file hierarchy</a>, rooted at <b>/</b>. These files can be spread out over several <a href="/jargon/d/device.htm">devices</a>. The <b>mount</b> command attaches a filesystem, on some device or other, to the file tree. Conversely, the <b>umount</b> command detaches it again.</p>
+<p class="tab">The standard form of the <b>mount</b> command is:</p>
+<pre class="tab tcy">mount -t <i>type device dir</i></pre>
+<p class="tab">This tells the <a href="/jargon/k/kernel.htm">kernel</a> to attach the filesystem found on <b>device</b> (which is of type <b>type</b>) at the directory <b>dir</b>. The previous contents (if any), <a href="/jargon/o/owner.htm">owner</a>, and <a href="/jargon/m/mode.htm">mode</a> of <b>dir</b> become invisible, and as long as this filesystem remains mounted, the <a href="/jargon/p/path.htm">pathname</a> <b>dir</b> refers to the root of the filesystem on device.</p>
+<p class="tab">If only <b>directory</b> or <b>device</b> is given, for example:</p>
+<pre class="tab tcy">mount /<i>dir</i></pre>
+<p class="tab">then <b>mount</b> looks for a corresponding mountpoint (and then, if not found, for a corresponding device) entry in the <b>/etc/fstab</b> file, and attempts to mount it.</p>
+<h2>Description: umount</h2>
+<p class="tab">The <b>umount</b> command detaches the specified file system(s) from the file hierarchy. A file system is specified by giving the directory where it was mounted. Giving the special device on which the file system lives may also work, but is an obsolete method, mainly because it fails in case this device was mounted on more than one directory.</p>
+<p class="tab">Note that a file system cannot be unmounted when it is busy - for example, when there are open files on it, or when some process has its working directory there, or when a <a href="/jargon/s/swapfile.htm">swap file</a> on it's in use. The offending process could even be <b>umount</b> itself - for example, <b>umount</b> opens the common <a href="/jargon/c/c.htm">C</a> libraries, which in turn may open (for example) locale files, which, if they are on the device in question, prevents it from being unmounted. A "lazy" <b>unmount</b> (see <b>-l</b> in the <a href="#Umount-Options">umount options section</a>, below) attempts to unmount even if this conflict arises.</p>
+<h2>Listing Mounts And Getting Help</h2>
+<p class="tab">Three forms of the <b>mount</b> command do not actually mount anything:</p>
+<pre class="tab tcy">mount -h</pre>
+<p class="tab">prints a help message, and exits;</p>
+<pre class="tab tcy">mount -V</pre>
+<p class="tab">prints <b>mount</b>'s version information, and exits;</p>
+<pre class="tab tcy">mount [-l] [-t <i>type</i>]</pre>
+<p class="tab">lists all mounted filesystems (of type <i>type</i>). The option <b>-l</b> adds labels to this listing.</p>
+<h2>Device Indication</h2>
+<p class="tab">Most devices are indicated by a file name (of a <a href="/jargon/b/block.htm">block</a> special device) like <b>/dev/sda1</b>, but there are other possibilities. For example, in the case of an <a href="/jargon/n/nfs.htm">NFS</a> mount, the device name may look like <b>hostname:/dir</b>. It is possible to indicate a block special device using its volume <b>LABEL</b> or <b><a href="/jargon/u/uuid.htm">UUID</a></b> (see the <b>-L</b> and <b>-U</b> options below).</p>
+<p class="tab">The recommended setup is to use "<b>LABEL=&lt;label&gt;</b>" or "<b>UUID=&lt;uuid&gt;</b>" tags rather than "<b>/dev/disk/by-{label,uuid}</b>" <b>udev</b> <a href="/jargon/s/symblink.htm">symlinks</a> in the <b>/etc/fstab</b> file. The tags are more readable, robust and <a href="/jargon/p/portabil.htm">portable</a>. Internally, <b>mount</b> command uses <b>udev</b> symlinks, so using symlinks in <b>/etc/fstab</b> has no advantage over "<b>LABEL=/UUID=</b>".</p>
+<p class="tab">Note that <b>mount</b> uses <b>UUID</b>s as <a href="/jargon/s/string.htm">strings</a>. The <b>UUID</b>s from <a href="/jargon/c/commandi.htm">command line</a> or <b>fstab</b> are not converted to internal <a href="/jargon/b/binary.htm">binary</a> representation. The string representation of the <b>UUID</b> should be based on lowercase <a href="/jargon/c/charact.htm">characters</a>.</p>
+<p class="tab">The <b>proc</b> filesystem is not associated with a special device, and when mounting it, an arbitrary keyword such as <b>proc</b> can be used instead of a device specification. The customary choice <b>none</b> is less fortunate: the error message "<b>none busy</b>" from <b>umount</b> can be confusing since something is indeed busy.</p>
+<h2>The Files /etc/fstab, /etc/mtab And /proc/mounts</h2>
+<p class="tab">The file <b>/etc/fstab</b> may contain lines describing what devices are usually mounted where, using which options.</p>
+<p class="tab">The command</p>
+<pre class="tab tcy">mount -a [-t <i>type</i>] [-O <i>optlist</i>]</pre>
+<p class="tab">causes all filesystems mentioned in <b>fstab</b> (of the proper type and/or having or not having the proper options) to be mounted as indicated, except for those whose line contains the <b>noauto</b> keyword. This command is often included in a <a href="/jargon/b/boot.htm">boot</a> <a href="/jargon/s/script.htm">script</a>. Adding the <b>-F</b> option makes <b>mount</b> <a href="/jargon/f/fork.htm">fork</a>, so that the filesystems are mounted simultaneously.</p>
+<p class="tab">When mounting a filesystem mentioned in <b>fstab</b> or <b>mtab</b>, it suffices to give only the device, or only the mount point. The programs <b>mount</b> and <b>umount</b> maintain a list of currently mounted filesystems in the file <b>/etc/mtab</b>. If no arguments are given to <b>mount</b>, this list is printed.</p>
+<p class="tab">The <b>mount</b> program does not read the <b>/etc/fstab</b> file if both device (or <b>LABEL</b>/<b>UUID</b>) and dir are specified. For example:</p>
+<pre class="tab tcy">mount /dev/<i>foo</i> /<i>dir</i></pre>
+<p class="tab">If you want to override mount options from <b>/etc/fstab</b>, you have to use:</p>
+<pre class="tab tcy">mount <i>device</i>|<i>dir</i> -o <i>options</i></pre>
+<p class="tab">and then the <b>mount</b> options from command line is appended to the list of options from <b>/etc/fstab</b>. If there are duplicate options, the usual behavior is that the one occurring last in the command is used.</p>
+<p class="tab">When the <b>proc</b> filesystem is mounted (at <b>/proc</b>, for instance), the files <b>/etc/mtab</b> and <b>/proc/mounts</b> have very similar contents. The former has somewhat more information, such as the <b>mount</b> options used, but is not necessarily up-to-date (compare with the <b>-n</b> option below). It is possible to replace <b>/etc/mtab</b> by a symbolic link to <b>/proc/mounts</b>. When you have very large numbers of mounts things are much faster with the symlink, but some information is lost that way; in particular, the "<b>user</b>" option fails.</p>
+<h2>Non-Superuser Mounts</h2>
+<p class="tab">Normally, only the <a href="/jargon/r/root.htm">superuser</a> can mount filesystems. However, when <b>fstab</b> contains the <b>user</b> option on a line, anybody can mount the corresponding system.</p>
+<p class="tab">Thus, given an <b>fstab</b> line</p>
+<pre class="tab">/dev/cdrom /cd iso9660 ro,user,noauto,unhide</pre>
+<p class="tab">any user can mount the <b>iso9660</b> filesystem found on a <a href="/jargon/c/cdrom.htm">CD-ROM</a>, using the command</p>
+<pre class="tab tcy">mount /dev/cdrom</pre>
+<p class="tab">or</p>
+<pre class="tab tcy">mount /cd</pre>
+<p class="tab">By default, only the user that mounted a filesystem can unmount it. If you'd like to allow any user to be able to unmount a user-mount filesystem, use "<b>users</b>" instead of "<b>user</b>" in the <b>fstab</b> line. The "<b>owner</b>" option is similar to the "<b>user</b>" option, with the restriction that the user must be the owner of the special file. This may be useful, for example, for <b>/dev/fd</b> if a login script makes the console user owner of this device. The "<b>group</b>" option is similar, with the restriction that the user must be member of the special file's owning group.</p>
+<h2>Bind Mounts</h2>
+<p class="tab">Since Linux 2.4.0, it is possible to remount part of the file hierarchy somewhere else. The call is as follows:</p>
+<pre class="tab tcy">mount --bind <i>olddir newdir</i></pre>
+<p class="tab">or, using the short option:</p>
+<pre class="tab tcy">mount -B <i>olddir newdir</i></pre>
+<p class="tab">or as an <b>fstab</b> entry:</p>
+<pre class="tab tcy">/<i>olddir</i> /<i>newdir</i> none bind</pre>
+<p class="tab">After this call the same contents is accessible in two places. One can also remount a single file (on a single file). It's also possible to use the bind mount to create a mountpoint from a regular directory, for example:</p>
+<pre class="tab tcy">mount --bind <i>foo foo</i></pre>
+<p class="tab">The bind mount call attaches only (part of) a single filesystem, not possible submounts. The entire file hierarchy including submounts is attached a second place using</p>
+<pre class="tab tcy">mount --rbind <i>olddir newdir</i></pre>
+<p class="tab">or, using the short option:</p>
+<pre class="tab tcy">mount -R <i>olddir newdir</i></pre>
+<p class="tab">Note that the filesystem mount options remains the same as those on the original mount point, and cannot be changed by passing the <b>-o</b> option with <b>--bind</b>/<b>--rbind</b>. The mount options can be changed by a separate remount command, for example:</p>
+<pre class="tab tcy">mount --bind <i>olddir newdir</i></pre>
+<pre class="tab tcy">mount -o remount,ro <i>newdir</i></pre>
+<p class="tab">Note that behavior of the remount operation depends on the <b>/etc/mtab</b> file. The first command stores the '<b>bind</b>' flag to the <b>/etc/mtab</b> file and the second command reads the flag from the file. If you have a system without the <b>/etc/mtab</b> file or if you explicitly define source and target for the remount command (then <b>mount</b> does not read <b>/etc/mtab</b>), then you have to use bind flag (or option) for the remount command too. For example:</p>
+<pre class="tab tcy">mount --bind <i>olddir newdir</i></pre>
+<pre class="tab tcy">mount -o remount,ro,bind <i>olddir newdir</i></pre>
+<h2>The Move Operation</h2>
+<p class="tab">Since Linux 2.5.1, it is possible to atomically move a mounted tree to another place. The call is:</p>
+<pre class="tab tcy">mount --move <i>olddir newdir</i></pre>
+<p class="tab">or shortoption</p>
+<pre class="tab tcy">mount -M <i>olddir newdir</i></pre>
+<p class="tab">This causes the contents which previously appeared under <b>olddir</b> to be accessed under <b>newdir</b>. The physical location of the files is not changed. Note that the <b>olddir</b> has to be a mountpoint.</p>
+<h3 class="tab">Shared Subtree Options</h3>
+<p class="tab">Since Linux 2.6.15 it is possible to mark a mount and its submounts as shared, private, secondary or unbindable. A shared mount provides ability to create mirrors of that mount such that mounts and umounts within any of the mirrors propagate to the other mirror. A secondary mount receives propagation from its primary, but any not vice-versa. A private mount carries no propagation abilities. A unbindable mount is a private mount which cannot be cloned through a bind operation. Detailed semantics is documented in Documentation/filesystems/sharedsubtree.txt file in the kernel source tree.</p>
+<pre class="tab tcy">mount --make-shared <i>mountpoint</i></pre>
+<pre class="tab tcy">mount --make-slave <i>mountpoint</i></pre>
+<pre class="tab tcy">mount --make-private <i>mountpoint</i></pre>
+<pre class="tab tcy">mount --make-unbindable <i>mountpoint</i></pre>
+<p class="tab">The following commands allows one to recursively change the type of all the mounts under a given mountpoint.</p>
+<pre class="tab tcy">mount --make-rshared <i>mountpoint</i></pre>
+<pre class="tab tcy">mount --make-rslave <i>mountpoint</i></pre>
+<pre class="tab tcy">mount --make-rprivate <i>mountpoint</i></pre>
+<pre class="tab tcy">mount --make-runbindable <i>mountpoint</i></pre>
+<h3 class="tab">mount: Command Line Options</h3>
+<p class="tab">The full set of mount options used by an invocation of <b>mount</b> is determined by first extracting the mount options for the filesystem from the <b>fstab</b> table, then applying any options specified by the <b>-o</b> argument, and finally applying a <b>-r</b> or <b>-w</b> option, when present.</p>
+<p class="tab">Options are as follows:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-V</b>, <b>--version</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--verbose</b></td>
+<td>Operate <a href="/jargon/v/verbose.htm">verbosely</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b>, <b>--all</b></td>
+<td>Mount all filesystems (of the given types) mentioned in <b>fstab</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b>, <b>--fork</b></td>
+<td>(Used in conjunction with <b>-a</b>): <a href="/jargon/f/fork.htm">fork</a> off a new incarnation of <b>mount</b> for each device. This does the mounts on different devices or different <a href="/jargon/n/nfs.htm">NFS</a> servers in <a href="/jargon/p/parallel.htm">parallel</a>. This has the advantage that it is faster; also, NFS timeouts occur in parallel. A disadvantage is that the mounts are done in undefined order. Thus, you cannot use this option if you want to mount both <b>/usr</b> and <b>/usr/spool</b> since <b>/usr</b> must be mounted first.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--fake</b></td>
+<td>Causes everything to be done except for the actual system call; in effect, this "fakes" the mounting of the filesystem. This option is useful in conjunction with the <b>-v</b> flag to determine what the mount command is trying to do. It can also be used to add entries for devices that were mounted earlier with the <b>-n</b> option. The <b>-f</b> option checks for existing record in <b>/etc/mtab</b> and fails when the record already exists (with regular non-fake mount operations, this check is done by the <a href="/jargon/k/kernel.htm">kernel</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--internal-only</b></td>
+<td>Don't call the <b>/sbin/mount.</b><i>filesystem</i> helper, even if it exists.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>Add labels to the mount output. Mount must have permission to read the disk device (e.g., be <a href="/jargon/s/suid.htm">suid</a> <a href="/jargon/r/root.htm">root</a>) for this to work. One can set such a label for <b>ext2</b>, <b>ext3</b> or <b>ext4</b> using the <b>e2label</b> utility, or for <b>XFS</b> using <b>xfs_admin</b>, or for <b>reiserfs</b> using <b>reiserfstune</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--no-mtab</b></td>
+<td>Mount without writing in <b>/etc/mtab</b>. This is necessary, for example, when <b>/etc</b> is on a <a href="/jargon/r/readonly.htm">read-only</a> filesystem.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-canonicalize</b></td>
+<td>Don't canonicalize (standardize) path names. The <b>mount</b> command canonicalizes all paths (from command line or <b>fstab</b>) and stores canonicalized paths to the <b>/etc/mtab</b> file. This option can is used with the <b>-f</b> flag for already canonicalized <a href="/jargon/a/absopath.htm">absolute paths</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--pass-fd</b> <i>num</i></td>
+<td>In case of a loop mount with <a href="/jargon/e/encrypt.htm">encryption</a>, read the passphrase from file descriptor <i>num</i> instead of from the <a href="/jargon/t/terminal.htm">terminal</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Tolerate sloppy mount options rather than failing. This option ignores mount options not supported by a filesystem type. Not all filesystems support this option. This option exists for support of the <a href="/jargon/l/linux.htm">Linux</a> <b>autofs</b>-based automounter.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--read-only</b></td>
+<td>Mount the filesystem read-only. A synonym is <b>-o ro</b>.<br><br> Note that, depending on the filesystem type, state and kernel behavior, the system may still write to the device. For example, <b>ext3</b> or <b>ext4</b> replays its <a href="/jargon/j/journal.htm">journal</a> if the filesystem is "dirty" (if there is unfinished business, such as data not yet written). To prevent this kind of write access, you may want to mount <b>ext3</b> or <b>ext4</b> filesystems with "<b>ro,noload</b>" mount options or set the block device to read-only mode, which can be achieved with the command <b>blockdev</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>, <b>--rw</b></td>
+<td>Mount the filesystem as read/write. This is the default. A synonym is <b>-o rw</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b> <i>label</i></td>
+<td>Mount the <a href="/jargon/p/partition.htm">partition</a> withthe specified <i>label</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b> <i>uuid</i></td>
+<td>Mount the partition with the specified <a href="/jargon/u/uuid.htm">UUID</a> <i>uuid</i>. These two options require the file <b>/proc/partitions</b> (present since Linux 2.1.116) to exist.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b>, <b>--types</b> <i>vfstype</i></td>
+<td>The argument following the <b>-t</b> indicates the filesystem type. The filesystem types that are currently supported include: <ul><li><a href="#FSMO-adfs"><b>adfs</b></a></li><li><b>affs</b></li><li><b>autofs</b></li><li><b>cifs</b></li><li><b>coda</b></li><li><b>coherent</b></li><li><b>cramfs</b></li><li><b>debugfs</b></li><li><a href="#FSMO-devpts"><b>devpts</b></a></li><li><b>efs</b></li><li><b>ext</b></li><li><a href="#FSMO-ext2"><b>ext2</b></a></li><li><a href="#FSMO-ext3"><b>ext3</b></a></li><li><a href="#FSMO-ext4"><b>ext4</b></a></li><li><a href="#FSMO-fat"><b>fat</b></a></li><li><a href="#FSMO-hfs"><b>hfs</b></a></li><li><b>hfsplus</b></li><li><a href="#FSMO-hpfs"><b>hpfs</b></a></li><li><a href="#FSMO-iso9660"><b>iso9660</b></a></li><li><a href="#FSMO-jfs"><b>jfs</b></a></li><li><b>minix</b></li><li><b>msdos</b></li><li><b>ncpfs</b></li><li><b>nfs</b></li><li><b>nfs4</b></li><li><a href="#FSMO-ntfs"><b>ntfs</b></a></li><li><a href="#FSMO-proc"><b>proc</b></a></li><li><b>qnx4</b></li><li><b>ramfs</b></li><li><a href="#FSMO-reiserfs"><b>reiserfs</b></a></li><li><b>romfs</b></li><li><b>squashfs</b></li><li><b>smbfs</b></li><li><b>sysv</b></li><li><a href="#FSMO-tmpfs"><b>tmpfs</b></a></li><li><a href="#FSMO-ubifs"><b>ubifs</b></a></li><li><a href="#FSMO-udf"><b>udf</b></a></li><li><b>ufs</b></li><li><b>umsdos</b></li><li><a href="#FSMO-usbfs"><b>usbfs</b></a></li><li><a href="#FSMO-vfat"><b>vfat</b></a></li><li><b>xenix</b></li><li><a href="#FSMO-xfs"><b>xfs</b></a></li><li><b>xiafs</b></li></ul> Note that <b>coherent</b>, <b>sysv</b> and <b>xenix</b> are equivalent and that <b>xenix</b> and <b>coherent</b> are removed at some point in the future &mdash; use <b>sysv</b> instead. Since kernel version 2.1.21, the types <b>ext</b> and <b>xiafs</b> do not exist anymore. Earlier, <b>usbfs</b> was known as <b>usbdevfs</b>. Note also that the complete list of all supported filesystems depends upon your kernel.<br><br> The programs <b>mount</b> and <b>umount</b> support filesystem subtypes. The subtype is defined by '<b>.subtype</b>' suffix. For example, '<b>fuse.sshfs</b>'. It's recommended to use subtype notation rather than add any prefix to the mount source (for example, '<b>sshfs#example.com</b>' is deprecated).<br><br> For most types all the <b>mount</b> program has to do is issue a simple <b>mount( )</b> system call, and no detailed knowledge of the filesystem type is required. For a few types however (like <b>nfs</b>, <b>nfs4</b>, <b>cifs</b>, <b>smbfs</b>, <b>ncpfs</b>) ad hoc code is necessary. The <b>nfs</b>, <b>nfs4</b>, <b>cifs</b>, <b>smbfs</b>, and <b>ncpfs</b> filesystems have a separate mount program. To make it possible to treat all types in a uniform way, <b>mount</b> executes the program <b>/sbin/mount.TYPE</b> (if that exists) when called with type <b>TYPE</b>. Since various versions of the <b>smbmount</b> program have different calling conventions, <b>/sbin/mount.smbfs</b> may have to be a shell script that sets up the desired call.<br><br> If no <b>-t</b> option is given, or if the <b>auto</b> type is specified, <b>mount</b> tries to guess the desired type. <b>mount</b> uses the <b>blkid</b> library for guessing the filesystem type; if that does not turn up anything that looks familiar, <b>mount</b> tries to read the file <b>/etc/filesystems</b>, or, if that does not exist, <b>/proc/filesystems</b>. All the filesystem types listed there are tried, except for those that are labeled "<b>nodev</b>" (e.g., <b>devpts</b>, <b>proc</b> and <b>nfs</b>). If <b>/etc/filesystems</b> ends in a line with a single <b>*</b> only, <b>mount</b> reads <b>/proc/filesystems</b> afterwards.<br><br> The <b>auto</b> type may be useful for user-mounted <a href="/jargon/f/floppydi.htm">floppies</a>. Creating a file <b>/etc/filesystems</b> can be useful to change the probe order (e.g., to try <b>vfat</b> before <b>msdos</b> or <b>ext3</b> before <b>ext2</b>) or if you use a kernel module autoloader.<br><br> " More than one type may be specified in a comma separated list. The list of filesystem types can be prefixed with <b>no</b> to specify the filesystem types on which no action should be taken. This can be meaningful with the <b>-a</b> option. For example, the command:<br><br><pre class="tcy">mount -a -t nomsdos,ext</pre> mounts all filesystems except those of type <b>msdos</b> and <b>ext</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b>, <b>--test-opts</b> <i>opts</i></td>
+<td>Used in conjunction with <b>-a</b>, to limit the set of filesystems that the <b>-a</b> is applied. Like <b>-t</b> in this regard except that it is useless except in the context of <b>-a</b>. For example, the command:<br><br><pre class="tcy">mount -a -O no_netdev</pre> mounts all filesystems except those which have the option <b>_netdev</b> specified in the options field in the <b>/etc/fstab</b> file.<br><br> It is different from <b>-t</b> in that each option is matched exactly; a leading <b>no</b> at the beginning of one option does not negate the rest.<br><br> The <b>-t</b> and <b>-O</b> options are cumulative in effect; that is, the command<br><br><pre class="tcy">mount -a -t ext2 -O _netdev</pre> mounts all <b>ext2</b> filesystems with the <b>_netdev</b> option, not all filesystems that are either <b>ext2</b> or have the <b>_netdev</b> option specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--options</b> <i>opts</i></td>
+<td>Options are specified with a <b>-o</b> flag followed by a comma separated string of options. For example:<br><br><pre class="tcy">mount LABEL=mydisk -o noatime,nouser</pre> For more details, see <a href="#Filesystem-Independent-Mount-Options">Filesystem Independent mount</a> and <a href="#Filesystem-Specific-Mount-Options">Filesystem Specific mount</a> sections.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b>, <b>--bind</b></td>
+<td>Remount a subtree somewhere else (so that its contents are available in both places).</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--rbind</b></td>
+<td>Remount a subtree and all possible submounts somewhere else (so that its contents are available in both places).</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b>, <b>--move</b></td>
+<td>Move a subtree to some other place.</td>
+</tr>
+</table>
+<h2 id="Filesystem-Independent-Mount-Options">Options</h2>
+<p class="tab">Some of these options are only useful when they appear in the <b>/etc/fstab</b> file.</p>
+<p class="tab">Some of these options could be enabled or disabled by default in the system kernel. To check the current setting see the options in <b>/proc/mounts</b>.</p>
+<p class="tab">The following options apply to any filesystem that is being mounted (but not every filesystem actually honors them - e.g., the <b>sync</b> option today has effect only for <b>ext2</b>, <b>ext3</b>, <b>fat</b>, <b>vfat</b> and <b>ufs</b>):</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>async</b></td>
+<td>All <a href="/jargon/i/io.htm">I/O</a> to the filesystem should be done asynchronously. See also the <b>sync</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>atime</b></td>
+<td>Do not use <b>noatime</b> feature, then the <a href="/jargon/i/inode.htm">inode</a> access time is controlled by <a href="/jargon/k/kernel.htm">kernel</a> defaults. See also the description for <b>strictatime</b> and <b>reatime</b> mount options.</td>
+</tr>
+<tr class="tcw">
+<td><b>noatime</b></td>
+<td>Do not update inode access times on this filesystem (e.g., for faster access on the news spool to speed up news servers).</td>
+</tr>
+<tr class="tcw">
+<td><b>auto</b></td>
+<td>Can be mounted with the <b>-a</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>noauto</b></td>
+<td>Can only be mounted explicitly (i.e., the <b>-a</b> option won't cause the filesystem to be mounted).</td>
+</tr>
+<tr class="tcw">
+<td><b>context=</b><i>context</i>, <b>fscontext=</b><i>context</i>, <b>defcontext=</b><i>context</i>, <b>rootcontext=</b><i>context</i></td>
+<td> The <b>context=</b> option is useful when mounting filesystems that do not support extended attributes, such as a floppy or hard disk formatted with <a href="/jargon/v/vfat.htm">VFAT</a>, or systems that are not normally running under SELinux, such as an <b>ext3</b> formatted disk from a non-SELinux <a href="/jargon/w/workstat.htm">workstation</a>. You can also use <b>context=</b> on filesystems you do not trust, such as a floppy. It also helps in compatibility with <b>xattr</b>-supporting filesystems on earlier 2.4.&lt;x&gt; kernel versions. Even where <b>xattrs</b> are supported, you can save time not having to label every file by assigning the entire disk one security context.<br><br> A commonly used option for removable media is <b>context=system_u:object_r:removable_t</b>.<br><br> Two other options are <b>fscontext=</b> and <b>defcontext=</b>, which are mutually exclusive of the <b>context</b> option. This means you can use <b>fscontext</b> and <b>defcontext</b> together, but neither can be used with context.<br><br> The <b>fscontext=</b> option works for all filesystems, regardless of their <b>xattr</b> support. The <b>fscontext</b> option sets the overarching filesystem label to a specific security context. This filesystem label is separate from the individual labels on the files. It represents the entire filesystem for certain kinds of permission checks, such as during mount or file creation. Individual file labels are still obtained from the xattrs on the files themselves. The context option actually sets the aggregate context that fscontext provides, in addition to supplying the same label for individual files.<br><br> You can set the default security context for unlabeled files using <b>defcontext=</b> option. This overrides the value set for unlabeled files in the policy and requires a filesystem that supports <b>xattr</b> labeling.<br><br> The <b>rootcontext=</b> option allows you to explicitly label the root inode of an FS being mounted before that FS or inode becomes visible to userspace. This was found to be useful for things like Red Hat stateless linux.<br><br> Note that kernel rejects any remount request that includes the context option even if unchanged from the current context.</td>
+</tr>
+<tr class="tcw">
+<td><b>defaults</b></td>
+<td>Use default options: <b>rw</b>, <b>suid</b>, <b>dev</b>, <b>exec</b>, <b>auto</b>, <b>nouser</b>, and <b>async</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>dev</b></td>
+<td>Interpret character or block special devices on the filesystem.</td>
+</tr>
+<tr class="tcw">
+<td><b>nodev</b></td>
+<td>Do not interpret character or block special devices on the file system.</td>
+</tr>
+<tr class="tcw">
+<td><b>diratime</b></td>
+<td>Update directory inode access times on this filesystem. This is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>nodiratime</b></td>
+<td>Do not update directory inode access times on this filesystem.</td>
+</tr>
+<tr class="tcw">
+<td><b>dirsync</b></td>
+<td>All directory updates in the filesystem should be done synchronously. This affects the following system calls: <b>creat</b>, <b>link</b>, <b>unlink</b>, <b>symlink</b>, <b>mkdir</b>, <b>rmdir</b>, <b>mknod</b> and <b>rename</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>exec</b></td>
+<td>Permit execution of binaries.</td>
+</tr>
+<tr class="tcw">
+<td><b>noexec</b></td>
+<td>Do not allow direct execution of any binaries on the mounted filesystem. Until recently it was possible to run binaries using a command like <b>/lib/ld*.so /mnt/binary</b>. This trick fails since Linux 2.4.25 / 2.6.0.</td>
+</tr>
+<tr class="tcw">
+<td><b>group</b></td>
+<td>Allow an ordinary (i.e., non-<a href="/jargon/r/root.htm">root</a>) user to mount the filesystem if one of his groups matches the group of the device. This option implies the options <b>nosuid</b> and <b>nodev</b> (unless overridden by subsequent options, as in the option line <b>group,dev,suid</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>encryption</b></td>
+<td>Specifies an encryption <a href="/jargon/a/algorith.htm">algorithm</a> to use. Used in conjunction with the <b>loop</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>keybits</b></td>
+<td>Specifies the key size to use for an encryption algorithm. Used in conjunction with the <b>loop</b> and <b>encryption</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>iversion</b></td>
+<td>Every time the inode is modified, the <b>i_version</b> field is incremented.</td>
+</tr>
+<tr class="tcw">
+<td><b>noiversion</b></td>
+<td>Do not increment the <b>i_version</b> inode field.</td>
+</tr>
+<tr class="tcw">
+<td><b>mand</b></td>
+<td>Allow mandatory locks on this filesystem.</td>
+</tr>
+<tr class="tcw">
+<td><b>nomand</b></td>
+<td>Do not allow mandatory locks on this filesystem.</td>
+</tr>
+<tr class="tcw">
+<td><b>_netdev</b></td>
+<td>The filesystem resides on a device that requires network access (used to prevent the system from attempting to mount these filesystems until the network is enabled on the system).</td>
+</tr>
+<tr class="tcw">
+<td><b>nofail</b></td>
+<td>Do not report errors for this device if it does not exist.</td>
+</tr>
+<tr class="tcw">
+<td><b>relatime</b></td>
+<td>Update inode access times relative to modify or change time. Access time is only updated if the previous access time was earlier than the current modify or change time. Similar to <b>noatime</b>, but doesn't breakapplications that need to know if a file is read since the last time it was modified.<br><br> Since Linux 2.6.30, the kernel defaults to the behavior provided by this option (unless <b>noatime</b> was specified), and the <b>strictatime</b> option is required to obtain traditional semantics. Also since Linux 2.6.30, the file's last access time is always updated if it's more than 1 day old.</td>
+</tr>
+<tr class="tcw">
+<td><b>norelatime</b></td>
+<td>Do not use <b>relatime</b> feature. See also the <b>strictatime</b> mount option.</td>
+</tr>
+<tr class="tcw">
+<td><b>strictatime</b></td>
+<td>Allows to explicitly requesting full <b>atime</b> updates. This makes it possible for kernel to defaults to <b>relatime</b> or <b>noatime</b>, but still allow userspace to override it. For more details about the default system mount options see <b>/proc/mounts</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>nostrictatime</b></td>
+<td>Use the kernel's default behavior for inode access time updates.</td>
+</tr>
+<tr class="tcw">
+<td><b>suid</b></td>
+<td>Allow <b>set-user-identifier</b> or <b>set-group-identifier</b> bits to take effect.</td>
+</tr>
+<tr class="tcw">
+<td><b>nosuid</b></td>
+<td>Do not allow <b>set-user-identifier</b> or <b>set-group-identifier</b> bits to take effect. This seems safe, but is in fact rather unsafe if you have <b>suidperl</b> installed.</td>
+</tr>
+<tr class="tcw">
+<td><b>silent</b></td>
+<td>Turn on the <b>silent</b> flag.</td>
+</tr>
+<tr class="tcw">
+<td><b>loud</b></td>
+<td>Turn off the <b>silent</b> flag.</td>
+</tr>
+<tr class="tcw">
+<td><b>owner</b></td>
+<td>Allow an ordinary (i.e., non-root) user to mount the filesystem if he is the owner of the device. This option implies the options <b>nosuid</b> and <b>nodev</b> (unless overridden by subsequent options, as in the option line <b>owner,dev,suid</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>remount</b></td>
+<td>Attempt to remount an already-mounted filesystem. This is commonly used to change the mount flags for a filesystem, especially to make a readonly filesystem writable. It does not change device or mount point.<br><br> The <b>remount</b> functionality follows the standard way how the <b>mount</b> command works with options from <b>fstab</b>. It means the mount command doesn't read <b>fstab</b> (or <b>mtab</b>) only when a device and dir are fully specified.<br><br><pre class="tcy">mount -o remount,rw /dev/<i>foo</i> /<i>dir</i></pre> After this call all old mount options are replaced and arbitrary stuff from <b>fstab</b> is ignored, except the <b>loop=</b> option that is internally generated and maintained by the <b>mount</b> command.<br><br><pre class="tcy">mount -o remount,rw /<i>dir</i></pre> After this call <b>mount</b> reads <b>fstab</b> (or <b>mtab</b>) and merges these options with options from command line ( <b>-o</b> ).</td>
+</tr>
+<tr class="tcw">
+<td><b>ro</b></td>
+<td>Mount the filesystem <a href="/jargon/r/readonly.htm">read-only</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>rw</b></td>
+<td>Mount the filesystem read-write.</td>
+</tr>
+<tr class="tcw">
+<td><b>sync</b></td>
+<td>All I/O to the filesystem should be done synchronously. In case of media with limited number of write cycles (e.g., some flash drives) <b>sync</b> may cause life-cycle shortening.</td>
+</tr>
+<tr class="tcw">
+<td><b>user</b></td>
+<td>Allow an ordinary user to mount the filesystem. The name of the mounting user is written to <b>mtab</b> so that he can unmount the filesystem again. This option implies the options <b>noexec</b>, <b>nosuid</b>, and <b>nodev</b> (unless overridden by subsequent options, as in the option line <b>user,exec,dev,suid</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>nouser</b></td>
+<td>Forbid an ordinary (i.e., non-root) user to mount the filesystem. This is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>users</b></td>
+<td>Allow every user to mount and unmount the filesystem. This option implies the options <b>noexec</b>, <b>nosuid</b>, and <b>nodev</b> (unless overridden by subsequent options, as in the option line <b>users,exec,dev,suid</b>).</td>
+</tr>
+</table>
+<h2 id="Filesystem-Specific-Mount-Options">Options</h2>
+<p class="tab">The following options apply only to certain filesystems. Here, they are sorted by filesystem. They all follow the <b>-o</b> flag.</p>
+<p class="tab">What options are supported depends on the running kernel. More info is found in the kernel source subdirectory <b>Documentation/filesystems</b>.</p>
+<h2 id="FSMO-adfs">Filesystem-Specific mount Options: adfs</h2>
+<p class="tab">Advanced Disc Filing System ("<b>adfs</b>") is specific to certain <a href="/jargon/r/risc.htm">RISC</a> operating systems, such as those on the Acorn MOS line of computers.</p>
+<p class="tab">Mount Options for <b>adfs</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>uid=</b><i>value</i>, <b>gid=</b><i>value</i></td>
+<td>Set the owner and group of the files in the filesystem (default: <b>uid=gid=0</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>ownmask=</b><i>value</i>, <b>othmask=</b><i>value</i></td>
+<td>Set the permission mask for ADFS 'owner' permissions and 'other' permissions, respectively (default: <b>0700</b> and <b>0077</b>, respectively). See also <b>/usr/src/linux/Documentation/filesystems/adfs.txt</b>.</td>
+</tr>
+</table>
+<h2 id="FSMO-affs">Filesystem-Specific mount Options: affs</h2>
+<p class="tab">Amiga Fast File System ("<b>affs</b>") is a filesystem used on the <a href="/jargon/a/amiga.htm">Amiga</a> personal computer.</p>
+<p class="tab">Mount options for <b>affs</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>uid=</b><i>value</i>, <b>gid=</b><i>value</i></td>
+<td>Set the owner and group of the root of the filesystem (default: <b>uid=gid=0</b>, but with option <b>uid</b> or <b>gid</b> without specified value, the uid and gid of the current process are taken).</td>
+</tr>
+<tr class="tcw">
+<td><b>setuid=</b><i>value</i>, <b>setgid=</b><i>value</i></td>
+<td>Set the owner and group of all files.</td>
+</tr>
+<tr class="tcw">
+<td><b>mode=</b><i>value</i></td>
+<td>Set the mode of all files to value <b>&amp; 0777</b> disregarding the original permissions. Add search permission to directories that have read permission. The value is given in <a href="/jargon/o/octal.htm">octal</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>protect</b></td>
+<td>Do not allow any changes to the protection bits on the filesystem.</td>
+</tr>
+<tr class="tcw">
+<td><b>usemp</b></td>
+<td>Set uid and gid of the root of the filesystem to the uid and gid of the mount point upon the first <b>sync</b> or <b>umount</b>, and then clear this option.</td>
+</tr>
+<tr class="tcw">
+<td><b>verbose</b></td>
+<td>Print an informational message for each successful mount.</td>
+</tr>
+<tr class="tcw">
+<td><b>prefix=</b><i>string</i></td>
+<td>Prefix used before volume name, when following a link.</td>
+</tr>
+<tr class="tcw">
+<td><b>volume=</b><i>string</i></td>
+<td>Prefix (of length at most 30) used before '<b>/</b>' when following a <a href="/jargon/s/symblink.htm">symbolic link</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>reserved=</b><i>value</i></td>
+<td>(Default: 2.) Number of unused blocks at the start of the device.</td>
+</tr>
+<tr class="tcw">
+<td><b>root=</b><i>value</i></td>
+<td>Give explicitly the location of the root block.</td>
+</tr>
+<tr class="tcw">
+<td><b>bs=</b><i>value</i></td>
+<td>Give blocksize. Allowed values are <b>512</b>, <b>1024</b>, <b>2048</b>, <b>4096</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>grpquota</b>|<b>noquota</b>|<b>quota</b>|<b>usrquota</b></td>
+<td>These options are accepted but ignored. (However, <a href="/jargon/d/diskqm.htm">quota</a> utilities may react to such strings in <b>/etc/fstab</b>.</td>
+</tr>
+</table>
+<h2 id="FSMO-devpts">Filesystem-Specific mount Options: devpts</h2>
+<p class="tab">The <b>devpts</b> filesystem is a pseudo-filesystem, traditionally mounted on <b>/dev/pts</b>. To acquire a pseudo terminal, a process opens <b>/dev/ptmx</b>; the number of the pseudo terminal is then made available to the process and the pseudo terminal secondary can be accessed as <b>/dev/pts/</b>&lt;<i>number</i>&gt;.</p>
+<p class="tab">Mount options for <b>devpts</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:190px"><b>uid=</b><i>value</i>, <b>gid=</b><i>value</i></td>
+<td>This sets the owner or the group of newly created PTYs to the specified values. When nothing is specified, they are set to the UID and GID of the creating process. For example, if there is a <a href="/jargon/t/tty.htm">tty</a> group with GID 5, then <b>gid=5</b> causes newly created PTYs to belong to the tty group.</td>
+</tr>
+<tr class="tcw">
+<td><b>mode=</b><i>value</i></td>
+<td>Set the mode of newly created PTYs to the specified value. The default is <b>0600</b>. A value of <b>mode=620</b> and <b>gid=5</b> makes "<b><a href="/unix/umesg.htm">mesg</a> y</b>" the default on newly created PTYs.</td>
+</tr>
+<tr class="tcw">
+<td><b>newinstance</b></td>
+<td>Create a private instance of <b>devpts</b> filesystem, such that indices of ptys allocated in this new instance are independent of indices created in other instances of <b>devpts</b>.<br><br> All mounts of <b>devpts</b> without this <b>newinstance</b> option share the same set of pty indices (i.e legacy mode). Each mount of <b>devpts</b> with the <b>newinstance</b> option has a private set of pty indices.<br><br> This option is mainly used to support containers in the linux kernel. It is implemented in linux kernel versions starting with 2.6.29. Further, this mount option is valid only if <b>CONFIG_DEVPTS_MULTIPLE_INSTANCES</b> is enabled in the kernel configuration.<br><br> To use this option effectively, <b>/dev/ptmx</b> must be a symbolic link to <b>pts/ptmx</b>. See <b>Documentation/filesystems/devpts.txt</b> in the linux kernel <a href="/jargon/s/source.htm">source</a> tree for details.</td>
+</tr>
+<tr class="tcw">
+<td><b>ptmxmode=</b><i>value</i></td>
+<td>Set the mode for the new <b>ptmx</b> device node in the <b>devpts</b> filesystem.<br><br> With the support for multiple instances of <b>devpts</b> (see <b>newinstance</b> option above), each instance has a private <b>ptmx</b> node in the root of the <b>devpts</b> filesystem (often <b>/dev/pts/ptmx</b>).<br><br> For compatibility with older versions of the kernel, the default mode of the new <b>ptmx</b> node is <b>0000</b>. <b>ptmxmode=</b><i>value</i> specifies a more useful mode for the <b>ptmx</b> node and is highly recommended when the <b>newinstance</b> option is specified.<br><br> This option is only implemented in linux kernel versions starting with 2.6.29. Further this option is valid only if <b>CONFIG_DEVPTS_MULTIPLE_INSTANCES</b> is enabled in the kernel configuration.</td>
+</tr>
+</table>
+<h2 id="FSMO-ext2">Filesystem-Specific mount Options: ext2</h2>
+<p class="tab"><b>ext2</b>, the "second extended file system", was once the default filesystem of many distributions of <a href="/jargon/l/linux.htm">Linux</a>, including <a href="/jargon/d/debian.htm">Debian</a> and <a href="/comp/redhat.htm">Red Hat</a> Linux. It has since largely been replaced by <b>ext3</b> (see below), but is still widely used, especially on flash-based <a href="/jargon/s/solistat.htm">solid-state</a> media.</p>
+<p class="tab">Mount options for <b>ext2</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px"><b>acl</b>|<b>noacl</b></td>
+<td>Support <a href="/jargon/p/posix.htm">POSIX</a> Access Control Lists (or do not).</td>
+</tr>
+<tr class="tcw">
+<td><b>bsddf</b>|<b>minixdf</b></td>
+<td>Set the behavior for the <b>statfs</b> system call. The <b>minixdf</b> behavior is to return in the <b>f_blocks</b> field the total number of blocks of the filesystem, while the bsddf behavior (which is the default) is to subtract the overhead blocks used by the <b>ext2</b> filesystem and not available for file storage. Thus:<br><br><pre class="tcy">mount /k -o minixdf; df /k; umount /k</pre><pre>Filesystem 1024-blocks Used Available Capacity Mounted on /dev/sda6 2630655 86954 2412169 3% /k</pre><pre class="tcy">% mount /k -o bsddf; df /k; umount /k</pre><pre>Filesystem 1024-blocks Used Available Capacity Mounted on /dev/sda6 2543714 13 2412169 0% /k</pre> Note that this example shows that one can add command line options to the options given in <b>/etc/fstab</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>check=</b>{<b>none</b>|<b>nocheck</b>}</td>
+<td>No checking is done at mount time. This is the default. This is fast. It is wise to invoke <b>e2fsck</b> every now and then, e.g., at <a href="/jargon/b/boot.htm">boot</a> time.</td>
+</tr>
+<tr class="tcw">
+<td><b>debug</b></td>
+<td>Print <a href="/jargon/d/debug.htm">debugging</a> info upon each (re)mount.</td>
+</tr>
+<tr class="tcw">
+<td><b>errors=</b>{<b>continue</b>|<b>remount-ro</b>|<b>panic</b>}</td>
+<td>Define the behavior when an error is encountered. Either ignore errors and mark the filesystem erroneous and continue, or remount the filesystem read-only, or panic and halt the system. The default is set in the filesystem superblock, and can be changed using <b>tune2fs</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>grpid</b>|<b>bsdgroups</b>, <b>nogrpid</b>|<b>sysvgroups</b></td>
+<td>These options define what group id a newly created file gets. When <b>grpid</b> is set, it takes the group id of the directory where it is created; otherwise (the default) it takes the <b>fsgid</b> of the current process, unless the directory has the <b>setgid</b> bit set, where case it takes the gid from the parent directory, and also gets the <b>setgid</b> bit set if it's a directory itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>grpquota</b>|<b>noquota</b>|<b>quota</b>|<b>usrquota</b></td>
+<td>These options are accepted but ignored.</td>
+</tr>
+<tr class="tcw">
+<td><b>nouid32</b></td>
+<td>Disables 32-bit UIDs and GIDs. This is for interoperability with older kernels which only store and expect 16-bit values.</td>
+</tr>
+<tr class="tcw">
+<td><b>oldalloc</b>, <b>orlov</b></td>
+<td>Use old allocator or Orlov allocator for new inodes. Orlov is default.</td>
+</tr>
+<tr class="tcw">
+<td><b>resgid=</b><i>n</i>, <b>resuid=</b><i>n</i></td>
+<td>The <b>ext2</b> filesystem reserves a certain percentage of the available space (by default 5%). These options determine who can use the reserved blocks. Roughly whoever has the specified uid, or belongs to the specified group.</td>
+</tr>
+<tr class="tcw">
+<td><b>sb=</b><i>n</i></td>
+<td>Instead of block 1, use block <i>n</i> as superblock. This could be useful when the filesystem is damaged. (Earlier, copies of the superblock would be made every 8192 blocks: in block 1, 8193, 16385, etc. (and one got thousands of copies on a big filesystem). Since version 1.08, <b>mke2fs</b> has a <b>-s</b> (sparse superblock) option to reduce the number of backup superblocks, and since version 1.15 this is the default. Note that this may mean that <b>ext2</b> filesystems created by a recent <b>mke2fs</b> cannot be mounted r/w under Linux 2.0.*. The block number here uses 1k units. Thus, if you want to use logical block 32768 on a filesystem with 4k blocks, use "<b>sb=131072</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>user_xattr</b>|<b>nouser_xattr</b></td>
+<td>Support "<b>user.</b>" extended attributes (or do not).</td>
+</tr>
+</table>
+<h2 id="FSMO-ext3">Filesystem-Specific mount Options: ext3</h2>
+<p class="tab">The <b>ext3</b> filesystem is a version of <b>ext2</b> that is enhanced with <a href="/jargon/j/journal.htm">journalling</a> features. It supports all the <b>ext2</b> mount options listed above, and the following options.</p>
+<p class="tab">Mount Options for <b>ext3</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>journal=</b><i>update</i></td>
+<td>Update the <b>ext3</b> filesystem's journal to the current format.</td>
+</tr>
+<tr class="tcw">
+<td><b>journal=</b><i>inum</i></td>
+<td>When a journal already exists, this option is ignored. Otherwise, it specifies the number of the inode which represents the <b>ext3</b> filesystem's journal file; <b>ext3</b> creates a new journal, overwriting the old contents of the file whose inode number is <i>inum</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>journal_dev=</b><i>devnum</i></td>
+<td>When the external journal device's major/minor numbers have changed, this option allows the user to specify the new journal location. The journal device is identified through its new major/minor numbers encoded in <i>devnum</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>norecovery</b>/<b>noload</b></td>
+<td>Don't load the journal on mounting. Note that if the filesystem was not unmounted cleanly, skipping the journal replay leads to the filesystem containing inconsistencies that lead to any number of problems.</td>
+</tr>
+<tr class="tcw">
+<td><b>data=</b>{<b>journal</b>|<b>ordered</b>|<b>writeback</b>}</td>
+<td><p>Specifies the journalling mode for file data. Metadata is always journaled. To use modes other than <b>ordered</b> on the root filesystem, pass the mode to the kernel as boot <a href="/jargon/p/paramete.htm">parameter</a>, e.g., <b>rootflags=data=journal</b>.</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:150px"><b>journal</b></td>
+<td>All data is committed into the journal before being written into the main filesystem.</td>
+</tr>
+<tr class="tcw">
+<td><b>ordered</b></td>
+<td>This is the default mode. All data is forced directly out to the main file system prior to its metadata being committed to the journal.</td>
+</tr>
+<tr class="tcw">
+<td><b>writeback</b></td>
+<td>Data ordering is not preserved: data may be written into the main filesystem after its metadata is committed to the journal. This is rumoured to be the highest-throughput option. It guarantees internal filesystem integrity, however it can allow old data to appear in files after a crash and journal recovery.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>barrier=0</b> / <b>barrier=1</b></td>
+<td>This enables/disables barriers. <b>barrier=0</b> disables it, <b>barrier=1</b> enables it. Write barriers enforce proper on-disk ordering of journal commits, making volatile disk write caches safe to use, at some performance penalty. The <b>ext3</b> filesystem does not enable write barriers by default. Be sure to enable barriers unless your disks are battery-backed one way or another. Otherwise, you risk filesystem <a href="/jargon/c/corrupt.htm">corruption</a> in case of power failure.</td>
+</tr>
+<tr class="tcw">
+<td><b>commit=</b><i>nrsec</i></td>
+<td>Sync all data and metadata every <i>nrsec</i> seconds. The default value is 5 seconds. Zero means default.</td>
+</tr>
+<tr class="tcw">
+<td><b>user_xattr</b></td>
+<td>Enable Extended User Attributes, as per the <b>attr</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>acl</b></td>
+<td>Enable <a href="/jargon/p/posix.htm">POSIX</a> Access Control Lists.</td>
+</tr>
+</table>
+<h2 id="FSMO-ext4">Filesystem-Specific mount Options: ext4</h2>
+<p class="tab">The <b>ext4</b> filesystem is an advanced level of the <b>ext3</b> filesystem which incorporates scalability and reliability enhancements for supporting large filesystem.</p>
+<p class="tab">The options <b>journal_dev</b>, <b>noload</b>, <b>data</b>, <b>commit</b>, <b>orlov</b>, <b>oldalloc</b>, [<b>no</b>]<b>user_xattr</b> [<b>no</b>]<b>acl</b>, <b>bsddf</b>, <b>minixdf</b>, <b>debug</b>, <b>errors</b>, <b>data_err</b>, <b>grpid</b>, <b>bsdgroups</b>, <b>nogrpid</b>, <b>sysvgroups</b>, <b>resgid</b>, <b>resuid</b>, <b>sb</b>, <b>quota</b>, <b>noquota</b>, <b>grpquota</b>, and <b>usrquota</b> are <a href="/jargon/b/backcomp.htm">backward compatible</a> with <b>ext3</b> or <b>ext2</b>.</p>
+<p class="tab">Mount options for <b>ext4</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:320px"><b>journal_checksum</b></td>
+<td>Enable checksumming of the journal transactions. This allows the recovery code in <b>e2fsck</b> and the kernel to detect corruption in the kernel. It is a compatible change and is ignored by older kernels.</td>
+</tr>
+<tr class="tcw">
+<td><b>journal_async_commit</b></td>
+<td>Commit block can be written to disk without waiting for descriptor blocks. If enabled older kernels cannot mount the device. This enables 'journal_checksum' internally.</td>
+</tr>
+<tr class="tcw">
+<td><b>journal=update</b></td>
+<td>Update the <b>ext4</b> filesystem's journal to the current format.</td>
+</tr>
+<tr class="tcw">
+<td><b>barrier=0</b>,<br><b>barrier=1</b>,<br><b>barrier</b>,<br><b>nobarrier</b></td>
+<td>This enables/disables the use of write barriers in the jbd code. <b>barrier=0</b> disables, <b>barrier=1</b> enables. This also requires an IO stack which can support barriers, and if jbd gets an error on a barrier write, it disables again with a warning. Write barriers enforce proper on-disk ordering of journal commits, making <a href="/jargon/v/volamemo.htm">volatile</a> disk write <a href="/jargon/c/cache.htm">caches</a> safe to use, at some performance penalty. If your disks are battery-backed in one way or another, disabling barriers may safely improve performance. The mount options "<b>barrier</b>" and "<b>nobarrier</b>" can also be used to enable or disable barriers, for consistency with other <b>ext4</b> mount options.<br><br> The <b>ext4</b> filesystem enables write barriers by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>inode_readahead=</b><i>n</i></td>
+<td>This tuning parameter controls the maximum number of inode table blocks that ext4's inode table readahead algorithm pre-reads into the buffer cache. The default value is 32 blocks.</td>
+</tr>
+<tr class="tcw">
+<td><b>stripe=</b><i>n</i></td>
+<td>Number of filesystem blocks that <b>mballoc</b> tries to use for allocation size and alignment. For <a href="/jargon/r/raid.htm">RAID5</a>/6 systems this should be the number of data disks multipled by the RAID chunk size in filesystem blocks.</td>
+</tr>
+<tr class="tcw">
+<td><b>delalloc</b></td>
+<td>Deferring block allocation until write-out time.</td>
+</tr>
+<tr class="tcw">
+<td><b>nodelalloc</b></td>
+<td>Disable delayed allocation. Blocks are allocated when data is copied from user to page cache.</td>
+</tr>
+<tr class="tcw">
+<td><b>max_batch_time=</b><i>usec</i></td>
+<td>Maximum amount of time <b>ext4</b> should wait for additional filesystem operations to be batch together with a synchronous write operation. Since a synchronous write operation is going to force a commit and then a wait for the I/O complete, it doesn't cost much, and is a huge throughput win, we wait for a small amount of time to see if any other transactions can piggyback on the synchronous write. The algorithm used is designed to automatically tune for the speed of the disk, by measuring the amount of time (on average) that it takes to finish committing a transaction. Call this time the "commit time". If the time that the transaction was running is less than the commit time, <b>ext4</b> tries sleeping for the commit time to see if other operations joins the transaction. The commit time is capped by the <b>max_batch_time</b>, which defaults to <b>15000 us</b> (15 <a href="/jargon/m/ms.htm">ms</a>). This optimization can be turned off entirely by setting <b>max_batch_time</b> to <b>0</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>min_batch_time=</b><i>usec</i></td>
+<td>This parameter sets the commit time (as described above) to be at least <b>min_batch_time</b>. It defaults to zero <a href="/jargon/m/microsec.htm">microseconds</a>. Increasing this parameter may improve the throughput of multi-threaded, synchronous workloads on very fast disks, at the cost of increasing <a href="/jargon/l/latency.htm">latency</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>journal_ioprio=</b><i>prio</i></td>
+<td>The I/O priority (from <b>0</b> to <b>7</b>, where <b>0</b> is the highest priority) which should be used for I/O operations submitted by <b>kjournald2</b> during a commit operation. This defaults to <b>3</b>, which is a slightly higher priority than the default I/O priority.</td>
+</tr>
+<tr class="tcw">
+<td><b>abort</b></td>
+<td>Simulate the effects of calling <b>ext4_abort()</b> for debugging purposes. This is normally used while remounting a filesystem that is already mounted.</td>
+</tr>
+<tr class="tcw">
+<td><b>auto_da_alloc</b>|<b>noauto_da_alloc</b></td>
+<td>Many broken applications don't use <b>fsync()</b> when replacing existing files via patterns such as:<br><br><pre class="tcy">fd = open("foo.new")write(fd,..)close(fd)rename("foo.new", "foo")</pre> or worse yet:<br><br><pre class="tcy">fd = open("foo", O_TRUNC)write(fd,..)close(fd).</pre> If <b>auto_da_alloc</b> is enabled, <b>ext4</b> detects the <b>replace-via-rename</b> and <b>replace-via-truncate</b> patterns and force that any delayed allocation blocks are allocated such that at the next journal commit, in the default <b>data=ordered</b> mode, the data blocks of the new file are forced to disk before the <b>rename()</b> operation is committed. This provides roughly the same level of guarantees as <b>ext3</b>, and avoids the "zero-length" problem that happens when a system <a href="/jargon/c/crash.htm">crashes</a> before the delayed allocation blocks are forced to disk.</td>
+</tr>
+<tr class="tcw">
+<td><b>discard</b>/<b>nodiscard</b></td>
+<td>Controls whether <b>ext4</b> should issue discard/TRIM commands to the underlying block device when blocks are freed. This is useful for SSD devices and sparse/thinly-provisioned LUNs, but it is off by default until sufficient testing was done.</td>
+</tr>
+<tr class="tcw">
+<td><b>nouid32</b></td>
+<td>Disables 32-bit UIDs and GIDs. This is for interoperability with older kernels which only store and expect 16-bit values.</td>
+</tr>
+<tr class="tcw">
+<td><b>resize</b></td>
+<td>Allows to resize filesystem to the end of the last existing block group, further resize has to be done with <b>resize2fs</b> either online, or offline. It can be used only with conjunction with <b>remount</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>block_validity</b>/<b>noblock_validity</b></td>
+<td>These options allow enabling/disabling the in-kernel facility for tracking filesystem <a href="/jargon/m/metadata.htm">metadata</a> blocks within internal data structures. This allows multi-block allocator and other routines to quickly locate extents which might overlap with filesystem metadata blocks. This option is intended for debugging purposes and since it negatively affects the performance, it is off by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>dioread_lock</b>/<b>dioread_nolock</b></td>
+<td>Controls whether or not <b>ext4</b> should use the DIO read locking. If the <b>dioread_nolock</b> option is specified <b>ext4</b> allocates uninitialized extent before buffer write and convert the extent to initialized after IO completes. This approach allows <b>ext4</b> code to avoid using inode mutex (mutual exclusion), which improves scalability on high speed storages. However, this does not work with data journaling and <b>dioread_nolock</b> option is ignored with kernel warning. Note that <b>dioread_nolock</b> code path is only used for extent-based files. Because of the restrictions this options comprises it is off by default (e.g., <b>dioread_lock</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>i_version</b></td>
+<td>Enable 64-bit inode version support. This option is off by default.</td>
+</tr>
+</table>
+<h2 id="FSMO-fat">Filesystem-Specific mount Options: fat</h2>
+<p class="tab">File Allocation Table ("<b>fat</b>") is a legacy filesystem. Originally designed for use on <a href="/jargon/f/floppydi.htm">floppy disks</a>, it is simple and robust, but lacks the advanced features, performance, reliability and scalability of modern filesystems.</p>
+<p class="tab">For many years it was the standard filesystem of Microsoft's <a href="/jargon/m/msdos.htm">MS-DOS</a> and <a href="/jargon/w/windows.htm">Windows 9x</a> line of operating systems.</p>
+<p class="tab">Mount options for <b>fat</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:310px"><b>blocksize=</b>{<b>512</b>|<b>1024</b>|<b>2048</b>}</td>
+<td>Set blocksize (default 512). This option is obsolete.</td>
+</tr>
+<tr class="tcw">
+<td><b>uid=</b><i>value</i>, <b>gid=</b><i>value</i></td>
+<td>Set the owner and group of all files. Default: the uid and gid of the current process.</td>
+</tr>
+<tr class="tcw">
+<td><b>umask=</b><i>value</i></td>
+<td>Set the <a href="/unix/uumask.htm">umask</a> (the bitmask of the permissions that are not present). The default is the umask of the current process. The value is given in <a href="/jargon/o/octal.htm">octal</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>dmask=</b><i>value</i></td>
+<td>Set the umask applied to directories only. The default is the umask of the current process. The value is given in octal.</td>
+</tr>
+<tr class="tcw">
+<td><b>fmask=</b><i>value</i></td>
+<td>Set the umask applied to regular files only. The default is the umask of the current process. The value is given in octal.</td>
+</tr>
+<tr class="tcw">
+<td><b>allow_utime=</b><i>value</i></td>
+<td><p>This option controls the permission check of <b>mtime</b>/<b>atime</b>. <i>value</i> can be:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:30px"><b>20</b></td>
+<td>If current process is in group of file's group ID, you can change timestamp.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>Other users can change timestamp.</td>
+</tr>
+</table>
+The default is set from the <b>dmask</b> option. (If the directory is writable, <b>utime</b> is also allowed, i.e., <b>~dmask &amp; 022</b>)<br>
+<br>
+Normally <b>utime( )</b> checks current process is owner of the file, or it has <b>CAP_FOWNER</b> capability. But FAT filesystem doesn't have uid/gid on disk, so normal check is too inflexible. With this option you can relax it.</td>
+</tr>
+<tr class="tcw">
+<td><b>check=</b><i>value</i></td>
+<td><p>Three different levels of pickiness can be chosen:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:100px"><b>r</b>[<b>elaxed</b>]</td>
+<td>Upper and lowercase are accepted and equivalent, long name parts are <a href="/jargon/t/truncate.htm">truncated</a> (e.g., <b>verylongname.foobar</b> becomes <b>verylong.foo</b>), leading and embedded spaces are accepted in each name part (name and <a href="/jargon/e/extensio.htm">extension</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>n</b>[<b>ormal</b>]</td>
+<td>Like "<b>relaxed</b>", but many special characters (<b>*</b>, <b>?</b>, <b>&lt;</b>, <b>spaces</b>, etc.) are rejected. This is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b>[<b>trict</b>]</td>
+<td>Like "<b>normal</b>", but names may not contain long parts and special characters that are sometimes used on Linux, but are not accepted by MS-DOS are rejected. (<b>+</b>, <b>=</b>, spaces, etc.)</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>codepage=</b><i>value</i></td>
+<td>Sets the codepage for converting to shortname characters on FAT and VFAT filesystems. By default, codepage <b>437</b> is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>conv=</b>{<b>b</b>[<b>inary</b>]|<b>t</b>[<b>ext</b>]|<b>a</b>[<b>uto</b>]}</td>
+<td><p>The <b>fat</b> filesystem can perform <a href="/jargon/c/cr.htm">CR</a>/<a href="/jargon/l/lf.htm">LF</a> &lt;--&gt; <a href="/jargon/n/newline.htm">NL</a> (MS-DOS text format to UNIX text format) conversion in the kernel. The following conversion modes are available:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:80px"><b>binary</b></td>
+<td>no translation is performed. This is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>text</b></td>
+<td>CRLF&lt;--&gt;NL translation is performed on all files.</td>
+</tr>
+<tr class="tcw">
+<td><b>auto</b></td>
+<td>CRLF&lt;--&gt;NL translation is performed on all files that don't have a "well-known binary" <a href="/jargon/e/extensio.htm">extension</a>. The list of known extensions is at the beginning of <b>fs/fat/misc.c</b>. As of 2.0, the list is:<br><br><b>exe</b>, <b>com</b>, <b>bin</b>, <b>app</b>, <b>sys</b>, <b>drv</b>, <b>ovl</b>, <b>ovr</b>, <b>obj</b>, <b>lib</b>, <b>dll</b>, <b>pif</b>, <b>arc</b>, <b>zip</b>, <b>lha</b>, <b>lzh</b>, <b>zoo</b>, <b>tar</b>, <b>z</b>, <b>arj</b>, <b>tz</b>, <b>taz</b>, <b>tzp</b>, <b>tpz</b>, <b>gz</b>, <b>tgz</b>, <b>deb</b>, <b>gif</b>, <b>bmp</b>, <b>tif</b>, <b>gl</b>, <b>jpg</b>, <b>pcx</b>, <b>tfm</b>, <b>vf</b>, <b>gf</b>, <b>pk</b>, <b>pxl</b>, <b>dvi</b>.<br><br> Programs that do computed lseeks won't like in-kernel text conversion. Several people have had their data ruined by this translation. You have been warned!<br><br> For filesystems mounted in <b>binary</b> mode, a conversion tool (<a href="/unix/dos2unix.htm">fromdos/todos</a>) is available, so ultimately this option is obsolete.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>cvf_format=</b><i>module</i></td>
+<td>Forces the driver to use the CVF (Compressed Volume File) module <i>module</i> instead of auto-detection. If the kernel supports <b>kmod</b>, the <b>cvf_format=</b><i>xxx</i> option also controls on-demand CVF module loading. This option is obsolete.</td>
+</tr>
+<tr class="tcw">
+<td><b>cvf_option=</b><i>option</i></td>
+<td>Option passed to the CVF module. This option is obsolete.</td>
+</tr>
+<tr class="tcw">
+<td><b>debug</b></td>
+<td>Turn on the <a href="/jargon/d/debug.htm">debug</a> flag. A version string and a list of filesystem parameters are printed (these data are also printed if the parameters appear to be inconsistent).</td>
+</tr>
+<tr class="tcw">
+<td><b>fat=</b>{<b>12</b>|<b>16</b>|<b>32</b>}</td>
+<td>Specify a 12, <a href="/jargon/num/16bit.htm">16</a> or <a href="/jargon/num/32bit.htm">32-bit</a> FAT. This overrides the automatic FAT type detection routine, so use it with caution!</td>
+</tr>
+<tr class="tcw">
+<td><b>iocharset=</b><i>value</i></td>
+<td><a href="/jargon/c/charcode.htm">Character set</a> to use for converting between 8 bit characters and 16 bit <a href="/jargon/u/unicode.htm">Unicode</a> characters. The default is <b>iso8859-1</b>. Long file names are stored on disk in Unicode format.</td>
+</tr>
+<tr class="tcw">
+<td><b>tz=UTC</b></td>
+<td>This option disables the conversion of timestamps between local time (as used by Windows on FAT) and UTC (which Linux uses internally). This is particularly useful when mounting devices (like <a href="/jargon/d/digicame.htm">digital cameras</a>) that are set to UTC to avoid the pitfalls of local time.</td>
+</tr>
+<tr class="tcw">
+<td><b>quiet</b></td>
+<td>Turn on the <b>quiet</b> flag. Attempts to <a href="/unix/uchown.htm">chown</a> or <a href="/unix/uchmod.htm">chmod</a> files do not return errors, although they fail. Use with caution!</td>
+</tr>
+<tr class="tcw">
+<td><b>showexec</b></td>
+<td>If set, the execute permission bits of the file are only allowed if the extension part of the name is <b>.EXE</b>, <b>.COM</b>, or <b>.BAT</b>. Not set by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>sys_immutable</b></td>
+<td>If set, <b>ATTR_SYS</b> <a href="/jargon/a/attribut.htm">attribute</a> on FAT is handled as <b>IMMUTABLE</b> flag on Linux. Not set by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>flush</b></td>
+<td>If set, the filesystem tries to flush to disk earlier than normal. Not set by default.</td>
+</tr>
+<tr class="tcw">
+<td><b>usefree</b></td>
+<td>Use the "free clusters" value stored on <b>FSINFO</b>. It'll be used to determine number of free <a href="/jargon/c/cluster.htm">clusters</a> without scanning disk. But it's not used by default, because recent Windows don't update it correctly in some case. If you are sure the "free clusters" on <b>FSINFO</b> is correct, by this option you can avoid scanning disk.</td>
+</tr>
+<tr class="tcw">
+<td><b>dots</b>, <b>nodots</b>, <b>dotsOK=</b>[<b>yes</b>|<b>no</b>]</td>
+<td>Various misguided attempts to force Unix or DOS file naming conventions onto a FAT filesystem. I'm sure they meant well, but you probably won't use this option.</td>
+</tr>
+</table>
+<h2 id="FSMO-hfs">Filesystem-Specific mount Options: hfs</h2>
+<p class="tab">Hierarchical File System ("<b>hfs</b>") is a proprietary file system for <a href="/jargon/m/macos.htm">MacOS</a>. As of MacOS X version 10.6, <a href="/comp/apple.htm">Apple</a> no longer supports writing to HFS volumes, although they can still be mounted as read-only.</p>
+<p class="tab">Mount options for <b>hfs</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>creator=</b><i>cccc</i>, <b>type=</b><i>cccc</i></td>
+<td>Set the creator/type values as shown by the MacOS finder used for creating new files. Default value is '<b>????</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>uid=</b><i>n</i>, <b>gid=</b><i>n</i></td>
+<td>Set the owner and group of all files. Default: the uid and gid of the current process.</td>
+</tr>
+<tr class="tcw">
+<td><b>dir_umask=</b><i>n</i>, <b>file_umask=</b><i>n</i>, <b>umask=</b><i>n</i></td>
+<td>Set the <a href="/unix/uumask.htm">umask</a> used for all directories, all regular files, or all files and directories. Defaults to the <b>umask</b> of the current process.</td>
+</tr>
+<tr class="tcw">
+<td><b>session=</b><i>n</i></td>
+<td>Select the <a href="/jargon/c/cdrom.htm">CD-ROM</a> session to mount. Defaults to leaving that decision to the CD-ROM driver. This option fails with anything but a CD-ROM as underlying device.</td>
+</tr>
+<tr class="tcw">
+<td><b>part=</b><i>n</i></td>
+<td>Select <a href="/jargon/p/partition.htm">partition</a> number <i>n</i> from the device. Only makes sense for CD-ROMs. Defaults to not parsing the partition table at all.</td>
+</tr>
+<tr class="tcw">
+<td><b>quiet</b></td>
+<td>Don't complain about invalid mount options.</td>
+</tr>
+</table>
+<h2 id="FSMO-hpfs">Filesystem-Specific mount Options: hpfs</h2>
+<p class="tab">High Performance File System ("<b>hpfs</b>") is a filesystem developed by <a href="/comp/msoft.htm">Microsoft</a> and <a href="/comp/ibm.htm">IBM</a> specifically for the <a href="/jargon/o/os2.htm">OS/2</a> operating system. It was designed to improve upon the <a href="/jargon/f/fat.htm">FAT</a> filesystem.</p>
+<p class="tab">Mount options for <b>hpfs</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:250px"><b>uid=</b><i>value</i>, <b>gid=</b><i>value</i></td>
+<td>Set the owner and group of all files. Default: the uid and gid of the current process.</td>
+</tr>
+<tr class="tcw">
+<td><b>umask=</b><i>value</i></td>
+<td>Set the <a href="/unix/uumask.htm">umask</a> (the bitmask of the permissions that are not present). The default is the <b>umask</b> of the current process. The value is given in <a href="/jargon/o/octal.htm">octal</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>case=</b>{<b>lower</b>|<b>asis</b>}</td>
+<td>Convert all files names to <a href="/jargon/l/lowercas.htm">lowercase</a>, or leave them as-is. (Default: <b>case=lower</b>.)</td>
+</tr>
+<tr class="tcw">
+<td><b>conv=</b>{<b>binary</b>|<b>text</b>|<b>auto</b>}</td>
+<td>For <b>conv=text</b>, delete some random <a href="/jargon/c/cr.htm">CRs</a> (in particular, all followed by <a href="/jargon/n/newline.htm">NL</a>) when reading a file. For <b>conv=auto</b>, make a best guess between <b>conv=binary</b> and <b>conv=text</b>. For <b>conv=binary</b>, only read what is in the file. This is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>nocheck</b></td>
+<td>Do not abort mounting when certain consistency checks fail.</td>
+</tr>
+</table>
+<h2 id="FSMO-iso9660">Filesystem-Specific mount Options: iso9660</h2>
+<p class="tab">ISO 9660 is a standard describing a filesystem structure to be used on <a href="/jargon/c/cdrom.htm">CD-ROM</a>s, and on some <a href="/jargon/d/dvd.htm">DVD</a>s.</p>
+<p class="tab">Normal <b>iso9660</b> file names appear in a 8.3 format (i.e., DOS-like restrictions on file name length, where the file name has a maximum of eight characters, a dot, and then a maximum three-character <a href="/jargon/e/extensio.htm">extension</a>), and in addition all characters are in <a href="/jargon/u/uppercase.htm">uppercase</a>. Also, there is no field for file <a href="/jargon/o/owner.htm">ownership</a>, protection, number of links, provision for block/character devices, etc.</p>
+<p class="tab">"Rock Ridge" is an extension to <b>iso9660</b> that provides all these <a href="/jargon/u/unix.htm">Unix</a>-like features. Basically, in iso9660 there are extensions to each directory record that supply all the additional information, and when Rock Ridge is in use, the filesystem is indistinguishable from a normal UNIX filesystem (except that it is read-only).</p>
+<p class="tab">Mount options for <b>iso9660</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:380px"><b>norock</b></td>
+<td>Disable the use of Rock Ridge extensions, even if available. Compare with <b>map</b>, below.</td>
+</tr>
+<tr class="tcw">
+<td><b>nojoliet</b></td>
+<td>Disable the use of Microsoft <a href="/jargon/j/joliet.htm">Joliet</a> extensions, even if available. Compare with <b>map</b>, below.</td>
+</tr>
+<tr class="tcw">
+<td><b>check=</b>{<b>r</b>[<b>elaxed</b>]|<b>s</b>[<b>trict</b>]}</td>
+<td>With <b>check=relaxed</b>, a file name is first converted to lowercase before doing the look up. This is probably only meaningful together with <b>norock</b> and <b>map=normal</b>. Default: <b>check=strict</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>uid=</b><i>value</i>, <b>gid=</b><i>value</i></td>
+<td>Give all files in the filesystem the indicated user or group id, possibly overriding the information found in the Rock Ridge extensions. Default: <b>uid=0</b>,<b>gid=0</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>map=</b>{<b>n</b>[<b>ormal</b>]|<b>o</b>[<b>ff</b>]|<b>a</b>[<b>corn</b>]}</td>
+<td>For non-Rock Ridge volumes, normal name translation maps upper to lowercase <a href="/jargon/a/ascii.htm">ASCII</a>, drops a trailing '<b>;1</b>', and converts '<b>;</b>' to '<b>.</b>'. With <b>map=off</b> no name translation is done. See <b>norock</b>, above. Default: <b>map=normal</b>. Note: <b>map=acorn</b> is like <b>map=normal</b> but also applies Acorn extensions if present.</td>
+</tr>
+<tr class="tcw">
+<td><b>mode=</b><i>value</i></td>
+<td>For non-Rock Ridge volumes, give all files the indicated mode. Default: read permission for everybody. Since Linux 2.1.37, administrators no longer need to specify the mode in <a href="/jargon/d/decimal.htm">decimal</a>; <a href="/jargon/o/octal.htm">octal</a> is indicated by a leading <b>0</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>unhide</b></td>
+<td>Also, show <a href="/jargon/h/hiddenfi.htm">hidden</a> and associated files. If the ordinary files and the associated or hidden files have the same file names, this may make the ordinary files inaccessible.</td>
+</tr>
+<tr class="tcw">
+<td><b>block=</b>{<b>512</b>|<b>1024</b>|<b>2048</b>}</td>
+<td>Set the block size to the indicated <i>value</i>. Default: <b>block=1024</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>conv=</b>{<b>a</b>[<b>uto</b>]|<b>b</b>[<b>inary</b>]|<b>m</b>[<b>text</b>]|<b>t</b>[<b>ext</b>]}</td>
+<td>Default: <b>conv=binary</b>. Since Linux 1.3.54 this option has no effect anymore. And non-<b>binary</b> settings used to be very dangerous, possibly leading to silent data corruption.</td>
+</tr>
+<tr class="tcw">
+<td><b>cruft</b></td>
+<td>If the high byte of the file length contains other garbage, set this mount option to ignore the high order bits of the file length. This implies that a file cannot be larger than 16 <a href="/jargon/m/megabyte.htm">MB</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>session=</b><i>x</i></td>
+<td>Select number of session on <a href="/jargon/m/mscdr.htm">multisession</a> CD. (Since 2.3.4.)</td>
+</tr>
+<tr class="tcw">
+<td><b>sbsector=</b><i>xxx</i></td>
+<td>Session begins from sector <i>xxx</i>. (Since 2.3.4.)</td>
+</tr>
+</table>
+<p class="tab">The following options are the same as for <b>vfat</b> and specifying them only makes sense when using discs encoded using Microsoft's Joliet extensions:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:160px"><b>iocharset=</b><i>value</i></td>
+<td>Character set to use for converting 16 bit Unicode characters on CD to 8 bit characters. The default is <b>iso8859-1</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>utf8</b></td>
+<td>Convert 16 bit <a href="/jargon/u/unicode.htm">Unicode</a> <a href="/jargon/c/charact.htm">characters</a> on CD to <b>UTF-8</b>.</td>
+</tr>
+</table>
+<h2 id="FSMO-jfs">Filesystem-Specific mount Options: jfs</h2>
+<p class="tab">Journaled File System ("<b>jfs</b>") is a <a href="/jargon/j/journal.htm">journaled</a> <a href="/jargon/num/64bit.htm">64-bit</a> file system created by IBM. There are versions for <a href="/jargon/l/linux.htm">Linux</a>, <a href="/jargon/a/aix.htm">AIX</a>, and <a href="/jargon/o/os2.htm">OS/2</a>, among other operating systems.</p>
+<p class="tab">Mount options for <b>jfs</b> are as follows:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:380px"><b>iocharset=</b><i>name</i></td>
+<td>Character set to use for converting from <a href="/jargon/u/unicode.htm">Unicode</a> to <a href="/jargon/a/ascii.htm">ASCII</a>. The default is to do no conversion. Use <b>iocharset=utf8</b> for UTF-8 translations. This requires <b>CONFIG_NLS_UTF8</b> to be set in the kernel <b>.config</b> file.</td>
+</tr>
+<tr class="tcw">
+<td><b>resize=</b><i>value</i></td>
+<td>Resize the volume to <i>value</i> blocks. JFS only supports growing a volume, not shrinking it. This option is only valid during a remount, when the volume is mounted read-write. The <b>resize</b> keyword with no <i>value</i> grows the volume to the full size of the <a href="/jargon/p/partition.htm">partition</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>nointegrity</b></td>
+<td>Do not write to the journal. The primary use of this option is to allow for higher performance when restoring a volume from backup media. The integrity of the volume is not guaranteed if the system abnormally abends.</td>
+</tr>
+<tr class="tcw">
+<td><b>integrity</b></td>
+<td>Default. Commit <a href="/jargon/m/metadata.htm">metadata</a> changes to the journal. Use this option to remount a volume where the <b>nointegrity</b> option was previously specified to restore normal behavior.</td>
+</tr>
+<tr class="tcw">
+<td><b>errors=</b>{<b>continue</b>|<b>remount-ro|panic</b>}</td>
+<td>Define the behavior when an error is encountered. Either ignore errors and mark the filesystem erroneous and continue, or remount the filesystem read-only, or <a href="/jargon/p/panic.htm">panic</a> and <a href="/jargon/h/halt.htm">halt</a> the system.</td>
+</tr>
+<tr class="tcw">
+<td><b>noquota</b>|<b>quota</b>|<b>usrquota</b>|<b>grpquota</b></td>
+<td>These options are accepted but ignored.</td>
+</tr>
+</table>
+<h2 id="FSMO-ntfs">Filesystem-Specific mount Options: ntfs</h2>
+<p class="tab"><a href="/jargon/n/ntfs.htm">NTFS</a> is a file system developed by <a href="/comp/msoft.htm">Microsoft</a> for its <a href="/jargon/w/winnt.htm">Windows NT</a> operating system.</p>
+<p class="tab">Mount options for <b>ntfs</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>iocharset=</b><i>name</i></td>
+<td>Character set to use when returning file names. Unlike VFAT, NTFS suppresses names that contain nonconvertible characters. This option is deprecated.</td>
+</tr>
+<tr class="tcw">
+<td><b>nls=</b><i>name</i></td>
+<td>New name for the option earlier called <b>iocharset</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>utf8</b></td>
+<td>Use <a href="/jargon/u/unicode.htm">UTF-8</a> for converting file names.</td>
+</tr>
+<tr class="tcw">
+<td><b>uni_xlate=</b>{<b>0</b>|<b>1</b>|<b>2</b>}</td>
+<td>For <b>0</b> (or '<b>no</b>' or '<b>false</b>'), do not use escape sequences for unknown Unicode characters. For <b>1</b> (or '<b>yes</b>' or '<b>true</b>') or <b>2</b>, use <b>vfat</b>-style 4-byte escape sequences starting with "<b>:</b>". Here <b>2</b> give a <a href="/jargon/e/endian.htm">little-endian</a> encoding and <b>1</b> a byteswapped big-endian encoding.</td>
+</tr>
+<tr class="tcw">
+<td><b>posix=</b>[<b>0</b>|<b>1</b>]</td>
+<td>If enabled (<b>posix=1</b>), the filesystem distinguishes between upper and lowercase. The 8.3 alias names are presented as <a href="/jargon/h/hardlink.htm">hard links</a> instead of being suppressed. This option is obsolete.</td>
+</tr>
+<tr class="tcw">
+<td><b>uid=</b><i>value</i>, <b>gid=</b><i>value</i>, <b>umask=</b><i>value</i></td>
+<td>Set the file permission on the filesystem. The <a href="/unix/uumask.htm">umask</a> value is given in <a href="/jargon/o/octal.htm">octal</a>. By default, the files are owned by <a href="/jargon/r/root.htm">root</a> and not readable by somebody else.</td>
+</tr>
+</table>
+<h2 id="FSMO-proc">Filesystem-Specific mount Options: proc</h2>
+<p class="tab"><b>proc</b> (or "procfs") is a special filesystem on <a href="/jargon/u/unix.htm">Unix</a>-like operating systems which presents running <a href="/jargon/p/process.htm">processes</a> in a hierarchical file-like structure. It is often mounted at the location <b>/proc</b> at <a href="/jargon/b/boot.htm">boot</a> time.</p>
+<p class="tab">Mount options for <b>proc</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:220px"><b>uid=</b><i>value</i>, <b>gid=</b><i>value</i></td>
+<td>These options are recognized by <b>mount</b>, but have no function.</td>
+</tr>
+</table>
+<h2 id="FSMO-reiserfs">Filesystem-Specific mount Options: reiserfs</h2>
+<p class="tab">Reiserfs is a general-purpose <a href="/jargon/j/journal.htm">journaled</a> filesystem. It was the first journaled filesystem supported by the Linux <a href="/jargon/k/kernel.htm">kernel</a>, and was once the default filesystem on SUSE Linux, before <b>ext3</b> became the default.</p>
+<p class="tab">Mount options for <b>reiserfs</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:320px"><b>conv</b></td>
+<td>Instructs version 3.6 <b>reiserfs</b> software to mount a version 3.5 filesystem, using the 3.6 format for newly created objects. This filesystem is longer be compatible with <b>reiserfs</b> 3.5 tools.</td>
+</tr>
+<tr class="tcw">
+<td style="width:80px"><b>hash=</b>{<b>rupasov</b>|<b>tea</b>|<b>r5</b>|<b>detect</b>}</td>
+<td><p>Choose which <a href="/jargon/h/hash.htm">hash</a> function <b>reiserfs</b> use to find files within directories:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:90px"><b>rupasov</b></td>
+<td>A hash invented by Yury Yu. Rupasov. It is fast and preserves locality, mapping lexicographically close file names to close hash values. This option should not be used, as it causes a high probability of hash collisions.</td>
+</tr>
+<tr class="tcw">
+<td><b>tea</b></td>
+<td>A Davis-Meyer function which uses hash-permuting <a href="/jargon/b/bit.htm">bits</a> in the name. It gets high randomness and, therefore, low probability of hash collisions at some <a href="/jargon/c/cpu.htm">CPU</a> cost. This may be used if EHASHCOLLISION errors are experienced with the r5 hash.</td>
+</tr>
+<tr class="tcw">
+<td><b>r5</b></td>
+<td>A modified version of the "rupasov" hash. It is used by default, and is the best choice unless the filesystem has huge directories and unusual file-name patterns.</td>
+</tr>
+<tr class="tcw">
+<td><b>detect</b></td>
+<td>Instructs <b>mount</b> to detect which hash function is in use by examining the filesystem being mounted, and to write this information into the reiserfs superblock. This is only useful on the first mount of an old-format filesystem.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>hashed_relocation</b></td>
+<td>Tunes the block allocator. This may provide performance improvements in some situations.</td>
+</tr>
+<tr class="tcw">
+<td><b>no_unhashed_relocation</b></td>
+<td>Tunes the block allocator. This may provide performance improvements in some situations.</td>
+</tr>
+<tr class="tcw">
+<td><b>noborder</b></td>
+<td>Disable the border allocator <a href="/jargon/a/algorith.htm">algorithm</a>. This may provide performance improvements in some situations.</td>
+</tr>
+<tr class="tcw">
+<td><b>nolog</b></td>
+<td>Disable journalling. This provides slight performance improvements in some situations at the cost of losing <b>reiserfs</b>'s fast recovery from crashes. Even with this option turned on, <b>reiserfs</b> still performs all journalling operations, save for actual writes into its journalling area. Implementation of <b>nolog</b> is a work in progress.</td>
+</tr>
+<tr class="tcw">
+<td><b>notail</b></td>
+<td>By default, <b>reiserfs</b> stores small files and 'file tails' directly into its tree. This confuses some utilities such as <a href="/jargon/l/lilo.htm">LILO</a>. This option is used to disable packing of files into the tree.</td>
+</tr>
+<tr class="tcw">
+<td><b>replayonly</b></td>
+<td>Replay the transactions that are in the journal, but do not actually mount the filesystem. Mainly used by <b>reiserfsck</b>, which checks the integrity of the filesystem.</td>
+</tr>
+<tr class="tcw">
+<td><b>resize=</b><i>number</i></td>
+<td>A remount option which permits online expansion of <b>reiserfs</b> partitions. Instructs <b>reiserfs</b> to assume that the device has number blocks. This option is designed for use with devices that are under LVM (logical volume management).</td>
+</tr>
+<tr class="tcw">
+<td><b>user_xattr</b></td>
+<td>Enable Extended User Attributes.</td>
+</tr>
+<tr class="tcw">
+<td><b>acl</b></td>
+<td>Enable <a href="/jargon/p/posix.htm">POSIX</a> Access Control Lists.</td>
+</tr>
+<tr class="tcw">
+<td><b>barrier=none</b>, <b>barrier=flush</b></td>
+<td>This enables/disables the use of write barriers in the journaling code. <b>barrier=none</b> disables it, <b>barrier=flush</b> enables it. Write barriers enforce proper on-disk ordering of journal commits, making <a href="/jargon/v/volamemo.htm">volatile</a> disk write <a href="/jargon/c/cache.htm">caches</a> safe to use, at some performance penalty. The reiserfs filesystem does not enable write barriers by default. Be sure to enable barriers unless your disks are battery-backed one way or another. Otherwise, you risk filesystem corruption in case of power failure.</td>
+</tr>
+</table>
+<h2 id="FSMO-tmpfs">Filesystem-Specific mount Options: tmpfs</h2>
+<p class="tab"><b>tmpfs</b> is the name of a temporary file system used on many Unix-like filesystems. It is mounted and structured like a disk-based filesystem, but resides in volatile memory space, similar to a <a href="/jargon/r/ramdisk.htm">RAM disk</a>. Mount options for <b>tmpfs</b>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:150px"><b>size=</b><i>nbytes</i></td>
+<td>Override default maximum size of the filesystem. The size is given in bytes, and rounded up to entire pages. The default is half of the memory. The size parameter also accepts a suffix % to limit this tmpfs instance to that percentage of your <a href="/jargon/r/ram.htm">physical RAM</a>: the default, when neither size nor <b>nr_blocks</b> is specified, is <b>size=50%</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>nr_blocks=</b>...</td>
+<td>The same as <b>size</b>, but in blocks of <b>PAGE_CACHE_SIZE</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>nr_inodes=</b>...</td>
+<td>The maximum number of <a href="/jargon/i/inode.htm">inodes</a> for this instance. The default is half of the number of your physical RAM pages, or (on a machine with "<b>highmem</b>") the number of <b>lowmem</b> RAM pages, whichever is the lower.</td>
+</tr>
+</table>
+<p class="tab">The <b>tmpfs</b> mount options for sizing (<b>size</b>, <b>nr_blocks</b>, and <b>nr_inodes</b>) accept a suffix <b>k</b>, <b>m</b> or <b>g</b> for Ki, Mi, Gi (binary <a href="/jargon/k/kilobyte.htm">kilo</a>, <a href="/jargon/m/mega.htm">mega</a> and <a href="/jargon/g/giga.htm">giga</a>) and can be changed on remount.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>mode=</b></td>
+<td>Set initial <a href="/jargon/p/permissi.htm">permissions</a> of the root directory.</td>
+</tr>
+<tr class="tcw">
+<td><b>uid=</b></td>
+<td>The user id.</td>
+</tr>
+<tr class="tcw">
+<td><b>gid=</b></td>
+<td>The group id.</td>
+</tr>
+<tr class="tcw">
+<td><b>mpol=</b>[<b>default</b>|<b>prefer:</b><i>Node</i>|<b>bind:</b><i>NodeList</i><br> |<b>interleave</b>|<b>interleave:</b><i>NodeList</i>]</td>
+<td><p>Set the NUMA (non-uniform memory access) memory allocation policy for all files in that instance (if the kernel option <b>CONFIG_NUMA</b> is enabled). It can be adjusted on the fly via '<b>mount -o remount ...</b>'.</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:210px"><b>default</b></td>
+<td>prefers to allocate memory from the local node.</td>
+</tr>
+<tr class="tcw">
+<td><b>prefer:</b><i>Node</i></td>
+<td>prefers to allocate memory from the given node <i>Node</i></td>
+</tr>
+<tr class="tcw">
+<td><b>bind:</b><i>NodeList</i></td>
+<td>allocates memory only from nodes in <i>NodeList</i></td>
+</tr>
+<tr class="tcw">
+<td><b>interleave</b></td>
+<td>prefers to allocate from each node in turn</td>
+</tr>
+<tr class="tcw">
+<td><b>interleave:</b><i>NodeList</i></td>
+<td>allocates from each node of <i>NodeList</i> in turn.</td>
+</tr>
+</table>
+The <i>NodeList</i> format is a comma-separated list of <a href="/jargon/d/decimal.htm">decimal</a> numbers and ranges, a range being two hyphen-separated decimal numbers, the smallest and largest node numbers in the range. For example, <b>mpol=bind:0-3,5,7,9-15</b><br>
+<br>
+Note that trying to mount a <b>tmpfs</b> with an <b>mpol</b> option fails if the running kernel does not support NUMA; and fails if its nodelist specifies a node that is not online. If your system relies on that <b>tmpfs</b> being mounted, but from time to time runs a kernel built without NUMA capability (perhaps a safe recovery kernel), or with fewer nodes online, then it is advisable to omit the <b>mpol</b> option from automatic mount options. It can be added later, when the <b>tmpfs</b> is already mounted on <i>MountPoint</i>, by '<b>mount -o remount,mpol=Policy:NodeList MountPoint</b>'.</td>
+</tr>
+</table>
+<h2 id="FSMO-ubifs">Filesystem-Specific mount Options: ubifs</h2>
+<p class="tab">UBIFS is a flash file system which works on top of UBI volumes. Note that <b>atime</b> is not supported and is always turned off.</p>
+<p class="tab">The device name may be specified as:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>ubi</b><i>X</i><b>_</b><i>Y</i></td>
+<td>UBI device number <i>X</i>, volume number <i>Y</i></td>
+</tr>
+<tr class="tcw">
+<td><b>ubi</b><i>Y</i></td>
+<td>UBI device number <b>0</b>, volume number <i>Y</i></td>
+</tr>
+<tr class="tcw">
+<td><b>ubi</b><i>X</i><b>:</b>NAME</td>
+<td>UBI device number <i>X</i>, volume with name NAME</td>
+</tr>
+<tr class="tcw">
+<td><b>ubi:</b>NAME</td>
+<td>UBI device number <b>0</b>, volume with name NAME</td>
+</tr>
+</table>
+<p class="tab">An alternative "<b>!</b>" separator may be used instead of "<b>:</b>".</p>
+<p class="tab">Mount options for <b>ubifs</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>bulk_read</b></td>
+<td>Enable bulk-read. VFS read-ahead is disabled because it slows down the file system. Bulk-Read is an internal optimization. Some flashes may read faster if the data are read at one go, rather than at several read requests. For example, OneNAND can do "read-while-load" if it reads more than one NAND page.</td>
+</tr>
+<tr class="tcw">
+<td><b>no_bulk_read</b></td>
+<td>Do not bulk-read. This is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>chk_data_crc</b></td>
+<td>Check data <a href="/jargon/c/crc.htm">CRC</a>-32 <a href="/jargon/c/checksum.htm">checksums</a>. This is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>no_chk_data_crc</b></td>
+<td>Do not check data CRC-32 checksums. With this option, the filesystem does not check CRC-32 checksum for data, but it does check it for the internal indexing information. This option only affects reading, not writing. CRC-32 is always calculated when writing the data.</td>
+</tr>
+<tr class="tcw">
+<td><b>compr=</b>{<b>none</b>|<b>lzo</b>|<b>zlib</b>}</td>
+<td>Select the default compressor that is used when new files are written. It is still possible to read <a href="/jargon/c/compress.htm">compressed</a> files if mounted with the <b>none</b> option.</td>
+</tr>
+</table>
+<h2 id="FSMO-udf">Filesystem-Specific mount Options: udf</h2>
+<p class="tab"><b>udf</b> is the "Universal Disk Format" filesystem defined by the Optical Storage Technology Association, and is often used for <a href="/jargon/d/dvd.htm">DVD-ROM</a>. See also <b>iso9660</b>, above.</p>
+<p class="tab">Mount options for <b>udf</b>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:110px"><b>gid=</b></td>
+<td>Set the default group.</td>
+</tr>
+<tr class="tcw">
+<td><b>umask=</b></td>
+<td>Set the default <a href="/unix/uumask.htm">umask</a>. The value is given in <a href="/jargon/o/octal.htm">octal</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>uid=</b></td>
+<td>Set the default user.</td>
+</tr>
+<tr class="tcw">
+<td><b>unhide</b></td>
+<td>Show otherwise <a href="/jargon/h/hiddenfi.htm">hidden</a> files.</td>
+</tr>
+<tr class="tcw">
+<td><b>undelete</b></td>
+<td>Show deleted files in lists.</td>
+</tr>
+<tr class="tcw">
+<td><b>nostrict</b></td>
+<td>Unset strict conformance.</td>
+</tr>
+<tr class="tcw">
+<td><b>iocharset</b></td>
+<td>Set the NLS character set.</td>
+</tr>
+<tr class="tcw">
+<td><b>bs=</b></td>
+<td>Set the block size. May not work unless <b>2048</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>novrs</b></td>
+<td>Skip volume sequence recognition.</td>
+</tr>
+<tr class="tcw">
+<td><b>session=</b></td>
+<td>Set the CD-ROM session counting from <b>0</b>. Default: last session.</td>
+</tr>
+<tr class="tcw">
+<td><b>anchor=</b></td>
+<td>Override standard anchor location. Default: <b>256</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>volume=</b></td>
+<td>Override the VolumeDesc location. (unused)</td>
+</tr>
+<tr class="tcw">
+<td><b>partition=</b></td>
+<td>Override the PartitionDesc location. (unused)</td>
+</tr>
+<tr class="tcw">
+<td><b>lastblock=</b></td>
+<td>Set the last block of the filesystem.</td>
+</tr>
+<tr class="tcw">
+<td><b>fileset=</b></td>
+<td>Override the fileset block location. (unused)</td>
+</tr>
+<tr class="tcw">
+<td><b>rootdir=</b></td>
+<td>Override the root directory location. (unused)</td>
+</tr>
+</table>
+<h2>Filesystem-Specific mount Options: ufs</h2>
+<p class="tab"><b>ufs</b> is the Unix File System. It is used in many Unix and Unix-like filesystems, and is a descendent of the filesystem used in <a href="/history/unix.htm">Version 7 Unix</a>.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>ufstype=</b><i>value</i></td>
+<td><p>UFS is a filesystem widely used in different operating systems; there are significant differences among implementations. Features of some implementations are undocumented, so its hard to recognize the type of <b>ufs</b> automatically. That's why the user must specify the type of <b>ufs</b> by mount option. Possible values are:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:140px"><b>old</b></td>
+<td>Old format of <b>ufs</b>; this is the default, and is read-only, so don't forget to give the <b>-r</b> option as well.</td>
+</tr>
+<tr class="tcw">
+<td><b>44bsd</b></td>
+<td>For filesystems created by a <a href="/jargon/b/bsd.htm">BSD</a>-like system (NetBSD, FreeBSD, OpenBSD).</td>
+</tr>
+<tr class="tcw">
+<td><b>ufs2</b></td>
+<td>Used in FreeBSD 5.x; supported as read-write.</td>
+</tr>
+<tr class="tcw">
+<td><b>5xbsd</b></td>
+<td>Synonym for <b>ufs2</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>sun</b></td>
+<td>For filesystems created by <a href="/jargon/s/solaris.htm">SunOS</a>, or Solaris on <a href="/jargon/s/sparc.htm">Sparc</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>sunx86</b></td>
+<td>For filesystems created by Solaris on <a href="/jargon/x/x86.htm">x86</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>hp</b></td>
+<td>For filesystems created by <a href="/jargon/h/hp-ux.htm">HP-UX</a>; read-only.</td>
+</tr>
+<tr class="tcw">
+<td><b>nextstep</b></td>
+<td>For filesystems created by <a href="/jargon/n/nextstep.htm">NeXTSTEP</a> (on NeXT station); currently read-only.</td>
+</tr>
+<tr class="tcw">
+<td><b>nextstep-cd</b></td>
+<td>For NextStep CD-ROMs (block_size == 2048); read-only.</td>
+</tr>
+<tr class="tcw">
+<td><b>openstep</b></td>
+<td>For filesystems created by OpenStep (currently read-only). The same filesystem type is also used by <a href="/jargon/m/macos.htm">macOS X</a>.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>onerror=</b><i>value</i></td>
+<td><p>Set behavior on encountering an error:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:240px"><b>panic</b></td>
+<td>If an error is encountered, cause a kernel panic.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>lock</b>|<b>umount</b>|<b>repair</b>]</td>
+<td>These mount options don't do anything at present; when an error is encountered only a console message is printed.</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<h2 id="FSMO-usbfs">Filesystem-Specific mount Options: usbfs</h2>
+<p class="tab">The <b>usbfs</b> filesystem is dynamically generated, similar to <b>proc</b> (see <a href="#The-Loop-Device">The Loop Device</a>, below). It is used primarily for <a href="/jargon/u/usb.htm">USB</a> devices on <a href="/jargon/l/linux.htm">Linux</a> and other <a href="/jargon/u/unix.htm">Unix</a>-like filesystems.</p>
+<p class="tab">Mount options for <b>usbfs</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>devuid=</b><i>uid</i>, <b>devgid=</b><i>gid</i>, <b>devmode=</b><i>mode</i></td>
+<td>Set the owner and group and mode of the device files in the <b>usbfs</b> filesystem (default: <b>uid=gid=0</b>, <b>mode=0644</b>). The mode is given in <a href="/jargon/o/octal.htm">octal</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>busuid=</b><i>uid</i>, <b>busgid=</b><i>gid</i>, <b>busmode=</b><i>mode</i></td>
+<td>Set the owner and group and mode of the bus directories in the <b>usbfs</b> filesystem (default: <b>uid=gid=0</b>, <b>mode=0555</b>). The mode is given in octal.</td>
+</tr>
+<tr class="tcw">
+<td><b>listuid=</b><i>uid</i>, <b>listgid=</b><i>gid</i>, <b>listmode=</b><i>mode</i></td>
+<td>Set the owner and group and mode of the file devices (default: <b>uid=gid=0</b>, <b>mode=0444</b>). The mode is given in octal.</td>
+</tr>
+</table>
+<h2 id="FSMO-vfat">Filesystem-Specific mount Options: vfat</h2>
+<p class="tab">Virtual FAT, or <b>vfat</b>, is closely related to the FAT file system. Options that are valid for <b>fat</b> (see above) are also valid for <b>vfat</b>, except for the "<b>dot</b>" options. Additional options are as follows. Mount options for <b>vfat</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>uni_xlate</b></td>
+<td>Translate unhandled <a href="/jargon/u/unicode.htm">Unicode</a> characters to special escaped sequences. This lets you back up and restore file names that are created with any Unicode characters. Without this option, a '<b>?</b>' is used when no translation is possible. The escape character is '<b>:</b>' because it is otherwise illegal on the <b>vfat</b> filesystem. The escape sequence that gets used, where <b>u</b> is the unicode character, is: '<b>:</b>', <b>(u &amp; 0x3f)</b>, <b>((u&gt;&gt;6) &amp; 0x3f)</b>, <b>(u&gt;&gt;12)</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>posix</b></td>
+<td>Allow two files with names that only differ in <a href="/jargon/c/case.htm">case</a>. This option is obsolete.</td>
+</tr>
+<tr class="tcw">
+<td><b>nonumtail</b></td>
+<td>First try to make a short name without sequence number, before trying <b>name~num.ext</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>utf8</b></td>
+<td>UTF8 is the filesystem-safe 8-bit encoding of Unicode that is used by the console. It can be enabled for the filesystem with this option or disabled with <b>utf8=0</b>, <b>utf8=no</b> or <b>utf8=false</b>. If '<b>uni_xlate</b>' gets set, UTF8 gets disabled.</td>
+</tr>
+<tr class="tcw">
+<td><b>shortname=</b>{<b>lower</b>|<b>win95</b>|<b>winnt</b>|<b>mixed</b>}</td>
+<td><p>Defines the behavior for creation and display of file names which fit into 8.3 characters. If a long name for a file exists, it is always the preferred display. There are four modes:</p>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:90px"><b>lower</b></td>
+<td>Force the short name to <a href="/jargon/l/lowercas.htm">lowercase</a> upon display; store a long name when the short name is not all <a href="/jargon/u/uppercase.htm">uppercase</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>win95</b></td>
+<td>Force the short name to uppercase upon display; store a long name when the short name is not all uppercase.</td>
+</tr>
+<tr class="tcw">
+<td><b>winnt</b></td>
+<td>Display the shortname as is; store a long name when the short name is not all lowercase or all uppercase.</td>
+</tr>
+<tr class="tcw">
+<td><b>mixed</b></td>
+<td>Display the short name as is; store a long name when the short name is not all uppercase. This mode is the default since Linux 2.6.32.</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+<h2 id="FSMO-xfs">Filesystem-Specific mount Options: xfs</h2>
+<p class="tab"><b>xfs</b> is a <a href="/jargon/num/64bit.htm">64-bit</a>, <a href="/jargon/j/journal.htm">journaled</a> filesystem developed by <a href="/comp/sgi.htm">Silicon Graphics, Inc.</a> It was the default filesystem in <a href="/jargon/i/irix.htm">IRIX</a> for many years, and has also been ported to the Linux <a href="/jargon/k/kernel.htm">kernel</a>. <b>xfs</b> excels at <a href="/jargon/p/parallel.htm">parallel</a> <a href="/jargon/i/io.htm">I/O</a>, data <a href="/jargon/c/consiste.htm">consistency</a>, and overall filesystem performance. It is well suited for <a href="/jargon/r/realtime.htm">real-time</a> applications, due to a unique feature that allows it to maintain guaranteed data I/O <a href="/jargon/b/bandwidt.htm">bandwidth</a>.</p>
+<p class="tab">Mount options for <b>xfs</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>allocsize=</b><i>size</i></td>
+<td>Sets the buffered I/O end-of-file preallocation size when doing delayed allocation writeout (default size is 64 <a href="/jargon/k/kibibyte.htm">KiB</a>). Valid values for this option are page size (often 4 KiB) through to 1 <a href="/jargon/g/gibibyte.htm">GiB</a>, inclusive, in power-of-2 increments.</td>
+</tr>
+<tr class="tcw">
+<td><b>&lt;attr2&gt; </b> | <b>noattr2</b></td>
+<td>The options <b>enable</b>/<b>disable</b> (default is enabled) an "opportunistic" improvement to be made in the way inline extended attributes are stored on-disk. When the new form is used for the first time (by setting or removing extended attributes) the on-disk superblock feature bit field is updated to reflect this format being in use.</td>
+</tr>
+<tr class="tcw">
+<td><b>barrier</b></td>
+<td>Enables the use of block layer write barriers for writes into the journal and unwritten extent conversion. This allows for drive level write caching to be enabled, for devices that support write barriers.</td>
+</tr>
+<tr class="tcw">
+<td><b>dmapi</b></td>
+<td>Enable the DMAPI (Data Management <a href="/jargon/a/api.htm">API</a>) event callouts. Use with the <b>mtpt</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>grpid</b>|<b>bsdgroups</b>, <b>nogrpid</b>|<b>sysvgroups</b></td>
+<td>These options define what group ID a newly created file gets. When <b>grpid</b> is set, it takes the group ID of the directory where it is created; otherwise (the default) it takes the <b>fsgid</b> of the current process, unless the directory has the <b>setgid</b> bit set, where case it takes the gid from the parent directory, and also gets the <b>setgid</b> bit set if it's a directory itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>ihashsize=</b><i>value</i></td>
+<td>Sets the number of hash buckets available for hashing the in-memory <a href="/jargon/i/inode.htm">inodes</a> of the specified mount point. If a <i>value</i> of zero is used, the value selected by the default algorithm is displayed in <b>/proc/mounts</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>ikeep</b>|<b>noikeep</b></td>
+<td>When inode clusters are emptied of inodes, keep them around on the disk (<b>ikeep</b>) - this is the traditional XFS behavior and is still the default for now. Using the <b>noikeep</b> option, inode clusters are returned to the free space pool.</td>
+</tr>
+<tr class="tcw">
+<td><b>inode64</b></td>
+<td>Indicates that XFS is allowed to create inodes at any location in the filesystem, including those which result in inode numbers occupying more than <a href="/jargon/num/32bit.htm">32 bits</a> of significance. This is provided for backward compatibility, but causes problems for backup applications that cannot handle large inode numbers.</td>
+</tr>
+<tr class="tcw">
+<td><b>largeio</b>|<b>nolargeio</b></td>
+<td>If <b>nolargeio</b> is specified, the optimal I/O reported in <b>st_blksize</b> by <a href="/unix/stat.htm">stat</a> is as small as possible to allow user applications to avoid inefficient read/modify/write I/O. If <b>largeio</b> is specified, a filesystem with a <b>swidth</b> specified returns the <b>swidth</b> value (in bytes) in <b>st_blksize</b>. If the filesystem does not have a <b>swidth</b> specified but does specify an <b>allocsize</b> then <b>allocsize</b> (in bytes) is returned instead. If neither of these two options are specified, then filesystem behaves as if <b>nolargeio</b> was specified.</td>
+</tr>
+<tr class="tcw">
+<td><b>logbufs=</b><i>value</i></td>
+<td>Set the number of in-memory log buffers. Valid numbers range from <b>2</b>-<b>8</b> inclusive. The default value is <b>8</b> buffers for any recent kernel.</td>
+</tr>
+<tr class="tcw">
+<td><b>logbsize=</b><i>value</i></td>
+<td>Set the size of each in-memory log buffer. Size may be specified in bytes, or in kilobytes with a "<b>k</b>" suffix. Valid sizes for version 1 and version 2 logs are <b>16384</b> (<b>16k</b>) and <b>32768</b> (<b>32k</b>). Valid sizes for version 2 logs also include <b>65536</b> (<b>64k</b>), <b>131072</b> (<b>128k</b>) and <b>262144</b> (<b>256k</b>). The default value for any recent kernel is <b>32768</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>logdev=</b><i>device</i>, <b>rtdev=</b><i>device</i></td>
+<td>Use an external log (<a href="/jargon/m/metadata.htm">metadata</a> <a href="/jargon/j/journal.htm">journal</a>) and/or real-time device. An XFS filesystem has up to three parts: a data section, a log section, and a real-time section. The real-time section is optional, and the log section can be separate from the data section or contained within it.</td>
+</tr>
+<tr class="tcw">
+<td><b>mtpt=</b><i>mountpoint</i></td>
+<td>Use with the <b>dmapi</b> option. The value specified here is included in the DMAPI mount event, and should be the path of the actual mountpoint that is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>noalign</b></td>
+<td>Data allocations aren't aligned at stripe unit boundaries.</td>
+</tr>
+<tr class="tcw">
+<td><b>noatime</b></td>
+<td>Access <a href="/jargon/t/timestam.htm">timestamps</a> are not updated when a file is read.</td>
+</tr>
+<tr class="tcw">
+<td><b>norecovery</b>wil</td>
+<td>The filesystem is mounted without running log recovery. If the filesystem was not cleanly unmounted, it is likely to be inconsistent when mounted in <b>norecovery</b> mode. Some files or directories may not be accessible because of this. Filesystems mounted <b>norecovery</b> must be mounted read-only or the mount fails.</td>
+</tr>
+<tr class="tcw">
+<td><b>nouuid</b></td>
+<td>Don't check for double mounted filesystems using the filesystem <a href="/jargon/u/uuid.htm">uuid</a>. This is useful to mount LVM snapshot volumes.</td>
+</tr>
+<tr class="tcw">
+<td><b>osyncisosync</b></td>
+<td>Make <b>O_SYNC</b> writes implement true <b>O_SYNC</b>. WITHOUT this option, Linux XFS behaves as if an <b>osyncisdsync</b> option is used, which makes writing to files opened with the <b>O_SYNC</b> flag set behave as if the <b>O_DSYNC</b> flag had been used instead. This can result in better performance without compromising data safety. However, if this option is not in effect, timestamp updates from <b>O_SYNC</b> writes can be lost if the system crashes. If timestamp updates are critical, use the <b>osyncisosync</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>uquota</b>|<b>usrquota</b>|<b>uqnoenforce</b>|<b>quota</b></td>
+<td>User disk <a href="/jargon/d/diskqm.htm">quota</a> accounting enabled, and limits (optionally) enforced.</td>
+</tr>
+<tr class="tcw">
+<td><b>gquota</b>|<b>grpquota</b>|<b>gqnoenforce</b></td>
+<td>Group disk quota accounting enabled and limits (optionally) enforced.</td>
+</tr>
+<tr class="tcw">
+<td><b>pquota</b>|<b>prjquota</b>|<b>pqnoenforce</b></td>
+<td>Project disk quota accounting enabled and limits (optionally) enforced.</td>
+</tr>
+<tr class="tcw">
+<td><b>sunit=</b><i>value</i>, <b>swidth=</b><i>value</i></td>
+<td>Used to specify the stripe unit and width for a <a href="/jargon/r/raid.htm">RAID</a> device or a stripe volume. The <i>value</i> must be specified in 512-byte <a href="/jargon/b/block.htm">block</a> units. If this option is not specified and the filesystem was made on a stripe volume or the stripe width or unit were specified for the RAID device at <a href="/unix/mkfs.htm">mkfs</a> time, then the <b>mount</b> system call restores the value from the superblock. For filesystems that are made directly on RAID devices, these options can override the information in the superblock if the underlying disk layout changes after the filesystem was created. The <b>swidth</b> option is required if the <b>sunit</b> option is specified, and must be a multiple of the <b>sunit</b> value.</td>
+</tr>
+<tr class="tcw">
+<td><b>swalloc</b></td>
+<td>Data allocations are rounded up to stripe width boundaries when the current end of file is being extended and the file size is larger than the stripe width size.</td>
+</tr>
+</table>
+<h2 id="The-Loop-Device">The Loop Device</h2>
+<p class="tab">One further possible type is a mount via the <b>loop</b> device. A loop device is a "pseudo device" which allows a file to be mounted as a filesystem. For example, the command:</p>
+<pre class="tab tcy">mount /tmp/disk.img /mnt -t vfat -o loop=/dev/loop</pre>
+<p class="tab">sets up the loop device <b>/dev/loop3</b> to correspond to the file <b>/tmp/disk.img</b>, and then mount this device on <b>/mnt</b>.</p>
+<p class="tab">If no explicit loop device is mentioned (but only an option '<b>-o loop</b>' is given), then <b>mount</b> tries to find some unused loop device and use that; for example:</p>
+<pre class="tab tcy">mount /tmp/disk.img /mnt -o loop</pre>
+<p class="tab">The <b>mount</b> command automatically creates a loop device from a regular file if a filesystem type is not specified or the filesystem is known for <b>libblkid</b>, for example:</p>
+<pre class="tab tcy">mount /tmp/disk.img /mnt</pre>
+<pre class="tab tcy">mount -t ext3 /tmp/disk.img /mnt</pre>
+<p class="tab">This type of mount knows about four options, namely <b>loop</b>, <b>offset</b>, <b>sizelimit</b> and <b>encryption</b>, that are really options to <a href="/unix/losetup.htm">losetup</a>. If the mount requires a <a href="/jargon/p/passphra.htm">passphrase</a>, you are prompted for one unless you specify a file descriptor to read from instead with the <b>--pass-fd</b> option. These options can be used in addition to those specific to the filesystem type.</p>
+<p class="tab">Since Linux 2.6.25 is supported auto-destruction of loop devices and then any loop device allocated by <b>mount</b> is freed by <b>umount</b> independently on <b>/etc/mtab</b>. You can also free a loop device by hand, using '<b>losetup -d</b>' or '<b>umount -d</b>'.</p>
+<h2 id="Umount-Options">Options</h2>
+<p class="tab">The following options can be provided when umounting a device with <b>umount</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><b>-V</b></td>
+<td>Print version information and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>Print a help message and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Run in <a href="/jargon/v/verbose.htm">verbose</a> mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Unmount without writing in <b>/etc/mtab</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>In case unmounting fails, try to remount read-only.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>In case the unmounted device was a loop device, also free this loop device.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td>Don't call the <b>/sbin/umount.</b><i>filesystem</i> helper even if it exists. By default, <b>/sbin/umount.</b><i>filesystem</i> helper is called if one exists.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b></td>
+<td>All the file systems described in <b>/etc/mtab</b> are to be unmounted. With <b>umount</b> version 2.7 and later, the <b>proc</b> filesystem is not unmounted.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b> <i>vfstype</i></td>
+<td>Indicate that the actions should only be taken on file systems of the specified type. More than one type may be specified in a comma separated list. The list of file system types can be prefixed with no to specify the file system types on which no action should be taken.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b> <i>options</i></td>
+<td>Indicate that the actions should only be taken on file systems with the specified options in <b>/etc/fstab</b>. More than one option type may be specified in a comma separated list. Each option can be prefixed with no to specify options for which no action should be taken.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>Force unmount (in case of an unreachable <a href="/jargon/n/nfs.htm">NFS</a> system). (Requires <a href="/jargon/k/kernel.htm">kernel</a> 2.1.116 or later.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>"Lazy" unmount. Detach the filesystem from the filesystem hierarchy now, and cleanup all references to the filesystem as soon as it is not busy anymore. (Requires kernel 2.4.11 or later.)</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-canonicalize</b></td>
+<td>Don't canonicalize (standardize the textual representation of) paths.</td>
+</tr>
+<tr class="tcw">
+<td><b>--fake</b></td>
+<td>Causes everything to be done except for the actual system call; this "fakes" unmounting the filesystem. It can remove entries from <b>/etc/mtab</b> that were unmounted earlier with the <b>-n</b> option.</td>
+</tr>
+</table>
+<h2>Return Codes</h2>
+<p class="tab"><b>mount</b> returns one of the following values to indicate what happened during its execution:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:30px"><b>0</b></td>
+<td>success.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>incorrect invocation or permissions.</td>
+</tr>
+<tr class="tcw">
+<td><b>2</b></td>
+<td>a system error occurred (out of memory, cannot <a href="/jargon/f/fork.htm">fork</a>, no more loop devices).</td>
+</tr>
+<tr class="tcw">
+<td><b>4</b></td>
+<td>internal <b>mount</b> bug was encountered.</td>
+</tr>
+<tr class="tcw">
+<td><b>8</b></td>
+<td>interrupted by user.</td>
+</tr>
+<tr class="tcw">
+<td><b>16</b></td>
+<td>problems writing or locking /etc/mtab.</td>
+</tr>
+<tr class="tcw">
+<td><b>32</b></td>
+<td>mount failure.</td>
+</tr>
+<tr class="tcw">
+<td><b>64</b></td>
+<td>At least one mount succeeded, but not all.</td>
+</tr>
+</table>
+<h2>Files</h2>
+<p class="tab"><b>mount</b> makes use of the following files:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>/etc/fstab</b></td>
+<td>filesystem table</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/mtab</b></td>
+<td>table of filesystems that are mounted. This file is also used by <b>umount</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/mtab~</b></td>
+<td>lock file</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/mtab.tmp</b></td>
+<td>temporary file</td>
+</tr>
+<tr class="tcw">
+<td><b>/etc/filesystems</b></td>
+<td>list of filesystem types to try</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">mount -t type devicename destination_directory</pre>
+<p class="tab">Mount the device of devicename <b>devicename</b>, of type <b>type</b>, at filesystem location <b>destination_directory</b>.</p>
+<pre class="tcy tab">mount -t iso9660 -o ro /dev/cdrom /mnt</pre>
+<p class="tab">Mount a CD-ROM in the directory <b>/mnt</b>. <b>iso9660</b> is the standard file system for CD-ROMs, <b>-o ro</b> tells <b>mount</b> to mount it as a read-only filesystem. <b>/mnt</b> must already exist for this command to be successful.</p>
+<pre class="tcy tab">mount</pre>
+<p class="tab">Display all current mounts. Output appears similar to the following:</p>
+<pre class="tab">/dev/loop0 on / type ext4 (rw,errors=remount-ro)
+proc on /proc type proc (rw,noexec,nosuid,nodev)
+sysfs on /sys type sysfs (rw,noexec,nosuid,nodev)
+none on /sys/fs/cgroup type tmpfs (rw)
+none on /sys/fs/fuse/connections type fusectl (rw)
+none on /sys/kernel/debug type debugfs (rw)
+none on /sys/kernel/security type securityfs (rw)
+udev on /dev type devtmpfs (rw,mode=0755)
+devpts on /dev/pts type devpts (rw,noexec,nosuid,gid=5,mode=0620)
+tmpfs on /run type tmpfs (rw,noexec,nosuid,size=10%,mode=0755)
+none on /run/lock type tmpfs (rw,noexec,nosuid,nodev,size=5242880)
+none on /run/shm type tmpfs (rw,nosuid,nodev)
+none on /run/user type tmpfs (rw,noexec,nosuid,nodev,size=104857600,mode=0755)
+/dev/sda3 on /host type fuseblk (rw,nosuid,nodev,relatime,user_id=0,group_id=0,allow_other,blksize=4096)
+binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw,noexec,nosuid,nodev)
+gvfsd-fuse on /run/user/lightdm/gvfs type fuse.gvfsd-fuse (rw,nosuid,nodev,user=lightdm)</pre>
+<pre class="tcy tab">mount -l -t tmpfs</pre>
+<p class="tab">List all current mounts of type <b>tmpfs</b>. Output resembles the following:</p>
+<pre class="tab">none on /sys/fs/cgroup type tmpfs (rw)
+tmpfs on /run type tmpfs (rw,noexec,nosuid,size=10%,mode=0755)
+none on /run/lock type tmpfs (rw,noexec,nosuid,nodev,size=5242880)
+none on /run/shm type tmpfs (rw,nosuid,nodev)
+none on /run/user type tmpfs (rw,noexec,nosuid,nodev,size=104857600,mode=0755)</pre>
+<pre class="tcy tab">mount -a</pre>
+<p class="tab">Mount all filesystems listed in the filesystem table file <b>/etc/fstab</b>.</p>
+<pre class="tcy tab">mount -o loop disk1.iso /mnt/disk</pre>
+<p class="tab">Mount the <a href="/jargon/i/isoimage.htm">ISO Image</a> file <b>disk1.iso</b> as a loop device (see above) at the directory <b>/mnt/disk</b>. The directory <b>/mnt/disk</b> must already exist for this command to be successful.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/eject.htm"><b>eject</b></a> &mdash; Eject removable media.<br><a href="/unix/losetup.htm"><b>losetup</b></a> &mdash; Set up and control loop devices.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a836e396084c8',m:'3BLrUj_nOegGf7xdnnTlVj5JKKPWEWatOqT6V.sO30U-1661495369-0-Afy42QgAZIB6ptDfah+kQJ5u3Of93H4ukpOP02F2ipvOmMDpdfJEW13U5wBekE6rVnN1VO+Kr4t7lkuptSWBnL//u5xYW126h7FYVEO1kaGLZhwXbiEkqJeTOuievIQSjA==',s:[0x9fc5f16fc0,0xa557247697],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux adduser and addgroup commands</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/adduser.gif" width="300" height="300" alt="adduser command" class="floatRight">
+<p class="intro">On <a href="https://www.computerhope.com/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>adduser</b> command creates a new <a href="/jargon/u/user.htm">user</a>, and the <b>addgroup</b> command creates a new <a href="/jargon/g/group.htm">group</a>.</p>
+<p>The <b>adduser</b> command can also be used to add an existing user to an existing group.</p>
+
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#how-to-use">How to use adduser and addgroup</a>
+<ul>
+<li><a href="#normal">Add a normal user</a></li>
+<li><a href="#system">Add a system user</a></li>
+<li><a href="#user-group">Add a user group</a></li>
+<li><a href="#system-group">Add a system group</a></li>
+<li><a href="#existing-group">Add an existing user to an existing group</a></li>
+</ul>
+</li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#exit">Exit values</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux command list</a></li>
+</ul>
+</div>
+<h2 id="how-to-use">How to use adduser and addgroup</h2>
+<p class="tab"><b>adduser</b> and <b>addgroup</b> add users and groups to the system according to <a href="/jargon/c/commandi.htm">command line</a> options and <a href="/jargon/c/configur.htm">configuration</a> information in <b>/etc/adduser.conf</b>. They are friendlier front ends to the low-level tools like <a href="/unix/useradd.htm">useradd</a>, <a href="/unix/groupadd.htm">groupadd</a> and <a href="/unix/usermod.htm">usermod</a> programs, by choosing policy-conformant <a href="/jargon/u/username.htm">UID</a> and GID values, creating a <a href="/jargon/h/homedir.htm">home directory</a> with skeletal configuration, running a custom <a href="/jargon/s/script.htm">script</a>, and other features.</p>
+<p class="tab">There are five major ways to use <b>adduser</b> and <b>addgroup</b> can run in one of five modes:</p>
+<h3 class="tab" id="normal">Add a normal user</h3>
+<p class="tab">If called with one non-option <a href="/jargon/a/argument.htm">argument</a> and without the <b>--system</b> or <b>--group</b> options, <b>adduser</b> adds a normal user.</p>
+<p class="tab"><b>adduser</b> chooses the first available UID from the range specified for normal users in the configuration file. The UID can b overridden with the <b>--uid</b> option.</p>
+<p class="tab">The range specified in the configuration file may be overridden with the <b>--firstuid</b> and <b>--lastuid</b> options.</p>
+<p class="tab">By default, each user in a GNU/Linux system is given a corresponding group with the same name. User groups allow group writable directories to be easily maintained by placing the appropriate users in the new group, setting the set-group-ID bit in the <a href="/jargon/d/director.htm">directory</a>, and ensuring that all users use a <a href="/unix/uumask.htm">umask</a> of <b>002</b>. If this option is turned off by setting USERGROUPS to <b>no</b>, all users' GIDs are set to USERS_GID. Users' primary groups can also be overridden from the command line with the <b>--gid</b> or <b>--ingroup</b> options to set the group by id or name, respectively. Also, users can be added to one or more groups defined in <b>adduser.conf</b> either by setting ADD_EXTRA_GROUPS to <b>1</b> in <b>adduser.conf</b>, or by passing <b>--add_extra_groups</b> on the command line.</p>
+<p class="tab"><b>adduser</b> creates a home directory subject to DHOME, GROUPHOMES, and LETTERHOMES. The home directory can be overridden from the command line with the <b>--home</b> option, and the <a href="/jargon/s/shell.htm">shell</a> with the <b>--shell</b> option. The home directory's set-group-ID <a href="/jargon/b/bit.htm">bit</a> is set if USERGROUPS is <b>yes</b> so that any files created in the user's home directory have the correct group.</p>
+<p class="tab"><b>adduser</b> will copy files from SKEL into the home directory and prompt for <a href="/unix/ufinger.htm">finger</a> (gecos) information and a <a href="/jargon/p/password.htm">password</a>. The gecos may also be set with the <b>--gecos</b> option. With the <b>--disabled-login</b> option, the account is created but will be disabled until a password is set. The <b>--disabled-password</b> option will not set a password, but <a href="/jargon/l/login.htm">login</a> is still possible (for example with <a href="/jargon/s/ssh.htm">SSH</a> <a href="/jargon/r/rsa.htm">RSA</a> keys). To set up an <a href="/jargon/e/encrypt.htm">encrypted</a> home directory for the new user, add the <b>--encrypt-home</b> option.</p>
+<p class="tab">If the file <b>/usr/local/sbin/adduser.local</b> exists, it will be <a href="/jargon/e/execute.htm">executed</a> after the user account is set up to do any local setup. The arguments passed to <b>adduser.local</b> are: "<b>username uid gid home-directory"</b>.</p>
+<p class="tab">The environment variable VERBOSE is set according to the following rules:</p>
+<ul>
+<li>if <b>--quiet</b> is specified</li>
+<li>if neither <b>--quiet</b> nor <b>--debug</b> is specified</li>
+<li>if <b>--debug</b> is specified</li>
+</ul>
+<p class="tab">(The same applies to the variable <b>DEBUG</b>, but <b>DEBUG</b> is deprecated and will be removed in a later version of <b>adduser</b>).</p>
+<h3 class="tab" id="system">Add a system user</h3>
+<p class="tab">If called with one non-option argument and the <b>--system</b> option, <b>adduser</b> adds a system user. If a user with the same name already exists in the system uid range (or, if the uid is specified, if a user with that uid already exists), <b>adduser</b> will exit with a warning. This warning can be suppressed by adding "<b>--quiet</b>".</p>
+<p class="tab"><b>adduser</b> chooses the first available UID from the range specified for system users in the configuration file (<b>FIRST_SYSTEM_UID</b> and <b>LAST_SYSTEM_UID</b>). If you want to have a specific UID, you can specify it using the <b>--uid</b> option.</p>
+<p class="tab">By default, system users are placed in the "<b>nogroup</b>" group. To place the new system user in an already existing group, use the <b>--gid</b> or <b>--ingroup</b> options. To place the new system user in a new group with the same ID, use the <b>--group</b> option.</p>
+<p class="tab">A home directory is created by the same rules as for normal users. The new system user has the shell <b>/bin/false</b> (unless overridden with the <b>--shell</b> option), and have logins disabled. Skeletal configuration files are not copied.</p>
+<h3 class="tab" id="user-group">Add a user group</h3>
+<p class="tab">If <b>adduser</b> is called with the <b>--group</b> option and without the <b>--system</b> option, or <b>addgroup</b> is called, a user group is added.</p>
+<p class="tab">A GID will be chosen from the range specified for system GIDS in the configuration file (<b>FIRST_GID</b>, <b>LAST_GID</b>). To override that mechanism, you can give the GID using the <b>--gid</b> option.</p>
+<p class="tab">The group is created with no users.</p>
+<h3 class="tab" id="system-group">Add a system group</h3>
+<p class="tab">If <b>addgroup</b> is called with the <b>--system</b> option, a system group is added.</p>
+<p class="tab">A GID will be chosen from the range specified for system GIDS in the configuration file (<b>FIRST_SYSTEM_GID</b>, <b>LAST_SYSTEM_GID</b>). To override that mechanism, you can give the GID using the <b>--gid</b> option.</p>
+<p class="tab">The group is created with no users.</p>
+<h3 class="tab" id="existing-group">Add an existing user to an existing group</h3>
+<p class="tab">If you run <b>adduser</b> with two non-option arguments, it adds existing user <i>user</i> to group <i>group</i>, if it exists.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">adduser [--system] [--home <i>DIR</i>] [--shell <i>SHELL</i>] [--no-create-home]
+        [--uid <i>ID</i>] [--firstuid <i>ID</i>] [--lastuid <i>ID</i>]
+        [--ingroup <i>GROUP</i> | --gid <i>ID</i>] [--disabled-password]
+        [--disabled-login] [--gecos <i>GECOS</i>] [--add_extra_groups]
+        [--encrypt-home] [--quiet] [--debug] [--force-badname]
+        [--help|-h] [--version] [--conf <i>FILE</i>] <i>user</i>
+</pre>
+<pre class="tcy tab">addgroup [--system] [--quiet] [--debug] [--force-badname] [--help|-h]
+         [--version] [--conf <i>FILE</i>] [--gid <i>ID</i>] <i>group</i>
+</pre>
+<pre class="tcy tab">adduser [<i>options</i>] <i>user</i> <i>group</i>
+</pre>
+<h3 class="tab" id="options">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>--conf</b> <i>FILE</i></td>
+<td>Use <i>FILE</i> instead of <b>/etc/adduser.conf</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--disabled-login</b></td>
+<td>Do not run <a href="/unix/upasswor.htm">passwd</a> to set the password. The user won't be able to use her account until the password is set.</td>
+</tr>
+<tr class="tcw">
+<td><b>--disabled-password</b></td>
+<td>Like <b>--disabled-login</b>, but logins are still possible (for example using SSH RSA keys), but not using password authentication.</td>
+</tr>
+<tr class="tcw">
+<td><b>--force-badname</b></td>
+<td>By default, user and group names are checked against the configurable <a href="/jargon/r/regex.htm">regular expression</a> <b>NAME_REGEX</b> (or <b>NAME_REGEX_SYSTEM</b> if <b>--system</b> is specified) specified in the configuration file. This option forces <b>adduser</b> and <b>addgroup</b> to apply only a weak check for validity of the name.</td>
+</tr>
+<tr class="tcw">
+<td><b>--gecos</b> <i>GECOS</i></td>
+<td>Set the gecos field for the new entry generated. <b>adduser</b> will not ask for finger information if this option is given.</td>
+</tr>
+<tr class="tcw">
+<td><b>--gid</b> <i>ID</i></td>
+<td>When creating a group, this option forces the new groupid to be the given number. When creating a user, this option puts the user in that group.</td>
+</tr>
+<tr class="tcw">
+<td><b>--group</b></td>
+<td>When combined with <b>--system</b>, a group with the same name and ID as the system user is created. If not combined with <b>--system</b>, a group with the given name is created. This is the default action if the program is invoked as <b>addgroup</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--home</b> <i>DIR</i></td>
+<td>Use <i>DIR</i> as the user's home directory, rather than the default specified by the configuration file. If the directory does not exist, it is created and skeleton files are copied.</td>
+</tr>
+<tr class="tcw">
+<td><b>--shell</b> <i>SHELL</i></td>
+<td>Use <i>SHELL</i> as the user's login shell, rather than the default specified by the configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>--ingroup</b> <i>GROUP</i></td>
+<td>Add the new user to <i>GROUP</i> instead of a user group or the default group defined by <b>USERS_GID</b> in the configuration file. This affects the users primary group. To add additional groups, see the add_extra_groups option.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-create-home</b></td>
+<td>Do not create the home directory, even if it doesn't exist.</td>
+</tr>
+<tr class="tcw">
+<td><b>--quiet</b></td>
+<td>Suppress informational messages, only show warnings and errors.</td>
+</tr>
+<tr class="tcw">
+<td><b>--debug</b></td>
+<td>Be <a href="/jargon/v/verbose.htm">verbose</a>, which is most useful if you want to nail down a problem with <b>adduser</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>--system</b></td>
+<td>Create a system user or group.</td>
+</tr>
+<tr class="tcw">
+<td><b>--uid</b> <i>ID</i></td>
+<td>Force the new userid to be the given number. <b>adduser</b> fails if the userid is already taken.</td>
+</tr>
+<tr class="tcw">
+<td><b>--firstuid</b> <i>ID</i></td>
+<td>Override the first uid in the range that the uid is chosen from (overrides FIRST_UID specified in the configuration file).</td>
+</tr>
+<tr class="tcw">
+<td><b>--lastuid</b> <i>ID</i></td>
+<td>Override the last uid in the range that the uid is chosen from ( LAST_UID ).</td>
+</tr>
+<tr class="tcw">
+<td><b>--add_extra_groups</b></td>
+<td>Add new user to extra groups defined in the configuration file.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Display version and Copyright information.</td>
+</tr>
+</table>
+<h3 class="tab">Configuration</h3>
+<p class="tab">The file <b>/etc/adduser.conf</b> contains defaults for the programs <b>adduser</b>, <b>addgroup</b>, <b>deluser</b> and <b>delgroup</b>. Each line holds a single value pair in the form "<i>option</i> <b>=</b> <i>value</i>". Double or single quotes are allowed around the value, as is whitespace around the equals sign. Comment lines must have a hash sign ("<b>#</b>") in the first column.</p>
+<p class="tab">The valid configuration options are:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>DSHELL</b></td>
+<td>The login shell to be used for all new users. Defaults to <b>/bin/bash</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>DHOME</b></td>
+<td>The directory where new home directories should be created. Defaults to <b>/home</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>GROUPHOMES</b></td>
+<td>If this is set to <b>yes</b>, the home directories is created as "<b>/home/</b>[<b>groupname</b>]<b>/user</b>". Defaults to <b>no</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>LETTERHOMES</b></td>
+<td>If this is set to <b>yes</b>, then the home directories created have an extra directory inserted that is the first letter of the loginname. For example: <b>/home/u/user</b>. Defaults to <b>no</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>SKEL</b></td>
+<td>The directory from which skeletal user configuration files should be copied. Defaults to <b>/etc/skel</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>FIRST_SYSTEM_UID</b>, <b>LAST_SYSTEM_UID</b></td>
+<td>Specify an inclusive range of UIDs from which system UIDs can be dynamically allocated. Default to <b>100</b> - <b>999</b>. Please note that system software, such as the users allocated by the base-passwd package, may assume that UIDs less than 100 are unallocated.</td>
+</tr>
+<tr class="tcw">
+<td><b>FIRST_UID</b>, <b>LAST_UID</b></td> 
+<td>Specify an inclusive range of UIDs from which normal user's UIDs can be dynamically allocated. Default to <b>1000</b> - <b>29999</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>FIRST_SYSTEM_GID</b>, <b>LAST_SYSTEM_GID</b></td>
+<td>Specify an inclusive range of GIDs from which system GIDs can be dynamically allocated. Default to <b>100</b> - <b>999</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>FIRST_GID</b>, <b>LAST_GID</b></td>
+<td>Specify an inclusive range of GIDs from which normal group's GIDs can be dynamically allocated. Default to <b>1000</b> - <b>29999</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>USERGROUPS</b></td>
+<td>If this is set to <b>yes</b>, then each created user will be given a group to use. If this is <b>no</b>, then each created user will be placed in the group whose GID is USERS_GID (see below). The default is <b>yes</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>USERS_GID</b></td>
+<td>If <b>USERGROUPS</b> is <b>no</b>, then <b>USERS_GID</b> is the GID given to all newly-created users. The default value is <b>100</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>DIR_MODE</b></td>
+<td>If set to a valid value (e.g., <b>0755</b> or <b>755</b>), directories created have the specified permissions as umask. Otherwise, <b>0755</b> is used as default.</td>
+</tr>
+<tr class="tcw">
+<td><b>SETGID_HOME</b></td>
+<td>If this is set to <b>yes</b>, then home directories for users with a group ( <b>USERGROUPS=yes</b> ) have the setgid bit set. This was the default setting for <b>adduser</b> versions previous to 3.13. Unfortunately, it has some bad side effects, so we no longer do this per default. If you want it nevertheless you can still activate it here.</td>
+</tr>
+<tr class="tcw">
+<td><b>QUOTAUSER</b></td>
+<td>If set to a nonempty value, new users have quotas copied from that user. The default is empty.</td>
+</tr>
+<tr class="tcw">
+<td><b>NAME_REGEX</b></td>
+<td>User and group names are checked against this regular expression. If the name doesn't match this regexp, user and group creation in adduser is refused unless <b>--force-badname</b> is set. With <b>--force-badname</b> set, only weak checks are performed. The default is the most conservative <b>^[a-z][-a-z0-9]*$</b>. When <b>--system</b> is specified, NAME_REGEX_SYSTEM is used instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>NAME_REGEX_SYSTEM</b></td>
+<td>Names of system users are checked against this regular expression. If <b>--system</b> is supplied and the name doesn't match this regexp, user creation in adduser is refused unless <b>--force-badname</b> is set. With <b>--force-badname</b> set, only weak checks are performed. The default is as for the default <b>NAME_REGEX</b> but also allowing uppercase letters.</td>
+</tr>
+<tr class="tcw">
+<td><b>SKEL_IGNORE_REGEX</b></td>
+<td>Files in <b>/etc/skel/</b> are checked against this regex, and not copied to the newly created home directory if they match. This is by default set to the regular expression matching files left over from unmerged config files (<b>dpkg-</b>(<b>old</b>|<b>new</b>|<b>dist</b>)).</td>
+</tr>
+<tr class="tcw">
+<td><b>ADD_EXTRA_GROUPS</b></td>
+<td>Setting this to something other than <b>0</b> (the default) causes adduser to add newly created non-system users to the list of groups defined by <b>EXTRA_GROUPS</b> (below).</td>
+</tr>
+<tr class="tcw">
+<td><b>EXTRA_GROUPS</b></td>
+<td>This is the list of groups that new non-system users are added to. By default, this list is 'dialout cdrom floppy audio video plugdev users games'.</td>
+</tr>
+</table>
+<h2 class="tab" id="exit">Exit values</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td><b>0</b></td>
+<td>The user exists as specified. This can have 2 causes: The user was created by <b>adduser</b> or the user was already present on the system before <b>adduser</b> was invoked. If <b>adduser</b> was returning 0, invoking <b>adduser</b> a second time with the same parameters as before also returns <b>0</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>1</b></td>
+<td>Creating the user or group failed because it was already present with other UID/GID than specified. The username or groupname was rejected because of a mismatch with the configured regular expressions. <b>adduser</b> was aborted by a signal.<br><br> Or this code may be returned for other undocumented reasons, which in that case are printed to console. You may then consider to remove <b>--quiet</b> to make <b>adduser</b> more verbose.</td>
+</tr>
+</table>
+<h2 class="tab" id="files">Files</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:190px"><b>/etc/adduser.conf</b></td>
+<td>Default configuration file for <b>adduser</b> and <b>addgroup</b></td>
+</tr>
+</table>
+<h2 class="tab" id="examples">Examples</h2>
+<pre class="tcy tab">adduser mynewuser</pre>
+<p class="tab">Creates a new user account, <b>mynewuser</b>.</p>
+<p class="tab"><b>adduser</b> prompts you to assign a password for the user, and ask you for optional identifying information such as <i>Full Name</i> and <i>Phone Number</i>.</p>
+<p class="tab">A home directory (by default, <b>/home/mynewuser</b>) is created for the new user, and a user-specific group, <b>mynewuser</b>, is created. The contents of the skeleton home directory, which by default is located at <b>/etc/skel</b>, is copied into the new home directory.</p>
+<p class="tab">If the script <b>/usr/local/sbin/adduser.local</b> exists, it will be executed with the arguments <i>username uid gid home-directory</i>, where <i>username</i> is <b>mynewuser</b>, <i>uid</i> is <b>mynewuser's</b> user id, <i>gid</i> is <b>mynewuser</b>'s group id, and <i>home-directory</i> is <b>mynewuser</b>'s home directory.</p>
+<pre class="tcy tab">adduser --home /home/mynewuserhome mynewuser</pre>
+<p class="tab">Creates the user account <b>mynewuser</b>, and creates their home directory at the location <b>/home/mynewuserhome</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/deluser.htm"><b>deluser</b></a> &mdash; Remove a user from the system.<br><a href="/unix/ufinger.htm"><b>finger</b></a> &mdash; List information about a user.<br><a href="/unix/groupadd.htm"><b>groupadd</b></a> &mdash; Add a group to the system.<br><a href="/unix/upasswor.htm"><b>passwd</b></a> &mdash; Change a user's password.<br><a href="/unix/useradd.htm"><b>useradd</b></a> &mdash; Add a user to the system.<br><a href="/unix/userdel.htm"><b>userdel</b></a> &mdash; Remove a user from the system.<br><a href="/unix/usermod.htm"><b>usermod</b></a> &mdash; Modify a user's account.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82ac3ba184bc',m:'wXbmIL6BzaFoMdceWIhmke1STufhq.Xj1wGeH0AyTyg-1661495338-0-AVxv1eDb+WdUgPKEtgLsAcsyqqLVt3y0VuE5LoDujzlSsBkwkpQoRPr4EALA4ZUvFQvXjlb+G0Hpij8V/nX01oBKbFIaz+DaHyG0Q6DnbRFLLbp0lwiKvPA4hg6dVkcczlhbBH2S/I4Ql+pnYX033x0=',s:[0x286a33a75a,0x2841cda438],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

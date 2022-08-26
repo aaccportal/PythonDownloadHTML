@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header> 
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux less command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-03-13">03/13/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/less.gif" width="300" height="300" alt="less command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>less</b> command is a feature-rich <a href="/jargon/c/commandi.htm">command-line</a> file viewer.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>less</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>less</b> is a program similar to <a href="/unix/umore.htm">more</a>, but it has many more features. <b>less</b> does not have to read the entire input file before starting, so with large input files it starts up faster than text editors like <a href="/unix/uvi.htm">vi</a>. <b>less</b> uses <b>termcap</b> (or <b>terminfo</b> on some systems), so it can run on a variety of <a href="/jargon/t/terminal.htm">terminals</a>. There is even limited support for hardcopy terminals. On a hardcopy terminal, lines which should be printed at the top of the screen are prefixed with a caret ("<b>^</b>").</p>
+<p class="tab">Commands are based on both <b>more</b> and <b>vi</b>. Commands may be preceded by a <a href="/jargon/d/decimal.htm">decimal</a> number, called <i>N</i> in the descriptions below. The number is used by some commands, as indicated.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">less [-[+]aABcCdeEfFgGiIJKLmMnNqQrRsSuUVwWX~] [-b <i>space</i>] [-h <i>lines</i>] 
+     [-j <i>line</i>] [-k <i>keyfile</i>] [-{oO} <i>logfile</i>] [-p <i>pattern</i>] [-P <i>prompt</i>] 
+     [-t <i>tag</i>] [-T <i>tagsfile</i>] [-x <i>tab</i>,...] [-y <i>lines</i>] [-[z] <i>lines</i>] 
+     [-# <i>shift</i>] [+[+]<i>cmd</i>] [--] [<i>filename</i>]...</pre>
+<h2>Commands</h2>
+<p class="tab">In the following descriptions, <b>^X</b> means <b>control-X</b>. <b>Esc</b> stands for the <b>Escape</b> key; for example <b>Esc-v</b> means the two character sequence "<b>Escape</b>", then "<b>v</b>".</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>h</b>, <b>H</b></td>
+<td>Help: display a summary of commands. If you forget all the other commands, remember this one.</td>
+</tr>
+<tr class="tcw">
+<td><b>Space</b>, <b>^V</b>, <b>f</b>, <b>^F</b></td>
+<td>Scroll forward <i>N</i> lines, default one window (see option <b>-z</b> below). If <i>N</i> is more than the screen size, only the final screenful is displayed. Warning: some systems use <b>^V</b> as a special literalization character.</td>
+</tr>
+<tr class="tcw">
+<td><b>z</b></td>
+<td>Like <b>SPACE</b>, but if <i>N</i> is specified, it becomes the new window size.</td>
+</tr>
+<tr class="tcw">
+<td><b>Esc-Space</b></td>
+<td>Like <b>SPACE</b>, but scrolls a full screenful, even if it reaches <a href="/jargon/e/eof.htm">end-of-file</a> in the process.</td>
+</tr>
+<tr class="tcw">
+<td><b>Enter</b>, <b>Return</b>, <b>^N</b>, <b>e</b>, <b>^E</b>, <b>j</b>, <b>^J</b></td>
+<td>Scroll forward <i>N</i> lines, default 1. The entire <i>N</i> lines are displayed, even if <i>N</i> is more than the screen size.</td>
+</tr>
+<tr class="tcw">
+<td><b>d</b>, <b>^D</b></td>
+<td>Scroll forward <i>N</i> lines, default one half of the screen size. If <i>N</i> is specified, it becomes the new default for subsequent <b>d</b> and <b>u</b> commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>b</b>, <b>^B</b>, <b>Esc-v</b></td>
+<td>Scroll backward <i>N</i> lines, default one window (see option <b>-z</b> below). If <i>N</i> is more than the screen size, only the final screenful is displayed.</td>
+</tr>
+<tr class="tcw">
+<td><b>w</b></td>
+<td>Like <b>Esc-v</b>, but if <i>N</i> is specified, it becomes the new window size.</td>
+</tr>
+<tr class="tcw">
+<td><b>y</b>, <b>^Y</b>, <b>^P</b>, <b>k</b>, <b>^K</b></td>
+<td>Scroll backward <i>N</i> lines, default 1. The entire <i>N</i> lines are displayed, even if <i>N</i> is more than the screen size. Warning: some systems use <b>^Y</b> as a special job control character.</td>
+</tr>
+<tr class="tcw">
+<td><b>u</b>, <b>^U</b></td>
+<td>Scroll backward <i>N</i> lines, default one half of the screen size. If <i>N</i> is specified, it becomes the new default for subsequent <b>d</b> and <b>u</b> commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>Esc-)</b>, <b>right arrow</b></td>
+<td>Scroll horizontally right <i>N</i> characters, default half the screen width (see the <b>-#</b> option). If a number <i>N</i> is specified, it becomes the default for future <b>right arrow</b> and <b>left arrow</b> commands. While the text is scrolled, it acts as though the <b>-S</b> option (chop lines) were in effect.</td>
+</tr>
+<tr class="tcw">
+<td><b>Esc-(</b>, <b>left arrow</b></td>
+<td>Scroll horizontally left <i>N</i> characters, default half the screen width (see the <b>-#</b> option). If a number <i>N</i> is specified, it becomes the default for future <b>right arrow</b> and <b>left arrow</b> commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>r</b>, <b>^R</b>, <b>^L</b></td>
+<td>Repaint the screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>R</b></td>
+<td>Repaint the screen, discarding any buffered input. Useful if the file is changing while it is being viewed.</td>
+</tr>
+<tr class="tcw">
+<td><b>F</b></td>
+<td>Scroll forward, and keep trying to read when the end of file is reached. Normally this command would be used when already at the end of the file. It is a way to monitor the tail of a file that is growing while it is being viewed. (The behavior is similar to the "<b><a href="/unix/utail.htm">tail</a> -f</b>" command.)</td>
+</tr>
+<tr class="tcw">
+<td><b>Esc-F</b></td>
+<td>Like <b>F</b>, but as soon as a line is found that matches the last search pattern, the terminal bell is rung and forward scrolling stops.</td>
+</tr>
+<tr class="tcw">
+<td><b>g</b>, <b>&gt;</b>, <b>Esc-&lt;</b></td>
+<td>Go to line <i>N</i> in the file, default 1 (beginning of file). (Warning: this may be slow if <i>N</i> is large.)</td>
+</tr>
+<tr class="tcw">
+<td><b>G</b>, <b>&gt;</b>, <b>Esc-&gt;</b></td>
+<td>Go to line <i>N</i> in the file, default the end of the file. (Warning: this may be slow if <i>N</i> is large, or if <i>N</i> is not specified and <a href="/jargon/s/stdin.htm">standard input</a>, rather than a file, is being read.)</td>
+</tr>
+<tr class="tcw">
+<td><b>p</b>, <b>%</b></td>
+<td>Go to a position <i>N</i> percent into the file. <i>N</i> should be between 0 and 100, and may contain a decimal point.</td>
+</tr>
+<tr class="tcw">
+<td><b>P</b></td>
+<td>Go to the line containing byte offset <i>N</i> in the file.</td>
+</tr>
+<tr class="tcw">
+<td><b>{</b></td>
+<td>If a left curly bracket appears in the top line displayed on the screen, the <b>{</b> command will go to the matching right curly bracket. The matching right curly bracket is positioned on the bottom line of the screen. If there is more than one left curly bracket on the top line, a number <i>N</i> may be used to specify the <i>N</i>-th bracket on the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>}</b></td>
+<td>If a right curly bracket appears in the bottom line displayed on the screen, the <b>}</b> command will go to the matching left curly bracket. The matching left curly bracket is positioned on the top line of the screen. If there is more than one right curly bracket on the top line, a number <i>N</i> may be used to specify the <i>N</i>-th bracket on the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>(</b></td>
+<td>Like <b>{</b>, but applies to parentheses rather than curly brackets.</td>
+</tr>
+<tr class="tcw">
+<td><b>)</b></td>
+<td>Like <b>}</b>, but applies to parentheses rather than curly brackets.</td>
+</tr>
+<tr class="tcw">
+<td><b>[</b></td>
+<td>Like <b>{</b>, but applies to square brackets rather than curly brackets.</td>
+</tr>
+<tr class="tcw">
+<td><b>]</b></td>
+<td>Like <b>}</b>, but applies to square brackets rather than curly brackets.</td>
+</tr>
+<tr class="tcw">
+<td><b>Esc-^F</b></td>
+<td>Followed by two characters, acts like <b>{</b>, but uses the two characters as open and close brackets, respectively. For example, "<b>Esc ^F &lt; &gt;</b>" could be used to go forward to the <b>&gt;</b> which matches the <b>&lt;</b> in the top displayed line.</td>
+</tr>
+<tr class="tcw">
+<td><b>Esc-^B</b></td>
+<td>Followed by two characters, acts like <b>}</b>, but uses the two characters as open and close brackets, respectively. For example, "<b>Esc ^B &lt; &gt;</b>" could be used to go backward to the <b>&lt;</b> which matches the <b>&gt;</b> in the bottom displayed line.</td>
+</tr>
+<tr class="tcw">
+<td><b>m</b></td>
+<td>Followed by any lowercase letter, marks the current position with that letter.</td>
+</tr>
+<tr class="tcw">
+<td><b>'</b></td>
+<td>(Single quote.) Followed by any lowercase letter, returns to the position which was previously marked with that letter. Followed by another single quote, returns to the position at which the last "large" movement command was executed. Followed by a <b>^</b> or <b>$</b>, jumps to the beginning or end of the file respectively. Marks are preserved when a new file is examined, so the <b>'</b> command can be used to switch between input files.</td>
+</tr>
+<tr class="tcw">
+<td><b>^X^X</b></td>
+<td>Same as single quote.</td>
+</tr>
+<tr class="tcw">
+<td><b>/</b><i>pattern</i></td>
+<td>Search forward in the file for the <i>N</i>-th line containing the <i>pattern</i>. <i>N</i> defaults to 1. The pattern is a <a href="/jargon/r/regex.htm">regular expression</a>, as recognized by the regular expression library supplied by your system. The search starts at the first line displayed (but see the <b>-a</b> and <b>-j</b> options, which change this).<br><br> Certain characters are special if entered at the beginning of the pattern; they modify the type of search rather than become part of the pattern:<br>
+<table>
+<tr class="tcw">
+<td width="80"><b>^N</b>, <b>!</b></td>
+<td>Search for lines which do NOT match the pattern.</td>
+</tr>
+<tr class="tcw">
+<td><b>^E</b>, <b>*</b></td>
+<td>Search multiple files. That is, if the search reaches the End of the current file without finding a match, the search continues in the next file in the command line list.</td>
+</tr>
+<tr class="tcw">
+<td><b>^F</b>, <b>@</b></td>
+<td>Begin the search at the first line of the FIRST file in the command line list, regardless of what is currently displayed on the screen or the settings of the <b>-a</b> or <b>-j</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>^K</b></td>
+<td>Highlight any text which matches the pattern on the current screen, but don't move to the first match (keep current position).</td>
+</tr>
+<tr class="tcw">
+<td><b>^R</b></td>
+<td>Don't interpret regular expression metacharacters; that is, do a simple textual comparison.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b><i>pattern</i></td>
+<td>Search backward in the file for the <i>N</i>-th line containing the <i>pattern</i>. The search starts at the line immediately before the top line displayed.<br><br> Certain characters are special as in the <b>/</b> command:<br>
+<table>
+<tr class="tcw">
+<td style="width:80px"><b>^N</b>, <b>!</b></td>
+<td>Search for lines which do NOT match the <i>pattern</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>^E</b>, <b>*</b></td>
+<td>Search multiple files. That is, if the search reaches the beginning of the current file without finding a match, the search continues in the previous file in the command line list.</td>
+</tr>
+<tr class="tcw">
+<td><b>^F</b>, <b>@</b></td>
+<td>Begin the search at the last line of the last file in the command line list, regardless of what is currently displayed on the screen or the settings of the <b>-a</b> or <b>-j</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>^K</b></td>
+<td>As in forward searches.</td>
+</tr>
+<tr class="tcw">
+<td><b>^R</b></td>
+<td>As in forward searches.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>Esc-/</b><i>pattern</i></td>
+<td>Same as "<b>/*</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>Esc-?</b><i>pattern</i></td>
+<td>Same as "<b>?*</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>n</b></td>
+<td>Repeat previous search, for <i>N</i>-th line containing the last pattern. If the previous search was modified by <b>^N</b>, the search is made for the <i>N</i>-th line NOT containing the pattern. If the previous search was modified by <b>^E</b>, the search continues in the next (or previous) file if not satisfied in the current file. If the previous search was modified by <b>^R</b>, the search is done without using regular expressions. There is no effect if the previous search was modified by <b>^F</b> or <b>^K</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>N</b></td>
+<td>Repeat previous search, but in the reverse direction.</td>
+</tr>
+<tr class="tcw">
+<td><b>Esc-n</b></td>
+<td>Repeat previous search, but crossing file boundaries. The effect is as if the previous search were modified by <b>*</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Esc-N</b></td>
+<td>Repeat previous search, but in the reverse direction and crossing file boundaries.</td>
+</tr>
+<tr class="tcw">
+<td><b>Esc-u</b></td>
+<td>Undo search highlighting. Turn off highlighting of <a href="/jargon/s/string.htm">strings</a> matching the current search pattern. If highlighting is already off because of a previous <b>Esc-u</b> command, turn highlighting back on. Any search command will also turn highlighting back on. (Highlighting can also be disabled by toggling the <b>-G</b> option; in that case search commands do not turn highlighting back on.)</td>
+</tr>
+<tr class="tcw">
+<td><b>&amp;</b><i>pattern</i></td>
+<td>Display only lines which match the <i>pattern</i>; lines which do not match the pattern are not displayed. If pattern is empty (if you type <b>&amp;</b> immediately followed by <b>ENTER</b>), any filtering is turned off, and all lines are displayed. While filtering is in effect, an ampersand is displayed at the beginning of the prompt, as a reminder that some lines in the file may be hidden.<br><br> Certain characters are special as in the <b>/</b> command:<br>
+<table>
+<tr class="tcw">
+<td width="80"><b>^N</b>, <b>!</b></td>
+<td>Display only lines which do NOT match the pattern.</td>
+</tr>
+<tr class="tcw">
+<td><b>^R</b></td>
+<td>Don't interpret regular expression metacharacters; that is, do a simple textual comparison.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>:e</b> [<i>filename</i>]</td>
+<td>Examine a new file. If the <i>filename</i> is missing, the "current" file (see the <b>:n</b> and <b>:p</b> commands below) from the list of files in the command line is re-examined. A percent sign (<b>%</b>) in the <i>filename</i> is replaced by the name of the current file. A pound sign (<b>#</b>) is replaced by the name of the previously examined file. However, two consecutive percent signs are replaced with a single percent sign. This allows you to enter a filename that contains a percent sign in the name. Similarly, two consecutive pound signs are replaced with a single pound sign. The <i>filename</i> is inserted into the command line list of files so that it can be seen by subsequent <b>:n</b> and <b>:p</b> commands. If the <i>filename</i> consists of several files, they are all inserted into the list of files and the first one is examined. If the <i>filename</i> contains one or more spaces, the entire <i>filename</i> should be enclosed in double quotes (also see the <b>-"</b> option).</td>
+</tr>
+<tr class="tcw">
+<td><b>^X^V</b>, <b>E</b></td>
+<td>Same as <b>:e</b>. Warning: some systems use <b>^V</b> as a special literalization character. On such systems, you may not be able to use <b>^V</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>:n</b></td>
+<td>Examine the next file (from the list of files given in the command line). If a number <i>N</i> is specified, the <i>N</i>-th next file is examined.</td>
+</tr>
+<tr class="tcw">
+<td><b>:p</b></td>
+<td>Examine the previous file in the command line list. If a number <i>N</i> is specified, the <i>N</i>-th previous file is examined.</td>
+</tr>
+<tr class="tcw">
+<td><b>:x</b></td>
+<td>Examine the first file in the command line list. If a number <i>N</i> is specified, the <i>N</i>-th file in the list is examined.</td>
+</tr>
+<tr class="tcw">
+<td><b>:d</b></td>
+<td>Remove the current file from the list of files.</td>
+</tr>
+<tr class="tcw">
+<td><b>t</b></td>
+<td>Go to the next tag, if there was more than one match for the current tag. See the <b>-t</b> option for more details about tags.</td>
+</tr>
+<tr class="tcw">
+<td><b>T</b></td>
+<td>Go to the previous tag, if there was more than one match for the current tag.</td>
+</tr>
+<tr class="tcw">
+<td><b>=</b>, <b>^G</b>, <b>:f</b></td>
+<td>Prints some information about the file being viewed, including its name and the line number and byte offset of the bottom line being displayed. If possible, it also prints the length of the file, the number of lines in the file and the percent of the file above the last displayed line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b></td>
+<td>Followed by one of the command line option letters (see <a href="#Options">OPTIONS</a> below), this will change the setting of that option and print a message describing the new setting. If a <b>^P</b> (<b>Ctrl-P</b>) is entered immediately after the dash, the setting of the option is changed but no message is printed. If the option letter has a numeric value (such as <b>-b</b> or <b>-h</b>), or a string value (such as <b>-P</b> or <b>-t</b>), a new value may be entered after the option letter. If no new value is entered, a message describing the current setting is printed and nothing is changed.</td>
+</tr>
+<tr class="tcw">
+<td><b>--</b></td>
+<td>Like the <b>-</b> command, but takes a long option name (see <a href="#Options">OPTIONS</a> below) rather than a single option letter. You must press <b>ENTER</b> or <b>RETURN</b> after typing the option name. A <b>^P</b> immediately after the second dash suppresses printing of a message describing the new setting, as in the <b>-</b> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-+</b></td>
+<td>Followed by one of the command line option letters this will reset the option to its default setting and print a message describing the new setting. (The "<b>-+X</b>" command does the same thing as "<b>-+X</b>" on the command line.) This does not work for string-valued options.</td>
+</tr>
+<tr class="tcw">
+<td><b>--+</b></td>
+<td>Like the <b>-+</b> command, but takes a long option name rather than a single option letter.</td>
+</tr>
+<tr class="tcw">
+<td><b>-!</b></td>
+<td>Followed by one of the command line option letters, this will reset the option to the "opposite" of its default setting and print a message describing the new setting. This does not work for numeric or string-valued options.</td>
+</tr>
+<tr class="tcw">
+<td><b>--!</b></td>
+<td>Like the <b>-!</b> command, but takes a long option name rather than a single option letter.</td>
+</tr>
+<tr class="tcw">
+<td><b>_</b></td>
+<td>(Underscore.) Followed by one of the command line option letters, this will print a message describing the current setting of that option. The setting of the option is not changed.</td>
+</tr>
+<tr class="tcw">
+<td><b>__</b></td>
+<td>(Double underscore.) Like the <b>_</b> (underscore) command, but takes a long option name rather than a single option letter. You must press <b>ENTER</b> or <b>RETURN</b> after typing the option name.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b><i>cmd</i></td>
+<td>Causes the specified <i>cmd</i> to be executed each time a new file is examined. For example, <b>+G</b> causes <b>less</b> to initially display each file starting at the end rather than the beginning.</td>
+</tr>
+<tr class="tcw">
+<td><b>V</b></td>
+<td>Prints the version number of <b>less</b> being run.</td>
+</tr>
+<tr class="tcw">
+<td><b>q</b>, <b>Q</b>, <b>:q</b>, <b>:Q</b>, <b>ZZ</b></td>
+<td>Exits <b>less</b>.</td>
+</tr>
+</table>
+<p class="tab">The following four commands may or may not be valid, depending on your particular installation.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>v</b></td>
+<td>Invokes an editor to edit the current file being viewed. The editor is taken from the <a href="/jargon/e/envivari.htm">environment variable</a> <b>VISUAL</b> if defined, or <b>EDITOR</b> if <b>VISUAL</b> is not defined, or defaults to "<b>vi</b>" (the <a href="/unix/uvi.htm">vi</a> editor) if neither <b>VISUAL</b> nor <b>EDITOR</b> is defined. See also the discussion of <b>LESSEDIT</b> under the section on <a href="#Prompts">PROMPTS</a> below.</td>
+</tr>
+<tr class="tcw">
+<td><b>!</b> <i>shell-command</i></td>
+<td>Invokes a <a href="/jargon/s/shell.htm">shell</a> to run the <i>shell-command</i> given. A percent sign (<b>%</b>) in the command is replaced by the name of the current file. A pound sign (<b>#</b>) is replaced by the name of the previously examined file. "<b>!!</b>" repeats the last shell command. "<b>!</b>" with no shell command invokes a shell. On <a href="/jargon/u/unix.htm">Unix</a> systems, the shell is taken from the environment variable <b>SHELL</b>, or defaults to "<b><a href="/unix/ush.htm">sh</a></b>" (the <a href="/jargon/b/bourne.htm">Bourne shell</a>). On <a href="/jargon/m/msdos.htm">MS-DOS</a> and <a href="/jargon/o/os2.htm">OS/2</a> systems, the shell is the normal command processor.</td>
+</tr>
+<tr class="tcw">
+<td><b>|</b> <i>&lt;m&gt;</i> <i>shell-command</i></td>
+<td><i>&lt;m&gt;</i> represents any mark letter. <a href="/jargon/p/pipe.htm">Pipes</a> a section of the input file to the given shell command. The section of the file to be piped is between the first line on the current screen and the position marked by the letter. <i>&lt;m&gt;</i> may also be <b>^</b> or <b>$</b> to indicate beginning or end of file respectively. If <i>&lt;m&gt;</i> is <b>.</b> or <a href="/jargon/n/newline.htm">newline</a>, the current screen is piped.</td>
+</tr>
+<tr class="tcw">
+<td><b>s</b> <i>filename</i></td>
+<td>Save the input to a file. This only works if the input is a pipe, not an ordinary file.</td>
+</tr>
+</table>
+<h2 id="Options">Options</h2>
+<p class="tab">Command line options are described below. Most options may be changed while <b>less</b> is running, via the "<b>-</b>" command.<br><br> Most options may be given in one of two forms: either a dash followed by a single letter, or two dashes followed by a long option name. A long option name may be abbreviated as long as the abbreviation is unambiguous. For example, <b>--quit-at-eof</b> may be abbreviated <b>--quit</b>, but not <b>--qui</b>, since both <b>--quit-at-eof</b> and <b>--quiet</b> begin with <b>--qui</b>. Some long option names are in uppercase, such as <b>--QUIT-AT-EOF</b>, as distinct from <b>--quit-at-eof</b>. Such option names need only have their first letter capitalized; the remainder of the name may be in either case. For example, <b>--Quit-at-eof</b> is equivalent to <b>--QUIT-AT-EOF</b>.<br><br> Options are also taken from the environment variable "<b>LESS</b>". For example, to avoid typing "<b>less -options</b> ..." each time <b>less</b> is invoked, you might tell <a href="/unix/ucsh.htm">csh</a>:</p>
+<pre class="tab tcy">setenv LESS "-options"</pre>
+<p class="tab">or if you use <a href="/unix/ush.htm">sh</a>:</p>
+<pre class="tab tcy">LESS="-options"; export LESS</pre>
+<p class="tab">On MS-DOS, you don't need the quotes, but you should replace any percent signs in the options string by double percent signs.</p>
+<p class="tab">The environment variable is parsed before the command line, so command line options override the LESS environment variable. If an option appears in the LESS variable, it can be reset to its default value on the command line by beginning the command line option with "<b>-+</b>".</p>
+<p class="tab">Some options like <b>-k</b> or <b>-D</b> require a string to follow the option letter. The string for that option is considered to end when a dollar sign (<b>$</b>) is found. For example, you can set two <b>-D</b> options on MS-DOS like this:</p>
+<pre class="tab tcy">LESS="Dn9.1$Ds4.1"</pre>
+<p class="tab">A dollar sign or backslash may be included literally in an option string by preceding it with a backslash.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:280px"><b>-?</b>, <b>--help</b></td>
+<td>This option displays a summary of the commands accepted by <b>less</b> (the same as the <b>h</b> command). (Depending on how your shell interprets the question mark, it may be necessary to quote the question mark, thus: "<b>-\?</b>".)</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b>, <b>--search-skip-screen</b></td>
+<td>By default, forward searches start at the top of the displayed screen and backwards searches start at the bottom of the displayed screen (except for repeated searches invoked by the <b>n</b> or <b>N</b> commands, which start after or before the "target" line respectively; see the <b>-j</b> option for more about the target line). The <b>-a</b> option causes forward searches to instead start at the bottom of the screen and backward searches to start at the top of the screen, thus skipping all lines displayed on the screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b>, <b>--SEARCH-SKIP-SCREEN</b></td>
+<td>Causes all forward searches (not just non-repeated searches) to start just after the target line, and all backward searches to start just before the target line. Thus, forward searches will skip part of the displayed screen (from the first line up to and including the target line). Similarly backwards searches will skip the displayed screen from the last line up to and including the target line. This was the default behavior in older versions of <b>less</b> (versions prior to 441).</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b><i>n</i>, <b>--buffers=</b><i>n</i></td>
+<td>Specifies the amount of <a href="/jargon/b/buffer.htm">buffer</a> space<b>less</b>will use for each file, in units of <a href="/jargon/k/kilobyte.htm">kilobytes</a> (1024 bytes). By default, 64K of buffer space is used for each file (unless the file is a pipe; see the <b>-B</b> option). The <b>-b</b> option specifies instead that <i>n</i> kilobytes of buffer space should be used for each file. If <i>n</i> is <b>-1</b>, buffer space is unlimited; that is, the entire file can be read into memory.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b>, <b>--auto-buffers</b></td>
+<td>By default, when data is read from a pipe, buffers are allocated automatically as needed. If a large amount of data is read from the pipe, this can cause a large amount of memory to be allocated. The <b>-B</b> option disables this automatic allocation of buffers for pipes, so that only 64K (or the amount of space specified by the <b>-b</b> option) is used for the pipe. Warning: use of <b>-B</b> can result in erroneous display, since only the most recently viewed part of the piped data is kept in memory; any earlier data is lost.</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b>, <b>--clear-screen</b></td>
+<td>Causes full screen repaints to be painted from the top line down. By default, full screen repaints are done by scrolling from the bottom of the screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b>, <b>--CLEAR-SCREEN</b></td>
+<td>Same as <b>-c</b>, for compatibility with older versions of <b>less</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b>, <b>--dumb</b></td>
+<td>The <b>-d</b> option suppresses the error message normally displayed if the terminal is dumb; that is, lacks some important capability, such as the ability to clear the screen or scroll backward. The <b>-d</b> option does not otherwise change the behavior of<b>less</b>on a dumb terminal.</td>
+</tr>
+<tr class="tcw">
+<td><b>-DM<i>x</i></b>color, <b>--color=<i>x</i></b><i>color</i></td>
+<td>[MS-DOS only] Sets the color of the text displayed. <b><i>x</i></b> is a single character which selects the type of text whose color is being set: <b>n</b>=normal, <b>s</b>=standout, <b>d</b>=bold, <b>u</b>=underlined, <b>k</b>=blinking. <i>color</i> is a pair of numbers separated by a period. The first number selects the foreground color and the second selects the background color of the text. A single number <i>N</i> is the same as <i>N</i><b>.</b><i>M</i>, where <i>M</i> is the normal background color.</td>
+</tr>
+<tr class="tcw">
+<td><b>-e</b>, <b>--quit-at-eof</b></td>
+<td>Causes <b>less</b> to automatically exit the second time it reaches <a href="/jargon/e/eof.htm">end-of-file</a>. By default, the only way to exit <b>less</b> is via the "<b>q</b>" command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b>, <b>--QUIT-AT-EOF</b></td>
+<td>Causes <b>less</b> to automatically exit the first time it reaches end-of-file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--force</b></td>
+<td>Forces non-regular files to be opened. (A non-regular file is a <a href="/jargon/d/director.htm">directory</a> or a device special file.) Also, suppresses the warning message when a <a href="/jargon/b/binary.htm">binary</a> file is opened. By default, <b>less</b> will refuse to open non-regular files. Note that some operating systems will not allow directories to be read, even if <b>-f</b> is set.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b>, <b>--quit-if-one-screen</b></td>
+<td>Causes <b>less</b> to automatically exit if the entire file can be displayed on the first screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>, <b>--hilite-search</b></td>
+<td>Normally, <b>less</b> will highlight ALL strings which match the last search command. The <b>-g</b> option changes this behavior to highlight only the particular string which was found by the last search command. This can cause <b>less</b> to run somewhat faster than the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b>, <b>--HILITE-SEARCH</b></td>
+<td>The <b>-G</b> option suppresses all highlighting of strings found by search commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b><i>n</i>, <b>--max-back-scroll=</b><i>n</i></td>
+<td>Specifies a maximum number of lines to scroll backward. If it is necessary to scroll backward more than <i>n</i> lines, the screen is repainted in a forward direction instead. (If the terminal cannot scroll backward, <b>-h0</b> is implied.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--ignore-case</b></td>
+<td>Causes searches to ignore case; that is, uppercase and lowercase are considered identical. This option is ignored if any uppercase letters appear in the search pattern; in other words, if a pattern contains uppercase letters, then that search does not ignore case.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b>, <b>--IGNORE-CASE</b></td>
+<td>Like <b>-i</b>, but searches ignore case even if the pattern contains uppercase letters.</td>
+</tr>
+<tr class="tcw">
+<td><b>-j</b><i>n</i>, <b>--jump-target=</b><i>n</i></td>
+<td>Specifies a line on the screen where the "target" line is to be positioned. The target line is the line specified by any command to search for a pattern, jump to a line number, jump to a file percentage or jump to a tag. The screen line may be specified by a number: the top line on the screen is <b>1</b>, the next is <b>2</b>, and so on. The number may be negative to specify a line relative to the bottom of the screen: the bottom line on the screen is <b>-1</b>, the second to the bottom is <b>-2</b>, and so on. Alternately, the screen line may be specified as a fraction of the height of the screen, starting with a decimal point: <b>.5</b> is in the middle of the screen, <b>.3</b> is three tenths down from the first line, and so on. If the line is specified as a fraction, the actual line number is recalculated if the terminal window is resized, so that the target line remains at the specified fraction of the screen height. If any form of the <b>-j</b> option is used, forward searches begin at the line immediately after the target line, and backward searches begin at the target line, unless changed by <b>-a</b> or <b>-A</b>. For example, if "<b>-j4</b>" is used, the target line is the fourth line on the screen, so forward searches begin at the fifth line on the screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>-J</b>, <b>--status-column</b></td>
+<td>Displays a status column at the left edge of the screen. The status column shows the lines that matched the current search. The status column is also used if the <b>-w</b> or <b>-W</b> option is in effect.</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b><i>filename</i>, <b>--lesskey-file=</b><i>filename</i></td>
+<td>Causes <b>less</b> to open and interpret the named file as a <b>lesskey</b> file. Multiple <b>-k</b> options may be specified. If the LESSKEY or LESSKEY_SYSTEM environment variable is set, or if a lesskey file is found in a standard place (see <a href="#Key-Bindings">KEY BINDINGS</a>), it is also used as a lesskey file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-K</b>, <b>--quit-on-intr</b></td>
+<td>Causes <b>less</b> to exit immediately (with status 2) when an interrupt character (usually <b>^C</b>) is typed. Normally, an interrupt character causes <b>less</b> to stop whatever it is doing and return to its command prompt. Note that use of this option makes it impossible to return to the command prompt from the "<b>F</b>" command.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>, <b>--no-lessopen</b></td>
+<td>Ignore the <b>LESSOPEN</b> environment variable (see the <a href="#Input-Preprocessor">INPUT PREPROCESSOR</a> section below). This option can be set from within <b>less</b>, but it will apply only to files opened subsequently, not to the file that is currently open.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b>, <b>--long-prompt</b></td>
+<td>Causes <b>less</b> to prompt verbosely (like <a href="/unix/umore.htm">more</a>), with the percent into the file. By default, <b>less</b> prompts with a colon.</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b>, <b>--LONG-PROMPT</b></td>
+<td>Causes <b>less</b> to prompt even more verbosely than <b>more</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--line-numbers</b></td>
+<td>Suppresses line numbers. The default (to use line numbers) may cause <b>less</b> to run more slowly in some cases, especially with a very large input file. Suppressing line numbers with the <b>-n</b> option will avoid this problem. Using line numbers means: the line number will be displayed in the verbose prompt and in the <b>=</b> command, and the <b>v</b> command will pass the current line number to the editor (see also the discussion of <b>LESSEDIT</b> in <a href="#Prompts">PROMPTS</a> below).</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b>, <b>--LINE-NUMBERS</b></td>
+<td>Causes a line number to be displayed at the beginning of each line in the display.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b><i>filename</i>, <b>--log-file=</b><i>filename</i></td>
+<td>Causes <b>less</b> to copy its input to the named file as it is being viewed. This applies only when the input file is a pipe, not an ordinary file. If the file already exists, <b>less</b> will ask for confirmation before overwriting it.</td>
+</tr>
+<tr class="tcw">
+<td><b>-O</b><i>filename</i>, <b>--LOG-FILE=</b><i>filename</i></td>
+<td>The <b>-O</b> option is like <b>-o</b>, but it will overwrite an existing file without asking for confirmation.<br><br> If no log file has been specified, the <b>-o</b> and <b>-O</b> options can be used from within <b>less</b> to specify a log file. Without a file name, they will report the name of the log file. The "<b>s</b>" command is equivalent to specifying <b>-o</b> from within <b>less</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b><i>pattern</i>, <b>--pattern=</b><i>pattern</i></td>
+<td>The <b>-p</b> option on the command line is equivalent to specifying <b>+/</b><i>pattern</i>; that is, it tells <b>less</b> to start at the first occurrence of <i>pattern</i> in the file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b><i>prompt</i>, <b>--prompt=</b><i>prompt</i></td>
+<td>Provides a way to tailor the three prompt styles to your preference. This option would normally be put in the LESS environment variable, rather than being typed in with each <b>less</b> command. Such an option must either be the last option in the LESS variable, or be terminated by a dollar sign. <b>-Ps</b> followed by a string changes the default (short) prompt to that string. <b>-Pm</b> changes the medium (<b>-m</b>) prompt. <b>-PM</b> changes the long (<b>-M</b>) prompt. <b>-Ph</b> changes the prompt for the help screen. <b>-P=</b> changes the message printed by the <b>=</b> command. <b>-Pw</b> changes the message printed while waiting for data (in the <b>F</b> command). All prompt strings consist of a sequence of letters and special escape sequences. See the <a href="#Prompts">PROMPTS</a> section for more details.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--quiet</b>, <b>--silent</b></td>
+<td>Causes moderately "quiet" operation: the terminal bell is not rung if an attempt is made to scroll past the end of the file or before the beginning of the file. If the terminal has a "visual bell", it is used instead. The bell will be rung on certain other errors, such as typing an invalid character. The default is to ring the terminal bell in all such cases.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Q</b>, <b>--QUIET</b>, <b>--SILENT</b></td>
+<td>Causes totally "quiet" operation: the terminal bell is never rung.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--raw-control-chars</b></td>
+<td>Causes "raw" control characters to be displayed. The default is to display control characters using the caret notation; for example, a <b>control-A</b> (<a href="/jargon/o/octal.htm">octal</a> <b>001</b>) is displayed as "<b>^A</b>". Warning: when the <b>-r</b> option is used, <b>less</b> cannot keep track of the actual appearance of the screen (since this depends on how the screen responds to each type of control character). Thus, various display problems may result, such as long lines being split in the wrong place.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>, <b>--RAW-CONTROL-CHARS</b></td>
+<td>Like <b>-r</b>, but only <a href="/jargon/a/ansi.htm">ANSI</a> "color" escape sequences are output in "raw" form. Unlike <b>-r</b>, the screen appearance is maintained correctly in most cases. ANSI "color" escape sequences are sequences of the form:<br><br><pre class="tcy">ESC [ ... m</pre> where the "..." is zero or more color specification characters. For the purpose of keeping track of screen appearance, ANSI color escape sequences are assumed to not move the cursor. You can make <b>less</b> think that characters other than "<b>m</b>" can end ANSI color escape sequences by setting the environment variable <b>LESSANSIENDCHARS</b> to the list of characters which can end a color escape sequence. And you can make<b>less</b>think that characters other than the standard ones may appear between the <b>ESC</b> and the <b>m</b> by setting the environment variable <b>LESSANSIMIDCHARS</b> to the list of characters which can appear.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--squeeze-blank-lines</b></td>
+<td>Causes consecutive blank lines to be squeezed into a single blank line. This is useful when viewing <a href="/unix/unroff.htm">nroff</a> output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-S</b>, <b>--chop-long-lines</b></td>
+<td>Causes lines longer than the screen width to be chopped (<a href="/jargon/t/truncate.htm">truncated</a>) rather than wrapped. That is, the portion of a long line that does not fit in the screen width is not shown. The default is to wrap long lines; that is, display the remainder on the next line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b><i>tag</i>, <b>--tag=</b><i>tag</i></td>
+<td>The <b>-t</b> option, followed immediately by a TAG, will edit the file containing that tag. For this to work, tag information must be available; for example, there may be a file in the current directory called "tags", which was previously built by <a href="/unix/uctags.htm">ctags</a> or an equivalent command. If the environment variable <b>LESSGLOBALTAGS</b> is set, it is taken to be the name of a command compatible with <b>global</b>, and that command is executed to find the tag. (See <a href="https://www.gnu.org/software/global/global.html" class="external">https://www.gnu.org/software/global/global.html</a>). The <b>-t</b> option may also be specified from within<b>less</b>(using the <b>-</b> command) as a way of examining a new file. The command "<b>:t</b>" is equivalent to specifying <b>-t</b> from within less.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b><i>tagsfile</i>, <b>--tag-file=</b><i>tagsfile</i></td>
+<td>Specifies a tags file to be used instead of "<b>tags</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--underline-special</b></td>
+<td>Causes backspaces and <a href="/jargon/c/cr.htm">carriage returns</a> to be treated as printable characters; that is, they are sent to the terminal when they appear in the input.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b>, <b>--UNDERLINE-SPECIAL</b></td>
+<td>Causes backspaces, tabs and carriage returns to be treated as control characters; that is, they are handled as specified by the <b>-r</b> option.<br><br> By default, if neither <b>-u</b> nor <b>-U</b> is given, backspaces which appear adjacent to an underscore character are treated specially: the underlined text is displayed using the terminal's hardware underlining capability. Also, backspaces which appear between two identical characters are treated specially: the overstruck text is printed using the terminal's hardware boldface capability. Other backspaces are deleted, along with the preceding character. Carriage returns immediately followed by a <a href="/jargon/n/newline.htm">newline</a> are deleted. Other carriage returns are handled as specified by the <b>-r</b> option. Text that is overstruck or underlined can be searched for if neither <b>-u</b> nor <b>-U</b> is in effect.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Displays the version number of <b>less</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>, <b>--hilite-unread</b></td>
+<td>Temporarily highlights the first "new" line after a forward movement of a full page. The first "new" line is the line immediately following the line previously at the bottom of the screen. Also, highlights the target line after a <b>g</b> or <b>p</b> command. The highlight is removed at the next command which causes movement. The entire line is highlighted, unless the <b>-J</b> option is in effect, in which case only the status column is highlighted.</td>
+</tr>
+<tr class="tcw">
+<td><b>-W</b>, <b>--HILITE-UNREAD</b></td>
+<td>Like <b>-w</b>, but temporarily highlights the first new line after any forward movement command larger than one line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b><i>n</i>,..., <b>--tabs=</b><i>n</i>,...</td>
+<td>Sets tab stops. If only one <i>n</i> is specified, tab stops are set at multiples of <i>n</i>. If multiple values separated by commas are specified, tab stops are set at those positions, and then continue with the same spacing as the last two. For example, <b>-x9,17</b> will set tabs at positions 9, 17, 25, 33, etc. The default for <i>n</i> is <b>8</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-X</b>, <b>--no-init</b></td>
+<td>Disables sending the <b>termcap</b> initialization and deinitialization strings to the terminal. This is sometimes desirable if the deinitialization string does something unnecessary, like clearing the screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b><i>n</i>, <b>--max-forw-scroll=</b><i>n</i></td>
+<td>Specifies a maximum number of lines to scroll forward. If it is necessary to scroll forward more than <i>n</i> lines, the screen is repainted instead. The <b>-c</b> or <b>-C</b> option may be used to repaint from the top of the screen if desired. By default, any forward movement causes scrolling.</td>
+</tr>
+<tr class="tcw">
+<td><b>-</b>[<b>z</b>]<i>n</i>, <b>--window=</b><i>n</i></td>
+<td>Changes the default scrolling window size to <i>n</i> lines. The default is one screenful. The <b>z</b> and <b>w</b> commands can also be used to change the window size. The "<b>z</b>" may be omitted for compatibility with some versions of <b>more</b>. If the number <i>n</i> is negative, it indicates <i>n</i> lines less than the current screen size. For example, if the screen is 24 lines, <b>-z-4</b> sets the scrolling window to 20 lines. If the screen is resized to 40 lines, the scrolling window automatically changes to 36 lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-"</b><i>cc</i>, <b>--quotes=</b><i>cc</i></td>
+<td>Changes the filename quoting character. This may be necessary if you are trying to name a file which contains both spaces and quote characters. Followed by a single character, this changes the quote character to that character. Filenames containing a space should then be surrounded by that character rather than by double quotes. Followed by two characters, changes the open quote to the first character, and the close quote to the second character. Filenames containing a space should then be preceded by the open quote character and followed by the close quote character. Note that even after the quote characters are changed, this option remains <b>-"</b> (a dash followed by a double quote).</td>
+</tr>
+<tr class="tcw">
+<td><b>-~</b>, <b>--tilde</b></td>
+<td>Normally lines after end of file are displayed as a single tilde (<b>~</b>). This option causes lines after end of file to be displayed as blank lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-#</b>, <b>--shift</b></td>
+<td>Specifies the default number of positions to scroll horizontally in the <b>RIGHTARROW</b> and <b>LEFTARROW</b> commands. If the number specified is zero, it sets the default number of positions to one half of the screen width. Alternately, the number may be specified as a fraction of the width of the screen, starting with a decimal point: <b>.5</b> is half of the screen width, <b>.3</b> is three tenths of the screen width, and so on. If the number is specified as a fraction, the actual number of scroll positions is recalculated if the terminal window is resized, so that the actual scroll remains at the specified fraction of the screen width.</td>
+</tr>
+<tr class="tcw">
+<td><b>--no-keypad</b></td>
+<td>Disables sending the keypad initialization and deinitialization strings to the terminal. This is sometimes useful if the keypad strings make the numeric keypad behave in an undesirable manner.</td>
+</tr>
+<tr class="tcw">
+<td><b>--follow-name</b></td>
+<td>Normally, if the input file is renamed while an <b>F</b> command is executing, <b>less</b> will continue to display the contents of the original file despite its name change. If <b>--follow-name</b> is specified, during an <b>F</b> command<b>less</b>will periodically attempt to reopen the file by name. If the reopen succeeds and the file is a different file from the original (which means that a new file has been created with the same name as the original (now renamed) file),<b>less</b> displays the contents of that new file.</td>
+</tr>
+<tr class="tcw">
+<td><b>--</b></td>
+<td>A command line argument of "<b>--</b>" marks the end of option arguments. Any arguments following this are interpreted as filenames. This can be useful when viewing a file whose name begins with a "<b>-</b>" or "<b>+</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b></td>
+<td>If a command line option begins with <b>+</b>, the remainder of that option is taken to be an initial command to <b>less</b>. For example, <b>+G</b> tells <b>less</b> to start at the end of the file rather than the beginning, and <b>+/xyz</b> tells it to start at the first occurrence of "<b>xyz</b>" in the file. As a special case, <b>+&lt;</b><i>number</i><b>&gt;</b> acts like <b>+&lt;</b><i>number</i><b>&gt;g</b>; that is, it starts the display at the specified line <i>number</i> (however, see the caveat under the "<b>g</b>" command above). If the option starts with <b>++</b>, the initial command applies to every file being viewed, not just the first one. The <b>+</b> command described previously may also be used to set (or change) an initial command for every file.</td>
+</tr>
+</table>
+<h2 id="Line-Editing">Line Editing</h2>
+<p class="tab">When entering command line at the bottom of the screen (for example, a filename for the <b>:e</b> command, or the pattern for a search command), certain keys can be used to manipulate the command line. Most commands have an alternate form, listed below in brackets (for example, <b>KEY-COMBO</b> [ <b>ALTERNATE-KEY-COMBO</b> ] ) which can be used if a key does not exist on a particular keyboard. (Note that the forms beginning with <b>ESC</b> do not work in some MS-DOS and Windows systems because <b>ESC</b> is the line erase character.) Any of these special keys may be entered literally by preceding it with the "literal" character, either <b>^V</b> or <b>^A</b>. A backslash itself may also be entered literally by entering two backslashes.</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:290px"><b>LEFTARROW</b><br>[ <b>Esc-h</b> ]</td>
+<td>Move the cursor one space to the left.</td>
+</tr>
+<tr class="tcw">
+<td><b>RIGHTARROW</b><br>[ <b>Esc-l</b> ]</td>
+<td>Move the cursor one space to the right.</td>
+</tr>
+<tr class="tcw">
+<td><b>^LEFTARROW</b><br>[ <b>Esc-b</b>, <b>Esc-LEFTARROW</b> ]</td>
+<td>(Press <b>Ctrl</b> and <b>LEFTARROW</b> simultaneously.) Move the cursor one word to the left.</td>
+</tr>
+<tr class="tcw">
+<td><b>^RIGHTARROW</b><br>[ <b>Esc-w</b>, <b>Esc-RIGHTARROW</b> ]</td>
+<td>(Press <b>Ctrl</b> and <b>RIGHTARROW</b> simultaneously.) Move the cursor one word to the right.</td>
+</tr>
+<tr class="tcw">
+<td><b>HOME</b><br>[ <b>Esc-0</b> ]</td>
+ <td>Move the cursor to the beginning of the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>End</b><br>[ <b>Esc-$</b> ]</td>
+<td>Move the cursor to the end of the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>Backspace</b></td>
+<td>Delete the character to the left of the cursor, or cancel the command if the command line is empty.</td>
+</tr>
+<tr class="tcw">
+<td><b>Delete</b><br>[ <b>Esc-x</b> ]</td>
+<td>Delete the character under the cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>^Backspace</b><br>[ <b>Esc-Backspace</b> ]</td>
+<td>(Press <b>Ctrl</b> and <b>Backspace</b> simultaneously.) Delete the word to the left of the cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>^Delete</b><br>[ <b>Esc-X</b>, <b>Esc-Delete</b> ]</td>
+<td>(Press <b>Ctrl</b> and <b>Delete</b> simultaneously.) Delete the word under the cursor.</td>
+</tr>
+<tr class="tcw">
+<td><b>up arrow</b><br>[ <b>Esc-k</b> ]</td>
+<td>Retrieve the previous command line. If you first enter some text and then press <b>up arrow</b>, it will retrieve the previous command which begins with that text.</td>
+</tr>
+<tr class="tcw">
+<td><b>down arrow</b><br>[ <b>Esc-j</b> ]</td>
+<td>Retrieve the next command line. If you first enter some text and then press <b>down arrow</b>, it will retrieve the next command which begins with that text.</td>
+</tr>
+<tr class="tcw">
+<td><b>TAB</b></td>
+<td>Complete the partial filename to the left of the cursor. If it matches more than one filename, the first match is entered into the command line. Repeated <b>TAB</b>s will cycle through the other matching filenames. If the completed filename is a directory, a "<b>/</b>" is appended to the filename. (On MS-DOS systems, a "<b>\</b>" is appended.) The environment variable <b>LESSSEPARATOR</b> can be used to specify a different character to append to a directory name.</td>
+</tr>
+<tr class="tcw">
+<td><b>BACKTAB</b><br>[ <b>Esc-TAB</b> ]</td>
+<td>Like <b>TAB</b>, but cycles in the reverse direction thru the matching filenames.</td>
+</tr>
+<tr class="tcw">
+<td><b>^L</b></td>
+<td>Complete the partial filename to the left of the cursor. If it matches more than one filename, all matches are entered into the command line (if they fit).</td>
+</tr>
+<tr class="tcw">
+<td><b>^U</b> (Unix and OS/2) or <b>Esc</b> (MS-DOS)</td>
+<td>Delete the entire command line, or cancel the command if the command line is empty. If you have changed your line-kill character in Unix to something other than <b>^U</b>, that character is used instead of <b>^U</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>^G</b></td>
+<td>Delete the entire command line and return to the main prompt.</td>
+</tr>
+</table>
+<h2 id="Key-Bindings">Key Bindings</h2>
+<p class="tab">You may define <b>less</b> commands using the program <b>lesskey</b> to create a <b>lesskey</b> file. This file specifies a set of command keys and an action associated with each key. You may also use <b>lesskey</b> to change the line-editing keys (see <a href="#Line-Editing">LINE EDITING</a>), and to set <a href="/jargon/e/envivari.htm">environment variables</a>. If the environment variable <b>LESSKEY</b> is set, <b>less</b> uses that as the name of the lesskey file. Otherwise, <b>less</b> looks in a standard place for the lesskey file: On Unix systems, <b>less</b> looks for a lesskey file called &quot;<b>$HOME/.less</b>&quot;. On MS-DOS and Windows systems, <b>less</b> looks for a lesskey file called &quot;<b>$HOME/_less</b>&quot;, and if it is not found there, then looks for a lesskey file called &quot;<b>_less</b>&quot; in any directory specified in the PATH environment variable. On OS/2 systems, <b>less</b> looks for a lesskey file called &quot;<b>$HOME/less.ini</b>&quot;, and if it is not found, it looks for a lesskey file called &quot;less.ini&quot; in any directory specified in the INIT environment variable, and if it not found there, it looks for a lesskey file called &quot;less.ini&quot; in any directory specified in the PATH environment variable.</p>
+<p class="tab">A system-wide lesskey file may also be set up to provide key bindings. If a key is defined in both a local lesskey file and in the system-wide file, key bindings in the local file take precedence over those in the system-wide file. If the environment variable <b>LESSKEY_SYSTEM</b> is set, <b>less</b> uses that as the name of the system-wide lesskey file. Otherwise, <b>less</b> looks in a standard place for the system-wide lesskey file: On Unix systems, the system-wide lesskey file is <b>/usr/local/etc/sysless</b>. (However, if <b>less</b> was built with a different sysconf directory than <b>/usr/local/etc</b>, that directory is where the sysless file is found.) On MS-DOS and Windows systems, the system-wide lesskey file is <b>c:\_sysless</b>. On OS/2 systems, the system-wide lesskey file is <b>c:\sysless.ini</b>.</p>
+<h2 id="Input-Preprocessor">Input Preprocessor</h2>
+<p class="tab">You may define an "input preprocessor" for <b>less</b>. Before <b>less</b> opens a file, it first gives your input preprocessor a chance to modify the way the contents of the file are displayed. An input preprocessor is an executable program (or shell script), which writes the contents of the file to a different file, called the replacement file. The contents of the replacement file are then displayed in place of the contents of the original file. However, it will appear to the user as if the original file is opened; that is, <b>less</b> displays the original filename as the name of the current file.</p>
+<p class="tab">An input preprocessor receives one command line argument, the original filename, as entered by the user. It should create the replacement file, and when finished, print the name of the replacement file to its standard output. If the input preprocessor does not output a replacement filename, <b>less</b> uses the original file, as normal. The input preprocessor is not called when viewing <a href="/jargon/s/stdin.htm">standard input</a>. To set up an input preprocessor, set the <b>LESSOPEN</b> environment variable to a command line which will invoke your input preprocessor. This command line should include one occurrence of the string "<b>%s</b>", which will be replaced by the filename when the input preprocessor command is invoked.</p>
+<p class="tab">When <b>less</b> closes a file opened in such a way, it will call another program, called the input postprocessor, which may perform any desired clean-up action (such as deleting the replacement file created by <b>LESSOPEN</b>). This program receives two command line arguments, the original filename as entered by the user, and the name of the replacement file. To set up an input postprocessor, set the <b>LESSCLOSE</b> environment variable to a command line which will invoke your input postprocessor. It may include two occurrences of the string "<b>%s</b>"; the first is replaced with the original name of the file and the second with the name of the replacement file, which was output by <b>LESSOPEN</b>.</p>
+<p class="tab">For example, on many Unix systems, these two scripts will allow you to keep files in compressed format, but still let<b>less</b>view them directly:</p>
+<p class="tab"><b>lessopen.sh</b>:</p>
+<pre class="tab tcy">#! /bin/sh
+case "$1" in
+*.Z) uncompress -
+     if [ -s /tmp/less.$$ ]; then
+          echo /tmp/less.$$
+     else
+          rm -f /tmp/less.$$
+     fi
+     ;;
+esac</pre>
+<p class="tab"><b>lessclose.sh</b>:</p>
+<pre class="tab tcy">#! /bin/sh rm $2</pre>
+<p class="tab">To use these scripts, put them both where they can be executed and set <b>LESSOPEN="lessopen.sh %s"</b>, and <b>LESSCLOSE="lessclose.sh %s %s"</b>. More complex <b>LESSOPEN</b> and <b>LESSCLOSE</b> scripts may be written to accept other types of compressed files, and so on.</p>
+<p class="tab">It is also possible to set up an input preprocessor to pipe the file data directly to less, rather than putting the data into a replacement file. This avoids the need to decompress the entire file before starting to view it. An input preprocessor that works this way is called an <i>input pipe</i>. An input pipe, instead of writing the name of a replacement file on its standard output, writes the entire contents of the replacement file on its standard output. If the input pipe does not write any characters on its standard output, then there is no replacement file and <b>less</b> uses the original file, as normal. To use an input pipe, make the first character in the <b>LESSOPEN</b> environment variable a vertical bar (<b>|</b>) to signify that the input preprocessor is an input pipe.</p>
+<p class="tab">For example, on many Unix systems, this script will work like the previous example scripts:</p>
+<p class="tab"><b>lesspipe.sh</b>:</p>
+<pre class="tab tcy">#! /bin/sh
+case "$1" in
+*.Z) uncompress -c $1  2&gt;/dev/null
+*)   exit 1
+     ;;
+esac
+exit $?</pre>
+<p class="tab">To use this script, put it where it can be executed and set <b>LESSOPEN="|lesspipe.sh %s"</b>.</p>
+<p class="tab">Note that a preprocessor cannot output an empty file, since that is interpreted as meaning there is no replacement, and the original file is used. To avoid this, if <b>LESSOPEN</b> starts with two vertical bars, the exit status of the script becomes meaningful. If the exit status is zero, the output is considered to be replacement text, even if it empty. If the exit status is nonzero, any output is ignored and the original file is used. For compatibility with previous versions of <b>less</b>, if <b>LESSOPEN</b> starts with only one vertical bar, the exit status of the preprocessor is ignored.</p>
+<p class="tab">When an input pipe is used, a <b>LESSCLOSE</b> postprocessor can be used, but it is usually not necessary since there is no replacement file to clean up. In this case, the replacement file name passed to the <b>LESSCLOSE</b> postprocessor is "<b>-</b>".</p>
+<p class="tab">For compatibility with previous versions of <b>less</b>, the input preprocessor or pipe is not used if <b>less</b> is viewing standard input. However, if the first character of <b>LESSOPEN</b> is a dash (<b>-</b>), the input preprocessor is used on standard input as well as other files. In this case, the dash is not considered to be part of the preprocessor command. If standard input is being viewed, the input preprocessor is passed a file name consisting of a single dash. Similarly, if the first two characters of <b>LESSOPEN</b> are vertical bar and dash (<b>|-</b>) or two vertical bars and a dash (<b>||-</b>), the input pipe is used on standard input as well as other files. Again, in this case the dash is not considered to be part of the input pipe command.</p>
+<h2>National Character Sets</h2>
+<p class="tab">There are three types of characters in the input file:</p>
+<ul>
+<li><b>normal characters</b> can be displayed directly to the screen.</li>
+<li><b>control characters</b> should not be displayed directly, but are expected to be found in ordinary text files (such as backspace and tab).</li>
+<li><b>binary characters</b> should not be displayed directly and are not expected to be found in text files.</li>
+</ul>
+<p class="tab">A "character set" is a description of which characters are to be considered normal, control, and binary. The <b>LESSCHARSET</b> environment variable may be used to select a character set. Possible values for <b>LESSCHARSET</b> are:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:110px"><b>ascii</b></td>
+<td><b>BS</b>, <b>TAB</b>, <b>NL</b>, <b>CR</b>, and <b>formfeed</b> are control characters, all chars with values between 32 and 126 are normal, and all others are binary.</td>
+</tr>
+<tr class="tcw">
+<td><b>iso8859</b></td>
+<td>Selects an ISO 8859 character set. This is the same as <a href="/jargon/a/ascii.htm">ASCII</a>, except characters between 160 and 255 are treated as normal characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>latin1</b></td>
+<td>Same as <b>iso8859</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>latin9</b></td>
+<td>Same as <b>iso8859</b>.</td>
+</tr> 
+<tr class="tcw">
+<td><b>dos</b></td>
+<td>Selects a character set appropriate for MS-DOS.</td>
+</tr>
+<tr class="tcw">
+<td><b>ebcdic</b></td>
+<td>Selects an <a href="/jargon/e/ebcdic.htm">EBCDIC</a> character set.</td>
+</tr>
+<tr class="tcw">
+<td><b>IBM-1047</b></td>
+<td>Selects an EBCDIC character set used by OS/390 Unix Services. This is the EBCDIC analogue of <b>latin1</b>. You get similar results by setting either <b>LESSCHARSET=IBM-1047</b> or <b>LC_CTYPE=en_US</b> in your environment.</td>
+</tr>
+<tr class="tcw">
+<td><b>koi8-r</b></td>
+<td>Selects a Russian character set.</td>
+</tr>
+<tr class="tcw">
+<td><b>next</b></td>
+<td>Selects a character set appropriate for <a href="/jargon/n/next.htm">NeXT</a> computers.</td>
+</tr>
+<tr class="tcw">
+<td><b>utf-8</b></td>
+<td>Selects the <a href="/jargon/u/unicode.htm">UTF-8</a> encoding of the ISO 10646 character set. UTF-8 is special in that it supports multi-byte characters in the input file. It is the only character set that supports multi-byte characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>windows</b></td>
+<td>Selects a character set appropriate for Microsoft Windows (cp 1251).</td>
+</tr>
+</table>
+<p class="tab">In rare cases, it may be desired to tailor <b>less</b> to use a character set other than the ones definable by <b>LESSCHARSET</b>. In this case, the environment variable <b>LESSCHARDEF</b> can be used to define a character set. It should be set to a string where each character in the string represents one character in the character set. The character "<b>.</b>" is used for a normal character, "<b>c</b>" for control, and "<b>b</b>" for binary. A decimal number may be used for repetition. For example, "<b>bccc4b.</b>" would mean character 0 is binary, 1, 2 and 3 are control, 4, 5, 6 and 7 are binary, and 8 is normal. All characters after the last are taken to be the same as the last, so characters 9 through 255 would be normal. (This is an example, and does not necessarily represent any real character set.)</p>
+<p class="tab">This table shows the value of <b>LESSCHARDEF</b> which is equivalent to each of the possible values for <b>LESSCHARSET</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:110px"><b>ascii</b></td>
+<td>8bcccbcc18b95.b</td>
+</tr>
+<tr class="tcw">
+<td><b>dos</b></td>
+<td>8bcccbcc12bc5b95.b.</td>
+</tr>
+<tr class="tcw">
+<td><b>ebcdic</b></td>
+<td>5bc6bcc7bcc41b.9b7.9b5.b..8b6.10b6.b9.7b<br> 9.8b8.17b3.3b9.7b9.8b8.6b10.b.b.b.</td>
+</tr>
+<tr class="tcw">
+<td><b>IBM-1047</b></td>
+<td>4cbcbc3b9cbccbccbb4c6bcc5b3cbbc4bc4bccbc<br> 191.b</td>
+</tr>
+<tr class="tcw">
+<td><b>iso8859</b></td>
+<td>8bcccbcc18b95.33b.</td>
+</tr>
+<tr class="tcw">
+<td><b>koi8-r</b></td>
+<td>8bcccbcc18b95.b128.</td>
+</tr>
+<tr class="tcw">
+<td><b>latin1</b></td>
+<td>8bcccbcc18b95.33b.</td>
+</tr>
+<tr class="tcw">
+<td><b>next</b></td>
+<td>8bcccbcc18b95.bb125.bb</td>
+</tr>
+</table>
+<p class="tab">If neither <b>LESSCHARSET</b> nor <b>LESSCHARDEF</b> is set, but any of the strings "<b>UTF-8</b>", "<b>UTF8</b>", "<b>utf-8</b>" or "<b>utf8</b>" is found in the <b>LC_ALL</b>, <b>LC_CTYPE</b> or <b>LANG</b> environment variables, then the default character set is <b>utf-8</b>.</p>
+<p class="tab">If that string is not found, but your system supports the <b>setlocale</b> interface, <b>less</b> will use <b>setlocale</b> to determine the character set. <b>setlocale</b> is controlled by setting the <b>LANG</b> or <b>LC_CTYPE</b> environment variables.</p>
+<p class="tab">Finally, if the <b>setlocale</b> interface is also not available, the default character set is <b>latin1</b>.</p>
+<p class="tab">Control and binary characters are displayed in standout (reverse video). Each such character is displayed in caret notation if possible (e.g., <b>^A</b> for <b>control-A</b>). Caret notation is used only if inverting the <b>0100</b> bit results in a normal printable character. Otherwise, the character is displayed as a <a href="/jargon/h/hex.htm">hex</a> number in angle brackets. This format can be changed by setting the <b>LESSBINFMT</b> environment variable. <b>LESSBINFMT</b> may begin with a "<b>*</b>" and one character to select the display attribute: "<b>*k</b>" is blinking, "<b>*d</b>" is bold, "<b>*u</b>" is underlined, "<b>*s</b>" is standout, and "<b>*n</b>" is normal. If <b>LESSBINFMT</b> does not begin with a "<b>*</b>", normal attribute is assumed. The remainder of <b>LESSBINFMT</b> is a string which may include one <a href="/unix/uprintf.htm">printf</a>-style escape sequence (a <b>%</b> followed by <b>x</b>, <b>X</b>, <b>o</b>, <b>d</b>, etc.). For example, if <b>LESSBINFMT</b> is "<b>*u[%x]</b>", binary characters are displayed in underlined hexadecimal surrounded by brackets. The default if no <b>LESSBINFMT</b> is specified is "<b>*s&lt;%02X&gt;</b>". Warning: the result of expanding the character via <b>LESSBINFMT</b> must be less than 31 characters.</p>
+<p class="tab">When the character set is <b>utf-8</b>, the <b>LESSUTFBINFMT</b> environment variable acts similarly to <b>LESSBINFMT</b> but it applies to Unicode code points that were successfully decoded but are unsuitable for display (e.g., unassigned code points). Its default value is "<b>&lt;U+%04lX&gt;</b>". Note that <b>LESSUTFBINFMT</b> and <b>LESSBINFMT</b> share their display attribute setting ("<b>*x</b>") so specifying one will affect both; <b>LESSUTFBINFMT</b> is read after <b>LESSBINFMT</b> so its setting, if any, will have priority. Problematic <a href="/jargon/o/octet.htm">octets</a> in a <b>UTF-8</b> file (octets of a truncated sequence, octets of a complete but non-shortest form sequence, illegal octets, and stray trailing octets) are displayed individually using <b>LESSBINFMT</b> so as to facilitate diagnostics of how the UTF-8 file is ill-formed.</p>
+<h2 id="Prompts">Prompts</h2>
+<p class="tab">The <b>-P</b> option allows you to tailor the <a href="/jargon/p/prompt.htm">prompt</a> to your preference. The string given to the <b>-P</b> option replaces the specified prompt string. Certain characters in the string are interpreted specially. The prompt mechanism is rather complicated to provide flexibility, but the ordinary user need not understand the details of constructing personalized prompt strings.</p>
+<p class="tab">A percent sign followed by a single character is expanded according to what the following character is:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:60px"><b>%b</b><i>X</i></td>
+<td>Replaced by the byte offset into the current input file. The <b>b</b> is followed by a single character (shown as <b>X</b> above) which specifies the line whose byte offset is to be used. If the character is a "<b>t</b>", the byte offset of the top line in the display is used, an "<b>m</b>" means use the middle line, a "<b>b</b>" means use the bottom line, a "<b>B</b>" means use the line just after the bottom line, and a "<b>j</b>" means use the "target" line, as specified by the <b>-j</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>%B</b></td>
+<td>Replaced by the size of the current input file.</td>
+</tr>
+<tr class="tcw">
+<td><b>%c</b></td>
+<td>Replaced by the column number of the text appearing in the first column of the screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>%d</b><i>X</i></td>
+<td>Replaced by the page number of a line in the input file. The line to be used is determined by the <i>X</i>, as with the <b>%b</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>%D</b></td>
+<td>Replaced by the number of pages in the input file, or equivalently, the page number of the last line in the input file.</td>
+</tr>
+<tr class="tcw">
+<td><b>%E</b></td>
+<td>Replaced by the name of the editor (from the <b>VISUAL</b> environment variable, or the <b>EDITOR</b> environment variable if <b>VISUAL</b> is not defined). See the discussion of the <b>LESSEDIT</b> feature below.</td>
+</tr>
+<tr class="tcw">
+<td><b>%f</b></td>
+<td>Replaced by the name of the current input file.</td>
+</tr>
+<tr class="tcw">
+<td><b>%F</b></td>
+<td>Replaced by the last component of the name of the current input file.</td>
+</tr>
+<tr class="tcw">
+<td><b>%i</b></td>
+<td>Replaced by the index of the current file in the list of input files.</td>
+</tr>
+<tr class="tcw">
+<td><b>%l</b><i>X</i></td>
+<td>Replaced by the line number of a line in the input file. The line to be used is determined by the <i>X</i>, as with the <b>%b</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>%L</b></td>
+<td>Replaced by the line number of the last line in the input file.</td>
+</tr>
+<tr class="tcw">
+<td><b>%m</b></td>
+<td>Replaced by the total number of input files.</td>
+</tr>
+<tr class="tcw">
+<td><b>%p</b><i>X</i></td>
+<td>Replaced by the percent into the current input file, based on byte offsets. The line used is determined by the <i>X</i> as with the <b>%b</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>%P</b><i>X</i></td>
+<td>Replaced by the percent into the current input file, based on line numbers. The line used is determined by the <i>X</i> as with the <b>%b</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>%s</b></td>
+<td>Same as <b>%B</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>%t</b></td>
+<td>Causes any trailing spaces to be removed. Usually used at the end of the string, but may appear anywhere.</td>
+</tr>
+<tr class="tcw">
+<td><b>%x</b></td>
+<td>Replaced by the name of the next input file in the list.</td>
+</tr>
+</table>
+<p class="tab">If any item is unknown (for example, the file size if input is a pipe), a question mark is printed instead.</p>
+<p class="tab">The format of the prompt string can be changed depending on certain <a href="/jargon/c/contstat.htm">conditions</a>. A question mark followed by a single character acts like an "<a href="/jargon/i/ifstatme.htm">IF</a>": depending on the following character, a condition is evaluated. If the condition is true, any characters following the question mark and condition character, up to a period, are included in the prompt. If the condition is false, such characters are not included. A colon appearing between the question mark and the period can be used to establish an "<a href="/jargon/e/else.htm">ELSE</a>": any characters between the colon and the period are included in the string if and only if the IF condition is false. Condition characters (which follow a question mark) may be:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:60px"><b>?a</b></td>
+<td>True if any characters have been included in the prompt so far.</td>
+</tr>
+<tr class="tcw">
+<td><b>?b</b><i>X</i></td>
+<td>True if the byte offset of the specified line <i>X</i> is known.</td>
+</tr>
+<tr class="tcw">
+<td><b>?B</b></td>
+<td>True if the size of current input file is known.</td>
+</tr>
+<tr class="tcw">
+<td><b>?c</b></td>
+<td>True if the text is horizontally shifted (<b>%c</b> is not zero).</td>
+</tr>
+<tr class="tcw">
+<td><b>?d</b><i>X</i></td>
+<td>True if the page number of the specified line is known.</td>
+</tr>
+<tr class="tcw">
+<td><b>?e</b></td>
+<td>True if at <a href="/jargon/e/eof.htm">end-of-file</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>?f</b></td>
+<td>True if there is an input filename (that is, if input is not a pipe).</td>
+</tr>
+<tr class="tcw">
+<td><b>?l</b><i>X</i></td>
+<td>True if the line number of the specified line is known.</td>
+</tr>
+<tr class="tcw">
+<td><b>?L</b></td>
+<td>True if the line number of the last line in the file is known.</td>
+</tr>
+<tr class="tcw">
+<td><b>?m</b></td>
+<td>True if there is more than one input file.</td>
+</tr>
+<tr class="tcw">
+<td><b>?n</b></td>
+<td>True if this is the first prompt in a new input file.</td>
+</tr>
+<tr class="tcw">
+<td><b>?p</b><i>X</i></td>
+<td>True if the percent into the current input file, based on byte offsets, of the specified line is known.</td>
+</tr>
+<tr class="tcw">
+<td><b>?P</b><i>X</i></td>
+<td>True if the percent into the current input file, based on line numbers, of the specified line is known.</td>
+</tr>
+<tr class="tcw">
+<td><b>?s</b></td>
+<td>Same as "<b>?B</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>?x</b></td>
+<td>True if there is a next input file (that is, if the current input file is not the last one).</td>
+</tr>
+</table>
+<p class="tab">Any characters other than the special ones (question mark, colon, period, percent, and backslash) become literally part of the prompt. Any of the special characters may be included in the prompt literally by preceding it with a backslash.</p>
+<p class="tab">Some examples:</p>
+<pre class="tab tcy">?f%f:Standard input.</pre>
+<p class="tab">This prompt prints the filename, if known; otherwise the string "<b>Standard input.</b>".</p>
+<pre class="tab tcy">?f%f .?ltLine %lt:?pt%pt\%:?btByte %bt:-...</pre>
+<p class="tab">This prompt would print the filename, if known. The filename is followed by the line number, if known, otherwise the percent if known, otherwise the byte offset if known. Otherwise, a dash is printed. Notice how each question mark has a matching period, and how the <b>%</b> after the <b>%pt</b> is included literally by escaping it with a backslash.</p>
+<pre class="tab tcy">?n?f%f .?m(file %i of %m) ..?e(End) ?x- Next\: %x..%t</pre>
+<p class="tab">This prints the filename if this is the first prompt in a file, followed by the "<b>file</b> <i>N</i><b>of</b> <i>N</i>" message if there is more than one input file. Then, if we are at end-of-file, the string "<b>(End)</b>" is printed followed by the name of the next file, if there is one. Finally, any trailing spaces are truncated. This is the default prompt. For reference, here are the defaults for the other two prompts (<b>-m</b> and <b>-M</b> respectively). Each is broken into two lines here for readability only.</p>
+<pre class="tab tcy">?n?f%f .?m(file %i of %m) ..?e(End) ?x- Next\: %x.: ?pB%pB\%:byte %bB?s/%s...%t ?f%f .?n?m(file %i of %m) ..?ltlines %lt-%lb?L/%L. : byte %bB?s/%s. .?e(End) ?x- Next\: %x.:?pB%pB\%..%t</pre>
+<p class="tab">And here is the default message produced by the <b>=</b> command:</p>
+<pre class="tab tcy">?f%f .?m(file %i of %m) .?ltlines %lt-%lb?L/%L. . byte %bB?s/%s. ?e(End) :?pB%pB\%..%t</pre>
+<p class="tab">The prompt expansion features are also used for another purpose: if an environment variable <b>LESSEDIT</b> is defined, it is used as the command to be executed when the <b>v</b> command is invoked. The <b>LESSEDIT</b> string is expanded in the same way as the prompt strings. The default value for <b>LESSEDIT</b> is:</p>
+<pre class="tab tcy">%E ?lm+%lm. %f</pre>
+<p class="tab">Note that this expands to the editor name, followed by a <b>+</b> and the line number, followed by the file name. If your editor does not accept the "<b>+linenumber</b>" syntax, or has other differences in invocation syntax, the <b>LESSEDIT</b> variable can be changed to modify this default.</p>
+<h2 id="Security">Security</h2>
+<p class="tab">When the environment variable <b>LESSSECURE</b> is set to <b>1</b>, <b>less</b> runs in a "secure" mode. This means these features are disabled:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:50px"><b>!</b></td>
+<td>the shell command</td>
+</tr>
+<tr class="tcw">
+<td><b>|</b></td>
+<td>the pipe command</td>
+</tr>
+<tr class="tcw">
+<td><b>:e</b></td>
+<td>the examine command</td>
+</tr>
+<tr class="tcw">
+<td><b>v</b></td>
+<td>the editing command</td>
+</tr>
+<tr class="tcw">
+<td><b>s -o</b></td>
+<td>log files</td>
+</tr>
+<tr class="tcw">
+<td><b>-k</b></td>
+<td>use of lesskey files</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>use of tags files</td>
+</tr>
+<tr class="tcw">
+<td></td>
+<td>metacharacters in filenames, such as <b>*</b></td>
+</tr>
+<tr class="tcw">
+<td></td>
+<td>filename completion (<b>TAB</b>, <b>^L</b>)</td>
+</tr>
+</table>
+<p class="tab">Less can also be compiled to be permanently in "secure" mode.</p>
+<h2>Compatibility With More</h2>
+<p class="tab">If the environment variable <b>LESS_IS_MORE</b> is set to <b>1</b>, or if the program is invoked via a file link named "<b>more</b>", <b>less</b> behaves (mostly) in conformance with the <a href="/jargon/p/posix.htm">POSIX</a> <a href="/jargon/m/more.htm">more</a> command specification. In this mode, <b>less</b> behaves differently in these ways:</p>
+<ol>
+<li>The <b>-e</b> option works differently. If the <b>-e</b> option is not set, <b>less</b> behaves as if the <b>-E</b> option were set. If the <b>-e</b> option is set,<b>less</b>behaves as if the <b>-e</b> and <b>-F</b> options were set.</li>
+<li>The <b>-m</b> option works differently. If the <b>-m</b> option is not set, the medium prompt is used, and it is prefixed with the string "<b>--More--</b>". If the <b>-m</b> option is set, the short prompt is used.</li>
+<li>The <b>-n</b> option acts like the <b>-z</b> option. The normal behavior of the <b>-n</b> option is unavailable in this mode.</li>
+</ol>
+<p class="tab">The parameter to the <b>-p</b> option is taken to bea <b>less</b>command rather than a search pattern.</p>
+<p class="tab">The <b>LESS</b> environment variable is ignored, and the <b>MORE</b> environment variable is used in its place.</p>
+<h2 id="Environment-Variables">Environment Variables</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:210px"><b>COLUMNS</b></td>
+<td>Sets the number of columns on the screen. Takes precedence over the number of columns specified by the <b>TERM</b> variable. (But if you have a windowing system which supports <b>TIOCGWINSZ</b> or <b>WIOCGETD</b>, the window system's idea of the screen size takes precedence over the <b>LINES</b> and <b>COLUMNS</b> environment variables.)</td>
+</tr>
+<tr class="tcw">
+<td><b>EDITOR</b></td>
+<td>The name of the editor (used for the <b>v</b> command).</td>
+</tr>
+<tr class="tcw">
+<td><b>HOME</b></td>
+<td>Name of the user's <a href="/jargon/h/homedir.htm">home directory</a> (used to find a lesskey file on Unix and OS/2 systems).</td>
+</tr>
+<tr class="tcw">
+<td><b>HOMEDRIVE</b>, <b>HOMEPATH</b></td>
+<td>Concatenation of the <b>HOMEDRIVE</b> and <b>HOMEPATH</b> environment variables is the name of the user's home directory if the <b>HOME</b> variable is not set (only in the Windows version).</td>
+</tr>
+<tr class="tcw">
+<td><b>INIT</b></td>
+<td>Name of the user's init directory (used to find a lesskey file on OS/2 systems).</td>
+</tr>
+<tr class="tcw">
+<td><b>LANG</b></td>
+<td>Language for determining the character set.</td>
+</tr>
+<tr class="tcw">
+<td><b>LC_CTYPE</b></td>
+<td>Language for determining the character set.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESS</b></td>
+<td>Options that are passed to <b>less</b> automatically.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSANSIENDCHARS</b></td>
+<td>Characters that may end an ANSI color escape sequence (default "<b>m</b>").</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSANSIMIDCHARS</b></td>
+<td>Characters that may appear between the <b>Esc</b> character and the end character in an ANSI color escape sequence (default "<b>0123456789;[?!"'#%()*+</b> ".</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSBINFMT</b></td>
+<td>Format for displaying non-printable, non-control characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSCHARDEF</b></td>
+<td>Defines a character set.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSCHARSET</b></td>
+<td>Selects a predefined character set.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSCLOSE</b></td>
+<td>Command line to invoke the (optional) input-postprocessor.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSECHO</b></td>
+<td>Name of the <b>lessecho</b> program (default "<b>lessecho</b>"). The <b>lessecho</b> program is needed to expand metacharacters, such as <b>*</b> and <b>?</b>, in filenames on Unix systems.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSEDIT</b></td>
+<td>Editor prototype string (used for the <b>v</b> command). See discussion under <a href="#Prompts">PROMPTS</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSGLOBALTAGS</b></td>
+<td>Name of the command used by the <b>-t</b> option to find global tags. Normally should be set to "global" if your system has the <b>global</b> command. If not set, global tags are not used.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSHISTFILE</b></td>
+<td>Name of the history file used to remember search commands and shell commands between invocations of less. If set to "<b>-</b>" or "<b>/dev/null</b>", a history file is not used. The default is "<b>$HOME/.lesshst</b>" on Unix systems, "<b>$HOME/_lesshst</b>" on DOS and Windows systems, or "<b>$HOME/lesshst.ini</b>" or "<b>$INIT/lesshst.ini</b>" on OS/2 systems.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSHISTSIZE</b></td>
+<td>The maximum number of commands to save in the history file. The default is 100.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSKEY</b></td>
+<td>Name of the default <b>lesskey</b> file.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSKEY_SYSTEM</b></td>
+<td>Name of the default system-wide <b>lesskey</b> file.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSMETACHARS</b></td>
+<td>List of characters that are considered "metacharacters" by the shell.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSMETAESCAPE</b></td>
+<td>Prefix which <b>less</b> will add before each metacharacter in a command sent to the shell. If <b>LESSMETAESCAPE</b> is an empty string, commands containing metacharacters will not be passed to the shell.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSOPEN</b></td>
+<td>Command line to invoke the (optional) input-preprocessor.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSSECURE</b></td>
+<td>Runs <b>less</b> in "secure" mode. See discussion under <b>SECURITY</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSSEPARATOR</b></td>
+<td>String to be appended to a directory name in filename completion.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESSUTFBINFMT</b></td>
+<td>Format for displaying non-printable Unicode code points.</td>
+</tr>
+<tr class="tcw">
+<td><b>LESS_IS_MORE</b></td>
+<td>Emulate the <a href="/unix/umore.htm">more</a> command.</td>
+</tr>
+<tr class="tcw">
+<td><b>LINES</b></td>
+<td>Sets the number of lines on the screen. Takes precedence over the number of lines specified by the <b>TERM</b> variable. (But if you have a windowing system which supports <b>TIOCGWINSZ</b> or <b>WIOCGETD</b>, the window system's idea of the screen size takes precedence over the <b>LINES</b> and <b>COLUMNS</b> environment variables.)</td>
+</tr>
+<tr class="tcw">
+<td><b>MORE</b></td>
+<td>Options that are passed to <b>less</b> automatically when running in <b>more</b> compatible mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>PATH</b></td>
+<td>User's search path (used to find a lesskey file on <a href="/jargon/m/msdos.htm">MS-DOS</a> and <a href="/jargon/o/os2.htm">OS/2</a> systems).</td>
+</tr>
+<tr class="tcw">
+<td><b>SHELL</b></td>
+<td>The shell used to execute the <b>!</b> command, as well as to expand filenames.</td>
+</tr>
+<tr class="tcw">
+<td><b>TERM</b></td>
+<td>The type of terminal on which <b>less</b> is being run.</td>
+</tr>
+<tr class="tcw">
+<td><b>VISUAL</b></td>
+<td>The name of the editor (used for the <b>v</b> command).</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">less file.txt</pre>
+<p class="tab">Views the file <b>file.txt</b>.</p>
+<pre class="tcy tab">less -N file.txt</pre>
+<p class="tab">Views the file <b>file.txt</b>, displaying a line number at the beginning of each line.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/umore.htm"><b>more</b></a> &mdash; Display text one screen at a time.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83055c9dc406',m:'A0XmXygu8jLaMds1dUli10yiTBnuYjkkuH8.Fm.wDNA-1661495353-0-ARfg8j55Aj5mKMnoX0ey5/248NhrNyfNjKVt1R5YYxBNHXWJTScxjVXg1odWteJ+aYW1IzCKvFwU4mmmShc1oBmrAc8Gt2YgH8Zkw/NFPnf14CajwLSaC6Vn4V/XwOw/gg==',s:[0x10a70bfb0f,0x570c3ef9ba],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

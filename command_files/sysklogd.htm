@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux sysklogd command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/sysklogd.gif" width="300" height="300" alt="sysklogd command" class="floatRight"><p class="intro">On Linux operating systems, <b>sysklogd</b> is a set of Linux system <a href="/jargon/l/log.htm">logging</a> utilities.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#signals">Signals</a></li>
+<li><a href="#file">Configuration file syntax</a></li>
+<li><a href="#remote">Remote logging support</a></li>
+<li><a href="#security">Security notes</a></li>
+<li><a href="#debugging">Debugging</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>Sysklogd</b> provides two system utilities which provide support for system logging and <a href="/jargon/k/kernel.htm">kernel</a> message trapping. Support of both Internet and <a href="/jargon/u/unix.htm">unix</a> domain sockets enables this utility package to support both local and remote logging.</p>
+<p class="tab">System logging is provided by a version of <b>syslogd</b> derived from <a href="/jargon/b/bsd.htm">BSD</a>. Support for kernel logging is provided by the <b>klogd</b> utility that allows kernel logging to be conducted in either a standalone fashion or as a <a href="/jargon/c/client.htm">client</a> of <b>syslogd</b>.</p>
+<p class="tab"><b>syslogd</b> provides a kind of logging that many modern programs use. Every logged message contains at least a time and a <a href="/jargon/h/hostname.htm">hostname</a> field, and normally a program name field, but it depends on the logging program.</p>
+<p class="tab">The main <a href="/jargon/c/configur.htm">configuration</a> file <b>/etc/syslog.conf</b> or an alternative file, given with the <b>-f</b> option, is read at startup. Any lines that begin with the hash mark ("<b>#</b>") and empty lines are ignored. If an error occurs during <a href="/jargon/p/parse.htm">parsing</a> a line, the whole line is ignored.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">syslogd [ -a <i>socket</i> ] [ -d ] [ -f <i>config-file</i> ] [ -h ] [ -l <i>hostlist</i> ] 
+        [ -m <i>interval</i> ] [ -n ] [ -p <i>socket</i> ] [-r ] [ -s <i>domainlist</i> ] 
+        [ -u <i>user</i> ] [ -v ]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>-a</b> <i>socket</i></td>
+<td>Using this argument, you can specify additional sockets from that <b>syslogd</b> has to listen to. This is needed if you're going to let some <a href="/jargon/d/daemon.htm">daemon</a> run within a <a href="/jargon/c/chroot.htm">chroot</a>() environment. You can use up to 19 additional sockets. If your environment needs even more, you have to increase the symbol <b>MAXFUNIX</b> in the <b>syslogd.c</b> <a href="/jargon/s/source.htm">source file</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b></td>
+<td>Turns on <a href="/jargon/d/debug.htm">debug</a> mode. Using this the daemon will not proceed a <a href="/jargon/f/fork.htm">fork</a> to set itself in the background, but opposite to that stay in the foreground and write much debug information on the current <a href="/jargon/t/tty.htm">tty</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>config-file</i></td>
+<td>Specify an alternative configuration file instead of <b>/etc/syslog.conf</b>, which is the default.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b></td>
+<td>By default, <b>syslogd</b> will not forward messages it receives from remote hosts. Specifying this switch on the command line causes the log daemon to forward any remote messages it receives to forwarding hosts which are defined. This can cause syslog loops that fill up <a href="/jargon/h/harddriv.htm">hard disks</a> quite fast and thus needs to be used with caution.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b> <i>hostlist</i></td>
+<td>Specify a hostname that should be logged only with its simple hostname and not the <a href="/jargon/f/fqdn.htm">fqdn</a>. Multiple hosts may be specified using the colon ("<b>:</b>") separator.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b> <i>interval</i></td>
+<td>The <b>syslogd</b> logs a mark timestamp regularly. The default interval between two "<b>-- MARK --</b>" lines is 20 minutes. This can be changed with this option. Setting the interval to zero turns it off entirely. Depending on other log messages generated these lines may not be written consecutively.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>Avoid auto-backgrounding. This is needed especially if the <b>syslogd</b> is started and controlled by <b>init</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b> <i>socket</i></td>
+<td>You can specify an alternative unix domain socket instead of <b>/dev/log</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b></td>
+<td>This option enables the facility to receive message from the network using an Internet domain socket with the <b>syslog</b> service. The default is to not receive any messages from the network.<br><br> This option is introduced in version 1.3 of the <b>sysklogd</b> package. Please note that the default behavior is the opposite of how older versions behave, so you might have to turn this on this option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b> <i>domainlist</i></td>
+<td>Specify a <a href="/jargon/d/domain.htm">domain</a> name that should be stripped off before logging. Multiple domains may be specified using the colon ("<b>:</b>") separator. Please be advised that no sub-domains may be specified but only entire domains. For example, if <b>-s north.de</b> is specified and the host logging resolves to <b>satu.info-drom.north.de</b> no domain would be cut, you have to specify two domains like: <b>-s north.de:info-drom.north.de</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b> <i>user</i></td>
+<td>The <b>syslogd</b> daemon runs with full <a href="/jargon/r/root.htm">root</a> privileges by default. If you specify this option, the daemon will drop its privileges to the given user (and the primary group of this user) before starting up logging. This greatly reduces the potential impact of exploitable security holes in <b>syslogd</b>.<br><br> <b>syslogd</b> opens all log files as <b>root</b> at startup. However, after receiving a SIGHUP <a href="/unix/signals.htm">signal</a> (which causes the daemon to restart) the log files will be reopened as the non-privileged user which fails if the log files are only writeable by root. If you need to restart the daemon using the signal, then you have to adapt the permissions of your log files to be writeable by the specified user (or its primary group).</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>Print <a href="/jargon/v/version.htm">version</a> and exit.</td>
+</tr>
+</table>
+<h2 id="signals">Signals</h2>
+<p class="tab"><b>Syslogd</b> reacts to a set of signals. You may easily send a signal to <b>syslogd</b> using the following:</p>
+<pre class="tab tcy">kill -SIGNAL &#96;cat /var/run/syslogd.pid&#96;</pre>
+<p class="tab">where <i>SIGNAL</i> is one of the following <a href="/unix/signals.htm">signals</a>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><b>SIGHUP</b></td>
+<td>This lets <b>syslogd</b> perform a re-initialization. All open files are closed, the configuration file (default is <b>/etc/syslog.conf</b>) will be reread and the <b>syslog</b> facility is started again.</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGTERM</b></td>
+<td>Kills syslogd.</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGINT</b>, <b>SIGQUIT</b></td>
+<td>If debugging is enabled these are ignored, otherwise syslogd will die.</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGUSR1</b></td>
+<td>Switch debugging on/off. This option can only be used if syslogd is started with the <b>-d</b> debug option.</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGCHLD</b></td>
+<td>Wait for child processes (if some were spawned).</td>
+</tr>
+</table>
+<h2 id="file">Configuration file syntax</h2>
+<p class="tab"><b>Syslogd</b> uses a slightly different syntax for its configuration file than the original BSD sources. Originally all messages of a specific priority and above were forwarded to the log file.</p>
+<p class="tab">For example, the following line caused ALL output from daemons using the daemon facilities (debug is the lowest priority, so everything higher also matches) to go into /usr/adm/daemons:</p>
+<pre class="tab tcy"># Sample syslog.conf 
+daemon.debug 		/usr/adm/daemons</pre>
+<p class="tab">Under the new scheme this behavior remains the same. The difference is the addition of four new specifiers, the <a href="/jargon/a/asterisk.htm">asterisk</a> (*) <a href="/jargon/w/wildcard.htm">wildcard</a>, the <a href="/jargon/e/equal.htm">equal sign</a> (=), the <a href="/jargon/e/exclamation-mark.htm">exclamation mark</a> (!), and the <a href="/jargon/h/hyphen.htm">minus sign</a> (-).</p>
+<p class="tab">The * specifies that all messages for the specified facility are to be directed to the destination. Note that this behavior is degenerate with specifying a priority level of debug. Users have indicated that the asterisk notation is more intuitive.</p>
+<p class="tab">The = wildcard is used to restrict logging to the specified priority class. This allows, for example, routing only debug messages to a particular logging source.</p>
+<p class="tab">For example, the following line in syslog.conf would direct debug messages from all sources to the /usr/adm/debug file.</p>
+<pre class="tab tcy"># Sample syslog.conf 
+*.=debug 		/usr/adm/debug</pre>
+<p class="tab">The ! is used to exclude logging of the specified priorities. This affects all (!) possibilities of specifying priorities.</p>
+<p class="tab">For example, the following lines would log all messages of the facility mail except those with the priority info to the /usr/adm/mail file. And all messages from news.info (including) to news.crit (excluding) would be logged to the /usr/adm/news file.</p>
+<pre class="tab tcy"># Sample syslog.conf 
+mail.*;mail.!=info 	/usr/adm/mail 
+news.info;news.!crit 	/usr/adm/news</pre>
+<p class="tab">You may use it intuitively as an exception specifier. The above mentioned interpretation is inverted. You may also use</p>
+<pre class="tab tcy">mail.none</pre>
+<p class="tab">or</p>
+<pre class="tab tcy">mail.!*</pre>
+<p class="tab">or</p>
+<pre class="tab tcy">mail.!debug</pre>
+<p class="tab">to skip every message that comes with a mail facility.</p>
+<p class="tab">The "<b>-</b>" may only be used to prefix a file name if you want to omit syncing the file after every write to it.</p>
+<h2 id="remote">Remote logging support</h2>
+<p class="tab">To enable remote logging, specify the <b>-r</b> option on the command line. The default behavior is that <b>syslogd</b> won't listen to the network.</p>
+<p class="tab">The strategy is to have <b>syslogd</b> listen on a unix domain <a href="/jargon/s/socket.htm">socket</a> for locally generated log messages. This behavior allows <b>syslogd</b> to interoperate with the syslog found in the standard <a href="/jargon/c/c.htm">C</a> <a href="/jargon/l/library.htm">library</a>. At the same time <b>syslogd</b> listens on the standard syslog port for messages forwarded from other hosts. To have this work correctly the <b>services</b> files (typically found in <b>/etc</b>) must have the following entry:</p>
+<pre class="tab tcy">syslog 514/udp</pre>
+<p class="tab">If this entry is missing <b>syslogd</b> neither can receive remote messages nor send them, because the <a href="/jargon/u/udp.htm">UDP</a> port can't be opened. Instead <b>syslogd</b> will <a href="/jargon/t/terminat.htm">die</a> immediately, and print an error message.</p>
+<p class="tab">To cause messages to be forwarded to another host, replace the normal file line in the <b>syslog.conf</b> file with the name of the host where the messages is to be sent <a href="/jargon/p/prefix.htm">prepended</a> with an <b>@</b>.</p>
+<p class="tab">For example, to forward ALL messages to a remote host use the following <b>syslog.conf</b> entry:</p>
+<pre class="tab tcy"># Sample syslogd configuration file to 
+# messages to a remote host forward all. 
+*.* 		@hostname</pre>
+<p class="tab">To forward all kernel messages to a remote host the configuration file would be as follows:</p>
+<pre class="tab tcy"># Sample configuration file to forward all kernel 
+# messages to a remote host. 
+kern.* 		@hostname</pre>
+<p class="tab">If the remote hostname cannot be resolved at startup, because the <a href="/jargon/s/server.htm">name server</a> might not be accessible (it may be started after <b>syslogd</b>) <b>syslogd</b> will retry to resolve the name ten times and then complain. Another possibility to avoid this is to place the hostname in <b>/etc/hosts</b>.</p>
+<p class="tab">To avoid this, no messages received from a remote host are sent out to another (or the same) remote host anymore. If you experience are set up where you need this behavior, please use the <b>-h</b> command line switch. However, this option needs to be handled with caution since a <b>syslog</b> loop can fill up hard disks quite fast.</p>
+<p class="tab">If the remote host is located in the same domain as the host, <b>syslogd</b> is running on, only the simple hostname will be logged instead of the whole fqdn.</p>
+<p class="tab">In a local network, you may provide a central log server to have all the important information kept on one machine. If the network consists of different domains, you don't have to complain about logging fully qualified names instead of simple hostnames. You may want to use the strip-domain feature <b>-s</b> of this server. You can tell the <b>syslogd</b> to strip off several domains other than the one the server is located in and only log simple hostnames.</p>
+<p class="tab">Using the <b>-l</b> option there's also a possibility to define single hosts as local machines. This, too, results in logging only their simple hostnames and not the fqdns.</p>
+<p class="tab">The UDP socket used to forward messages to remote hosts or receive messages from them is only opened when it is needed. In releases before 1.3-23 it was opened every time but not opened for reading or forwarding respectively.</p>
+<h2 id="security">Security notes</h2>
+<p class="tab">There is the potential for the <b>syslogd</b> daemon to be used as a conduit for a <a href="/jargon/d/dos.htm">denial of service</a> attack. A rogue program (or programmer) could very easily flood the syslogd daemon with syslog messages resulting in the log files consuming all the remaining space on the filesystem. Activating logging over the inet domain sockets will of course expose a system to risks outside of programs or individuals on the local machine.</p>
+<p class="tab">There are many methods of protecting a machine:</p>
+<ol>
+<li>Implement kernel <a href="/jargon/f/firewall.htm">firewalling</a> to limit which hosts or networks have access to the 514/UDP socket.</li>
+<li>Logging can be directed to an isolated or non-root <a href="/jargon/f/filesyst.htm">filesystem</a> which, if filled, will not impair themachine.</li>
+<li>The <b>ext2</b> filesystem can be used which can be configured to limit a certain percentage of a filesystem to usage by root only. Note that this requires <b>syslogd</b> to run as a non-root process, and prevent usage of remote logging since <b>syslogd</b> cannot bind to the 514/UDP socket.</li>
+<li>Disabling inet domain sockets will limit risk to the local machine.</li>
+</ol>
+<h2 id="debugging">Debugging</h2>
+<p class="tab">When debugging is turned on using <b>-d</b> option, <b>syslogd</b> will be very <a href="/jargon/v/verbose.htm">verbose</a> by writing much of what it does to stdout. Whenever the configuration file is reread and re-parsed you'll see a <a href="/jargon/t/table.htm">tabular</a>, corresponding to the internal data structure. This tabular consists of four fields:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><b>number</b></td>
+<td>This field contains a <a href="/jargon/s/serial.htm">serial</a> number starting by zero. This number represents the position in the internal data structure (the array). If one number is left out then there might be an error in the corresponding line in <b>/etc/syslog.conf</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>pattern</b></td>
+<td>This field is represents the internal structure exactly. Every column stands for a <b>syslog</b> facility. As you can see, there are still some facilities left free for former use, only the left most are used. Every field in a column represents the priorities.</td>
+</tr>
+<tr class="tcw">
+<td><b>action</b></td>
+<td>This field describes the particular action that takes place whenever a message is received that matches the pattern.</td>
+</tr>
+<tr class="tcw">
+<td><b>arguments</b></td>
+<td>This field shows additional arguments to the actions in the last field. For file-logging this is the file name for the logfile; for user-logging this is a list of users; for remote logging this is the hostname of the machine to log to; for console-logging this is the used console; for tty-logging this is the specified tty.</td>
+</tr>
+</table>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/dmesg.htm"><b>dmesg</b></a> &mdash; Print or control the kernel ring buffer.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a835b8fb68498',m:'reMuMO0kvvxqmaflkU92FqMRBunWKY2IoHoP.3dzRUg-1661495366-0-AYWTOaVSJcbM9TR8zI6rVaDasfRW0u0G4ZpcGUIUm9wqTjwz8pVIXUujKeEvTtx7Uq6Mz2Y0wz/uiIbGY9VZ7GeB78UDlzxzAb+nMEEJTppmlophEVnc8QtZpnUHvLU7yqo0RuQDlh5bylzSH1PoSX8=',s:[0x7f48d60188,0x90a0cacf24],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

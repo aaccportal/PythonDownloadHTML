@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux ifconfig command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/ifconfig.gif" width="300" height="300" alt="ifconfig command" class="floatRight"><p class="intro">On some <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>ifconfig</b> is used to <a href="/jargon/c/configur.htm">configure</a>, or view the configuration of, a <a href="/jargon/n/network.htm">network</a> <a href="/jargon/i/interfac.htm">interface</a>.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>ifconfig</b>.</p>
+<div class="tip" role="note">
+<span class="title note">Note</span>
+<p>On modern Linux systems, the <a href="/unix/ip.htm"><b>ip</b></a> command has replaced <b>ifconfig</b>.</p>
+</div>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#dhcp">What about DHCP?</a></li>
+<li><a href="#technical">Technical description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>ifconfig</b> stands for "interface configuration." It is used to view and change the configuration of the network interfaces on your system.</p>
+<p class="tab">Running the <b>ifconfig</b> command with no arguments, like this:</p>
+<pre class="tab tcy">ifconfig</pre>
+<p class="tab">...displays information about all network interfaces currently in operation. The output resembles the following:</p>
+<pre class="tab">eth0      Link encap:Ethernet  HWaddr 09:00:12:90:e3:e5  
+          inet addr:192.168.1.29 Bcast:192.168.1.255  Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fe70:e3f5/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:54071 errors:1 dropped:0 overruns:0 frame:0
+          TX packets:48515 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:22009423 (20.9 MiB)  TX bytes:25690847 (24.5 MiB)
+          Interrupt:10 Base address:0xd020 
+lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:83 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:83 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0 
+          RX bytes:7766 (7.5 KiB)  TX bytes:7766 (7.5 KiB)
+wlan0     Link encap:Ethernet  HWaddr 58:a2:c2:93:27:36  
+          inet addr:192.168.1.64  Bcast:192.168.2.255  Mask:255.255.255.0
+          inet6 addr: fe80::6aa3:c4ff:fe93:4746/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:436968 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:364103 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:115886055 (110.5 MiB)  TX bytes:83286188 (79.4 MiB)</pre>
+<p class="tab">Here, <b>eth0</b>, <b>lo</b> and <b>wlan0</b> are the names of the active network interfaces on the system.</p>
+<ul>
+<li><b>eth0</b> is the first <a href="/jargon/e/ethernet.htm">Ethernet</a> interface. (Additional Ethernet interfaces would be named <b>eth1</b>, <b>eth2</b>, etc.) This type of interface is usually a <a href="/jargon/n/nic.htm">NIC</a> connected to the network by a <a href="/jargon/c/cat5.htm">category 5</a> cable.</li>
+<li><b>lo</b> is the <a href="/jargon/l/loopback.htm">loopback</a> interface. This is a special network interface that the system uses to communicate with itself.</li>
+<li><b>wlan0</b> is the name of the first <a href="/jargon/w/wifi.htm">wireless network</a> interface on the system. Additional wireless interfaces would be named <b>wlan1</b>, <b>wlan2</b>, etc.</li>
+</ul>
+<p class="tab">These are the traditional naming conventions for network interfaces under Linux; other operating systems may have different names. For instance, under many <a href="/jargon/b/bsd.htm">BSD</a> operating systems, Ethernet interfaces are named <b>em0</b>, <b>em1</b>, etc. Check your configuration, or consult your documentation, to determine the exact names of your interfaces.</p>
+<h3 class="tab">Viewing the configuration of all interfaces</h3>
+<p class="tab">If you'd like to view the configuration of all network interfaces on the system (not just the ones that are currently active), you can specify the <b>-a</b> option, like this:</p>
+<pre class="tab tcy">ifconfig -a</pre>
+<p class="tab">This produces output similar to running <b>ifconfig</b>, but if there are any inactive interfaces on the system, their configuration is also shown.</p>
+<h3 class="tab">Viewing the configuration of a specific interface</h3>
+<p class="tab">To view the configuration of a specific interface, specify its name as an option. For instance,</p>
+<pre class="tab tcy">ifconfig eth0</pre>
+<p class="tab">...displays the configuration of device <b>eth0</b> only.</p>
+<h3 class="tab">Enabling and disabling an interface</h3>
+<p class="tab">When a network interface is active, it can send and receive data; when it is inactive, it is not able to transmit or receive. You can use <b>ifconfig</b> to change the status of a network interface from inactive to active, or vice versa.</p>
+<p class="tab">To enable an inactive interface, provide <b>ifconfig</b> with the interface name followed by the keyword <b>up</b>.</p>
+<p class="tab">Enabling or disabling a device requires <a href="/jargon/a/admin.htm">superuser</a> permissions, so you either have to be <a href="/unix/usu.htm">logged in as root</a>, or prefix your command with <a href="/unix/sudo.htm"><b>sudo</b></a> to run it with superuser privileges.</p>
+<p class="tab">For instance, if network interface <b>eth1</b> is inactive, you can activate it with the command:</p>
+<pre class="tab tcy">sudo ifconfig eth1 up</pre>
+<p class="tab">Similarly, you can disable an active network interface using the <b>down</b> keyword. For instance, to disable the wireless network interface <b>wlan0</b>, use the command:</p>
+<pre class="tab tcy">sudo ifconfig wlan0 down</pre>
+<h3 class="tab">Configuring an interface</h3>
+<p class="tab"><b>ifconfig</b> can be used at the command line to configure (or re-configure) a network interface. This is often unnecessary since this configuration is often handled by a script when you boot the system. If you'd like to do so manually, you need superuser privileges, so we'll use <b>sudo</b> again when running these commands.</p>
+<p class="tab">To assign a <a href="/jargon/s/statallo.htm">static</a> <a href="/jargon/i/ip.htm">IP address</a> to an interface, specify the interface name and the IP address. For example, to assign the IP address <b>69.72.169.1</b> to the interface <b>wlan0</b>, use the command:</p>
+<pre class="tab tcy">sudo ifconfig wlan0 69.72.169.1</pre>
+<p class="tab">To assign a <a href="/jargon/n/netmask.htm">network mask</a> to an interface, use the keyword <b>netmask</b> and the netmask address. For instance, to configure the interface <b>eth1</b> to use a network mask of <b>255.255.255.0</b>, the command would be:</p>
+<pre class="tab tcy">sudo ifconfig eth1 netmask 255.255.255.0</pre>
+<p class="tab">To assign a <a href="/jargon/b/broadcas.htm">broadcast</a> address to an interface, use the keyword <b>broadcast</b> and the broadcast address. For instance, to configure the interface <b>wlan1</b> to use a broadcast address of <b>172.16.25.98</b>, the command would be:</p>
+<pre class="tab tcy">sudo ifconfig wlan1 broadcast 172.16.25.98</pre>
+<p class="tab">These configurations can combined in a single command. For instance, to configure interface <b>eth0</b> to use the static IP address <b>192.168.2.5</b>, the network mask <b>255.255.255.0</b>, and the broadcast address <b>192.168.2.7</b>, the command would be:</p>
+<pre class="tab tcy">sudo ifconfig eth0 192.168.2.5 netmask 255.255.255.0 broadcast 192.168.2.7</pre>
+<p class="tab">These are the most commonly-used configuration options for <b>ifconfig</b>. A complete list is provided below.</p>
+<h2 id="dhcp">What about DHCP?</h2>
+<p class="tab"><b>ifconfig</b> can only assign a static IP address to a network interface. If you want to assign a dynamic IP address using <a href="/jargon/d/dhcp.htm">DHCP</a>, use the <a href="/unix/dhclient.htm"><b>dhclient</b></a> command.</p>
+<h2 id="technical">Technical description</h2>
+<p class="tab"><b>ifconfig</b> is used to configure the system's <a href="/jargon/k/kernel.htm">kernel</a>-resident network interfaces. It is used at <a href="/jargon/b/boot.htm">boot</a> time to set up interfaces as necessary. After that, it is usually only needed when <a href="/jargon/d/debug.htm">debugging</a>, or when system tuning is needed.</p>
+<p class="tab">If no <a href="/jargon/a/argument.htm">arguments</a> are given, <b>ifconfig</b> displays the status of the system's active interfaces.</p>
+<p class="tab">If a single <i>interface</i> argument is given, it displays the status of the given interface only.</p>
+<p class="tab">If a single <b>-a</b> argument is given, it displays the status of all interfaces, even those that are "down" (inactive).</p>
+<p class="tab">In all other cases, <b>ifconfig</b> configures an interface according to the options provided.</p>
+<h3 class="tab">About address families</h3>
+<p class="tab">If the first argument after the interface name is recognized as the name of a supported address family, that address family is used for decoding and displaying all protocol addresses. Currently supported address families include, <b>inet</b> (<a href="/jargon/t/tcpip.htm">TCP/IP</a>; this is the default), <b>inet6</b> (<a href="/jargon/i/ipv6.htm">IPv6</a>), <b>ax25</b> (AMPR Packet Radio), <b>ddp</b> (<a href="/jargon/a/appltalk.htm">Appletalk</a> Phase 2), <b>ipx</b> (<a href="/comp/novell.htm">Novell</a> <a href="/jargon/i/ipxspx.htm">IPX</a>) and <b>netrom</b> (AMPR Packet Radio).</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">ifconfig [-v] [-a] [-s] [<i>interface</i>]</pre>
+<pre class="tcy tab">ifconfig [-v] <i>interface</i> [<i>aftype</i>] <i>options</i> | <i>address</i> ...</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>-a</b></td>
+<td>Display information for all network interfaces, even if they are down.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>Display a short list in a format identical to the command "<a href="/unix/unetstat.htm"><b>netstat</b></a> <b>-i</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td><a href="/jargon/v/verbose.htm">Verbose</a> mode; display additional information for certain error conditions.</td>
+</tr>
+<tr class="tcw">
+<td><i>interface</i></td>
+<td>The name of the interface. This is usually a driver name followed by a unit number, for example "<b>eth0</b>" for the first <a href="/jargon/e/ethernet.htm">Ethernet</a> interface. If your kernel supports <a href="/jargon/a/alias.htm">alias</a> interfaces, you can specify them with <b>eth0:0</b> for the first alias of <b>eth0</b>. You can use them to assign a second address. To delete an alias interface, use <b>ifconfig eth0:0 down</b>. Note: for every scope (i.e., same net with address/netmask combination) all aliases are deleted, if you delete the first (primary).</td>
+</tr>
+<tr class="tcw">
+<td><b>up</b></td>
+<td>This flag causes the interface to be activated. It is implicitly specified if an address is assigned to the interface.</td>
+</tr>
+<tr class="tcw">
+<td><b>down</b></td>
+<td>This flag causes the driver for this interface to be shut down.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>arp</b></td>
+<td>Enable (or disable, if the "<b>-</b>" prefix is specified) the use of the <a href="/jargon/a/arp.htm">ARP</a> protocol on this interface.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>promisc</b></td>
+<td>Enable (or disable, if the "<b>-</b>" prefix is specified) the <a href="/jargon/p/prommode.htm">promiscuous</a> mode of the interface. If promiscuous mode is enabled, all <a href="/jargon/p/packet.htm">packets</a> on the network will be received by the interface.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>allmulti</b></td>
+<td>Enable or disable all-<a href="/jargon/m/multicast.htm">multicast</a> mode. If multicast mode is enabled, all multicast packets on the network will be received by the interface.</td>
+</tr>
+<tr class="tcw">
+<td><b>metric</b> <i>N</i></td>
+<td>This parameter sets the interface metric, which is used by the interface to make routing decisions. <i>N</i> must be an <a href="/jargon/i/integer.htm">integer</a> between <b>0</b> and <b>4294967295</b>. If you're not sure what a network metric is, or whether to change it, you can safely leave this setting alone.</td>
+</tr>
+<tr class="tcw">
+<td><b>mtu</b> <i>N</i></td>
+<td>This parameter sets the <a href="/jargon/m/mtu.htm">MTU</a> (maximum transfer unit) of an interface. This setting is used to limit the maximum packet size transferred by the interface. If you're not sure about it, you can safely leave this setting alone.</td>
+</tr>
+<tr class="tcw">
+<td><b>dstaddr</b> <i>address</i></td>
+<td>Set the remote IP address for a point-to-point link (such as <a href="/jargon/p/ppp.htm">PPP</a>). This keyword is now obsolete; use the <b>pointopoint</b> keyword instead.</td>
+</tr>
+<tr class="tcw">
+<td><b>netmask</b> <i>address</i></td>
+<td>Set the IP network mask for this interface. This value defaults to the usual class A, B or C network mask (as derived from the interface IP address), but it can be set to any value.</td>
+</tr>
+<tr class="tcw">
+<td><b>add</b> <i>address</i><b>/</b><i>prefixlen</i></td>
+<td>Add an <a href="/jargon/i/ipv6.htm">IPv6</a> address to an interface.</td>
+</tr>
+<tr class="tcw">
+<td><b>del</b> <i>address</i><b>/</b><i>prefixlen</i></td>
+<td>Remove an IPv6 address from an interface.</td>
+</tr>
+<tr class="tcw">
+<td><b>tunnel</b> <i>aa.bb.cc.dd</i></td>
+<td>Create a new SIT (IPv6-in-IPv4) device, <a href="/jargon/t/tunnel.htm">tunnelling</a> to the given destination.</td>
+</tr>
+<tr class="tcw">
+<td><b>irq</b> <i>address</i></td>
+<td>Set the <a href="/jargon/i/interrup.htm">interrupt</a> line used by this device. Not all devices can dynamically change their <a href="/jargon/i/irq.htm">IRQ</a> setting.</td>
+</tr>
+<tr class="tcw">
+<td><b>io_addr</b> <i>address</i></td>
+<td>Set the start address in <a href="/jargon/i/io.htm">I/O</a> space for this device.</td>
+</tr>
+<tr class="tcw">
+<td><b>mem_start</b> <i>address</i></td>
+<td>Set the start address for shared memory used by this device. Only a few devices need this.</td>
+</tr>
+<tr class="tcw">
+<td><b>media</b> <i>type</i></td>
+<td>Set the physical port or medium type to be used by the device. Not all devices can change this setting, and those that can vary in what values they support. Typical values for <i>type</i> are <b>10base2</b> (thin Ethernet), <b>10baseT</b> (<a href="/jargon/t/twispair.htm">twisted-pair</a> 10 Mbps Ethernet), <a href="/jargon/a/aui.htm">AUI</a> (external transceiver), etc. The special medium type of <b>auto</b> tells the driver to auto-sense the media. Again, not all drivers can do this.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>broadcast</b> [<i>address</i>]</td>
+<td>If the address argument is given, this sets the protocol broadcast address for this interface. Otherwise, it sets (or clear, if the "<b>-</b>" prefix is used) the <b>IFF_BROADCAST</b> flag for the interface.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>pointopoint</b> [<i>address</i>]</td>
+<td>This keyword enables the <b>point-to-point</b> mode of an interface, meaning that it is a direct link between two machines with nobody else listening on it. If the address argument is also given, set the protocol address of the other side of the link, just like the obsolete dstaddr keyword does. Otherwise, set or clear the <b>IFF_POINTOPOINT</b> flag for the interface.</td>
+</tr>
+<tr class="tcw">
+<td><b>hw class</b> <i>address</i></td>
+<td>Set the hardware address of this interface, if the device driver supports this operation. The keyword must be followed by the name of the hardware class and the printable <a href="/jargon/a/ascii.htm">ASCII</a> equivalent of the hardware address. Hardware classes currently supported include <b>ether</b> (Ethernet), <b>ax25</b> (AMPR AX.25), <b>ARCnet</b> and <b>netrom</b> (AMPR NET/ROM).</td>
+</tr>
+<tr class="tcw">
+<td><b>multicast</b></td>
+<td>Set the <a href="/jargon/m/multicast.htm">multicast</a> flag on the interface. This should not normally be needed as the drivers set the flag correctly themselves.</td>
+</tr>
+<tr class="tcw">
+<td><b>address</b></td>
+<td>The IP address to be assigned to this interface.</td>
+</tr>
+<tr class="tcw">
+<td><b>txqueuelen</b> <i>length</i></td>
+<td>Set the length of the transmit <a href="/jargon/q/queue.htm">queue</a> of the device. It is useful to set this to small values for slower devices with a high <a href="/jargon/l/latency.htm">latency</a> (such as a connection over a <a href="/jargon/m/modem.htm">modem</a>, or over <a href="/jargon/i/isdn.htm">ISDN</a>) to prevent fast bulk transfers from disturbing interactive traffic like <a href="/jargon/t/telnet.htm">telnet</a> too much.</td>
+</tr>
+</table>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">ifconfig</pre>
+<p class="tab">Running <b>ifconfig</b> with no options displays the configuration of all active interfaces.</p>
+<pre class="tcy tab">ifconfig -a</pre>
+<p class="tab">Displays the configuration of all interfaces, both active and inactive.</p>
+<pre class="tcy tab">ifconfig eth0</pre>
+<p class="tab">View the network settings on the interface <b>eth0</b>, which (under Linux) is the first Ethernet adapter installed in the system.</p>
+<pre class="tcy tab">ifconfig eth1 up</pre>
+<p class="tab">Activate the network interface <b>eth1</b>.</p>
+<pre class="tcy tab">ifconfig wlan0 down</pre>
+<p class="tab">Deactivate the network interface <b>wlan0</b>.</p>
+<pre class="tcy tab">ifconfig wlan1 122.140.201.66</pre>
+<p class="tab">Configure the network interface <b>wlan1</b> to use the static IP address <b>122.140.201.66</b>.</p>
+<pre class="tcy tab">ifconfig wlan0 netmask 255.255.255.0</pre>
+<p class="tab">Configure the network interface <b>wlan0</b> to use the network mask <b>255.255.255.0</b>.</p>
+<pre class="tcy tab">ifconfig eth0 192.168.1.102 netmask 255.255.255.0 broadcast 192.168.1.255</pre>
+<p class="tab">Configure <b>eth0</b> to use the static IP address <b>192.168.1.102</b> using the network mask <b>255.255.255.0</b>, and the broadcast address <b>192.168.1.255</b>.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab norm"><a href="/unix/arp.htm"><b>arp</b></a> &mdash; <a href="/jargon/m/manipula.htm">Manipulate</a> the system <a href="/jargon/a/arp.htm">ARP</a> cache.<br><a href="/unix/dhclient.htm"><b>dhclient</b></a> &mdash; Communicate with a <a href="/jargon/d/dhcp.htm">DHCP</a> server to obtain a dynamic <a href="/jargon/i/ip.htm">IP address</a>.<br><a href="/unix/ifup.htm"><b>ifup/ifdown</b></a> &mdash; Enable/Disable a network interface.<br> <b>ifquery</b> &mdash; Parse information about a network interface.<br><a href="/unix/ip.htm"><b>ip</b></a> &mdash; Display and manipulate information about routing, devices, policy routing and tunnels.<br><a href="/unix/iwconfig.htm"><b>iwconfig</b></a> &mdash; Configure a wireless network interface.<br><a href="/unix/uping.htm"><b>ping</b></a> &mdash; Send <a href="/jargon/i/icmp.htm">ICMP</a> ECHO_REQUEST packets to network hosts.<br><a href="/unix/unetstat.htm"><b>netstat</b></a> &mdash; Print information about network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.<br><a href="/unix/route.htm"><b>route</b></a> &mdash; Display and manipulate the IP routing table.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82f92bd3c438',m:'.K9Vc.oK28beO6toRSJ3XDS0DQd00H9NgaWcs2iQuAk-1661495351-0-AURu5jmAK4RuSjKfVsrLmpchqrdnf3UsceA7Y6sevaNoqwml63/utyuEEquRgq+V7d+Kp8d7qWDPU1mIvRhXmYRdMpF100FvMHgvdBhbpp0vF0Lu8nyV/ygSHooKgULBp61X8EyC5cxYoIsC34b1eB4=',s:[0xc3546bba41,0x9960fcd626],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

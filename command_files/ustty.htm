@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux stty command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/stty.gif" width="300" height="300" alt="stty command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>stty</b> command changes and prints <a href="/jargon/t/terminal.htm">terminal</a> line settings.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>stty</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#characters">Special characters</a></li>
+<li><a href="#settings">Special settings</a></li>
+<li><a href="#control">Control settings</a></li>
+<li><a href="#input">Input settings</a></li>
+<li><a href="#output">Output settings</a></li>
+<li><a href="#local">Local settings</a></li>
+<li><a href="#combination">Combination settings</a></li>
+<li><a href="#examples">Examples</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>stty</b> displays or changes the characteristics of the terminal.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">stty [-F <i>DEVICE</i> | --file=<i>DEVICE</i>] [<i>SETTING</i>]...</pre>
+<pre class="tcy tab">stty [-F <i>DEVICE</i> | --file=<i>DEVICE</i>] [-a|--all]</pre>
+<pre class="tcy tab">stty [-F <i>DEVICE</i> | --file=<i>DEVICE</i>] [-g|--save]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>-a</b>, <b>--all</b></td>
+<td>Print all current settings in human-readable form.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>, <b>--save</b></td>
+<td>Print all current settings in a <b>stty</b>-readable form.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b>, <b>--file=</b><i>DEVICE</i></td>
+<td>Open and use the specified <i>DEVICE</i> instead of <a href="/jargon/s/stdin.htm">stdin.</a></td>
+</tr>
+<tr class="tcw">
+<td><b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>--version</b></td>
+<td>Output version information, and exit.</td>
+</tr>
+</table>
+<h2 id="characters">Special characters</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>* dsusp</b> <i>CHAR</i></td>
+<td><i>CHAR</i> sends a terminal stop signal once input flushed.</td>
+</tr>
+<tr class="tcw">
+<td><b>eof</b> <i>CHAR</i></td>
+<td><i>CHAR</i> sends an <a href="/jargon/e/eof.htm">end of file</a> (terminate the input).</td>
+</tr>
+<tr class="tcw">
+<td><b>eol</b> <i>CHAR</i></td>
+<td><i>CHAR</i> ends the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>* eol2</b> <i>CHAR</i></td>
+<td>Alternate <i>CHAR</i> for ending the line.</td>
+</tr>
+<tr class="tcw">
+<td><b>erase</b> <i>CHAR</i></td>
+<td><i>CHAR</i> erases the last character typed.</td>
+</tr>
+<tr class="tcw">
+<td><b>intr</b> <i>CHAR</i></td>
+<td><i>CHAR</i> sends an interrupt <a href="/unix/signals.htm">signal.</a></td>
+</tr>
+<tr class="tcw">
+<td><b>kill</b> <i>CHAR</i></td>
+<td><i>CHAR</i> erases the current line.</td>
+</tr>
+<tr class="tcw">
+<td><b>* lnext</b> <i>CHAR</i></td>
+<td><i>CHAR</i> enters the next character quoted.</td>
+</tr>
+<tr class="tcw">
+<td><b>quit</b> <i>CHAR</i></td>
+<td><i>CHAR</i> sends a quit signal.</td>
+</tr>
+<tr class="tcw">
+<td><b>* rprnt</b> <i>CHAR</i></td>
+<td><i>CHAR</i> redraws the current line.</td>
+</tr>
+<tr class="tcw">
+<td><b>start</b> <i>CHAR</i></td>
+<td><i>CHAR</i> restarts the output after stopping it.</td>
+</tr>
+<tr class="tcw">
+<td><b>stop</b> <i>CHAR</i></td>
+<td><i>CHAR</i> stops the output.</td>
+</tr>
+<tr class="tcw">
+<td><b>susp</b> <i>CHAR</i></td>
+<td><i>CHAR</i> sends a terminal stop signal.</td>
+</tr>
+<tr class="tcw">
+<td><b>* swtch</b> <i>CHAR</i></td>
+<td><i>CHAR</i> switches to a different <a href="/jargon/s/shell.htm">shell</a> layer.</td>
+</tr>
+<tr class="tcw">
+<td><b>* werase</b> <i>CHAR</i></td>
+<td><i>CHAR</i> erases the last word typed.</td>
+</tr>
+</table>
+<h2 id="settings">Special settings</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><i>N</i></td>
+<td>Set the input and output speeds to <i>N</i> <a href="/jargon/b/baud.htm">bauds.</a></td>
+</tr>
+<tr class="tcw">
+<td><b>* cols</b> <i>N</i></td>
+<td>Tell the <a href="/jargon/k/kernel.htm">kernel</a> that the terminal has <i>N</i> columns.</td>
+</tr>
+<tr class="tcw">
+<td><b>* columns</b> <i>N</i></td>
+<td>Same as <b>cols</b> <i>N.</i></td>
+</tr>
+<tr class="tcw">
+<td><b>ispeed</b> <i>N</i></td>
+<td>Set the input speed to <i>N.</i></td>
+</tr>
+<tr class="tcw">
+<td><b>* line</b> <i>N</i></td>
+<td>Use line discipline <i>N.</i></td>
+</tr>
+<tr class="tcw">
+<td><b>min</b> <i>N</i></td>
+<td>With <b>-icanon</b>, set <i>N</i> characters minimum for a completed read.</td>
+</tr>
+<tr class="tcw">
+<td><b>ospeed</b> <i>N</i></td>
+<td>Set the output speed to <i>N.</i></td>
+</tr>
+<tr class="tcw">
+<td><b>* rows</b> <i>N</i></td>
+<td>Tell the kernel that the terminal has <i>N</i> rows.</td>
+</tr>
+<tr class="tcw">
+<td><b>* size</b></td>
+<td>Print the number of rows and columns according to the kernel.</td>
+</tr>
+<tr class="tcw">
+<td><b>speed</b></td>
+<td>Print the terminal speed.</td>
+</tr>
+<tr class="tcw">
+<td><b>time</b> <i>N</i></td>
+<td>With <b>-icanon</b>, set read timeout of <i>N</i> tenths of a second.</td>
+</tr>
+</table>
+<h2 id="control">Control settings</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px">[<b>-</b>]<b>clocal</b></td>
+<td>Disable modem control signals.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>cread</b></td>
+<td>Allow input to be received.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>crtscts</b></td>
+<td>Enable RTS/CTS <a href="/jargon/h/handshak.htm">handshaking.</a></td>
+</tr>
+<tr class="tcw">
+<td><b>cs</b><i>N</i></td>
+<td>Set character size to <i>N</i> <a href="/jargon/b/bit.htm">bits</a>, <i>N</i> is [<b>5</b>..<b>8</b>].</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>cstopb</b></td>
+<td>Use two stop bits per character (one with '<b>-</b>').</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>hup</b></td>
+ <td>Send a hangup signal when the last process closes the tty.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>hupcl</b></td>
+<td>Same as [<b>-</b>]<b>hup</b>.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>parenb</b></td>
+<td>Generate <a href="/jargon/p/parity.htm">parity</a> bit in output and expect parity bit in input.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>parodd</b></td>
+<td>Set odd parity (or even parity with '<b>-</b>').</td>
+</tr>
+</table>
+<h2 id="input">Input settings</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px">[<b>-</b>]<b>brkint</b></td>
+<td>Breaks cause an interrupt signal.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>icrnl</b></td>
+<td>Translate <a href="/jargon/c/cr.htm">carriage return</a> to <a href="/jargon/n/newline.htm">newline</a>.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>ignbrk</b></td>
+<td>Ignore break characters.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>igncr</b></td>
+<td>Ignore carriage return.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>ignpar</b></td>
+<td>Ignore characters with parity errors.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>imaxbel</b></td>
+<td>Beep and do not flush a full input buffer on a character.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>inlcr</b></td>
+<td>Translate newline to carriage return.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>inpck</b></td>
+<td>Enable input parity checking.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>istrip</b></td>
+<td>Clear high (8th) bit of input characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>iutf8</b></td>
+<td>Assume input characters are <a href="/jargon/u/utf.htm">UTF-8</a> encoded.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>iuclc</b></td>
+<td>Translate uppercase characters to lowercase.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>ixany</b></td>
+<td>Let any character restart output, not only start character.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>ixoff</b></td>
+<td>Enable sending of start/stop characters.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>ixon</b></td>
+<td>Enable <a href="/jargon/x/xonxoff.htm">XON/XOFF</a> flow control.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>parmrk</b></td>
+<td>Mark parity errors (with a 255-0-character sequence).</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>tandem</b></td>
+<td>Same as [<b>-</b>]<b>ixoff</b>.</td>
+</tr>
+</table>
+<h2 id="output">Output settings</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><b>* bs</b><i>N</i></td>
+<td>Backspace delay style, <i>N</i> is [<b>0</b>..<b>1</b>].</td>
+</tr>
+<tr class="tcw">
+<td><b>* cr</b><i>N</i></td>
+<td>Carriage return delay style, <i>N</i> in [<b>0</b>..<b>3</b>].</td>
+</tr>
+<tr class="tcw">
+<td><b>* ff</b><i>N</i></td>
+<td><a href="/jargon/f/formfeed.htm">Form feed</a> delay style, <i>N</i> in [<b>0</b>..<b>1</b>].</td>
+</tr>
+<tr class="tcw">
+<td><b>* nl</b><i>N</i></td>
+<td>Newline delay style, <i>N</i> in [<b>0</b>..<b>1</b>].</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>ocrnl</b></td>
+<td>Translate carriage return to newline.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>ofdel</b></td>
+<td>Use delete characters for fill instead of <a href="/jargon/n/null.htm">null</a> characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>ofill</b></td>
+<td>Use fill (padding) characters instead of timing for delays.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>olcuc</b></td>
+<td>Translate lowercase characters to uppercase.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>onlcr</b></td>
+<td>Translate newline to carriage return-newline.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>onlret</b></td>
+<td>Newline performs a carriage return.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>onocr</b></td>
+<td>Do not print carriage returns in the first column.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>opost</b></td>
+<td>Post-process output.</td>
+</tr>
+<tr class="tcw">
+<td><b>* tab</b><i>N</i></td>
+<td>Horizontal tab delay style, <i>N</i> in [<b>0</b>..<b>3</b>].</td>
+</tr>
+<tr class="tcw">
+<td><b>* tabs</b></td>
+<td>Same as <b>tab0</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>* -tabs</b></td>
+<td>Same as <b>tab3</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>* vt</b><i>N</i></td>
+<td>Vertical tab delay style, <i>N</i> in [<b>0</b>..<b>1</b>]</td>
+</tr>
+</table>
+<h2 id="local">Local settings</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px">[<b>-</b>]<b>crterase</b></td>
+<td>Echo erase characters as backspace-space-backspace.</td>
+</tr>
+<tr class="tcw">
+<td><b>* crtkill</b></td>
+<td>Kill all line by obeying the echoprt and echoe settings.</td>
+</tr>
+<tr class="tcw">
+<td><b>* -crtkill</b></td>
+<td>Kill all line by obeying the echoctl and echok settings.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>ctlecho</b></td>
+<td>Echo control characters in hat notation ('<b>^c</b>').</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>echo</b></td>
+<td>Echo input characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>echoctl</b></td>
+<td>Same as [<b>-</b>]<b>ctlecho</b>.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>echoe</b></td>
+<td>Same as [<b>-</b>]<b>crterase</b>.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>echok</b></td>
+<td>Echo a newline after a kill character.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>echoke</b></td>
+<td>Same as [<b>-</b>]<b>crtkill</b>.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>echonl</b></td>
+<td>Echo newline even if not echoing other characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>echoprt</b></td>
+<td>Echo erased characters backward, between '<b>\</b>' and '<b>/</b>'.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>icanon</b></td>
+<td>Enable erase, kill, werase, and rprnt special characters.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>iexten</b></td>
+<td>Enable non-<a href="/jargon/p/posix.htm">POSIX</a> special characters.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>isig</b></td>
+<td>Enable interrupt, quit, and suspend special characters.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>noflsh</b></td>
+<td>Disable flushing after interrupt and quit special characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>prterase</b></td>
+<td>Same as [<b>-</b>]<b>echoprt</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>tostop</b></td>
+<td>Stop background jobs that try to write to the terminal.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>xcase</b></td>
+<td>With <b>icanon</b>, escape with '<b>\</b>' for uppercase characters.</td>
+</tr>
+</table>
+<h2 id="combination">Combination settings</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><b>*</b> [<b>-</b>]<b>LCASE</b></td>
+<td>Same as [<b>-</b>]<b>lcase</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>cbreak</b></td>
+<td>Same as <b>-icanon</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-cbreak</b></td>
+<td>Same as <b>icanon</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>cooked</b></td>
+<td>Same as <b>brkint ignpar istrip icrnl ixon opost isig icanon</b>: eof and eol characters to their default values</td>
+</tr>
+<tr class="tcw">
+<td><b>-cooked</b></td>
+<td>Same as <b>raw</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>crt</b></td>
+<td>Same as <b>echoe echoctl echoke</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>dec</b></td>
+<td>Same as <b>echoe echoctl echoke -ixany intr ^c erase 0177 kill ^u</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>decctlq</b></td>
+<td>Same as [<b>-</b>]<b>ixany</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>ek</b></td>
+<td>Erase and kill characters to their default values</td>
+</tr>
+<tr class="tcw">
+<td><b>evenp</b></td>
+<td>Same as <b>parenb -parodd cs7</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-evenp</b></td>
+<td>Same as <b>-parenb cs8</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b> [<b>-</b>]<b>lcase</b></td>
+<td>Same as <b>xcase iuclc olcuc</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>litout</b></td>
+<td>Same as <b>-parenb -istrip -opost cs8</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-litout</b></td>
+<td>Same as <b>parenb istrip opost cs7</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>nl</b></td>
+<td>Same as <b>-icrnl -onlcr</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-nl</b></td>
+<td>Same as <b>icrnl -inlcr -igncr onlcr -ocrnl -onlret</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>oddp</b></td>
+<td>Same as <b>parenb parodd cs7</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-oddp</b></td>
+<td>Same as <b>-parenb cs8</b>.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-</b>]<b>parity</b></td>
+<td>Same as [<b>-</b>]<b>evenp</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>pass8</b></td>
+<td>Same as <b>-parenb -istrip cs8</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-pass8</b></td>
+<td>Same as <b>parenb istrip cs7</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>raw</b></td>
+<td>Same as <b>-ignbrk -brkint -ignpar -parmrk -inpck -istrip -inlcr -igncr -icrnl -ixon -ixoff -iuclc -ixany -imaxbel -opost -isig -icanon -xcase min 1 time 0</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-raw</b></td>
+<td>Same as cooked.</td>
+</tr>
+<tr class="tcw">
+<td><b>sane</b></td>
+<td>Same as <b>cread -ignbrk brkint -inlcr -igncr icrnl -iutf8 -ixoff -iuclc -ixany imaxbel opost -olcuc -ocrnl onlcr -onocr -onlret -ofill -ofdel nl0 cr0 tab0 bs0 vt0 ff0 isig icanon iexten echo echoe echok -echonl -noflsh -xcase -tostop -echoprt echoctl echoke</b>, all special characters to their default values.</td>
+</tr>
+</table>
+<p class="tab">Handle the tty line connected to <a href="/jargon/s/stdin.htm">standard input</a>. Without <a href="/jargon/a/argument.htm">arguments</a>, it prints baud rate, line discipline, and deviations from stty sane. In settings, <i>CHAR</i> is taken literally, or coded as in <b>^c</b>, <b>0x37</b>, <b>0177</b> or <b>127</b>; special values <b>^-</b> or <b>undef</b> are used to disable special characters.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">stty sane</pre>
+<p class="tab">Reset all terminal settings to "sane" values; this has the effect of "fixing" the terminal when another program alters the terminal settings to an unusable condition.</p>
+<pre class="tcy tab">stty -echo</pre>
+<p class="tab">Disable echoing of terminal input.</p>
+<pre class="tcy tab">stty echo</pre>
+<p class="tab">Re-enable echoing of terminal input.</p>
+<pre class="tcy tab">stty -a</pre>
+<p class="tab">Display all current terminal settings.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8358e972c41a',m:'9__M6xx7qLMSIA0WwuLy.DOg7WSVQTiI.WrgdDJn100-1661495366-0-AaqpdaO1j2PKwg/IUGgZ/p3t3XAVEiztum7hZ0+tY3ePxbAWGf9JN4TK14byrqm6GKjOdLiGkvuErF5MIHTw3mmvUkV/sBve3iRQD1MQ+nuqGeHC6FsGVoEV2JPTzcHKGw==',s:[0xdc5190acbd,0x9a6d388f85],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

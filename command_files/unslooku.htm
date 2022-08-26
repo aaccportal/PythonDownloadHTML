@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux nslookup command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/nslookup.gif" width="300" height="300" alt="nslookup command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>nslookup</b> command queries Internet <a href="/jargon/d/dns.htm">name servers</a> interactively for information.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#technical">Technical description</a></li>
+<li><a href="#arguments">Arguments</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#Interactive-Commands">Interactive commands</a></li>
+<li><a href="#files">Configuration files</a></li>
+<li><a href="#deprecation">Deprecation</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>nslookup</b>, which stands for &quot;name server lookup&quot;, finds information about a named domain.</p>
+<p class="tab">By default, <b>nslookup</b> translates a domain name to an IP address (or vice versa). For instance, to find the IP address of <b>microsoft.com</b>, you could run the command:</p>
+<pre class="tab tcy">nslookup microsoft.com</pre>
+<p class="tab">...and you would receive a response like this:</p>
+<pre class="tab">Server:     8.8.8.8
+Address:    8.8.8.8#53
+Non-authoritative answer:
+Name:    microsoft.com
+Address: 134.170.185.46
+Name:    microsoft.com
+Address: 134.170.188.221</pre>
+<p class="tab">Here, <b>8.8.8.8</b> is the address of our system's Domain Name Server. This is the server our system is configured to use to translate domain names into IP addresses. &quot;<b>#53</b>&quot; indicates we are communicating with it on port 53, which is the standard port number domain name servers use to accept queries.</p>
+<p class="tab">Below this, we have our lookup information for <b>microsoft.com</b>. Our name server returned two entries, <b>134.170.185.46</b> and <b>134.170.188.221</b>. This indicates <b>microsoft.com</b> uses a <a href="/jargon/r/rounrobi.htm">round robin</a> setup to distribute server load. When you access <b>micrsoft.com</b>, you may be directed to either of these servers and your <a href="/jargon/p/packet.htm">packets</a> are <a href="/jargon/r/route.htm">routed</a> to the correct destination.</p>
+<p class="tab">You can see that we have received a &quot;<b>Non-authoritative answer</b>&quot; to our query. An answer is &quot;authoritative&quot; only if our DNS has the complete <a href="/jargon/z/zone.htm">zone</a> file information for the domain in question. More often, our DNS has a <a href="/jargon/c/cache.htm">cache</a> of information representing the last authoritative answer it received when it made a similar query; this information is passed on to you, and qualified as &quot;non-authoritative&quot; by the server: the information was recently received from an authoritative source, but the DNS server is not itself that authority.</p>
+<h3 class="tab">Reverse DNS lookups</h3>
+<p class="tab">We can also perform the operation above in reverse by providing the IP address rather than the domain name. For instance, the command:</p>
+<pre class="tab tcy">nslookup 134.170.185.46</pre>
+<p class="tab">...returns information resembling the following:</p>
+<pre class="tab">Server:     8.8.8.8
+Address:    8.8.8.8#53
+Non-authoritative answer:
+46.185.170.134.in-addr.arpa    name = grv.microsoft.com.
+Authoritative answers can be found from:</pre>
+<h3 class="tab">Querying the NS record of a domain</h3>
+<p class="tab">The NS record of a domain is a map of all name servers that are authoritative for that domain. You can query a domain's NS record using the option <b>-type=ns</b>, like this:</p>
+<pre class="tab tcy">nslookup -type=ns microsoft.com</pre>
+<p class="tab">...and the response resembles the following:</p>
+<pre class="tab">Server:     8.8.8.8
+Address:    8.8.8.8#53
+Non-authoritative answer:
+microsoft.com    nameserver = ns3.msft.net.
+microsoft.com    nameserver = ns4.msft.net.
+microsoft.com    nameserver = ns1.msft.net.
+microsoft.com    nameserver = ns2.msft.net.
+Authoritative answers can be found from:</pre>
+<p class="tab">This output gives us the names of the four <b>microsoft.com</b> name servers (which actually belong to the <b>msft.net</b> domain), according to our DNS's (non-authoritative) information. If there is an available source for authoritative answers, it is listed at the bottom of the output.</p>
+<h3 class="tab">Querying the MX record</h3>
+<p class="tab">The MX record is a map of mail exchange servers for a domain. When you send an e-mail to a domain, for example &quot;@microsoft.com&quot;, mail is routed to Microsoft's MX servers.</p>
+<p class="tab">You can query a domain for its MX record using the <b>-type=mx</b> option. For example:</p>
+<pre class="tab tcy">nslookup -type=mx microsoft.com</pre>
+<p class="tab">...responds with output resembling the following:</p>
+<pre class="tab">Server:     8.8.8.8
+Address:    8.8.8.8#53
+Non-authoritative answer:
+microsoft.com    mail exchanger = 10 microsoft-com.mail.protection.outlook.com.
+Authoritative answers can be found from:</pre>
+<p class="tab">Here, the mail exchanger address is prefixed with a number (<b>10</b>). If there were more than one mail exchanger, they would each have a different number, with the lower numbers representing a higher priority. So if there were another exchanger with the prefix <b>5</b>, that server would take precedence over the server listed here.</p>
+<h3 class="tab">Querying the SOA record</h3>
+<p class="tab">The SOA (Start Of Authority) record for a domain provides technical information about the domain. It can be queried with the option <b>-type=soa</b>.</p>
+<pre class="tab tcy">nslookup -type=soa microsoft.com</pre>
+<pre class="tab">Server:     8.8.8.8
+Address:    8.8.8.8#53
+Non-authoritative answer:
+microsoft.com
+    origin = ns1.msft.net
+    mail addr = msnhst.microsoft.com
+    serial = 2014110802
+    refresh = 7200
+    retry = 600
+    expire = 2419200
+    minimum = 3600
+Authoritative answers can be found from:</pre>
+<p class="tab">The information listed here is the cached version held by our domain name server. It includes:</p>
+<ul>
+<li><b>origin</b>: The authority from which the information originated.</li>
+<li><b>mail addr</b>: The e-mail address of the domain administrator (the first dot would be an <b>@</b> symbol in an e-mail address, so here the e-mail address is <b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="610c120f091215210c0802130e120e07154f020e0c">[email&#160;protected]</a></b>).</li>
+<li><b>serial</b>: Revision data for this information, in the form <b>YYYYMMDDNN</b>. Here, the information is current as of August 11, 2014; <b>02</b> means it was the second revision made on that day.</li>
+<li><b>refresh</b>: A number representing the interval, in seconds, after which the secondary name server checks the primary name server for an updated revision of this information. This information tells us the secondary Microsoft name server's information is never more than two hours (<b>7200</b> seconds) out of date.</li>
+<li><b>retry</b>: The secondary nameserver waits this many seconds before attempting to reconnect to the primary name server after a failed attempt.</li>
+<li><b>expire</b>: The secondary nameserver's cache of the primary nameserver's information always is considered invalid after this many seconds.</li>
+<li><b>minimum</b>: The secondary nameserver's cache of the primary nameserver's information should not be refreshed if this amount of time has not elapsed since the last refresh.</li>
+</ul>
+<h3 class="tab">Viewing all available NS records</h3>
+<p class="tab">We can also view all available NS records for a domain using the option <b>-type=any</b>. For example:</p>
+<pre class="tab tcy">nslookup -type=any microsoft.com</pre>
+<pre class="tab">Server:     8.8.8.8
+Address:    8.8.8.8#53
+Non-authoritative answer:
+Name:    microsoft.com
+Address: 134.170.185.46
+Name:    microsoft.com
+Address: 134.170.188.221
+microsoft.com    nameserver = ns3.msft.net.
+microsoft.com    nameserver = ns4.msft.net.
+microsoft.com    nameserver = ns1.msft.net.
+microsoft.com    nameserver = ns2.msft.net.
+microsoft.com
+    origin = ns1.msft.net
+    mail addr = msnhst.microsoft.com
+    serial = 2014110802
+    refresh = 7200
+    retry = 600
+    expire = 2419200
+    minimum = 3600
+microsoft.com    mail exchanger = 10 microsoft-com.mail.protection.outlook.com.
+microsoft.com    text = &quot;v=spf1 include:_spf-a.microsoft.com include:_spf-b.microsoft.com 
+include:_spf-c.microsoft.com include:_spf-ssg-a.microsoft.com include:spf-a.hotmail.com 
+ip4:147.243.128.24 ip4:147.243.128.26 ip4:147.243.128.25 ip4:147.243.1.47 ip4:147.243.1.48 
+-all&quot; microsoft.com    text = &quot;FbUF6DbkE+Aw1/wi9xgDi8KVrIIZus5v8L6tbIQZkGrQ/rVQKJi8CjQbBtW
+tE64ey4NJJwj5J65PIggVYNabdQ==&quot;
+Authoritative answers can be found from:</pre>
+<h3 class="tab">Querying another DNS</h3>
+<p class="tab">By default, <b>nslookup</b> queries the same DNS the system is configured to use for all network operations. You can specify a custom DNS to query, however, by specifying it on the command line. For example:</p>
+<pre class="tab tcy">nslookup microsoft.com ns1.msft.net</pre>
+<p class="tab">...provides us with the authoritative answer to our previous query of <b>microsoft.com</b>:</p>
+<pre class="tab">Server:     ns1.msft.net
+Address:    65.55.37.62#53
+Name:    microsoft.com
+Address: 134.170.185.46
+Name:    microsoft.com
+Address: 134.170.188.221</pre>
+<p class="tab">This is useful not only for obtaining authoritative information, but for finding out exactly what information a certain DNS currently has cached.</p>
+<h3 class="tab">Querying on a non-standard port</h3>
+<p class="tab">By default, domain name servers accept queries on port <b>53</b>. If this is configured differently on the server you are trying to query, you can specify another port number using the <b>-port=</b> option:</p>
+<pre class="tab tcy">nslookup -port=54 microsoft.com</pre>
+<p class="tab">Here, the query attempt failed because our DNS uses the standard port, number 53.</p>
+<h3 class="tab">Debugging the query transaction</h3>
+<p class="tab">Advanced users may need to examine more closely the details of the query transaction. This can be achieved using the <b>-debug</b> option:</p>
+<pre class="tab tcy">nslookup -debug microsoft.com</pre>
+<pre class="tab">Server:     8.8.8.8
+Address:    8.8.8.8#53
+------------
+    QUESTIONS:
+    microsoft.com, type = A, class = IN
+    ANSWERS:
+    -&gt;  microsoft.com
+    internet address = 134.170.188.221
+    ttl = 964
+    -&gt;  microsoft.com
+    internet address = 134.170.185.46
+    ttl = 964
+    AUTHORITY RECORDS:
+    ADDITIONAL RECORDS:
+------------
+Non-authoritative answer:
+Name:    microsoft.com
+Address: 134.170.188.221
+Name:    microsoft.com
+Address: 134.170.185.46</pre>
+<h3 class="tab">Interactive mode</h3>
+<p class="tab">You can also run multiple commands interactively by running <b>nslookup</b> with no options:</p>
+<pre class="tab tcy">nslookup</pre>
+<p class="tab">This brings you to a special command prompt where you can use commands to perform any of the operations listed above. It looks like this:</p>
+<pre class="tab tcy"><b>&gt;</b></pre>
+<p class="tab">At this prompt, you can type a domain name or IP address to query your DNS for its basic information:</p>
+<pre class="tab tcy"><b>&gt;</b> microsoft.com</pre>
+<pre class="tab">Server:     8.8.8.8
+Address:    8.8.8.8#53
+Non-authoritative answer:
+Name:    microsoft.com
+Address: 134.170.185.46
+Name:    microsoft.com
+Address: 134.170.188.221</pre>
+<p class="tab">...or, to submit a specific query type, you can set the type with <b>set type=</b><i>value</i>, and then run the query. For instance, these two commands are the equivalent of running <b>nslookup -type=any microsoft.com</b> from the command line:</p>
+<pre class="tab tcy"><b>&gt;</b> set type=any
+<b>&gt;</b> microsoft.com</pre>
+<pre class="tab">Server:     8.8.8.8
+Address:    8.8.8.8#53
+Non-authoritative answer:
+Name:    microsoft.com
+Address: 134.170.188.221
+Name:    microsoft.com
+Address: 134.170.185.46
+microsoft.com    nameserver = ns2.msft.net.
+microsoft.com    nameserver = ns3.msft.net.
+microsoft.com    nameserver = ns4.msft.net.
+microsoft.com    nameserver = ns1.msft.net.
+microsoft.com
+    origin = ns1.msft.net
+    mail addr = msnhst.microsoft.com
+    serial = 2014110802
+    refresh = 7200
+    retry = 600
+    expire = 2419200
+    minimum = 3600
+microsoft.com    mail exchanger = 10 microsoft-com.mail.protection.outlook.com.
+microsoft.com    text = &quot;v=spf1 include:_spf-a.microsoft.com include:_spf-b.microsoft.com include:_spf-c.microsoft.com include:_spf-ssg-a.microsoft.com include:spf-a.hotmail.com ip4:147.243.128.24 ip4:147.243.128.26 ip4:147.243.128.25 ip4:147.243.1.47 ip4:147.243.1.48 -all&quot;
+microsoft.com    text = &quot;FbUF6DbkE+Aw1/wi9xgDi8KVrIIZus5v8L6tbIQZkGrQ/rVQKJi8CjQbBtWtE64ey4NJJwj5J65PIggVYNabdQ==&quot;
+Authoritative answers can be found from:</pre>
+<p class="tab">When ready to exit <b>nslookup</b>'s <i>Interactive Mode</i>, run the command <b>exit</b>:</p>
+<pre class="tab tcy"><b>&gt;</b> exit</pre>
+<p class="tab">...and you are returned to the command line.</p>
+<p class="tab">There are other commands you can run from interactive mode; see: <a href="#Interactive-Commands">Interactive commands</a> below for a list.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">nslookup [-<i>option</i>] [<i>name</i> | -] [<i>server</i>]</pre>
+<h2 id="technical">Technical description</h2>
+<p class="tab"><b>nslookup</b> is a program used to query Internet domain name servers for information.</p>
+<p class="tab"><b>nslookup</b> has two modes: interactive and non-interactive. Interactive mode allows the user to query name servers for information about various hosts and domains or print a list of hosts in a domain. Non-interactive mode is used to print the name and requested information for a host or domain.</p>
+<h2 id="arguments">Arguments</h2>
+<p class="tab">Interactive mode is entered in the following cases:</p>
+<ol>
+<li>When no arguments are given (the default name server is used).</li>
+<li>When the first argument is a hyphen (&quot;<b>-</b>&quot;) and the second argument is the <a href="/jargon/h/hostname.htm">hostname</a> or <a href="/jargon/i/ip.htm">Internet address</a> of a name server.</li>
+</ol>
+<p class="tab">Non-interactive mode is used when the name or Internet address of the host to be looked up is given as the first argument (which can be preceded by options). The optional second argument specifies the hostname or address of a name server, to be used instead of the system's default DNS.</p>
+<h2 id="options">Options</h2>
+<p class="tab">Options can be specified on the command line if they precede the arguments and are prefixed with a hyphen. For example, to change the default query type to host information, and the initial timeout to 10 seconds, type:</p>
+<pre class="tab tcy">nslookup -query=hinfo -timeout=10</pre>
+<p class="tab">The name of the option corresponds to the <i>keyword</i> of the <b>set</b> command. See below for a description of these keywords and their available settings.</p>
+<h2 id="Interactive-Commands">Interactive commands</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><i>host</i> [<i>server</i>]</td>
+<td>Look up information for <i>host</i> using the current default server, or <i>server</i> if specified. If host is an Internet address and the query type is <b>A</b> or <b>PTR</b>, the name of the host is returned. If host is a name and does not have a trailing period, the search list is used to qualify the name.<br><br> To look up a host not in the current domain, append a period to the name.</td>
+</tr>
+<tr class="tcw">
+<td><b>server</b> <i>domain</i>, <b>lserver</b> <i>domain</i></td>
+<td>Change the default server to <i>domain</i>; <b>lserver</b> uses the initial server to look up information about <i>domain</i>, while server uses the current default server. If an authoritative answer isn't found, the names of servers that might have the answer are returned.</td>
+</tr>
+<tr class="tcw">
+<td><b>exit</b></td>
+<td>Exits the program.</td>
+</tr>
+<tr class="tcw">
+<td><b>set</b> <i>keyword</i>[<b>=</b><i>value</i>]</td>
+<td>Used to change state information that affects the lookups. Valid keywords are:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:200px"><b>all</b></td>
+<td>Prints the current values of the frequently used options to set. Information about the current default server and host is also printed.</td>
+</tr>
+<tr class="tcw">
+<td><b>class=</b><i>value</i></td>
+<td>Change the query class to one of:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:50px"><b>IN</b></td>
+<td>the Internet class</td>
+</tr>
+<tr class="tcw">
+<td><b>CH</b></td>
+<td>the Chaos class</td>
+</tr>
+<tr class="tcw">
+<td><b>HS</b></td>
+<td>the Hesiod class</td>
+</tr>
+<tr class="tcw">
+<td><b>ANY</b></td>
+<td>wildcard</td>
+</tr>
+</table>
+The class specifies the protocol group of the information.<br>
+<br>
+(Default = <b>IN</b>; abbreviation = <b>cl</b>)</td>
+</tr>
+<tr class="tcw">
+<td>[<b>no</b>]<b>debug</b></td>
+<td>Turn on or off the display of the full response packet and any intermediate response packets when searching.<br><br> (Default = <b>nodebug</b>; abbreviation = [<b>no</b>]<b>deb</b>)</td>
+</tr>
+<tr class="tcw">
+<td>[<b>no</b>]<b>d2</b></td>
+<td>Turn debugging mode on or off. This displays more about what <b>nslookup</b> is doing.<br><br> (Default = <b>nod2</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>domain=</b><i>name</i></td>
+<td>Sets the search list to <i>name</i>.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>no</b>]<b>search</b></td>
+<td>If the lookup request contains at least one period but doesn't end with a trailing period, append the domain names in the domain search list to the request until an answer is received.<br><br> (Default = <b>search</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>port=</b><i>value</i></td>
+<td>Change the default <a href="/jargon/t/tcpip.htm">TCP</a>/<a href="/jargon/u/udp.htm">UDP</a> name server port to <i>value</i>.<br><br> (Default = <b>53</b>; abbreviation = <b>po</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>querytype=</b><i>value</i>, <b>type=</b><i>value</i></td>
+<td>Specify the type of the information to be returned in response to your query. The <i>value</i> may be one of the following, in upper or lower case:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:80px"><b>a</b></td>
+<td>an IP address</td>
+</tr>
+<tr class="tcw">
+<td><b>any</b></td>
+<td>any and all available data</td>
+</tr>
+<tr class="tcw">
+<td><b>cname</b></td>
+<td>canonical name</td>
+</tr>
+<tr class="tcw">
+<td><b>gid</b></td>
+<td>a group identifier for a group name</td>
+</tr>
+<tr class="tcw">
+<td><b>hinfo</b></td>
+<td>CPU and type of operating system</td>
+</tr>
+<tr class="tcw">
+<td><b>mb</b></td>
+<td>mailbox domain name</td>
+</tr>
+<tr class="tcw">
+<td><b>mg</b></td>
+<td>mail group member</td>
+</tr>
+<tr class="tcw">
+<td><b>minfo</b></td>
+<td>mailbox or mail list information</td>
+</tr>
+<tr class="tcw">
+<td><b>mr</b></td>
+<td>mail rename domain name</td>
+</tr>
+<tr class="tcw">
+<td><b>mx</b></td>
+<td>mail exchanger</td>
+</tr>
+<tr class="tcw">
+<td><b>ns</b></td>
+<td>the name servers for the named zone</td>
+</tr>
+<tr class="tcw">
+<td><b>ptr</b></td>
+<td>if the query is an IP address, returns a server name; otherwise, a pointer to other information</td>
+</tr>
+<tr class="tcw">
+<td><b>soa</b></td>
+<td>the start of authority for the named zone</td>
+</tr>
+<tr class="tcw">
+<td><b>txt</b></td>
+<td>returns a textual string with relevant information</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td>[<b>no</b>]<b>recurse</b></td>
+<td>Tell the name server to query other servers if it does not have the information.<br><br> (Default = <b>recurse</b>; abbreviation = [<b>no</b>]<b>rec</b>)</td>
+</tr>
+<tr class="tcw">
+<td><b>retry=</b><i>number</i></td>
+<td>Set the number of retries to <i>number</i>.</td>
+</tr>
+<tr class="tcw">
+<td><b>timeout=</b><i>number</i></td>
+<td>Change the initial timeout interval for waiting for a reply to <i>number</i> seconds.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>no</b>]<b>vc</b></td>
+<td>Always use a virtual circuit when sending requests to the server.<br><br> (Default = <b>novc</b>)</td>
+</tr>
+<tr class="tcw">
+<td>[<b>no</b>]<b>fail</b></td>
+<td>Try the next nameserver if a nameserver responds with SERVFAIL or a referral, (nofail) or terminate query (fail) on such a response.<br><br> (Default = <b>nofail</b>)</td>
+</tr>
+</table>
+<br></td>
+</tr>
+</table>
+<h2 id="files">Configuration files</h2>
+<p class="tab"><b>nslookup</b> makes use of the configuration file <b>/etc/nsresolv.conf</b>, if it exists, for any special DNS configuration you may need. This file is managed using the command line program <b>resolvconf</b>.</p>
+<h2 id="deprecation">Deprecation</h2>
+<p class="tab"><b>nslookup</b> was briefly classified as &quot;deprecated&quot; by the Internet Systems Consortium in favor of the tools <a href="/unix/host.htm"><b>host</b></a> and <a href="/unix/dig.htm"><b>dig</b></a>. They later reversed this decision, but it's important to note that <b>host</b> and <b>dig</b> can provide you with the same functions as <b>nslookup</b>, at a somewhat higher level of industry acceptance.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">nslookup 204.228.150.3</pre>
+<p class="tab">Perform a reverse lookup of the IP address <b>204.228.150.3</b>. Your domain server responds with the current information it has about that host, and it is displayed on your terminal screen. Output resembles the following:</p>
+<pre class="tab">Server:     8.8.8.8
+Address:    8.8.8.8#53
+Non-authoritative answer:
+3.150.228.204.in-addr.arpa    name = 204-228-150-3.xmission.com.
+Authoritative answers can be found from:</pre>
+<pre class="tcy tab">nslookup -type=mx computerhope.com</pre>
+<p class="tab">Query your <a href="/jargon/d/dns.htm">DNS</a> for information about the mail exchange server(s) for the domain <b>computerhope.com</b>. Output resembles the following:</p>
+<pre class="tab">Server:     8.8.8.8
+Address:    8.8.8.8#53
+Non-authoritative answer:
+computerhope.com    mail exchanger = 10 mail.computerhope.com.
+Authoritative answers can be found from:</pre>
+<pre class="tcy tab">nslookup -type=any google.com</pre>
+<p class="tab">Query your DNS for all available information related to the domain <b>google.com</b>. Output resembles the following:</p>
+<pre class="tab">Server:     8.8.8.8
+Address:    8.8.8.8#53
+Non-authoritative answer:
+Name:    google.com
+Address: 74.125.226.167
+Name:    google.com
+Address: 74.125.226.165
+Name:    google.com
+Address: 74.125.226.169
+Name:    google.com
+Address: 74.125.226.163
+Name:    google.com
+Address: 74.125.226.168
+Name:    google.com
+Address: 74.125.226.174
+Name:    google.com
+Address: 74.125.226.162
+Name:    google.com
+Address: 74.125.226.160
+Name:    google.com
+Address: 74.125.226.161
+Name:    google.com
+Address: 74.125.226.166
+Name:    google.com
+Address: 74.125.226.164
+google.com    has AAAA address 2607:f8b0:4006:809::1009
+google.com    nameserver = ns3.google.com.
+google.com    mail exchanger = 50 alt4.aspmx.l.google.com.
+google.com    rdata_257 = \# 19 0005697373756573796D616E7465632E636F6D
+google.com    nameserver = ns4.google.com.
+google.com    text = &quot;v=spf1 include:_spf.google.com ip4:216.73.93.70/31 ip4:216.73.93.72/31 ~all&quot;
+google.com    mail exchanger = 40 alt3.aspmx.l.google.com.
+google.com    nameserver = ns1.google.com.
+google.com    mail exchanger = 30 alt2.aspmx.l.google.com.
+google.com    mail exchanger = 20 alt1.aspmx.l.google.com.
+google.com    mail exchanger = 10 aspmx.l.google.com.
+google.com
+    origin = ns1.google.com
+    mail addr = dns-admin.google.com
+    serial = 2014110400
+    refresh = 7200
+    retry = 1800
+    expire = 1209600
+    minimum = 300
+google.com    nameserver = ns2.google.com.
+Authoritative answers can be found from:</pre>
+<h2 id="related">Related commands</h2>
+<p class="tab"><b><a href="/unix/dig.htm">dig</a></b> &mdash; DNS lookup utility.<br><a href="/unix/host.htm"><b>host</b></a> &mdash; Convert a hostname to an <a href="/jargon/i/ip.htm">IP address</a> and vice versa.<br><a href="/unix/uping.htm"><b>ping</b></a> &mdash; Send <a href="/jargon/i/icmp.htm">ICMP</a> ECHO_REQUEST packets to network hosts.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83285fefc401',m:'evpyfNPhDj8Fw.nVZSsumUSk..iFGAT5oLotgYUkM1o-1661495358-0-AYiVYWe+Bc9fPmeyeq7BYWUbrW34/zCvMz/v9Sf9Sy3u04e420UN2M94fpGAfRlEXCJaDJlsK1lXGrvJFAn2j9Q7hKhRqFIYhnEhEPPNQe6xpt9St3OfKcVjznve1JXWnjfPCsPBy9Fl5Vl4/q7Wgbo=',s:[0x797bf7d1ab,0x35ffd680b1],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

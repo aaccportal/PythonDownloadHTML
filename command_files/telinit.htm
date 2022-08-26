@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux init and telinit commands</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/telinit.gif" width="300" height="300" alt="telinit command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, <b>telinit</b> and <b>init</b> provide process control initialization. They are used by the system when it <a href="/jargon/b/boot.htm">boots</a>.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> versions of <b>telinit</b> and <b>init</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#runlevels">Runlevels</a></li>
+<li><a href="#booting">Booting</a></li>
+<li><a href="#change-runlevels">Changing runlevels</a></li>
+<li><a href="#environment">Environment</a></li>
+<li><a href="#telinit">Telinit</a></li>
+<li><a href="#interface">Interface</a></li>
+<li><a href="#signals">Signals</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#init-bootflags">Init bootflags</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>init</b> is the <a href="/jargon/p/parechil.htm">parent</a> of all <a href="/jargon/p/process.htm">processes</a>. Its primary role is to create processes from a <a href="/jargon/s/script.htm">script</a> stored in the file <b>/etc/inittab</b>. This file usually has entries which cause <b>init</b> to spawn <b>gettys</b> on each line that users can <a href="/jargon/l/login.htm">log in</a>. It also controls autonomous processes required by any particular system.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tab tcy">/sbin/init [ -a ] [ -s ] [ -b ] [ -z <i>xxx</i> ] [ 0123456Ss ]</pre>
+<pre class="tab tcy">/sbin/telinit [ -t <i>sec</i> ] [ 0123456sSQqabcUu ]</pre>
+<h2 id="runlevels">Runlevels</h2>
+<p class="tab">A <a href="/jargon/r/runlevel.htm">runlevel</a> is a software configuration of the system that allows only a selected group of processes to exist. The processes spawned by <b>init</b> for each of these runlevels are defined in the <b>/etc/inittab</b> file. <b>Init</b> can be in one of eight runlevels: <b>0</b> through <b>6</b>, and <b>S</b> or <b>s</b>. The runlevel is changed by having a privileged user run <b>telinit</b>, which sends appropriate <a href="/unix/signals.htm">signals</a> to <b>init</b>, telling it which runlevel to change to.</p>
+<p class="tab">Runlevels <b>0</b>, <b>1</b>, and <b>6</b> are reserved. Runlevel <b>0</b> is used to halt the system, runlevel <b>6</b> is used to reboot the system, and runlevel <b>1</b> is used to get the system down into single user mode. Runlevel <b>S</b> is not really meant to be used directly, but more for the scripts that are executed when entering runlevel <b>1</b>.</p>
+<p class="tab">Runlevels <b>7</b> - <b>9</b> are also valid, though not really documented. This is because "traditional" Unix variants don't use them. In case you're curious, runlevels <b>S</b> and <b>s</b> are in fact the same. Internally they are aliases for the same runlevel.</p>
+<h2 id="booting">Booting</h2>
+<p class="tab">After <b>init</b> is invoked as the last step of the <a href="/jargon/k/kernel.htm">kernel</a> <a href="/jargon/b/boot.htm">boot</a> sequence, it looks for the file <b>/etc/inittab</b> to see if there is an entry of the type <b>initdefault</b>. The initdefault entry determines the initial runlevel of the system. If there is no such entry (or no <b>/etc/inittab</b> at all), a runlevel must be entered at the system console.</p>
+<p class="tab">Runlevel <b>S</b> or <b>s</b> bring the system to single user mode and do not require an <b>/etc/inittab</b> file. In single user mode, a root shell is opened on <b>/dev/console</b>.</p>
+<p class="tab">When entering single user mode, <b>init</b> initializes the consoles <a href="/unix/ustty.htm"><b>stty</b></a> settings to sane values. "CLocal" mode is set. Hardware speed and handshaking are not changed.</p>
+<p class="tab">When entering a <a href="/jargon/m/multsyst.htm">multi-user</a> mode for the first time, <b>init</b> performs the <b>boot</b> and <b>bootwait</b> entries to allow file systems to be mounted before users can log in. Then all entries matching the runlevel are processed.</p>
+<p class="tab">When starting a new process, <b>init</b> first checks whether the file <b>/etc/initscript</b> exists. If it does, it uses this script to start the process.</p>
+<p class="tab">Each time a <a href="/jargon/p/parechil.htm">child</a> terminates, <b>init</b> records the fact and the reason it died in <b>/var/run/utmp</b> and <b>/var/log/wtmp</b>, provided that these files exist.</p>
+<h2 id="change-runlevels">Changing runlevels</h2>
+<p class="tab">After it has spawned all of the processes specified, <b>init</b> waits for one of its descendant processes to die, for a "powerfail" signal, or until it is signaled by <b>telinit</b> to change the system's runlevel. When one of the above three conditions occurs, it re-examines the <b>/etc/inittab</b> file. New entries can be added to this file at any time. However, init still waits for one of the above three conditions to occur. To provide for an instantaneous response, the <b>telinit Q</b> (or <b>q</b>) command can wake up <b>init</b> to re-examine the <b>/etc/inittab file</b>.</p>
+<p class="tab">If init is not in single user mode and receives a powerfail signal (<b>SIGPWR</b>), it reads the file <b>/etc/powerstatus</b>. It then starts a command based on the contents of this file:</p>
+<ul>
+<li><b>F</b> (FAIL) - Power is failing, UPS is providing the power. Execute the powerwait and powerfail entries.</li>
+<li><b>O</b> (OK) - The power was restored, execute the powerokwait entries.</li>
+<li><b>L</b> (LOW) - The power is failing and the UPS has a low battery. Execute the powerfailnow entries.</li>
+</ul>
+<p class="tab">If <b>/etc/powerstatus</b> doesn't exist or contains anything else then the letters <b>F</b>, <b>O</b> or <b>L</b>, <b>init</b> will behave as if it has read the letter <b>F</b>.</p>
+<p class="tab">Usage of <b>SIGPWR</b> and <b>/etc/powerstatus</b> is discouraged. Someone wanting to interact with <b>init</b> should use the <b>/dev/initctl</b> control channel. More information about this is available by viewing the source code of the <b>sysvinit</b> package.</p>
+<p class="tab">When <b>init</b> is requested to change the runlevel, it sends the warning signal <b>SIGTERM</b> to all processes that are undefined in the new runlevel. It then waits 5 seconds before forcibly terminating these processes via the <b>SIGKILL</b> signal. Note that init assumes that all these processes (and their descendants) remain in the same process group which <b>init</b> created for them. If any process changes its process group affiliation, it will not receive these signals. Such processes need to be terminated separately.</p>
+<h2 id="environment">Environment</h2>
+<p class="tab"><b>Init</b> sets the following environment variables for all its children:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>PATH</b></td>
+<td><b>/bin</b>:<b>/usr/bin</b>:<b>/sbin</b>:<b>/usr/sbin</b></td>
+</tr>
+<tr class="tcw">
+<td><b>INIT_VERSION</b></td>
+<td>As the name says. Useful to determine if a script runs directly from <b>init</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>RUNLEVEL</b></td>
+<td>The current system runlevel.</td>
+</tr>
+<tr class="tcw">
+<td><b>PREVLEVEL</b></td>
+<td>The previous runlevel (especially useful after changing runlevel).</td>
+</tr>
+<tr class="tcw">
+<td><b>CONSOLE</b></td>
+<td>The system console. This is really inherited from the kernel; however if it's not set init sets it to <b>/dev/console</b> by default.</td>
+</tr>
+</table>
+<h2 id="telinit">Telinit</h2>
+<p class="tab"><b>/sbin/telinit</b> is linked to <b>/sbin/init</b>. It takes a one-<a href="/jargon/c/charact.htm">character</a> argument and signals <b>init</b> to perform the appropriate action. The following arguments serve as directives to <b>telinit</b>:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:190px"><b>0</b>, <b>1</b>, <b>2</b>, <b>3</b>, <b>4</b>, <b>5</b> or <b>6</b></td>
+<td>Tell <b>init</b> to switch to the specified run level.</td>
+</tr>
+<tr class="tcw">
+<td><b>a</b>, <b>b</b>, <b>c</b></td>
+<td>Tell <b>init</b> to process only those <b>/etc/inittab</b> file entries having runlevel <b>a</b>, <b>b</b> or <b>c</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>Q</b> or <b>q</b></td>
+<td>Tell <b>init</b> to re-examine the <b>/etc/inittab</b> file.</td>
+</tr>
+<tr class="tcw">
+<td><b>S</b> or <b>s</b></td>
+<td>Tell <b>init</b> to switch to single user mode.</td>
+</tr>
+<tr class="tcw">
+<td><b>U</b> or <b>u</b></td>
+<td>Tell <b>init</b> to re-execute itself (preserving the state). No re-examining of <b>/etc/inittab</b> file happens. Run level should be one of <b>S</b>, <b>s</b>, <b>1</b>, <b>2</b>, <b>3</b>, <b>4</b>, or <b>5</b>, otherwise request would be silently ignored.</td>
+</tr>
+</table>
+<p class="tab"><b>telinit</b> can also tell <b>init</b> how long it should wait between sending processes the <b>SIGTERM</b> and <b>SIGKILL</b> signals. The default is 5 seconds, but this can be changed with the <b>-t sec</b> option.</p>
+<p class="tab"><b>telinit</b> can be invoked only by users with appropriate privileges.</p>
+<p class="tab">The <b>init</b> binary checks if it's <b>init</b> or <b>telinit</b> by looking at its process id; the real <b>init</b>'s process id is always <b>1</b>. From this it follows that instead of calling <b>telinit</b> one can also use <b>init</b> instead as a shortcut.</p>
+<h2 id="interface">Interface</h2>
+<p class="tab"><b>Init</b> listens on a <a href="/jargon/f/fifo.htm">fifo</a> in <b>/dev</b> (<b>/dev/initctl</b>) for messages. <b>Telinit</b> uses this to communicate with <b>init</b>. The interface is not very well documented; to learn more about the interface, users must view the source itself.</p>
+<h2 id="signals">Signals</h2>
+<p class="tab"><b>Init</b> reacts to several signals, including:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:130px"><b>SIGHUP</b></td>
+<td>Has the same effect as <b>telinit q</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGUSR1</b></td>
+<td>On receipt of this signal, <b>init</b> closes and re-opens its control fifo, <b>/dev/initctl</b>. Useful for bootscripts when /dev is remounted.</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGINT</b></td>
+<td>Normally the kernel sends this signal to <b>init</b> when Ctrl-Alt-Del is pressed. It activates the <b>ctrlaltdel</b> action.</td>
+</tr>
+<tr class="tcw">
+<td><b>SIGWINCH</b></td>
+<td>The kernel sends this signal when the <b>KeyboardSignal</b> key is hit. It activates the <b>kbrequest</b> action.</td>
+</tr>
+</table>
+<h2 id="files">Files</h2>
+<p class="tabb">/etc/inittab<br> /etc/initscript<br> /dev/console<br> /var/run/utmp<br> /var/log/wtmp<br> /dev/initctl</p>
+<h2 id="init-bootflags">Init bootflags</h2>
+<p class="tab">It is possible to pass several flags to init from the boot monitor (such as <a href="/jargon/l/lilo.htm">LILO</a>). <b>Init</b> accepts the following flags:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:150px"><b>-s</b>, <b>S</b>, <b>single</b></td>
+<td>Single user mode boot. In this mode <b>/etc/inittab</b> is examined and the bootup rc scripts are usually run before the single user mode shell is started.</td>
+</tr>
+<tr class="tcw">
+<td><b>1-5</b></td>
+<td>Runlevel to boot into.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b>, <b>emergency</b></td>
+<td>Boot directly into a single user shell without running any other startup scripts.</td>
+</tr>
+<tr class="tcw">
+<td><b>-a</b>, <b>auto</b></td>
+<td>The LILO boot loader adds the word "<b>auto</b>" to the command line if it booted the kernel with the default command line (without user intervention). If this is found init sets the "<b>AUTOBOOT</b>" environment variable to "<b>yes</b>". Note that you cannot use this for any security measures; of course the user could specify "<b>auto</b>" or <b>-a</b> on the command line manually.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b> <i>xxx</i></td>
+<td>The argument to <b>-z</b> is ignored. You can use this to expand the command line a bit, so that it takes some more space on the stack. <b>Init</b> can then manipulate the command line so that <a href="/unix/ups.htm"><b>ps</b></a> shows the current runlevel.</td>
+</tr>
+</table>
+<p class="tab"><b>telinit</b> can also tell <b>init</b> how long it should wait between sending processes the <b>SIGTERM</b> and <b>SIGKILL</b> signals. The default is 5 seconds, but this can be changed with the <b>-t sec</b> option.</p>
+<p class="tab"><b>telinit</b> can be invoked only by users with appropriate privileges.</p>
+<p class="tab">The <b>init</b> binary checks if it's <b>init</b> or <b>telinit</b> by looking at its process id; the real init's process id is always <b>1</b>. From this it follows that instead of calling <b>telinit</b> one can also use <b>init</b> instead as a shortcut.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ukill.htm"><b>kill</b></a> &mdash; Send a signal to a process, affecting its behavior or killing it.<br><a href="/unix/ulogin.htm"><b>login</b></a> &mdash; Begin a session on a system.<br><a href="/unix/service.htm"><b>service</b></a> &mdash; Run a System V init script.<br><a href="/unix/ush.htm"><b>sh</b></a> &mdash; The Bourne shell command interpreter.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a8361c89184ec',m:'yADfJV4EE1y_nXuAt8SHXjfyM7MokjUn8zAaTiiHqQI-1661495367-0-AQedMfcobjeD3frc5660hJOhq8im/xJkiEGbSVM2cRXez2wNQI01n//hxEjktK9WPuFCsRK7hXKAzh3+HPwxkKU2NboeW3d2omP0ko5qTnuQLOJtX8VRoZ6XTZ+/inTIMVa3PbSsrHiNisaQYVUSRWs=',s:[0x286a33a75a,0x205f026794],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

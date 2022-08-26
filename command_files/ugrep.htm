@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux grep command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2019-05-04">05/04/2019</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/grep.gif" width="300" height="300" alt="grep command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>grep</b> command processes text line by line, and prints any lines which match a specified pattern.</p>
+<p>This page covers the <a href="/jargon/g/gnu.htm">GNU</a>/<a href="/jargon/l/linux.htm">Linux</a> version of <b>grep</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">grep [<i>OPTIONS</i>] <i>PATTERN</i> [<i>FILE</i>...]</pre>
+<h2>Overview</h2>
+<p class="tab">Grep, which stands for "global regular expression print," is a powerful tool for matching a <a href="/jargon/r/regex.htm">regular expression</a> against text in a file, multiple files, or a stream of input. It searches for the <i>PATTERN</i> of text you specified on the command line, and outputs the results for you.</p>
+<h2 id="usage">Example usage</h2>
+<p class="tab">Let's say want to quickly locate the phrase "<b>our products</b>" in HTML files on your machine. Let's start by searching a single file. Here, our <i>PATTERN</i> is <b>"our products"</b> and our <i>FILE</i> is <b>product-listing.html</b>.</p>
+<p class="tab"><img src="/unix/images/grep-tutorial-01.jpg" width="564" height="112" alt="grepping a simple string with a single file as the input" class="resize600"></p>
+<p class="tab">A single line was found containing our pattern, and <b>grep</b> outputs the entire matching line to the terminal. The line is longer than our terminal width so the text wraps around to the following lines, but this output corresponds to exactly one line in our <i>FILE</i>.</p>
+<div class="tip dtab">
+<span class="title note">Note</span>
+<p>The <i>PATTERN</i> is interpreted by <b>grep</b> as a regular expression. In the above example, all the <a href="/jargon/c/charact.htm">characters</a> we used (letters and a space) are interpreted <a href="/jargon/l/literal.htm">literally</a> in regular expressions, so only the exact phrase will be matched. Other characters have special meanings, however &mdash; some punctuation marks, for example. For more information, see: <a href="/unix/regex-quickref.htm">Regular expression quick reference</a>.</p>
+</div>
+<h3 class="tab">Viewing grep output in color</h3>
+<p class="tab">If we use the <b>--color</b> option, our successful matches will be highlighted for us:</p>
+<p class="tab"><img src="/unix/images/grep-tutorial-02.jpg" width="562" height="77" alt="using grep with the --color option to highlight matches" class="resize600"></p>
+<h3 class="tab">Viewing line numbers of successful matches</h3>
+<p class="tab">It will be even more useful if we know where the matching line appears in our file. If we specify the <b>-n</b> option, <b>grep</b> will prefix each matching line with the line number:</p>
+<p class="tab"><img src="/unix/images/grep-tutorial-03.jpg" width="562" height="77" alt="using grep -n to prefix output with line numbers" class="resize600"></p>
+<p class="tab">Our matching line is prefixed with "<b>18:</b>" which tells us this corresponds to line 18 in our file.</p>
+<h3 class="tab">Performing case-insensitive grep searches</h3>
+<p class="tab">What if "our products" appears at the beginning of a sentence, or appears in all uppercase? We can specify the <b>-i</b> option to perform a <i>case-insensitive</i> match:</p>
+<p class="tab"><img src="/unix/images/grep-tutorial-04.jpg" width="562" height="107" alt="using grep -i to perform a case-insensitive search" class="resize600"></p>
+<p class="tab">Using the <b>-i</b> option, <b>grep</b> finds a match on line 23 as well.</p>
+<h3 class="tab">Searching multiple files using a wildcard</h3>
+<p class="tab">If we have multiple files to search, we can search them all using a <a href="/jargon/w/wildcard.htm">wildcard</a> in our <i>FILE</i> name. Instead of specifying <b>product-listing.html</b>, we can use an asterisk ("<b>*</b>") and the <b>.html</b> extension. When the command is executed, the <a href="/jargon/s/shell.htm">shell</a> expands the asterisk to the name of any file it finds (in the <a href="/jargon/c/currentd.htm">current directory</a>) which ends in "<b>.html</b>".</p>
+<p class="tab"><img src="/unix/images/grep-tutorial-05.jpg" width="562" height="199" alt="using grep to search multiple files using a wildcard" class="resize600"></p>
+<p class="tab">Notice that each line starts with the specific file where that match occurs.</p>
+<h3 class="tab">Recursively searching subdirectories</h3>
+<p class="tab">We can extend our search to <a href="/jargon/s/subdirec.htm">subdirectories</a> and any files they contain using the <b>-r</b> option, which tells <b>grep</b> to perform its search <a href="/jargon/r/recursive.htm">recursively</a>. Let's change our <i>FILE</i> name to an <a href="/jargon/a/asterisk.htm">asterisk</a> ("<b>*</b>"), so that it matches any file or directory name, and not only HTML files:</p>
+<p class="tab"><img src="/unix/images/grep-tutorial-05a.jpg" width="562" height="303" alt="Using grep -r to recursively search subdirectories" class="resize600"></p>
+<p class="tab">This gives us three additional matches. Notice that the directory name is included for any matching files that are not in the current directory.</p>
+<h3 class="tab">Using regular expressions to perform more powerful searches</h3>
+<p class="tab">The true power of grep is that it can match regular expressions. (That's what the "re" in "grep" stands for). Regular expressions use special characters in the <i>PATTERN</i> string to match a wider array of strings. Let's look at a simple example.</p>
+<p class="tab">Let's say you want to find every occurrence of a phrase <i>similar</i> to "our products" in your HTML files, but the phrase should always start with "our" and end with "products". We can specify this <i>PATTERN</i> instead: <b>"our.*products"</b>.</p>
+<p class="tab">In regular expressions, the period ("<b>.</b>") is interpreted as a single-character wildcard. It means "any character that appears in this place will match." The asterisk ("<b>*</b>") means "the preceding character, appearing zero or more times, will match." So the combination "<b>.*</b>" will match <i>any number</i> of <i>any</i> character. For instance, "<b>our amazing products</b>", "<b>ours, the best-ever products</b>", and even "<b>ourproducts</b>" will match. And because we're specifying the <b>-i</b> option, "<b>OUR PRODUCTS</b>" and "<b>OuRpRoDuCtS</b> will match as well. Let's run the command with this regular expression, and see what additional matches we can get:</p>
+<p class="tab"><img src="/unix/images/grep-tutorial-06.jpg" width="562" height="248" alt="Incorporating regular expressions into a grep search pattern" class="resize600"></p>
+<p class="tab">Here, we also got a match from the phrase "<b>our fine products</b>".</p>
+<p class="tab">Grep is a powerful tool to help you work with text files, and it gets even more powerful when you become comfortable using regular expressions.</p>
+<h2>Technical description</h2>
+<p class="tab"><b>grep</b> searches the named input <i>FILE</i>s (or <a href="/jargon/s/stdin.htm">standard input</a> if no files are named, or if a single dash ("<b>-</b>") is given as the file name) for lines containing a match to the given <i>PATTERN</i>. By default, <b>grep</b> prints the matching lines.</p>
+<p class="tab">Also, three variant programs <a href="/unix/uegrep.htm"><b>egrep</b></a>, <a href="/unix/ufgrep.htm"><b>fgrep</b></a> and <b>rgrep</b> are available:</p>
+<ul>
+<li><b>egrep</b> is the same as running <b>grep -E</b>. In this mode, <b>grep</b> evaluates your <i>PATTERN</i> string as an extended regular expression (ERE). Nowadays, ERE does not "extend" very far beyond basic regular expressions, but they can still be very useful. For more information about extended regular expressions, see: <a href="#Extended-Regexp">Basic vs. extended regular expressions</a>, below.</li>
+<li><b>fgrep</b> is the same as running <b>grep -F</b>. In this mode, <b>grep</b> evaluates your <i>PATTERN</i> string as a "fixed string" &mdash; every character in your string is treated literally. For example, if your string contains an asterisk ("<b>*</b>"), <b>grep</b> will try to match it with an actual asterisk rather than interpreting this as a <a href="/jargon/w/wildcard.htm">wildcard</a>. If your string contains multiple lines (if it contains newlines), each line will be considered a fixed string, and any of them can trigger a match.</li>
+<li><b>rgrep</b> is the same as running <b>grep -r</b>. In this mode, <b>grep</b> performs its search <a href="/jargon/r/recursive.htm">recursively</a>. If it encounters a directory, it traverses into that directory and continue searching. (<a href="/jargon/s/symblink.htm">Symbolic links</a> are ignored; if you want to search directories that are symbolically linked, use the <b>-R</b> option instead).</li>
+</ul>
+<p class="tab">In older operating systems, <b>egrep</b>, <b>fgrep</b> and <b>rgrep</b> were distinct programs with their own executables. In modern systems, these special command names are shortcuts to <b>grep</b> with the appropriate flags enabled. They are functionally equivalent.</p>
+<h2>General options</h2>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><b>--help</b></td>
+<td>Print a help message briefly summarizing <a href="/jargon/c/commandi.htm">command-line</a> options, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b>, <b>--version</b></td>
+<td>Print the version number of <b>grep</b>, and exit.</td>
+</tr>
+</table>
+<h2>Match selection options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-E</b>,<br> <b>--extended-regexp</b></td>
+<td>Interpret <i>PATTERN</i> as an extended regular expression (see: <a href="#Extended-Regexp">Basic vs. extended regular expressions</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b>, <b>--fixed-strings</b></td>
+<td>Interpret <i>PATTERN</i> as a list of fixed strings, separated by <a href="/jargon/n/newline.htm">newlines</a>, that is to be matched.</td>
+</tr>
+<tr class="tcw">
+<td><b>-G</b>, <b>--basic-regexp</b></td>
+<td>Interpret <i>PATTERN</i> as a basic regular expression (see: <a href="#Extended-Regexp">Basic vs. extended regular expressions</a>). This is the default option when running <b>grep</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b>, <b>--perl-regexp</b></td>
+<td>Interpret <i>PATTERN</i> as a <a href="/jargon/p/perl.htm">Perl</a> regular expression. This functionality is still experimental, and may produce warning messages.</td>
+</tr>
+</table>
+<h2>Matching control options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-e</b> <i>PATTERN</i>,<br> <b>--regexp=</b><i>PATTERN</i></td>
+<td>Use <i>PATTERN</i> as the pattern to match. This can specify multiple search patterns, or to protect a pattern beginning with a dash (<b>-</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b> <i>FILE</i>, <b>--file=</b><i>FILE</i></td>
+<td>Obtain patterns from <i>FILE</i>, one per line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b>, <b>--ignore-case</b></td>
+<td>Ignore case distinctions in both the <i>PATTERN</i> and the input files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--invert-match</b></td>
+<td>Invert the sense of matching, to select non-matching lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-w</b>, <b>--word-regexp</b></td>
+<td>Select only those lines containing matches that form whole words. The test is that the matching substring must either be at the beginning of the line, or preceded by a non-word constituent character. Or, it must be either at the end of the line or followed by a non-word constituent character. Word-constituent characters are letters, digits, and underscores.</td>
+</tr>
+<tr class="tcw">
+<td><b>-x</b>, <b>--line-regexp</b></td>
+<td>Select only matches that exactly match the whole line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-y</b></td>
+<td>The same as <b>-i</b>.</td>
+</tr>
+</table>
+<h2>General output control</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:230px"><b>-c</b>, <b>--count</b></td>
+<td>Instead of the normal output, print a count of matching lines for each input file. With the <b>-v</b>, <b>--invert-match</b> option (see below), count non-matching lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>--color</b>[=<i>WHEN</i>],<br> <b>--colour</b>[=<i>WHEN</i>]</td>
+<td>Surround the matched (non-empty) strings, matching lines, context lines, file names, line numbers, byte offsets, and separators (for fields and groups of context lines) with escape sequences to display them in color on the <a href="/jargon/t/terminal.htm">terminal</a>. The colors are defined by the environment variable GREP_COLORS. The older environment variable GREP_COLOR is still supported, but its setting does not have priority. <i>WHEN</i> is <b>never</b>, <b>always</b>, or <b>auto</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b>,<br> <b>--files-without-match</b></td>
+<td>Instead of the normal output, print the name of each input file from which no output would normally be printed. The scanning stops on the first match.</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b>,<br> <b>--files-with-matches</b></td>
+<td>Instead of the normal output, print the name of each input file from which output would normally be printed. The scanning stops on the first match.</td>
+</tr>
+<tr class="tcw">
+<td><b>-m</b> <i>NUM</i>,<br> <b>--max-count=</b><i>NUM</i></td>
+<td>Stop reading a file after <i>NUM</i> matching lines. If the input is standard input from a regular file, and <i>NUM</i> matching lines are output, grep ensures that the standard input is positioned after the last matching line before exiting, regardless of the presence of trailing context lines. This enables a calling process to resume a search. When <b>grep</b> stops after <i>NUM</i> matching lines, it outputs any trailing context lines. When the <b>-c</b> or <b>--count</b> option is also used, <b>grep</b> does not output a count greater than <i>NUM</i>. When the <b>-v</b> or <b>--invert-match</b> option is also used, grep stops after outputting <i>NUM</i> non-matching lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b>, <b>--only-matching</b></td>
+<td>Print only the matched (non-empty) parts of a matching line, with each such part on a separate output line.</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b>, <b>--quiet</b>, <b>--silent</b></td>
+<td>Quiet; do not write anything to standard output. Exit immediately with zero status if any match is found, even if an error was detected. Also see the <b>-s</b> or <b>--no-messages</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b>, <b>--no-messages</b></td>
+<td>Suppress error messages about nonexistent or unreadable files.</td>
+</tr>
+</table>
+<h2>Output line prefix control</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>-b</b>, <b>--byte-offset</b></td>
+<td>Print the 0-based <a href="/jargon/b/byte.htm">byte</a> <a href="/jargon/o/offset.htm">offset</a> in the input file before each line of output. If <b>-o</b> (<b>--only-matching</b>) is specified, print the offset of the matching part itself.</td>
+</tr>
+<tr class="tcw">
+<td><b>-H</b>, <b>--with-filename</b></td>
+<td>Print the file name for each match. This is the default when there is more than one file to search.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--no-filename</b></td>
+<td>Suppress the prefixing of file names on output. This is the default when there is only one file (or only standard input) to search.</td>
+</tr>
+<tr class="tcw">
+<td><b>--label</b>=<i>LABEL</i></td>
+<td>Display input actually coming from standard input as input coming from file <i>LABEL</i>. This is especially useful when implementing tools like <b>zgrep</b>, e.g., <b>gzip -cd foo.gz | grep --label=foo -H something</b>. See also the <b>-H</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--line-number</b></td>
+<td>Prefix each line of output with the 1-based line number within its input file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b>, <b>--initial-tab</b></td>
+<td>Make sure that the first character of actual line content lies on a tab stop, so that the alignment of tabs looks normal. This is useful with options that prefix their output to the actual content: <b>-H</b>, <b>-n</b>, and <b>-b</b>. To improve the probability that lines from a single file will all start at the same column, this also causes the line number and byte offset (if present) to be printed in a minimum size field width.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>,<br> <b>--unix-byte-offsets</b></td>
+<td>Report Unix-style byte offsets. This switch causes <b>grep</b> to report byte offsets as if the file were a Unix-style <a href="/jargon/t/textfile.htm">text file</a>, i.e., with <a href="/jargon/c/cr.htm">CR</a> characters stripped off. This produces results identical to running grep on a Unix machine. This option has no effect unless <b>-b</b> option is also used; it has no effect on platforms other than <a href="/jargon/m/msdos.htm">MS-DOS</a> and <a href="/jargon/w/windows.htm">MS-Windows</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-Z</b>, <b>--null</b></td>
+<td>Output a zero byte (the <a href="/jargon/a/ascii.htm">ASCII</a> <a href="/jargon/n/null.htm">NUL</a> character) instead of the character that normally follows a file name. For example, <b>grep -lZ</b> outputs a zero byte after each file name instead of the usual <a href="/jargon/n/newline.htm">newline</a>. This option makes the output unambiguous, even in the presence of file names containing unusual characters like newlines. This option can be used with commands like find <b>-print0</b>, <a href="/unix/uperl.htm">perl</a> <b>-0</b>, <a href="/unix/usort.htm">sort</a> <b>-z</b>, and <a href="/unix/xargs.htm">xargs</a> <b>-0</b> to process arbitrary file names, even those that contain newline characters.</td>
+</tr>
+</table>
+<h2>Context line control</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>-A</b> <i>NUM</i>,<br> <b>--after-context</b>=<i>NUM</i></td>
+<td>Print <i>NUM</i> lines of trailing context after matching lines. Places a line containing a group separator (<b>--</b>) between contiguous groups of matches. With the <b>-o</b> or <b>--only-matching</b> option, this has no effect and a warning is given.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b> <i>NUM</i>,<br> <b>--before-context=</b><i>NUM</i></td>
+<td>Print <i>NUM</i> lines of leading context before matching lines. Places a line containing a group separator (<b>--</b>) between contiguous groups of matches. With the <b>-o</b> or <b>--only-matching</b> option, this has no effect and a warning is given.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b> <i>NUM</i>, <b>-<i>NUM</i></b>,<br> <b>--context=</b><i>NUM</i></td>
+<td>Print <i>NUM</i> lines of output context. Places a line containing a group separator (<b>--</b>) between contiguous groups of matches. With the <b>-o</b> or <b>--only-matching</b> option, this has no effect and a warning is given.</td>
+</tr>
+</table>
+<h2>File and directory selection</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:240px"><b>-a</b>, <b>--text</b></td>
+<td>Process a <a href="/jargon/b/binary.htm">binary</a> file as if it were text; this is equivalent to the <b>--binary-files=text</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>--binary-files=</b><i>TYPE</i></td>
+<td>If the first few bytes of a file indicate that the file contains binary data, assume that the file is of type <i>TYPE</i>. By default, <i>TYPE</i> is binary, and grep normally outputs either a one-line message saying that a binary file matches, or no message if there is no match. If <i>TYPE</i> is without-match, <b>grep</b> assumes that a binary file does not match; this is equivalent to the <b>-I</b> option. If <i>TYPE</i> is text, grep processes a binary file as if it were text; this is equivalent to the <b>-a</b> option. Warning: <b>grep --binary-files=text</b> might output binary garbage, which can have nasty side effects if the output is a terminal and if the terminal driver interprets some of it as commands.</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b> <i>ACTION</i>,<br> <b>--devices=</b><i>ACTION</i></td>
+<td>If an input file is a device, <a href="/jargon/f/fifo.htm">FIFO</a> or socket, use <i>ACTION</i> to process it. By default, <i>ACTION</i> is <b>read</b>, which means that devices are read as if they were ordinary files. If <i>ACTION</i> is <b>skip</b>, devices are silently skipped.</td>
+</tr>
+<tr class="tcw">
+<td><b>-d</b> <i>ACTION</i>,<br> <b>--directories=</b><i>ACTION</i></td>
+<td>If an input file is a <a href="/jargon/d/director.htm">directory</a>, use <i>ACTION</i> to process it. By default, <i>ACTION</i> is <b>read</b>, i.e., read directories as if they were ordinary files. If <i>ACTION</i> is <b>skip</b>, silently skip directories. If <i>ACTION</i> is <b>recurse</b>, read all files under each directory, <a href="/jargon/r/recursive.htm">recursively</a>, following <a href="/jargon/s/symblink.htm">symbolic links</a> only if they are on the command line. This is equivalent to the <b>-r</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>--exclude=</b><i>GLOB</i></td>
+<td>Skip files whose base name matches <i>GLOB</i> (using <a href="/jargon/w/wildcard.htm">wildcard</a> matching). A file-name <a href="/jargon/g/glob.htm">glob</a> can use <b>*</b>, <b>?</b>, and <b>[...]</b> as wildcards, and <b>\</b> to quote a wildcard or backslash character literally.</td>
+</tr>
+<tr class="tcw">
+<td><b>--exclude-from=</b><i>FILE</i></td>
+<td>Skip files whose base name matches any of the file-name globs read from <i>FILE</i> (using wildcard matching as described under <b>--exclude</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>--exclude-dir=</b>DIR</td>
+<td>Exclude directories matching the pattern DIR from recursive searches.</td>
+</tr>
+<tr class="tcw">
+<td><b>-I</b></td>
+<td>Process a binary file as if it did not contain matching data; this is equivalent to the <b>--binary-files=without-match</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>--include=</b><i>GLOB</i></td>
+<td>Search only files whose base name matches <i>GLOB</i> (using wildcard matching as described under <b>--exclude</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-r</b>, <b>--recursive</b></td>
+ <td>Read all files under each directory, recursively, following symbolic links only if they are on the command line. This is equivalent to the <b>-d recurse</b> option.</td>
+</tr>
+<tr class="tcw">
+<td><b>-R</b>,<br> <b>--dereference-recursive</b></td>
+<td>Read all files under each directory, recursively. Follow all symbolic links, unlike <b>-r</b>.</td>
+</tr>
+</table>
+<h2>Other options</h2>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:180px"><b>--line-buffered</b></td>
+<td>Use line buffering on output. This can cause a performance penalty.</td>
+</tr>
+<tr class="tcw">
+<td><b>--mmap</b></td>
+<td>If possible, use the <b>mmap</b> system call to read input, instead of the default <b>read</b> system call. In some situations, <b>--mmap</b> yields better performance. However, <b>--mmap</b> can cause undefined behavior (including core dumps) if an input file shrinks while <b>grep</b> is operating, or if an I/O error occurs.</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b>, <b>--binary</b></td>
+<td>Treat the file(s) as binary. By default, under MS-DOS and MS-Windows, <b>grep</b> guesses the file type by looking at the contents of the first 32 <a href="/jargon/k/kilobyte.htm">KB</a> read from the file. If <b>grep</b> decides the file is a text file, it strips the CR characters from the original file contents (to make regular expressions with <b>^</b> and <b>$</b> work correctly). Specifying <b>-U</b> overrules this guesswork, causing all files to be read and passed to the matching mechanism verbatim; if the file is a text file with CR/LF pairs at the end of each line, this causes some regular expressions to fail. This option has no effect on platforms other than MS-DOS and MS-Windows.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b>, <b>--null-data</b></td>
+<td>Treat the input as a set of lines, each terminated by a zero byte (the ASCII NUL character) instead of a newline. Like the <b>-Z</b> or <b>--null</b> option, this option can be used with commands like <a href="/jargon/s/sort.htm">sort</a> <b>-z</b> to process arbitrary file names.</td>
+</tr>
+</table>
+<h2>Regular expressions</h2>
+<p class="tab">A regular expression is a pattern that describes a set of strings. Regular expressions are constructed analogously to arithmetic expressions, using various operators to combine smaller expressions.</p>
+<p class="tab"><b>grep</b> understands three different versions of regular expression syntax: "basic" (BRE), "extended" (ERE) and "perl" (PRCE). In <a href="/jargon/g/gnu.htm">GNU</a> <b>grep</b>, there is no difference in available functionality between basic and extended syntaxes. In other implementations, basic regular expressions are less powerful. The following description applies to extended regular expressions; differences for basic regular expressions are summarized afterwards. <a href="/jargon/p/perl.htm">Perl</a> regular expressions give additional functionality.</p>
+<p class="tab">The fundamental building blocks are the regular expressions that match a single character. Most characters, including all letters and digits, are regular expressions that match themselves. Any metacharacter with special meaning may be quoted by preceding it with a backslash.</p>
+<p class="tab">The period (<b>.</b>) matches any single character.</p>
+<h2>Character classes and bracket expressions</h2>
+<p class="tab">A <i>bracket expression</i> is a list of characters enclosed by <b>[</b> and <b>]</b>. It matches any single character in that list; if the first character of the list is the caret <b>^</b> then it matches any character not in the list. For example, the regular expression <b>[0123456789]</b> matches any single <a href="/jargon/d/digit.htm">digit</a>.</p>
+<p class="tab">Within a bracket expression, a <i>range expression</i> consists of two characters separated by a hyphen. It matches any single character that sorts between the two characters, inclusive, using the locale's collating sequence and character set. For example, in the default C locale, <b>[a-d]</b> is equivalent to <b>[abcd]</b>. Many locales sort characters in dictionary order, and in these locales <b>[a-d]</b> is often not equivalent to <b>[abcd]</b>; it might be equivalent to <b>[aBbCcDd]</b>, for example. To obtain the traditional interpretation of bracket expressions, you can use the C locale by setting the LC_ALL <a href="/jargon/e/envivari.htm">environment variable</a> to the value <b>C</b>.</p>
+<p class="tab">Finally, certain named classes of characters are predefined within bracket expressions, as follows. Their names are self explanatory, and they are <b>[:alnum:]</b>, <b>[:alpha:]</b>, <b>[:cntrl:]</b>, <b>[:digit:]</b>, <b>[:graph:]</b>, <b>[:lower:]</b>, <b>[:print:]</b>, <b>[:punct:]</b>, <b>[:space:]</b>, <b>[:upper:]</b>, and <b>[:xdigit:]</b>. For example, <b>[[:alnum:]]</b> means the character class of numbers and letters in the current locale. In the C locale and ASCII character set encoding, this is the same as <b>[0-9A-Za-z]</b>. (Note that the brackets in these class names are part of the symbolic names, and must be included in addition to the brackets delimiting the bracket expression.) Most <a href="/jargon/m/metachar.htm">metacharacters</a> lose their special meaning inside bracket expressions. To include a literal <b>]</b> place it first in the list. Similarly, to include a literal <b>^</b> place it anywhere but first. Finally, to include a literal <b>-</b>, place it last.</p>
+<h2>Anchoring</h2>
+<p class="tab">The caret <b>^</b> and the dollar sign <b>$</b> are metacharacters that respectively match the empty string at the beginning and end of a line.</p>
+<h2>The backslash character and special expressions</h2>
+<p class="tab">The symbols <b>\&lt;</b> and <b>\&gt;</b> respectively match the empty string at the beginning and end of a word. The symbol <b>\b</b> matches the empty string at the edge of a word, and <b>\B</b> matches the empty string provided it's not at the edge of a word. The symbol <b>\w</b> is a synonym for <b>[_[:alnum:]]</b> and <b>\W</b> is a synonym for <b>[^_[:alnum:]]</b>.</p>
+<h2>Repetition</h2>
+<p class="tab">A regular expression may be followed by one of several repetition operators:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:80px"><b>?</b></td>
+<td>The preceding item is optional and matched at most once.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b></td>
+<td>The preceding item will be matched zero or more times.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b></td>
+<td>The preceding item will be matched one or more times.</td>
+</tr>
+<tr class="tcw">
+<td><b>{</b><i>n</i><b>}</b></td>
+<td>The preceding item is matched exactly <i>n</i> times.</td>
+</tr>
+<tr class="tcw">
+<td><b>{</b><i>n</i><b>,}</b></td>
+<td>The preceding item is matched <i>n</i> or more times.</td>
+</tr>
+<tr class="tcw">
+<td style="width:90px"><b>{</b><i>n</i><b>,</b><i>m</i><b>}</b></td>
+<td>The preceding item is matched at least <i>n</i> times, but not more than <i>m</i> times.</td>
+</tr>
+</table>
+<h2>Concatenation</h2>
+<p class="tab">Two regular expressions may be <a href="/jargon/c/concaten.htm">concatenated</a>; the resulting regular expression matches any string formed by concatenating two <a href="/jargon/s/substring.htm">substrings</a> that respectively match the concatenated expressions.</p>
+<h2>Alternation</h2>
+<p class="tab">Two regular expressions may be joined by the infix operator <b>|</b>; the resulting regular expression matches any string matching either alternate expression.</p>
+<h2>Precedence</h2>
+<p class="tab">Repetition takes precedence over concatenation, which in turn takes precedence over alternation. A whole expression may be enclosed in parentheses to override these precedence rules and form a subexpression.</p>
+<h2>Back references and subexpressions</h2>
+<p class="tab">The back-reference <b>\</b><i>n</i>, where <i>n</i> is a single digit, matches the substring previously matched by the <i>n</i>th parenthesized subexpression of the regular expression.</p>
+<h2 id="Extended-Regexp">Basic vs. extended regular expressions</h2>
+<p class="tab">In basic regular expressions the metacharacters <b>?</b>, <b>+</b>, <b>{</b>, <b>|</b>, <b>(</b>, and <b>)</b> lose their special meaning; instead use the backslashed versions <b>\?</b>, <b>\+</b>, <b>\{</b>, <b>\|</b>, <b>\(</b>, and <b>\)</b>.</p>
+<p class="tab">Traditional versions of <b>egrep</b> did not support the <b>{</b> metacharacter, and some <b>egrep</b> implementations support <b>\{</b> instead, so portable scripts should avoid <b>{</b> in <b>grep -E</b> patterns and should use <b>[{]</b> to match a literal <b>{</b>.</p>
+<p class="tab">GNU <b>grep -E</b> attempts to support traditional usage by assuming that <b>{</b> is not special if it would be the start of an invalid interval specification. For example, the command <b>grep -E '{1'</b> searches for the two-character string <b>{1</b> instead of reporting a syntax error in the regular expression. <a href="/jargon/p/posix.htm">POSIX</a> allows this behavior as an extension, but portable scripts should avoid it.</p>
+<h2>Environment variables</h2>
+<p class="tab">The behavior of <b>grep</b> is affected by the following environment variables.</p>
+<p class="tab">The locale for category <b>LC_foo</b> is specified by examining the three environment variables <b>LC_ALL</b>, <b>LC_foo</b>, and <b>LANG</b>, in that order. The first of these variables that is set specifies the locale. For example, if <b>LC_ALL</b> is not set, but <b>LC_MESSAGES</b> is set to <b>pt_BR</b>, then the Brazilian Portuguese locale is used for the <b>LC_MESSAGES</b> category. The <b>C</b> locale is used if none of these environment variables are set, if the locale catalog is not installed, or if <b>grep</b> was not compiled with national language support (NLS).</p>
+<p class="tab">Other variables of note:</p>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:200px"><b>GREP_OPTIONS</b></td>
+<td>This variable specifies default options to be placed in front of any explicit options. For example, if <b>GREP_OPTIONS</b> is '<b>--binary- files=without-match --directories=skip</b>', <b>grep</b> behaves as if the two options <b>--binary-files=without-match</b> and <b>--directories=skip</b> had been specified before any explicit options. Option specifications are separated by <a href="/jargon/w/whitspac.htm">whitespace</a>. A backslash escapes the next character, so it can specify an option containing whitespace or a backslash.</td>
+</tr>
+<tr class="tcw">
+<td><b>GREP_COLOR</b></td>
+<td>This variable specifies the color used to highlight matched (non-empty) text. It is deprecated in favor of <b>GREP_COLORS</b>, but still supported. The <b>mt</b>, <b>ms</b>, and <b>mc</b> capabilities of <b>GREP_COLORS</b> have priority over it. It can only specify the color used to highlight the matching non-empty text in any matching line (a selected line when the <b>-v</b> command-line option is omitted, or a context line when <b>-v</b> is specified). The default is <b>01;31</b>, which means a bold red foreground text on the terminal's default background.</td>
+</tr>
+<tr class="tcw">
+<td><b>GREP_COLORS</b></td>
+<td>Specifies the colors and other attributes used to highlight various parts of the output. Its value is a colon-separated list of capabilities that defaults to <b>ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36</b> with the <b>rv</b> and <b>ne</b> boolean capabilities omitted (i.e., <b>false</b>). Supported capabilities are as follows:<br><br>
+<table class="mtable">
+<tr class="tcw">
+<td style="width:110px"><b>sl=</b></td>
+<td>SGR substring for whole selected lines (i.e., matching lines when the <b>-v</b> command-line option is omitted, or non-matching lines when <b>-v</b> is specified). However, if the boolean <b>rv</b> capability and the <b>-v</b> command-line option are both specified, it applies to context matching lines instead. The default is empty (i.e., the terminal's default color pair).</td>
+</tr>
+ <tr class="tcw">
+<td><b>cx=</b></td>
+<td>SGR substring for whole context lines (i.e., non-matching lines when the <b>-v</b> command-line option is omitted, or matching lines when <b>-v</b> is specified). However, if the boolean <b>rv</b> capability and the <b>-v</b> command-line option are both specified, it applies to selected non-matching lines instead. The default is empty (i.e., the terminal's default color pair).</td>
+</tr>
+<tr class="tcw">
+<td><b>rv</b></td>
+<td>Boolean value that reverses (swaps) the meanings of the <b>sl=</b> and <b>cx=</b> capabilities when the <b>-v</b> command-line option is specified. The default is <b>false</b> (i.e., the capability is omitted).</td>
+</tr>
+<tr class="tcw">
+<td><b>mt=01;31</b></td>
+<td>SGR substring for matching non-empty text in any matching line (i.e., a selected line when the <b>-v</b> command-line option is omitted, or a context line when <b>-v</b> is specified). Setting this is equivalent to setting both <b>ms=</b> and <b>mc=</b> at once to the same value. The default is a bold red text foreground over the current line background.</td>
+</tr>
+<tr class="tcw">
+<td><b>ms=01;31</b></td>
+<td>SGR substring for matching non-empty text in a selected line. (This is only used when the <b>-v</b> command-line option is omitted.) The effect of the <b>sl=</b> (or <b>cx=</b> if <b>rv</b>) capability remains active when this kicks in. The default is a bold red text foreground over the current line background.</td>
+</tr>
+<tr class="tcw">
+<td><b>mc=01;31</b></td>
+<td>SGR substring for matching non-empty text in a context line. (This is only used when the <b>-v</b> command-line option is specified.) The effect of the <b>cx=</b> (or <b>sl=</b> if <b>rv</b>) capability remains active when this kicks in. The default is a bold red text foreground over the current line background.</td>
+</tr>
+<tr class="tcw">
+<td><b>fn=35</b></td>
+<td>SGR substring for file names prefixing any content line. The default is a magenta text foreground over the terminal's default background.</td>
+</tr>
+<tr class="tcw">
+<td><b>ln=32</b></td>
+<td>SGR substring for line numbers prefixing any content line. The default is a green text foreground over the terminal's default background.</td>
+</tr>
+<tr class="tcw">
+<td><b>bn=32</b></td>
+<td>SGR substring for byte offsets prefixing any content line. The default is a green text foreground over the terminal's default background.</td>
+</tr>
+<tr class="tcw">
+<td><b>se=36</b></td>
+<td>SGR substring for separators that are inserted between selected line fields (<b>:</b>), between context line fields, (<b>-</b>), and between groups of adjacent lines when nonzero context is specified (<b>--</b>). The default is a cyan text foreground over the terminal's default background.</td>
+</tr>
+<tr class="tcw">
+<td><b>ne</b></td>
+<td>Boolean value that prevents clearing to the end of line using <i>Erase in Line</i> (<b>EL</b>) to Right (<b>\33[K</b>) each time a colorized item ends. This is needed on terminals on which EL is not supported. It is otherwise useful on terminals for which the <b>back_color_erase</b> (<b>bce</b>) boolean terminfo capability does not apply, when the chosen highlight colors do not affect the background, or when EL is too slow or causes too much flicker. The default is false (i.e., the capability is omitted).</td>
+</tr>
+</table>
+<br>
+Note that boolean capabilities have no <b>=...</b> part. They are omitted (i.e., <b>false</b>) by default and become <b>true</b> when specified.<br>
+<br>
+See the Select Graphic Rendition (SGR) section in the documentation of the text terminal that is used for permitted values and their meaning as character attributes. These substring values are <a href="/jargon/i/integer.htm">integers</a> in <a href="/jargon/d/decimal.htm">decimal</a> representation and can be concatenated with semicolons. <b>grep</b> takes care of assembling the result into a complete SGR sequence (<b>\33[</b>...<b>m</b>). Common values to concatenate include <b>1</b> for bold, <b>4</b> for underline, <b>5</b> for blink, <b>7</b> for inverse, <b>39</b> for default foreground color, <b>30</b> to <b>37</b> for foreground colors, <b>90</b> to <b>97</b> for 16-color mode foreground colors, <b>38;5;0</b> to <b>38;5;255</b> for 88-color and 256-color modes foreground colors, <b>49</b> for default background color, <b>40</b> to <b>47</b> for background colors, <b>100</b> to <b>107</b> for 16-color mode background colors, and <b>48;5;0</b> to <b>48;5;255</b> for 88-color and 256-color modes background colors.</td>
+</tr>
+<tr class="tcw">
+<td><b>LC_ALL</b>, <b>LC_COLLATE</b>, <b>LANG</b></td>
+<td>These variables specify the locale for the <b>LC_COLLATE</b> category, which determines the collating sequence used to interpret range expressions like <b>[a-z]</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>LC_ALL</b>, <b>LC_CTYPE</b>, <b>LANG</b></td>
+<td>These variables specify the locale for the <b>LC_CTYPE</b> category, which determines the type of characters, e.g., which characters are whitespace.</td>
+</tr>
+<tr class="tcw">
+<td><b>LC_ALL</b>, <b>LC_MESSAGES</b>, <b>LANG</b></td>
+<td>These variables specify the locale for the <b>LC_MESSAGES</b> category, which determines the language that grep uses for messages. The default <b>C</b> locale uses American English messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>POSIXLY_CORRECT</b></td>
+<td>If set, <b>grep</b> behaves as POSIX requires; otherwise, <b>grep</b> behaves more like other GNU programs. POSIX requires that options that follow file names must be treated as file names; by default, such options are permuted to the front of the operand list and are treated as options. Also, POSIX requires that unrecognized options be diagnosed as "illegal", but since they are not really against the law the default is to diagnose them as "invalid". <b>POSIXLY_CORRECT</b> also disables <b>_N_GNU_nonoption_argv_flags_</b>, described below.</td>
+</tr>
+<tr class="tcw">
+<td><b>_N_GNU_nonoption_argv_flags_</b></td>
+<td>(Here <b>N</b> is <b>grep</b>'s numeric process ID). If the <i>i</i>th character of this environment variable's value is <b>1</b>, do not consider the <i>i</i>th operand of <b>grep</b> to be an option, even if it appears to be one. A shell can put this variable in the environment for each command it runs, specifying which operands are the results of file name wildcard expansion and therefore should not be treated as options. This behavior is available only with the GNU C library, and only when <b>POSIXLY_CORRECT</b> is not set.</td>
+</tr>
+</table>
+<h2>Exit status</h2>
+<p class="tab">The exit status is <b>0</b> if selected lines are found, and <b>1</b> if not found. If an error occurred the exit status is <b>2</b>.</p>
+<h2 id="examples">Examples</h2>
+<div class="tip tab" role="note">
+<span class="title">Tip</span>
+<p>If you haven't already seen our <a href="#usage">example usage</a> section, we suggest reviewing that section first.</p>
+</div>
+<pre class="tcy tab">grep chope /etc/passwd</pre>
+<p class="tab">Search <b>/etc/passwd</b> for user <b>chope</b>.</p>
+<pre class="tcy tab">grep "May 31 03" /etc/httpd/logs/error_log</pre>
+<p class="tab">Search the Apache error_log file for any error entries that happened on May 31st at 3 A.M. By adding quotes around the string, this lets you place spaces in the grep search.</p>
+<pre class="tcy tab">grep -r "computerhope" /www/</pre>
+<p class="tab"><a href="/jargon/r/recursive.htm">Recursively</a> search the directory <b>/www/</b>, and all subdirectories, for any lines of any files which contain the string "<b>computerhope</b>".</p>
+<pre class="tcy tab">grep -w "hope" myfile.txt</pre>
+<p class="tab">Search the file <b>myfile.txt</b> for lines containing the word "<b>hope</b>". Only lines containing the distinct word "hope" are matched. Lines where "hope" is <i>part</i> of a word (e.g., &quot;hopes&quot;) are <i>not</i> be matched.</p>
+<pre class="tcy tab">grep -cw "hope" myfile.txt</pre>
+<p class="tab">Same as previous command, but displays a count of how many lines were matched, rather than the matching lines themselves.</p>
+<pre class="tcy tab">grep -cvw "hope" myfile.txt</pre>
+<p class="tab">Inverse of previous command: displays a count of the lines in <b>myfile.txt</b> which do <i>not</i> contain the word "hope".</p>
+<pre class="tcy tab">grep -l "hope" /www/*</pre>
+<p class="tab">Display the file names (but not the matching lines themselves) of any files in <b>/www/</b> (but not its subdirectories) whose contents include the string "<b>hope</b>".</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/ued.htm"><b>ed</b></a> &mdash; A simple text editor.<br><a href="/unix/uegrep.htm"><b>egrep</b></a> &mdash; Filter text which matches an extended regular expression.<br><a href="/unix/used.htm"><b>sed</b></a> &mdash; A utility for filtering and transforming text.<br><a href="/unix/ush.htm"><b>sh</b></a> &mdash; The Bourne shell command interpreter.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a82ef9dbd84bc',m:'tN66NVrx3cYp.xnq8Fo1ZtQtbQBMrdB8ZIh_pD37MQ8-1661495349-0-ATZu0g3CZ1IyF8uwmJjG0Byxx1w8WO6qikbcMSK7HqnfsJI5BxgmU94KabeCsIBloj2/VN3OlP54aR3AVUymhNwkLvZMWVnWUfP+EsxWLk9n9JtjNYOnulyo1ghmbdjuUw==',s:[0x1f5d21bc9c,0x6e5db31b46],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

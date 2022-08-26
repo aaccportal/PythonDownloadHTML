@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+ <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux unzip command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/unzip.gif" width="300" height="300" alt="unzip command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>unzip</b> command lists, extracts, and tests <a href="/jargon/c/compress.htm">compressed</a> files in a <a href="/jargon/z/zip.htm">ZIP</a> <a href="/jargon/a/archive.htm">archive</a>.</p>
+<p>This page covers the <a href="/jargon/l/linux.htm">Linux</a> version of <b>unzip</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#Environment-Options">Environment options</a></li>
+<li><a href="#decryption">Decryption</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>unzip</b> lists, tests, or extracts files from archives of the zip format, which are most commonly found on <a href="/jargon/m/msdos.htm">MS-DOS</a> and <a href="/jargon/w/windows.htm">Windows</a> systems. The default behavior (with no options) is to <a href="/jargon/e/extract.htm">extract</a> into the <a href="/jargon/c/currentd.htm">current directory</a> (and possibly the <a href="/jargon/s/subdirec.htm">subdirectories</a> below it) all files from the specified zip archive. A companion program, <a href="/unix/zip.htm">zip</a>, creates zip archives. Both <b>zip</b> and <b>unzip</b> are compatible with archives created by <a href="/comp/pkware.htm">PKWARE</a>'s <a href="/jargon/p/pkzip.htm">PKZIP</a> and <a href="/jargon/p/pkunzip.htm">PKUNZIP</a> programs for MS-DOS.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">unzip [-Z] [-cflptTuvz[abjnoqsCDKLMUVWX$/:^]] <i>file</i>[.zip] [<i>file</i>(s) ...] 
+      [-x <i>xfile</i>(s) ...] [-d <i>exdir</i>]</pre>
+<h3 class="tab">Arguments</h3>
+<p class="tab"><b>unzip</b> accepts the following <a href="/jargon/a/argument.htm">arguments</a>:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:120px"><i>file</i>[<b>.zip</b>]</td>
+<td><a href="/jargon/p/path.htm">Path</a> of the zip archive(s). If the file specification is a <a href="/jargon/w/wildcard.htm">wildcard</a>, each matching file is processed in an order determined by the <a href="/jargon/o/os.htm">operating system</a> (or <a href="/jargon/f/filesyst.htm">file system</a>). Only the filename can be a wildcard; the path itself cannot. Wildcard <a href="/jargon/e/expressi.htm">expressions</a> are similar to those supported in commonly used <a href="/jargon/u/unix.htm">Unix</a> <a href="/jargon/s/shell.htm">shells</a> (<a href="/unix/ush.htm">sh</a>, <a href="/unix/uksh.htm">ksh</a>, <a href="/unix/ucsh.htm">csh</a>) and may contain:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:50px"><b>*</b></td>
+<td>matches a sequence of 0 or more <a href="/jargon/c/charact.htm">characters</a></td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>matches exactly 1 character</td>
+</tr>
+<tr class="tcw">
+<td><b>[</b>...<b>]</b></td>
+<td>matches any single character found inside the brackets; ranges are specified by a beginning character, a hyphen, and an ending character. If an exclamation point or a caret ('<b>!</b>' or '<b>^</b>') follows the left bracket, then the range of characters within the brackets is complemented (that is, anything except the characters inside the brackets is considered a match). To specify a verbatim left bracket, the three-character sequence "<b>[[]</b>" has to be used.</td>
+</tr>
+</table>
+(Be sure to quote any character that might otherwise be interpreted or modified by the operating system, particularly under Unix and <a href="/jargon/v/vms.htm">VMS</a>.) If no matches are found, the specification is assumed to be a literal filename; and if that also fails, the <a href="/jargon/s/suffix.htm">suffix</a> <b>.zip</b> is appended. Note that self-extracting zip files are supported, as with any other zip archive; just specify the <b>.exe</b> suffix (if any) explicitly.</td>
+</tr>
+<tr class="tcw">
+<td>[<i>file(s)</i>]</td>
+<td>An optional list of archive members to be processed, separated by spaces. (VMS versions compiled with VMSCLI defined must delimit files with commas instead. See <b>-v</b> in <a href="#Options">OPTIONS</a> below.) <a href="/jargon/r/regex.htm">Regular expressions</a> (wildcards) may be used to match multiple members, as stated above. Again, be sure to quote expressions that would otherwise be expanded or modified by the operating system.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-x</b> <i>xfile(s)</i>]</td>
+<td>An optional list of archive members to be excluded from processing. Since wildcard characters normally match ('<b>/</b>') directory separators (for exceptions see the option <b>-W</b>), this option may be used to exclude any files that are in subdirectories. For example, "<b>unzip foo *.[ch] -x */*</b>" would extract all <a href="/jargon/c/c.htm">C</a> <a href="/jargon/s/source.htm">source</a> files in the main directory, but none in any subdirectories. Without the <b>-x</b> option, all C source files in all directories within the zipfile would be extracted.</td>
+</tr>
+<tr class="tcw">
+<td>[<b>-d</b> <i>exdir</i>]</td>
+<td>If specified, files will be extracted to directory <i>exdir</i>. By default, all files and subdirectories are recreated in the current directory; the <b>-d</b> option allows extraction in an arbitrary directory (always assuming one has <a href="/jargon/p/permissi.htm">permission</a> to <a href="/jargon/w/write.htm">write</a> to the directory). This option need not appear at the end of the <a href="/jargon/c/commandi.htm">command line</a>; it is also accepted before the zipfile specification (with the normal options), immediately after the zipfile specification, or between the file(s) and the <b>-x</b> option. The option and directory may be concatenated without any <a href="/jargon/w/whitspac.htm">white space</a> between them, but note that this may cause normal shell behavior to be suppressed. In particular, "<b>-d ~</b>" (<a href="/jargon/t/tilde.htm">tilde</a>) is expanded by Unix C shells into the name of the user's <a href="/jargon/h/homedir.htm">home directory</a>, but "<b>-d~</b>" is treated as a literal subdirectory "<b>~</b>" of the current directory.</td>
+</tr>
+</table>
+<h3 class="tab" id="Options">Options</h3>
+<p class="tab">Additionally, <b>unzip</b> accepts the following options:</p>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:40px"><b>-Z</b></td>
+<td><a href="/unix/zipinfo.htm">zipinfo</a> mode. If the first option on the command line is <b>-Z</b>, the remaining options are taken to be <b>zipinfo</b> options.</td>
+</tr>
+<tr class="tcw">
+<td><b>-A</b></td>
+<td>[<a href="/jargon/o/os2.htm">OS/2</a>, Unix <a href="/jargon/d/dll.htm">DLL</a>] print extended help for the DLL's programming interface (<a href="/jargon/a/api.htm">API</a>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-c</b></td>
+<td>extract files to stdout/screen ("the <a href="/jargon/c/crt.htm">CRT</a>"). This option is similar to the <b>-p</b> option except that the name of each file is printed as it is extracted, the <b>-a</b> option is allowed, and <a href="/jargon/a/ascii.htm">ASCII</a>-<a href="/jargon/e/ebcdic.htm">EBCDIC</a> conversion is automatically performed if appropriate. This option is not listed in the <b>unzip</b> usage screen.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b></td>
+<td>freshen existing files, i.e., extract only those files that already exist on disk and that are newer than the disk copies. By default, <b>unzip</b> <a href="/jargon/q/query.htm">queries</a> before <a href="/jargon/o/overwrit.htm">overwriting</a>, but the <b>-o</b> option may be used to suppress the queries. Note that under many operating systems, the <b>TZ</b> (timezone) <a href="/jargon/e/envivari.htm">environment variable</a> must be set correctly for <b>-f</b> and <b>-u</b> to work properly (under Unix the variable is usually set automatically). The reasons for this are somewhat subtle but have to do with the differences between DOS-format file times (always local time) and Unix-format times (always in <a href="/jargon/t/time.htm">GMT/UTC</a>) and the necessity to compare the two. A typical <b>TZ</b> value is "<b>PST8PDT</b>" (US Pacific time with automatic adjustment for Daylight Savings Time).</td>
+</tr>
+<tr class="tcw">
+<td><b>-l</b></td>
+<td>list archive files (short format). The names, uncompressed file sizes and modification dates and times of the specified files are printed, along with totals for all files specified. If <b>unzip</b> was compiled with <b>OS2_EAS</b> defined, the <b>-l</b> option also lists columns for the sizes of stored OS/2 extended attributes (EAs) and OS/2 access control lists (<a href="/jargon/a/acl.htm">ACL</a>s). Also, the zipfile comment and individual file comments (if any) are displayed. If a file was archived from a single-case file system (for example, the old MS-DOS <a href="/jargon/f/fat.htm">FAT</a> file system) and the <b>-L</b> option was given, the filename is converted to <a href="/jargon/l/lowercas.htm">lowercase</a> and is prefixed with a <a href="/jargon/c/caret.htm">caret</a> (<b>^</b>).</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b></td>
+<td>extract files to <a href="/jargon/p/pipe.htm">pipe</a> (standard output, stdout). Nothing but the file data is sent to stdout, and the files are always extracted in <a href="/jargon/b/binary.htm">binary</a> format, just as they are stored (no conversions).</td>
+</tr>
+<tr class="tcw">
+<td><b>-t</b></td>
+<td>test archive files. This option extracts each specified file in memory and compares the <a href="/jargon/c/crc.htm">CRC</a> (cyclic redundancy check, an enhanced <a href="/jargon/c/checksum.htm">checksum</a>) of the expanded file with the original file's stored CRC value.</td>
+</tr>
+<tr class="tcw">
+<td><b>-T</b></td>
+<td>[most OSes] set the <a href="/jargon/t/timestam.htm">timestamp</a> on the archive(s) to that of the newest file in each one. This corresponds to <a href="/unix/zip.htm">zip</a>'s <b>-go</b> option except that it can be used on wildcard zipfiles (e.g., "<b>unzip -T \*.zip</b>") and is much faster.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b></td>
+<td>update existing files and create new ones if needed. This option performs the same function as the <b>-f</b> option, extracting (with query) files that are newer than those with the same name on disk, and in addition it extracts those files that do not already exist on disk. See <b>-f</b> above for information on setting the timezone properly.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b></td>
+<td>list archive files (<a href="/jargon/v/verbose.htm">verbose</a> format) or show diagnostic version info. This option has evolved and now behaves as both an option and a modifier. As an option it has two purposes: when a zipfile is specified with no other options, <b>-v</b> lists archive files verbosely, adding to the basic <b>-l</b> info the compression method, compressed size, compression ratio and 32-bit CRC. In contrast to most of the competing utilities, <b>unzip</b> removes the 12 additional header bytes of <a href="/jargon/e/encrypt.htm">encrypted</a> entries from the compressed size numbers. Therefore, compressed size and compression ratio figures are independent of the entry's encryption status and show the correct compression performance. (The complete size of the encrypted compressed data stream for zipfile entries is reported by the more verbose <a href="/unix/zipinfo.htm">zipinfo</a> reports.) When no zipfile is specified (that is, the complete command is "<b>unzip -v</b>"), a diagnostic screen is printed. In addition to the normal header with release date and version, <b>unzip</b> lists the home Info-ZIP ftp site and where to find a list of other ftp and non-ftp sites; the target operating system for which it was compiled, as well as (possibly) the hardware on which it was compiled, the compiler and version used, and the compilation date; any special compilation options that might affect the program's operation (see also <a href="#decryption">decryption</a> below); and any options stored in environment variables that might do the same (see <a href="#Environment-Options">environment options</a> below). As a modifier it works in conjunction with other options (e.g., <b>-t</b>) to produce more verbose or <a href="/jargon/d/debug.htm">debugging</a> output.</td>
+</tr>
+<tr class="tcw">
+<td><b>-z</b></td>
+<td>display only the archive comment.</td>
+</tr>
+</table>
+<h3 class="tab">Modifiers</h3>
+<table class="mtable3 tab">
+<tr class="tcw">
+<td style="width:130px"><b>-a</b></td>
+<td>convert <a href="/jargon/t/textfile.htm">text files</a>. Ordinarily all files are extracted exactly as they are stored (as "binary" files). The <b>-a</b> option causes files identified by zip as text files (those with the '<b>t</b>' label in <b>zipinfo</b> listings, rather than '<b>b</b>') to be automatically extracted as such, converting line endings, <a href="/jargon/e/eof.htm">end-of-file</a> characters and the <a href="/jargon/c/charcode.htm">character set</a> itself as necessary. (For example, Unix files use line feeds (<a href="/jargon/l/lf.htm">LF</a>s) for end-of-line (EOL) and have no end-of-file (EOF) marker; <a href="/jargon/a/applemac.htm">Macintoshes</a> use <a href="/jargon/c/cr.htm">carriage returns</a> (CRs) for EOLs; and most PC operating systems use CR+<a href="/jargon/l/lf.htm">LF</a> for EOLs and control-Z for EOF. Also, <a href="/comp/ibm.htm">IBM</a> <a href="/jargon/m/mainfram.htm">mainframes</a> and the Michigan Terminal System use EBCDIC rather than the more common ASCII character set, and <a href="/jargon/w/winnt.htm">NT</a> supports <a href="/jargon/u/unicode.htm">Unicode</a>.) Note that <b>zip</b>'s identification of text files is by no means perfect; some "text" files may actually be binary and vice versa. <b>unzip</b> therefore prints "<b>[text]</b>" or "<b>[binary]</b>" as a visual check for each file it extracts when using the <b>-a</b> option. The <b>-aa</b> option forces all files to be extracted as text, regardless of the supposed file type. On <a href="/jargon/v/vms.htm">VMS</a>, see also <b>-S</b></td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>[general] treat all files as binary (no text conversions). This is a shortcut for <b>---a</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>[Tandem] force the creation files with file code type 180 ('<b>C</b>') when extracting Zip entries marked as "text". (On Tandem, <b>-a</b> is enabled by default; see above).</td>
+</tr>
+<tr class="tcw">
+<td><b>-b</b></td>
+<td>[VMS] auto-convert binary files (see <b>-a</b> above) to fixed-length, 512-<a href="/jargon/b/byte.htm">byte</a> record format. Doubling the option (<b>-bb</b>) forces all files to be extracted in this format. When extracting to standard output (<b>-c</b> or <b>-p</b> option in effect), the default conversion of text record <a href="/jargon/d/delimite.htm">delimiters</a> is disabled for binary (<b>-b</b>) resp. all (<b>-bb</b>) files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-B</b></td>
+<td>[when compiled with UNIXBACKUP defined] save a backup copy of each overwritten file. The backup file is gets the name of the target file with a tilde and optionally a unique sequence number (up to 5 <a href="/jargon/d/digit.htm">digits</a>) appended. The sequence number is applied whenever another file with the original name plus tilde already exists. When used together with the "overwrite all" option <b>-o</b>, numbered backup files are never created. In this case, all backup files are named as the original file with an appended tilde, existing backup files are deleted without notice. This feature works similarly to the default behavior of <a href="/unix/uemacs.htm">emacs</a> in many locations.<br><br> As an example, an old copy of "<b>foo</b>" is <a href="/jargon/r/rename.htm">renamed</a> to "<b>foo~</b>".<br><br> Warning: Users should be aware that the <b>-B</b> option does not prevent loss of existing data under all circumstances. For example, when <b>unzip</b> is run in overwrite-all mode, an existing "<b>foo~</b>" file is deleted before <b>unzip</b> attempts to rename "<b>foo</b>" to "<b>foo~</b>". When this rename attempt fails (because of a file locks, insufficient privileges, or whatever), the extraction of "<b>foo~</b>" gets cancelled, but the old backup file is already lost. A similar scenario takes place when the sequence number range for numbered backup files gets exhausted (<b>99999</b>, or <b>65535</b> for <a href="/jargon/num/16bit.htm">16-bit</a> systems). In this case, the backup file with the maximum sequence number is deleted and replaced by the new backup version without notice.</td>
+</tr>
+<tr class="tcw">
+<td><b>-C</b></td>
+<td>use <a href="/jargon/c/casesens.htm">case-insensitive</a> matching for the selection of archive entries from the command-line list of extract selection patterns. <b>unzip</b>'s philosophy is "you get what you ask for" (this is also responsible for the <b>-L</b>/<b>-U</b> change; see the relevant options below). Because some file systems are fully case-sensitive (notably those under the Unix operating system) and because both zip archives and unzip itself are portable across platforms, <b>unzip</b>'s default behavior is to match both wildcard and literal filenames case-sensitively. That is, specifying "<b>makefile</b>" on the command line will only match "<b>makefile</b> in the archive, not "<b>Makefile</b>" or "<b>MAKEFILE</b>" (and similarly for wildcard specifications). Since this does not correspond to the behavior of many other operating/file systems (for example, OS/2 <a href="/jargon/h/hpfs.htm">HPFS</a>, which preserves mixed case but is not sensitive to it), the <b>-C</b> option may be used to force all filename matches to be case-insensitive. In the example above, all three files would then match "<b>makefile</b>" (or "<b>make*</b>, or similar). The <b>-C</b> option affects file specs in both the normal file list and the excluded-file list (<i>xlist</i>).<br><br> Please note that the <b>-C</b> option does neither affect the search for the zipfile(s) nor the matching of archive entries to existing files on the extraction path. On a case-sensitive file system, <b>unzip</b> will never try to overwrite a file "<b>FOO</b>" when extracting an entry "<b>foo</b>"!</td>
+</tr>
+<tr class="tcw">
+<td><b>-D</b></td>
+<td>skip restoration of timestamps for extracted items. Normally, <b>unzip</b> tries to restore all meta-information for extracted items that are supplied in the Zip archive (and do not require privileges or impose a security risk). By specifying <b>-D</b>, unzip is told to suppress restoration of timestamps for directories explicitly created from Zip archive entries. This option only applies to ports that support setting timestamps for directories (currently ATheOS, <a href="/jargon/b/beos.htm">BeOS</a>, <a href="/jargon/m/macos.htm">MacOS</a>, <a href="/jargon/o/os2.htm">OS/2</a>, <a href="/jargon/u/unix.htm">Unix</a>, <a href="/jargon/v/vms.htm">VMS</a>, <a href="/jargon/w/win32.htm">Win32</a>; for other <b>unzip</b> ports, <b>-D</b> has no effect). The duplicated option <b>-DD</b> forces suppression of timestamp restoration for all extracted entries (files and directories). This option results in setting the timestamps for all extracted entries to the current time.<br><br> On VMS, the default setting for this option is <b>-D</b> for consistency with the behaviour of BACKUP: file timestamps are restored, timestamps of extracted directories are left at the current time. To enable restoration of directory timestamps, the negated option <b>--D</b> should be specified. On VMS, the option <b>-D</b> disables timestamp restoration for all extracted Zip archive items. (Here, a single <b>-D</b> on the command line combines with the default <b>-D</b> to do what an explicit <b>-DD</b> does on other systems.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-E</b></td>
+<td>[MacOS only] display contents of <a href="/jargon/m/macos.htm">MacOS</a> extra field during restore operation.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b></td>
+<td>[Acorn only] suppress removal of <a href="/jargon/n/nfs.htm">NFS</a> filetype extension from stored filenames.</td>
+</tr>
+<tr class="tcw">
+<td><b>-F</b></td>
+<td>[non-Acorn systems supporting <a href="/jargon/l/longfile.htm">long filenames</a> with embedded commas, and only if compiled with <b>ACORN_FTYPE_NFS</b> defined] translate filetype information from ACORN <a href="/jargon/r/risc.htm">RISC</a> OS extra field blocks into an NFS filetype <a href="/jargon/e/extensio.htm">extension</a> and append it to the names of the extracted files. (When the stored filename appears to already have an appended NFS filetype extension, it is replaced by the info from the extra field.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-i</b></td>
+<td>[MacOS only] ignore filenames stored in MacOS extra fields. Instead, the most compatible filename stored in the generic part of the entry's header is used.</td>
+</tr>
+<tr class="tcw">
+<td><b>-j</b></td>
+<td>junk paths. The archive's directory structure is not recreated; all files are deposited in the extraction directory (by default, the current one).</td>
+</tr>
+<tr class="tcw">
+<td><b>-J</b></td>
+<td>[BeOS only] junk file attributes. The file's BeOS file attributes are not restored, just the file's data.</td>
+</tr>
+<tr class="tcw">
+<td><b>-J</b></td>
+<td>[MacOS only] ignore MacOS extra fields. All Macintosh specific info is skipped. Data-fork and resource-fork are restored as separate files.</td>
+</tr>
+<tr class="tcw">
+<td><b>-K</b></td>
+<td>[AtheOS, BeOS, Unix only] retain <a href="/jargon/s/suid.htm">SUID</a>/SGID/Tacky <a href="/jargon/f/fileattr.htm">file attributes</a>. Without this flag, these attribute bits are cleared for security reasons.</td>
+</tr>
+<tr class="tcw">
+<td><b>-L</b></td>
+<td>convert to lowercase any filename originating on an <a href="/jargon/u/uppercase.htm">uppercase</a>-only operating system or file system. (This was unzip's default behavior in releases prior to 5.11; the new default behavior is identical to the old behavior with the <b>-U</b> option, which is now obsolete and will be removed in a future release.) Depending on the archiver, files archived under single-case file systems (VMS, old MS-DOS FAT, etc.) may be stored as all-uppercase names; this can be ugly or inconvenient when extracting to a case-preserving file system such as OS/2 HPFS or a case-sensitive one such as under Unix. By default, <b>unzip</b> lists and extracts such filenames exactly as they're stored (excepting <a href="/jargon/t/truncate.htm">truncation</a>, conversion of unsupported characters, etc.); this option causes the names of all files from certain systems to be converted to lowercase. The <b>-LL</b> option forces conversion of every filename to lowercase, regardless of the originating file system.</td>
+</tr>
+<tr class="tcw">
+<td><b>-M</b></td>
+<td>pipe all output through an internal pager similar to the Unix <a href="/jargon/m/more.htm">more</a> command. At the end of a screenful of output, <b>unzip</b> pauses with a "<b>--More--</b>" <a href="/jargon/p/prompt.htm">prompt</a>; the next screenful may be viewed by pressing the Enter (Return) key or the spacebar. <b>unzip</b> can be terminated by pressing the "<b>q</b>" key and, on some systems, the Enter/Return key. Unlike Unix <b>more</b>, there is no forward-searching or editing capability. Also, <b>unzip</b> doesn't notice if long lines wrap at the edge of the screen, effectively resulting in the printing of two or more lines and the likelihood that some text will scroll off the top of the screen before being viewed. On some systems the number of available lines on the screen is not detected, in which case <b>unzip</b> assumes the height is 24 lines.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b></td>
+<td>never overwrite existing files. If a file already exists, skip the extraction of that file without prompting. By default, <b>unzip</b> queries before extracting any file that already exists; the user may choose to overwrite only the current file, overwrite all files, skip extraction of the current file, skip extraction of all existing files, or rename the current file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-N</b></td>
+<td>[<a href="/jargon/a/amiga.htm">Amiga</a>] extract file comments as Amiga filenotes. File <a href="/jargon/c/comment.htm">comments</a> are created with the <b>-c</b> option of <a href="/unix/zip.htm">zip</a>, or with the <b>-N</b> option of the Amiga port of <b>zip</b>, which stores filenotes as comments.</td>
+</tr>
+<tr class="tcw">
+<td><b>-o</b></td>
+<td>overwrite existing files without prompting. This is a dangerous option, so use it with care. (It is often used with <b>-f</b>, however, and is the only way to overwrite directory EAs under OS/2.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-P</b> <i>password</i></td>
+<td>use <i>password</i> to <a href="/jargon/d/decrypti.htm">decrypt</a> encrypted zipfile entries (if any). <b>THIS IS INSECURE!</b> Many <a href="/jargon/m/multsyst.htm">multi-user</a> operating systems provide ways for any user to see the current command line of any other user; even on stand-alone systems there is always the threat of over-the-shoulder peeking. Storing the <a href="/jargon/p/plaintex.htm">plaintext</a> password as part of a command line in an automated script is even worse. Whenever possible, use the non-<a href="/jargon/e/echo.htm">echoing</a>, interactive prompt to enter passwords. (And where security is truly important, use strong encryption such as <a href="/jargon/p/pgp.htm">Pretty Good Privacy</a> instead of the relatively weak encryption provided by standard zipfile utilities.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-q</b></td>
+<td>perform operations quietly (<b>-qq</b> = even quieter). Ordinarily <b>unzip</b> prints the names of the files it's extracting or testing, the extraction methods, any file or zipfile comments that may be stored in the archive, and possibly a summary when finished with each archive. The <b>-q</b>[<b>q</b>] options suppress the printing of some or all of these messages.</td>
+</tr>
+<tr class="tcw">
+<td><b>-s</b></td>
+<td>[OS/2, NT, MS-DOS] convert spaces in filenames to underscores. Since all <a href="/jargon/p/pc.htm">PC</a> operating systems allow spaces in filenames, <b>unzip</b> by default extracts filenames with spaces intact (e.g., "<b>EA DATA. SF</b>"). This can be awkward, however, since MS-DOS in particular does not gracefully support spaces in filenames. Conversion of spaces to underscores can eliminate the awkwardness in some cases.</td>
+</tr>
+<tr class="tcw">
+ <td><b>-S</b></td>
+<td>[VMS] convert text files (<b>-a</b>, <b>-aa</b>) into <b>Stream_LF</b> record format, instead of the text-file default, variable-length record format. (<b>Stream_LF</b> is the default record format of VMS <b>unzip</b>. It is applied unless conversion (<b>-a</b>, <b>-aa</b> and/or <b>-b</b>, <b>-bb</b>) is requested or a VMS-specific entry is processed.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-U</b></td>
+<td>[UNICODE_SUPPORT only] modify or disable UTF-8 handling. When UNICODE_SUPPORT is available, the option <b>-U</b> forces <b>unzip</b> to escape all non-ASCII characters from UTF-8 coded filenames as "<b>#Uxxxx</b>" (for UCS-2 characters, or "<b>#Lxxxxxx</b>" for unicode codepoints needing 3 <a href="/jargon/o/octet.htm">octets</a>). This option is mainly provided for debugging purpose when the fairly new UTF-8 support is suspected to mangle up extracted filenames.<br><br> The option <b>-UU</b> allows to entirely disable the recognition of UTF-8 encoded filenames. The handling of filename codings within <b>unzip</b> falls back to the behaviour of previous versions.<br><br> [old, obsolete usage] leave filenames uppercase if created under MS-DOS, VMS, etc. See <b>-L</b> above.</td>
+</tr>
+<tr class="tcw">
+<td><b>-V</b></td>
+<td>retain (VMS) file version numbers. VMS files can be stored with a version number, in the format <b>file.ext;##</b>. By default, the "<b>;##</b>" version numbers are stripped, but this option allows them to be retained. (On file systems that limit filenames to particularly short lengths, the version numbers may be truncated or stripped regardless of this option.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-W</b></td>
+<td>[only when <b>WILD_STOP_AT_DIR</b> compile-time option enabled] modifies the pattern matching routine so that both '<b>?</b>' (single-char wildcard) and '<b>*</b>' (multi-char wildcard) do not match the directory separator character '<b>/</b>'. (The two-character sequence "<b>**</b>" acts as a multi-char wildcard that includes the directory separator in its matched characters.) Examples:<br><br><ul><li>"<b>*.c</b>" matches "<b>foo.c</b>" but not "<b>mydir/foo.c</b>"</li><li>"<b>**.c</b>" matches both "<b>foo.c</b>" and "<b>mydir/foo.c</b>"</li><li>"<b>*/*.c</b>" matches "<b>bar/foo.c</b>" but not "<b>baz/bar/foo.c</b>"</li><li>"<b>??*/*</b>" matches "<b>ab/foo</b>" and "<b>abc/foo</b>" but not "<b>a/foo</b>" or "<b>a/b/foo</b>"</li></ul> This modified behaviour is equivalent to the pattern matching style used by the <a href="/jargon/s/shell.htm">shells</a> of some of UnZip's supported target OSs (one example is Acorn RISC OS). This option may not be available on systems where the Zip archive's internal directory separator character '<b>/</b>' is allowed as regular character in native operating system filenames. (Currently, <b>unzip</b> uses the same pattern matching rules for both wildcard zipfile specifications and zip entry selection patterns in most ports. For systems allowing &#96;<b>/</b>' as regular filename character, the <b>-W</b> option would not work as expected on a wildcard zipfile specification.)</td>
+</tr>
+<tr class="tcw">
+<td><b>-X</b></td>
+<td>[VMS, Unix, OS/2, NT, Tandem] restore owner/protection info (UICs and <a href="/jargon/a/acl.htm">ACL</a> entries) under VMS, or user and group info (UID/GID) under Unix, or access control lists (ACLs) under certain network-enabled versions of OS/2 (Warp Server with IBM LAN Server/Requester 3.0 to 5.0; Warp Connect with IBM Peer 1.0), or security ACLs under Windows NT. In most cases this will require special system privileges, and doubling the option (<b>-XX</b>) under NT instructs <b>unzip</b> to use privileges for extraction; but under Unix, for example, a user who belongs to several groups can restore files owned by any of those groups, as long as the user IDs match his or her own. Note that ordinary file attributes are always restored--this option applies only to optional, extra ownership info available on some operating systems. [NT's access control lists do not appear to be especially compatible with OS/2's, so no attempt is made at cross-platform portability of access privileges.]</td>
+</tr>
+<tr class="tcw">
+<td><b>-Y</b></td>
+<td>[VMS] treat archived file name endings of "<b>.nnn</b>" (where "<b>nnn</b>" is a decimal number) as if they were VMS version numbers ("<b>;nnn</b>"). (The default is to treat them as file types.) Example: "<b>a.b.3</b>" -&gt; "<b>a.b;3</b>".</td>
+</tr>
+<tr class="tcw">
+<td><b>-$</b></td>
+<td>[MS-DOS, OS/2, NT] restore the volume label if the extraction medium is removable (e.g., a <a href="/jargon/d/disk.htm">diskette</a>). Doubling the option (<b>-$$</b>) allows fixed media (hard disks) to be labelled as well. By default, <a href="/jargon/v/volulabe.htm">volume labels</a> are ignored.</td>
+</tr>
+<tr class="tcw">
+<td><b>-/</b> <i>extensions</i></td>
+<td>[Acorn only] overrides the extension list supplied by the <b>Unzip$Ext</b> environment variable. During extraction, filename extensions that match one of the items in this extension list are swapped in front of the base name of the extracted file.</td>
+</tr>
+<tr class="tcw">
+<td><b>-:</b></td>
+<td>[all but Acorn, VM/CMS, MVS, Tandem] allows to extract archive members into locations outside of the current "extraction root folder". For security reasons, <b>unzip</b> normally removes "parent dir" path components ("<b>../</b>") from the names of extracted file. This safety feature (new for version 5.50) prevents <b>unzip</b> from accidentally writing files to "sensitive" areas outside the active extraction folder tree head. The <b>-:</b> option lets <b>unzip</b> switch back to its previous, more liberal behaviour, to allow exact extraction of (older) archives that used "<b>../</b>" components to create multiple directory trees at the level of the current extraction folder. This option does not enable writing explicitly to the root directory ("<b>/</b>"). To achieve this, it is necessary to set the extraction target folder to root (e.g., <b>-d /</b> ). However, when the <b>-:</b> option is specified, it is still possible to implicitly write to the root directory by specifying enough "<b>../</b>" path components within the zip archive. Use this option with extreme caution.</td>
+</tr>
+<tr class="tcw">
+<td><b>-^</b></td>
+<td>[Unix only] allow control characters in names of extracted zip archive entries. On Unix, a file name may contain any (<a href="/jargon/num/8bit.htm">8-bit</a>) character code with the two exception '<b>/</b>' (directory delimiter) and <a href="/jargon/n/null.htm">NUL</a> (<b>0x00</b>, the C string termination indicator), unless the specific file system has more restrictive conventions. Generally, this allows to embed ASCII control characters (or even sophisticated control sequences) in file names, at least on 'native' Unix file systems. However, it may be highly suspicious to make use of this Unix "feature". Embedded control characters in file names might have nasty side effects when displayed on the screen by some listing code without sufficient filtering. And, for ordinary users, it may be difficult to handle such file names (e.g., when trying to specify it for open, copy, move, or delete operations). Therefore, <b>unzip</b> applies a filter by default that removes potentially dangerous control characters from the extracted file names. The <b>-^</b> option allows to override this filter in the rare case that embedded filename control characters are to be intentionally restored.</td>
+</tr>
+<tr class="tcw">
+<td><b>-2</b></td>
+<td>[VMS] force unconditionally conversion of file names to ODS2-compatible names. The default is to exploit the destination file system, preserving case and extended file name characters on an ODS5 destination file system; and applying the ODS2-compatibility file name filtering on an ODS2 destination file system.</td>
+</tr>
+</table>
+<h2 id="Environment-Options">Environment options</h2>
+<p class="tab"><b>unzip</b>'s default behavior may be modified via options placed in an environment variable. This can be done with any option, but it is probably most useful with the <b>-a</b>, <b>-L</b>, <b>-C</b>, <b>-q</b>, <b>-o</b>, or <b>-n</b> modifiers: make <b>unzip</b> auto-convert text files by default, make it convert filenames from uppercase systems to lowercase, make it match names case-insensitively, make it quieter, or make it always overwrite or never overwrite files as it extracts them. For example, to make <b>unzip</b> act as quietly as possible, only reporting errors, one would use one of the following commands:</p>
+<p class="tab">Unix <a href="/jargon/b/bourne.htm">Bourne shell</a>:</p>
+<pre class="tab tcy">UNZIP=-qq; export UNZIP</pre>
+<p class="tab">Unix <a href="/unix/ucsh.htm">C shell</a>:</p>
+<pre class="tab tcy">setenv UNZIP -qq</pre>
+<p class="tab">OS/2 or MS-DOS:</p>
+<pre class="tab tcy">set UNZIP=-qq</pre>
+<p class="tab">VMS (quotes for lowercase):</p>
+<pre class="tab tcy">define UNZIP_OPTS "-qq"</pre>
+<p class="tab">Environment options are, in effect, considered to be just like any other command-line options, except that they are effectively the first options on the command line. To override an environment option, one may use the "minus operator" to remove it. For instance, to override one of the quiet-flags in the example above, use the command below.</p>
+<pre class="tab tcy">unzip --q[other options] zipfile</pre>
+<p class="tab">The first hyphen is the normal switch character, and the second is a minus sign, acting on the q option. Thus the effect here is to cancel one quantum of quietness. To cancel both quiet flags, two (or more) minuses may be used:</p>
+<pre class="tab tcy">unzip -t--q zipfile</pre>
+<pre class="tab tcy">unzip ---qt zipfile</pre>
+<p class="tab">(the two are equivalent). This may seem awkward or confusing, but it is reasonably intuitive: just ignore the first hyphen and go from there. It is also consistent with the behavior of Unix <a href="/unix/unice.htm">nice</a>.</p>
+<p class="tab">As suggested by the examples above, the default variable names are <b>UNZIP_OPTS</b> for VMS (where the symbol used to install <b>unzip</b> as a foreign command would otherwise be confused with the environment variable), and UNZIP for all other operating systems. For compatibility with <b>zip</b>, <b>UNZIPOPT</b> is also accepted. If both <b>UNZIP</b> and <b>UNZIPOPT</b> are defined, however, <b>UNZIP</b> takes precedence. <b>unzip</b>'s diagnostic option (<b>-v</b> with no zipfile name) can be used to check the values of all four possible unzip and zipinfo environment variables.</p>
+<p class="tab">The timezone variable (<b>TZ</b>) should be set according to the local timezone for the <b>-f</b> and <b>-u</b> to operate correctly. See the description of <b>-f</b> above for details. This variable may also be necessary to get timestamps of extracted files to be set correctly. The WIN32 (<a href="/jargon/w/win9x.htm">Win9x</a>/<a href="/jargon/w/winme.htm">ME</a>/<a href="/jargon/w/winnt.htm">NT4</a>/<a href="/jargon/w/win2000.htm">2K</a>/<a href="/jargon/w/winxp.htm">XP</a>/2K3) port of <b>unzip</b> gets the timezone configuration from the <a href="/jargon/r/registry.htm">Registry</a>, assuming it is correctly set in the <a href="/jargon/c/controlp.htm">Control Panel</a>. The <b>TZ</b> variable is ignored for this port.</p>
+<h2 id="decryption">Decryption</h2>
+<p class="tab">Encrypted archives are fully supported by Info-ZIP software, but due to United States export restrictions, de-/encryption support might be disabled in your particular compiled binary. However, since the spring of 2000, US export restrictions have been liberated, and our source archives do now include full crypt code. In case you need binary distributions with <b>crypt</b> support enabled, see the file "<b>WHERE</b>" in any Info-ZIP source or binary distribution for locations both inside and outside the US.</p>
+<p class="tab">Some compiled versions of <b>unzip</b> may not support decryption. To check a version for <b>crypt</b> support, either attempt to test or extract an encrypted archive, or else check <b>unzip</b>'s diagnostic screen (see the <b>-v</b> option above) for "<b>[decryption]</b>" as one of the special compilation options.</p>
+<p class="tab">As noted above, the <b>-P</b> option may be used to supply a password on the command line, but at a cost in security. The preferred decryption method is to extract normally; if a zipfile member is encrypted, unzip will prompt for the password without echoing what is typed. <b>unzip</b> continues to use the same password as long as it appears to be valid, by testing a 12-byte <a href="/jargon/h/header.htm">header</a> on each file. The correct password will always check out against the header, but there is a 1-in-256 chance that an incorrect password will as well. (This is a security feature of the PKWARE zipfile format; it helps prevent brute-force attacks that might otherwise gain a large speed advantage by testing only the header.) In the case that an incorrect password is given but it passes the header test anyway, either an incorrect CRC will be generated for the extracted data or else unzip will fail during the extraction because the "decrypted" bytes do not constitute a valid compressed data stream.</p>
+<p class="tab">If the first password fails the header check on some file, <b>unzip</b> will prompt for another password, and so on until all files are extracted. If a password is not known, entering a null password (that is, just a <a href="/jargon/c/cr.htm">carriage return</a> or "Enter") is taken as a signal to skip all further prompting. Only unencrypted files in the archive(s) will thereafter be extracted. (In fact, that's not quite true; older versions of <b>zip</b> and <b>zipcloak</b> allowed null passwords, so <b>unzip</b> checks each encrypted file to see if the null password works. This may result in "false positives" and extraction errors, as noted above.)</p>
+<p class="tab">Archives encrypted with 8-bit passwords (for example, passwords with accented European characters) may not be portable across systems and/or other archivers. This problem stems from the use of multiple encoding methods for such characters, including Latin-1 (<a href="/jargon/i/iso.htm">ISO</a> 8859-1) and OEM code page 850. DOS PKZIP 2.04g uses the OEM code page; Windows PKZIP 2.50 uses Latin-1 (and is therefore incompatible with DOS PKZIP); Info-ZIP uses the OEM code page on DOS, OS/2 and Win3.x ports but ISO coding (Latin-1 etc.) everywhere else; and Nico Mak's <a href="/jargon/z/zip.htm">WinZip</a> 6.x does not allow 8-bit passwords at all. <b>unzip</b> 5.3 (or newer) attempts to use the default character set first (e.g., Latin-1), followed by the alternate one (e.g., OEM code page) to test passwords. On EBCDIC systems, if both of these fail, EBCDIC encoding will be tested as a last resort. (EBCDIC is not tested on non-EBCDIC systems, because there are no known archivers that encrypt using EBCDIC encoding.) ISO character encodings other than Latin-1 are not supported. The new addition of (partially) Unicode (resp. UTF-8) support in UnZip 6.0 has not yet been adapted to the encryption password handling in <b>unzip</b>. On systems that use UTF-8 as native character encoding, <b>unzip</b> tries decryption with the native UTF-8 encoded password; the built-in attempts to check the password in translated encoding have not yet been adapted for UTF-8 support and will consequently fail.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">unzip hope.zip</pre>
+<p class="tab">Unzip the <b>hope.zip</b> archive into the current directory, creating subdirectories as needed to match the archive's <a href="/jargon/h/hierfile.htm">file hierarchy</a>.</p>
+<pre class="tcy tab">unzip -j hope.zip</pre>
+<p class="tab">Extract the files from archive <b>hope.zip</b> into the current directory only, regardless of the archive's internal directory structure.</p>
+<pre class="tcy tab">unzip -tq hope.zip</pre>
+<p class="tab">Test <b>hope.zip</b> for errors, but do not extract anything. The <b>q</b> indicates "quiet" mode, which instructs <b>unzip</b> to return only a summary message, rather than a more detailed one.</p>
+<pre class="tcy tab">unzip -ca hope.zip *.txt</pre>
+<p class="tab">Display the contents of all files with the extension <b>.txt</b> contained in the archive <b>hope.zip</b> to the standard output.</p>
+<pre class="tcy tab">unzip hope.zip "*.[ch]" Makefile -d /tmp</pre>
+<p class="tab">Extract from the <b>hope.zip</b> archive any C source files with the extensions <b>.c</b> and <b>.h</b>, and any files named <b>Makefile</b>, into the directory <b>/tmp</b>.</p>
+<pre class="tcy tab">unzip -C hope.zip "*.[ch]" Makefile -d /tmp</pre>
+<p class="tab">Same as the above command, but case-insensitive; it will also extract any files with the extensions <b>.C</b> or <b>.H</b>, any files named <b>MAKEFILE</b>, any files named <b>MakeFile</b>, etc.</p>
+<pre class="tcy tab">unzip -fo hope.zip</pre>
+<p class="tab">Extract files from the archive <b>hope.zip</b>, but only if they are newer versions than the files that already exist.</p>
+<pre class="tcy tab">unzip -l hope.zip</pre>
+<p class="tab">Display a listing of the contents of <b>hope.zip</b> without extracting anything.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/gzip.htm"><b>gzip</b></a> &mdash; Create, modify, list the contents of, and extract files from GNU zip archives.<br><a href="/unix/zip.htm"><b>zip</b></a> &mdash; A compression and archiving utility.<br><a href="/unix/zipinfo.htm"><b>zipinfo</b></a> &mdash; Display technical information about a zip file.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a83715b738498',m:'pQt3Tva09OyBM3QpY5SKJ_HwMzB4ySl5qpQdgwn7_VI-1661495370-0-ARgHjIajP4gznqrKKXMMGF5+D8CqKbbjO/xYG+jP/NtKS8wW2gz70jxRpLMW/PSMEikR807ApxsgVcTGRvRlEEGk1cqfmr/IPgxSC4TX/5K4iw4e5JRuxm83BDyyqv3rmQ==',s:[0x80038ac9db,0x6578522a6b],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

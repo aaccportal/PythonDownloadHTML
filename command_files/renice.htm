@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux renice command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/renice.gif" width="300" height="300" alt="renice command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>renice</b> command modifies the <a href="/jargon/p/priority.htm">priority</a> of running <a href="/jargon/p/process.htm">processes</a>. It is similar to the <a href="/unix/unice.htm"><b>nice</b></a> command, but is used for processes that are already running.</p>
+<p>This page describes the <a href="/jargon/l/linux.htm">Linux</a> version of <b>renice</b>.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#priority">Priority</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related Commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>renice</b> alters the scheduling priority of one or more running processes.</p>
+<p class="tab">A higher value of <i>priority</i> actually makes the process lower priority; it means the process demands fewer system resources (and therefore is a &quot;nicer&quot; process). A lower <i>priority</i> value means the process demands more resources, possibly denying those resources to processes that are &quot;nicer&quot;.</p>
+<p class="tab">The <i>priority</i> value of any given process can vary from <b>-20</b> (highest priority, least &quot;nice&quot;) to <b>20</b> (lowest priority, &quot;nicest&quot;). The default <i>priority</i> of new processes, by default, is <b>0</b>.</p>
+<p class="tab"><b>renice</b>'ing a process group causes all processes in the process group to have their scheduling priority altered.</p>
+<p class="tab"><b>renice</b>'ing a user causes all processes owned by the user to have their scheduling priority altered.</p>
+<p class="tab">By default, the processes to be affected are specified by their process ID's.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">renice [-n] <i>priority</i> [[-p] <i>pid</i> <i>who</i>...] [[-g] <i>pgrp</i> <i>who</i>...] [[-u] <i>user</i> <i>who</i>...]</pre>
+<pre class="tcy tab">renice -h | -v</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>-n</b>, <b>--priority</b></td>
+<td>The scheduling priority of the process, process group, or user.</td>
+</tr>
+<tr class="tcw">
+<td><b>-g</b>, <b>--pgrp</b></td>
+<td>Force <i>who</i> parameters to be interpreted as process group ID's.</td>
+</tr>
+<tr class="tcw">
+<td><b>-u</b>, <b>--user</b></td>
+<td>Force the <i>who</i> parameters to be interpreted as user names.</td>
+</tr>
+<tr class="tcw">
+<td><b>-p</b>, <b>--pid</b></td>
+<td>Resets the <i>who</i> interpretation to be (the default) process ID's.</td>
+</tr>
+<tr class="tcw">
+<td><b>-v</b>, <b>--version</b></td>
+<td>Display version information, and exit.</td>
+</tr>
+<tr class="tcw">
+<td><b>-h</b>, <b>--help</b></td>
+<td>Display a help message, and exit.</td>
+</tr>
+</table>
+<h2 id="priority">Priority</h2>
+<p class="tab">Users other than the <a href="/jargon/r/root.htm">superuser</a> may only alter the <i>priority</i> of processes they own, and can only <a href="https://en.wikipedia.org/wiki/Monotonic_function" class="external">monotonically</a> increase their &quot;nice value&quot; in the range <b>0</b> to <b>PRIO_MAX</b> (<b>20</b>). The superuser may alter the priority of any process and set the <i>priority</i> to any value in the range <b>PRIO_MIN</b> (<b>-20</b>) to <b>PRIO_MAX</b>.</p>
+<p class="tab">Useful settings for <i>priority</i> are:</p>
+<ul>
+<li><b>20</b>: the affected processes run only when nothing else in the system needs the resources.</li>
+<li><b>0</b>: the default.</li>
+<li>any negative value: makes things go very fast, at the expense of other processes.</li>
+</ul>
+<h2 id="examples">Examples</h2>
+<p class="tcy tab">renice +1 987 -u daemon root -p 32</p>
+<p class="tab">Change the <i>priority</i> of process IDs <b>987</b> and <b>32</b>, and all processes owned by users <b>daemon</b> and <b>root</b>, to be one greater (<b>+1</b>, one increment &quot;nicer&quot;) than its current value.</p>
+<h2 id="related">Related Commands</h2>
+<p class="tab"><a href="/unix/ukill.htm"><b>kill</b></a> &mdash; Send a signal to a process, affecting its behavior or killing it.<br><a href="/unix/unice.htm"><b>nice</b></a> &mdash; Invoke a command with an altered scheduling priority.<br><a href="/unix/ups.htm"><b>ps</b></a> &mdash; Report the status of a process or processes.<br><a href="/unix/top.htm"><b>top</b></a> &mdash; Display a sortable, continually-updated list of processes.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a833cf82584c8',m:'oyo7O9ccyMvqNhiMvWMLO1iC74Vy8OEm6fGiAo6OHFk-1661495362-0-AUmhkkFeoJOFBSWG5N8WDbmCvOealdrTKD5c1GyBKlmHEsimeMiNDfzP6h2CTVA2g8/P1MLEckbwobxwfemR0DYq2HwdXdTyEe3ojz/kyDuwfuIvJEyazb/CANphUyNSKg==',s:[0xae58c1bacc,0x8a40dd0c80],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>

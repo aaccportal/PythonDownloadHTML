@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="ie6 ie"><![endif]--><!--[if IE 7]><html class="ie7 ie"><![endif]--><!--[if IE 8]><html class="ie8 ie"><![endif]--><!--[if IE 9]><html class="ie9 ie"><![endif]-->
+<html lang="en" itemscope itemtype="https://schema.org/WebPage">
+
+<body>
+<div class="skip"><a href="#main-content">Skip to Main Content</a></div>
+<div class="wrapper">
+<header class="cf"><a href="/"><picture><source srcset="/cdn/computer-hope-dark.png" media="(prefers-color-scheme: dark)" class="logo"><img src="/cdn/computer-hope.jpg" width="412" height="82" alt="Computer Hope" aria-label="Computer Hope home page" class="logo"></picture></a><div itemscope itemtype="https://schema.org/SiteNavigationElement"><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><nav><ul id="nav"><li><a href="/oh.htm" title="Questions and answers, troubleshooting, and help">Help</a></li><li><a href="/tips/" title="Computer tips and tricks">Tips</a></li><li><a href="/jargon.htm" title="Computer terms, jargon, and glossary">Dictionary</a></li><li><a href="/history/" title="Computer timeline, events, and biographies">History</a></li><li><a href="/forum/" title="Computer Hope forums and community">Forums</a></li><li><a href="/contact/" title="Contact Computer Hope or other computer companies">Contact</a></li></ul></nav></div></header>
+<div class="container ad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="7994873325" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<nav class="container" aria-label="breadcrumb"><ol class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/" itemprop="item"><span itemprop="name">Home</span></a><meta itemprop="position" content="1" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/oh.htm" itemprop="item"><span itemprop="name">Help</span></a><meta itemprop="position" content="2" /></li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/unix.htm" itemprop="item"><span itemprop="name">Linux</span></a><meta itemprop="position" content="3" /></li></ol></nav>
+<div class="container content" id="main-content" role="main">
+<article>
+<h1 itemprop="headline">Linux rename command</h1>
+<div class="updated">Updated: <span itemprop="dateModified" content="2021-11-06">11/06/2021</span> by <span itemprop="author publisher creator" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Computer Hope</span></span></div>
+<img src="/cdn/linux/rename.gif" width="300" height="300" alt="rename command" class="floatRight"><p class="intro">On <a href="/jargon/u/unix-like.htm">Unix-like</a> operating systems, the <b>rename</b> command <a href="/jargon/r/rename.htm">renames</a> multiple files, using <a href="/jargon/r/regex.htm">regular expressions</a>. It was written by <a href="/people/larry_wall.htm">Larry Wall</a>, creator of the <a href="/jargon/p/perl.htm">Perl</a> programming language.</p>
+<div class="pagenav contents" role="navigation" aria-label="contents">
+<ul>
+<li><a href="#desc">Description</a></li>
+<li><a href="#syntax">Syntax</a></li>
+<li><a href="#quick">Perl expressions: a quick overview</a></li>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#related">Related commands</a></li>
+<li class="out"><a href="/unix.htm">Linux commands help</a></li>
+</ul>
+</div>
+<h2 id="desc">Description</h2>
+<p class="tab"><b>rename</b> renames the named <i>files</i> according to the regular expression <i>perlexpr</i>.</p>
+<p class="tab">If a specified <i>file</i> is not modified by the expression, it is not renamed. If no <a href="/jargon/f/filename.htm">file names</a> are given on the <a href="/jargon/c/commandi.htm">command line</a>, file names are read via <a href="/jargon/s/stdin.htm">standard input</a>.</p>
+<h2 id="syntax">Syntax</h2>
+<pre class="tcy tab">rename [ -v ] [ -n ] [ -f ] <i>perlexpr</i> [ <i>files</i> ]</pre>
+<h3 class="tab">Options</h3>
+<table class="mtable4 tab">
+<tr class="tcw">
+<td style="width:170px"><b>-v</b>, <b>--verbose</b></td>
+<td>Verbose: print names of files successfully renamed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-n</b>, <b>--no-act</b></td>
+<td>No Action: show what files would be renamed.</td>
+</tr>
+<tr class="tcw">
+<td><b>-f</b>, <b>--force</b></td>
+<td>Force: overwrite existing files.</td>
+</tr>
+</table>
+<h2 id="quick">Perl expressions: a quick overview</h2>
+<p class="tab">The <i>perlexpr</i> <a href="/jargon/a/argument.htm">argument</a> is a regular expression as used by the Perl programming language. Perl regular expressions is a complex and nuanced subject, but here is a brief overview:</p>
+<h3 class="tab">Substitution</h3>
+<p class="tab">To substitute one expression for another, the form of <i>perlexpr</i> is:</p>
+<pre class="tab tcy">s/<i>expr1</i>/<i>expr2</i>/[gi]</pre>
+<p class="tab">...where <i>expr1</i> is an expression describing the <a href="/jargon/s/string.htm">string</a> you want to replace, and <i>expr2</i> is an expression describing the string you want to replace. For instance,</p>
+<pre class="tab tcy">s/silly/foolish/</pre>
+<p class="tab">...would substitute the first occurrence of the string '<b>silly</b>' with the string '<b>foolish</b>'.</p>
+<p class="tab">To perform global substitution (that is, to substitute <i>expr2</i> for <i>expr1</i> as many times as <i>expr1</i> occurs), add the modifier <b>g</b> at the end of the substitution expression. For instance:</p>
+<pre class="tab tcy">s/silly/foolish/g</pre>
+<p class="tab">...would substitute every occurrence of '<b>silly</b>' with '<b>foolish</b>', no matter how many times it occurs.</p>
+<p class="tab">To perform matching in a case-insensitive manner, add an <b>i</b> at the end of the substitution expression. For instance,</p>
+<pre class="tab tcy">s/silly/foolish/i</pre>
+<p class="tab">...would substitute '<b>SILLY</b>', '<b>Silly</b>', or '<b>siLLY</b>' with '<b>foolish</b>'.</p>
+<p class="tab">The <b>g</b> and <b>i</b> modifiers may both be specified in the same expression, to perform case-insensitive global substitution, for example:</p>
+<pre class="tab tcy">s/silly/foolish/gi</pre>
+<h3 class="tab">Metacharacters</h3>
+<p class="tab">A <a href="/jargon/m/metachar.htm">metacharacter</a> is a <a href="/jargon/c/charact.htm">character</a> (or characters) with a special meaning. They are used in an expression to precisely define which strings should be matched and replaced.</p>
+<p class="tab">These are some common metacharacters used in a Perl Expression:</p>
+<table class="mtable3 tab">
+<tr class="tcy">
+<th>metacharacters</th>
+<th>meaning</th>
+</tr>
+<tr class="tcw">
+<td style="width:120px"><b>^</b></td>
+<td>Matches the beginning of a string.</td>
+</tr>
+<tr class="tcw">
+<td><b>$</b></td>
+<td>Matches the end of a string.</td>
+</tr>
+<tr class="tcw">
+<td><b>.</b></td>
+<td>Matches any character, except a <a href="/jargon/n/newline.htm">newline</a>.</td>
+</tr>
+<tr class="tcw">
+<td><b>*</b></td>
+<td>Matches occurrences of the preceding character, or group of characters, zero or more times.</td>
+</tr>
+<tr class="tcw">
+<td><b>+</b></td>
+<td>Matches occurrences of the preceding character, or group of characters, one or more times.</td>
+</tr>
+<tr class="tcw">
+<td><b>?</b></td>
+<td>Match occurrences of the preceding character, or group of characters, zero or one times.<br><br> If used after a repetition modifier, '<b>?</b>' specifies that the shortest possible match should be used. For instance, '<b>a{2,4}?</b>' matches '<b>aa</b>' even if '<b>aaa</b>' and '<b>aaaa</b>' would also match. See repetition modifiers, below.</td>
+</tr>
+<tr class="tcw">
+<td><b>|</b></td>
+<td>Alternation; behaves like a <a href="/jargon/b/boolean.htm">boolean</a> '<a href="/jargon/o/oroperat.htm">OR</a>'. For instance, '<b>butter|jelly</b>' matches either <b>butter</b> or <b>jelly</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>(</b>...<b>)</b></td>
+<td>Grouping. For instance, '<b>(eg|le)gs</b>' matches either '<b>eggs</b>' or '<b>legs</b>'.</td>
+</tr>
+<tr class="tcw">
+<td><b>[</b>...<b>]</b></td>
+<td>A set of characters. For instance, '<b>[abc]</b>' matches '<b>a</b>' or '<b>b</b>' or '<b>c</b>'. Character sets can be defined as:<br><br>
+<table class="mtable3">
+<tr class="tcw">
+<td style="width:180px"><b>[</b><i>characters</i><b>]</b></td>
+<td>Matches any one of the <i>characters</i> listed.</td>
+</tr>
+<tr class="tcw">
+<td><b>[</b><i>x</i><b>-</b><i>y</i><b>]</b></td>
+<td>Matches any in a range of characters between <i>x</i> and <i>y</i>, inclusive. For instance, '<b>[c-e]</b>' matches <b>c</b>, <b>d</b>, or <b>e</b>, and '<b>[a-z]</b>' matches any lowercase letter.</td>
+</tr>
+<tr class="tcw">
+<td><b>[^</b><i>characters</i><b>]</b></td>
+<td>Does not match <i>characters</i>; in other words, matches any character except those listed. Can also negate a character range; for instance, '<b>[^a-d]</b>' matches any character except <b>a</b>, <b>b</b>, <b>c</b>, or <b>d</b>.</td>
+</tr>
+<tr class="tcw">
+<td><b>[\-]</b></td>
+<td>Matches the hyphen character (&quot;<b>-</b>&quot;).</td>
+</tr>
+<tr class="tcw">
+<td><b>[</b><i>x</i><b>-</b><i>y</i><i>X</i><b>-</b><i>Z</i><b>]</b></td>
+<td>Multiple character ranges can be placed in a character set consecutively. For instance, '<b>[a-zA-Z]</b>' matches any letter, uppercase or lowercase.</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr class="tcw">
+<td><b>{</b><i>m</i>[<b>,</b>[<i>n</i>]]<b>}</b></td>
+<td>A repetition modifier that matches at least <i>m</i> and at most <i>n</i> of the preceding characters. For instance, '<b>a{2}</b>' matches '<b>aa</b>', '<b>a{2,4}</b>' matches either '<b>aa</b>', '<b>aaa</b>', or '<b>aaaa</b>', and '<b>b{2,}</b>' matches two or more consecutive <b>b</b> characters.</td>
+</tr>
+<tr class="tcw">
+<td><b>\</b></td>
+<td>Escapes a metacharacter so it is treated literally. For instance, '<b>\+</b>' matches a literal '<b>+</b>' (instead of the plus symbol having its special metacharacter meaning).</td>
+</tr>
+<tr class="tcw">
+<td><b>\t</b></td>
+<td>Matches a tab character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\n</b></td>
+<td>Matches a newline character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\r</b></td>
+<td>Matches a <a href="/jargon/c/cr.htm">carriage return</a> character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\w</b></td>
+<td>Matches any single character classified as a &quot;word&quot; character (an <a href="/jargon/a/alphanum.htm">alphanumeric</a> character or an underscore '<b>_</b>').</td>
+</tr>
+<tr class="tcw">
+<td><b>\W</b></td>
+<td>Matches any single non-&quot;word&quot; character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\s</b></td>
+<td>Matches any single <a href="/jargon/w/whitspac.htm">whitespace</a> character (space, tab, newline).</td>
+</tr>
+<tr class="tcw">
+<td><b>\S</b></td>
+<td>Matches any single non-whitespace character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\d</b></td>
+<td>Matches any digit character. This switch is equivalent to the character set '<b>[0-9]</b>'</td>
+</tr>
+<tr class="tcw">
+<td><b>\D</b></td>
+<td>Matches any non-digit character.</td>
+</tr>
+<tr class="tcw">
+<td><b>\b</b></td>
+<td>A &quot;zero-width&quot; matching assertion that matches any &quot;word boundary&quot;.</td>
+</tr>
+<tr class="tcw">
+<td><b>\B</b></td>
+<td>A &quot;zero-width&quot; matching assertion that matches any non-&quot;word boundary&quot;.</td>
+</tr>
+</table>
+<h3 class="tab">Translation</h3>
+<p class="tab">Translation is similar to substitution. It can translate one string to another, character-for-character. Translation expressions are specified as follows:</p>
+<pre class="tab tcy">y/<i>charset1</i>/<i>charset2</i>/</pre>
+<p class="tab">...where each character in the set <i>charset1</i>, in order, is to be translated into the corresponding character from the character set <i>charset2</i>. (These sets are like the character sets above, except you don't need to put them in brackets.) For example, the translation expression:</p>
+<pre class="tab tcy">y/abc/def/</pre>
+<p class="tab">...would translate every letter <b>a</b> into the letter <b>d</b>, every <b>b</b> into an <b>e</b>, etc.</p>
+<p class="tab">This also works for <i>charsets</i> defined as ranges. For example:</p>
+<pre class="tab tcy">y/a-z/A-Z/</pre>
+<p class="tab">...would translate every lowercase letter into its uppercase equivalent.</p>
+<h2 id="examples">Examples</h2>
+<pre class="tcy tab">rename 's/\.jpeg$/.jpg/' *</pre>
+<p class="tab">Rename any files with the extension &quot;<b>.jpeg</b>&quot; to have the extension &quot;<b>.jpg</b>&quot;.</p>
+<pre class="tcy tab">find -type f -name '*.jpg' | rename 's/holiday/honeymoon/'</pre>
+<p class="tab">For all files with the <a href="/jargon/e/extensio.htm">extension</a> &quot;<b>.jpg</b>&quot;, if they contain the string &quot;<b>holiday</b>&quot;, replace it with &quot;<b>honeymoon</b>&quot;. For instance, this command would rename the file &quot;<b>ourholiday001.jpg</b>&quot; to &quot;<b>ourhoneymoon001.jpg</b>&quot;.</p>
+<p class="tab">This example also illustrates how to use the <a href="/unix/ufind.htm"><b>find</b></a> command to send a list of files (<b>-type f</b>) with the extension <b>.jpg</b> (<b>-name '*.jpg'</b>) to <b>rename</b> via a <a href="/jargon/p/pipe.htm">pipe</a> (<b>|</b>). <b>rename</b> then reads its file list from standard input.</p>
+<pre class="tcy tab">rename 's/\.bak$//' *.bak</pre>
+<p class="tab">Rename all files matching &quot;<b>*.bak</b>&quot; to strip the file name of its extension. For instance, this command would rename the file &quot;<b>project.bak</b>&quot; to &quot;<b>project</b>&quot;.</p>
+<pre class="tcy tab">rename 'y/A-Z/a-z/' *</pre>
+<p class="tab">Rename files such that all uppercase letters are changed to their lowercase equivalents.</p>
+<h2 id="related">Related commands</h2>
+<p class="tab"><a href="/unix/umv.htm"><b>mv</b></a> &mdash; Move files and directories from one location to another, and optionally rename them.<br><a href="/unix/uperl.htm"><b>perl</b></a> &mdash; Interpreter for the Perl programming language.</p>
+</article>
+<div class="bottomad" aria-hidden="true">
+<ins class="adsbygoogle" data-ad-client="ca-pub-3999293766533555" data-ad-format="auto" data-ad-slot="6514780129" style="display:block"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<aside><div id="meta_wrap" class="cf"><ul class="options cf"><li class="useful-page"><span class="nolink">Was this page useful?</span><a href="/cgi-bin/feedback.cgi?yes" class="first-child" rel="nofollow">Yes</a><a href="/cgi-bin/feedback.cgi?no" rel="nofollow">No</a></li><li><ul><li class="feedback"><a href="/feedback/" rel="nofollow" title="Give us your feedback about this page">Feedback</a></li><li class="email"><a href="/contact/" rel="nofollow" title="E-mail Computer Hope">E-mail</a></li><li class="share"><a href="/share/" rel="nofollow" title="Share this page with friends and social networks">Share</a></li><li class="first-child print"><a href="#" onclick="window.print();return false;" rel="nofollow" title="Print a copy of this page">Print</a></li></ul></li></ul></div></aside>
+</div>
+<footer><form action="https://www.computerhope.com/cgi-bin/search.cgi" role="search" method="post" class="cf"><input class="sbar" name="q" aria-label="search" type="text" /><button type="Submit">Search</button></form><div role="navigation" aria-label="footer"><ul class="cf"><li class="recent-pages"><ol><li class="ftitle">Recently added pages</li><li id="ra1"></li><li id="ra2"></li><li id="ra3"></li><li id="ra4"></li><li id="ra5"></li><li><a href="/whatnew.htm">View all recent updates</a></li></ol></li><li class="useful-links"><ol><li class="ftitle">Useful links</li><li><a href="/more.htm">About Computer Hope</a></li><li><a href="/sindex.htm">Site Map</a></li><li><a href="/forum/">Forum</a></li><li><a href="/contact/">Contact Us</a></li><li><a href="/issues/ch000586.htm">How to Help</a></li><li><a href="/chtop10.htm">Top 10 pages</a></li></ol></li><li class="social-networks"><ol><li class="ftitle">Follow us</li><li><a href="https://www.facebook.com/computerhope/" class="facebook">Facebook</a></li><li><a href="https://twitter.com/computerhope/" class="twitter">Twitter</a></li><li><a href="https://www.pinterest.com/computerhope/" class="pinterest">Pinterest</a></li><li><a href="https://www.youtube.com/user/Computerhope/" class="youtube">YouTube</a></li><li><a href="/rss.htm" class="rss">RSS</a></li></ol></li></ul></div><div class="copyright"><a href="/"><span class="blogo" title="Computer Hope home page" aria-hidden="true"></span><span class="sr">Computer Hope home page</span></a>&copy; 2022 Computer Hope<br><a href="/legal.htm" class="legal">Legal Disclaimer - Privacy Statement</a></div></footer>
+</div>
+<script async src="https://www.computerhope.com/ch.js"></script>
+<div id="tt" aria-hidden="true"></div>
+<script>(function(){var js = "window['__CF$cv$params']={r:'740a833c7f0cc3d4',m:'hGJ.7hWdeX2R7zm7s_5H0BRW1aPGcLAqEAwFRli8iBE-1661495361-0-AZ5mWUIqpRjD2mvMQG2t4+RoKD8apjT87r/7Fxz7PyV5SQyLZ2X9dbz2ILxh0D505xHSOf5hGHF+zxwtPSU9Q7leLFDnv1URcOfasVUoZpxaUG+t8ry0WuWPCDKaZeq28A==',s:[0x1f5d21bc9c,0xd3f0a08049],u:'/cdn-cgi/challenge-platform/h/b'};var now=Date.now()/1000,offset=14400,ts=''+(Math.floor(now)-Math.floor(now%offset)),_cpo=document.createElement('script');_cpo.nonce='',_cpo.src='/cdn-cgi/challenge-platform/h/b/scripts/alpha/invisible.js?ts='+ts,document.getElementsByTagName('head')[0].appendChild(_cpo);";var _0xh = document.createElement('iframe');_0xh.height = 1;_0xh.width = 1;_0xh.style.position = 'absolute';_0xh.style.top = 0;_0xh.style.left = 0;_0xh.style.border = 'none';_0xh.style.visibility = 'hidden';document.body.appendChild(_0xh);function handler() {var _0xi = _0xh.contentDocument || _0xh.contentWindow.document;if (_0xi) {var _0xj = _0xi.createElement('script');_0xj.nonce = '';_0xj.innerHTML = js;_0xi.getElementsByTagName('head')[0].appendChild(_0xj);}}if (document.readyState !== 'loading') {handler();} else if (window.addEventListener) {document.addEventListener('DOMContentLoaded', handler);} else {var prev = document.onreadystatechange || function () {};document.onreadystatechange = function (e) {prev(e);if (document.readyState !== 'loading') {document.onreadystatechange = prev;handler();}};}})();</script></body>
+</html>
